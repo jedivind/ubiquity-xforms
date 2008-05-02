@@ -1,0 +1,122 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html
+	xmlns:smil="http://www.w3.org/2005/SMIL21/BasicAnimation"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:js="http://www.formsplayer.com/inlineScript"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xfm="http://www.w3.org/2002/xforms#message"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xfe="http://www.w3.org/2002/xforms/extensions"
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+	<head>
+		<title>Test xf:message</title>
+	  <!-- script type="text/javascript" src="http://yui.yahooapis.com/2.4.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+	  <script type="text/javascript" src="http://yui.yahooapis.com/2.4.0/build/animation/animation-min.js"></script>
+	  <script type="text/javascript" src="http://yui.yahooapis.com/2.4.0/build/container/container_core-min.js"></script>
+	  <link type="text/css" rel="stylesheet" href="http://yui.yahooapis.com/2.4.0/build/container/assets/container.css" />
+	  <link type="text/css" rel="stylesheet" href="http://yui.yahooapis.com/2.4.0/build/fonts/fonts.css" />
+	  <link type="text/css" rel="stylesheet" href="http://yui.yahooapis.com/2.4.0/build/reset/reset.css" />
+	  <style type="text/css">
+	    @import url(http://yowl.googlecode.com/svn/trunk/yowl.css);
+	  </style>
+	  <script src="http://yowl.googlecode.com/svn/trunk/yowl.js" type="text/javascript"></script>
+	  <script src="http://yowl.googlecode.com/svn/trunk/display-yui.js" type="text/javascript"></script -->
+	  <script src="../xH.js" type="text/javascript">/**/</script>
+	  <style type="text/css">
+			xf\:message
+			{
+				display: none;
+			}
+
+			xf\:message > xf\:label
+			{
+				/* for YUI */
+				display: block;
+			}
+		</style>
+		<link rel="stylesheet" href="default.css" type="text/css" />
+	  <link rel="stylesheet" href="../xforms/lib/YUI/container/assets/container.css" type="text/css" />
+	  <link rel="stylesheet" href="../xforms/lib/YUI/fonts/fonts.css" type="text/css" />
+	  <link rel="stylesheet" href="../xforms/lib/YUI/reset/reset.css" type="text/css" />
+	  <link rel="stylesheet" href="../xforms/lib/notify/notify.css" type="text/css" />
+	  <script type="text/javascript">
+	    document.Yowl.register(
+  	    "fP",
+  	    [ "Email Sent", "Drive Full", "Data Saved" ],
+  	    [ 0, 1, 2 ],
+  	    null
+	    );
+	  </script>
+	  <script type="text/javascript" src="http://spreadsheets.google.com/feeds/list/p5I_ZOXWtVaIs12E0sLyNIw/od6/public/basic?alt=json-in-script&amp;callback=document.Growl.addThemes">/**/</script>
+	</head>
+  <body>
+		<xf:trigger style="border: 2px solid red; margin: 2px; padding: 2px;">
+			<xf:label>Modal Message</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<xf:message level="modal" class="x">
+					<xf:label class="hd">Title</xf:label>
+					Hello <em>mum!</em>
+				</xf:message>
+			</xf:action>
+			<xf:action ev:event="xforms-hint">
+				<xf:message level="ephemeral" style="height: 100px; width: 100px; color: green;">
+					A little <em>hint</em>.</xf:message>
+			</xf:action>
+		</xf:trigger>
+		<xf:trigger style="border: 2px solid red; margin: 2px; padding: 2px;">
+			<xf:label>Modeless Message (Email sent)</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<xf:message level="modeless" title="Email Sent">
+					Your email has been sent.
+				</xf:message>
+			</xf:action>
+		</xf:trigger>
+		<xf:trigger style="border: 2px solid red; margin: 2px; padding: 2px;">
+			<xf:label>Modeless Message (Drive full)</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<xf:message level="modeless" title="Drive Full">
+					<xf:label class="hd">Drive full</xf:label>
+					You need to delete some information off your very full hard-drive.
+				</xf:message>
+			</xf:action>
+		</xf:trigger>
+		<xf:trigger id="a" style="border: 2px solid red; margin: 2px; padding: 2px;">
+			<xf:label>Modeless Message (Data saved)</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<xf:message level="modeless" class="x" title="Data Saved">
+					<xf:label class="hd">Data saved</xf:label>
+					Your data has been saved.
+				</xf:message>
+			</xf:action>
+		</xf:trigger>
+    #a > xf\:message.x { };
+    #b > xf\:message.x { };
+    <div id="b" style="border: 2px solid green; margin: 2px; padding: 2px; text-shadow:black 3px 2px 4px;">
+			xyz
+			<xf:action ev:event="click">
+				<xf:message level="modal" class="x">Hello <em>there</em></xf:message>
+			</xf:action>
+			<xf:action ev:event="mouseover">
+				<xf:message level="ephemeral" class="x" style="border: 1px solid blue; background-color: lightblue;">Goodbyeeeeee!!</xf:message>
+			</xf:action>
+		</div>
+	</body>
+</html>
