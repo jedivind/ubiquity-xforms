@@ -236,8 +236,8 @@ if (!bHasXforms)
 
     if (bUseAjaxFallback)
     {
-	    var g_pathToLib = "../xforms/lib/";
-	    var g_sBehaviourDirectory = "../xforms/behaviours/";
+	    var g_pathToLib = "../lib/";
+	    var g_sBehaviourDirectory = "../behaviours/";
 
 	    //  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
 	    //  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
