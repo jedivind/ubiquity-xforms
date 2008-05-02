@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-function InputValue	(elmnt)
+function XFormsInputValue(elmnt)
 {
 	this.element = elmnt;
 	this.currValue = "";
@@ -22,7 +22,7 @@ function InputValue	(elmnt)
 	//this.ctor();
 }
 
-InputValue.prototype.onDocumentReady = function()
+XFormsInputValue.prototype.onDocumentReady = function()
 {
 	if (this.element.ownerDocument.media != "print")
 	{
@@ -53,102 +53,68 @@ InputValue.prototype.onDocumentReady = function()
 			*/
 
 		this.m_value = oInput;
-		//this.m_value.value = "null value";
-		
+		//this.m_value.value = "null value";		
 
 	}
 }
-		function IEValueChanged(pThis,evt)
-		{
-			/*
-			 * [ISSUE] Not really suitable to use mutation events.
-			 */
 
-			var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
-			
-			oEvt.initEvent("control-value-changed", true, true,
-				null, pThis.currValue, evt.srcElement.value, null, null);
+function IEValueChanged(pThis,evt)
+{
+	/*
+	 * [ISSUE] Not really suitable to use mutation events.
+	 */
 
-			spawn(function(){FormsProcessor.dispatchEvent(pThis.element,oEvt);});
+	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
+	
+	oEvt.initEvent("control-value-changed", true, true,
+		null, pThis.currValue, evt.srcElement.value, null, null);
 
-			/*
-			 * Cancel bubbling but don't cancel the event itself
-			 * otherwise we never get the value actually changed.
-			 */
+	spawn(function(){FormsProcessor.dispatchEvent(pThis.element,oEvt);});
 
-			 evt.cancelBubble = true;
+	/*
+	 * Cancel bubbling but don't cancel the event itself
+	 * otherwise we never get the value actually changed.
+	 */
 
-		}
+	 evt.cancelBubble = true;
 
-		function FFValueChanged(pThis,evt)
-		{
-			/*
-			 * [ISSUE] Not really suitable to use mutation events.
-			 */
-			var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
-			
-			oEvt.initMutationEvent("control-value-changed", true, true,
-				null, pThis.currValue, evt.target.value, null, null);
+}
 
-			FormsProcessor.dispatchEvent(pThis.element,oEvt);
-			/*
-			 * Cancel bubbling but don't cancel the event itself
-			 * otherwise we never get the value actually changed.
-			 */
+function FFValueChanged(pThis,evt)
+{
+	/*
+	 * [ISSUE] Not really suitable to use mutation events.
+	 */
+	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
+	
+	oEvt.initMutationEvent("control-value-changed", true, true,
+		null, pThis.currValue, evt.target.value, null, null);
 
-			 evt.cancelBubble = true;
+	FormsProcessor.dispatchEvent(pThis.element,oEvt);
+	/*
+	 * Cancel bubbling but don't cancel the event itself
+	 * otherwise we never get the value actually changed.
+	 */
 
-		}
+	 evt.cancelBubble = true;
 
-		InputValue.prototype.setValue = function(sValue)
-		{
-			var bRet = false;
+}
 
-			if (this.m_value.value != sValue)
-			{
-				this.m_value.value = sValue;
-				this.currValue = sValue;
-				bRet = true;
-			}
-			else if(m_bFirstSetValue)
-			{
-				bRet = true;
-				m_bFirstSetValue = false;
-			}
-			
-			return bRet;
-		}
-		
-		function OutputValue(elmnt)
-		{
-			this.element = elmnt;
-		}
-		
-		if(document.all)
-		{
-			OutputValue.prototype.setValue = function(sValue)
-			{
-				this.element.innerText = sValue;
-				return;
-			}
+XFormsInputValue.prototype.setValue = function(sValue)
+{
+	var bRet = false;
 
-			OutputValue.prototype.getValue = function()
-			{
-				return this.element.innerText;
-			}
-		}
-		else
-		{
-		
-			OutputValue.prototype.setValue = function(sValue)
-			{
-				this.element.textContent = sValue;
-				return;
-			}
-
-			OutputValue.prototype.getValue = function()
-			{
-				return this.element.textContent;
-			}
-		
-		}
+	if (this.m_value.value != sValue)
+	{
+		this.m_value.value = sValue;
+		this.currValue = sValue;
+		bRet = true;
+	}
+	else if(m_bFirstSetValue)
+	{
+		bRet = true;
+		m_bFirstSetValue = false;
+	}
+	
+	return bRet;
+}

@@ -23,29 +23,9 @@ Case.prototype.deselect = function()
 {
 	this.element.sDisplay = this.element.style.display;
 	this.element.style.display = "none";
-
-	var evt = this.element.ownerDocument.createEvent("Events");
-
-	evt.initEvent("xforms-deselect", true, false);
-	evt._actionDepth = -1;
-
-	//There is no need to run this event in line, and doing so may cause a stack overflow,
-	//	if it invokes several other actions. 
-	var elmnt = this.element;
-	spawn(function(){FormsProcessor.dispatchEvent(elmnt,evt)});
 }
 
 Case.prototype.select = function()
 {
 	this.element.style.display = this.element.sDisplay;
-
-	var evt = this.element.ownerDocument.createEvent("Events");
-
-	evt.initEvent("xforms-select", true, false);
-	evt._actionDepth = -1;
-
-	//There is no need to run this event in line, and doing so may cause a stack overflow,
-	//	if it invokes several other actions. 
-	var elmnt = this.element;
-	spawn(function(){FormsProcessor.dispatchEvent(elmnt,evt)});
 }
