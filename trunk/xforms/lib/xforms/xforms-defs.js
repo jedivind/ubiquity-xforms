@@ -24,12 +24,12 @@ setupDecorator(
 		
 		{
 			selector:"xf\\:output >  pe-value",
-			objects:["EventTarget", "OutputValue"]
+			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
 		{
 			selector:" xf\\:value  > pe-value",
-			objects:["EventTarget", "OutputValue"]
+			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
 		{
@@ -74,6 +74,7 @@ setupDecorator(
 			selector:"xf\\:output",
 			objects:["EventTarget", "Context", "Control"]
 		},
+
 		{
 			selector:"xf\\secret",
 			objects:["EventTarget", "Context", "Control"]
@@ -89,7 +90,7 @@ setupDecorator(
 
 		{
 			selector:"xf\\:input > pe-value",
-			objects:["EventTarget", "InputValue"]
+			objects:["EventTarget", "XFormsInputValue"]
 		},
 
     {
@@ -128,7 +129,7 @@ setupDecorator(
 
 		{
 			selector:"xf\\:label >  pe-value",
-			objects:["EventTarget","OutputValue"]
+			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
 		{
@@ -148,7 +149,7 @@ setupDecorator(
 
     {
 			selector:"xf\\:case",
-			objects:["EventTarget", "Case"]
+			objects:["EventTarget", "XFormsCase"]
 		},
 
 		{

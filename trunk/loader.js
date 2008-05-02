@@ -80,6 +80,7 @@ if(!g_bUseFormsPlayer)
     	'xforms/state.js',
     	'xforms/modelObj.js',
     	'xforms/input-value.js',
+    	'xforms/output-value.js',
     	'xforms/range-value.js',
     
     	'smil/smil-set.js',
@@ -99,7 +100,8 @@ if(!g_bUseFormsPlayer)
     	'xforms/xforms-submission-yui.js',
     	
     	'xforms/Switch.js',
-    	'xforms/Case.js',
+    	'_backplane/case.js',
+    	'xforms/case.js',
     
     	'threads.js',
     
