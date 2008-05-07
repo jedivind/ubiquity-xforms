@@ -22,7 +22,7 @@ The root of the document needs to contain the XForms namespace, as follows:
 
 == A default stylesheet ==
 
-Due to [issue 1 http://code.google.com/p/ubiquity-xforms/issues/detail?id=1] it is a good idea to place a stylesheet before the script load:
+Due to [http://code.google.com/p/ubiquity-xforms/issues/detail?id=1 issue 1] it is a good idea to place a stylesheet before the script load:
 
 {{{
   <head>
