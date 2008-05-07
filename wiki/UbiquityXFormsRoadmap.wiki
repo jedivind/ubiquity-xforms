@@ -14,4 +14,4 @@ Once this work is complete work will continue to:
 
 This version will make use of the YUI Module loader, rather than our own custom one. This is because the YUI loader supports specifying dependencies between modules, which in turn requires an examination of those dependencies. This information is important to have before we try to add more modules, or split apart existing modules. In the longer term we will enable the use of different loaders, such as the Dojo one.
 
-[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.2&can=1&colspec=Version+Status+ID+Summary&sort=Status
+[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.1&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of post version 0.1 issues]
