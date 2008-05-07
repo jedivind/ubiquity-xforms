@@ -22,16 +22,16 @@
 	decorate.js
 */
 
-var oSmilDefinitions = 
+setupDecorator(
 	[
 		{
-			selector:"smil\\:animate",
-			objects:["Listener", "SmilAnimate"]
+			selector: "smil\\:animate",
+			objects: [ "Listener", "SmilAnimate" ]
 		},
-		{
-			selector:"smil\\:set",
-			objects:["Listener", "SmilSet"]
+
+    {
+			selector: "smil\\:set",
+			objects: [ "Listener", "SmilSet" ]
 		}
 	]
-
-setupDecorator(oSmilDefinitions);
+);
