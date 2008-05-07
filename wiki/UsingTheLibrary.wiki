@@ -1,0 +1,90 @@
+#summary How to use the library in your code.
+#labels Featured,Phase-Deploy
+
+= Introduction =
+
+This section describes how to load the library in your code.
+
+= Details =
+
+The library is about to undergo a lot of change, which means that the following information is also going to change. However, by using version numbers in the URL it is possible to ensure that the library doesn't change underneath your code.
+
+== Adding the right namespaces ==
+
+The root of the document needs to contain the XForms namespace, as follows:
+
+{{{
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+  ...
+</html>
+}}}
+
+
+== A default stylesheet ==
+
+Due to [issue 1 http://code.google.com/p/ubiquity-xforms/issues/detail?id=1] it is a good idea to place a stylesheet before the script load:
+
+{{{
+  <head>
+    <title>XForms input and output controls</title>
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    ...
+  </head>
+}}}
+
+== Referencing the library ==
+
+To load the library simply refer to the {{{xH.js}}} file in the branch of the latest version. For example:
+{{{
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <script src="http://ubiquity-xforms.googlecode.com/svn/branches/0.1/xH.js" type="text/javascript">/**/</script>
+  </head>
+}}}
+
+== Placing the mark-up ==
+
+Conventionally, XForms authors place the {{{model}}} element in the {{{head}}} of the document. However, for the library to work in Firefox, all XForms elements must be placed in the {{{body}}}:
+{{{
+  </head>
+  <body>
+    <xf:model ...>
+
+    <xf:input ...>
+
+    <xf:output ...>
+  </body>
+}}}
+
+= A complete example =
+
+A simple XForm that allows a name to be edited, can be created as follows:
+{{{
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+  <head>
+    <title>XForms input and output controls</title>
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <script src="http://ubiquity-xforms.googlecode.com/svn/branches/0.1/xH.js" type="text/javascript">/**/</script>
+  </head>
+  <body>
+    <xf:model>
+      <xf:instance>
+        <data xmlns="">
+          <firstname>John</firstname>
+          <surname>Doe</surname>
+        </data>
+      </xf:instance>
+    </xf:model>
+
+    <xf:input ref="firstname">
+      <xf:label>First Name:</xf:label>
+    </xf:input>
+    
+    <xf:input ref="surname">
+      <xf:label>Surname:</xf:label>
+    </xf:input>
+
+    <xf:output ref="firstname"><xf:label>First Name:</xf:label></xf:output>
+    <xf:output ref="surname"><xf:label>Surname:</xf:label></xf:output>
+  </body>
+</html>
+}}}
