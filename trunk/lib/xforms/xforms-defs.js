@@ -14,10 +14,28 @@
  * limitations under the License.
  */
 
-//Objects not required by the current subset (for the SMIL sample) are commented out 
 setupDecorator(
 	[
+	  /* Model */
+
 		{
+			selector:"xf\\:model",
+			objects:["EventTarget", "Model"]
+		},
+
+		{
+			selector:"xf\\:instance",
+			objects:["EventTarget", "Instance"]
+		},
+
+		{
+			selector:"xf\\:submission",
+			objects:["EventTarget", "Context", "Submission"]
+		},
+
+    /* Controls */
+
+    {
 			selector:"xf\\:trigger",
 			objects:["EventTarget", "Context", "Control"]
 		},
@@ -30,29 +48,6 @@ setupDecorator(
 		{
 			selector:" xf\\:value  > pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
-		},
-
-		{
-			selector:"xf\\:action",
-			objects:["Listener", "XFAction"]
-		},
-		
-		{
-    		selector:"xf\\:message",
-    		objects:["Listener", "Message"]
-		},
-
-		{
-			selector:"xf\\:setvalue",
-			objects:["Listener", "Context", "SetValue"]
-		},
-		{
-			selector:"xf\\:send",
-			objects:["Listener", "Send"]
-		},
-		{
-			selector:"xf\\:toggle",
-			objects:["Listener", "Toggle"]
 		},
 
 		{
@@ -94,11 +89,6 @@ setupDecorator(
 		},
 
     {
-			selector:"xf\\:range > pe-value",
-			objects:["EventTarget", "RangeValue"]
-		},
-
-    {
 			selector:"xf\\:select > pe-value",
 			objects:["EventTarget", "InputValue"]
 		},
@@ -108,8 +98,13 @@ setupDecorator(
 		},
 
 		{
-			selector:"xf\\:instance",
-			objects:["EventTarget", "Instance"]
+			selector:"xf\\:label >  pe-value",
+			objects:["EventTarget", "XFormsOutputValue"]
+		},
+
+    {
+			selector:"xf\\:range > pe-value",
+			objects:["EventTarget", "RangeValue"]
 		},
 		
 		{
@@ -120,21 +115,6 @@ setupDecorator(
 		{
 			selector:"xf\\:select1",
 			objects:["EventTarget", "Context", "Control", "Select1"]
-		},
-		
-		{
-			selector:"xf\\:model",
-			objects:["EventTarget", "Model"]
-		},
-
-		{
-			selector:"xf\\:label >  pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
-		},
-
-		{
-			selector:"xf\\:submission",
-			objects:["EventTarget", "Context", "Submission"]
 		},
 
     {
@@ -155,6 +135,33 @@ setupDecorator(
 		{
 			selector:"xf\\:switch",
 			objects:["EventTarget", "Switch"]
-		}			
+		},
+
+    /* Actions */
+
+		{
+			selector:"xf\\:action",
+			objects:["Listener", "XFAction"]
+		},
+		
+		{
+    		selector:"xf\\:message",
+    		objects:["Listener", "Message"]
+		},
+
+		{
+			selector:"xf\\:setvalue",
+			objects:["Listener", "Context", "SetValue"]
+		},
+
+		{
+			selector:"xf\\:send",
+			objects:["Listener", "Send"]
+		},
+
+    {
+			selector:"xf\\:toggle",
+			objects:["Listener", "Toggle"]
+		}
 	]
 );
