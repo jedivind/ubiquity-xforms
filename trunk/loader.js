@@ -55,13 +55,13 @@ if(!g_bUseFormsPlayer)
 
         'YUI/slider/slider-min.js',
 
-        'Scriptaculous/Prototype.js',
-    	'Scriptaculous/scriptaculous.js',
+//        'Scriptaculous/Prototype.js',
+//    	'Scriptaculous/scriptaculous.js',
 
         'Animation/Animate.js',
 //        'Animation/AnimateImpl.js',
         'Animation/AnimateImplYUI.js',
-    	'Animation/AnimateImplScriptaculous.js',
+//    	'Animation/AnimateImplScriptaculous.js',
     
     	'ajaxslt/misc.js',
     	'ajaxslt/dom.js',
