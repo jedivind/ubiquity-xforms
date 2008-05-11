@@ -3,7 +3,7 @@
 
 = Introduction =
 
-This section describes how to load the library in your code.
+This section describes how to load the library into your web application.
 
 = Details =
 
