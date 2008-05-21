@@ -243,7 +243,7 @@ if (!bHasXforms)
 	    //  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
 	    document.logger = { log: function(sText, sContext) { } };
 
-	    document.write('<script src="' + g_pathToLib + "xforms/main.js">/**/</script>');
+	    document.write('<script src="' + g_pathToLib + 'xforms/main.js">/**/</script>');
 	    bHasXforms = true;
     }
     else
