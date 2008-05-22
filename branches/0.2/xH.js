@@ -236,14 +236,11 @@ if (!bHasXforms)
 
     if (bUseAjaxFallback)
     {
-	    var g_pathToLib = "http://ubiquity-xforms.googlecode.com/svn/branches/0.1/lib/";
-	    var g_sBehaviourDirectory = "http://ubiquity-xforms.googlecode.com/svn/branches/0.1/behaviours/";
-
 	    //  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
 	    //  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
 	    document.logger = { log: function(sText, sContext) { } };
 
-	    document.write('<script src="' + g_pathToLib + 'xforms/main.js">/**/</script>');
+	    document.write('<script src="../lib/xforms/main.js">/**/</script>');
 	    bHasXforms = true;
     }
     else
