@@ -28,21 +28,24 @@ if(!g_sBehaviourDirectory)
 {
 	g_sBehaviourDirectory = "behaviours/";
 }
-var g_bIsInXHTMLMode = false;
 
-//globals used in non-IE browsers.
-var g_arrHandlersToCallOnLoad = new Array();
-var g_bDocumentLoaded = false;
+	var g_bIsInXHTMLMode = false;
 
-//Set up CallDocumentReadyHandlers for non-IE browsers
-if(!document.all)
-	window.addEventListener("load",CallDocumentReadyHandlers,false);
-/**
-	Called by implementations that do not natively support a documentReady event.
-		on document load, this function calls any documentready handlers that have 
-		been registered so far, then sets the g_bDocumentLoaded flag to tru, so that 
-		any documentready handlers that attempt to register later can execute immediately.	
-*/
+	//globals used in non-IE browsers.
+	var g_arrHandlersToCallOnLoad = new Array();
+
+	//Set up CallDocumentReadyHandlers for non-IE browsers
+	if(!document.all)
+		window.addEventListener("load",CallDocumentReadyHandlers,false);
+
+	/**
+		Called by implementations that do not natively support a documentReady event.
+			on document load, this function calls any documentready handlers that have 
+			been registered so far, then sets the g_bDocumentLoaded flag to true, so that 
+			any documentready handlers that attempt to register later can execute immediately.	
+		Now that all the scripts are loaded after the rest of the document, this is also required
+		by IE, to call the handlers at the end of processing.
+	*/
 	function CallDocumentReadyHandlers()
 	{
 		var o = g_arrHandlersToCallOnLoad.pop();
@@ -54,7 +57,7 @@ if(!document.all)
 		
 		g_bDocumentLoaded = true;
 	}
-		
+	
 /**
 	Called by implementations that do not natively support a documentReady event.
 		If the document has already loaded, handlers passed into this function 
@@ -93,6 +96,8 @@ if(!document.all)
 /**
 	Adds a function (func) to a named list of functions within an object (dest)
 	If a list with that name does not exist, creates the list.
+	The purpose of this mechanism of extension, is for functions such as constructors and
+	event handlers, which are cumulative, rather than overriding.
 	@param {Object} dest object that contains the named list
 	@param {String} name of the list property within dest that func should be appended to.
 	@param {Object} func function to add to the list
@@ -117,12 +122,18 @@ if(!document.all)
 		for (property in source) {
 			switch(property)
 			{
+				//In the case of these known named functions, add this member to the cumulative list
+				//	of members with that name, rather than overriding.
+				//	(this member should be a function, but, since we are using Javascript which is far superior
+				//	to any typed language, this can only be constrained by hoping that authors read and obey
+				//	this comment)
 				case "ctor":
 				case "onContentReady":
 				case "onDocumentReady":
 					AddFunction(destination,property, source[property]);
 				break;
 				default:
+				//	Otherwise, create this member anew, or override any existing homonymous member.
 					destination[property] = source[property];
 			}
 
@@ -161,15 +172,25 @@ if(!document.all)
 */	
 	function ieSetupDecorator(defs)
 	{
+        var bDocumentAlreadyLoaded = g_bDocumentLoaded;
+		g_bDocumentLoaded = false;
+		
 		for(var i = 0;defs.length > i;++i)
 		{
+		
 			var sRule = generateMozBindingStyle(defs[i].objects) +  " behavior: url("+g_sBehaviourDirectory+"applicator.htc);"
 			//strip out child selectors, (replacing with the inferior descendent selectors)
 			//	These do not work in IE and even sometimes cause IE to close without warning
 			defs[i].selector = defs[i].selector.replace(/>/g,'');
 			document.styleSheets[0].addRule(defs[i].selector,sRule);
 		}
-	
+		
+		g_bDocumentLoaded = bDocumentAlreadyLoaded;
+		if(bDocumentAlreadyLoaded)
+		{
+			CallDocumentReadyHandlers();
+		}
+
 	}
 	
 /**
@@ -195,7 +216,7 @@ if(!document.all)
          */
 
         /* new version */
-
+ 
         var oHead = document.getElementsByTagName("head")[0];
         var oStyle = document.createElement('style');
         var s = "";
@@ -220,6 +241,8 @@ if(!document.all)
         }
         oStyle.innerHTML = s;
         oHead.insertBefore(oStyle, null);
+		
+
         return;
 	}//ffSetupDecorator
 	
@@ -253,14 +276,24 @@ if(!document.all)
 	@param {Array} defs decorator definitions 
 	@see (somewhere else)
 */	
-	var setupDecorator = null;
-	
+	var InnerSetupDecorator = null;
+	function setupDecorator(defs)
+	{
+		var bDocumentAlreadyLoaded = g_bDocumentLoaded;
+		g_bDocumentLoaded = false;
+		InnerSetupDecorator(defs);
+		if(bDocumentAlreadyLoaded)
+		{
+			spawn(CallDocumentReadyHandlers);
+		}
+		//g_bDocumentLoaded = bDocumentAlreadyLoaded;
+	}
 	if(document.all)
-		setupDecorator = ieSetupDecorator;
+		InnerSetupDecorator = ieSetupDecorator;
 	else if(g_bIsInXHTMLMode)
-		setupDecorator = ffXHTMLSetupDecorator;
+		InnerSetupDecorator = ffXHTMLSetupDecorator;
 	else
-		setupDecorator = ffSetupDecorator;
+		InnerSetupDecorator = ffSetupDecorator;
 
 
 //for debugging
