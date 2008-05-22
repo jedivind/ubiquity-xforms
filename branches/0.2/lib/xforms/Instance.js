@@ -21,6 +21,7 @@ function Instance(elmnt)
 	this.elementState = 1;
 	if(this.element.style)
 		this.element.style.display = "none";
+
 }
 
 Instance.prototype.initialisedom = function()
@@ -79,6 +80,7 @@ Instance.prototype.initialisedom = function()
 			this.m_oDOM.XFormsInstance = this;
 	}
 }
+
 Instance.prototype.parseInstance = function()
 {
 	var sXML = "";
@@ -99,14 +101,13 @@ Instance.prototype.parseInstance = function()
 	if (!sXML == "")
 	{
 		this.m_oDOM = xmlParse(sXML);
-		this["elementState"] = 0;
+		this.elementState = 0;
 	}
 	else
 	{
-		this["elementState"] = -1;
-		this["elementStateDescription"] = "Cannot have an empty instance.";
+		this.elementState = -1;
+		this.setAttribute("elementStateDescription", "Cannot have an empty instance.");
 	}
-	//this.element.innerHTML = "";
 	return;
 }
 
