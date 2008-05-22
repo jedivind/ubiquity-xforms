@@ -19,14 +19,15 @@ setupDecorator(
 	  /* Model */
 
 		{
+			selector:"xf\\:instance",
+			objects:["EventTarget", "Instance"]
+		},
+
+		{
 			selector:"xf\\:model",
 			objects:["EventTarget", "Model"]
 		},
 
-		{
-			selector:"xf\\:instance",
-			objects:["EventTarget", "Instance"]
-		},
 
 		{
 			selector:"xf\\:submission",
