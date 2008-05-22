@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 		function processBinds(oModel, oElement, oContextNode)
 		{
 			
@@ -195,19 +194,25 @@
 		}//processBinds()
 		
 		
-		
+		//[ISSUE] This function is erroneously named
+		//	Ideally, a function called something like testfor... should test for a given state,
+		//	then return a boolean (or possibly a tristate, or some kind of return code)
+		//	that describes the outcome of the test.  Ideally, it shouldn't have uncontrollable
+		//	or wide-reaching side-effects, such as the dispatch of an event that instigates
+		//	the most complex operation in the entire application, and, may also invoke any
+		//	handlers that a form author wishes to attach to that event, or one of about a dozen 
+		//	others that are, in turn, invoked by the default processing of xforms-model-construct.
+		//	
+		//[TODO] Either move the event dispatch to a caller of this function, or rename this
+		//	function to something like "constructIfReady".
 		function testForReady(pThis)
 		{
-			/*
-			 * Only test for ready if pThis element is itself ready.
-			 */
+			//Test the children of pThis for readiness, iff pThis element is itself ready.
 
 			if (pThis["elementLoaded"] == true)
 			{
 
-				/*
-				 * Start with the assumption that we're now ready.
-				 */
+				// Start with the assumption that pThis is now ready.
 
 				pThis["elementState"] = 0;
 
@@ -217,7 +222,11 @@
 				 */
 
 				var ns = pThis.element.childNodes;
-
+				
+				//[ISSUE] This loop is too big
+				//	Due to each comment in this loop taking up 6 lines, it is impossible
+				//		to see the start and end braces of this loop at the same time.
+				//	This makes is difficult to gain a high-level understanding of the code 
 				for (var i = 0; i < ns.length; i++)
 				{
 					var oNode = ns[i];

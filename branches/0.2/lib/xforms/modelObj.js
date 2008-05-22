@@ -199,7 +199,6 @@ Model.prototype.onDocumentReady = function()
 		{
 			//this.element.ownerDocument.xformslog.log("Getting '" + sXPath + "'", "mdl");
 
-			debugger;
 			var oRet = this.EvaluateXPath(sXPath, this);
 
 			return oRet;
@@ -309,7 +308,6 @@ Model.prototype.onDocumentReady = function()
 
 		Model.prototype.AddSingleNodeBinding = function(oTarget, oContext, sXPath)
 		{
-			debugger;
 			if (!oContext)
 				oContext = this;
 
