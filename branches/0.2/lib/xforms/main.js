@@ -12,6 +12,32 @@ var g_sBehaviourDirectory = "../behaviours/";
 var g_bUseDocumentDotWrite = true;
 var g_bUseFormsPlayer = false;
 
+var g_bDocumentLoaded = false;
+
+var g_bLoadingScriptsAfterOnLoad = true;
+
+function RegisterDocumentLoaded()
+{
+	g_bDocumentLoaded = true;
+}
+
+
+if(document.all)
+{
+	window.attachEvent("onload",RegisterDocumentLoaded);
+}
+else 
+{
+	// If the scripts are loaded during the load of the document, then this line
+	//	should be uncommented, so that initialisation can occur on load
+	// If, however, the scripts are to be loaded only after the document has otherwise 
+	//	been fully loaded, then the document should not be considered "loaded" for the 
+	//	purposes of this processor, until much later.  This is handled by the "second-onload"
+	//	module.
+	//window.addEventListener("load",RegisterDocumentLoaded,false);
+}
+
+
 try
 {
 	if (document.UseFormsPlayer)
@@ -50,12 +76,16 @@ function AddScriptsToDocument_DW()
 			if(collNamespaces[i].urn == "http://www.w3.org/2002/xforms")
 			{
 				arrScriptElements.push('<?import  namespace="'+collNamespaces[i].name+'" implementation="'+g_sBehaviourDirectory+'instance.htc"?>');
-				arrScriptElements.push('<?import  namespace="'+collNamespaces[i].name+'" implementation="'+g_sBehaviourDirectory+'xf-extension.htc" ?>');
+			//	arrScriptElements.push('<?import  namespace="'+collNamespaces[i].name+'" implementation="'+g_sBehaviourDirectory+'xf-extension.htc" ?>');
+		//This does not work:  it applies the  instance htc to every element of this namespace.
+		//	  collNamespaces[i].doImport(g_sBehaviourDirectory + "instance.htc");
+
 			}
 		}
 	}
 
 	document.write(arrScriptElements.join("\n"));
+	//alert(arrScriptElements.join("\n"));
 }
 
 //In XHTML mode, firefox does not permit document.write()
@@ -153,7 +183,8 @@ if(!g_bUseFormsPlayer)
     	'xforms/Switch.js',
     	'_backplane/case.js',
     	'xforms/case.js'
-
+//		,'xforms/xforms-defs.js'
+//		,'decorate.js'
     	// ... 'threads.js',
     
       // ... 'dom/listener.js',
@@ -173,7 +204,8 @@ if(!g_bUseFormsPlayer)
   return;
 }
 
-
+  AddXFormsFunctionalityToDocument = g_bUseFormsPlayer&&document.all?AddObjectTagAndImportInstructions:g_bUseDocumentDotWrite?AddScriptsToDocument_DW:AddScriptsToDocument_DOM;   
+  AddXFormsFunctionalityToDocument();
 
 (
   function(){
@@ -203,14 +235,14 @@ if(!g_bUseFormsPlayer)
       requires: [ "yahoo" ] });
     loader.addModule({ name: "xforms-insert-adjacent-html", type: "js",  fullpath: baseDefaultPath + "lib/insertAdjacentHTML.js" });
 
-    loader.addModule({ name: "xforms-vertex-target",       type: "js",  fullpath: baseDefaultPath + "lib/xforms/VertexTargets.js",
+    loader.addModule({ name: "xforms-vertex-target",       type: "js",  fullpath: baseLocalPath + "lib/xforms/VertexTargets.js",
       requires: [ "yahoo" ] });
     loader.addModule({ name: "xforms-state",               type: "js",  fullpath: baseDefaultPath + "lib/xforms/state.js" });
 
     loader.addModule({ name: "backplane-pds",              type: "js",  fullpath: baseDefaultPath + "lib/xforms/pds.js" });
-    loader.addModule({ name: "backplane-model",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/model.js",
+    loader.addModule({ name: "backplane-model",            type: "js",  fullpath: baseLocalPath + "lib/xforms/model.js",
       requires: [ "backplane-pds" ] });
-    loader.addModule({ name: "xforms-model",               type: "js",  fullpath: baseDefaultPath + "lib/xforms/modelObj.js",
+    loader.addModule({ name: "xforms-model",               type: "js",  fullpath: baseLocalPath + "lib/xforms/modelObj.js",
       requires: ["xforms-instance",  "backplane-model" ] });
     loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission.js" });
     loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission-yui.js",
@@ -218,12 +250,12 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: baseDefaultPath + "lib/xforms/Submission.js",
       requires: [ "xforms-processor", "xforms-submission-core-yui" ] });
 
-    loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms.js",
+    loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: baseLocalPath + "lib/xforms/xforms.js",
       requires: [ "xforms-model"] });
     loader.addModule({ name: "xforms-conditional-invocation", type: "js", fullpath: baseDefaultPath + "lib/xforms/conditional-invocation.js",
       requires: [ "xforms-processor" ] });
 
-    loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: baseDefaultPath + "lib/decorate.js" });
+    loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: baseLocalPath + "lib/decorate.js" });
     loader.addModule({ name: "xforms-dom-misc",            type: "js",  fullpath: baseDefaultPath + "lib/ajaxslt/misc.js" });
     loader.addModule({ name: "xforms-dom",                 type: "js",  fullpath: baseDefaultPath + "lib/ajaxslt/dom.js",
       requires: [ "xforms-dom-misc" ] });
@@ -233,10 +265,10 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-core-function-library", type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-core-function-library.js",
       requires: [ "xforms-xpath" ] });
 
-    loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/Instance.js",
+    loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: baseLocalPath + "lib/xforms/Instance.js",
       requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
 
-    loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: baseDefaultPath + "lib/xforms/input-value.js" });
+    loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: baseLocalPath + "lib/xforms/input-value.js" });
     loader.addModule({ name: "xforms-output-value",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/output-value.js" });
     loader.addModule({ name: "xforms-control",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/Control.js",
       requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-insert-adjacent-html" ] });
@@ -246,9 +278,9 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-action",              type: "js",  fullpath: baseDefaultPath + "lib/xforms/xf-action.js",
       requires: [ "xforms-listener", "xforms-threads" ] });
 
-    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseDefaultPath + "/lib/xforms/xforms-defs.js",
+    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseLocalPath + "/lib/xforms/xforms-defs.js",
       requires: [
-        "libxh-decorator",
+       "libxh-decorator",
         "xforms-listener",
         "xforms-conditional-invocation",
         "xforms-model", "xforms-instance", "xforms-submission",
@@ -264,30 +296,38 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "animate-impl-yui",           type: "js",  fullpath: baseDefaultPath + "lib/Animation/AnimateImplYUI.js",
       requires: [ "animate-factory" ] });
     loader.addModule({ name: "smil-defs",                  type: "js",  fullpath: baseDefaultPath + "smil/smil-defs.js",
-      requires: ["libxh-decorator","xforms-listener", "xforms-conditional-invocation", "animate-impl-yui", "smil-set", "smil-animate" ] });
+      requires: [
+      "libxh-decorator",
+      "xforms-listener", "xforms-conditional-invocation", "animate-impl-yui", "smil-set", "smil-animate" ] });
+
+//Since, instead of loading the scripts at load time, we have decided to delay the loading of 
+//	scripts until after the document has loaded	it is necessary to add this extra step, 
+//	in order to ensure that all the scripts have been loaded and applied by the time the decorator XBLs 
+//	attempt to commence the initialisation formerly carried out on load.
+//It may be easier simply to load the scripts at load time, as in branch 0.1.  Particularly considering
+//	The fact that this file was always intended to become redundant, being replaced by a file that is
+//	an aggregate of all the original files.  Such a method would not only be simpler, but should load
+//	faster, too.
+//If we create an aggregate file, then second-onload should only ber included if it is decided that
+//	the aggregate file should also be loaded after the document is complete, rather than during load
+//	as in branch 0.1
+    loader.addModule({ 
+		name: "second-onload",
+		type: "js",  
+		fullpath: baseLocalPath + "lib/second-onload.js",
+		requires: [ "xforms-insert-adjacent-html"] });
 
     loader.require( "dom", "event", "logger", "animation", "connection",
-      "xforms-threads", "xforms-event-target-proxy", "xforms-dom2events", "xforms-vertex-target", "xforms-defs",
-       "smil-defs"
+      "xforms-threads", "xforms-event-target-proxy", "xforms-dom2events", "xforms-vertex-target", "xforms-defs", "second-onload"
+      ,"smil-defs"
     );
 
     loader.onSuccess = function(o) {
       YAHOO.util.Event.onDOMReady(
         function() {
-        	if (document.all)
+       	if (document.all)
         	{
-        		var collNamespaces = document.namespaces;
-        		var arrImports = new Array();
-    
-        		for(var i = 0; i < collNamespaces.length; ++i)
-        		{
-        			if (collNamespaces[i].urn == "http://www.w3.org/2002/xforms")
-        			{
-        			  //ScriptDiv.insertAdjacentHTML("afterBegin",sHTML + sScript);
-        			  //collNamespaces[i].doImport(g_sBehaviourDirectory + "xf-extension.htc");
-        			  collNamespaces[i].doImport(g_sBehaviourDirectory + "instance.htc");
-        			}
-        		}
+				window.status = "ready"
         	}
         }
       );
