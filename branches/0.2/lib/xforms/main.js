@@ -219,7 +219,7 @@ if(!g_bUseFormsPlayer)
 	//This is the local path from which the scripts might be served, when developing and debugging.
 	//	Do not check in with this variable populated, as it is personal to the individual user's
 	//	setup.  
-	var baseLocalPath = "file:///C:/svn/code.google.com/ubiquity0.2/";
+	var baseLocalPath = "/";
    //This is not the same as setting "base" in the YUI loader, which concatenates with every fullpath
  	//By specifying the two paths, above, separately to their use, below, it is easy to change 
 	//	the path wholesale from a production-like environment, in which all files are fetched from the server
@@ -235,14 +235,14 @@ if(!g_bUseFormsPlayer)
       requires: [ "yahoo" ] });
     loader.addModule({ name: "xforms-insert-adjacent-html", type: "js",  fullpath: baseDefaultPath + "lib/insertAdjacentHTML.js" });
 
-    loader.addModule({ name: "xforms-vertex-target",       type: "js",  fullpath: baseLocalPath + "lib/xforms/VertexTargets.js",
+    loader.addModule({ name: "xforms-vertex-target",       type: "js",  fullpath: baseDefaultPath + "lib/xforms/VertexTargets.js",
       requires: [ "yahoo" ] });
     loader.addModule({ name: "xforms-state",               type: "js",  fullpath: baseDefaultPath + "lib/xforms/state.js" });
 
     loader.addModule({ name: "backplane-pds",              type: "js",  fullpath: baseDefaultPath + "lib/xforms/pds.js" });
-    loader.addModule({ name: "backplane-model",            type: "js",  fullpath: baseLocalPath + "lib/xforms/model.js",
+    loader.addModule({ name: "backplane-model",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/model.js",
       requires: [ "backplane-pds" ] });
-    loader.addModule({ name: "xforms-model",               type: "js",  fullpath: baseLocalPath + "lib/xforms/modelObj.js",
+    loader.addModule({ name: "xforms-model",               type: "js",  fullpath: baseDefaultPath + "lib/xforms/modelObj.js",
       requires: ["xforms-instance",  "backplane-model" ] });
     loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission.js" });
     loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission-yui.js",
@@ -250,12 +250,12 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: baseDefaultPath + "lib/xforms/Submission.js",
       requires: [ "xforms-processor", "xforms-submission-core-yui" ] });
 
-    loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: baseLocalPath + "lib/xforms/xforms.js",
+    loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms.js",
       requires: [ "xforms-model"] });
     loader.addModule({ name: "xforms-conditional-invocation", type: "js", fullpath: baseDefaultPath + "lib/xforms/conditional-invocation.js",
       requires: [ "xforms-processor" ] });
 
-    loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: baseLocalPath + "lib/decorate.js" });
+    loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: baseDefaultPath + "lib/decorate.js" });
     loader.addModule({ name: "xforms-dom-misc",            type: "js",  fullpath: baseDefaultPath + "lib/ajaxslt/misc.js" });
     loader.addModule({ name: "xforms-dom",                 type: "js",  fullpath: baseDefaultPath + "lib/ajaxslt/dom.js",
       requires: [ "xforms-dom-misc" ] });
@@ -265,10 +265,10 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-core-function-library", type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-core-function-library.js",
       requires: [ "xforms-xpath" ] });
 
-    loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: baseLocalPath + "lib/xforms/Instance.js",
+    loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/Instance.js",
       requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
 
-    loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: baseLocalPath + "lib/xforms/input-value.js" });
+    loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: baseDefaultPath + "lib/xforms/input-value.js" });
     loader.addModule({ name: "xforms-output-value",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/output-value.js" });
     loader.addModule({ name: "xforms-control",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/Control.js",
       requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-insert-adjacent-html" ] });
@@ -278,7 +278,7 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-action",              type: "js",  fullpath: baseDefaultPath + "lib/xforms/xf-action.js",
       requires: [ "xforms-listener", "xforms-threads" ] });
 
-    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseLocalPath + "/lib/xforms/xforms-defs.js",
+    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseDefaultPath + "/lib/xforms/xforms-defs.js",
       requires: [
        "libxh-decorator",
         "xforms-listener",
@@ -314,7 +314,7 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ 
 		name: "second-onload",
 		type: "js",  
-		fullpath: baseLocalPath + "lib/second-onload.js",
+		fullpath: baseDefaultPath + "lib/second-onload.js",
 		requires: [ "xforms-insert-adjacent-html"] });
 
     loader.require( "dom", "event", "logger", "animation", "connection",
