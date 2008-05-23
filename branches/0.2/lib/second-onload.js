@@ -20,7 +20,7 @@
 		have been bound to an appropriate XBL, and have performed their decorations, prior to 
 		calling any initialisation code that would otherwise have been called by onload.
 */
-function InsertElementForOnloadXBL()
+function FFInsertElementForOnloadXBL()
 {
 	document.body.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element'style='width:0px;style:display:inline-block;'>Loading...</p>");
     var oHead = document.getElementsByTagName("head")[0];
@@ -37,4 +37,6 @@ function InsertElementForOnloadXBL()
 //	that sets up the decorator has finished.
 //	In IE, the HTCs are bound as soon as the rule is inserted.
 if(window.navigator.appName == "Netscape")
-	InsertElementForOnloadXBL();
+	InsertElementForOnloadXBL = FFInsertElementForOnloadXBL;
+else
+	InsertElementForOnloadXBL = function(){};

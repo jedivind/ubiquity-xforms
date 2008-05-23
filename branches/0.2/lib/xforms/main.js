@@ -311,15 +311,16 @@ if(!g_bUseFormsPlayer)
 //If we create an aggregate file, then second-onload should only ber included if it is decided that
 //	the aggregate file should also be loaded after the document is complete, rather than during load
 //	as in branch 0.1
-    loader.addModule({ 
+
+   loader.addModule({ 
 		name: "second-onload",
 		type: "js",  
-		fullpath: baseDefaultPath + "lib/second-onload.js",
-		requires: [ "xforms-insert-adjacent-html"] });
+		fullpath: baseDefaultPath + "lib/second-onload.js", 
+		requires:["xforms-insert-adjacent-html" ] });
 
     loader.require( "dom", "event", "logger", "animation", "connection",
-      "xforms-threads", "xforms-event-target-proxy", "xforms-dom2events", "xforms-vertex-target", "xforms-defs", "second-onload"
-      ,"smil-defs"
+      "xforms-threads", "xforms-event-target-proxy", "xforms-dom2events", "xforms-vertex-target", "xforms-defs","second-onload"
+//      ,"smil-defs"
     );
 
     loader.onSuccess = function(o) {
@@ -327,11 +328,14 @@ if(!g_bUseFormsPlayer)
         function() {
        	if (document.all)
         	{
-				window.status = "ready"
+				window.status = "ready";
         	}
+			        	
         }
       );
       alert("Successfully loaded Ubiquity XForms");
+      spawn(InsertElementForOnloadXBL);
+     
     };
     
     loader.insert();
