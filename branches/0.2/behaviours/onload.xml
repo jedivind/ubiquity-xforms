@@ -23,7 +23,6 @@
 	<binding id="loader">
 		<implementation>
 			<constructor>
-				g_bDocumentLoaded;
 				this.parentNode.removeChild(this);
 				spawn(CallDocumentReadyHandlers);
 			</constructor>
