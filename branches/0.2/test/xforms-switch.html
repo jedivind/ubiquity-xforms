@@ -1,0 +1,76 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xfe="http://www.w3.org/2002/xforms/extensions">
+	<head>
+		<title>Test xf:repeat</title>
+		<link rel="stylesheet" href="default.css" type="text/css" />
+		<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yuiloader/yuiloader-beta-min.js">/**/</script>
+		<script src="../xH.js" type="text/javascript">/**/</script>
+	</head>
+	<body>
+		<xf:model>
+			<xf:instance>
+				<data xmlns="">
+					<number>7</number>
+					<number>3</number>
+					<number>1</number>
+				</data>
+			</xf:instance>
+		</xf:model>
+		<h2>first case selected by default</h2>
+		<xf:switch id="s0">
+			<xf:case id="s0c0">
+				<xf:output ref="number">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s0c1">
+				<xf:output ref="number[2]" >
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s0c2">
+				<xf:output ref="number[3]" >
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+		</xf:switch>
+		<h2>second case @selected="true"</h2>
+		<xf:switch id="s1">
+			<xf:case id="s1c0">
+				<xf:output ref="number">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s1c1" selected="true">
+				<xf:output ref="number[2]" >
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s1c2">
+				<xf:output ref="number[3]" >
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+		</xf:switch>
+		<hr/>
+		<xf:repeat nodeset="number">
+			<xf:input ref=".">
+				<xf:label>Number:</xf:label>
+			</xf:input>
+		</xf:repeat>
+	</body>
+</html>
