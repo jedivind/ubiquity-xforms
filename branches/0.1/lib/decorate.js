@@ -161,13 +161,15 @@ if(!document.all)
 */	
 	function ieSetupDecorator(defs)
 	{
+		var oStyleSheet = document.createStyleSheet("",0);
+			
 		for(var i = 0;defs.length > i;++i)
 		{
 			var sRule = generateMozBindingStyle(defs[i].objects) +  " behavior: url("+g_sBehaviourDirectory+"applicator.htc);"
 			//strip out child selectors, (replacing with the inferior descendent selectors)
 			//	These do not work in IE and even sometimes cause IE to close without warning
 			defs[i].selector = defs[i].selector.replace(/>/g,'');
-			document.styleSheets[0].addRule(defs[i].selector,sRule);
+			oStyleSheet.addRule(defs[i].selector,sRule);
 		}
 	
 	}
