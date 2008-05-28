@@ -14,6 +14,22 @@
  * limitations under the License.
  */
 
+
+/**
+	Event handlers are mandated to be invoked by their "handleEvent" member function, 
+	however, XForms provides the possibility for events to be conditionally invoked, 
+	or looped. XForms Actions, therefore, implement the "performAction" method, and  
+	use DeferToConditionalInvocationProcessor as handleEvent
+	
+	@param {Event} evt An object reprenting the event that is occuring.
+*/
+function DeferToConditionalInvocationProcessor(evt)
+{
+	FormsProcessor.invokeListener(ConditionalInvocationListener(this,"performAction"), evt);
+}
+/**
+	Used in conjunction with Conditional Invocation
+*/
 function ConditionalInvocationListener(obj,funcName)
 {
 	return {realListener:obj,handleEvent:function(evt){return obj[funcName](evt);}}
@@ -24,10 +40,6 @@ function Recalculate(elmnt)
 	this.element = elmnt;
 }
 
-function DeferToConditionalInvocationProcessor(evt)
-{
-	FormsProcessor.invokeListener(ConditionalInvocationListener(this,"performAction"), evt);
-}
 
 Recalculate.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
