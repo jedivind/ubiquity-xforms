@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-//[ISSUE] IE does not natively support child selectors, but will ignore ">"
+//[ISSUE 8] IE does not natively support child selectors, but will ignore ">"
 //	if found in css, making a selector such as "x > y", behave as a descendent
 //	selector "x y".  This means that the order of occurrence of some of these
 //	definitions is critical.  Specifically, the "common child" elements *must*
