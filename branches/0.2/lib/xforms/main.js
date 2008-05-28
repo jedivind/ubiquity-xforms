@@ -243,18 +243,6 @@ if(!g_bUseFormsPlayer)
      ]    });
 
 
-    loader.addModule({ name: "animate-factory",            type: "js",  fullpath: baseDefaultPath + "Animation/Animate.js" });
-    loader.addModule({ name: "smil-set",                   type: "js",  fullpath: baseDefaultPath + "lib/smil/smil-set.js",
-      requires: [ "animate-factory" ] });
-    loader.addModule({ name: "smil-animate",               type: "js",  fullpath: baseDefaultPath + "lib/smil/smil-animate.js",
-      requires: [ "animate-factory" ] });
-    loader.addModule({ name: "animate-impl-yui",           type: "js",  fullpath: baseDefaultPath + "lib/Animation/AnimateImplYUI.js",
-      requires: [ "animate-factory" ] });
-    loader.addModule({ name: "smil-defs",                  type: "js",  fullpath: baseDefaultPath + "smil/smil-defs.js",
-      requires: [
-      "libxh-decorator",
-      "xforms-listener", "xforms-conditional-invocation", "animate-impl-yui", "smil-set", "smil-animate" ] });
-
 //Since, instead of loading the scripts at load time, we have decided to delay the loading of 
 //	scripts until after the document has loaded	it is necessary to add this extra step, 
 //	in order to ensure that all the scripts have been loaded and applied by the time the decorator XBLs 
@@ -275,7 +263,6 @@ if(!g_bUseFormsPlayer)
 
     loader.require( "dom", "event", "logger", "animation", "connection",
       "xforms-threads", "xforms-event-target-proxy", "xforms-dom2events", "xforms-vertex-target", "xforms-defs","second-onload"
-//      ,"smil-defs"
     );
 
     loader.onSuccess = function(o) {
