@@ -66,10 +66,9 @@ function Repeat(elmnt)
 				this.element.removeChild(this.element.firstChild);
 			}
 		}
-		/*
-		 * Let the model know that we exist.
-		 */
 
+		//register this element with the model
+		
 		Repeat.prototype.addcontroltomodel = function()
 		{
 			if (!this.m_bAddedToModel)
