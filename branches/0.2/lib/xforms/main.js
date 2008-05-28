@@ -126,76 +126,14 @@ if(!g_bUseFormsPlayer)
 {
     document.m_arrScripts = [
  
-         /*
-          * For xf:message
-          */
-
-//        'third-party/yowl/yowl.js',
- 
-         /*
-          * For xf:range
-          */
-
-//      'Scriptaculous/Prototype.js',
-//      'Scriptaculous/scriptaculous.js',
-
-        // ... 'Animation/Animate.js',
-//        'Animation/AnimateImpl.js',
-        // ... 'Animation/AnimateImplYUI.js',
-//    	'Animation/AnimateImplScriptaculous.js',
-    
-    	// ... 'ajaxslt/misc.js',
-    	// ... 'ajaxslt/dom.js',
-    	// ... 'ajaxslt/xpath.js',
-    
-    	// ... 'xforms/ajaxslt-improvements.js',
-    	// ... 'xforms/xforms-core-function-library.js',
-    	// ... 'xforms/VertexTargets.js',
-    	// ... 'xforms/xforms.js',
-    
-    	// ... 'xforms/conditional-invocation.js',
-    	// ... 'xforms/context.js',
-    	// ... 'xforms/Control.js',
-    	// ... 'xforms/pds.js',
-    	// ... 'xforms/model.js',
-    	// ... 'xforms/state.js',
-    	// ... 'xforms/modelObj.js',
-    	// ... 'xforms/input-value.js',
-    	// ... 'xforms/output-value.js',
-    	'xforms/range-value.js',
-    
-    	// ... 'smil/smil-set.js',
-    	// ... 'smil/smil-animate.js',
-    
-    	// ... 'xforms/Instance.js',
-    	// ... 'xforms/xf-action.js',
     	'xforms/actions.js',
     	'xforms/hint.js',
     	'xforms/setvalue.js',
 
-    	'xforms/Repeat.js',
     	'xforms/Group.js',
-    
-    	// ... 'xforms/Submission.js',
-    	// ... 'xforms/xforms-submission.js',
-    	// ... 'xforms/xforms-submission-yui.js',
-    	
     	'xforms/Switch.js',
     	'_backplane/case.js',
     	'xforms/case.js'
-//		,'xforms/xforms-defs.js'
-//		,'decorate.js'
-    	// ... 'threads.js',
-    
-      // ... 'dom/listener.js',
-      // ... 'dom/dom2events.js',
-    	// ... 'dom/eventTargetProxy.js',
-    
-    	//'insertAdjacentHTML.js',
-
-    	// ... 'decorate.js',
-    	// ... 'smil/smil-defs.js',
-    	// ... 'xforms/xforms-defs.js'
     ];
   }
 
@@ -268,8 +206,20 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/Instance.js",
       requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
 
+	//control values
     loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: baseDefaultPath + "lib/xforms/input-value.js" });
     loader.addModule({ name: "xforms-output-value",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/output-value.js" });
+    loader.addModule({ name: "xforms-range-value",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/range-value.js",
+     requires: ["slider"]});
+	
+    //container elements
+    loader.addModule({ name: "xforms-group",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/Group.js" });
+    loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/Repeat.js",
+     requires: [ "xforms-model","xforms-group"]});
+	
+	    	
+
+	
     loader.addModule({ name: "xforms-control",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/Control.js",
       requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-insert-adjacent-html" ] });
     loader.addModule({ name: "xforms-context",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/context.js" });
@@ -285,7 +235,7 @@ if(!g_bUseFormsPlayer)
         "xforms-conditional-invocation",
         "xforms-model", "xforms-instance", "xforms-submission",
         "xforms-action", "xforms-context", "xforms-control",
-        "xforms-input-value", "xforms-output-value"
+        "xforms-input-value", "xforms-output-value", "xforms-range-value", "xforms-repeat"
      ]    });
 
     loader.addModule({ name: "animate-factory",            type: "js",  fullpath: baseDefaultPath + "Animation/Animate.js" });
