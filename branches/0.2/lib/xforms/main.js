@@ -130,10 +130,6 @@ if(!g_bUseFormsPlayer)
     	'xforms/hint.js',
     	'xforms/setvalue.js',
 
-    	'xforms/Group.js',
-    	'xforms/Switch.js',
-    	'_backplane/case.js',
-    	'xforms/case.js'
     ];
   }
 
@@ -216,8 +212,14 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-group",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/Group.js" });
     loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/Repeat.js",
      requires: [ "xforms-model","xforms-group"]});
-	
-	    	
+
+    loader.addModule({ name: "backplane-case",        type: "js",  fullpath: baseDefaultPath + "lib/_backplane/case.js" });
+    loader.addModule({ name: "xforms-case",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/case.js", 
+		requires: [ "backplane-case"]
+	});
+    loader.addModule({ name: "xforms-switch",        type: "js",  fullpath: baseDefaultPath + "lib/xforms/Switch.js",
+		requires: [ "xforms-case"]
+	});
 
 	
     loader.addModule({ name: "xforms-control",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/Control.js",
@@ -225,6 +227,7 @@ if(!g_bUseFormsPlayer)
     loader.addModule({ name: "xforms-context",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/context.js" });
     loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: baseDefaultPath + "lib/dom/eventTargetProxy.js",
       requires: [ "xforms-dom2events" ] });
+	//actions
     loader.addModule({ name: "xforms-action",              type: "js",  fullpath: baseDefaultPath + "lib/xforms/xf-action.js",
       requires: [ "xforms-listener", "xforms-threads" ] });
 
@@ -235,8 +238,10 @@ if(!g_bUseFormsPlayer)
         "xforms-conditional-invocation",
         "xforms-model", "xforms-instance", "xforms-submission",
         "xforms-action", "xforms-context", "xforms-control",
-        "xforms-input-value", "xforms-output-value", "xforms-range-value", "xforms-repeat"
+        "xforms-input-value", "xforms-output-value", "xforms-range-value", 
+        "xforms-group","xforms-repeat","xforms-switch"
      ]    });
+
 
     loader.addModule({ name: "animate-factory",            type: "js",  fullpath: baseDefaultPath + "Animation/Animate.js" });
     loader.addModule({ name: "smil-set",                   type: "js",  fullpath: baseDefaultPath + "lib/smil/smil-set.js",
