@@ -174,7 +174,7 @@ if(!g_sBehaviourDirectory)
 	{
         var bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
-		
+		var oStyleSheet = document.createStyleSheet("",0);
 		for(var i = 0;defs.length > i;++i)
 		{
 		
@@ -182,7 +182,7 @@ if(!g_sBehaviourDirectory)
 			//strip out child selectors, (replacing with the inferior descendent selectors)
 			//	These do not work in IE and even sometimes cause IE to close without warning
 			defs[i].selector = defs[i].selector.replace(/>/g,'');
-			document.styleSheets[0].addRule(defs[i].selector,sRule);
+			oStyleSheet.addRule(defs[i].selector,sRule);
 		}
 		
 		g_bDocumentLoaded = bDocumentAlreadyLoaded;
