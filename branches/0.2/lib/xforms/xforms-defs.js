@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 
+//[ISSUE] IE does not natively support child selectors, but will ignore ">"
+//	if found in css, making a selector such as "x > y", behave as a descendent
+//	selector "x y".  This means that the order of occurrence of some of these
+//	definitions is critical.  Specifically, the "common child" elements *must*
+//	come after any controls that might use them, as (at present, anyway) label
+//	is implemented as a control.
+
 setupDecorator(
 	[
 	  /* Model */
@@ -88,8 +95,8 @@ setupDecorator(
 			selector:"xf\\:input > pe-value",
 			objects:["EventTarget", "XFormsInputValue"]
 		},
-
-    {
+	
+		{
 			selector:"xf\\:select > pe-value",
 			objects:["EventTarget", "InputValue"]
 		},
@@ -97,17 +104,11 @@ setupDecorator(
 			selector:"xf\\:select1 >  pe-value ",
 			objects:["EventTarget", "InputValue"]
 		},
-
 		{
-			selector:"xf\\:label >  pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
-		},
-
-    {
 			selector:"xf\\:range > pe-value",
 			objects:["EventTarget", "RangeValue"]
 		},
-		
+
 		{
 			selector:"xf\\:select",
 			objects:["EventTarget", "Context", "Control", "Select"]
@@ -163,6 +164,12 @@ setupDecorator(
     {
 			selector:"xf\\:toggle",
 			objects:["Listener", "Toggle"]
+		},
+	//	Common child elements
+		{
+			selector:"xf\\:label >  pe-value",
+			objects:["EventTarget", "XFormsOutputValue"]
 		}
+
 	]
 );
