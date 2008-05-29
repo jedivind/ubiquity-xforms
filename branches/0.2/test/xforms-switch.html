@@ -38,12 +38,12 @@
 				</xf:output>
 			</xf:case>
 			<xf:case id="s0c1">
-				<xf:output ref="number[2]" >
+				<xf:output ref="number[2]">
 					<xf:label>Number:</xf:label>
 				</xf:output>
 			</xf:case>
 			<xf:case id="s0c2">
-				<xf:output ref="number[3]" >
+				<xf:output ref="number[3]">
 					<xf:label>Number:</xf:label>
 				</xf:output>
 			</xf:case>
@@ -56,17 +56,30 @@
 				</xf:output>
 			</xf:case>
 			<xf:case id="s1c1" selected="true">
-				<xf:output ref="number[2]" >
+				<xf:output ref="number[2]">
 					<xf:label>Number:</xf:label>
 				</xf:output>
 			</xf:case>
 			<xf:case id="s1c2">
-				<xf:output ref="number[3]" >
+				<xf:output ref="number[3]">
 					<xf:label>Number:</xf:label>
 				</xf:output>
 			</xf:case>
 		</xf:switch>
-		<hr/>
+		<hr />
+		<xf:trigger>
+			<xf:label>s0c0</xf:label>
+			<xf:toggle case="s0c0" ev:event="DOMActivate" />
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>s0c1</xf:label>
+			<xf:toggle case="s0c1" ev:event="DOMActivate" />
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>s0c2</xf:label>
+			<xf:toggle case="s0c2" ev:event="DOMActivate" />
+		</xf:trigger>
+		<hr />
 		<xf:repeat nodeset="number">
 			<xf:input ref=".">
 				<xf:label>Number:</xf:label>
