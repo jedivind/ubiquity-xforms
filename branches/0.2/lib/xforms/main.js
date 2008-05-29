@@ -127,8 +127,6 @@ if(!g_bUseFormsPlayer)
     document.m_arrScripts = [
  
     	'xforms/hint.js',
-    	'xforms/setvalue.js',
-
     ];
   }
 
@@ -229,10 +227,11 @@ if(!g_bUseFormsPlayer)
 	//actions
     loader.addModule({ name: "xforms-action",              type: "js",  fullpath: baseDefaultPath + "lib/xforms/xf-action.js",
       requires: [ "xforms-listener", "xforms-threads" ] });
-	//[TODO] (issue 10) Now that loading performance is not a concern, break actions.js into one class per file
+	//[TODO] (issue 10)  Now that loading performance is not a concern, break actions.js into one class per file
     loader.addModule({ name: "xforms-actions",              type: "js",  fullpath: baseDefaultPath + "lib/xforms/actions.js",
 		requires:["container"]});   	
- 
+    loader.addModule({ name: "xforms-setvalue",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/setvalue.js" });
+	
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseDefaultPath + "/lib/xforms/xforms-defs.js",
       requires: [
        "libxh-decorator",
@@ -241,7 +240,7 @@ if(!g_bUseFormsPlayer)
         "xforms-model", "xforms-instance", "xforms-submission",
         "xforms-action", "xforms-context", "xforms-control",
         "xforms-input-value", "xforms-output-value", "xforms-range-value", 
-        "xforms-group","xforms-repeat","xforms-switch","xforms-actions"
+        "xforms-group","xforms-repeat","xforms-switch","xforms-actions","xforms-setvalue"
      ]    });
 
 
