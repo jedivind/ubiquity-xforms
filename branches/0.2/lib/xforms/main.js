@@ -119,21 +119,6 @@ function AddObjectTagAndImportInstructions()
 	document.write(sObjectTag + arrImports.join('\n'));
 }
 
-function loadScripts()
-{
-
-if(!g_bUseFormsPlayer)
-{
-    document.m_arrScripts = [
- 
-    	'xforms/hint.js',
-    ];
-  }
-
-  AddXFormsFunctionalityToDocument = g_bUseFormsPlayer&&document.all?AddObjectTagAndImportInstructions:g_bUseDocumentDotWrite?AddScriptsToDocument_DW:AddScriptsToDocument_DOM;
-  AddXFormsFunctionalityToDocument();
-  return;
-}
 
   AddXFormsFunctionalityToDocument = g_bUseFormsPlayer&&document.all?AddObjectTagAndImportInstructions:g_bUseDocumentDotWrite?AddScriptsToDocument_DW:AddScriptsToDocument_DOM;   
   AddXFormsFunctionalityToDocument();
@@ -198,6 +183,8 @@ if(!g_bUseFormsPlayer)
 
     loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/Instance.js",
       requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
+
+    loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: baseDefaultPath + "lib/decorate.js" });
 
 	//control values
     loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: baseDefaultPath + "lib/xforms/input-value.js" });
