@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-
+//[TODO]  (issue 10) Now that loading performance is not a concern, break actions.js into one class per file
 /**
 	Event handlers are mandated to be invoked by their "handleEvent" member function, 
 	however, XForms provides the possibility for events to be conditionally invoked, 
@@ -122,7 +122,6 @@ Send.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 Send.prototype.performAction = function (evt)
 {	
 	var sID = this.element["submission"];
-
 	if (sID)
 	{
 		evt.target.document.logger.log("Sending to '" + sID + "'", "submission");
