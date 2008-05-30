@@ -24,10 +24,10 @@ Case.prototype.deselect = function()
 	this.element.sDisplay = this.element.style.display;
 	this.element.style.display = "none";
 	return;
-}
+};
 
 Case.prototype.select = function()
 {
 	this.element.style.display = this.element.sDisplay;
 	return;
-}
+};
