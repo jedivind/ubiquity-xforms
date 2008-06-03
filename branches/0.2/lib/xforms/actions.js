@@ -45,7 +45,7 @@ Recalculate.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Recalculate.prototype.performAction = function(evt)
 {
-	var sModelID = this.element["model"];
+	var sModelID = this.element.getAttribute("model");
 	var oModel = this.element.ownerDocument.getElementById(sModelID);
 	oModel.recalculate();
 }
@@ -60,7 +60,7 @@ Toggle.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 Toggle.prototype.performAction = function (evt)
 {
 
-	var sCaseID = this.element["case"];
+	var sCaseID = this.element.getAttribute("case");
 	var oCase = this.element.ownerDocument.getElementById(sCaseID);
 	var oSwitch = oCase.parentElement;
 	oSwitch.toggle(sCaseID);
@@ -75,7 +75,7 @@ Dispatch.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Dispatch.prototype.performAction = function (evt)
 {	
-	var sTargetID = this.element["target"];
+	var sTargetID = this.element.getAttribute("target");
 
 	if (sTargetID)
 	{
@@ -83,7 +83,7 @@ Dispatch.prototype.performAction = function (evt)
 
 		if (oTarget)
 		{
-			var sName = this.element["name"];
+			var sName = this.element.getAttribute("name");
 
 			if (sName)
 			{
@@ -121,7 +121,7 @@ Send.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Send.prototype.performAction = function (evt)
 {	
-	var sID = this.element["submission"];
+	var sID = this.element.getAttribute("submission");
 	if (sID)
 	{
 		evt.target.document.logger.log("Sending to '" + sID + "'", "submission");
