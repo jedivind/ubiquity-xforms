@@ -37,6 +37,10 @@ function FFInsertElementForOnloadXBL()
 //	that sets up the decorator has finished.
 //	In IE, the HTCs are bound as soon as the rule is inserted.
 if(window.navigator.appName == "Netscape")
+{
 	InsertElementForOnloadXBL = FFInsertElementForOnloadXBL;
+}
 else
+{
 	InsertElementForOnloadXBL = function(){};
+}

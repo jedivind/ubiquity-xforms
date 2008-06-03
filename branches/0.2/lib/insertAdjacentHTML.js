@@ -34,7 +34,7 @@
 		switch (where)
 		{
 			case 'beforeBegin':
-				this.parentNode.insertBefore(parsedNode,this)
+				this.parentNode.insertBefore(parsedNode,this);
 				break;
 			case 'afterBegin':
 				this.insertBefore(parsedNode,this.firstChild);
@@ -44,8 +44,13 @@
 				break;
 			case 'afterEnd':
 				if (this.nextSibling) 
+				{
 					this.parentNode.insertBefore(parsedNode,this.nextSibling);
-				else this.parentNode.appendChild(parsedNode);
+				}
+				else
+				{
+					this.parentNode.appendChild(parsedNode);
+				}
 				break;
 		}
 	}
@@ -62,7 +67,7 @@
 		var r = this.ownerDocument.createRange();
 		r.setStartBefore(this);
 		var parsedHTML = r.createContextualFragment(htmlStr);
-		this.insertAdjacentElement(where,parsedHTML)
+		this.insertAdjacentElement(where,parsedHTML);
 	}
 
 
@@ -77,8 +82,8 @@
 */
 	function insertAdjacentText(where,txtStr)
 	{
-		var parsedText = document.createTextNode(txtStr)
-		this.insertAdjacentElement(where,parsedText)
+		var parsedText = document.createTextNode(txtStr);
+		this.insertAdjacentElement(where,parsedText);
 	}
 
 

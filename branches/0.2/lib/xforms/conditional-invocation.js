@@ -44,7 +44,9 @@ function evaluateCondition(sCondition,oContext)
 		var oRes = oContext.model.EvaluateXPath(sCondition, oContext.node);
 
 		if (oRes)
+		{
 			bIf = oRes.booleanValue();
+		}
 	}
 	return bIf;
 }
@@ -78,7 +80,9 @@ XFormsProcessor.prototype.invokeListener = function(oListener, oEvt)
 							}
 						}
 						else
+						{
 							oListener.handleEvent(oEvt);
+						}
 					}
 				}
 			}
@@ -97,7 +101,9 @@ XFormsProcessor.prototype.invokeListener = function(oListener, oEvt)
 				}
 			}
 			else
+			{
 				oListener.handleEvent(oEvt);
+			}
 		}
 	}
 	else
