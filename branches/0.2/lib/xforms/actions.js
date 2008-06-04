@@ -62,7 +62,7 @@ Toggle.prototype.performAction = function (evt)
 
 	var sCaseID = this.element.getAttribute("case");
 	var oCase = this.element.ownerDocument.getElementById(sCaseID);
-	var oSwitch = oCase.parentElement;
+	var oSwitch = oCase.parentNode;
 	oSwitch.toggle(sCaseID);
 }
 
