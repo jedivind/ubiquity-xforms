@@ -107,9 +107,9 @@ Context.prototype.getBoundNode = function(nOrdinal)
 				 * may be retrieved from the model itself.
 				 */
 
-				if (pThis.element["model"])
+				if (pThis.element.getAttribute("model"))
 				{
-					var oModel  = pThis.element.ownerDocument.getElementById(pThis.element["model"]);
+					var oModel  = pThis.element.ownerDocument.getElementById(pThis.element.getAttribute("model"));
 					//TODO: The form author cannot be relied upon to provide an IDREF in @model that actually corresponds
 					//	to a model. In order to prevent errors throwing out and causing problems, a test is required to ensure that
 					//	oModel, retrieved above does not only exist (as the following test proves) but is also actually a model 

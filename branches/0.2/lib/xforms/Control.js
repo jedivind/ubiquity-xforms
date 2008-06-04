@@ -281,7 +281,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			 * really return 'null' if there is no bound node.
 			 */
 
-			var sValueExpr = this.element["value"];
+			var sValueExpr = this.element.getAttribute("value");
 
 			if (sValueExpr)
 			{
