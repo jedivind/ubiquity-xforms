@@ -1,5 +1,4 @@
 <PUBLIC:COMPONENT lightWeight="true">
-	<PUBLIC:ATTACH EVENT="ondetach" ONEVENT="detach();" FOR="element" />
 	<PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="callHandlers(element,element.onContentReady);" FOR="element" />
 	<PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="callHandlers(element,element.onDocumentReady);" FOR="element" />
 	<SCRIPT>
@@ -10,7 +9,6 @@
 		element.constructors = new Array();
 		element.contentReadyHandlers = new Array();
 		element.documentReadyHandlers = new Array();
-		var m_cookies = new Array();
 		//IE6 and earlier removes preceding "-", IE7 leaves it in.
 		//	Rather than checking the version of IE being used, here, I believe it is preferable
 		//	to operate on a features-available mechanism.
@@ -27,23 +25,6 @@
 		}
 		callHandlers(element,element.ctor);
 		
-		
-		function detach()
-		{
-			var cookie = m_cookies.pop();
-			while(cookie)
-			{
-				try
-				{
-					element.removeBehavior(cookie);
-				}
-				catch(e)
-				{
-					//ignore;
-				}
-				cookie = m_cookies.pop();
-			}
-		}
 		
 		
 		function AddBehaviour(sBehaviour)
