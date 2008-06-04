@@ -293,7 +293,10 @@ ProxyExpression.prototype.getValue = function()
 				if (oNode)
 					sRet = oNode.nodeValue;
 				break;
-
+			case "boolean":
+				sRet = oRet.booleanValue();
+				break;
+			
 			default:
 				/* please add any other types that are missing! */
 				debugger;
