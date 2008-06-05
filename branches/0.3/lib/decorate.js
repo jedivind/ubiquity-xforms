@@ -142,19 +142,6 @@ if(!g_sBehaviourDirectory)
 	}
 	
 /**
-	Creates an object of type sBehaviour and extends elmnt with it.
-	@param {Object} elmnt element to decorate with the members of sBehaviour
-	@param {String} sBehaviour name of the objecy to create in order ot decorate elmnt
-*/
-	function AddObjectBehaviour(elmnt,sBehaviour)
-	{
-		try{
-			eval("var o = new "+sBehaviour+"(elmnt);extend(elmnt,o);");
-		}catch(e){debugger;}
-
-	}
-	
-/**
 	creates a CSS style declaration that causes the decoration of its referent with the objects in objs
 	@param {Array} objs array of strings specifying the names of objects to be used in decorating an element.
 	@returns String representation of the appropriate -moz-binding declaration.
@@ -178,12 +165,17 @@ if(!g_sBehaviourDirectory)
         var bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
 		var oStyleSheet = document.createStyleSheet("",0);
+		//non-htc method
+		//var sBehaviourRule = ";\n behavior: expression(decorate(this)); ";
+		//htc method
+		var sBehaviourRule = ";\n behavior: url("+g_sBehaviourDirectory+"applicator.htc);";
+		
 		for(var i = 0;defs.length > i;++i)
 		{
 			var sRule = "";
 			if(defs[i].objects !== undefined)
 			{ 
-				sRule += generateMozBindingStyle(defs[i].objects) +  ";\n behavior: expression(decorate(this)); "
+				sRule += generateMozBindingStyle(defs[i].objects) + sBehaviourRule;
 			}
 			sRule += (defs[i].cssText || "");
 			
@@ -334,12 +326,33 @@ function getCustomCSSPropertyIE(element,propertyName)
 	return propertyValue;
 }
 
-//Only IE currently uses this, but I have added this indirection anyway, since the 
-//	function that actually does the work is strictly IE-only.
-var getCustomCSSProperty = getCustomCSSPropertyIE;//:function(a,b){throw "E_NOTIMPL";};
 
-function DecorateBehaviour(element)
+function getCustomCSSPropertyFF(element,propertyName)
 {
+	var currentStyle = window.getComputedStyle(element,"");
+	return currentStyle.getPropertyValue(propertyName);
+}
+
+var isIE  = (navigator.appVersion.indexOf("MSIE") != -1) ? true : false;
+var getCustomCSSProperty = isIE?getCustomCSSPropertyIE:getCustomCSSPropertyFF;
+
+
+function DecorateBehaviour(element,handleContentReady, handleDocumentReady)
+{
+	function getDecorationObjectNames(element)
+	{
+		var sBehaviours = getCustomCSSProperty(element,"-moz-binding");
+		if(sBehaviours !== undefined && sBehaviours.indexOf('?') !== -1)
+		{
+			sBehaviours = sBehaviours.substring(sBehaviours.indexOf('?')+1,sBehaviours.lastIndexOf('#') );
+		}
+		else
+		{
+			sBehaviours = "";
+		}
+		return sBehaviours.split("&");
+	}
+
 	function attach()
 	{
 		var bReturn = false;
@@ -350,44 +363,47 @@ function DecorateBehaviour(element)
 		element.constructors = new Array();
 		element.contentReadyHandlers = new Array();
 		element.documentReadyHandlers = new Array();
-		var sBehaviours = getCustomCSSProperty(element,"-moz-binding");
-		sBehaviours = sBehaviours.substring(sBehaviours.indexOf('?')+1,sBehaviours.lastIndexOf('#') );
-
-		var arrBehaviours = sBehaviours.split("&");
+		var arrBehaviours = getDecorationObjectNames(element);
+		
+		
 		if(arrBehaviours.length  > 0)
 		{
+			//alert("decorating\n" + element.nodeName + 
+			//	" -  " + element.getAttribute("id") + "\n with \n" + arrBehaviours.join("\n"));
+			
 			for(var i = 0;i < arrBehaviours.length;++i)
 			{
-				AddBehaviour(arrBehaviours[i]);
+				AddObjectBehaviour(element,arrBehaviours[i]);
 			}
 			callHandlers(element,element.ctor);
-			callHandlers(element,element.onContentReady);
-			RegisterForOnloadOrCallNow(element,element.onDocumentReady);
+			//If the caller has requested that this function shoudl sort out 
+			//	contentReady and documentReady, sort them out now.
+			if(handleContentReady)
+			{
+				callHandlers(element,element.onContentReady);
+			}
+			if(handleDocumentReady)
+			{
+				RegisterForOnloadOrCallNow(element,element.onDocumentReady);
+			}
+
 			bReturn =  true;
 		}
 		return bReturn;
 	}
 	
-	
-	function AddBehaviour(sBehaviour)
+	/**
+		Creates an object of type sBehaviour and extends elmnt with it.
+		@param {Object} elmnt element to decorate with the members of sBehaviour
+		@param {String} sBehaviour name of the objecy to create in order ot decorate elmnt
+	*/
+	function AddObjectBehaviour(elmnt,sBehaviour)
 	{
 		try{
-		try{
-			//ISSUE: eval is evil, use a constructor factory instead.
-				eval("var o = new "+sBehaviour+"(element);")
-			}catch(e){debugger;}
-			
-			if(o)
-			{
-				if(o == null)
-					debugger;
-				extend(element,o);
-			}
-		}
-		catch(e)
-		{
-			throw e
-		}
+		//TODO: eval is evil, use a factory instead.
+			eval("var o = new "+sBehaviour+"(elmnt);extend(elmnt,o);");
+		}catch(e){debugger;}
+
 	}
 	
 	return attach();
@@ -416,7 +432,7 @@ function decorate(e)
 			e.style.behavior = ("url()");
 			e.decorated = true;
 			//Do the decoration.
-			DecorateBehaviour(e);					
+			DecorateBehaviour(e,true,true);					
 			//window.status = "decorating: " + e.tagName;
 		}
 	}
