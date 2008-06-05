@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<head>
 		<title>Address Ubiquity</title>
 		<style>
 /*
+ CHANGED!
  * Copyright (C) 2008 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -181,66 +180,17 @@ xhr.send(null);
 							<zip></zip>
 						</address>
 						<name>
-							<first> </first>
-							<last> </last>
+							<first></first>
+							<last></last>
 						</name>
 					</info>
 				</x:subscription>
 			</xf:instance>
-
-			 <!-- Things to check in the browser before submitting --> <!-- Don't ask for address or name of those under 13 -->
+			<!-- Things to check in the browser before submitting --> <!-- Don't ask for address or name of those under 13 -->
 			<xf:bind nodeset="info/addresss" relevant="/subscription/info/age >= 13"></xf:bind>
-			<xf:bind nodeset="info/name" relevant="/subscription/info/age >= 13"> </xf:bind><!-- E-mail address and age are always required to submit -->
+			<xf:bind nodeset="info/name" relevant="/subscription/info/age >= 13"></xf:bind> <!-- E-mail address and age are always required to submit -->
 			<xf:bind nodeset="info/email" required="true()"></xf:bind>
 			<xf:bind nodeset="info/age" required="true()" type="xsd:integer"></xf:bind> <!-- list of state names and abbreviations -->
-			
 		</xf:model>
-		<h1>Subscription for
-			<xf:output ref="list/name" /></h1>
-		<h2><xf:output ref="list/desc" /></h2>
-		<xf:group ref="info">
-			<xf:label>The following information is necessary to process your subscription request for <xf:output ref="/subscription/list/email"></xf:output></xf:label>
-			<xf:input class="short" ref="age" incremental="true">
-				<xf:label>Your age</xf:label>
-				<xf:hint>If you are are under 13, get your parent's permission</xf:hint>
-			</xf:input>
-			<xf:group ref="name">
-				<xf:label>Your Name</xf:label>
-				<xf:input class="long" ref="first">
-					<xf:label>First Name</xf:label>
-				</xf:input>
-				<xf:input class="long" ref="last">
-					<xf:label>Last Name</xf:label>
-				</xf:input>
-			</xf:group>
-			<xf:input class="long" ref="email">
-				<xf:label>Your email address</xf:label>
-			</xf:input>
-			<xf:group ref="addresss">
-				<xf:label>Your mailing address</xf:label>
-				<xf:input class="long" ref="street">
-					<xf:label>Street</xf:label>
-				</xf:input>
-				<xf:input class="short" ref="pobox">
-					<xf:label>PO Box</xf:label>
-				</xf:input>
-				<xf:input class="long" ref="city">
-					<xf:label>City</xf:label>
-				</xf:input>
-				<xf:select1 ref="state">
-					<xf:label>State</xf:label>
-					<xf:itemset nodeset="instance('states')/state">
-						<xf:label ref="name"></xf:label>
-						<xf:value ref="abbrev"></xf:value>
-					</xf:itemset>
-				</xf:select1>
-				<xf:input class="medium" ref="zip">
-					<xf:label>Zip Code</xf:label>
-				</xf:input>
-			</xf:group>
-		</xf:group>
-		<xf:submit submission="subscribe">
-			<xf:label>Subscribe to <xf:output ref="list/name"></xf:output></xf:label>
-		</xf:submit>
 	</body>
 </html>
