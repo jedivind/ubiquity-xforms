@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<head>
+		<title>Address Ubiquity</title>
+		<style>
+/*
+ * Copyright (C) 2008 Backplane Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+xf\:instance{-moz-binding: url("../behaviours/decorator.xml#decorator");}
+
+
+body
+{
+  font-family: "Lucida Grande",verdana,arial,helvetica,sans-serif;
+  font-size: 14px;
+}
+
+xf\:output,
+xf\:input
+{
+  display: block;
+  padding: 0.2em;
+}
+
+xf\:input xf\:label
+{
+  display: inline-block;
+  width: 200px;
+}
+
+xf\:input > pe-value
+{
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+
+.panel
+{
+background:blue;
+width:150px;
+height:20px;
+overflow:hidden;
+}
+.lipsum
+{
+width:100px;
+height:100px;
+padding:20px;
+}
+#hidden
+{
+display:none
+}
+.slider-bg {
+    position: relative; 
+    background:url(bg-fader.gif) 5px 0 no-repeat; 
+    height:28px; 
+    width:228px;  
+}
+.slider-thumb { 
+  position: absolute; 
+  top: 4px; 
+}
+.disabled
+{
+display:none;
+}		
+		</style>
+		<!--script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yuiloader/yuiloader-beta-min.js">/**/</script>
+		<script src="../xH.js" type="text/javascript">/**/</script-->
+		<script>
+		//<![CDATA[
+			function main()
+			{
+
+alert(document.compatMode);		
+			var inst = document.getElementById("i0");
+				//alert(serialise(inst,0));
+				alert(inst.innerHTML);
+				var xhr = new XMLHttpRequest() ;
+				xhr.open("GET","#",true);
+xhr.onreadystatechange = function(){
+
+
+	
+  if ( xhr.readyState == 4 ) {
+
+
+	
+    if ( xhr.status == 200 || xhr.status == 0) {
+
+
+	
+      alert(xhr.responseText);
+
+
+	
+    } else {
+
+
+	
+      document.body.innerHTML = "ERROR: " + xhr.status;
+
+
+	
+    }
+
+
+	
+  }
+
+
+	
+};
+
+
+	
+xhr.send(null);				
+			}
+			
+			function serialise(n,d)
+			{
+				var s = "";
+				for(var i = 0;i < d;++i)
+					s += "\t";
+				if(n.nodeName !== "#text")
+				{
+					s += ("<"+n.nodeName +">");
+					s += "\n"
+					var nl = n.childNodes;
+					for(var j = 0;j < nl.length;++j)
+						s += serialise(nl[j],d+1);
+					s += "\n"				
+
+				for(var i = 0;i < d;++i)
+					s += "\t";
+				if(n.nodeName !== "#text")
+					s += ("</"+n.nodeName+">");
+				}
+				return s;
+			}
+			//]]>
+		</script>
+	</head>
+	<body onload="main();">
+		<xf:model>
+			<xf:submission action="/cgi-bin/subscribe.cgi" method="post" ref="info" id="subscribe"></xf:submission>
+			<xf:instance id="i0">
+				<x:subscription xmlns="" xmlns:x="someURN">
+					<list>
+						<name>Fuzzy Puppies</name>
+						<email>fuzzy-puppies@example.com</email>
+						<partner>42773</partner>
+						<desc>Fuzzy Puppies picture mailed to you daily!</desc>
+					</list>
+					<info>
+						<age></age>
+						<email></email>
+						<address>
+							<br />
+							<!--pobox /-->
+							<pobox></pobox>
+							<street></street>
+							<city></city>
+							<state></state>
+							<zip></zip>
+						</address>
+						<name>
+							<first> </first>
+							<last> </last>
+						</name>
+					</info>
+				</x:subscription>
+			</xf:instance>
+
+			 <!-- Things to check in the browser before submitting --> <!-- Don't ask for address or name of those under 13 -->
+			<xf:bind nodeset="info/addresss" relevant="/subscription/info/age >= 13"></xf:bind>
+			<xf:bind nodeset="info/name" relevant="/subscription/info/age >= 13"> </xf:bind><!-- E-mail address and age are always required to submit -->
+			<xf:bind nodeset="info/email" required="true()"></xf:bind>
+			<xf:bind nodeset="info/age" required="true()" type="xsd:integer"></xf:bind> <!-- list of state names and abbreviations -->
+			
+		</xf:model>
+		<h1>Subscription for
+			<xf:output ref="list/name" /></h1>
+		<h2><xf:output ref="list/desc" /></h2>
+		<xf:group ref="info">
+			<xf:label>The following information is necessary to process your subscription request for <xf:output ref="/subscription/list/email"></xf:output></xf:label>
+			<xf:input class="short" ref="age" incremental="true">
+				<xf:label>Your age</xf:label>
+				<xf:hint>If you are are under 13, get your parent's permission</xf:hint>
+			</xf:input>
+			<xf:group ref="name">
+				<xf:label>Your Name</xf:label>
+				<xf:input class="long" ref="first">
+					<xf:label>First Name</xf:label>
+				</xf:input>
+				<xf:input class="long" ref="last">
+					<xf:label>Last Name</xf:label>
+				</xf:input>
+			</xf:group>
+			<xf:input class="long" ref="email">
+				<xf:label>Your email address</xf:label>
+			</xf:input>
+			<xf:group ref="addresss">
+				<xf:label>Your mailing address</xf:label>
+				<xf:input class="long" ref="street">
+					<xf:label>Street</xf:label>
+				</xf:input>
+				<xf:input class="short" ref="pobox">
+					<xf:label>PO Box</xf:label>
+				</xf:input>
+				<xf:input class="long" ref="city">
+					<xf:label>City</xf:label>
+				</xf:input>
+				<xf:select1 ref="state">
+					<xf:label>State</xf:label>
+					<xf:itemset nodeset="instance('states')/state">
+						<xf:label ref="name"></xf:label>
+						<xf:value ref="abbrev"></xf:value>
+					</xf:itemset>
+				</xf:select1>
+				<xf:input class="medium" ref="zip">
+					<xf:label>Zip Code</xf:label>
+				</xf:input>
+			</xf:group>
+		</xf:group>
+		<xf:submit submission="subscribe">
+			<xf:label>Subscribe to <xf:output ref="list/name"></xf:output></xf:label>
+		</xf:submit>
+	</body>
+</html>
