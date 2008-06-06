@@ -1,0 +1,65 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<title>Test local-name XPath Function</title>
+		<script>
+		//    debugger;
+		</script>
+		<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
+		
+		<script>
+			var g_pathToLib = "../../../lib/";
+			var g_sBehaviourDirectory = "../../../behaviours/";
+		</script>
+		<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yuiloader/yuiloader-beta-min.js">/**/</script>
+		<script src="../../../lib/xforms/main.js">/**/</script>
+		
+	</head>
+	<body>
+		<xf:model>
+			<xf:instance>
+				<x>
+					<y>
+						<node name="node">Hello</node>
+						<node name="x">Dolly</node>
+						<node name="y">sailor</node>
+					</y>
+				</x>
+			</xf:instance>
+		</xf:model>
+		<xf:output value="concat('hello ','dolly')" id="test_current">
+		</xf:output>		
+		<h1>current</h1>
+
+		<xf:output ref="//*[@name=name(.)]" id="dot">
+			<xf:label> name(.) </xf:label>
+		</xf:output>
+		<br />
+		
+		<xf:output ref="//*[@name=name(current())]" id="xCurrent">
+			<xf:label> name(current()) in context of x </xf:label>
+		</xf:output>
+		<br />
+		<xf:group ref="y">
+			<xf:output ref="//*[@name=name(current())]" id="yCurrent">
+				<xf:label> name(current()) in context of y </xf:label>
+			</xf:output>
+		</xf:group>
+		
+		<hr />
+	</body>
+</html>
