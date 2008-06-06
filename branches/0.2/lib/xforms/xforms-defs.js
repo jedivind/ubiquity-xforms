@@ -98,11 +98,11 @@ setupDecorator(
 	
 		{
 			selector:"xf\\:select > pe-value",
-			objects:["EventTarget", "InputValue"]
+			objects:["EventTarget", "XFormsInputValue"]
 		},
 		{
 			selector:"xf\\:select1 >  pe-value ",
-			objects:["EventTarget", "InputValue"]
+			objects:["EventTarget", "XFormsInputValue"]
 		},
 		{
 			selector:"xf\\:range > pe-value",
