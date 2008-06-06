@@ -25,7 +25,7 @@
 */
 function DeferToConditionalInvocationProcessor(evt)
 {
-	FormsProcessor.invokeListener(ConditionalInvocationListener(this,"performAction"), evt);
+	ActionExecutor.invokeListener(ConditionalInvocationListener(this,"performAction"), evt);
 }
 /**
 	Used in conjunction with Conditional Invocation
