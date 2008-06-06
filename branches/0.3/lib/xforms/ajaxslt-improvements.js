@@ -55,7 +55,7 @@ XNode.prototype.cloneNode = function(bDeep)
         //TODO: implement shallow cloning.
         throw ("XNode::cloneNode - shallow clones are not supported");
     }
-}
+};
 
 
 /**@addon
@@ -63,9 +63,9 @@ XNode.prototype.cloneNode = function(bDeep)
 
 FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
 {
-    assert(this.args.length == 1 || this.args.length == 0);
+    assert(this.args.length === 1 || this.args.length === 0);
     var n;
-    if (this.args.length == 0) {
+    if (this.args.length === 0) {
       n = [ ctx.node ];
     } else {
       n = this.args[0].evaluate(ctx).nodeSetValue();
@@ -73,7 +73,7 @@ FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
     
     var name = "";
 
-    if (n.length == 0) {
+    if (n.length === 0) {
     } else {
           name = n[0].nodeName;
     }
@@ -85,16 +85,16 @@ FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
         name = name.substr(ix+1);
     }
     return new StringValue(name);
-  }
+};
 
 
 /**@addon
 */  
 
-FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx)
+FunctionCallExpr.prototype.xpathfunctions.current = function(ctx)
 {
-    return new NodeSetValue(new Array(ctx.OutermostContextNode));
-}
+    return new NodeSetValue([ctx.OutermostContextNode]);
+};
 
 /**@addon
 */  
@@ -104,7 +104,7 @@ var g_bSaveDependencies = false;
 FunctionCallExpr.prototype.xpathfunctions["namespace-uri"] = function(ctx)
 {
     alert('not IMPLEMENTED yet: XPath function namespace-uri()');
-}
+};
 
 LocationExpr.prototype.evaluate = function(ctx) {
   var start;
@@ -121,8 +121,10 @@ LocationExpr.prototype.evaluate = function(ctx) {
   if(g_bSaveDependencies)
   {
 	for(var i = 0;i < nodes.length;++i)
+	{
 		g_arrSavedDependencies.push(nodes[i]);
 		//ctx.currentModel.AddDependentVertex(nodes[i]/*,this.parseTree(" ")*/);
+	}
   }
   return retval;
 };
