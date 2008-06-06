@@ -36,7 +36,7 @@ The following model:
 {{{
 <xf:model>
 	<xf:submission action="/cgi-bin/subscribe.cgi" method="post" ref="info" id="subscribe"></xf:submission>
-	<xf:instance id="i0"><![CDATA[
+	<xf:instance id="i0">
 			<x:subscription xmlns="" xmlns:x="someURN">
 				<info>
 					<age/>
@@ -54,9 +54,7 @@ The following model:
 					</name>
 				</info>
 			</x:subscription>
-			]]>
 	</xf:instance>
-	
 	
 	<xf:bind nodeset="info/addresss" relevant="/subscription/info/age >= 3"></xf:bind>
 	<xf:bind nodeset="info/name" relevant="/subscription/info/age >= 13"> </xf:bind>
