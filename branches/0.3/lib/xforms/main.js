@@ -5,6 +5,7 @@
  * Currently mixes two approaches--the old one from the old 'loader.js', and the new one using
  * the YUI module loader.
  */
+
 if(typeof g_pathToLib === "undefined")
 {
 	g_pathToLib = "../lib/";
@@ -22,9 +23,9 @@ var g_bDocumentLoaded = false;
 
 var g_bLoadingScriptsAfterOnLoad = true;
 
-if(typeof YAHOO=="undefined"||!YAHOO)
+if(typeof YAHOO === "undefined" || !YAHOO)
 {
-	document.m_arrScripts = new Array();
+	document.m_arrScripts = [];
 	document.m_arrScripts.push("http://yui.yahooapis.com/2.5.1/build/yuiloader/yuiloader-beta-min.js");
 }
 
@@ -53,7 +54,9 @@ else
 try
 {
 	if (document.UseFormsPlayer)
+	{
 		g_bUseFormsPlayer = true;
+	}
 }
 catch(e)
 {
@@ -71,19 +74,23 @@ document.logger = { log: function(sText, sContext) { } };
 function AddScriptsToDocument_DW()
 {
 
-	var arrScriptElements = new Array();
-	for(i in document.m_arrScripts)
+	var arrScriptElements = [];
+	var i
+	if(document.m_arrScripts)
 	{
-		arrScriptElements.push('<script src="' + document.m_arrScripts[i] +'">/**/</script>');
+		for(i = 0;i < document.m_arrScripts.length ; ++i)
+		{
+			arrScriptElements.push('<script type="text/javascript" src="' + document.m_arrScripts[i] +'">/**/</script>');
+		}
 	}
 	
 	if(document.all)
 	{
 		//Add the "Element Behaviours" to the list of stuff being added to the form for IE.
 		var collNamespaces = document.namespaces;
-		var arrImports = new Array();
+		var arrImports = [];
 
-		for(var i = 0; i < collNamespaces.length; ++i)
+		for(i = 0; i < collNamespaces.length; ++i)
 		{
 			if(collNamespaces[i].urn == "http://www.w3.org/2002/xforms")
 			{
@@ -116,9 +123,9 @@ function AddScriptsToDocument_DOM()
 
 function AddObjectTagAndImportInstructions()
 {
-	var sObjectTag = '<object classid="CLSID:4D0ABA11-C5F0-4478-991A-375C4B648F58" id="formsPlayer" height="0" width="0"><b>formsPlayer has failed to load! Please check your installation.</b></object>'
+	var sObjectTag = '<object classid="CLSID:4D0ABA11-C5F0-4478-991A-375C4B648F58" id="formsPlayer" height="0" width="0"><b>formsPlayer has failed to load! Please check your installation.</b></object>';
 	var collNamespaces = document.namespaces;
-	var arrImports = new Array();
+	var arrImports = [];
 
 	for(var i = 0; i < collNamespaces.length; ++i)
 	{
@@ -131,8 +138,8 @@ function AddObjectTagAndImportInstructions()
 	document.write(sObjectTag + arrImports.join('\n'));
 }
 	
-  AddXFormsFunctionalityToDocument = g_bUseFormsPlayer&&document.all?AddObjectTagAndImportInstructions:g_bUseDocumentDotWrite?AddScriptsToDocument_DW:AddScriptsToDocument_DOM;   
-  AddXFormsFunctionalityToDocument();
+  addXFormsFunctionalityToDocument = g_bUseFormsPlayer&&document.all?AddObjectTagAndImportInstructions:g_bUseDocumentDotWrite?AddScriptsToDocument_DW:AddScriptsToDocument_DOM;   
+  addXFormsFunctionalityToDocument();
 
 (
   function(){
@@ -146,7 +153,7 @@ function AddObjectTagAndImportInstructions()
 	//This is the local path from which the scripts might be served, when developing and debugging.
 	//	Do not check in with this variable populated, as it is personal to the individual user's
 	//	setup.  
-	var baseLocalPath = "file:///C:/svn/code.google.com/ubiquity-xforms0.3X/";
+	var baseLocalPath = "/";
    //This is not the same as setting "base" in the YUI loader, which concatenates with every fullpath
  	//By specifying the two paths, above, separately to their use, below, it is easy to change 
 	//	the path wholesale from a production-like environment, in which all files are fetched from the server
@@ -154,7 +161,9 @@ function AddObjectTagAndImportInstructions()
 	//	It also makes it possible to mix between local and remote paths, if, for example, one only wishes 
 	//	to investigate a few locally modified scripts, but fetch the rest from the server.
 
- 	var baseDefaultPath = baseLocalPath;
+ 	var baseDefaultPath = baseHTTPPath;
+	
+	window.status = "configuring module loader";
 	
     loader.addModule({ name: "xforms-listener",            type: "js",  fullpath: baseDefaultPath + "lib/dom/listener.js" });
     loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: baseDefaultPath + "lib/threads.js" });
@@ -261,28 +270,34 @@ function AddObjectTagAndImportInstructions()
 		requires:["xforms-insert-adjacent-html" ] });
 
     loader.require( "dom", "event", "logger", "animation", "connection",
-      "xforms-threads", "xforms-event-target-proxy", "xforms-dom2events", "xforms-vertex-target", "xforms-defs","second-onload"
-    );
+      "xforms-threads", "xforms-event-target-proxy", "xforms-dom2events",
+      "xforms-vertex-target", "xforms-defs","second-onload");
 
     loader.onFailure = function(msg, xhrobj) { 
-		window.atatus = "FAILLLLLL" + msg;
+		window.status = "Failed to load Ubiquity XForms: ";
     };
-  
+	var sBars = "";
+	loader.onProgress = function(o){
+		sBars += ("|");
+		window.status = ("Loading Ubiquity modules: " + sBars + " [" + o.name + "]");
+	};
+	
     loader.onSuccess = function(o) {
       YAHOO.util.Event.onDOMReady(
         function() {
-       	if (document.all)
+	       	if (document.all)
         	{
 				window.status = "ready";
         	}
-			        	
         }
       );
       window.status = "Successfully loaded Ubiquity XForms";
       spawn(InsertElementForOnloadXBL);
      
     };
+	window.status = "loading ubiquity modules";
 
     loader.insert();
+    
   }()
 );
