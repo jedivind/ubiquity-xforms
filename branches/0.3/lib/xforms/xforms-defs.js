@@ -22,7 +22,20 @@
 //	is implemented as a control.
 setupDecorator(
 	[
-	  /* Model */
+	//Switch off bindings within repeat, during load-time (FF )
+		{
+			selector:"xf\\:repeat > * ",
+			cssText:"-moz-binding:url();"
+		},
+		
+	//Switch bindings repeat back on within repeat.  (FF )
+
+		{
+			selector:"xf\\:repeat.repeat-ready > xf\\:group",
+			objects:["EventTarget", "Context", "Group"]
+		},
+
+  /* Model */
 
 		{
 			selector:"xf\\:instance",
@@ -42,7 +55,7 @@ setupDecorator(
 
     /* Controls */
 
-    {
+    		{
 			selector:"xf\\:trigger",
 			objects:["EventTarget", "Context", "Control"]
 		},
@@ -72,7 +85,7 @@ setupDecorator(
 			objects:["EventTarget", "Context", "Control"]
 		},
 
-    {
+    		{
 			selector:"xf\\:output",
 			objects:["EventTarget", "Context", "Control"]
 		},
@@ -118,7 +131,7 @@ setupDecorator(
 			objects:["EventTarget", "Context", "Control", "Select1"]
 		},
 
-    {
+    		{
 			selector:"xf\\:repeat",
 			objects:["EventTarget", "Context", "Repeat"]
 		},
@@ -128,7 +141,7 @@ setupDecorator(
 			objects:["EventTarget", "Context", "Group"]
 		},
 
-    {
+    		{
 			selector:"xf\\:case",
 			objects:["EventTarget", "XFormsCase"]
 		},
@@ -169,13 +182,12 @@ setupDecorator(
 			selector:"xf\\:label >  pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
-	//Switch off bindings within repeat, during load-time
+	//Switch off bindings within repeat, during load-time (IE )
 		{
 			selector:"xf\\:repeat *",
 			cssText:"-binding-ignore:true;"
 		},
-		
-	//Switch bindings repeat back on within repeat. 
+	//Switch bindings repeat back on within repeat.  (IE )
 		{
 			selector:"xf\\:repeat.repeat-ready *",
 			cssText:"-binding-ignore:false;"

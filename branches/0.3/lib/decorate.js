@@ -34,9 +34,6 @@ if(!g_sBehaviourDirectory)
 	//globals used in non-IE browsers.
 	var g_arrHandlersToCallOnLoad = new Array();
 
-	//Set up CallDocumentReadyHandlers for non-IE browsers
-	if(!document.all)
-		window.addEventListener("load",CallDocumentReadyHandlers,false);
 
 	/**
 		Called by implementations that do not natively support a documentReady event.
@@ -162,7 +159,7 @@ if(!g_sBehaviourDirectory)
 */	
 	function ieSetupDecorator(defs)
 	{
-        var bDocumentAlreadyLoaded = g_bDocumentLoaded;
+        		var bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
 		var oStyleSheet = document.createStyleSheet("",0);
 		//non-htc method
@@ -170,6 +167,7 @@ if(!g_sBehaviourDirectory)
 		//htc method
 		var sBehaviourRule = ";\n behavior: url("+g_sBehaviourDirectory+"applicator.htc);";
 		
+
 		for(var i = 0;defs.length > i;++i)
 		{
 			var sRule = "";
@@ -182,8 +180,8 @@ if(!g_sBehaviourDirectory)
 			//strip out child selectors, (replacing with the inferior descendent selectors)
 			//	These do not work in IE and even sometimes cause IE to close without warning
 			defs[i].selector = defs[i].selector.replace(/>/g,'');
-			oStyleSheet.addRule(defs[i].selector,sRule);
-		}
+				oStyleSheet.addRule(defs[i].selector,sRule);
+			}
 		g_bDocumentLoaded = bDocumentAlreadyLoaded;
 		if(bDocumentAlreadyLoaded)
 		{
