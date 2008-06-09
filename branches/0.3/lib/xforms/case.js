@@ -22,7 +22,7 @@ function XFormsCase(elmnt)
 XFormsCase.prototype.getSwitch = function()
 {
 	return this._case.element.parentNode;
-}
+};
 
 XFormsCase.prototype.deselect = function()
 {
