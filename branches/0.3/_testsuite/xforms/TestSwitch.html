@@ -103,7 +103,7 @@
 					<td>click</td>
 					<td>t2</td>
 					<td></td>
-					<td>clicks on the third trigger</td>
+					<td>clicks on the third trigger - toggling the  third case</td>
 				</tr>
 				<tr>
 					<td>assertVisible</td>
@@ -127,7 +127,7 @@
 					<td>click</td>
 					<td>t1</td>
 					<td></td>
-					<td>clicks on the second trigger</td>
+					<td>clicks on the second trigger - toggling the second case</td>
 				</tr>
 				<tr>
 					<td>assertVisible</td>
@@ -151,9 +151,8 @@
 					<td>click</td>
 					<td>t0</td>
 					<td></td>
-					<td>clicks on the first trigger</td>
+					<td>clicks on the first trigger toggling the first case</td>
 				</tr>
-				
 				<tr>
 					<td>assertVisible</td>
 					<td>xpath=/html/body/xf:switch[@id='s0']/xf:case[@id='s0c0']</td>
@@ -173,6 +172,37 @@
 					<td>checks that the third case of the first switch is not visible</td>
 				</tr>	
 								
+				<tr>
+					<td>click</td>
+					<td>t3</td>
+					<td></td>
+					<td>clicks on the fourth trigger toggling the first case of the second switch, selecting that case will, in turn, toggle the third case of the third switch, and deselecting s1c1 will toggle the third case of the first switch</td>
+				</tr>
+				<tr>
+					<td>assertVisible</td>
+					<td>s1c2</td>
+					<td>&nbsp;</td>
+					<td>checks that the third case of the second switch is visible</td>
+				</tr>
+				<tr>
+					<td>waitForVisible</td>
+					<td>s0c2</td>
+					<td>&nbsp;</td>
+					<td>waits for the selected and deselected event handlers to execute</td>
+				</tr>
+		
+				<tr>
+					<td>assertVisible</td>
+					<td>s0c2</td>
+					<td>&nbsp;</td>
+					<td>checks that the third case of the first switch is visible</td>
+				</tr>
+				<tr>
+					<td>assertVisible</td>
+					<td>s2c2</td>
+					<td>&nbsp;</td>
+					<td>checks that the third case of the third switch is visible</td>
+				</tr>
 				<tr>
 					<td>close</td>
 					<td></td>
