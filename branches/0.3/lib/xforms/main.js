@@ -236,8 +236,11 @@ function AddObjectTagAndImportInstructions()
       requires: [ "xforms-listener", "xforms-threads" ] });
 	//[TODO] (issue 10)  Now that loading performance is not a concern, break actions.js into one class per file
     loader.addModule({ name: "xforms-actions",              type: "js",  fullpath: baseDefaultPath + "lib/xforms/actions.js",
-		requires:["container"]});   	
-    loader.addModule({ name: "xforms-setvalue",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/setvalue.js" });
+		requires:["container"]});  
+    loader.addModule({ name: "xforms-setvalue",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/setvalue.js",
+    		requires:["xforms-actions"]});
+    loader.addModule({ name: "xforms-toggle",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/toggle.js",
+    		requires:["xforms-actions"]});
 	
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-defs.js",
       requires: [
@@ -247,7 +250,9 @@ function AddObjectTagAndImportInstructions()
         "xforms-model", "xforms-instance", "xforms-submission",
         "xforms-action", "xforms-context", "xforms-control",
         "xforms-input-value", "xforms-output-value", "xforms-range-value", 
-        "xforms-group","xforms-repeat","xforms-switch","xforms-actions","xforms-setvalue"
+        "xforms-group","xforms-repeat","xforms-switch",
+        "xforms-actions","xforms-setvalue","xforms-toggle"
+        
      ]    });
 
 

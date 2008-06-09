@@ -50,22 +50,6 @@ Recalculate.prototype.performAction = function(evt)
 	oModel.recalculate();
 }
 
-function Toggle(elmnt)
-{
-	this.element = elmnt;
-}
-
-Toggle.prototype.handleEvent = DeferToConditionalInvocationProcessor;
-
-Toggle.prototype.performAction = function (evt)
-{
-
-	var sCaseID = this.element.getAttribute("case");
-	var oCase = this.element.ownerDocument.getElementById(sCaseID);
-	var oSwitch = oCase.parentNode;
-	oSwitch.toggle(sCaseID);
-}
-
 function Dispatch(elmnt)
 {
 	this.element = elmnt;
