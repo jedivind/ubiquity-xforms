@@ -1,6 +1,7 @@
 #summary The Implementation status of XForms features.
 #labels Phase-Requirements
 
+All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_testsuite/selenium/core/TestRunner.html?test=..%2F..%2Fxforms%2FTestSuite.html Selenium TestRunner]
 = Elements =
 
 || *Element* || *feature*  || *IE* || *Firefox* ||
