@@ -17,7 +17,7 @@
 function Group(elmnt)
 {
 	this.element = elmnt;
-	this.m_MIPSCurrentlyShowing = new Object();
+	this.m_MIPSCurrentlyShowing = {};
 }
 
 	
@@ -25,7 +25,9 @@ function Group(elmnt)
 	{
 			var bRet = false;
 			if (this.m_proxy)
+			{
 				this.m_proxy = null;
+			}
 
 			var ctxBoundNode = this.getBoundNode(1);
 			var oPN = null;
@@ -50,20 +52,22 @@ function Group(elmnt)
 			 */
 
 			if (oPN)
+			{
 				this.m_proxy = oPN;
+			}
 
 			return bRet;
-	}
+	};
 	
 	Group.prototype.setValue = function(sValue)
 	{
 		return;
-	}
+	};
 
 	Group.prototype.setType = function(sType)
 	{
 		return;
-	}
+	};
 	
 	Group.prototype.addcontroltomodel = function()
 	{
@@ -76,12 +80,14 @@ function Group(elmnt)
 				setInitialState(this);
 				oModel.addControl(this);
 			}
-			else
+			else{
 				debugger;
+			}
 		}
-		else /* shouldn't be called twice */
+		else{ /* shouldn't be called twice */
 			debugger;
-	}
+		}
+	};
 	
 	
 	Group.prototype.refresh = function()
@@ -99,9 +105,9 @@ function Group(elmnt)
 				* a proxy...don't know how though!
 				*/
 
-			if (oProxy["node"])
+			if (oProxy.node)
 			{
-				oProxy = oProxy["node"];
+				oProxy = oProxy.node;
 
 				/*
 					* Now fix it so that we don't get this again. This is
@@ -115,13 +121,15 @@ function Group(elmnt)
 			this.setView(oProxy);
 		}
 		return;
-	}
-		Group.prototype.setView = function(oProxy)
-		{
-			setState(this,oProxy, "enabled", "enabled", "disabled");
-			setState(this,oProxy, "readonly", "read-only", "read-write");
-			setState(this,oProxy, "required", "required", "optional");
-			setState(this,oProxy, "valid", "valid", "invalid");
-			return;
-		}//setView()
-Group.prototype.onDocumentReady = Group.prototype.addcontroltomodel;
+	};
+
+	Group.prototype.setView = function(oProxy)
+	{
+		setState(this,oProxy, "enabled", "enabled", "disabled");
+		setState(this,oProxy, "readonly", "read-only", "read-write");
+		setState(this,oProxy, "required", "required", "optional");
+		setState(this,oProxy, "valid", "valid", "invalid");
+		return;
+	};
+
+	Group.prototype.onDocumentReady = Group.prototype.addcontroltomodel;
