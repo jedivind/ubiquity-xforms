@@ -72,23 +72,26 @@ Model.prototype.onDocumentReady = function()
 		Model.prototype.getInstanceDocument = function(sID)
 		{
 			var oRet = null;
+			var oInstance = null;
 
-			if (sID)
+			if (sID && sID !== "")
 			{
-				/*
-				 * [TODO] Should be getElementById().
-				 */
-
-				var oInstance = this.element.all(sID);
-				
-				if (!oInstance)
-					throw "No instance found with an ID of '" + sID + "'";
-				else if (oInstance.length)
-					throw "Multiple instances found with an ID of '" + sID + "'";
-				else
-					oRet = oInstance.m_oDOM;
-					//oRet = oInstance.getDocument();
+				oInstance = document.getElementById(sID);
 			}
+			else
+			{
+				oInstance = getElementsByTagNameNS(this.element, "xf","instance")[0];
+			}	
+			
+			if (!oInstance)
+				throw "No instance found with an ID of '" + sID + "'";
+			else if(oInstance.parentNode !=this.element)
+				throw "instance '" + sID + "' is not part of model '"+this.element.id+"'";
+			else if (oInstance.length)
+				throw "Multiple instances found with an ID of '" + sID + "'";
+			else
+				oRet = oInstance.m_oDOM;
+				
 			return oRet;
 		}
 
