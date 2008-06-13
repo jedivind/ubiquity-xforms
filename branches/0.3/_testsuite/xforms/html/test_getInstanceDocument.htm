@@ -28,10 +28,10 @@
 				if (aInst)
 					alert(aInst.documentElement.getAttribute("name"));
 				else 
-					alert("Instance is empty");		    	  
+					alert("no instance");		    	  
 			}
 			catch(e){
-				alert(e);
+				alert("no instance");
 			}    
 		}
 	    
@@ -63,11 +63,12 @@
 			</xf:instance>
 		</xf:model>
 		<hr />
+		<xf:output ref="*" id="inp-gid"></xf:output>
 		<a href="javascript:showInstance('i0')" id="a0">show instance 'i0'</a>
 		<a href="javascript:showInstance('')" id="a1" >show instance ''</a>
 		<a href="javascript:showInstance()" id="a2">show instance ''</a>
 		<a href="javascript:showInstance('i1')" id="a3">show instance 'i1'</a>
 		<a href="javascript:showInstance('i3')" id="a4">show instance 'i3'</a>
-<xf:input ref="*"></xf:input>
+
 	</body>
 </html>

@@ -82,13 +82,10 @@ Model.prototype.onDocumentReady = function()
 			{
 				oInstance = getElementsByTagNameNS(this.element, "xf","instance")[0];
 			}	
-			
 			if (!oInstance)
 				throw "No instance found with an ID of '" + sID + "'";
 			else if(oInstance.parentNode !=this.element)
 				throw "instance '" + sID + "' is not part of model '"+this.element.id+"'";
-			else if (oInstance.length)
-				throw "Multiple instances found with an ID of '" + sID + "'";
 			else
 				oRet = oInstance.m_oDOM;
 				
