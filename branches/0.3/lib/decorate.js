@@ -355,33 +355,28 @@ function DecorateBehaviour(element,handleContentReady, handleDocumentReady)
 	{
 		var bReturn = false;
 		var tIndex = element.getAttribute("tabindex");
-		if(tIndex == 0)
+		if(tIndex == 0){
 			element.tabIndex = 1;
+		}
 		
 		element.constructors = new Array();
 		element.contentReadyHandlers = new Array();
 		element.documentReadyHandlers = new Array();
-		var arrBehaviours = getDecorationObjectNames(element);
-		
-		
-		if(arrBehaviours.length  > 0)
-		{
-			//alert("decorating\n" + element.nodeName + 
-			//	" -  " + element.getAttribute("id") + "\n with \n" + arrBehaviours.join("\n"));
-			
-			for(var i = 0;i < arrBehaviours.length;++i)
-			{
+
+		var arrBehaviours = getDecorationObjectNames(element);				
+		if(arrBehaviours.length  > 0){
+			for(var i = 0;i < arrBehaviours.length;++i){
 				AddObjectBehaviour(element,arrBehaviours[i]);
 			}
 			callHandlers(element,element.ctor);
+
 			//If the caller has requested that this function shoudl sort out 
 			//	contentReady and documentReady, sort them out now.
-			if(handleContentReady)
-			{
+			if(handleContentReady){
 				callHandlers(element,element.onContentReady);
 			}
-			if(handleDocumentReady)
-			{
+			
+			if(handleDocumentReady){
 				RegisterForOnloadOrCallNow(element,element.onDocumentReady);
 			}
 

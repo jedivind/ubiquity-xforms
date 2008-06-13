@@ -35,28 +35,34 @@ if(g_bHTC)
 		var oInst = document.getElementById(sInstance);
 		var ret = null;
 		if(oInst)
+		{
 			ret = new Array(oInst.getDocument().documentElement);
+		}
 		return new NodeSetValue(ret);
-	}
+	};
 }
 else
 {
 	/**
 		This is a formsPlayer specific function to return any instance, regardless of the in-scope model,
 		not part of the core function library
-	@addon*/
+		@addon
+	*/
 	FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx)
 	{
 		var sInstance = this.args[0].evaluate(ctx).stringValue();
 		var oInst = document.ModelManager.getInstance(sInstance);
 		var ret = null;
 		if(oInst)
+		{
 			ret = new Array(oInst.documentElement);
+		}
 		return new NodeSetValue(ret);
-	}
+	};
 }
 
-/**@addon
+/**
+@addon
 */
 FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx)
 {
@@ -64,24 +70,26 @@ FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx)
                 
 	if(ctx.currentModel)
 	{
-  try
+		try
         {
      		var sInstance = this.args[0].evaluate(ctx).stringValue();
 		
-		//ret.push(g_currentModel.getInstance(sInstance).documentElement);
-		var oDom = ctx.currentModel.getInstanceDocument(sInstance);
-		var oDE = oDom.documentElement;
+			//ret.push(g_currentModel.getInstance(sInstance).documentElement);
+			var oDom = ctx.currentModel.getInstanceDocument(sInstance);
+			var oDE = oDom.documentElement;
 
-		ret = new Array(oDE);
-    }
-    catch(e)
-    {
-        throw("XPath function: instance("+sInstance+") is not a member of  model " + ctx.currentModel.id )
-    }	}
+			ret = new Array(oDE);
+		}
+		catch(e)
+		{
+			throw("XPath function: instance("+sInstance+") is not a member of  model " + ctx.currentModel.id )
+		}
+	}
 	else
 	{
 		throw("instance() executed without a current model")
 	}
+
 	if(this.args[1])
 	{
 		alert(this.args.join('\n'));
@@ -102,18 +110,20 @@ FunctionCallExpr.prototype.xpathfunctions["if"] = function(ctx)
 	{
 		return new StringValue(this.args[2].evaluate(ctx).stringValue());
 	}
-}
+};
+
 /**@addon*/
 String.prototype.trim=function(){
     return this.replace(/^\s*|\s*$/g,'');
-}
+};
+
 /**@addon*/
 FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = function(ctx)
 {
 	var sBool = this.args[0].evaluate(ctx).stringValue();
 	sBool = sBool.trim();
 	return new BooleanValue((sBool == "true") || (sBool == "1"));
-}
+};
 
 /**@addon*/
 FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx)
@@ -137,7 +147,7 @@ FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx)
 	var diff = dDate-dOrigin;
 	
 	return new NumberValue(Math.floor(diff/86400000));
-}
+};
 
 /**@addon*/
 FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx)
@@ -153,58 +163,51 @@ FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx)
 
 	s += d.getFullYear() + "-";
 
-	/*
-	 * If the month is less than ten give it a leading zero.
-	 */
+	// If the month is less than ten give it a leading zero.	
 
 	x = d.getMonth() + 1;
 	if (x < 10)
 		x = "0" + x;
 	s += x + "-";
 
-	/*
-	 * Similarly, if the date is less than ten give it a leading zero.
-	 */
+	// Similarly, if the date is less than ten give it a leading zero.
 
 	x = d.getDate();
 	if (x < 10)
 		x = "0" + x;
 	s += x;
-
-	/*
-	 * The date is separate from the time with a 'T'.
-	 */
-
+	
+	// The date is separate from the time with a 'T'.
+	
 	s += "T"
 
-	/*
-	 * Get the hours, and again add leading zeros if necessary.
-	 */
+	// Get the hours, minutes, and seconds, again adding leading zeros if necessary.	 
 
 	x = d.getHours();
-	if (x < 10)
+	if (x < 10){
 		x = "0" + x;
+	}
 	s += x + ":";
 	
 	x = d.getMinutes();
-	if (x < 10)
+	if (x < 10){
 		x = "0" + x;
+	}
 	s += x + ":";
 
 	x = d.getSeconds();
-	if (x < 10)
+	if (x < 10){
 		x = "0" + x;
+	}
 	s += x;
 
-	/*
-	 * Return the result as a string.
-	 */
+	// Return the result as a string.
 
 	return new StringValue(s);
-}
+};
 
 
-/**This function is just a placeholder and is not currently implemented, it currently always returns 1 (first index)
+/**
 @addon
 */
 FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx)
@@ -213,4 +216,4 @@ FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx)
 	var oRpt = document.getElementById(s);
 	
     return new NumberValue(oRpt.getIndex());
-}
+};
