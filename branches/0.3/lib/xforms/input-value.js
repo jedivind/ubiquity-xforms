@@ -22,46 +22,7 @@ function XFormsInputValue(elmnt)
 	//this.ctor();
 }
 
-XFormsInputValue.prototype.onDocumentReady = function()
-{
-	if (this.element.ownerDocument.media != "print")
-	{
-		var oInput = document.createElement("input");
-	
-		oInput.style.backgroundColor = "transparent";
-	//	oInput.style.width = "100%";
-		oInput.style.padding = "0";
-		oInput.style.margin = "0";
-		oInput.style.border = "0";
-
-		var pThis = this;
-		if(document.all)
-			oInput.attachEvent("onchange", function(e){IEValueChanged(pThis,e);});
-		else
-			oInput.addEventListener("change",function(e){FFValueChanged(pThis,e);},false)
-
-			
-		if(this.element.parentNode.tagName == "secret")
-		{
-			oInput.type="password";
-		}
-//		else
-//			oInput.setAttribute("type","text");
-			
-		this.element.appendChild(oInput);
-
-		/*
-			* [ISSUE] Stick with other method of always
-			* 'locating' things just when we need them?
-			*/
-
-		this.m_value = oInput;
-		//this.m_value.value = "null value";		
-
-	}
-};
-
-function IEValueChanged(pThis,evt)
+function valueChangedIE(pThis,evt)
 {
 	/*
 	 * [ISSUE] Not really suitable to use mutation events.
@@ -83,7 +44,7 @@ function IEValueChanged(pThis,evt)
 
 }
 
-function FFValueChanged(pThis,evt)
+function valueChangedFF(pThis,evt)
 {
 	/*
 	 * [ISSUE] Not really suitable to use mutation events.
@@ -102,6 +63,59 @@ function FFValueChanged(pThis,evt)
 	 evt.cancelBubble = true;
 
 }
+
+function getNamespaceFreeNodeName(node)
+{
+	var sNodeName = node.nodeName;
+	return sNodeName.slice(sNodeName.indexOf(":")+1,sNodeName.length).toLowerCase();
+}
+
+XFormsInputValue.prototype.onDocumentReady = function()
+{
+	if (this.element.ownerDocument.media != "print")
+	{
+		var sTagNameLC = getNamespaceFreeNodeName(this.element.parentNode);
+		var sElementToCreate = (sTagNameLC == "textarea")?"textarea":"input"; 
+		var oInput = document.createElement(sElementToCreate);
+	
+		oInput.style.backgroundColor = "transparent";
+	//	oInput.style.width = "100%";
+		oInput.style.padding = "0";
+		oInput.style.margin = "0";
+		oInput.style.border = "0";
+
+		var pThis = this;
+		if(document.all)
+		{
+			oInput.attachEvent("onchange", function(e){valueChangedIE(pThis,e);});
+		}
+		else
+		{
+			oInput.addEventListener("change",function(e){valueChangedFF(pThis,e);},false);
+		}
+
+			
+		if(sTagNameLC== "secret")
+		{
+			oInput.type="password";
+		}
+		else if(sTagNameLC !== "textarea")
+		{
+			oInput.setAttribute("type","text");
+		}
+			
+		this.element.appendChild(oInput);
+
+		/*
+			* [ISSUE] Stick with other method of always
+			* 'locating' things just when we need them?
+			*/
+
+		this.m_value = oInput;
+		//this.m_value.value = "null value";		
+
+	}
+};
 
 XFormsInputValue.prototype.setValue = function(sValue)
 {
