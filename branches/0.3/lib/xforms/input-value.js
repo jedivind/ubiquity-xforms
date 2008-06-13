@@ -39,11 +39,14 @@ XFormsInputValue.prototype.onDocumentReady = function()
 			oInput.attachEvent("onchange", function(e){IEValueChanged(pThis,e);});
 		else
 			oInput.addEventListener("change",function(e){FFValueChanged(pThis,e);},false)
+
 			
 		if(this.element.parentNode.tagName == "secret")
+		{
 			oInput.type="password";
-		else
-			oInput.setAttribute("type","text");
+		}
+//		else
+//			oInput.setAttribute("type","text");
 			
 		this.element.appendChild(oInput);
 
@@ -56,7 +59,7 @@ XFormsInputValue.prototype.onDocumentReady = function()
 		//this.m_value.value = "null value";		
 
 	}
-}
+};
 
 function IEValueChanged(pThis,evt)
 {
@@ -117,4 +120,4 @@ XFormsInputValue.prototype.setValue = function(sValue)
 	}
 	
 	return bRet;
-}
+};

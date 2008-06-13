@@ -69,12 +69,12 @@ setupDecorator(
 			selector:" xf\\:value  > pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
-
+/*
 		{
 			selector:"pe-value",
 			objects:["EventTarget"]
 		},
-    
+    */
 		{
 			selector:"xf\\:input",
 			objects:["EventTarget", "Context", "Control"]
@@ -91,7 +91,12 @@ setupDecorator(
 		},
 
 		{
-			selector:"xf\\secret",
+			selector:"xf\\:textarea",
+			objects:["EventTarget", "Context", "Control"]
+		},
+		
+		{
+			selector:"xf\\:secret",
 			objects:["EventTarget", "Context", "Control"]
 		},
 		{
@@ -107,14 +112,22 @@ setupDecorator(
 			selector:"xf\\:input > pe-value",
 			objects:["EventTarget", "XFormsInputValue"]
 		},
+		{
+			selector:"xf\\:secret  > pe-value",
+			objects:["EventTarget", "XFormsInputValue"]
+		},
+		{
+			selector:"xf\\:textarea  > pe-value",
+			objects:["EventTarget", "XFormsInputValue"]
+		},
 	
 		{
 			selector:"xf\\:select > pe-value",
-			objects:["EventTarget", "InputValue"]
+			objects:["EventTarget", "XFormsInputValue"]
 		},
 		{
 			selector:"xf\\:select1 >  pe-value ",
-			objects:["EventTarget", "InputValue"]
+			objects:["EventTarget", "XFormsInputValue"]
 		},
 		{
 			selector:"xf\\:range > pe-value",
