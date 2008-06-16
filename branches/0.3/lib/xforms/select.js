@@ -30,31 +30,21 @@ function Select1(elmnt)
 			switch(oEvt.type)
 			{
 				case "fp-select":
-				{
 					var oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
 					oEvt1.initEvent("control-value-changed", false, true,null, "",oEvt.target.getvalue(), 1);
 					oEvt1._actionDepth = oEvt._actionDepth;
 					FormsProcessor.dispatchEvent(this.element.m_value,oEvt1);
 					break;
-				}
-					
 				case "fp-deselect":
-				{
-				
 					break;
-				}
-				
 				case "data-value-changed":
-				{
 					this.onSelectionChanged(oEvt.newValue);
 					break;
-				}
 				case "xforms-select":
 				case "xforms-deselect":
 					oEvt.stopPropagation();
-				
-			}				
-		}
+			}			
+		};
 		
 	
 Select1.prototype.focusOnValuePseudoElement = function()
@@ -66,7 +56,7 @@ Select1.prototype.focusOnValuePseudoElement = function()
 			this.m_value.focus();
 		}
 	}
-}
+};
 	
 		Select1.prototype.onSelectionChanged = function (s)
 		{
@@ -74,14 +64,16 @@ Select1.prototype.focusOnValuePseudoElement = function()
 			oEvt1.initEvent("selection-changed", false, false,	null, "",s, 1);
 			FormsProcessor.dispatchEvent(this.element,oEvt1);
 			return;
-		}
+		};
 		
 		Select1.prototype.onContentReady = function()
 		{
-			var s = this.getAttribute("appearance")
-			if(s != undefined && s != "")
-				this.className += "appearance-"	+ s;
-		}
+			var s = this.getAttribute("appearance");
+			if(s !== undefined && s !== "")
+			{
+				this.className += "appearance-" + s;
+			}
+		};
 		
 		Select1.prototype.onDocumentReady = function()
 		{
@@ -109,7 +101,7 @@ Select1.prototype.focusOnValuePseudoElement = function()
 					}
 					this.m_choices = oPeChoices;
 				}
-		}
+		};
 		
 	function Select(elmnt)
 	{	
@@ -119,34 +111,32 @@ Select1.prototype.focusOnValuePseudoElement = function()
 		this.element.addEventListener("xforms-select",this,false);
 		this.element.addEventListener("xforms-deselect",this,false);
 		this.element.addEventListener("data-value-changed",this,false);
-		this.m_values = new Array();
+		this.m_values = [];
 	}
 	
 		Select.prototype.handleEvent = function(oEvt)
 		{
+			var oEvt1;
 			switch(oEvt.type)
 			{
 				case "fp-select":
-				{
 					this.m_values.push(oEvt.target.getvalue());
-					var oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
+					oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
 					oEvt1.initEvent("control-value-changed", false, true,
 						null, "",this.m_values.join(" "), 1);
 					oEvt1._actionDepth = oEvt._actionDepth;
 					FormsProcessor.dispatchEvent(this.element.m_value,oEvt1);
 					break;
-				}
 					
 				case "fp-deselect":
-				{
-					var s = oEvt.target.getvalue()
+					var s = oEvt.target.getvalue();
 					for(var i = 0;i < m_values.length;++i)
 					{
 						if(s == m_values[i])
 						{
 							this.m_values.splice(i,1);
 
-							var oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
+							oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
 							oEvt1.initEvent("control-value-changed", false, true,
 								null, "",this.m_values.join(" "), 1);
 							oEvt1._actionDepth = oEvt._actionDepth;
@@ -155,18 +145,17 @@ Select1.prototype.focusOnValuePseudoElement = function()
 						}
 					}
 					break;
-				}
 				case "data-value-changed":
-				{
 					this.m_values = oEvt.newValue.split(" ");
 					onSelectionChanged(oEvt.newValue);
-				}
+					oEvt.stopPropagation();
+					break;
 				case "xforms-select":
 				case "xforms-deselect":
 					oEvt.stopPropagation();
 				break;
 			}				
-		}
+		};
 		
 		Select.prototype.onSelectionChanged = function(s)
 		{
@@ -174,7 +163,7 @@ Select1.prototype.focusOnValuePseudoElement = function()
 			oEvt1.initEvent("selection-changed", false, false,null, "",s.split(" "), 1);
 			FormsProcessor.dispatchEvent(element,oEvt1);
 			return;
-		}
+		};
 		
 		
 		

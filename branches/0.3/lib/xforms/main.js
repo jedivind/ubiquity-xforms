@@ -241,6 +241,10 @@ function AddObjectTagAndImportInstructions()
     		requires:["xforms-actions"]});
     loader.addModule({ name: "xforms-toggle",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/toggle.js",
     		requires:["xforms-actions"]});
+    loader.addModule({ name: "xforms-select",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/select.js",
+    		requires:["xforms-dom2events"]});
+    loader.addModule({ name: "xforms-item",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/item.js",
+    		requires:["xforms-dom2events"]});
 	
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-defs.js",
       requires: [
@@ -251,6 +255,7 @@ function AddObjectTagAndImportInstructions()
         "xforms-action", "xforms-context", "xforms-control",
         "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-group","xforms-repeat","xforms-switch",
+        "xforms-select","xforms-item",
         "xforms-actions","xforms-setvalue","xforms-toggle"
         
      ]    });

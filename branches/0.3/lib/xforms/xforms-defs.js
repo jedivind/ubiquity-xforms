@@ -105,7 +105,11 @@ setupDecorator(
 		},
 		{
 			selector:"xf\\:value",
-			objects:["EventTarget", "Context", "Control"]
+			objects:["EventTarget", "Context", "Control","Value"]
+		},
+		{
+			selector:"xf\\:item",
+			objects:["EventTarget", "Context", "Item"]
 		},
 
 		{
