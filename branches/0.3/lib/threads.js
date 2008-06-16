@@ -14,34 +14,37 @@
  * limitations under the License.
  */
  
+/*global setTimeout*/
 
 function spawn(pFunc,pOnEnd)
 {
-	if(pOnEnd)
+	if(pOnEnd){
 		setTimeout(function(){pFunc();spawn(pOnEnd);}, 1);
-	else
+	}
+	else{
 		setTimeout(pFunc, 1);
+	}
 }
 
 function SpawnLooper(pFuncs,pOnEnd)
 {
-	var m_pFuncs = pFuncs?pFuncs:new Array();
+	var m_pFuncs = pFuncs?pFuncs:[];
 	var m_pOnEnd = pOnEnd;
 	var m_activeSpawns = 0;
 	
 	this.addSpawn = function(pFunc)
 	{
 		m_pFuncs.push(pFunc);
-	}
+	};
 	
 	this.decrementActiveSpawns = function()
 	{
-		if(--m_activeSpawns == 0)
-		{
-			if(m_pOnEnd)
+		if(--m_activeSpawns === 0){
+			if(m_pOnEnd){
 				spawn(m_pOnEnd);
+			}
 		}
-	}
+	};
 	
 	this.go = function()
 	{
@@ -52,5 +55,5 @@ function SpawnLooper(pFuncs,pOnEnd)
 		{
 			spawn(m_pFuncs[i],callback);
 		}
-	}
+	};
 }
