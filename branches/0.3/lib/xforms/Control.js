@@ -130,42 +130,44 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					* an event that tells us the data has changed.
 					*/
 			if(!this.addedTVCListener)
-			try
 			{
 				if(!this.m_value)
 				{
 					this.AddValuePseudoElement();
 				}
-
-				this.m_value.addEventListener(
-					"control-value-changed",
-					{
-						control: this,
-						handleEvent: function(evt)
+				
+				if(this.m_value.addEventListener)
+				{
+					this.m_value.addEventListener(
+						"control-value-changed",
 						{
-							if(document.all)
+							control: this,
+							handleEvent: function(evt)
 							{
-								evt.type = "target-value-changed";
-								FormsProcessor.dispatchEvent(this.control,evt);
-							}
-							else
-							{
-								var oEvt = this.control.element.ownerDocument.createEvent("MutationEvents");
-								oEvt.initMutationEvent("target-value-changed", true, true,
-									null, evt.prevValue, evt.newValue, null, null);
-								FormsProcessor.dispatchEvent(this.control,oEvt);
+								if(document.all)
+								{
+									evt.type = "target-value-changed";
+									FormsProcessor.dispatchEvent(this.control,evt);
+								}
+								else
+								{
+									var oEvt = this.control.element.ownerDocument.createEvent("MutationEvents");
+									oEvt.initMutationEvent("target-value-changed", true, true,
+										null, evt.prevValue, evt.newValue, null, null);
+									FormsProcessor.dispatchEvent(this.control,oEvt);
 
+								}
+								//this.control.element.ownerDocument.xformslog.log("target-value-changed", "event");
 							}
-							//this.control.element.ownerDocument.xformslog.log("target-value-changed", "event");
-						}
-					},
-					false
-				);
-				addedTVCListener = true
-			}
-			catch(e)
-			{
-				debugger;
+						},
+						false
+					);
+					addedTVCListener = true
+				}
+				else
+				{
+					
+				}
 			}
 		}
 
