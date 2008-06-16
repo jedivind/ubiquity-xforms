@@ -24,6 +24,7 @@
 /**
 	path to the directory that contains decorator.xml and applicator.htc
 */
+
 if(!g_sBehaviourDirectory)
 {
 	g_sBehaviourDirectory = "behaviours/";
@@ -33,7 +34,6 @@ if(!g_sBehaviourDirectory)
 
 	//globals used in non-IE browsers.
 	var g_arrHandlersToCallOnLoad = new Array();
-
 
 	/**
 		Called by implementations that do not natively support a documentReady event.
@@ -163,9 +163,9 @@ if(!g_sBehaviourDirectory)
 		g_bDocumentLoaded = false;
 		var oStyleSheet = document.createStyleSheet("",0);
 		//non-htc method
-		//var sBehaviourRule = ";\n behavior: expression(decorate(this)); ";
+		var sBehaviourRule = "\n behavior: expression(decorate(this)); ";
 		//htc method
-		var sBehaviourRule = ";\n behavior: url("+g_sBehaviourDirectory+"applicator.htc);";
+		//var sBehaviourRule = ";\n behavior: url("+g_sBehaviourDirectory+"applicator.htc);";
 		
 
 		for(var i = 0;defs.length > i;++i)
