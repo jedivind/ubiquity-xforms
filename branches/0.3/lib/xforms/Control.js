@@ -17,7 +17,7 @@
 function Control(elmnt)
 {
 	this.element = elmnt;
-	this.m_MIPSCurrentlyShowing = new Object();
+	this.m_MIPSCurrentlyShowing = {};
 	this.addedTVCListener = false;
 
 }
@@ -32,7 +32,7 @@ Control.prototype.focusOnValuePseudoElement = function()
 			this.m_value.focus();
 		}
 	}
-}
+};
 
 
 Control.prototype.RetrieveValuePseudoElement = function()
@@ -51,39 +51,44 @@ Control.prototype.RetrieveValuePseudoElement = function()
 		}
 	}
 	return this.m_value;
-}
+};
 
 		Control.prototype.AddValuePseudoElement = function()
 		{
 			try{
-			if (document.media != "print")
-			{
-				//if (this.element.getElementByTagName("pe-value"))
-				//	debugger;
-				this.RetrieveValuePseudoElement();
-				//document.logger.log("Attaching: " + this.element.tagName + ":" + this.element.uniqueID, "info");
-				if(!this.m_value)
+				if (document.media != "print")
 				{
-					//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
-					//	If createElement is used in firefox, the xbl does not bind.
-					//	If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
-					if(document.all)
+					//if (this.element.getElementByTagName("pe-value"))
+					//	debugger;
+					this.RetrieveValuePseudoElement();
+					//document.logger.log("Attaching: " + this.element.tagName + ":" + this.element.uniqueID, "info");
+					if(!this.m_value)
 					{
-						this.m_value = document.createElement("pe-value");
-						this.element.appendChild(this.m_value);
+						//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
+						//	If createElement is used in firefox, the xbl does not bind.
+						//	If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
+						if(document.all)
+						{
+							this.m_value = document.createElement("pe-value");
+							this.element.appendChild(this.m_value);
+						}
+						else
+						{
+							this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
+							this.m_value = this.element.lastChild;
+						}
+	
+						window.status = "";
 					}
-					else
-					{
-						this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
-						this.m_value = this.element.lastChild;
-					}
-
-					window.status = "";
+					this.m_bAddedToModel = false;
 				}
-				this.m_bAddedToModel = false;
 			}
-			}catch(e){debugger;alert("e.description");}
-		}
+			catch(e)
+			{
+				//debugger;
+				alert("e.description");
+			}
+		};
 		/*
 		 * Let the model know that we exist.
 		 */
@@ -102,8 +107,10 @@ Control.prototype.RetrieveValuePseudoElement = function()
 				}
 			}
 			else
-				debugger; /* shouldn't be called twice */
-		}
+			{
+				throw("Controls should only be added to the model once each.");
+			}
+		};
 
 
 		Control.prototype.rewire = function()
@@ -121,14 +128,14 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			 */
 
 			return this.xrewire();
-		}
+		};
 		
 		Control.prototype.AddTVCListener = function()
 		{
-					/*
-					* Any implementation of pe-value must provide
-					* an event that tells us the data has changed.
-					*/
+			/*
+			* Any implementation of pe-value must provide
+			* an event that tells us the data has changed.
+			*/
 			if(!this.addedTVCListener)
 			{
 				if(!this.m_value)
@@ -162,14 +169,14 @@ Control.prototype.RetrieveValuePseudoElement = function()
 						},
 						false
 					);
-					addedTVCListener = true
+					this.addedTVCListener = true;
 				}
 				else
 				{
 					
 				}
 			}
-		}
+		};
 
 		/*
 		 * Setting the value on a control actually sets it on the
@@ -209,7 +216,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					"Control '" + this.element.tagName + "' has no setValue() method.", "control");
 			}
 			return;
-		}
+		};
 
 		Control.prototype.setType = function(sType)
 		{
@@ -225,7 +232,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 				YAHOO.util.Dom.addClass(this.element, this.m_type);
 			}
 			return;
-		}
+		};
 
 		Control.prototype.setView = function(oProxy)
 		{
@@ -234,7 +241,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			setState(this,oProxy, "required", "required", "optional");
 			setState(this,oProxy, "valid", "valid", "invalid");
 			return;
-		}//setView()
+		};
 
 
 		/*
@@ -332,7 +339,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			//else
 			//	debugger;
 			return bRet;
-		}
+		};
 
 		Control.prototype.refresh  = function()
 		{
@@ -379,17 +386,17 @@ Control.prototype.RetrieveValuePseudoElement = function()
 				this.element.setValue(oProxy.getValue());
 			}
 			return;
-		}
+		};
 		
 Control.prototype.onDocumentReady = Control.prototype.addcontroltomodel;
 Control.prototype.onContentReady  = Control.prototype.AddValuePseudoElement;
 Control.prototype.ctor = function()
-		{
-			var pThis = this;
-			function shiftFocus()
-			{
-				pThis.focusOnValuePseudoElement();
-			}
-			if(document.all)
-				this.attachEvent("onfocusin",shiftFocus)
-		}
+{
+	var pThis = this;
+	function shiftFocus()
+	{
+		pThis.focusOnValuePseudoElement();
+	}
+	if(document.all)
+		this.attachEvent("onfocusin",shiftFocus)
+};

@@ -16,10 +16,9 @@
 
 function XFormsInputValue(elmnt)
 {
-	this.element = elmnt;
-	this.currValue = "";
-	this.m_bFirstSetValue = true;
-	//this.ctor();
+	element = elmnt,
+	currValue = "",
+	m_bFirstSetValue = true
 }
 
 function valueChangedIE(pThis,evt)
@@ -64,9 +63,9 @@ function valueChangedFF(pThis,evt)
 
 }
 
-function getNamespaceFreeNodeName(node)
+XFormsInputValue.prototype.getOwnerNodeName  = function()
 {
-	var sNodeName = node.nodeName;
+	var sNodeName = this.element.parentNode.nodeName;
 	return sNodeName.slice(sNodeName.indexOf(":")+1,sNodeName.length).toLowerCase();
 }
 
@@ -74,12 +73,11 @@ XFormsInputValue.prototype.onDocumentReady = function()
 {
 	if (this.element.ownerDocument.media != "print")
 	{
-		var sTagNameLC = getNamespaceFreeNodeName(this.element.parentNode);
+		var sTagNameLC = this.getOwnerNodeName();
 		var sElementToCreate = (sTagNameLC == "textarea")?"textarea":"input"; 
 		var oInput = document.createElement(sElementToCreate);
 	
 		oInput.style.backgroundColor = "transparent";
-	//	oInput.style.width = "100%";
 		oInput.style.padding = "0";
 		oInput.style.margin = "0";
 		oInput.style.border = "0";
@@ -106,7 +104,7 @@ XFormsInputValue.prototype.onDocumentReady = function()
 			
 		this.element.appendChild(oInput);
 
-		/*
+			/*
 			* [ISSUE] Stick with other method of always
 			* 'locating' things just when we need them?
 			*/
