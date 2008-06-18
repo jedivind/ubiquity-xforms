@@ -494,7 +494,7 @@
 		
 		function _model_contentReady(pThis)
 		{
-			pThis.changeList = new changeList();
+			pThis.changeList = new ChangeList();
 			pThis.m_oDE = new dependencyEngine();
 	
 			/*
