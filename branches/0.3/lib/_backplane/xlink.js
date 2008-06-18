@@ -269,7 +269,7 @@ function XLinkElement(element)
 		}
 		catch(e)
 		{
-	//		alert(e + "\n" + sHref)
+			alert(e + "\n" + sHref)
 			debugger;
 			//oCallBack.failure()
 		}
