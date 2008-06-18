@@ -26,7 +26,7 @@ YAHOO.util.Connect.handleTransactionResponse = function(o, callback, isAbort)
 			return;
 		}
 		var httpStatus, responseObject;
-
+alert(o.conn.status)
 		try
 		{
 			if(o.conn.status === 0){
