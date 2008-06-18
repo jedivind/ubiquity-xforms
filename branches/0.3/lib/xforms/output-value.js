@@ -25,12 +25,12 @@ if(document.all)
 	{
 		this.element.innerText = sValue;
 		return;
-	}
+	};
 
 	XFormsOutputValue.prototype.getValue = function()
 	{
 		return this.element.innerText;
-	}
+	};
 }
 else
 {
@@ -38,10 +38,10 @@ else
 	{
 		this.element.textContent = sValue;
 		return;
-	}
+	};
 
 	XFormsOutputValue.prototype.getValue = function()
 	{
 		return this.element.textContent;
-	}
+	};
 }
