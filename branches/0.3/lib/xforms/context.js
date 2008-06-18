@@ -120,7 +120,7 @@ Context.prototype.getBoundNode = function(nOrdinal)
 					{
 						//Having fetched a model node which corresponds to the given @model IDREF
 						//	Find the model to which the parent element is bound.
-						var oCTXModel = GetModelFor(pThis.element.parentNode);
+						var oCTXModel = getModelFor(pThis.element.parentNode);
 						//In the case that the parent's model and the model fetched from the @model IDREF
 						//	are identical, the evaluation context for pThis node is the context gleaned
 						//	from its position within the document, to wit, the same context as though it 

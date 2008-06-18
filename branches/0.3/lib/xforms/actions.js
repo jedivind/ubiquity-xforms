@@ -94,7 +94,7 @@ Dispatch.prototype.performAction = function (evt)
 			}
 		}
 	}
-}
+};
 
 function Send(elmnt)
 {
@@ -140,7 +140,7 @@ Send.prototype.performAction = function (evt)
 	}
 	else
 		throw "A submission ID is required.";
-}
+};
 
 function Load(elmnt)
 {
@@ -186,7 +186,7 @@ Load.prototype.performAction 	= function(evt)
 			this.element.Actuate();
 		}
 	}
-}
+};
 
 
 function Message(elmnt)
@@ -276,4 +276,4 @@ Message.prototype.performAction = function(evt)
         default :
     			throw "E_NOTIMPL";
 	}
-}
+};

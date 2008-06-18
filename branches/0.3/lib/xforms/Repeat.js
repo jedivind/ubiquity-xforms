@@ -74,7 +74,7 @@ function Repeat(elmnt)
 		{
 			if (!this.m_bAddedToModel)
 			{
-				var oModel = GetModelFor(this);
+				var oModel = getModelFor(this);
 				if (oModel)
 					oModel.addControl(this);
 				else

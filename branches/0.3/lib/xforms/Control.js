@@ -98,7 +98,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			if (!this.m_bAddedToModel)
 			{
 				
-				var oModel = GetModelFor(this);
+				var oModel = getModelFor(this);
 
 				if (oModel)
 				{

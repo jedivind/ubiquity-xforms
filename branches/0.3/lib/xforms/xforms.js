@@ -22,7 +22,7 @@
 	@param {Object} oNode, node whose model is to be resolved.
 	@returns Node that corresponds to the appropriate model for oNode's binding.
 */
-function GetModelFor(oNode)
+function getModelFor(oNode)
 {
 	//If the node is null, this function is likely to have recursed up to the document root and beyond,
 	//	without encountering any specific directions for model resolution.  return the document's 
@@ -52,7 +52,7 @@ function GetModelFor(oNode)
 			if(!oBind)
 				debugger;
 			else
-				oNode["ownerModel"] = GetModelFor(oBind);
+				oNode["ownerModel"] = getModelFor(oBind);
 		}
 		//If the node has a model attribute return the corresponding node.
 		//	if the model attribute does not correspond to the ID of a model
@@ -75,7 +75,7 @@ function GetModelFor(oNode)
 		//	parentNode, and return that.
 		else
 		{
-			oNode["ownerModel"] = GetModelFor(oNode.parentNode);
+			oNode["ownerModel"] = getModelFor(oNode.parentNode);
 		}
 	}
 	
