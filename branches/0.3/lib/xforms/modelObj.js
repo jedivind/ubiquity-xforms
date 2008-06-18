@@ -334,7 +334,11 @@ Model.prototype.onDocumentReady = function()
 			}
 		}
 
-
+		Model.prototype.flagRebuild = function()
+		{
+			this.m_bNeedRebuild = true;
+		}
+		
 		Model.prototype.rebuild = function()
 		{
 
@@ -356,7 +360,7 @@ Model.prototype.onDocumentReady = function()
 			this.m_bNeedRebuild = false;
 			this.m_bNeedRecalculate = true;
 		}
-
+		
 		Model.prototype.recalculate = function()
 		{
 			this.m_oDE.recalculate(this.changeList);

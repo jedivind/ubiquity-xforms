@@ -20,9 +20,19 @@ function Instance(elmnt)
 	this.m_oDOM = null;
 	this.elementState = 1;
 	if(this.element.style)
+	{
 		this.element.style.display = "none";
+	}
 
 }
+
+Instance.prototype.xlinkEmbed = function(s)
+{
+	this.m_oDOM = xmlParse(s);
+	this.elementState = 0;
+	this.parentNode.flagRebuild();
+	return true;
+};
 
 Instance.prototype.initialisedom = function()
 {
@@ -32,20 +42,15 @@ Instance.prototype.initialisedom = function()
 			this.parseInstance();
 		else
 		{
-
 			/*
 				* We map our @src to an XLink.
 				*/
 
-			this.element.setAttribute("xlink:actuate", "onLoad");
+			this.element.setAttribute("xlink:actuate", "onRequest");
 			this.element.setAttribute("xlink:show", "embed");
 			this.element.setAttribute("xlink:href", this.element.getAttribute("src"));
-			if(document.all)
-				this.element.addBehavior("runtime/xlink.htc");
-			else
-				throw("E_NOTIMPL");
-
-			/*
+			this.element.attachSingleBehaviour("XLinkElement");
+		/*
 				* When the document has been loaded by our XLink handler
 				* we parse it and then fire a 'document load' event.
 				*/
@@ -56,13 +61,11 @@ Instance.prototype.initialisedom = function()
 					context: this,
 					handleEvent: function(evt)
 					{
-						this.context.parseInstance();
-
+						//this.context.parseInstance();
 						var evt = this.context.element.ownerDocument.createEvent("Events");
-
-						evt.initEvent("load", true, false);
+						evt.initEvent("instance-load", true, false);
 						var oTarget = this.context.element;
-						spawn(function(){FormsProcessor.dispatchEvent(oTarget,evt)});
+						spawn(function(){FormsProcessor.dispatchEvent(oTarget,evt);});
 					}
 				},
 				false
@@ -102,6 +105,7 @@ Instance.prototype.parseInstance = function()
 	{
 		this.m_oDOM = xmlParse(sXML);
 		this.elementState = 0;
+		this.parentNode.flagRebuild();
 	}
 	else
 	{

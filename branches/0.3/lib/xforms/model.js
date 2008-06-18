@@ -314,7 +314,7 @@
 			else
 			{
 				oInstance.replaceDocument(oDom);
-				pThis.m_bNeedRebuild = true;
+				pThis.flagRebuild();
 				bRet = true;
 			}
 			return bRet;
@@ -503,7 +503,7 @@
 			 */
 	
 			pThis.element.addEventListener(
-				"load",
+				"instance-load",
 				{
 					handleEvent: function(evt)
 					{

@@ -104,9 +104,9 @@ if(!g_sBehaviourDirectory)
 	{
 		if(!dest[name])
 		{
-			dest[name] = new Array();
+			dest[name] = [];
 		}
-		dest[name].push(func);
+		return dest[name].push(func);
 	}
 /**
 	Extends the functionality of the destination object with the members of source
@@ -114,11 +114,11 @@ if(!g_sBehaviourDirectory)
 	@param {Object} source source of new members for destination.
 	
 */		
-	function extend(destination, source) 
+	function extend(destination, source, bExecuteConstructorsImmediately) 
 	{
 		for (property in source) {
 			switch(property)
-			{
+			{	
 				//In the case of these known named functions, add this member to the cumulative list
 				//	of members with that name, rather than overriding.
 				//	(this member should be a function, but, since we are using Javascript which is far superior
@@ -127,7 +127,11 @@ if(!g_sBehaviourDirectory)
 				case "ctor":
 				case "onContentReady":
 				case "onDocumentReady":
-					AddFunction(destination,property, source[property]);
+					var ix = AddFunction(destination,property, source[property]);
+					if(bExecuteConstructorsImmediately)
+					{
+						destination[property][ix]();
+					}
 				break;
 				default:
 				//	Otherwise, create this member anew, or override any existing homonymous member.
@@ -362,11 +366,13 @@ function DecorateBehaviour(element,handleContentReady, handleDocumentReady)
 		element.constructors = new Array();
 		element.contentReadyHandlers = new Array();
 		element.documentReadyHandlers = new Array();
+		//add capability to 
+		element.attachSingleBehaviour = attachSingleBehaviour;
 
 		var arrBehaviours = getDecorationObjectNames(element);				
 		if(arrBehaviours.length  > 0){
 			for(var i = 0;i < arrBehaviours.length;++i){
-				AddObjectBehaviour(element,arrBehaviours[i]);
+				AddObjectBehaviour(element,arrBehaviours[i],false);
 			}
 			callHandlers(element,element.ctor);
 
@@ -385,16 +391,21 @@ function DecorateBehaviour(element,handleContentReady, handleDocumentReady)
 		return bReturn;
 	}
 	
+	function attachSingleBehaviour(sBehaviour)
+	{
+		AddObjectBehaviour(this,sBehaviour,false);
+	}
+
 	/**
 		Creates an object of type sBehaviour and extends elmnt with it.
 		@param {Object} elmnt element to decorate with the members of sBehaviour
 		@param {String} sBehaviour name of the objecy to create in order ot decorate elmnt
 	*/
-	function AddObjectBehaviour(elmnt,sBehaviour)
+	function AddObjectBehaviour(elmnt,sBehaviour,bExecuteConstructorsImmediately)
 	{
 		try{
 		//TODO: eval is evil, use a factory instead.
-			eval("var o = new "+sBehaviour+"(elmnt);extend(elmnt,o);");
+			eval("var o = new "+sBehaviour+"(elmnt);extend(elmnt,o," +bExecuteConstructorsImmediately+ ");");
 		}catch(e){debugger;}
 
 	}

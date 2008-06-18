@@ -164,7 +164,7 @@ function AddObjectTagAndImportInstructions()
  	var baseDefaultPath = baseHTTPPath;
 	
 	window.status = "configuring module loader";
-	
+	loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: baseDefaultPath + "lib/_backplane/xlink.js" });
     loader.addModule({ name: "xforms-listener",            type: "js",  fullpath: baseDefaultPath + "lib/dom/listener.js" });
     loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: baseDefaultPath + "lib/threads.js" });
     loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: baseDefaultPath + "lib/dom/dom2events.js",
@@ -184,7 +184,7 @@ function AddObjectTagAndImportInstructions()
     loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission-yui.js",
       requires: [ "xforms-submission-core" ] });
     loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: baseDefaultPath + "lib/xforms/Submission.js",
-      requires: [ "xforms-processor", "xforms-submission-core-yui" ] });
+      requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core-yui" ] });
 
     loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms.js",
       requires: [ "xforms-model"] });
