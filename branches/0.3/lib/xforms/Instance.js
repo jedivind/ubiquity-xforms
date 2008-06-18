@@ -49,6 +49,7 @@ Instance.prototype.initialisedom = function()
 			this.element.setAttribute("xlink:actuate", "onRequest");
 			this.element.setAttribute("xlink:show", "embed");
 			this.element.setAttribute("xlink:href", this.element.getAttribute("src"));
+			this.element.setAttribute("base", " "); //Prevent XLink resolving the base URL.
 			this.element.attachSingleBehaviour("XLinkElement");
 		/*
 				* When the document has been loaded by our XLink handler
