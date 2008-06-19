@@ -38,8 +38,9 @@ Instance.prototype.initialisedom = function()
 {
 	if (!this.m_oDOM)
 	{
-		if (!this.getAttribute("src"))
+		if (!this.getAttribute("src")) {
 			this.parseInstance();
+		}
 		else
 		{
 			/*
@@ -60,7 +61,7 @@ Instance.prototype.initialisedom = function()
 				"xlink-traversed",
 				{
 					context: this,
-					handleEvent: function(evt)
+					handleEvent: function(evtParam)
 					{
 						//this.context.parseInstance();
 						var evt = this.context.element.ownerDocument.createEvent("Events");
@@ -80,10 +81,11 @@ Instance.prototype.initialisedom = function()
 			this.element.Actuate();
 		}
 		
-		if(this.m_oDOM)
+		if(this.m_oDOM) {
 			this.m_oDOM.XFormsInstance = this;
+		}
 	}
-}
+};
 
 Instance.prototype.parseInstance = function()
 {
@@ -91,7 +93,7 @@ Instance.prototype.parseInstance = function()
 	if(document.isFFXHTMLMode)
 	{
 		var o =  new XMLSerializer();
-		var n = this.element.firstChild
+		var n = this.element.firstChild;
 		while(n)
 		{
 			sXML += o.serializeToString(n);
@@ -102,7 +104,7 @@ Instance.prototype.parseInstance = function()
 	{
 		sXML = this.element.innerHTML;
 	}
-	if (!sXML == "")
+	if (sXML !== "")
 	{
 		this.m_oDOM = xmlParse(sXML);
 		this.elementState = 0;
@@ -114,20 +116,20 @@ Instance.prototype.parseInstance = function()
 		this.setAttribute("elementStateDescription", "Cannot have an empty instance.");
 	}
 	return;
-}
+};
 
 Instance.prototype.getDocument = function()
 {
 	this.m_oDOM.XFormsInstance = this;
 	return this.m_oDOM;
-}
+};
 
 Instance.prototype.replaceDocument = function(oDom)
 {
 	this.m_oDOM = null;
 	this.m_oDOM = oDom;
 	return;
-}
+};
 
-Instance.prototype.onContentReady = function(){this.initialisedom()};
+Instance.prototype.onContentReady = Instance.prototype.initialisedom;
 
