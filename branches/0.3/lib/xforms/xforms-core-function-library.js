@@ -23,7 +23,7 @@
 //	set to false for normal ajax operation.
 var g_bHTC = true;
 
-if(g_bHTC)
+//if(g_bHTC)
 {
 	/**
 		This is a formsPlayer specific function to return any instance, regardless of the in-scope model,
@@ -41,25 +41,7 @@ if(g_bHTC)
 		return new NodeSetValue(ret);
 	};
 }
-else
-{
-	/**
-		This is a formsPlayer specific function to return any instance, regardless of the in-scope model,
-		not part of the core function library
-		@addon
-	*/
-	FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx)
-	{
-		var sInstance = this.args[0].evaluate(ctx).stringValue();
-		var oInst = document.ModelManager.getInstance(sInstance);
-		var ret = null;
-		if(oInst)
-		{
-			ret = new Array(oInst.documentElement);
-		}
-		return new NodeSetValue(ret);
-	};
-}
+
 
 /**
 @addon
@@ -71,8 +53,8 @@ FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx)
 	if(ctx.currentModel)
 	{
 		try
-        {
-     		var sInstance = this.args[0].evaluate(ctx).stringValue();
+      		{
+     			var sInstance = this.args[0].evaluate(ctx).stringValue();
 		
 			//ret.push(g_currentModel.getInstance(sInstance).documentElement);
 			var oDom = ctx.currentModel.getInstanceDocument(sInstance);
@@ -206,6 +188,14 @@ FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx)
 	return new StringValue(s);
 };
 
+
+/**@addon
+*/  
+
+FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx)
+{
+    return new NodeSetValue([ctx.OutermostContextNode]);
+};
 
 /**
 @addon

@@ -90,14 +90,6 @@ FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
 
 /**@addon
 */  
-
-FunctionCallExpr.prototype.xpathfunctions.current = function(ctx)
-{
-    return new NodeSetValue([ctx.OutermostContextNode]);
-};
-
-/**@addon
-*/  
 var g_currentModel = null;
 var g_bSaveDependencies = false;
 
