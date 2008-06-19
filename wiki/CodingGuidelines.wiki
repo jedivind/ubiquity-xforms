@@ -1,4 +1,6 @@
 #summary Guidance for writing code for the Ubiquity XForms library.
 #labels Featured,Phase-Implementation,Phase-QA
 
-Please see the [http://code.google.com/p/ubiquity/wiki/CodingGuidelines coding guidelines for the Ubiquity project].
+The first step is to ensure that you have permission from your employer to contribute to Ubiquity XForms. Details on how to do this, and the form that needs completing are available in [http://groups.google.com/group/ubiquity-xforms-eng/web/contributing-code-to-ubiquity-xforms Contributing Code to Ubiquity XForms] over on the [http://groups.google.com/group/ubiquity-xforms-eng ubiquity-xforms-eng Google Group].
+
+Once you have permission to contribute, you should then look at the [http://code.google.com/p/ubiquity/wiki/CodingGuidelines coding guidelines for the Ubiquity project as a whole].
