@@ -17,3 +17,9 @@ This version will make use of the YUI Module loader, rather than our own custom 
 [http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.1&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.1 issues]
 
 [http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.2&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.2 issues]
+
+== Version 0.3 ==
+
+This version will include some unit-tests and integration tests.
+
+[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.3&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.3 issues]
