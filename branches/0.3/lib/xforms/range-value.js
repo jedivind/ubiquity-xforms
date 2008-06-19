@@ -21,50 +21,22 @@ function RangeValue	(elmnt)
 	this.element = elmnt;
 	this.currValue = "";
 	this.m_bFirstSetValue = true;
-	//this.ctor();
 }
 
 
-function ieRangeValueChanged(pThis, sNewValue)
+function rangeValueChanged(pThis, sNewValue)
 {
-	/*
-	 * [ISSUE] Not really suitable to use mutation events.
-	 */
-
 	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
-	
-	oEvt.initEvent("control-value-changed", true, true,
-		null, pThis.currValue, sNewValue, null, null);
-
-	spawn(function(){FormsProcessor.dispatchEvent(pThis.element, oEvt);});
-
-	/*
-	 * Cancel bubbling but don't cancel the event itself
-	 * otherwise we never get the value actually changed.
-	 */
-
-	 //evt.cancelBubble = true;
-
-}
-
-function ffRangeValueChanged(pThis, sNewValue)
-{
-	/*
-	 * [ISSUE] Not really suitable to use mutation events.
-	 */
-	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
-	
+	if(oEvt.initMutationEvent === undefined) {
+		oEvt.initMutationEvent = oEvt.initEvent;
+	}
+		
 	oEvt.initMutationEvent("control-value-changed", true, true,
 		null, pThis.currValue, sNewValue, null, null);
 
-	FormsProcessor.dispatchEvent(pThis.element, oEvt);
-	/*
-	 * Cancel bubbling but don't cancel the event itself
-	 * otherwise we never get the value actually changed.
-	 */
-
-	 //evt.cancelBubble = true;
-
+	spawn(function() {
+			FormsProcessor.dispatchEvent(pThis.element, oEvt);
+	});
 }
 
 RangeValue.prototype.onDocumentReady = function()
@@ -79,12 +51,7 @@ RangeValue.prototype.onDocumentReady = function()
 		this.m_value.subscribe(
 			"slideEnd",
 			function() {
-			    	if(document.all){
-		    			ieRangeValueChanged(pThis, pThis.m_value.getValue() / 20);
-		    		}
-		    		else{
-		    			ffRangeValueChanged(pThis,pThis.m_value.getValue() / 20);
-		    		}
+		    			rangeValueChanged(pThis, pThis.m_value.getValue() / 20);
 		      	}
 	     	);
 	}
