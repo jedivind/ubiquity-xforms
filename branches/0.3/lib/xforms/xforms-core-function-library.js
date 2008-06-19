@@ -229,7 +229,9 @@ FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx)
     return new NodeSetValue([ctx.OutermostContextNode]);
 };
 
-FunctionCallExpr.prototype.xpathfunctions["id"] = ThrowNotImpl;
+//	id is implemented by ajaxslt, but not in a manner conformant with XForms.
+//FunctionCallExpr.prototype.xpathfunctions["id"] = ThrowNotImpl;
+
 FunctionCallExpr.prototype.xpathfunctions["context"] = ThrowNotImpl;
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-object
