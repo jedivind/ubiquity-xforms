@@ -186,28 +186,35 @@ Control.prototype.RetrieveValuePseudoElement = function()
 		Control.prototype.setValue = function(sValue)
 		{
 			try
-			{
-				if (this.m_value.setValue(sValue))
+			{	
+				if(this.m_value && this.m_value.setValue !== undefined)
 				{
+					if (this.m_value.setValue(sValue))
+					{
 
-					/*
-					 * If the value has changed then notify any listeners
-					 * that the value represented by the control has changed.
-					 */
+						/*
+						* If the value has changed then notify any listeners
+						* that the value represented by the control has changed.
+						*/
 
-					var oEvt = document.createEvent("MutationEvents");
+						var oEvt = document.createEvent("MutationEvents");
 
-					oEvt.initEvent("data-value-changed", false, false,
-						null, "", sValue, null);
-//					FormsProcessor.dispatchEvent(this.element,oEvt);
-					oEvt._actionDepth = -1;
-					var pThis = this;
-					spawn(function(){FormsProcessor.dispatchEvent(pThis.element,oEvt);});
-					var oEvt2 = document.createEvent("Events");
+						oEvt.initEvent("data-value-changed", false, false,
+							null, "", sValue, null);
+	//					FormsProcessor.dispatchEvent(this.element,oEvt);
+						oEvt._actionDepth = -1;
+						var pThis = this;
+						spawn(function(){FormsProcessor.dispatchEvent(pThis.element,oEvt);});
+						var oEvt2 = document.createEvent("Events");
 
-					oEvt2.initEvent("xforms-value-changed", false, false,
-						null, "", sValue, null);
-					FormsProcessor.dispatchEvent(this.element,oEvt2);
+						oEvt2.initEvent("xforms-value-changed", false, false,
+							null, "", sValue, null);
+						FormsProcessor.dispatchEvent(this.element,oEvt2);
+					}
+				}
+				else
+				{
+					this.m_sValue = sValue;
 				}
 			}
 			catch(e)

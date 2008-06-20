@@ -17,6 +17,10 @@
 function XFormsOutputValue(elmnt)
 {
 	this.element = elmnt;
+	if(this.element.parentNode.m_sValue) {
+		this.setValue(this.element.parentNode.m_sValue);
+	}
+	
 }
 
 if(document.all)
