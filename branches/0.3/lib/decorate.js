@@ -266,17 +266,26 @@ var DECORATOR = function()
 				//	this comment)
 				case "ctor":
 				case "onContentReady":
-				case "onDocumentReady":
 					var ix = addFunction(destination,property, source[property]);
 					if(bExecuteConstructorsImmediately)
 					{
 						destination[property][ix]();
 					}
 				break;
+				case "onDocumentReady":
+					
+					var ix = addFunction(destination,property, source[property]);
+					if( g_bDocumentLoaded && bExecuteConstructorsImmediately)
+					{
+						destination[property][ix]();
+					}
+
+				break;
 				default:
 				//	Otherwise, create this member anew, or override any existing homonymous member.
 					destination[property] = source[property];
 			}
+			
 
 		}
 		return destination;
