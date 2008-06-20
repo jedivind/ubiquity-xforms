@@ -167,18 +167,11 @@ Context.prototype.getBoundNode = function(nOrdinal)
 			while (oParent)
 			{
 			
-				//TODO: turn this into better code,
-				//The try block here is designed to catch "Object does not support property or method" errors
-				//	arising from calling getBoundNode on objects that do not implement said method.
-				//This is an example of "using error handling for program flow", which is evil.
-				//	A better solution would be to replace "try", with the following test:
-				//	if(typeof(oParent.getBoundNode) != undefined)
-				//	and catch, with else.
-				//I am loathe to do this at this point in time, as, at present, it works, and I fear that some obscure
-				//	condition, in which getBoundNode correctly fails internally	and throws, may exist.  This would not be 
-				//	caught by the above solution.
-					
-				try
+				if(oParent.getBoundNode === undefined)
+				{
+					oParent = oParent.parentNode;
+				}
+				else
 				{
 					oRet = oParent.getBoundNode(nOrdinal);
 					//if oParent is not the sort of node that binds to nodes
@@ -193,11 +186,10 @@ Context.prototype.getBoundNode = function(nOrdinal)
 						oParent = oParent.parentNode;
 					}
 					else
+					{
+						//Now that a real context has been found, leave the loop
 						break;
-				}
-				catch(e)
-				{
-					oParent = oParent.parentNode;
+					}
 				}
 			}
 
