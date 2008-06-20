@@ -20,7 +20,7 @@
 //	definitions is critical.  Specifically, the "common child" elements *must*
 //	come after any controls that might use them, as (at present, anyway) label
 //	is implemented as a control.
-setupDecorator(
+DECORATOR.setupDecorator(
 	[
 	//Switch off bindings within repeat, during load-time (FF )
 		{

@@ -4,7 +4,7 @@
 	<implementation>
 		<constructor>
 		<![CDATA[
-			DecorateBehaviour(this,true,true);
+			DECORATOR.attachDecoration(this,true,true);
 		]]>
 		</constructor>
 	</implementation>
