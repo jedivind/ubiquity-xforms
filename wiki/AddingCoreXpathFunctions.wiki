@@ -90,7 +90,7 @@ The last step is to return a new {{{BooleanValue}}} object (which is defined by 
 The complete function looks like this:
 {{{
 /**@addon
-	http://www.w3.org/TR/xforms11/#fn-boolean-from-string
+  http://www.w3.org/TR/xforms11/#fn-boolean-from-string
 */
 FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = function(ctx) {
   var s = this.args[0].evaluate(ctx).stringValue();
