@@ -1,22 +1,26 @@
-/*
- * Copyright (C) 2008 Backplane Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Ubiquity provides a standards-based suite of browser enhancements for
+// building a new generation of internet-related applications.
+//
+// The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+// library.
+//
+// Copyright (C) 2008 Backplane Ltd.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 /**@fileoverview
 	implements the xforms-core function library as defined in http://www.w3.org/TR/xforms11/#expr-lib
-	for ajaxfP using the google ajaxslt XPath processor
+	for Ubiquity XForms using the Google AJAXSLT XPath processor
 	@requires FunctionCallExpr  defined in ajaxslt/xpath.js
 */
 
@@ -24,12 +28,11 @@
 /**@addon
 	trim is required by some of these XPath functions to produce a correct response.
 */
-String.prototype.trim=function(){
+String.prototype.trim=function() {
     return this.replace(/^\s*|\s*$/g,'');
 };
 
-function ThrowNotImpl (ctx)
-{
+function ThrowNotImpl(ctx) {
 	throw "Not Implemented";
 }
 
@@ -38,11 +41,11 @@ function ThrowNotImpl (ctx)
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-boolean-from-string
 */
-FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = function(ctx)
-{
-	var sBool = this.args[0].evaluate(ctx).stringValue();
-	sBool = sBool.trim();
-	return new BooleanValue((sBool == "true") || (sBool == "1"));
+FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = function(ctx) {
+	var s = this.args[0].evaluate(ctx).stringValue();
+
+	s = s.trim().toUpperCase();
+	return new BooleanValue((s === "TRUE") || (s === "1"));
 };
 
 FunctionCallExpr.prototype.xpathfunctions["is-card-number"] = ThrowNotImpl;
@@ -58,12 +61,11 @@ FunctionCallExpr.prototype.xpathfunctions["count-non-empty"] = ThrowNotImpl;
 /**
 @addon
 */
-FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx) {
 	var s =  this.args[0].evaluate(ctx).stringValue();
 	var oRpt = document.getElementById(s);
-	
-    return new NumberValue(oRpt.getIndex());
+
+  return new NumberValue(oRpt.getIndex());
 };
 
 FunctionCallExpr.prototype.xpathfunctions["power"] = ThrowNotImpl;
@@ -73,15 +75,11 @@ FunctionCallExpr.prototype.xpathfunctions["compare"] = ThrowNotImpl;
 //	http://www.w3.org/TR/xforms11/#expr-lib-string
 
 /**@addon*/
-FunctionCallExpr.prototype.xpathfunctions["if"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["if"] = function(ctx) {
 	var bIf = this.args[0].evaluate(ctx).booleanValue();
-	if(bIf)
-	{
+	if (bIf)	{
 		return new StringValue(this.args[1].evaluate(ctx).stringValue());
-	}	
-	else
-	{
+	}	else {
 		return new StringValue(this.args[2].evaluate(ctx).stringValue());
 	}
 };
@@ -96,8 +94,7 @@ FunctionCallExpr.prototype.xpathfunctions["local-date"] = ThrowNotImpl;
 FunctionCallExpr.prototype.xpathfunctions["local-dateTime"] = ThrowNotImpl;
 
 /**@addon*/
-FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx) {
 	var oRet = "";
 	var d = new Date();
 	var s = "";
@@ -153,23 +150,19 @@ FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx)
 };
 
 /**@addon*/
-FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx) {
 	var sDate = this.args[0].evaluate(ctx).stringValue();
 	var dDate = null;
 	//if date is of format 1970-01-01, JavaScript Date.parse cannot handle it, unfortunately, as well as being the best format for dates anyway,
 	//    this is also the prescribed format for xml dates.
-	if(sDate.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/))
-	{
+	if (sDate.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/)) {
 	                //The easiest way to deal with this is to replace '-' with ',', and eval a constructor of the form Date(yearNum,MonthNum,DayNum);
 		var sCommaDate = sDate.replace(/\-/g,",").substr(0,10);
 		dDate = eval("new Date("+ sCommaDate  +")");
-	}
-	else
-	{	
+	}	else {	
 	            //If the date is not in the above format, let Date.parse handle it, if it is a screwy date, not our problem.
 		dDate = new Date(sDate);
-	}	
+	}
 	var dOrigin = new Date(1970,1,1);
 	var diff = dDate-dOrigin;
 	
@@ -190,31 +183,23 @@ FunctionCallExpr.prototype.xpathfunctions["months"] = ThrowNotImpl;
 	http://www.w3.org/TR/xforms11/#fn-instance
 	@throws String if the first instance with the given id in doecument order is not inside the context model. 
 */
-FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx) {
 	var ret = null;
                 
-	if(ctx.currentModel)
-	{
-		try
-      		{
-     			var sInstance = this.args[0].evaluate(ctx).stringValue();
+	if(ctx.currentModel) {
+		try {
+     	var sInstance = this.args[0].evaluate(ctx).stringValue();
 			var oDom = ctx.currentModel.getInstanceDocument(sInstance);
 			var oDE = oDom.documentElement;
 			ret = new Array(oDE);
-		}
-		catch(e)
-		{
+		} catch(e) {
 			throw("XPath function: instance("+sInstance+") is not a member of  model " + ctx.currentModel.id );
 		}
-	}
-	else
-	{
+	}	else {
 		throw("instance() executed without a current model");
 	}
 
-	if(this.args[1])
-	{
+	if (this.args[1])	{
 		alert(this.args.join('\n'));
 	}
 
@@ -224,8 +209,7 @@ FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx)
 /**@addon
 */  
 
-FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx) {
     return new NodeSetValue([ctx.OutermostContextNode]);
 };
 
@@ -243,15 +227,12 @@ FunctionCallExpr.prototype.xpathfunctions["event"] = ThrowNotImpl;
 	This is a formsPlayer specific function to return any instance, regardless of the in-scope model,
 	not part of the core function library
 @addon*/
-FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx) {
 	var sInstance = this.args[0].evaluate(ctx).stringValue();
 	var oInst = document.getElementById(sInstance);
 	var ret = null;
-	if(oInst)
-	{
+	if (oInst)	{
 		ret = new Array(oInst.getDocument().documentElement);
 	}
 	return new NodeSetValue(ret);
 };
-
