@@ -102,7 +102,7 @@ FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = function(ctx)
   var s = this.args[0].evaluate(ctx).stringValue();
 
   s = s.trim();
-  return new BooleanValue((s === "true") || (s === "1"));
+  return new BooleanValue((s.toLowerCase() === "true") || (s === "1"));
 };
 }}}
 
