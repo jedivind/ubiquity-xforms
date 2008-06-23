@@ -10,7 +10,7 @@ XPath itself comes with a set of core functions, which XForms extends. In this p
 The Ubiquity XForms processor uses Google's [http://code.google.com/p/ajaxslt/ AJAXSLT] to provide its XPath functionality. This library provides a mechanism for adding additional functions, which is what we'll describe here.
 
 = Core XForms functions =
-The file that contains the XForms function library is [https://ubiquity-xforms.googlecode.com/svn/branches/0.3/lib/xforms/xforms-core-function-library.js xforms-core-function-library.js].
+The file that contains the XForms function library is [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3/lib/xforms/xforms-core-function-library.js xforms-core-function-library.js].
 
 All entries should be in alphabetical order, to make them easier to find. An entry begins with some JSDoc comments that link to the documentation in the XForms specification:
 {{{
