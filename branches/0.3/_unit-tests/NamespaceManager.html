@@ -1,0 +1,211 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xml:lang="en"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xforms="http://www.w3.org/2002/xforms"
+	xmlns:umahasha="http://www.w3.org/2002/xforms"
+	xmlns:x="urn:someNamespace"
+	xmlns:a="http://www.example.org/ns0"
+	xmlns:a0="http://www.example.org/ns0"
+	xmlns:b="http://www.example.org/ns1"
+	xmlns:b0="http://www.example.org/ns1"
+	>
+	
+	<head>
+		
+		<title>Testing NamespaceManager</title>
+		
+		<script>
+			//    debugger;
+		</script>
+		<!--CSS-->
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/logger/assets/logger.css" />
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/yuitest/assets/testlogger.css" />
+		
+		<!-- Dependencies --> 
+		<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+		<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/logger/logger-min.js"></script>
+		
+		<!-- Source File -->
+		<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yuitest/yuitest-min.js"></script>
+		<script src="../lib/NamespaceManager.js">/**/</script>
+		
+	
+		
+		<script>
+			var Assert = YAHOO.util.Assert; 
+			var oTestAddSelectionNamespace = new YAHOO.tool.TestCase({
+				name		:	"Test addSelectionNamespace",
+				setUp		: 	function(){ NamespaceManager.clean()},
+				tearDown	:	function(){ NamespaceManager.clean()},
+			
+				_should: { 
+					error: { 
+						testAddMultipleURIs: true
+					} 
+				}, 
+			
+				testConstruction:
+				function() {
+					Assert.isObject(NamespaceManager);
+				},
+			
+				testAddGoodNamespace: 
+				function () {
+					Assert.isTrue(NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms"));
+				},
+				testAddMultiplePrefixes:
+				function () {
+					NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms");
+					Assert.isTrue(NamespaceManager.addSelectionNamespace("banana", "http://www.w3.org/2002/xforms"));
+				},
+				testAddMultipleURIs:
+				function () {
+					NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms");
+					NamespaceManager.addSelectionNamespace("xf", "http://www.example.com/eXtremeForgetfulness");
+				},
+				testAddPrefixTwice:
+				function () {
+					NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms");
+					Assert.isFalse(NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms"));
+				}
+			
+			});
+			
+			var oTestAddOutputNamespace = new YAHOO.tool.TestCase({
+				name		:	"Test addOutputNamespace",
+				setUp		: 	function(){ NamespaceManager.clean()},
+				tearDown	:	function(){ NamespaceManager.clean()},
+			
+				testAddGoodNamespace:
+				function () {
+					Assert.isTrue(NamespaceManager.addOutputNamespace("y","urn:someNamespace"));
+				},
+			
+				testGetNamespacePrefix:
+				function () {
+					NamespaceManager.addOutputNamespace("y","urn:someNamespace");
+					var prefixes = NamespaceManager.getOutputPrefixesFromURI("urn:someNamespace")		
+					Assert.isArray(prefixes);
+					Assert.areEqual(prefixes[0],"y" );
+				},
+				testAddMultipleNamespacePrefixes:
+				function () {
+					NamespaceManager.addOutputNamespace("x","urn:someNamespace");
+					NamespaceManager.addOutputNamespace("y","urn:someNamespace");
+				},
+				testReadNamespacesFromDocument:
+				function () {
+					NamespaceManager.readOutputNamespacesFromDocument();
+					var prefixes = NamespaceManager.getOutputPrefixesFromURI("urn:someNamespace")		
+					Assert.isArray(prefixes);
+					Assert.areEqual(prefixes[0],"x" );
+					prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")		
+					Assert.isArray(prefixes);
+					prefixes.sort()
+					Assert.areEqual(prefixes[0],"umahasha" );
+					Assert.areEqual(prefixes[1],"xf" );
+					Assert.areEqual(prefixes[2],"xforms" );
+				}
+				
+			});
+			
+			var oTestTranslateCSS = new YAHOO.tool.TestCase({
+				name		:	"Test translation of CSS Selectors",
+				setUp		: 	function(){ NamespaceManager.clean()},
+				tearDown	:	function(){ NamespaceManager.clean()},
+			
+				_should: { 
+					error: { 
+						testUnknownNamespaceSelector: true
+					} 
+				}, 
+			
+				testNoNamespaceSelector:
+				function() {
+					Assert.areEqual(NamespaceManager.translateCSSSelector("someSelectorElement.someSelectorClass"),"someSelectorElement.someSelectorClass", "The selector translator should leave alone, that with which it has no business.");	
+				},
+			
+				testUnknownNamespaceSelector:
+				function() {
+					NamespaceManager.addSelectionNamespace("xyz", "urn:someNamespace");
+					NamespaceManager.translateCSSSelector("x|quirkafleeg");
+				},
+				testHomographousNamespaceSelector:
+				function() {
+					NamespaceManager.addSelectionNamespace("x", "urn:someNamespace");
+					NamespaceManager.addOutputNamespace("x","urn:someNamespace");
+					Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg"), "x\\:quirkafleeg");
+				},
+				testHeterographousNamespaceSelector:
+				function() {
+					NamespaceManager.addSelectionNamespace("y", "urn:someNamespace");
+					NamespaceManager.addOutputNamespace("x","urn:someNamespace");
+					Assert.areEqual(NamespaceManager.translateCSSSelector("y|quirkafleeg"), "x\\:quirkafleeg");
+				},
+				testSelectorWithMultipleNamespaceInstances:
+				function() {
+					NamespaceManager.addSelectionNamespace("y", "urn:someNamespace");
+					NamespaceManager.addOutputNamespace("x","urn:someNamespace");
+					Assert.areEqual(NamespaceManager.translateCSSSelector("y|quirkafleeg y|performance"), "x\\:quirkafleeg x\\:performance");
+				},
+				testSelectorWithMultipleDifferentNamespaceInstances:
+				function() {
+					NamespaceManager.addSelectionNamespace("x", "urn:someNamespace");
+					NamespaceManager.addOutputNamespace("x","urn:someNamespace");
+					NamespaceManager.addSelectionNamespace("y", "urn:someOtherNamespace");
+					NamespaceManager.addOutputNamespace("y","urn:someOtherNamespace");
+					Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg y|performance"), "x\\:quirkafleeg y\\:performance");
+				},
+				testSelectorWithMultipleDifferentOutputNamespacePrefixes:
+				function() {
+					NamespaceManager.addSelectionNamespace("x", "urn:someNamespace");
+					NamespaceManager.addOutputNamespace("x","urn:someNamespace");
+					NamespaceManager.addOutputNamespace("y","urn:someNamespace");
+					Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg"), "x\\:quirkafleeg, y\\:quirkafleeg");
+				}, 
+				testSelectorWithMultipleDifferentNamespaceInstancesAndMultiplePrefixesEach:
+				function() {
+					NamespaceManager.addSelectionNamespace("x", "urn:someNamespace");
+					NamespaceManager.addOutputNamespace("x","urn:someNamespace");
+					NamespaceManager.addOutputNamespace("x0","urn:someNamespace");
+					NamespaceManager.addSelectionNamespace("y", "urn:someOtherNamespace");
+					NamespaceManager.addOutputNamespace("y","urn:someOtherNamespace");
+					NamespaceManager.addOutputNamespace("y0","urn:someOtherNamespace");
+					Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg y|performance"),
+						"x\\:quirkafleeg y\\:performance, x0\\:quirkafleeg y\\:performance, x\\:quirkafleeg y0\\:performance, x0\\:quirkafleeg y0\\:performance"
+					);
+				},
+				testSelectorWithMultipleDifferentNamespaceInstancesAndMultiplePrefixesEachUsingDocumentNamespaces:
+				function() {
+					NamespaceManager.readOutputNamespacesFromDocument();
+					NamespaceManager.addSelectionNamespace("x", "http://www.example.org/ns0");
+					NamespaceManager.addSelectionNamespace("y", "http://www.example.org/ns1");
+
+					//order is uncertain, depending on the order that the browser uses to report its namespace declarations.
+					//	therefore, split it on the commas, sort, and check each individual bit.
+					var arrResults = NamespaceManager.translateCSSSelector("x|quirkafleeg y|performance").split(", ");
+					arrResults.sort();
+					Assert.areEqual(arrResults[0],"a0\\:quirkafleeg b0\\:performance"); 
+					Assert.areEqual(arrResults[1],"a0\\:quirkafleeg b\\:performance"); 
+					Assert.areEqual(arrResults[2],"a\\:quirkafleeg b0\\:performance"); 
+					Assert.areEqual(arrResults[3],"a\\:quirkafleeg b\\:performance"); 
+				}
+			})
+			
+			YAHOO.tool.TestRunner.add(oTestAddSelectionNamespace);
+			YAHOO.tool.TestRunner.add(oTestAddOutputNamespace);
+			YAHOO.tool.TestRunner.add(oTestTranslateCSS);
+		</script>
+	</head>
+	<body>
+		<div id="testLogger"></div>
+		<script type="text/javascript">
+			var oLogger = new YAHOO.tool.TestLogger();
+			YAHOO.tool.TestRunner.run();
+		</script> 
+	</body>
+	</html>
