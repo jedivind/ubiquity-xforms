@@ -41,7 +41,7 @@ Save your code, and run the [http://code.google.com/p/ubiquity-xforms/source/bro
 
 If you see script errors then check that you pasted your code correctly, and most importantly, that you placed you code at the top-level of the script.
 
-If you don't get any script errors, but you get a red bar, then check that the function you are adding has a stub; in [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3/xforms/xforms-core-function-library.js xforms-core-function-library.js], functions that are not yet implemented should have an entry like this:
+If you don't get any script errors, but you get a red bar, then check that the function you are adding has a stub; in [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3/lib/xforms/xforms-core-function-library.js xforms-core-function-library.js], functions that are not yet implemented should have an entry like this:
 {{{
 FunctionCallExpr.prototype.xpathfunctions["power"] = ThrowNotImpl;
 }}}
@@ -51,7 +51,7 @@ Once you have the green bar, you can move on to the next step.
 
 == Step 2: Adding a specific test ==
 
-You can now add a test for your function. A good place to start when looking at tests is the XForms specification itself; in the case of {{{power()}}} the spec says that {{{power(2, 3}}} should return {{{8}}}, so we'll use that.
+You can now add a test for your function. A good place to start when looking at tests are the examples given in the XForms specification itself; in the case of {{{power()}}} the spec says that {{{power(2, 3}}} should return {{{8}}}, so we'll use that.
 
 Tests are just properties that begin with 'test', so to add another test we simply add another property. After the test that checks for your function's stub (in our example {{{testPowerExists}}}), add a comma, and then the following test:
 {{{
@@ -65,7 +65,7 @@ Save the script and refresh the unit-test driver, and click {{{Run}}}; you shoul
 
 == Step 3: Adding a first implementation of the function ==
 
-In [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3/xforms/xpath-core-functions.js xpath-core-functions.js] find the function you want to add, and provide an implementation that is sufficient to pass the test you just created. In our example, we merely need to return the number 8:
+In [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3/lib/xforms/xforms-core-function-library.js xforms-core-function-library.js] find the function you want to add, and provide an implementation that is sufficient to pass the test you just created. In our example, to correctly return 2^3^ we merely need to return the number {{{8}}}:
 {{{
 FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
   return new NumberValue(8);
@@ -73,7 +73,7 @@ FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
 }}}
 On running your unit-tests again, you should now have a green bar.
 
-Of course you could have written the full function at this point, but this step-by-step approach is crucial to test-driven development (TDD), which is itself paramount to the Ubiquity XForms library; at this point you have a green bar, which means that nothing is broken. This means that you can now add more and more functionality to the function, knowing that you can always return to a stable point.
+Of course you could have written the full function at this point, but this step-by-step approach is crucial to test-driven development (TDD), which is itself very important to the integrity of the Ubiquity XForms library. At this point you have a green bar, which means that nothing is broken, so you can now add more and more functionality to the function, knowing that you can always return to a stable point.
 
 == Step 4: Adding another test ==
 
