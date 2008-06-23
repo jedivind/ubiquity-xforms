@@ -58,7 +58,7 @@ Tests are just properties that begin with 'test', so to add another test we simp
     testPowerSuccess : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(8, evalXPath('power(2, 3)').numberValue(), "power(2, 3) failed to return 8");
+      Assert.areEqual(8, evalXPath('power(2, 3)').numberValue());
     }
 }}}
 Save the script and refresh the unit-test driver, and click {{{Run}}}; you should now get a _red_ bar, because the function hasn't yet been implemented.
@@ -79,11 +79,13 @@ Of course you could have written the full function at this point, but this step-
 
 If this was all that the XForms specification required of {{{power()}}}, then we'd be finished. But of course the function is meant to be general-purpose, so we'll add another test. Let's try adding a test for 2^20^ immediately after our previous assertion:
 {{{
-      Assert.areEqual(1048576, evalXPath('power(2, 20)').numberValue(), "power(2, 20) failed to return 1048576"); 
+      Assert.areEqual(1048576, evalXPath('power(2, 20)').numberValue()); 
 }}}
 Hopefully you won't be surprised to see a red bar, with the following message:
 {{{
-testPower: power(2, 2) failed to return 4 Expected: 1048576 (number) Actual:8 (number)
+FAIL testPowerSuccess: Values should be equal
+Expected: 1048576 (number)
+Actual:8 (number)
 }}}
 This is because our function is still hard-coded to return {{{8}}}.
 
@@ -91,7 +93,7 @@ This is because our function is still hard-coded to return {{{8}}}.
 
 We're now at a point where the best way to fix the red bar is by implementing the {{{power()}}} function properly.
 
-Returning to [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3/xforms/xpath-core-functions.js xpath-core-functions.js] we first get the two parameters passed:
+Returning to [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3/lib/xforms/xforms-core-function-library.js xforms-core-function-library.js] we first get the two parameters passed:
 {{{
   var a = this.args[0].evaluate(ctx).numberValue();
   var b = this.args[1].evaluate(ctx).numberValue();
@@ -122,14 +124,14 @@ The XForms specification says that if {{{power()}}} cannot return a correct resu
     testPowerFail : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.isNaN(evalXPath('power(-1, 0.5)').numberValue(), "power(-1, 0.5) failed to return 'NaN'");
+      Assert.isNaN(evalXPath('power(-1, 0.5)').numberValue());
     }
 }}}
 Re-run the tests, and if you get a script error, check that you added a comma to the end of the {{{testPowerSuccess}}} property; you should still have a green bar.
 
 We can now add more failing tests, such as checking that string values fail:
 {{{
-      Assert.isNaN(evalXPath('power("ubiquity", 2)').numberValue(), "power('ubiquity', 2) failed to return 'NaN'");
+      Assert.isNaN(evalXPath('power("ubiquity", 2)').numberValue());
 }}}
 This should still give a green bar.
 
@@ -139,7 +141,7 @@ Your new function should also check the number of parameters passed. In the case
 
 The first step is to add such an assertion to the {{{testPowerFail}}} test:
 {{{
-      Assert.isNaN(evalXPath('power()').numberValue(), "power() failed to return 'NaN'");
+      Assert.isNaN(evalXPath('power()').numberValue());
 }}}
 This will give a red bar because the function itself hasn't been written to defend against this. However, it's easy enough to add a check that there are two parameters:
 {{{
