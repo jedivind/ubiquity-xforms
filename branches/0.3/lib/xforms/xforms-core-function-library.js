@@ -68,7 +68,15 @@ FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx) {
   return new NumberValue(oRpt.getIndex());
 };
 
-FunctionCallExpr.prototype.xpathfunctions["power"] = ThrowNotImpl;
+FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
+  if (this.args.length != 2)
+    return new NumberValue(NaN);
+
+  var a = this.args[0].evaluate(ctx).numberValue();
+  var b = this.args[1].evaluate(ctx).numberValue();
+
+  return new NumberValue(Math.pow(a, b));
+};
 FunctionCallExpr.prototype.xpathfunctions["random"] = ThrowNotImpl;
 FunctionCallExpr.prototype.xpathfunctions["compare"] = ThrowNotImpl;
 
