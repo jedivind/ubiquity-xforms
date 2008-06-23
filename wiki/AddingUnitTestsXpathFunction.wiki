@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Any changes to the Ubiquity XForms library must be backed up with one or more unit-tests. This page shows how to add a unit-test for a core XForms XPath function. See AddingXpathFunctions for a detailed description of the basic architecture of an XPath function.
+Any changes to the Ubiquity XForms library must be backed up with one or more unit-tests. This page shows how to add a unit-test for a core XForms XPath function. See AddingCoreXpathFunctions for a detailed description of the basic architecture of an XPath function.
 
 In the following illustration we'll show how to add the [http://www.w3.org/TR/xforms11/#fn-power power()] function.
 
