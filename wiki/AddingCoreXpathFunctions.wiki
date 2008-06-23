@@ -2,13 +2,11 @@
 #labels Phase-Implementation,ajaxslt,xslt,xpath
 
 = Introduction =
-
 XForms uses XPath to indicate the data to be used in expressions. For example, when using a form control, XPath is used to indicate which node in the data model the control should interact with. Similarly, when creating rules such as readonly, or required, the expression itself will be indicated with XPath.
 
 XPath itself comes with a set of core functions, which XForms extends. In this page we describe how to add XPath functions to the core.
 
 = AJAXSLT =
-
 The Ubiquity XForms processor uses Google's [http://code.google.com/p/ajaxslt/ AJAXSLT] to provide its XPath functionality. This library provides a mechanism for adding additional functions, which is what we'll describe here.
 
 = Core XForms functions =
@@ -17,10 +15,10 @@ The file that contains the XForms function library is [https://ubiquity-xforms.g
 All entries should be in alphabetical order, to make them easier to find. An entry begins with some JSDoc comments that link to the documentation in the XForms specification:
 {{{
 /**@addon
-	http://www.w3.org/TR/xforms11/#fn-boolean-from-string
+  http://www.w3.org/TR/xforms11/#fn-boolean-from-string
 */
 }}}
-Next, and entry for the function is added as a property of the {{{xpathfunctions}}} object, which is something we've added to the AJAXSLT {{{FunctionCallExpr}}} prototype:
+Next, an entry for the function is added as a property of the {{{xpathfunctions}}} object, which is something we've added to the AJAXSLT {{{FunctionCallExpr}}} prototype:
 {{{
 FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = ...
 }}}
@@ -98,6 +96,6 @@ FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = function(ctx)
   var s = this.args[0].evaluate(ctx).stringValue();
 
   s = s.trim();
-  return new BooleanValue((s == "true") || (s === "1"));
+  return new BooleanValue((s === "true") || (s === "1"));
 };
 }}}
