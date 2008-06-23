@@ -1,4 +1,5 @@
 #summary How to add a unit-test for an XPath function.
+#labels Phase-QA,Phase-Implementation
 
 = Introduction =
 
@@ -156,3 +157,13 @@ FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
 };
 }}}
 Whether the XPath function you are implementing has a fixed number of parameters or not will depend on its definition. And of course, whether it should return {{{NaN}}} or some other value to indicate the error will also be determined by how it has been defined.
+
+In the case of {{{power()}}} we know that the function takes two _and only two_ parameters, so can add a few other assertions to check for one and three parameters:
+{{{
+      Assert.isNaN(evalXPath('power(1)').numberValue());
+      Assert.isNaN(evalXPath('power(1, 2, 3)').numberValue());
+}}}
+
+= Conclusion =
+
+TDD is an efficient way to work when creating XPath functions.
