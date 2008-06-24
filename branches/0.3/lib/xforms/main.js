@@ -85,7 +85,7 @@ function insertInstanceGuard()
 	//This is the local path from which the scripts might be served, when developing and debugging.
 	//	Do not check in with this variable populated, as it is personal to the individual user's
 	//	setup.  
-	var baseLocalPath = "file:///C:\\svn\\code.google.com\\ubiquity-xforms0.3\\";
+	var baseLocalPath = "/";
 	
 	 //This is not the same as setting "base" in the YUI loader, which concatenates with every fullpath
 	 
@@ -95,7 +95,7 @@ function insertInstanceGuard()
 	//	It also makes it possible to mix between local and remote paths, if, for example, one only wishes 
 	//	to investigate a few locally modified scripts, but fetch the rest from the server.
 
- 	var baseDefaultPath = baseLocalPath;
+ 	var baseDefaultPath = baseHTTPPath;
 	
 	window.status = "configuring module loader";
 	loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: baseDefaultPath + "lib/_backplane/xlink.js" });
@@ -165,7 +165,7 @@ function insertInstanceGuard()
 	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/Control.js",
 		requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-insert-adjacent-html" ] });
 	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/context.js",
-	requires:[ "libxh-namespace-manager"]});
+	    requires:[ "libxh-namespace-manager"]});
 	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: baseDefaultPath + "lib/dom/eventTargetProxy.js",
 		requires: [ "xforms-dom2events" ] });
 
