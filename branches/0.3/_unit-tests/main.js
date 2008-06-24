@@ -32,8 +32,10 @@ function runTheTests() {
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
   loader.addModule({ name: "ux-ut-xpath-core-functions", type: "js",  fullpath: "ut-xpath-core-functions.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+  loader.addModule({ name: "ux-ut-NamespaceManager", type: "js",  fullpath: "ut-NamespaceManager.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
-  loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions" );
+  loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager" );
 
   loader.onSuccess = function(o) {
     //create the logger
@@ -42,6 +44,7 @@ function runTheTests() {
     //add the test suite to the runner's queue
     YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
     YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
+    YAHOO.tool.TestRunner.add(suiteNamespaceManager);
     
     //run the tests
     YAHOO.tool.TestRunner.run();
