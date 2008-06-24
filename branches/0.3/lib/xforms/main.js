@@ -85,7 +85,7 @@ function insertInstanceGuard()
 	//This is the local path from which the scripts might be served, when developing and debugging.
 	//	Do not check in with this variable populated, as it is personal to the individual user's
 	//	setup.  
-	var baseLocalPath = "/";
+	var baseLocalPath = "file:///C:\\svn\\code.google.com\\ubiquity-xforms0.3\\";
 	
 	 //This is not the same as setting "base" in the YUI loader, which concatenates with every fullpath
 	 
@@ -95,7 +95,7 @@ function insertInstanceGuard()
 	//	It also makes it possible to mix between local and remote paths, if, for example, one only wishes 
 	//	to investigate a few locally modified scripts, but fetch the rest from the server.
 
- 	var baseDefaultPath = baseHTTPPath;
+ 	var baseDefaultPath = baseLocalPath;
 	
 	window.status = "configuring module loader";
 	loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: baseDefaultPath + "lib/_backplane/xlink.js" });
@@ -113,7 +113,7 @@ function insertInstanceGuard()
 	loader.addModule({ name: "backplane-model",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/model.js",
 		requires: [ "backplane-pds" ] });
 	loader.addModule({ name: "xforms-model",               type: "js",  fullpath: baseDefaultPath + "lib/xforms/modelObj.js",
-		requires: ["xforms-instance",  "backplane-model" ] });
+		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager" ] });
 	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission.js" });
 	loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission-yui.js",
 		requires: [ "xforms-submission-core" ] });
@@ -125,7 +125,12 @@ function insertInstanceGuard()
 	loader.addModule({ name: "xforms-conditional-invocation", type: "js", fullpath: baseDefaultPath + "lib/xforms/conditional-invocation.js",
 		requires: [ "xforms-processor" ] });
 	
-	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: baseDefaultPath + "lib/decorate.js" });
+	loader.addModule({ name: "libxh-namespace-manager",            type: "js",  fullpath: baseDefaultPath + "lib/namespaceManager.js",
+			requires:["dom"]});
+	
+	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: baseDefaultPath + "lib/decorate.js", 
+		requires:["libxh-namespace-manager"]});
+
 	loader.addModule({ name: "xforms-dom-misc",            type: "js",  fullpath: baseDefaultPath + "lib/ajaxslt/misc.js" });
 	loader.addModule({ name: "xforms-dom",                 type: "js",  fullpath: baseDefaultPath + "lib/ajaxslt/dom.js",
 		requires: [ "xforms-dom-misc" ] });
@@ -138,7 +143,6 @@ function insertInstanceGuard()
 	loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/Instance.js",
 		requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
 	
-	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: baseDefaultPath + "lib/decorate.js" });
 	
 	//control values
 	loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: baseDefaultPath + "lib/xforms/input-value.js" });
@@ -160,7 +164,8 @@ function insertInstanceGuard()
 	
 	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/Control.js",
 		requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-insert-adjacent-html" ] });
-	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/context.js" });
+	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: baseDefaultPath + "lib/xforms/context.js",
+	requires:[ "libxh-namespace-manager"]});
 	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: baseDefaultPath + "lib/dom/eventTargetProxy.js",
 		requires: [ "xforms-dom2events" ] });
 

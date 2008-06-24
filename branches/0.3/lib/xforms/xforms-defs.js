@@ -20,53 +20,56 @@
 //	definitions is critical.  Specifically, the "common child" elements *must*
 //	come after any controls that might use them, as (at present, anyway) label
 //	is implemented as a control.
+
+NamespaceManager.addSelectionNamespace("xf","http://www.w3.org/2002/xforms");	
+
 DECORATOR.setupDecorator(
 	[
 	//Switch off bindings within repeat, during load-time (FF )
 		{
-			selector:"xf\\:repeat > * ",
+			selector:"xf|repeat > * ",
 			cssText:"-moz-binding:url();"
 		},
 		
 	//Switch bindings repeat back on within repeat.  (FF )
 
 		{
-			selector:"xf\\:repeat.repeat-ready > xf\\:group",
+			selector:"xf|repeat.repeat-ready > xf|group",
 			objects:["EventTarget", "Context", "Group"]
 		},
 
   /* Model */
 
 		{
-			selector:"xf\\:instance",
+			selector:"xf|instance",
 			objects:["EventTarget", "Instance"]
 		},
 
 		{
-			selector:"xf\\:model",
+			selector:"xf|model",
 			objects:["EventTarget", "Model"]
 		},
 
 
 		{
-			selector:"xf\\:submission",
+			selector:"xf|submission",
 			objects:["EventTarget", "Context", "Submission"]
 		},
 
     /* Controls */
 
     		{
-			selector:"xf\\:trigger",
+			selector:"xf|trigger",
 			objects:["EventTarget", "Context", "Control"]
 		},
 		
 		{
-			selector:"xf\\:output >  pe-value",
+			selector:"xf|output >  pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
 		{
-			selector:" xf\\:value  > pe-value",
+			selector:" xf|value  > pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
 /*
@@ -76,137 +79,137 @@ DECORATOR.setupDecorator(
 		},
     */
 		{
-			selector:"xf\\:input",
+			selector:"xf|input",
 			objects:["EventTarget", "Context", "Control"]
 		},
 
 		{
-			selector:"xf\\:range",
+			selector:"xf|range",
 			objects:["EventTarget", "Context", "Control"]
 		},
 
     		{
-			selector:"xf\\:output",
+			selector:"xf|output",
 			objects:["EventTarget", "Context", "Control"]
 		},
 
 		{
-			selector:"xf\\:textarea",
+			selector:"xf|textarea",
 			objects:["EventTarget", "Context", "Control"]
 		},
 		
 		{
-			selector:"xf\\:secret",
+			selector:"xf|secret",
 			objects:["EventTarget", "Context", "Control"]
 		},
 		{
-			selector:"xf\\:label",
+			selector:"xf|label",
 			objects:["EventTarget", "Context", "Control"]
 		},
 		{
-			selector:"xf\\:value",
+			selector:"xf|value",
 			objects:["EventTarget", "Context", "Control","Value"]
 		},
 		{
-			selector:"xf\\:item",
+			selector:"xf|item",
 			objects:["EventTarget", "Context", "Item"]
 		},
 
 		{
-			selector:"xf\\:input > pe-value",
+			selector:"xf|input > pe-value",
 			objects:["EventTarget", "XFormsInputValue"]
 		},
 		{
-			selector:"xf\\:secret  > pe-value",
+			selector:"xf|secret  > pe-value",
 			objects:["EventTarget", "XFormsInputValue"]
 		},
 		{
-			selector:"xf\\:textarea  > pe-value",
+			selector:"xf|textarea  > pe-value",
 			objects:["EventTarget", "XFormsInputValue"]
 		},
 	
 		{
-			selector:"xf\\:select > pe-value",
+			selector:"xf|select > pe-value",
 			objects:["EventTarget", "XFormsInputValue"]
 		},
 		{
-			selector:"xf\\:select1 >  pe-value ",
+			selector:"xf|select1 >  pe-value ",
 			objects:["EventTarget", "XFormsInputValue"]
 		},
 		{
-			selector:"xf\\:range > pe-value",
+			selector:"xf|range > pe-value",
 			objects:["EventTarget", "RangeValue"]
 		},
 
 		{
-			selector:"xf\\:select",
+			selector:"xf|select",
 			objects:["EventTarget", "Context", "Control", "Select"]
 		},				
 		
 		{
-			selector:"xf\\:select1",
+			selector:"xf|select1",
 			objects:["EventTarget", "Context", "Control", "Select1"]
 		},
 
     		{
-			selector:"xf\\:repeat",
+			selector:"xf|repeat",
 			objects:["EventTarget", "Context", "Repeat"]
 		},
 
 		{
-			selector:"xf\\:group",
+			selector:"xf|group",
 			objects:["EventTarget", "Context", "Group"]
 		},
 
     		{
-			selector:"xf\\:case",
+			selector:"xf|case",
 			objects:["EventTarget", "XFormsCase"]
 		},
 
 		{
-			selector:"xf\\:switch",
+			selector:"xf|switch",
 			objects:["EventTarget", "Switch"]
 		},
 
     /* Actions */
 
 		{
-			selector:"xf\\:action",
+			selector:"xf|action",
 			objects:["Listener", "XFAction"]
 		},
 		
 		{
-    		selector:"xf\\:message",
+    		selector:"xf|message",
     		objects:["Listener", "Message"]
 		},
 
 		{
-			selector:"xf\\:setvalue",
+			selector:"xf|setvalue",
 			objects:["Listener", "Context", "SetValue"]
 		},
 
 		{
-			selector:"xf\\:send",
+			selector:"xf|send",
 			objects:["Listener", "Send"]
 		},
 
 		{
-			selector:"xf\\:toggle",
+			selector:"xf|toggle",
 			objects:["Listener", "Toggle"]
 		},
 	//Common child elements
 		{
-			selector:"xf\\:label >  pe-value",
+			selector:"xf|label >  pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
 	//Switch off bindings within repeat, during load-time (IE )
 		{
-			selector:"xf\\:repeat *",
+			selector:"xf|repeat *",
 			cssText:"-binding-ignore:true;"
 		},
 	//Switch bindings repeat back on within repeat.  (IE )
 		{
-			selector:"xf\\:repeat.repeat-ready *",
+			selector:"xf|repeat.repeat-ready *",
 			cssText:"-binding-ignore:false;"
 		}
 

@@ -201,18 +201,16 @@ Context.prototype.getBoundNode = function(nOrdinal)
 
 			if (!oParent)
 			{
-
-				var ns = getElementsByTagNameNS( pThis.element.ownerDocument, "xf","model");
-
-				/*
-				 * [ISSUE] Check tagUrn
-				 */
-
-				if (ns && ns.length > 0)
-				{
-					var oModel = ns[0];
-
-					oRet = oModel.getEvaluationContext();
+				//retrieve the first model in document order.	
+				if(!document.defaultModel) {
+					var models = NamespaceManager.getElementsByTagNameNS( pThis.element.ownerDocument, "http://www.w3.org/2002/xforms","model");
+					if (models && models.length > 0) {
+						document.defaultModel = models[0];
+					}
+				}
+				
+				if(document.defaultModel) {
+					oRet = document.defaultModel.getEvaluationContext();
 				}
 			}
 			return oRet;

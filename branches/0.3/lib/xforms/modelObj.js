@@ -80,7 +80,7 @@ Model.prototype.onDocumentReady = function()
 			}
 			else
 			{
-				oInstance = getElementsByTagNameNS(this.element, "xf","instance")[0];
+				oInstance = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms","instance")[0];
 			}	
 			if (!oInstance)
 				throw "No instance found with an ID of '" + sID + "'";
@@ -104,7 +104,7 @@ Model.prototype.onDocumentReady = function()
 		{
 			var oRet = { model: this, node: null };
 			
-			var ns = getElementsByTagNameNS(this.element,"xf","instance");
+			var ns = NamespaceManager.getElementsByTagNameNS(this.element,"http://www.w3.org/2002/xforms","instance");
 			
 			/*
 			 * [ISSUE] Check tagUrn.

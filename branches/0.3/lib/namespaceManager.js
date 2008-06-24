@@ -23,7 +23,7 @@
 var NamespaceManager  = function(){
 	var m_selectionNamespaces = {};
 	var m_outputNamespaces = {};
-	
+	var m_outputNamespaceURIs = {};
 	/**
 		returns the lists of namespaces to an uninitialised state.
 	*/
@@ -66,6 +66,7 @@ var NamespaceManager  = function(){
 			m_outputNamespaces[uri] = [];
 		}
 		m_outputNamespaces[uri].push(prefix);
+		m_outputNamespaceURIs[prefix] = uri;
 		return true;
 	}
 
@@ -152,18 +153,120 @@ var NamespaceManager  = function(){
 		}
 		return newSelector;
 	}
+	/**
+		Searches searchNode for descendents
+		that have a tagName that matches elementName, and
+		that are in the namespace namespaceURI
+		@param searchNode {Node} topmost node (document or element) to look in to find the desired nodes.
+		@param namespaceURI {String} namespace URI to match
+		@param elementName {String}  element name to match
+		@returns an array of nodes that match the given criteria
+	*/	
+	function getElementsByTagNameNS_Aware(searchNode,namespaceURI,elementName) {
+		var retVal = [];
+		//A namespace aware document understands that the bit to the left of the colon is not part of the name.
+		var allTagNameMatches = searchNode.getElementsByTagName(elementName);
+
+		for ( i = 0 ;i < allTagNameMatches.length;++i) {
+			if(allTagNameMatches[i].scopeName !== "HTML") {
+				//lookup the prefix.
+				if("" !== allTagNameMatches[i].tagUrn === namespaceURI) {
+					retVal.push(allTagNameMatches[i]);
+				}
+				else if(m_outputNamespaceURIs[allTagNameMatches[i].scopeName] === namespaceURI) {
+					retVal.push(allTagNameMatches[i]);
+				}
+			}
+			else if(namespaceURI === "") {
+				retVal.push(allTagNameMatches[i]);
+			}
+		}
+		return retVal;
+	}
+	/**
+		Searches searchNode for descendents
+		that have a tagName that matches elementName, and
+		that are in the namespace namespaceURI
+		@param searchNode {Node} topmost node (document or element) to look in to find the desired nodes.
+		@param namespaceURI {String} namespace URI to match
+		@param elementName {String}  element name to match
+		@returns an array of nodes that match the given criteria
+	*/
+	function getElementsByTagNameNS_Unaware(searchNode,namespaceURI,elementName) {
+		var retVal = [];
+		var i = 0;
+		var j = 0;
+		if (namespaceURI === "") {
+			 	//normalise the collection object returned by most processors, to an array.
+		 		var elementsWithNoPrefix = searchNode.getElementsByTagName(elementName);
+		 		for(i = 0 ; i < elementsWithNoPrefix.length ; ++i)  {
+					retVal.push(elementsWithNoPrefix[i]);
+				}
+		 }
+		else {
+			innerGetElementsByTagNameNS_Unaware_YUI(searchNode,namespaceURI, elementName,retVal);
+		}
+		return retVal;
+	}
+
+	//simple and fast, but does not respect document order.
+	function innerGetElementsByTagNameNS_Unaware(searchNode, namespaceURI, elementName,elements) {
+	 	//make up namespacePrefix + elementName combinations to search with.
+		var i;
+		var j;
+	 	var prefixes = this.getOutputPrefixesFromURI(namespaceURI);
+	 	if(prefixes) {
+		 	for( i = 0; i < prefixes.length; ++i) {
+		 		var elementsWithThisPrefix = searchNode.getElementsByTagName(prefixes[i] + ":" + elementName);
+		 		for(j = 0 ; j < elementsWithThisPrefix.length ; ++j)  {
+					elements.push(elementsWithThisPrefix[j]);
+				}
+		 	}
+		 }
+		return;
+	}
+	
+	//slower, but does respect document order.
+	function innerGetElementsByTagNameNS_Unaware_YUI(searchNode, namespaceURI, elementName,elements) {
+		var  fnCheckNamespace = function (el)
+		{
+			var retVal = false;
+			//tagname and nodename tend to be capitalised, annoyingly
+			var sQName = el.tagName.toLowerCase();
+			var ixColon = sQName.indexOf(':');
+			var sTagName = sQName.slice(ixColon+1);
+			if(sTagName === elementName) {
+				var sPrefix = sQName.slice(0,ixColon);
+				if(m_outputNamespaceURIs[sPrefix] === namespaceURI) {
+					retVal = true;
+					elements.push(el);
+				}
+			}
+			return retVal;
+			
+		};
+		YAHOO.util.Dom.getElementsBy(fnCheckNamespace,null, searchNode);
+		return;
+	}
 	
 	var itself = function () {};
 	itself.translateCSSSelector = translateCSSSelector;
 	itself.getOutputPrefixesFromURI = getOutputPrefixesFromURI;
 	itself.addSelectionNamespace = addSelectionNamespace;
 	itself.addOutputNamespace = addOutputNamespace;
+
 	itself.clean = clean;
 	if(document.namespaces) {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;
 	}
 	else {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromDocumentElementAtrributeList;
+	}
+	if(document.namespaces) {
+		itself.getElementsByTagNameNS = getElementsByTagNameNS_Aware;
+	}
+	else {
+		itself.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
 	}
 	return itself;
 }();

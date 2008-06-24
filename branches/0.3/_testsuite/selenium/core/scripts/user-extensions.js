@@ -22,7 +22,7 @@ function(prefix)
 			return 'http://www.w3.org/1998/Math/MathML';
 		case "xf":
 		case "xforms": 
-			return "http://www.w3.org/2002/xforms/";
+			return "http://www.w3.org/2002/xforms";
 		case "smil":
 		     return "http://www.w3.org/2005/SMIL21/BasicAnimation";
 		default:
@@ -36,6 +36,7 @@ function(xpath, inDocument) {
     if (browserVersion.isIE)
     {
         xpath = xpath.replace(/xf:/g,'')
+        xpath = xpath.replace(/xforms:/g,'')
         xpath = xpath.replace(/smil:/g,'')
     }
 

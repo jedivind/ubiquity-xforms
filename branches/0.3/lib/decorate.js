@@ -158,8 +158,13 @@ var DECORATOR = function()
 			//strip out child selectors, (replacing with the inferior descendent selectors)
 			//	These do not work in IE and even sometimes cause IE to close without warning
 			defs[i].selector = defs[i].selector.replace(/>/g,'');
-				oStyleSheet.addRule(defs[i].selector,sRule);
+			var alternateSelectors = defs[i].selector.split(",");
+			//IE doesn't like multiple selectors to be inserted at once.
+			//	Split them on "," and do it one-at-a time
+			for(var j = 0;j < alternateSelectors.length; ++j) {
+				oStyleSheet.addRule(alternateSelectors[j],sRule);
 			}
+		}
 		g_bDocumentLoaded = bDocumentAlreadyLoaded;
 		if(bDocumentAlreadyLoaded)
 		{
@@ -176,50 +181,34 @@ var DECORATOR = function()
 */	
 	function ffSetupDecorator(defs)
 	{
-	    /* old version
-	     *
-
-		for(var i = 0;defs.length > i;++i)
-		{
-			if(g_bIsInXHTMLMode)
-				defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
-			var sRule = defs[i].selector + "{"+generateMozBindingStyle(defs[i].objects)+"}";
-			sCurrRule = sRule;
-			document.styleSheets[0].insertRule(sRule,document.styleSheets[0].length);
-		}
-
-         */
-
-        /* new version */
- 
-        var oHead = document.getElementsByTagName("head")[0];
-        var oStyle = document.createElement('style');
-        var s = "";
-
-        oStyle.setAttribute("type", "text/css");
-
-        if (g_bIsInXHTMLMode)
-        {
-            s += "@namespace xf url(http://www.w3.org/2002/xforms);";
-            s += "@namespace smil url(http://www.w3.org/2005/SMIL21/BasicAnimation);";
-            s += "@namespace h url(http://www.w3.org/1999/xhtml);";
-        }
-
-        for (var i = 0; defs.length > i; ++i)
-        {
-            if (g_bIsInXHTMLMode) {
-                defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
-            }
-
-            sRule = defs[i].selector + "{" + generateMozBindingStyle(defs[i].objects) + (defs[i].cssText || "") + "}";
-            //oStyle.sheet.insertRule(sRule, oStyle.sheet.length);
-            s += sRule;
-        }
-        oStyle.innerHTML = s;
-        oHead.insertBefore(oStyle, null);
+		var oHead = document.getElementsByTagName("head")[0];
+		var oStyle = document.createElement('style');
+		var s = "";
 		
-
-        return;
+		oStyle.setAttribute("type", "text/css");
+		
+		if (g_bIsInXHTMLMode)
+		{
+			s += "@namespace xf url(http://www.w3.org/2002/xforms);";
+			s += "@namespace smil url(http://www.w3.org/2005/SMIL21/BasicAnimation);";
+			s += "@namespace h url(http://www.w3.org/1999/xhtml);";
+		}
+		
+		for (var i = 0; defs.length > i; ++i)
+		{
+			if (g_bIsInXHTMLMode) {
+			    defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
+			}
+		
+			sRule = defs[i].selector + "{" + generateMozBindingStyle(defs[i].objects) + (defs[i].cssText || "") + "}";
+			//oStyle.sheet.insertRule(sRule, oStyle.sheet.length);
+			s += sRule;
+		}
+		oStyle.innerHTML = s;
+		oHead.insertBefore(oStyle, null);
+		
+		
+		return;
 	}//ffSetupDecorator
 	
 	function ffXHTMLSetupDecorator(defs)
@@ -303,6 +292,11 @@ var DECORATOR = function()
 	{
 		var bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
+		NamespaceManager.readOutputNamespacesFromDocument();
+		for(var i = 0 ; i < defs.length; ++i) {
+			defs[i].selector = NamespaceManager.translateCSSSelector(defs[i].selector);	
+		}
+		
 		innerSetupDecorator(defs);
 		if(bDocumentAlreadyLoaded)
 		{
@@ -470,6 +464,8 @@ var DECORATOR = function()
 		}
 		return;
 	}
+	
+
 	
 	var itself = function(){
 	};

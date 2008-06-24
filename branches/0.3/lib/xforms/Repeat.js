@@ -191,7 +191,8 @@ function Repeat(elmnt)
 						else
 						{
 							//In the absence of an iteration corresponding to this index, insert one.
-							arrExtraIterations.push("<xf:"+this.element.iterationTagName+" ref='.' ordinal='"+iCurrentIndex+"' class='repeat-iteration'>" + this.element.getAttribute("sTemplate") + "</xf:"+this.element.iterationTagName+">");
+							var sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI( "http://www.w3.org/2002/xforms")[0] + ":";
+							arrExtraIterations.push("<" + sDefaultPrefix+this.element.iterationTagName+" ref='.' ordinal='"+iCurrentIndex+"' class='repeat-iteration'>" + this.element.getAttribute("sTemplate") + "</" +sDefaultPrefix+this.element.iterationTagName+">");
 						}
 					}
 					this.m_nLastStartIndex = nStartIndex;
