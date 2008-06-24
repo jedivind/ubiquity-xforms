@@ -45,7 +45,7 @@ FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = function(ctx)
 	var s = this.args[0].evaluate(ctx).stringValue();
 
 	s = s.trim();
-	return new BooleanValue((s.toUpperCase() === "TRUE") || (s === "1"));
+	return new BooleanValue((s.toLowerCase() === "true") || (s === "1"));
 };
 
 FunctionCallExpr.prototype.xpathfunctions["is-card-number"] = ThrowNotImpl;
