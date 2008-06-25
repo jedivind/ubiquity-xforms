@@ -10,7 +10,6 @@ arrScripts = [
 var arrScriptElements = [];
 var l = arrScripts.length;
 //for (var i = l-1;i >=0;--i) {
-arrScriptElements.push("<script>alert('loading')</script>");
 for (var i = 0 ; i < l ; ++i) {
   arrScriptElements.push('<script src="' + arrScripts[i] +'" type="text/javascript">/**/</script>');
 }
