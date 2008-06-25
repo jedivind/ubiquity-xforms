@@ -1,81 +1,24 @@
-/*
- * Copyright (C) 2008 Backplane Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
- 
- // Purpose: Module loader for XForms.
- 
-if(typeof g_pathToLib === "undefined")
-{
-	g_pathToLib = "../lib/";
-}
-
-if(typeof g_sBehaviourDirectory === "undefined")
-{
-	g_sBehaviourDirectory = "../behaviours/";
-}
-
-var g_bDocumentLoaded = false;
-function RegisterDocumentLoaded()
-{
-	g_bDocumentLoaded = true;
-}
-if(document.all)
-{
-	window.attachEvent("onload",RegisterDocumentLoaded);
-}
-else 
-{
-	// If the scripts are loaded during the load of the document, then this line
-	//	should be uncommented, so that initialisation can occur on load
-	// If, however, the scripts are to be loaded only after the document has otherwise 
-	//	been fully loaded, then the document should not be considered "loaded" for the 
-	//	purposes of this processor, until much later.  This is handled by the "second-onload"
-	//	module.
-	//window.addEventListener("load",RegisterDocumentLoaded,false);
-}
-//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
-//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
-document.logger = { log: function(sText, sContext) { } };
-
-/**
-	Inserts htc instruction to prevent IE mangling instancedata markup.
-	@returns if an instancedata guard was successfully added, false, if no instancedata guard is implemented for the current environment.
-*/
-function insertInstanceGuard()
-{
-	if(document.all)
-	{
-		var collNamespaces = document.namespaces;
-		for(var i = 0; i < collNamespaces.length; ++i)
-		{
-			if(collNamespaces[i].urn == "http://www.w3.org/2002/xforms")
-			{
-		  		document.write('<?import  namespace="'+collNamespaces[i].name+'" implementation="'+g_sBehaviourDirectory+'instance.htc"?>')		
-		  	}
-		}
-		return true;
-	}
-	return false;	
-}
-
+// Ubiquity provides a standards-based suite of browser enhancements for
+// building a new generation of internet-related applications.
+//
+// The Ubiquity XForms module adds XForms support to the Ubiquity library.
+//
+// Copyright (C) 2008 Backplane Ltd.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 (
   function(){
-  
-	insertInstanceGuard();
-  	var loader = new YAHOO.util.YUILoader();
     
 	//This is the common base path from which each module is served.
 	//	By using a variable like this, it makes it easier to change the path, and also reduces 
@@ -98,7 +41,8 @@ function insertInstanceGuard()
  	var baseDefaultPath = baseHTTPPath;
 	
 	window.status = "configuring module loader";
-	loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: baseDefaultPath + "lib/_backplane/xlink.js" });
+	loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: baseDefaultPath + "lib/_backplane/xlink.js",
+		requires: [ "connection" ] });
 	loader.addModule({ name: "xforms-listener",            type: "js",  fullpath: baseDefaultPath + "lib/dom/listener.js" });
 	loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: baseDefaultPath + "lib/threads.js" });
 	loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: baseDefaultPath + "lib/dom/dom2events.js",
@@ -113,10 +57,10 @@ function insertInstanceGuard()
 	loader.addModule({ name: "backplane-model",            type: "js",  fullpath: baseDefaultPath + "lib/xforms/model.js",
 		requires: [ "backplane-pds" ] });
 	loader.addModule({ name: "xforms-model",               type: "js",  fullpath: baseDefaultPath + "lib/xforms/modelObj.js",
-		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager" ] });
+		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager", "xforms-threads", "xforms-vertex-target" ] });
 	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission.js" });
 	loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-submission-yui.js",
-		requires: [ "xforms-submission-core" ] });
+		requires: [ "xforms-submission-core", "connection" ] });
 	loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: baseDefaultPath + "lib/xforms/Submission.js",
 		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core-yui" ] });
 	
@@ -187,7 +131,7 @@ function insertInstanceGuard()
 	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-defs.js",
 	  requires: [
 	   "libxh-decorator",
-	    "xforms-listener",
+	    "xforms-listener", "xforms-event-target-proxy",
 	    "xforms-conditional-invocation",
 	    "xforms-model", "xforms-instance", "xforms-submission",
 	    "xforms-action", "xforms-context", "xforms-control",
@@ -197,7 +141,7 @@ function insertInstanceGuard()
 	    "xforms-actions","xforms-setvalue","xforms-toggle"
 	    
 	 ]    });
-
+   loader.require( "xforms-defs" );
 
 //Since, instead of loading the scripts at load time, we have decided to delay the loading of 
 //	scripts until after the document has loaded	it is necessary to add this extra step, 
@@ -215,37 +159,8 @@ function insertInstanceGuard()
 		name: "second-onload",
 		type: "js",  
 		fullpath: baseDefaultPath + "lib/second-onload.js", 
-		requires:["xforms-insert-adjacent-html" ] });
+		requires:[ "xforms-insert-adjacent-html" ] });
 
-    loader.require( "dom", "event", "logger", "animation", "connection",
-      "xforms-threads", "xforms-event-target-proxy", "xforms-dom2events",
-      "xforms-vertex-target", "xforms-defs","second-onload");
-
-    loader.onFailure = function(msg, xhrobj) { 
-		window.status = "Failed to load Ubiquity XForms: ";
-    };
-	var sBars = "";
-	loader.onProgress = function(o){
-		sBars += ("|");
-		window.status = ("Loading Ubiquity modules: " + sBars + " [" + o.name + "]");
-	};
-	
-	    loader.onSuccess = function(o) {
-	      YAHOO.util.Event.onDOMReady(
-	        function() {
-		       	if (document.all)
-	        	{
-					window.status = "ready";
-	        	}
-	        }
-	      );
-      window.status = "Successfully loaded Ubiquity XForms";
-      spawn(InsertElementForOnloadXBL);
-     
-    };
-	window.status = "loading ubiquity modules";
-
-    loader.insert();
-    
+    loader.require( "second-onload" );
   }()
 );
