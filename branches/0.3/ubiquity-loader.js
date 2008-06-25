@@ -9,11 +9,11 @@ arrScripts = [
 var arrScriptElements = new Array();
 
 for (i in arrScripts) {
-  arrScriptElements.push('<script src="' + arrScripts[i] +'">/**/</script>');
+  arrScriptElements.push('<script src="' + arrScripts[i] +'" type="text/javascript">/**/</script>');
 }
 
 arrScriptElements.push(
-  '<script> \
+  '<script type="text/javascript"> \
     window.status = "Loading Ubiquity modules..."; \
     loader.insert(); \
   </script>'
