@@ -41,7 +41,9 @@
  	var baseDefaultPath = baseHTTPPath;
 	
 	window.status = "configuring module loader";
-	loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: baseDefaultPath + "lib/_backplane/xlink.js",
+	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: baseDefaultPath + "default.css" });
+
+  loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: baseDefaultPath + "lib/_backplane/xlink.js",
 		requires: [ "connection" ] });
 	loader.addModule({ name: "xforms-listener",            type: "js",  fullpath: baseDefaultPath + "lib/dom/listener.js" });
 	loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: baseDefaultPath + "lib/threads.js" });
@@ -130,7 +132,8 @@
 	
 	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: baseDefaultPath + "lib/xforms/xforms-defs.js",
 	  requires: [
-	   "libxh-decorator",
+	    "ux-default-css",
+      "libxh-decorator",
 	    "xforms-listener", "xforms-event-target-proxy",
 	    "xforms-conditional-invocation",
 	    "xforms-model", "xforms-instance", "xforms-submission",
