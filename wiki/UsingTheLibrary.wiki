@@ -22,28 +22,39 @@ The root of the document needs to contain the XForms namespace, as follows:
 </html>
 }}}
 
+
 == A default stylesheet ==
 
 Various parts of XForms require some default styling. At the moment we include that in a simple stylesheet, but it will shortly be incorporated automatically:
 
 {{{
-  <head>
-    <title>XForms input and output controls</title>
-    ...
-  </head>
 }}}
-
 == Referencing the library ==
 
 To load the library simply refer to the {{{ubiquity-loader.js}}} file in the branch of the latest version. For example:
 {{{
+  <head>
+    <title>XForms input and output controls</title>
     <script src="http://ubiquity-xforms.googlecode.com/svn/branches/0.3/ubiquity-loader.js" type="text/javascript">/**/</script>
+  </head>
+}}}
+
+The library will provide some default CSS rules for XForms elements, so if you want to override these, place any stylesheet references or style rules _after_ the library loader:
+{{{
+  <head>
+    <title>XForms input and output controls</title>
+    <script src="http://ubiquity-xforms.googlecode.com/svn/branches/0.3/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <style type="text/css">
+      xf\:trigger > xf\:label {
+        background-color: blue;
+      }
+    </style>
   </head>
 }}}
 
 == Placing the mark-up ==
 
-Conventionally, XForms authors place the {{{model}}} element in the {{{head}}} of the document. However, for the library to work in Firefox, all XForms elements must be placed in the {{{body}}}:
+Conventionally, XForms authors place the {{{xf:model}}} element in the {{{head}}} of the document. However, for the library to work in Firefox, all XForms elements must be placed in the {{{body}}}:
 {{{
   </head>
   <body>
@@ -59,7 +70,10 @@ Conventionally, XForms authors place the {{{model}}} element in the {{{head}}} o
 
 A simple XForm that allows a name to be edited, can be created as follows:
 {{{
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+>
   <head>
     <title>XForms input and output controls</title>
     <script src="http://ubiquity-xforms.googlecode.com/svn/branches/0.3/ubiquity-loader.js" type="text/javascript">/**/</script>
