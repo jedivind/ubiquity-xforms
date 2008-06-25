@@ -25,9 +25,8 @@
 	path to the directory that contains decorator.xml and applicator.htc
 */
 
-if(!g_sBehaviourDirectory)
-{
-	g_sBehaviourDirectory = "behaviours/";
+if (typeof g_sBehaviourDirectory === "undefined") {
+  g_sBehaviourDirectory = "http://ubiquity-xforms.googlecode.com/svn/branches/0.3/behaviours/";
 }
 
 var g_bIsInXHTMLMode = false;
