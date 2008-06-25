@@ -41,6 +41,11 @@ xf\:input pe-value {
   background-color: white;
 }
 
+xf\:input xf\:label pe-value {
+  border: none;
+  background-color: transparent;
+}
+
 xf\:trigger xf\:label {
   background-color: silver;
   border: 1px solid black;
