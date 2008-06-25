@@ -22,13 +22,6 @@ The root of the document needs to contain the XForms namespace, as follows:
 </html>
 }}}
 
-
-== A default stylesheet ==
-
-Various parts of XForms require some default styling. At the moment we include that in a simple stylesheet, but it will shortly be incorporated automatically:
-
-{{{
-}}}
 == Referencing the library ==
 
 To load the library simply refer to the {{{ubiquity-loader.js}}} file in the branch of the latest version. For example:
@@ -45,7 +38,7 @@ The library will provide some default CSS rules for XForms elements, so if you w
     <title>XForms input and output controls</title>
     <script src="http://ubiquity-xforms.googlecode.com/svn/branches/0.3/ubiquity-loader.js" type="text/javascript">/**/</script>
     <style type="text/css">
-      xf\:trigger > xf\:label {
+      xf\:trigger xf\:label {
         background-color: blue;
       }
     </style>
