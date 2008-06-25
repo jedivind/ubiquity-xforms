@@ -31,17 +31,17 @@ xf\:input {
   padding: 0.2em;
 }
 
-xf\:input > xf\:label {
+xf\:input xf\:label {
   display: inline-block;
   width: 200px;
 }
 
-xf\:input > pe-value {
+xf\:input pe-value {
   border: 2px inset #f0f0f0;
   background-color: white;
 }
 
-xf\:trigger > xf\:label {
+xf\:trigger xf\:label {
   background-color: silver;
   border: 1px solid black;
 }
