@@ -1,67 +1,58 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+  // library.
+  //
+  // Copyright (C) 2008 Backplane Ltd.
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
  */
 
-body
-{
+body {
   font-family: "Lucida Grande",verdana,arial,helvetica,sans-serif;
   font-size: 14px;
 }
 
 xf\:output,
-xf\:input
-{
+xf\:input {
   display: block;
   padding: 0.2em;
 }
 
-xf\:input xf\:label
-{
+xf\:input > xf\:label {
   display: inline-block;
   width: 200px;
 }
 
-xf\:input > pe-value
-{
+xf\:input > pe-value {
   border: 2px inset #f0f0f0;
   background-color: white;
 }
 
-.panel
-{
-background:blue;
-width:150px;
-height:20px;
-overflow:hidden;
+xf\:trigger > xf\:label {
+  background-color: silver;
+  border: 1px solid black;
 }
-.lipsum
-{
-width:100px;
-height:100px;
-padding:20px;
-}
-#hidden
-{
-display:none
-}
+
 .slider-bg {
     position: relative; 
     background:url(bg-fader.gif) 5px 0 no-repeat; 
     height:28px; 
     width:228px;  
 }
+
 .slider-thumb { 
   position: absolute; 
   top: 4px; 
