@@ -107,9 +107,9 @@ Context.prototype.getBoundNode = function(nOrdinal)
 				 * may be retrieved from the model itself.
 				 */
 
-				if (pThis.element["model"])
+				if (pThis.element.getAttribute("model"))
 				{
-					var oModel  = pThis.element.ownerDocument.getElementById(pThis.element["model"]);
+					var oModel  = pThis.element.ownerDocument.getElementById(pThis.element.getAttribute("model"));
 					//TODO: The form author cannot be relied upon to provide an IDREF in @model that actually corresponds
 					//	to a model. In order to prevent errors throwing out and causing problems, a test is required to ensure that
 					//	oModel, retrieved above does not only exist (as the following test proves) but is also actually a model 
@@ -120,7 +120,7 @@ Context.prototype.getBoundNode = function(nOrdinal)
 					{
 						//Having fetched a model node which corresponds to the given @model IDREF
 						//	Find the model to which the parent element is bound.
-						var oCTXModel = GetModelFor(pThis.element.parentNode);
+						var oCTXModel = getModelFor(pThis.element.parentNode);
 						//In the case that the parent's model and the model fetched from the @model IDREF
 						//	are identical, the evaluation context for pThis node is the context gleaned
 						//	from its position within the document, to wit, the same context as though it 
@@ -167,18 +167,11 @@ Context.prototype.getBoundNode = function(nOrdinal)
 			while (oParent)
 			{
 			
-				//TODO: turn this into better code,
-				//The try block here is designed to catch "Object does not support property or method" errors
-				//	arising from calling getBoundNode on objects that do not implement said method.
-				//This is an example of "using error handling for program flow", which is evil.
-				//	A better solution would be to replace "try", with the following test:
-				//	if(typeof(oParent.getBoundNode) != undefined)
-				//	and catch, with else.
-				//I am loathe to do this at this point in time, as, at present, it works, and I fear that some obscure
-				//	condition, in which getBoundNode correctly fails internally	and throws, may exist.  This would not be 
-				//	caught by the above solution.
-					
-				try
+				if(oParent.getBoundNode === undefined)
+				{
+					oParent = oParent.parentNode;
+				}
+				else
 				{
 					oRet = oParent.getBoundNode(nOrdinal);
 					//if oParent is not the sort of node that binds to nodes
@@ -193,11 +186,10 @@ Context.prototype.getBoundNode = function(nOrdinal)
 						oParent = oParent.parentNode;
 					}
 					else
+					{
+						//Now that a real context has been found, leave the loop
 						break;
-				}
-				catch(e)
-				{
-					oParent = oParent.parentNode;
+					}
 				}
 			}
 
@@ -209,18 +201,16 @@ Context.prototype.getBoundNode = function(nOrdinal)
 
 			if (!oParent)
 			{
-
-				var ns = getElementsByTagNameNS( pThis.element.ownerDocument, "xf","model");
-
-				/*
-				 * [ISSUE] Check tagUrn
-				 */
-
-				if (ns && ns.length > 0)
-				{
-					var oModel = ns[0];
-
-					oRet = oModel.getEvaluationContext();
+				//retrieve the first model in document order.	
+				if(!document.defaultModel) {
+					var models = NamespaceManager.getElementsByTagNameNS( pThis.element.ownerDocument, "http://www.w3.org/2002/xforms","model");
+					if (models && models.length > 0) {
+						document.defaultModel = models[0];
+					}
+				}
+				
+				if(document.defaultModel) {
+					oRet = document.defaultModel.getEvaluationContext();
 				}
 			}
 			return oRet;

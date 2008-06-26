@@ -72,23 +72,23 @@ Model.prototype.onDocumentReady = function()
 		Model.prototype.getInstanceDocument = function(sID)
 		{
 			var oRet = null;
+			var oInstance = null;
 
-			if (sID)
+			if (sID && sID !== "")
 			{
-				/*
-				 * [TODO] Should be getElementById().
-				 */
-
-				var oInstance = this.element.all(sID);
-				
-				if (!oInstance)
-					throw "No instance found with an ID of '" + sID + "'";
-				else if (oInstance.length)
-					throw "Multiple instances found with an ID of '" + sID + "'";
-				else
-					oRet = oInstance.m_oDOM;
-					//oRet = oInstance.getDocument();
+				oInstance = document.getElementById(sID);
 			}
+			else
+			{
+				oInstance = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms","instance")[0];
+			}	
+			if (!oInstance)
+				throw "No instance found with an ID of '" + sID + "'";
+			else if(oInstance.parentNode !=this.element)
+				throw "instance '" + sID + "' is not part of model '"+this.element.id+"'";
+			else
+				oRet = oInstance.m_oDOM;
+				
 			return oRet;
 		}
 
@@ -104,7 +104,7 @@ Model.prototype.onDocumentReady = function()
 		{
 			var oRet = { model: this, node: null };
 			
-			var ns = getElementsByTagNameNS(this.element,"xf","instance");
+			var ns = NamespaceManager.getElementsByTagNameNS(this.element,"http://www.w3.org/2002/xforms","instance");
 			
 			/*
 			 * [ISSUE] Check tagUrn.
@@ -199,7 +199,6 @@ Model.prototype.onDocumentReady = function()
 		{
 			//this.element.ownerDocument.xformslog.log("Getting '" + sXPath + "'", "mdl");
 
-			debugger;
 			var oRet = this.EvaluateXPath(sXPath, this);
 
 			return oRet;
@@ -309,7 +308,6 @@ Model.prototype.onDocumentReady = function()
 
 		Model.prototype.AddSingleNodeBinding = function(oTarget, oContext, sXPath)
 		{
-			debugger;
 			if (!oContext)
 				oContext = this;
 
@@ -336,7 +334,11 @@ Model.prototype.onDocumentReady = function()
 			}
 		}
 
-
+		Model.prototype.flagRebuild = function()
+		{
+			this.m_bNeedRebuild = true;
+		}
+		
 		Model.prototype.rebuild = function()
 		{
 
@@ -358,7 +360,7 @@ Model.prototype.onDocumentReady = function()
 			this.m_bNeedRebuild = false;
 			this.m_bNeedRecalculate = true;
 		}
-
+		
 		Model.prototype.recalculate = function()
 		{
 			this.m_oDE.recalculate(this.changeList);

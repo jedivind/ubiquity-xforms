@@ -46,7 +46,7 @@ function Listener(elmnt)
 					if (!sID)
 						oObserver = this.element.parentNode;
 					else
-						oObserver = this.element.document.getElementById(sID);
+						oObserver = this.element.ownerDocument.getElementById(sID);
 
 					/*
 					* Get the "phase" value, which can either be "capture"

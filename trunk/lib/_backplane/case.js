@@ -24,10 +24,19 @@ Case.prototype.deselect = function()
 	this.element.sDisplay = this.element.style.display;
 	this.element.style.display = "none";
 	return;
-}
+};
 
 Case.prototype.select = function()
 {
-	this.element.style.display = this.element.sDisplay;
+
+	if(typeof this.element.sDisplay === "undefined")
+	{
+		//This must be the default case, and it has not been deselected.
+		this.element.sDisplay = this.element.style.display;
+	}
+	else
+	{	
+		this.element.style.display = this.element.sDisplay;
+	}
 	return;
-}
+};

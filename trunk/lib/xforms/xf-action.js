@@ -65,7 +65,7 @@ function XFAction(elmnt)
 				try
 				{
 					if(oColl.item(i).nodeType == 1)
-						document.invokeListener(oColl.item(i), evt);	
+						ActionExecutor.invokeListener(oColl.item(i), evt);	
 				}
 				catch(e)
 				{

@@ -1,65 +1,7 @@
 <PUBLIC:COMPONENT lightWeight="true">
-	<PUBLIC:ATTACH EVENT="ondetach" ONEVENT="detach();" FOR="element" />
 	<PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="callHandlers(element,element.onContentReady);" FOR="element" />
 	<PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="callHandlers(element,element.onDocumentReady);" FOR="element" />
 	<SCRIPT>
-		var tIndex = element.getAttribute("tabindex");
-		if(tIndex == 0)
-			element.tabIndex = 1;
-		
-		element.constructors = new Array();
-		element.contentReadyHandlers = new Array();
-		element.documentReadyHandlers = new Array();
-		var m_cookies = new Array();
-		var sBehaviours = element.currentStyle["-moz-binding"];
-
-		sBehaviours = sBehaviours.substring(sBehaviours.indexOf('?')+1,sBehaviours.lastIndexOf('#') );
-
-		var arrBehaviours = sBehaviours.split("&");
-
-		for(var i = 0;i < arrBehaviours.length;++i)
-		{
-			AddBehaviour(arrBehaviours[i]);
-		}
-		callHandlers(element,element.ctor);
-		
-		
-		function detach()
-		{
-			var cookie = m_cookies.pop();
-			while(cookie)
-			{
-				try
-				{
-					element.removeBehavior(cookie);
-				}
-				catch(e)
-				{
-					//ignore;
-				}
-				cookie = m_cookies.pop();
-			}
-		}
-		
-		
-		function AddBehaviour(sBehaviour)
-		{
-			try{
-			try{
-					eval("var o = new "+sBehaviour+"(element);")
-				}catch(e){debugger;}
-				
-				if(o)
-				{
-					if(o == null)
-						debugger;
-					extend(element,o);
-				}
-			}
-			catch(e)
-			{
-				throw e
-			}
-		}
+		DecorateBehaviour(element,false,false);
 	</SCRIPT>
 </PUBLIC:COMPONENT>
