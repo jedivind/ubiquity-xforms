@@ -11,7 +11,7 @@ The loader will generally reside on the Google Code servers, and your XForms can
 
 This problem should be solved at some point, but it is not a top priority yet. Until it is addressed, we recommend that if you want to develop forms without needing your own server or copying the files, you use Firefox in the manner described below. And if you need to test and deploy with IE, you will have to obtain a copy of the library.
 
-= How to write an XForm to use Ubiquity XForms processor =
+= How to write an XForm to use the Ubiquity XForms processor =
 
 The two parts of the form that *must* be present are the XForms namespace, and the reference to the loader script.
 
