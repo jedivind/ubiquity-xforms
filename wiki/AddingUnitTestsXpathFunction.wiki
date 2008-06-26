@@ -116,10 +116,9 @@ Run the test again and we should be back to a green bar.
 
 == Step 6: Refactor ==
 
-At this point in TDD we are in a strong position to refactor our code. Since we have a green bar in our test environment, and clearly defined interfaces to our function, we can make any changes we like _within_ our function; provided we maintain our green bar, we know that nothing will have affected what our function does, it will merely improve the design or performance.
+At this point in TDD we are in a strong position to refactor our code. Since we have a green bar in our test environment, and clearly defined interfaces to our function, we can make any changes we like _within_ our function; provided we maintain our green bar, we know that nothing we do will have affected what our function does, it will merely improve the design or performance.
 
-Since many of our XPath functions are small, and such functions may be called multiple times within a form, we might as well make them as terse as possible:
-Our completed function now looks like this:
+Since many of our XPath functions are small, and such functions may be called multiple times within a form, we might as well make them as terse as possible, as long as we don't lose readability:
 {{{
 FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
   return new NumberValue(
@@ -130,7 +129,10 @@ FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
   );
 };
 }}}
-This layout draws attention to the fact that the function returns a number values, and takes two parameters, each of which are also number values.
+This layout draws attention to all of the key pieces of information about the function:
+  * it returns a number value;
+  * it takes two parameters, each of which are also number values;
+  * the 'inner workings' of the function is simply to call the {{{Math.pow}}} function.
 
 == Step 7: Adding failing tests ==
 
