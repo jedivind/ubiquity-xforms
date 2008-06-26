@@ -99,7 +99,7 @@ Returning to [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.
   var a = this.args[0].evaluate(ctx).numberValue();
   var b = this.args[1].evaluate(ctx).numberValue();
 }}}
-and then replace the hard-code return value of {{{8}}} with the actual calculation of the power:
+and then replace the hard-coded return value of {{{8}}} with the actual calculation of the power:
 {{{
   return new NumberValue(Math.pow(a, b));
 }}}
@@ -114,11 +114,25 @@ FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
 }}}
 Run the test again and we should be back to a green bar.
 
-At this point in TDD we would normally look at refactoring, but this function is probably about as terse as it can get. In more complex functions you might need to repeatedly add more functionality and refactor, as appropriate.
+== Step 6: Refactor ==
 
-The next step is to 
+At this point in TDD we are in a strong position to refactor our code. Since we have a green bar in our test environment, and clearly defined interfaces to our function, we can make any changes we like _within_ our function; provided we maintain our green bar, we know that nothing will have affected what our function does, it will merely improve the design or performance.
 
-== Step 6: Adding failing tests ==
+Since many of our XPath functions are small, and such functions may be called multiple times within a form, we might as well make them as terse as possible:
+Our completed function now looks like this:
+{{{
+FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
+  return new NumberValue(
+    Math.pow(
+      this.args[0].evaluate(ctx).numberValue(),
+      this.args[1].evaluate(ctx).numberValue()
+    )
+  );
+};
+}}}
+This layout draws attention to the fact that the function returns a number values, and takes two parameters, each of which are also number values.
+
+== Step 7: Adding failing tests ==
 
 The XForms specification says that if {{{power()}}} cannot return a correct result, it should return {{{NaN}}}. We can test this by adding another test, which is another example from the specification:
 {{{
@@ -147,18 +161,20 @@ The first step is to add such an assertion to the {{{testPowerFail}}} test:
 This will give a red bar because the function itself hasn't been written to defend against this. However, it's easy enough to add a check that there are two parameters:
 {{{
 FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
-  if (this.args.length != 2)
+  if (!this.args || this.args.length != 2)
     return new NumberValue(NaN);
 
-  var a = this.args[0].evaluate(ctx).numberValue();
-  var b = this.args[1].evaluate(ctx).numberValue();
-
-  return new NumberValue(Math.pow(a, b));
+  return new NumberValue(
+    Math.pow(
+      this.args[0].evaluate(ctx).numberValue(),
+      this.args[1].evaluate(ctx).numberValue()
+    )
+  );
 };
 }}}
 Whether the XPath function you are implementing has a fixed number of parameters or not will depend on its definition. And of course, whether it should return {{{NaN}}} or some other value to indicate the error will also be determined by how it has been defined.
 
-In the case of {{{power()}}} we know that the function takes two _and only two_ parameters, so can add a few other assertions to check for one and three parameters:
+In the case of {{{power()}}} we know that the function takes two _and only two_ parameters, so we can add a few other assertions to check that {{{NaN}}} is returned for one and three parameters:
 {{{
       Assert.isNaN(evalXPath('power(1)').numberValue());
       Assert.isNaN(evalXPath('power(1, 2, 3)').numberValue());
@@ -166,4 +182,4 @@ In the case of {{{power()}}} we know that the function takes two _and only two_ 
 
 = Conclusion =
 
-TDD is an efficient way to work when creating XPath functions.
+TDD is an efficient way to work when creating XPath functions. It advises that we first define the way our function will be called (in the tests), and only then look at how the function will actually work (in the implementation). The most basic implementation is sufficient, so that we can quickly get a green bar, since once we have that, we have a powerful environement in which to improve the way the function is designed and performs.
