@@ -6,7 +6,7 @@ if (document.all) {
   var collNamespaces = document.namespaces, i;
 
   if (typeof g_sBehaviourDirectory === "undefined") {
-    g_sBehaviourDirectory = "http://ubiquity-xforms.googlecode.com/svn/branches/0.3/behaviours/";
+    g_sBehaviourDirectory = "http://ubiquity-xforms.googlecode.com/svn/tags/0.3.0/behaviours/";
   }
 
 
