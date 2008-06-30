@@ -27,6 +27,7 @@ function Model(elmnt)
 	this.elementLoaded = false;
 	this.m_arrProxyNodes = new Object();
 	this.m_arControls = new Array();
+	this.xformselement = "model";
 }
 
 Model.prototype.onDocumentReady = function()
