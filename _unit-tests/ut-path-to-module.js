@@ -12,6 +12,8 @@ var oSuitePathToModule = new YAHOO.tool.TestSuite({
 		sInner += '<script src="/somescripts.js/somescripts.js"></script>';
 		sInner += '<script src="xy/absomescript4.js"></script>';
 		sInner += '<script src="http://www.example.com/somescript4.js"></script>';
+		sInner += '<script src="C:\\somedir\\somescript5.js"></script>';
+		
 		this.testElement.innerHTML =  sInner;
 		document.body.appendChild(this.testElement);
 	},
@@ -56,6 +58,13 @@ var oTestGetPathToModule = new YAHOO.tool.TestCase({
 		Assert.areNotEqual(pathToModule("somescript4"), "xy/");
 		Assert.areEqual(pathToModule("somescript4"), "http://www.example.com/");
 	},
+	
+	testGetPathToModuleOnFileSystem:
+	function() {
+		Assert.areEqual(pathToModule("somescript5"), "c:\\somedir\\");
+	},
+	
+
 	testGetPathToModuleThatDoesNotExist:
 	function() {
 	  pathToModule("Quirkafleeg");
