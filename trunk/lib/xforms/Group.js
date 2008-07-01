@@ -81,11 +81,11 @@ function Group(elmnt)
 				oModel.addControl(this);
 			}
 			else{
-				debugger;
+				throw("Could not resolve model for group.");
 			}
 		}
 		else{ /* shouldn't be called twice */
-			debugger;
+			throw("Second attempt to add group to model as a control.");
 		}
 	};
 	
