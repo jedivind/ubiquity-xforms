@@ -1,10 +1,10 @@
 arrScripts = [
 	  "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js",
-	  "http://ubiquity-xforms.googlecode.com/svn/branches/0.3/lib/xforms/ie-instance-fixer.js",
-	  "http://ubiquity-xforms.googlecode.com/svn/branches/0.3/lib/xforms/set-document-loaded.js",
-	  "http://ubiquity-xforms.googlecode.com/svn/branches/0.3/lib/xforms/loader-begin.js",
-	  "http://ubiquity-xforms.googlecode.com/svn/branches/0.3/lib/xforms/main.js",
-	  "http://ubiquity-xforms.googlecode.com/svn/branches/0.3/lib/xforms/loader-end.js"
+	  "http://ubiquity-xforms.googlecode.com/svn/trunk/lib/xforms/ie-instance-fixer.js",
+	  "http://ubiquity-xforms.googlecode.com/svn/trunk/lib/xforms/set-document-loaded.js",
+	  "http://ubiquity-xforms.googlecode.com/svn/trunk/lib/xforms/loader-begin.js",
+	  "http://ubiquity-xforms.googlecode.com/svn/trunk/lib/xforms/main.js",
+	  "http://ubiquity-xforms.googlecode.com/svn/trunk/lib/xforms/loader-end.js"
 ];
 
 var arrScriptElements = [];
