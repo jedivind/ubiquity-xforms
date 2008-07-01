@@ -15,7 +15,7 @@ function pathToModule(module) {
     src = scripts[i].src;
     pos = src.lastIndexOf(module + ".js");
     
-    if (pos != -1 && (pos === 0 || src.charAt(pos - 1) === "/")) {
+    if (pos != -1 && (pos === 0 || src.charAt(pos - 1) === "/" || src.charAt(pos - 1) === "\\")) {
       s = src.slice(0,pos);
       found = true;
       break;
