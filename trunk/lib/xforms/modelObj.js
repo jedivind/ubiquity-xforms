@@ -25,8 +25,8 @@ function Model(elmnt)
 	this.m_bReady = false;
 	this.elementState = 1;
 	this.elementLoaded = false;
-	this.m_arrProxyNodes = new Object();
-	this.m_arControls = new Array();
+	this.m_arrProxyNodes = {};
+	this.m_arControls = [];
 	this.xformselement = "model";
 }
 
@@ -34,28 +34,28 @@ Model.prototype.onDocumentReady = function()
 {
 	this.setElementLoaded();
 	this._testForReady();
-}
+};
 		Model.prototype.onContentReady = function()
 		{
 			return _model_contentReady(this);
 
-		}//model_contentReady()
+		};
 
 		Model.prototype.modelConstruct = function()
 		{
 			return _modelConstruct(this);
-		}
+		};
 
 		Model.prototype.modelConstructDone = function()
 		{
 			this.rewire();
-			 window.status ="refreshing"
+			 window.status ="refreshing";
 			this.refresh();
 
 			var pThis = this;
 			this.fireMCD();
 			this.m_bReady = true;
-		}
+		};
 		
 		Model.prototype.fireMCD = function()
 		{
@@ -63,12 +63,12 @@ Model.prototype.onDocumentReady = function()
 			evt.initEvent("xforms-ready", true, false);
 			evt._actionDepth = -1;
 			FormsProcessor.dispatchEvent(this.element,evt);
-		}
+		};
 		
 		Model.prototype.replaceInstanceDocument = function(sID, oDom)
 		{
 			return _replaceInstanceDocument(this,sID,oDom);
-		}
+		};
 
 		Model.prototype.getInstanceDocument = function(sID)
 		{
@@ -83,22 +83,27 @@ Model.prototype.onDocumentReady = function()
 			{
 				oInstance = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms","instance")[0];
 			}	
-			if (!oInstance)
+			if (!oInstance) {
 				throw "No instance found with an ID of '" + sID + "'";
-			else if(oInstance.parentNode !=this.element)
+			}
+			else if(oInstance.parentNode !=this.element) {
 				throw "instance '" + sID + "' is not part of model '"+this.element.id+"'";
-			else
+			}
+			else {
 				oRet = oInstance.m_oDOM;
+			}
 				
 			return oRet;
-		}
+		};
 
 		function getElementsByTagNameNS(el,prefix,tn)
 		{
-			if(document.all)
+			if(document.all) {
 				return el.getElementsByTagName(tn);
-			else
+			}
+			else {
 				return el.getElementsByTagName(prefix + ":" + tn);
+			}
 		}
 		
 		Model.prototype.getEvaluationContext = function()
@@ -107,10 +112,7 @@ Model.prototype.onDocumentReady = function()
 			
 			var ns = NamespaceManager.getElementsByTagNameNS(this.element,"http://www.w3.org/2002/xforms","instance");
 			
-			/*
-			 * [ISSUE] Check tagUrn.
-			 */
-
+	
 			if (ns && ns.length > 0)
 			{
 				var oFirstInstance = ns[0];
@@ -123,16 +125,17 @@ Model.prototype.onDocumentReady = function()
 					);
 				}
 			}
-			else
+			else {
 				throw "Model ... has no instances";
+			}
 
 			return oRet;
-		}
+		};
 
 		Model.prototype.getBoundNode = function()
 		{
 			return this.getEvaluationContext();
-		}
+		};
 
 		/*
 		 * The setValue method allows us to set any node,
@@ -157,7 +160,7 @@ Model.prototype.onDocumentReady = function()
 				 * XPath.
 				 */
 
-				var sValue = getStringValue( this.EvaluateXPath(sExprValue, oNode) )
+				var sValue = getStringValue( this.EvaluateXPath(sExprValue, oNode) );
 
 				/*
 				 * If there is no proxy node then create one.
@@ -186,7 +189,7 @@ Model.prototype.onDocumentReady = function()
 				this.m_bNeedRefresh = true;
 			}
 			return;
-		}//setValue()
+		};
 
 
 		/*
@@ -203,7 +206,7 @@ Model.prototype.onDocumentReady = function()
 			var oRet = this.EvaluateXPath(sXPath, this);
 
 			return oRet;
-		}//getValue()
+		};
 
 		/*
 		 * Evaluates an XPath expression, returning a
@@ -212,7 +215,7 @@ Model.prototype.onDocumentReady = function()
 		Model.prototype.EvaluateXPath = function(sXPath, pContextResolver)
 		{
 			return _EvaluateXPath(this,sXPath, pContextResolver);
-		}
+		};
 
 
 		Model.prototype.addControl = function(oTarget)
@@ -238,7 +241,7 @@ Model.prototype.onDocumentReady = function()
 					{
 						try
 						{
-							if(oTargetSaved && typeof(oTargetSaved.element) == "object")
+							if(oTargetSaved && typeof oTargetSaved.element == "object")
 							{
 								oTargetSaved.rewire();
 								oTargetSaved.refresh();
@@ -252,7 +255,7 @@ Model.prototype.onDocumentReady = function()
 				);
 			}
 			return;
-		}
+		};
 
 		/*
 		 * Creates a connection between a DOM node
@@ -262,7 +265,7 @@ Model.prototype.onDocumentReady = function()
 		Model.prototype.addBindingTemp = function(oContext, sXPath)
 		{
 			return _addBindingTemp(this,oContext,sXPath);
-		}
+		};
 
 		/*
 		 * Creates a connection between a form control and a proxy node.
@@ -284,14 +287,15 @@ Model.prototype.onDocumentReady = function()
 					
 						var oPN = evt.target.m_proxy;
 
-						if (oPN)
+						if (oPN) {
 							oPN.setValue(evt.newValue, this.model);
+						}
 					}
 				},
 				false
 			);
 			return;
-		}
+		};
 
 		/*
 		 * Creates a connection between a form control and a DOM node,
@@ -301,7 +305,7 @@ Model.prototype.onDocumentReady = function()
 		Model.prototype.addControlExpression = function(oTarget, oContext, sXPath)
 		{
 			return _addControlExpression(this,oTarget, oContext, sXPath);
-		}
+		};
 
 		/*
 		 * Adds a binding between a DOM node and a vertex.
@@ -309,23 +313,24 @@ Model.prototype.onDocumentReady = function()
 
 		Model.prototype.AddSingleNodeBinding = function(oTarget, oContext, sXPath)
 		{
-			if (!oContext)
+			if (!oContext) {
 				oContext = this;
-
+      }
 			var oSNE = new SingleNodeExpression(oTarget, sXPath, oContext, this, true);
 
 			return oSNE;
-		}
+		};
 
 		Model.prototype.AddNodesetBinding = function(oTarget, oContext, sXPath)
 		{
-			if(!oContext)
+			if(!oContext) {
 				oContext = this;
+			}
 
 			var oNE = new NodesetExpression(oTarget, sXPath, oContext, this, false);
 
 			return oNE;
-		}
+		};
 
 		Model.prototype.AddMIP = function(arrContext,sXPath,sMIP)
 		{
@@ -333,12 +338,12 @@ Model.prototype.onDocumentReady = function()
 			{
 				arrContext[i];
 			}
-		}
+		};
 
 		Model.prototype.flagRebuild = function()
 		{
 			this.m_bNeedRebuild = true;
-		}
+		};
 		
 		Model.prototype.rebuild = function()
 		{
@@ -360,7 +365,7 @@ Model.prototype.onDocumentReady = function()
 
 			this.m_bNeedRebuild = false;
 			this.m_bNeedRecalculate = true;
-		}
+		};
 		
 		Model.prototype.recalculate = function()
 		{
@@ -370,13 +375,13 @@ Model.prototype.onDocumentReady = function()
 			this.changeList.clear();
 			this.m_bNeedRecalculate = false;
 			this.m_bNeedRevalidate = true;
-		}
+		};
 
 		Model.prototype.revalidate = function()
 		{
 			this.m_bNeedRevalidate = false;
 			this.m_bNeedRewire = true;
-		}
+		};
 
 		/*
 		 * We give all of the controls the opportunity to
@@ -389,32 +394,36 @@ Model.prototype.onDocumentReady = function()
 			{
 				var fc = this.m_arControls[i];
 
-				if (fc && typeof(fc.element) == "object")
+				if (fc && typeof fc.element == "object") {
 					fc.unwire();
-				else
+				}
+				else {
 					this.m_arControls.splice(i);
+				}
 			}	
 
 			for (var i = 0; i < this.m_arControls.length; ++i)
 			{
 				var fc = this.m_arControls[i];
 
-				if (fc && typeof(fc.element) == "object")
+				if (fc && typeof fc.element == "object") {
 					fc.rewire();
-				else
+				}
+				else {
 					this.m_arControls.splice(i);
+				}
 			}
 			
 			this.m_bNeedRewire = false;
 			this.m_bNeedRefresh = true;
 			return;
-		}
+		};
 		
 		Model.prototype.refresh = function()
 		{
 			var pThis = this;
 			spawn(function(){pThis._refresh();});
-		}
+		};
 		
 		Model.prototype._refresh = function()
 		{
@@ -431,15 +440,15 @@ Model.prototype.onDocumentReady = function()
 						this.m_arControls.splice(i);
 				}
 			}
- 		 window.status =""
+ 		 window.status = "";
 
 			return;
-		}
+		};
 
 		Model.prototype.deferredUpdate = function()
 		{
 			return _deferredUpdate(this);
-		}
+		};
 
 		/*
 		 * P R I V A T E
@@ -452,15 +461,16 @@ Model.prototype.onDocumentReady = function()
 		Model.prototype.createMIP = function(oVertex, sMIPName, sExpr, oPN, oContextNode)
 		{
 			return _createMIP(this,oVertex, sMIPName, sExpr, oPN, oContextNode);
-		}
+		};
 		
 		Model.prototype._testForReady = function()
 		{
 			testForReady(this);
-		}
+		};
+		
 		Model.prototype.setElementLoaded = function()
 		{
 			this["elementLoaded"] = true;
 
 			return;
-		}//setElementLoaded()
+		};
