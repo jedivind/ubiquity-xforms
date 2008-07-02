@@ -4,25 +4,25 @@ var oSuitePathToModule = new YAHOO.tool.TestSuite({
 	name : "Test getPathToModule",
 	setUp		: 	function()
 	{
-		this.testElement = document.createElement("div");
-		var sInner = 'XXX<script src="../somescript0.js"></script>';
-		sInner += '<script src="../../../../somescript1.js"></script>';
-		sInner += '<script src="/scripts/somescript2.js"></script>';
-		sInner += '<script src="http://www.example2.com/somescript3.js"></script>';
-		sInner += '<script src="/somescripts.js/somescripts.js"></script>';
-		sInner += '<script src="xy/absomescript4.js"></script>';
-		sInner += '<script src="http://www.example.com/somescript4.js"></script>';
-		sInner += '<script src="C:\\somedir\\somescript5.js"></script>';
-		
-		this.testElement.innerHTML =  sInner;
-		document.body.appendChild(this.testElement);
-	},
-	tearDown	:	function()
-	{
-		this.testElement.parentNode.removeChild(this.testElement);
-		delete this.testElement;
-	}
+	  alert(document.base);
+    var arrScripts = [
+      "../somescript0.js",
+      "../../../../somescript1.js",
+      "/scripts/somescript2.js",
+      "http://www.example2.com/somescript3.js",
+      "/somescripts.js/somescripts.js",
+      "xy/absomescript4.js",
+      "http://www.example.com/somescript4.js",
+      "C:\\somedir\\somescript5.js"
+    ];
+    var i, l = arrScripts.length;
 
+    for (i = 0 ; i < l ; ++i) {
+      el = document.createElement("script");
+      el.setAttribute("src", arrScripts[i]);
+      document.firstChild.firstChild.appendChild(el);
+    }
+	}
 });
 
 var oTestGetPathToModule = new YAHOO.tool.TestCase({
