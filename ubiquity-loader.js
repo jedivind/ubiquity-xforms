@@ -2,28 +2,30 @@ function pathToModule(module) {
   if (!module) {
     throw("Missing or null parameter supplied.");
   }
-
-  var scripts = document.getElementsByTagName("script");
-  var l = scripts.length;
-  var s = "";
-  var found = false;
-  var i, src, pos;
+  var head = document.firstChild.firstChild;
+  var childNodes = head.childNodes;
+  var l = childNodes.length;
+  var s = null;
+  var el, i, src, pos;
 
   for (i = 0; i < l; ++i) {
-    src = scripts[i].src;
-    pos = src.lastIndexOf(module + ".js");
-    
-    if (pos != -1 && (pos === 0 || src.charAt(pos - 1) === "/" || src.charAt(pos - 1) === "\\")) {
-      s = src.slice(0,pos);
-      found = true;
-      break;
-    }
-  }
-  
-  if (!found) {
+    el = childNodes[i];
+    if (el.nodeType === 1 && el.nodeName === "SCRIPT") {
+      src = el.src;
+      if (src) {
+        pos = src.lastIndexOf(module + ".js");
+        
+        if (pos != -1 && (!pos || src.charAt(pos - 1) === "/" || src.charAt(pos - 1) === "\\")) {
+          s = src.slice(0, pos);
+          break;
+        }
+      }// if @src is present
+    }// if we have a script element
+  }// for each child node
+
+  if (!s) {
     throw("No Module called '" + module + "' was found.");
   }
-  
   return s;
 }
 
@@ -38,7 +40,7 @@ g_sBehaviourDirectory = baseDefaultPath + "behaviours/";
       baseDefaultPath + "lib/xforms/ie-instance-fixer.js",
       baseDefaultPath + "lib/xforms/set-document-loaded.js",
       baseDefaultPath + "lib/xforms/loader-begin.js",
-      baseDefaultPath + "lib/xforms/main.js",
+      baseDefaultPath + "lib/xforms/xforms-loader.js",
       baseDefaultPath + "lib/xforms/loader-end.js"
     ];
     var arrScriptElements = [ ];
