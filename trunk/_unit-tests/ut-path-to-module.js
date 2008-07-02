@@ -4,7 +4,6 @@ var oSuitePathToModule = new YAHOO.tool.TestSuite({
 	name : "Test getPathToModule",
 	setUp		: 	function()
 	{
-	  alert(document.base);
     var arrScripts = [
       "../somescript0.js",
       "../../../../somescript1.js",
