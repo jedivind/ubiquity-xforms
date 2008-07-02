@@ -1,10 +1,8 @@
-
-
-function pathToModule(module) {
-  
+function pathToModule(module) { 
   if (!module) {
     throw("Missing or null parameter supplied.");
   }
+
   var scripts = document.getElementsByTagName("script");
   var l = scripts.length;
   var s = "";
@@ -33,25 +31,22 @@ var baseDefaultPath = pathToModule("ubiquity-loader");
 g_sBehaviourDirectory = baseDefaultPath + "behaviours/";
 
 (
-
   function()
   {
-    arrScripts = [
-    	  "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js",
-    	  baseDefaultPath + "lib/xforms/ie-instance-fixer.js",
-    	  baseDefaultPath + "lib/xforms/set-document-loaded.js",
-    	  baseDefaultPath + "lib/xforms/loader-begin.js",
-    	  baseDefaultPath + "lib/xforms/main.js",
-        baseDefaultPath + "lib/xforms/loader-end.js"
+    var arrScripts = [
+      "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js",
+      baseDefaultPath + "lib/xforms/ie-instance-fixer.js",
+      baseDefaultPath + "lib/xforms/set-document-loaded.js",
+      baseDefaultPath + "lib/xforms/loader-begin.js",
+      baseDefaultPath + "lib/xforms/main.js",
+      baseDefaultPath + "lib/xforms/loader-end.js"
     ];
-    
-    var arrScriptElements = [];
-    var l = arrScripts.length;
-    //for (var i = l-1;i >=0;--i) {
-    for (var i = 0 ; i < l ; ++i) {
+    var arrScriptElements = [ ];
+    var i, l = arrScripts.length;
+
+    for (i = 0 ; i < l ; ++i) {
       arrScriptElements.push('<script src="' + arrScripts[i] +'" type="text/javascript">/**/</script>');
     }
-    
     document.write(arrScriptElements.join("\n"));
   }()
 );
