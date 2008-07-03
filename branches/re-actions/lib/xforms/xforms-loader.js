@@ -101,6 +101,9 @@
   		requires: [ "xforms-listener", "xforms-threads" ] });
   	loader.addModule({ name: "xforms-actions",              type: "js",  fullpath: moduleBase + "actions.js",
   		requires:["container"]});  
+  	loader.addModule({ name: "xforms-model-actions",        type: "js",  fullpath: moduleBase + "modelactions.js",
+  		requires:["xforms-actions","xforms-processor"]});  
+
   	loader.addModule({ name: "xforms-setvalue",             type: "js",  fullpath: moduleBase + "setvalue.js",
   	    	requires:["xforms-actions"]});
   	loader.addModule({ name: "xforms-toggle",             type: "js",  fullpath: moduleBase + "toggle.js",
@@ -109,6 +112,7 @@
   	    	requires:["xforms-dom2events"]});
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
+
   	
   	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
   	  requires: [
@@ -121,7 +125,7 @@
   	    "xforms-input-value", "xforms-output-value", "xforms-range-value", 
   	    "xforms-group","xforms-repeat","xforms-switch",
   	    "xforms-select","xforms-item",
-  	    "xforms-actions","xforms-setvalue","xforms-toggle"
+  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions"
   	  ]
   	});
     loader.require( "xforms-defs" );
