@@ -2,11 +2,20 @@ function pathToModule(module) {
   if (!module) {
     throw("Missing or null parameter supplied.");
   }
-  var head = document.firstChild.firstChild;
-  var childNodes = head.childNodes;
+  var childNodes = document.childNodes; 
   var l = childNodes.length;
+  var i;
+  var head;
+  for (i = 0; i < l; ++i) {
+    if(childNodes[i].nodeName.toLowerCase() === "html") {
+      head = childNodes[i].firstChild;
+    }
+  }
+  
+  childNodes = head.childNodes;
+  l = childNodes.length;
   var s = null;
-  var el, i, src, pos;
+  var el, src, pos;
 
   for (i = 0; i < l; ++i) {
     el = childNodes[i];
