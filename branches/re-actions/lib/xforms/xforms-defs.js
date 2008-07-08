@@ -224,7 +224,10 @@ DECORATOR.setupDecorator(
 			selector:"xf|refresh",
 			objects:["Listener", "Refresh"]
 		},
-	
+		{
+			selector:"xf|reset",
+			objects:["Listener", "Reset"]
+		},
 	//Common child elements
 		{
 			selector:"xf|label >  pe-value",

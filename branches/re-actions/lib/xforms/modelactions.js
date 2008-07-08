@@ -57,8 +57,45 @@ function Refresh(elmnt){
   this.element = elmnt;
 }
 
-Rebuild.prototype = new ModelFunctionAction(function(theModel){theModel.rebuild();});
-Recalculate.prototype = new ModelFunctionAction(function(theModel){theModel.recalculate();});
-Revalidate.prototype = new ModelFunctionAction(function(theModel){theModel.revalidate();});
-Refresh.prototype = new ModelFunctionAction(function(theModel){theModel.refresh();});
+
+/**
+  Specialisation of ModelFunctionAction to call reset
+*/
+function Reset(elmnt){
+  this.element = elmnt;
+}
+
+Rebuild.prototype = new ModelFunctionAction(
+  function(theModel){
+    theModel.rebuild();
+  }
+);
+
+Recalculate.prototype = new ModelFunctionAction(
+  function(theModel){
+    theModel.recalculate();
+  }
+);
+
+Revalidate.prototype = new ModelFunctionAction(
+  function(theModel)
+  {
+    theModel.revalidate();
+  }
+);
+
+Refresh.prototype = new ModelFunctionAction(
+  function(theModel){
+    theModel.refresh();
+  }
+);
+
+Reset.prototype = new ModelFunctionAction(
+  function(theModel) {
+    //create and dispatch an xforms-reset event on the model, as defined in http://www.w3.org/TR/xforms11/#action-reset
+    var oEvt = this.element.ownerDocument.createEvent("Events");
+    oEvt.initEvent("xforms-reset", true, true);
+    FormsProcessor.dispatchEvent(theModel,oEvt);
+  }
+);
 

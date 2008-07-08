@@ -14,27 +14,42 @@
  * limitations under the License.
  */
 
-function Model(elmnt)
-{
-	this.element = elmnt;	
-	this.m_bNeedRebuild = false;
-	this.m_bNeedRecalculate = false;
-	this.m_bNeedRevalidate = false;
-	this.m_bNeedRewire = false;
-	this.m_bNeedRefresh = false;
-	this.m_bReady = false;
-	this.elementState = 1;
-	this.elementLoaded = false;
-	this.m_arrProxyNodes = {};
-	this.m_arControls = [];
-	this.xformselement = "model";
-}
-
-Model.prototype.onDocumentReady = function()
-{
-	this.setElementLoaded();
-	this._testForReady();
-};
+  function Model(elmnt)
+  {
+  	this.element = elmnt;	
+  	this.m_bNeedRebuild = false;
+  	this.m_bNeedRecalculate = false;
+  	this.m_bNeedRevalidate = false;
+  	this.m_bNeedRewire = false;
+  	this.m_bNeedRefresh = false;
+  	this.m_bReady = false;
+  	this.elementState = 1;
+  	this.elementLoaded = false;
+  	this.m_arrProxyNodes = {};
+  	this.m_arControls = [];
+  	this.xformselement = "model";
+  	this.externalInstances = [];
+  }
+  
+  Model.prototype.onDocumentReady = function()
+  {
+  	this.setElementLoaded();
+  	this._testForReady();
+  
+    //Listen to self for xforms-reset.  
+    //  This event is the prescribed mechanism for invoking reset.
+  	this.addEventListener(
+  		"xforms-reset",
+  		{
+  			model: this,
+  			handleEvent: function(evt)
+  			{
+  			  this.model.reset();		
+  			}
+  		},
+  		false
+  	);
+  };
 		Model.prototype.onContentReady = function()
 		{
 			return _model_contentReady(this);
@@ -73,20 +88,40 @@ Model.prototype.onDocumentReady = function()
 		{
 			var oRet = null;
 			var oInstance = null;
+			var i, l;
 
 			if (sID && sID !== "")
 			{
 				oInstance = document.getElementById(sID);
+  			//it may be an external instance.
+  				if(oInstance && oInstance.parentNode != this.element) {
+					throw "instance '" + sID + "' is not part of model '"+this.element.id+"'";
+				}
+  				else {
+  					l = this.externalInstances.length;
+  					for(i = 0; i < l; ++i) {
+  						if(this.externalInstances[i].element.id === sID) {
+  						oInstance = this.externalInstances[i];
+  						isExternal = true;
+  						break;
+  					}
+  				}
+  			}
+
 			}
 			else
 			{
 				oInstance = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms","instance")[0];
-			}	
+				//There may be no real instances, only external ones.
+				if(!oInstance) {
+				  oInstance = this.externalInstances[0];
+				  isExternal = true;
+				}
+			}
+			
+			
 			if (!oInstance) {
 				throw "No instance found with an ID of '" + sID + "'";
-			}
-			else if(oInstance.parentNode !=this.element) {
-				throw "instance '" + sID + "' is not part of model '"+this.element.id+"'";
 			}
 			else {
 				oRet = oInstance.m_oDOM;
@@ -109,12 +144,12 @@ Model.prototype.onDocumentReady = function()
 		{
 			var oRet = { model: this, node: null };
 			
-			var ns = NamespaceManager.getElementsByTagNameNS(this.element,"http://www.w3.org/2002/xforms","instance");
+			var instances = this.instances();
 			
 	
-			if (ns && ns.length > 0)
+			if (instances && instances.length > 0)
 			{
-				var oFirstInstance = ns[0];
+				var oFirstInstance = instances[0];
 				var oDom = oFirstInstance.getDocument();
 
 				if (oDom)
@@ -331,13 +366,6 @@ Model.prototype.onDocumentReady = function()
 			return oNE;
 		};
 
-		Model.prototype.AddMIP = function(arrContext,sXPath,sMIP)
-		{
-			for(var i = 0;i < arrContext.length;++i)			
-			{
-				arrContext[i];
-			}
-		};
 		
     /**
       Informs the model that a rebuild will be required at next update.
@@ -367,6 +395,21 @@ Model.prototype.onDocumentReady = function()
 			this.m_bNeedRefresh = true;
 		};
 		
+		Model.prototype.rebuildPending = function() {
+			return this.m_bNeedRebuild;
+		};
+		Model.prototype.recalculatePending = function(){
+			return this.m_bNeedRecalculate;
+		};
+
+		Model.prototype.revalidatePending = function(){
+			return this.m_bNeedRevalidate;
+		};
+
+		Model.prototype.refreshPending = function(){
+			return this.m_bNeedRefresh;
+		};		
+
 		Model.prototype.rebuild = function()
 		{
 
@@ -413,9 +456,10 @@ Model.prototype.onDocumentReady = function()
 
 		Model.prototype.rewire = function()
 		{
-			for (var i = 0; i < this.m_arControls.length; ++i)
+		  var i, fc;
+			for (i = 0; i < this.m_arControls.length; ++i)
 			{
-				var fc = this.m_arControls[i];
+				fc = this.m_arControls[i];
 
 				if (fc && typeof fc.element == "object") {
 					fc.unwire();
@@ -425,9 +469,9 @@ Model.prototype.onDocumentReady = function()
 				}
 			}	
 
-			for (var i = 0; i < this.m_arControls.length; ++i)
+			for ( i = 0; i < this.m_arControls.length; ++i)
 			{
-				var fc = this.m_arControls[i];
+				fc = this.m_arControls[i];
 
 				if (fc && typeof fc.element == "object") {
 					fc.rewire();
@@ -448,22 +492,21 @@ Model.prototype.onDocumentReady = function()
 			spawn(function(){pThis._refresh();});
 		};
 		
-		Model.prototype._refresh = function()
-		{
-			if(this.m_bNeedRefresh)
-			{
+		Model.prototype._refresh = function() {
+			if(this.m_bNeedRefresh) {
 				this.m_bNeedRefresh = false;
-				for (var i = 0; i < this.m_arControls.length; ++i)
-				{
+				for (var i = 0; i < this.m_arControls.length; ++i) {
 					var fc = this.m_arControls[i];
 
-					if (fc && typeof(fc.element) == "object")
+					if (fc && typeof fc.element == "object") {
 						fc.refresh();
-					else
+					}
+					else {
 						this.m_arControls.splice(i);
+					}
 				}
 			}
- 		 window.status = "";
+ 		  window.status = "";
 
 			return;
 		};
@@ -471,6 +514,52 @@ Model.prototype.onDocumentReady = function()
 		Model.prototype.deferredUpdate = function()
 		{
 			return _deferredUpdate(this);
+		};
+
+    Model.prototype.addInstance = function (theInstance){
+      this.externalInstances.push(theInstance);
+      return this;
+    };
+
+    Model.prototype.removeInstance= function (theInstance) {
+      var i;
+      var l =  this.externalInstances.length;
+
+      for(i = l; i  >= 0; --i) {
+        if(this.externalInstances[i] == theInstance) {
+          this.externalInstances.splice(i,1);
+          //don't break, in case the instance had been added multiple times.
+        }
+      }
+      return this;
+    };
+    
+  /**
+    @returns the list of instances governed by this model.
+  */
+  Model.prototype.instances = function() {
+    var internalInstances = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms","instance"); 
+	  var i; 
+	  var l = internalInstances.length;
+    var retVal = [];
+	  for(i = 0 ; i < l ; ++i) {
+	    retVal.push(internalInstances[i]);
+	  }
+    return retVal.concat(this.externalInstances);  
+  }
+  /**
+    resets all instance data to its original state. 
+  */
+	  Model.prototype.reset = function() {
+debugger;
+	    var instances = this.instances();
+		  var l = instances.length;
+		  var i;
+		  for(i = 0 ; i < l ; ++i) {
+		    instances[i].reset();
+		  }
+		  this.rebuild();
+		  alert("M: reset done")
 		};
 
 		/*
