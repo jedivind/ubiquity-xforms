@@ -88,7 +88,7 @@ DECORATOR.setupDecorator(
 			objects:["EventTarget", "Context", "Control"]
 		},
 
-    		{
+    	{
 			selector:"xf|output",
 			objects:["EventTarget", "Context", "Control"]
 		},
@@ -139,6 +139,16 @@ DECORATOR.setupDecorator(
 		{
 			selector:"xf|range > pe-value",
 			objects:["EventTarget", "RangeValue"]
+		},
+
+		{
+			selector:"xf|range.geolocation > pe-value",
+			objects:["EventTarget", "RangeValueGMAP"]
+		},
+		//HACK: re-override the value binding for rangemap/label, because IE does not support child selectors.
+		{
+			selector:"xf|range.geolocation > xf|label > pe-value",
+			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
 		{
@@ -200,7 +210,8 @@ DECORATOR.setupDecorator(
 	//Common child elements
 		{
 			selector:"xf|label >  pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
+			objects:["EventTarget", "XFormsOutputValue"],
+			important:true
 		},
 	//Switch off bindings within repeat, during load-time (IE )
 		{
