@@ -428,43 +428,42 @@
 		
 		
 		
-		function _EvaluateXPath(pThis,sXPath, pContextResolver)
-		{
-			var oRet = null
-
-			if (!pContextResolver)
-				pContextResolver = pThis;
-			else if (pContextResolver["m_oNode"])
-				pContextResolver = pContextResolver["m_oNode"];
-
-			var sType= typeof(pContextResolver.getEvaluationContext);
-			if(sType == "function" || sType == "unknown")
-			{
-				pContext = pContextResolver.getEvaluationContext().node;
-					if(pContext["m_oNode"])
-						pContext = ["m_oNode"];
-			//debugger;
-			}
-			else
-			{
-				pContext = pContextResolver;
-			}
-
-			if (pContext != null)
-			{
-				try
-				{
-					g_currentModel = pThis;
-					oRet = xpathDomEval(sXPath, pContext);
-					g_currentModel = null;
-				}
-				catch(e)
-				{
-				//	this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
-				}
-			}
-			return oRet;
-		}
+    function _EvaluateXPath(pThis,sXPath, pContextResolver)
+    {
+      var oRet = null
+      var pContext = null;
+    	if (!pContextResolver)
+    		pContextResolver = pThis;
+    	else if (pContextResolver["m_oNode"])
+    		pContextResolver = pContextResolver["m_oNode"];
+    
+    	var sType= typeof(pContextResolver.getEvaluationContext);
+    	if(sType == "function" || sType == "unknown")
+    	{
+    		pContext = pContextResolver.getEvaluationContext().node;
+    			if(pContext["m_oNode"])
+    				pContext = ["m_oNode"];
+    	}
+    	else
+    	{
+    		pContext = pContextResolver.node?pContextResolver.node:pContextResolver;
+    	}
+    
+    	if (pContext != null)
+    	{
+    		try
+    		{
+    			g_currentModel = pThis;
+    			oRet = xpathDomEval(sXPath, pContext);
+    			g_currentModel = null;
+    		}
+    		catch(e)
+    		{
+    		//	this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
+    		}
+    	}
+    	return oRet;
+    }
 
 
 	/*
