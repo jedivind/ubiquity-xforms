@@ -13,7 +13,7 @@ Once this work is complete work will continue to:
 = Feature branches in progress =
 
 ||Branch title||Description||Owner||Last merge _from_ trunk||Last merge _to_ trunk||Merge in progress?||
-||range-map||Addition of the RRRR actions||paul.butcher||r229||r235||-||
+||range-map||Addition of a range control that uses Google maps||paul.butcher||r229||r235||-||
 ||re-actions||Addition of the RRRR actions||paul.butcher||r261||-||-||
 ||xforms-path-functions||Adding core XPath functions||-||-||-||-||
 
