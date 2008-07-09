@@ -36,6 +36,107 @@ function ThrowNotImpl(ctx) {
 	throw "Not Implemented";
 }
 
+/**
+	Retrieves the current date and time.
+	
+	@param {Object} oDate, a Javascript Date object.
+	@param {boolean} bUTC, if true use UTC time; otherwise, local time.
+	@returns {string} Date and time in xsd:dateTime format.
+*/
+function getDateTime(oDate, bUTC) {
+	var s = "";
+	var year, month, day, hours, minutes, seconds;
+
+    if (bUTC) {
+        year = oDate.getUTCFullYear();
+        month = oDate.getUTCMonth() + 1;
+        day = oDate.getUTCDate();
+        hours = oDate.getUTCHours();
+        minutes = oDate.getUTCMinutes();
+        seconds = oDate.getUTCSeconds();
+    } else {
+        year = oDate.getFullYear();
+        month = oDate.getMonth() + 1;
+        day = oDate.getDate();
+        hours = oDate.getHours();
+        minutes = oDate.getMinutes();
+        seconds = oDate.getSeconds();
+    }
+
+    /*
+	 * Put the year first.
+	 */
+	s += year + "-";
+
+	// If the month is less than ten give it a leading zero.	
+	if (month < 10)
+		month = "0" + month;
+	s += month + "-";
+
+	// Similarly, if the date is less than ten give it a leading zero.
+	if (day < 10)
+		day = "0" + day;
+	s += day;
+	
+	// The date is separate from the time with a 'T'.
+	
+	s += "T"
+
+	// Get the hours, minutes, and seconds, again adding leading zeros if necessary.	 
+	if (hours < 10) {
+		hours = "0" + hours;
+	}
+	s += hours + ":";
+
+	if (minutes < 10){
+		minutes = "0" + minutes;
+	}
+	s += minutes + ":";
+
+	if (seconds < 10){
+		seconds = "0" + seconds;
+	}
+	s += seconds;
+
+    if (bUTC) {
+        s += "Z";
+    }
+
+    return s;
+}
+
+/**
+	Calculates the local time zone offset from UTC time.
+	
+	@param {Object} oDate, a Javascript Date object.
+	@returns {string} Time zone offset in (('+' | '-') hh ':' mm) format.
+*/
+function getTZOffset(oDate) {
+    var s = "";
+    var tz = oDate.getTimezoneOffset();
+
+    if (tz < 0) {
+        s += "+";
+        tz *= -1;
+    } else {
+        s += "-";
+    }
+
+    var hours = tz / 60;
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+    s += hours + ":";
+
+    var minutes = tz % 60;
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    s += minutes;
+
+    return s;
+}
+
 //	http://www.w3.org/TR/xforms11/#expr-lib-bool
 
 /**@addon
@@ -48,8 +149,42 @@ FunctionCallExpr.prototype.xpathfunctions["boolean-from-string"] = function(ctx)
 	return new BooleanValue((s.toLowerCase() === "true") || (s === "1"));
 };
 
-FunctionCallExpr.prototype.xpathfunctions["is-card-number"] = ThrowNotImpl;
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-is-card-number
+*/
+FunctionCallExpr.prototype.xpathfunctions["is-card-number"] = function(ctx) {
+    var sCardNum = "";
+    if (!this.args) {
+        // default to the string value of the current context node.
+        sCardNum = xmlValue(ctx.node);
+    } else {
+        sCardNum = this.args[0].evaluate(ctx).stringValue();
+    }
+    sCardNum = sCardNum.trim();
 
+    // Check if the card number is a valid Luhn number.
+    var sum = 0;
+    var alt = false;
+
+    for (var i = sCardNum.length - 1; i >= 0; --i) {
+      var currentChar = sCardNum.charAt(i);
+      if (currentChar < '0' || currentChar > '9') {
+          return new BooleanValue(false);
+      }
+      var digit = currentChar - '0';
+
+      if (alt) {
+        digit *= 2;
+        if (digit > 9) {
+          digit -= 9;
+        }
+      }
+      sum += digit;
+      alt = !alt;
+    }
+
+    return new BooleanValue(sum % 10 == 0);
+};
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-num
 
@@ -101,62 +236,41 @@ FunctionCallExpr.prototype.xpathfunctions["hmac"] = ThrowNotImpl;
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-date
 
-FunctionCallExpr.prototype.xpathfunctions["local-date"] = ThrowNotImpl;
-FunctionCallExpr.prototype.xpathfunctions["local-dateTime"] = ThrowNotImpl;
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-local-date
+*/
+FunctionCallExpr.prototype.xpathfunctions["local-date"] = function(ctx) {
+    var d = new Date();
+    var s = getDateTime(d, false);
+
+    // Strip off the time information and add the time zone offset to the date.
+    s = s.substring(0, 10);
+    s += getTZOffset(d);
+
+	// Return the result as a string.
+    return new StringValue(s);
+};
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-local-dateTime
+*/
+FunctionCallExpr.prototype.xpathfunctions["local-dateTime"] = function(ctx) {
+    var d = new Date();
+    var s = getDateTime(d, false);
+
+    // Add the time zone offset to the dateTime.
+    s += getTZOffset(d);
+
+	// Return the result as a string.
+    return new StringValue(s);
+};
 
 /**@addon*/
 FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx) {
-	var oRet = "";
-	var d = new Date();
-	var s = "";
-	var x;
-
-	/*
-	 * Put the year first.
-	 */
-
-	s += d.getFullYear() + "-";
-
-	// If the month is less than ten give it a leading zero.	
-
-	x = d.getMonth() + 1;
-	if (x < 10)
-		x = "0" + x;
-	s += x + "-";
-
-	// Similarly, if the date is less than ten give it a leading zero.
-
-	x = d.getDate();
-	if (x < 10)
-		x = "0" + x;
-	s += x;
-	
-	// The date is separate from the time with a 'T'.
-	
-	s += "T"
-
-	// Get the hours, minutes, and seconds, again adding leading zeros if necessary.	 
-
-	x = d.getHours();
-	if (x < 10){
-		x = "0" + x;
-	}
-	s += x + ":";
-	
-	x = d.getMinutes();
-	if (x < 10){
-		x = "0" + x;
-	}
-	s += x + ":";
-
-	x = d.getSeconds();
-	if (x < 10){
-		x = "0" + x;
-	}
-	s += x;
+    var d = new Date();
+	var s = getDateTime(d, true);
 
 	// Return the result as a string.
-
 	return new StringValue(s);
 };
 
@@ -231,7 +345,27 @@ FunctionCallExpr.prototype.xpathfunctions["context"] = ThrowNotImpl;
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-object
 
-FunctionCallExpr.prototype.xpathfunctions["choose"] = ThrowNotImpl;
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-choose
+*/
+FunctionCallExpr.prototype.xpathfunctions["choose"] = function(ctx) {
+    // All parameters of an XPath function are evaluated, so the parameter that
+    // is not returned by this function is still evaluated, and its result is
+    // discarded by this function.
+    if (!this.args || this.args.length != 3) {
+        return null;
+    }
+
+	var bIf = this.args[0].evaluate(ctx).booleanValue();
+    var oOne = this.args[1].evaluate(ctx);
+    var oTwo = this.args[2].evaluate(ctx);
+	if (bIf) {
+		return oOne;
+	}	else {
+		return oTwo;
+	}
+};
+
 FunctionCallExpr.prototype.xpathfunctions["event"] = ThrowNotImpl;
 
 /**
