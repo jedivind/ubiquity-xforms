@@ -398,3 +398,51 @@ suiteXPathCoreFunctions.add(
     }
   })//new TestCase
 );
+
+// Test random().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test random()",
+
+    testRandomExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["random"], "random() is not defined.");
+    },
+
+    testRandom : function () {
+      var Assert = YAHOO.util.Assert;
+
+      var rand = evalXPath('random()').numberValue() ;
+      var valid = rand >= 0 && rand < 1;
+      Assert.isTrue(valid, "random() should return a random number >= 0 and < 1");
+
+      Assert.areNotEqual(evalXPath('random()').numberValue(), evalXPath('random()').numberValue());
+    }
+  })//new TestCase
+);
+
+// Test compare().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test compare()",
+
+    testCompareExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["compare"], "compare() is not defined.");
+    },
+
+    testCompare : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('compare()').stringValue(), "compare() with zero parameters should return NaN");
+      Assert.isNaN(evalXPath('compare("apple")').stringValue(), "compare() with one parameter should return NaN");
+      Assert.areEqual(0, evalXPath('compare("apple", "apple")').stringValue(), "compare() should return 0 when comparing 'apple' to 'apple'");
+      Assert.areEqual(-1, evalXPath('compare("apple", "orange")').stringValue(), "compare() should return -1 when comparing 'apple' to 'orange'");
+      Assert.areEqual(1, evalXPath('compare("orange", "apple")').stringValue(), "compare() should return 1 when comparing 'orange' to 'apple'");
+    }
+  })//new TestCase
+);

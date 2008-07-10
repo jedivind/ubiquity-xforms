@@ -324,8 +324,37 @@ FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
     )
   );
 };
-FunctionCallExpr.prototype.xpathfunctions["random"] = ThrowNotImpl;
-FunctionCallExpr.prototype.xpathfunctions["compare"] = ThrowNotImpl;
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-random
+*/
+FunctionCallExpr.prototype.xpathfunctions["random"] = function(ctx) {
+    // Random() takes an optional boolean to specify whether or not the
+    // random number generator should be seeded first, but javascript
+    // will always seed the random number generator and doesn't allow one
+    // to specify a seed.
+    return new NumberValue(Math.random());
+};
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-compare
+*/
+FunctionCallExpr.prototype.xpathfunctions["compare"] = function(ctx) {
+    var result = NaN;
+    if (this.args.length == 2) {
+        var s1 = this.args[0].evaluate(ctx).stringValue();
+        var s2 = this.args[1].evaluate(ctx).stringValue();
+
+        if (s1 == s2) {
+            result = 0;
+        } else if (s1 > s2) {
+            result = 1;
+        } else {
+            result = -1;
+        }
+    }
+    return new NumberValue(result);
+};
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-string
 
