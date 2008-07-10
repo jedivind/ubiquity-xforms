@@ -124,11 +124,17 @@ var NamespaceManager  = function(){
 			var sMatchThisPrefix =  prefix + "\\|";
 			var matchGivenPrefix =  new RegExp(sMatchThisPrefix,"g");
 			var outputprefixes = m_outputNamespaces[selectionURI];
-			var alternativesForThisURI = [];
-			for(var i = 0;i < outputprefixes.length;++i) {
-				var css1NamespacePrefix = outputprefixes[i] + "\\:";
-				alternativesForThisURI.push(selector.replace(matchGivenPrefix, css1NamespacePrefix)); 
+
+			if(!outputprefixes || outputprefixes.length === 0) {
+			  throw ("No output prefixes found for selection namespace prefix '" + prefix + "'");
 			}
+			else {
+  			var alternativesForThisURI = [];
+  			for(var i = 0;i < outputprefixes.length;++i) {
+  				var css1NamespacePrefix = outputprefixes[i] + "\\:";
+  				alternativesForThisURI.push(selector.replace(matchGivenPrefix, css1NamespacePrefix)); 
+  			}
+  		}
 		}
 		return alternativesForThisURI.join(", ");
 	}
