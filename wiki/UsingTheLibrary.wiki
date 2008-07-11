@@ -30,11 +30,11 @@ The root of the document needs to contain the XForms namespace, as follows:
 
 == Referencing the library ==
 
-To load the library simply refer to the {{{ubiquity-loader.js}}} file in the version of the library that you want to use, or on your own server. The currently recommended release is 0.3.0, which is referenced as follows:
+To load the library simply refer to the {{{ubiquity-loader.js}}} file in the version of the library that you want to use, or on your own server. The currently recommended release is 0.5.0, which is referenced as follows:
 {{{
   <head>
     <title>XForms input and output controls</title>
-    <script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.3.0/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.0/ubiquity-loader.js" type="text/javascript">/**/</script>
   </head>
 }}}
 
@@ -42,7 +42,7 @@ The library will provide some default CSS rules for XForms elements, so if you w
 {{{
   <head>
     <title>XForms input and output controls</title>
-    <script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.3.0/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.0/ubiquity-loader.js" type="text/javascript">/**/</script>
     <style type="text/css">
       xf\:trigger xf\:label {
         background-color: blue;
@@ -75,7 +75,7 @@ A simple XForm that allows a name to be edited, can be created as follows:
 >
   <head>
     <title>XForms input and output controls</title>
-    <script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.3.0/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.0/ubiquity-loader.js" type="text/javascript">/**/</script>
   </head>
   <body>
     <xf:model>
@@ -103,4 +103,4 @@ A simple XForm that allows a name to be edited, can be created as follows:
 
 = More samples =
 
-See the [http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.3.0/_samples samples directory in SVN] for more.
+See the [http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.0/_samples samples directory in SVN] for more.
