@@ -120,3 +120,144 @@ suiteXPathCoreFunctions.add(
     }
   })//new TestCase
 );
+
+// Test is-card-number().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test is-card-number()",
+
+    testIsCardNumberExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["is-card-number"], "is-card-number() is not defined.");
+    },
+
+    testIsCardNumberTrue : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isTrue(evalXPath('is-card-number("541234567890125")').booleanValue(), "is-card-number() failed to return true for card number '541234567890125'");
+      Assert.isTrue(evalXPath('is-card-number("1002312234567990000")').booleanValue(), "is-card-number() failed to return true for card number '1002312234567990000'");
+      Assert.isTrue(evalXPath('is-card-number("341111111111111")').booleanValue(), "is-card-number() failed to return true for card number '341111111111111'");
+    },
+
+    testIsCardNumberFalse : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFalse(evalXPath('is-card-number("123456789012")').booleanValue(), "is-card-number() failed to return false for card number '123456789012'");
+      Assert.isFalse(evalXPath('is-card-number("123")').booleanValue(), "is-card-number() failed to return false for card number '123'");
+      Assert.isFalse(evalXPath('is-card-number("12345a789012")').booleanValue(), "is-card-number() failed to return false for card number '12345a789012'");
+    }
+  })//new TestCase
+);
+
+// Test local-date().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test local-date()",
+
+    testLocalDateExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["local-date"], "local-date() is not defined.");
+    },
+
+    testLocalDate : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // We expect an xsd:date with time zone in the following format:
+      // yyyy '-' mm '-' dd ('+' | '-') hh ':' mm
+      var xpDate = evalXPath('local-date()').stringValue(); 
+      Assert.areEqual(16, xpDate.length, "local-date() returned an xsd:date with too few or too many characters.");
+
+      var match = xpDate.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}/);
+      Assert.isNotNull(match, "local-date() failed to return a properly formatted xsd:date with time zone offset: "+xpDate);
+    }
+  })//new TestCase
+);
+
+// Test local-dateTime().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test local-dateTime()",
+
+    testLocalDateTimeExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["local-dateTime"], "local-dateTime() is not defined.");
+    },
+
+    testLocalDateTime : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // We expect an xsd:dateTime with time zone in the following format:
+      // yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss ('+' | '-') hh ':' mm
+      var xpDateTime = evalXPath('local-dateTime()').stringValue(); 
+      Assert.areEqual(25, xpDateTime.length, "local-dateTime() returned an xsd:dateTime with too few or too many characters.");
+
+      var match = xpDateTime.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}\T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}/);
+      Assert.isNotNull(match, "local-dateTime() failed to return a properly formatted xsd:dateTime: "+xpDateTime);
+    }
+  })//new TestCase
+);
+
+// Test now().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test now()",
+
+    testNowExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["now"], "now() is not defined.");
+    },
+
+    testNow : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // We expect an xsd:dateTime representing UTC time in the following format:
+      // yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss 'Z'
+      var xpDateTime = evalXPath('now()').stringValue(); 
+      Assert.areEqual(20, xpDateTime.length, "now() returned an xsd:dateTime with too few or too many characters.");
+
+      var match = xpDateTime.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}\T[0-9]{2}\:[0-9]{2}\:[0-9]{2}\Z/);
+      Assert.isNotNull(match, "now() failed to return a properly formatted UTC xsd:dateTime: "+xpDateTime);
+    }
+  })//new TestCase
+);
+
+// Test choose().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test choose()",
+
+    testChooseExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["choose"], "choose() is not defined.");
+    },
+
+    testChooseParameters : function () {
+         // Choose requires 3 parameters.
+         Assert.isNull(evalXPath('choose()', "choose() with zero parameters should return null"));
+         Assert.isNull(evalXPath('choose(1)', "choose() with one parameter should return null"));
+         Assert.isNull(evalXPath('choose(1, 0)', "choose() with two parameters should return null"));
+         Assert.isNull(evalXPath('choose(1, 0, "x", "y")', "choose() with four parameters should return null"));
+    },
+
+    testChoose : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("Yes", evalXPath('choose(5 > 1, "Yes", "No")').stringValue(), "choose() failed to return correct string value for true evaluation");
+      Assert.areEqual(1, evalXPath('choose(5 > 1, 1, 0)').numberValue(), "choose() failed to return correct number value for true evaluation");
+      Assert.areEqual(true, evalXPath('choose(5 > 1, "true", "")').booleanValue(), "choose() failed to return correct boolean value for true evaluation");
+      Assert.areEqual("No", evalXPath('choose(1 > 5, "Yes", "No")').stringValue(), "choose() failed to return correct string value for false evaluation");
+      Assert.areEqual(0, evalXPath('choose(1 > 5, 1, 0)').numberValue(), "choose() failed to return correct number value for false evaluation");
+      Assert.areEqual(false, evalXPath('choose(1 > 5, "true", "")').booleanValue(), "choose() failed to return correct boolean value for false evaluation");
+    }
+  })//new TestCase
+);
