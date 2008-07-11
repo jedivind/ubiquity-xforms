@@ -61,14 +61,14 @@ function runTheTests() {
     var logger = new YAHOO.tool.TestLogger();
 
     //add the test suite to the runner's queue
-//    YAHOO.tool.TestRunner.add(oSuitePathToModule);
+    YAHOO.tool.TestRunner.add(oSuitePathToModule);
     YAHOO.tool.TestRunner.add(suiteVertexTarget);
-  //  YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
-//    YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
- //   YAHOO.tool.TestRunner.add(suiteNamespaceManager);
-    //YAHOO.tool.TestRunner.add(suiteInstanceStandalone);
-//    YAHOO.tool.TestRunner.add(suiteModelStandalone);
-  //  YAHOO.tool.TestRunner.add(suiteReset);
+    YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
+    YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
+    YAHOO.tool.TestRunner.add(suiteNamespaceManager);
+    YAHOO.tool.TestRunner.add(suiteInstanceStandalone);
+    YAHOO.tool.TestRunner.add(suiteModelStandalone);
+    YAHOO.tool.TestRunner.add(suiteReset);
 
     //run the tests
     YAHOO.tool.TestRunner.run();
