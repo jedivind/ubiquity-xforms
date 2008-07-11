@@ -12,7 +12,8 @@ var oSuitePathToModule = new YAHOO.tool.TestSuite({
       "/somescripts.js/somescripts.js",
       "xy/absomescript4.js",
       "http://www.example.com/somescript4.js",
-      "c:\\somedir\\somescript5.js"
+      "c:\\somedir\\somescript5.js",
+      "somescript6.js"
     ];
     var childNodes = document.childNodes; 
     var l = childNodes.length;
@@ -82,6 +83,10 @@ var oTestGetPathToModule = new YAHOO.tool.TestCase({
 		Assert.areEqual(pathToModule("somescript5"), "c:\\somedir\\");
 	},
 	
+	testGetPathToModuleInSameDirectory:
+	function() {
+		Assert.areSame(pathToModule("somescript6"), "");
+	},
 
 	testGetPathToModuleThatDoesNotExist:
 	function() {
