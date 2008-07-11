@@ -48,12 +48,10 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-reset", type: "js",  fullpath: moduleBase + "ut-reset.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
-  loader.addModule({ name: "ux-ut-vertex-target", type: "js",  fullpath: moduleBase + "ut-vertex-target.js",
-    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
   
   
   loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager", "ux-ut-path-to-module", "ux-ut-reset",
-     "ux-ut-model-standalone","ux-ut-instance-standalone","ux-ut-vertex-target");
+     "ux-ut-model-standalone","ux-ut-instance-standalone");
 
 
   loader.onSuccess = function(o) {
@@ -62,7 +60,6 @@ function runTheTests() {
 
     //add the test suite to the runner's queue
     YAHOO.tool.TestRunner.add(oSuitePathToModule);
-    YAHOO.tool.TestRunner.add(suiteVertexTarget);
     YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
     YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
     YAHOO.tool.TestRunner.add(suiteNamespaceManager);

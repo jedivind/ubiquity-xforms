@@ -557,7 +557,6 @@
 		  for(i = 0 ; i < l ; ++i) {
 		    instances[i].reset();
 		  }
-		  debugger;
 		  this.rebuild();
 		  
 		};
