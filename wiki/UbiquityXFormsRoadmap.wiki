@@ -22,7 +22,7 @@ CB indicates the current branch, which is {{{0.x}}}.
 || *Branch title* || *Description* || *Owner* || *Last merge _from_ CB* || *Ready to merge _to_ CB* || *Merge in progress?* ||
 ||[http://code.google.com/p/ubiquity-xforms/source/browse/branches/range-map range-map]||Addition of a range control that uses Google maps||[http://code.google.com/u/paul.butcher/ paul.butcher]||r229||r235||-||
 ||[http://code.google.com/p/ubiquity-xforms/source/browse/branches/re-actions re-actions]||Addition of the RRRR actions||[http://code.google.com/u/paul.butcher/ paul.butcher]||r261||-||-||
-||[http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-xpath-functions xforms-xpath-functions]||Adding core XPath functions||[http://code.google.com/u/merle.sterling/ merle.sterling]||r275||r279||[http://code.google.com/u/mark.birbeck/ mark.birbeck]||
+||[http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-xpath-functions xforms-xpath-functions]||Adding core XPath functions||[http://code.google.com/u/merle.sterling/ merle.sterling]||r275||r283||[http://code.google.com/u/mark.birbeck/ mark.birbeck]||
 ||refactor-vertextargets||Refactoring vertextargets.js ||[http://code.google.com/u/paul.butcher/ paul.butcher]||-||-||-||
 
 = Releases =
