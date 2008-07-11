@@ -24,7 +24,7 @@
 		<implementation>
 			<constructor>
 				this.parentNode.removeChild(this);
-				spawn(DECORATOR.callDocumentReadyHandlers);
+				spawn(CallDocumentReadyHandlers);
 			</constructor>
 		</implementation>
 	</binding>	
