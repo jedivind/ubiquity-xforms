@@ -4,8 +4,29 @@
 	<implementation>
 		<constructor>
 		<![CDATA[
-			DECORATOR.attachDecoration(this,true,true);
-		]]>
+//alert("decorator.xml\n" + this.getAttribute("id"));
+		var currentStyle = window.getComputedStyle(this,"");
+		var sBehaviours = currentStyle.getPropertyValue("-moz-binding");
+		if(sBehaviours.indexOf('?') != -1)
+		{
+
+			sBehaviours = sBehaviours.substring(sBehaviours.indexOf('?')+1,sBehaviours.lastIndexOf('#') );
+			
+			var arrBehaviours = sBehaviours.split("&");
+			for(var i = 0;i < arrBehaviours.length;++i)
+			{
+				AddObjectBehaviour(this,arrBehaviours[i]);
+			}
+			callHandlers(this,this.ctor);
+			callHandlers(this,this.onContentReady);
+			RegisterForOnloadOrCallNow(this,this.onDocumentReady);
+		}
+		else
+		{
+			alert("no behaviour");
+		}
+			
+]]>
 		</constructor>
 	</implementation>
 	<handlers>
