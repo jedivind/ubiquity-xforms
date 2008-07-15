@@ -1,4 +1,4 @@
-function pathToModule(module) { 
+function pathToModule(module) {
   if (!module) {
     throw("Missing or null parameter supplied.");
   }
@@ -32,7 +32,7 @@ function pathToModule(module) {
     }// if we have a script element
   }// for each child node
 
-  if (!s) {
+  if (s === null) {
     throw("No Module called '" + module + "' was found.");
   }
   return s;

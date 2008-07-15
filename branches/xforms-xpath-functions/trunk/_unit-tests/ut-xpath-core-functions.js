@@ -253,6 +253,47 @@ suiteXPathCoreFunctions.add(
   })//new TestCase
 );
 
+// Test count().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test count()",
+
+  	_should: {
+  		error: {
+  			testCountNoParameter: true
+  		} 
+  	},
+
+    testCountExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["count"], "count() is not defined.");
+    },
+
+    testCountSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(5, evalXPath('count(test/numbers/number)').numberValue());
+      Assert.areEqual(7, evalXPath('count(test/numbers2/number)').numberValue());
+      Assert.areEqual(6, evalXPath('count(test/numbers3/number)').numberValue());
+    },
+
+    testCountEmptyNodeset : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('count(empty)').numberValue());
+    },
+
+    // Throws an error.
+    //
+    testCountNoParameter : function () {
+      var Assert = YAHOO.util.Assert;
+
+      var a = evalXPath('count()').numberValue();
+    }
+  })//new TestCase
+);
 // Test choose().
 //
 suiteXPathCoreFunctions.add(
@@ -266,22 +307,39 @@ suiteXPathCoreFunctions.add(
     },
 
     testChooseParameters : function () {
-         // Choose requires 3 parameters.
-         Assert.isNull(evalXPath('choose()', "choose() with zero parameters should return null"));
-         Assert.isNull(evalXPath('choose(1)', "choose() with one parameter should return null"));
-         Assert.isNull(evalXPath('choose(1, 0)', "choose() with two parameters should return null"));
-         Assert.isNull(evalXPath('choose(1, 0, "x", "y")', "choose() with four parameters should return null"));
+       // Choose requires 3 parameters.
+       Assert.isNull(evalXPath('choose()'), "choose() with zero parameters should return null");
+       Assert.isNull(evalXPath('choose(1)'), "choose() with one parameter should return null");
+       Assert.isNull(evalXPath('choose(1, 0)'), "choose() with two parameters should return null");
+       Assert.isNull(evalXPath('choose(1, 0, "x", "y")'), "choose() with four parameters should return null");
     },
 
-    testChoose : function () {
+    testChooseReturnsString : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("Yes", evalXPath('choose(5 > 1, "Yes", "No")').stringValue(), "choose() failed to return correct string value for true evaluation");
-      Assert.areEqual(1, evalXPath('choose(5 > 1, 1, 0)').numberValue(), "choose() failed to return correct number value for true evaluation");
-      Assert.areEqual(true, evalXPath('choose(5 > 1, "true", "")').booleanValue(), "choose() failed to return correct boolean value for true evaluation");
-      Assert.areEqual("No", evalXPath('choose(1 > 5, "Yes", "No")').stringValue(), "choose() failed to return correct string value for false evaluation");
-      Assert.areEqual(0, evalXPath('choose(1 > 5, 1, 0)').numberValue(), "choose() failed to return correct number value for false evaluation");
-      Assert.areEqual(false, evalXPath('choose(1 > 5, "true", "")').booleanValue(), "choose() failed to return correct boolean value for false evaluation");
+      Assert.areEqual("Yes", evalXPath('choose(true(), "Yes", "No")').stringValue());
+      Assert.areEqual("No", evalXPath('choose(false(), "Yes", "No")').stringValue());
+    },
+
+    testChooseReturnsNumber : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(1, evalXPath('choose(true(), 1, 0)').numberValue());
+      Assert.areEqual(0, evalXPath('choose(false(), 1, 0)').numberValue());
+    },
+
+    testChooseReturnsBoolean : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(true, evalXPath('choose(true(), true(), false())').booleanValue());
+      Assert.areEqual(false, evalXPath('choose(false(), true(), false())').booleanValue());
+    },
+
+    testChooseReturnsNodeSet : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(7, evalXPath('count(choose(true(), test/numbers2/number, test/numbers3/number))').numberValue());
+      Assert.areEqual(6, evalXPath('count(choose(false(), test/numbers2/number, test/numbers3/number))').numberValue());
     }
   })//new TestCase
 );

@@ -1,4 +1,4 @@
-var Assert = YAHOO.util.Assert; 
+var Assert = YAHOO.util.Assert;
 
 var oSuitePathToModule = new YAHOO.tool.TestSuite({
 	name : "Test getPathToModule",
@@ -8,21 +8,41 @@ var oSuitePathToModule = new YAHOO.tool.TestSuite({
       "../somescript0.js",
       "../../../../somescript1.js",
       "/scripts/somescript2.js",
-      "http://www.example2.com/somescript3.js",
+      "http://www.example.com/somescript3.js",
       "/somescripts.js/somescripts.js",
       "xy/absomescript4.js",
       "http://www.example.com/somescript4.js",
-      "C:\\somedir\\somescript5.js"
+      "c:\\somedir\\somescript5.js",
+      "somescript6.js"
     ];
-    var i, l = arrScripts.length;
-
+    var childNodes = document.childNodes; 
+    var l = childNodes.length;
+    var i;
+    var head;
+    for (i = 0; i < l; ++i) {
+      if(childNodes[i].nodeName.toLowerCase() === "html") {
+        head = childNodes[i].firstChild;
+      }
+    }
+    this.addedElements = [];
+    l = arrScripts.length;
     for (i = 0 ; i < l ; ++i) {
       el = document.createElement("script");
+      this.addedElements.push(el);
       el.setAttribute("src", arrScripts[i]);
-      document.firstChild.firstChild.appendChild(el);
+      head.appendChild(el);
     }
+	},
+	
+	tearDown : function() {
+	   var el = this.addedElements.pop();
+	   while(el) {
+	     el.parentNode.removeChild(el);
+	     el = this.addedElements.pop();
+	   }
 	}
 });
+
 
 var oTestGetPathToModule = new YAHOO.tool.TestCase({
 	name		:	"Test oTestGetPathToModule",
@@ -43,7 +63,7 @@ var oTestGetPathToModule = new YAHOO.tool.TestCase({
 
 	testGetPathToModuleAbsolute:
 	function() {
-		Assert.areEqual(pathToModule("somescript3"), "http://www.example2.com/");
+		Assert.areEqual(pathToModule("somescript3"), "http://www.example.com/");
 	},
 	
 	testGetPathToModuleWithDuplicateNameInPath:
@@ -63,6 +83,10 @@ var oTestGetPathToModule = new YAHOO.tool.TestCase({
 		Assert.areEqual(pathToModule("somescript5"), "c:\\somedir\\");
 	},
 	
+	testGetPathToModuleInSameDirectory:
+	function() {
+		Assert.areSame(pathToModule("somescript6"), "");
+	},
 
 	testGetPathToModuleThatDoesNotExist:
 	function() {

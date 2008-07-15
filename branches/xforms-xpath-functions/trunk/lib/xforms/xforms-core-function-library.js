@@ -487,21 +487,40 @@ FunctionCallExpr.prototype.xpathfunctions["context"] = ThrowNotImpl;
 	http://www.w3.org/TR/xforms11/#fn-choose
 */
 FunctionCallExpr.prototype.xpathfunctions["choose"] = function(ctx) {
-    // All parameters of an XPath function are evaluated, so the parameter that
-    // is not returned by this function is still evaluated, and its result is
-    // discarded by this function.
-    if (!this.args || this.args.length != 3) {
-        return null;
-    }
+  // All parameters of an XPath function are evaluated, so the parameter that
+  // is not returned by this function is still evaluated, and its result is
+  // discarded by this function.
+  if (!this.args || this.args.length != 3) {
+      return null;
+  }
 
-	var bIf = this.args[0].evaluate(ctx).booleanValue();
-    var oOne = this.args[1].evaluate(ctx);
-    var oTwo = this.args[2].evaluate(ctx);
-	if (bIf) {
-		return oOne;
-	}	else {
-		return oTwo;
-	}
+  var p1 = this.args[1].evaluate(ctx);
+  var p2 = this.args[2].evaluate(ctx);
+  var result = (this.args[0].evaluate(ctx).booleanValue()) ? p1 : p2;
+  var ret;
+
+  switch (result.type) {
+    case "string":
+      ret =  new StringValue(result.stringValue());
+      break;
+
+    case "number":
+      ret =  new NumberValue(result.numberValue());
+      break;
+
+    case "boolean":
+      ret =  new BooleanValue(result.booleanValue());
+      break;
+
+    case "node-set":
+      ret =  new NodeSetValue(result.nodeSetValue());
+      break;
+
+    default:
+      throw "Unrecognised type in choose()";
+      break;
+  }
+  return ret;
 };
 
 FunctionCallExpr.prototype.xpathfunctions["event"] = ThrowNotImpl;
