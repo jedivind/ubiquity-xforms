@@ -282,19 +282,15 @@ suiteXPathCoreFunctions.add(
     testCountEmptyNodeset : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(0, evalXPath('count(empty)').numberValue(), "count() with an empty nodeset parameter should return 0");
+      Assert.areEqual(0, evalXPath('count(empty)').numberValue());
     },
 
+    // Throws an error.
+    //
     testCountNoParameter : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.isUndefined(evalXPath('count()').numberValue(), "count() with no parameters should return 0");
-    },
-
-    testCountEmptyNodeset : function () {
-      var Assert = YAHOO.util.Assert;
-
-      Assert.areEqual(0, evalXPath('count(empty)').numberValue(), "count() with an empty nodeset parameter should return 0");
+      var a = evalXPath('count()').numberValue();
     }
   })//new TestCase
 );
