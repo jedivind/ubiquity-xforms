@@ -253,6 +253,53 @@ suiteXPathCoreFunctions.add(
   })//new TestCase
 );
 
+// Test count().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test count()",
+
+  	_should: {
+  		error: {
+  			testCountNoParameter: true
+  		} 
+  	},
+
+    testCountExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["count"], "count() is not defined.");
+    },
+
+    testCountSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(5, evalXPath('count(test/numbers/number)').numberValue());
+      Assert.areEqual(7, evalXPath('count(test/numbers2/number)').numberValue());
+      Assert.areEqual(6, evalXPath('count(test/numbers3/number)').numberValue());
+    },
+
+    testCountEmptyNodeset : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('count(empty)').numberValue(), "count() with an empty nodeset parameter should return 0");
+    },
+
+    testCountNoParameter : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isUndefined(evalXPath('count()').numberValue(), "count() with no parameters should return 0");
+    },
+
+    testCountEmptyNodeset : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('count(empty)').numberValue(), "count() with an empty nodeset parameter should return 0");
+    }
+  })//new TestCase
+);
+
+
 // Test choose().
 //
 suiteXPathCoreFunctions.add(
