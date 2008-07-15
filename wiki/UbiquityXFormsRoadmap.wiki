@@ -15,12 +15,15 @@ Once this work is complete work will continue to:
 || *Branch title* ||
 ||[http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.x 0.x]||
 
-= Tags =
+= Releases =
 
-|| *Tag title* || *Notes* ||
-||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.4.0 0.4.0]||Added support for {{{local-date()}}}, {{{local-dateTime()}}}, {{{now()}}} and {{{choose()}}}||
-||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.0 0.5.0]||Added support for {{{avg()}}}, {{{min()}}}, {{{max()}}}, and {{{coount-non-empty()}}}||
+|| *Tag title* || *Notes* || *Issues* ||
 ||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.1 0.5.1]||Fixed issue that {{{choose()}}} was not returning the correct object type||
+||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.0 0.5.0]||Added support for {{{avg()}}}, {{{min()}}}, {{{max()}}}, and {{{coount-non-empty()}}}||
+||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.4.0 0.4.0]||Added support for {{{local-date()}}}, {{{local-dateTime()}}}, {{{now()}}} and {{{choose()}}}||
+||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.3.0 0.3.0]||Added unit-testing framework, and improved the integration tests.||[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.3&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.3 issues]||
+||0.2.0||Replaced our own module loader with the YUI one. This is because the YUI loader supports specifying dependencies between modules, which in turn requires an examination of those dependencies. This information is important to have before we try to add more modules, or split apart existing modules. In the longer term we will enable the use of different loaders, such as the Dojo one. (See issue 4.)||[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.2&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.2 issues]||
+||0.1.0||||[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.1&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.1 issues]||
 
 = Feature branches in progress =
 
@@ -31,19 +34,3 @@ CB indicates the current branch, which is {{{0.x}}}.
 ||[http://code.google.com/p/ubiquity-xforms/source/browse/branches/re-actions re-actions]||Addition of the RRRR actions||[http://code.google.com/u/paul.butcher/ paul.butcher]||r261||-||-||
 ||[http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-xpath-functions xforms-xpath-functions]||Adding core XPath functions||[http://code.google.com/u/merle.sterling/ merle.sterling]||r275||-||-||
 ||refactor-vertextargets||Refactoring vertextargets.js ||[http://code.google.com/u/paul.butcher/ paul.butcher]||-||-||-||
-
-= Releases =
-
-== Version 0.2 ==
-
-This version will make use of the YUI Module loader, rather than our own custom one. This is because the YUI loader supports specifying dependencies between modules, which in turn requires an examination of those dependencies. This information is important to have before we try to add more modules, or split apart existing modules. In the longer term we will enable the use of different loaders, such as the Dojo one. (See [http://code.google.com/p/ubiquity-xforms/issues/detail?id=4 issue #4].)
-
-[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.1&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.1 issues]
-
-[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.2&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.2 issues]
-
-== Version 0.3 ==
-
-This version will include some unit-tests and integration tests.
-
-[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.3&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.3 issues]
