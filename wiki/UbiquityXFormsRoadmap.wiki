@@ -18,12 +18,12 @@ Once this work is complete work will continue to:
 = Releases =
 
 || *Tag title* || *Notes* || *Issues* ||
-||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.1 0.5.1]||Fixed issue that {{{choose()}}} was not returning the correct object type||
-||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.0 0.5.0]||Added support for {{{avg()}}}, {{{min()}}}, {{{max()}}}, and {{{coount-non-empty()}}}||
-||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.4.0 0.4.0]||Added support for {{{local-date()}}}, {{{local-dateTime()}}}, {{{now()}}} and {{{choose()}}}||
+||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.1 0.5.1]||Fixed issue that {{{choose()}}} was not returning the correct object type||||
+||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.0 0.5.0]||Added support for {{{avg()}}}, {{{min()}}}, {{{max()}}}, and {{{coount-non-empty()}}}||||
+||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.4.0 0.4.0]||Added support for {{{local-date()}}}, {{{local-dateTime()}}}, {{{now()}}} and {{{choose()}}}||||
 ||[http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.3.0 0.3.0]||Added unit-testing framework, and improved the integration tests.||[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.3&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.3 issues]||
 ||0.2.0||Replaced our own module loader with the YUI one. This is because the YUI loader supports specifying dependencies between modules, which in turn requires an examination of those dependencies. This information is important to have before we try to add more modules, or split apart existing modules. In the longer term we will enable the use of different loaders, such as the Dojo one. (See issue 4.)||[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.2&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.2 issues]||
-||0.1.0||||[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.1&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.1 issues]||
+||0.1.0|| ||[http://code.google.com/p/ubiquity-xforms/issues/list?q=Version:0.1&can=1&colspec=Version+Status+ID+Summary&sort=Status Status of version 0.1 issues]||
 
 = Feature branches in progress =
 
