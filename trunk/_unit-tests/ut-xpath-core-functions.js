@@ -32,6 +32,30 @@ var ctx = new ExprContext(
       <false>FaLsE</false> \
       <false>0</false> \
       <false>ubiquity</false> \
+      <numbers> \
+         <number>1</number> \
+         <number>2</number> \
+         <number>3</number> \
+         <number>4</number> \
+         <number></number> \
+      </numbers> \
+      <numbers2> \
+         <number>0</number> \
+         <number>1</number> \
+         <number>invalid</number> \
+         <number>3</number> \
+         <number>4</number> \
+         <number></number> \
+         <number></number> \
+      </numbers2> \
+      <numbers3> \
+         <number>0</number> \
+         <number>-1</number> \
+         <number>-2</number> \
+         <number>-3</number> \
+         <number>6</number> \
+         <number>12</number> \
+      </numbers3> \
     </test>"
   )
 );
@@ -229,6 +253,47 @@ suiteXPathCoreFunctions.add(
   })//new TestCase
 );
 
+// Test count().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test count()",
+
+  	_should: {
+  		error: {
+  			testCountNoParameter: true
+  		} 
+  	},
+
+    testCountExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["count"], "count() is not defined.");
+    },
+
+    testCountSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(5, evalXPath('count(test/numbers/number)').numberValue());
+      Assert.areEqual(7, evalXPath('count(test/numbers2/number)').numberValue());
+      Assert.areEqual(6, evalXPath('count(test/numbers3/number)').numberValue());
+    },
+
+    testCountEmptyNodeset : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('count(empty)').numberValue());
+    },
+
+    // Throws an error.
+    //
+    testCountNoParameter : function () {
+      var Assert = YAHOO.util.Assert;
+
+      var a = evalXPath('count()').numberValue();
+    }
+  })//new TestCase
+);
 // Test choose().
 //
 suiteXPathCoreFunctions.add(
@@ -242,22 +307,200 @@ suiteXPathCoreFunctions.add(
     },
 
     testChooseParameters : function () {
-         // Choose requires 3 parameters.
-         Assert.isNull(evalXPath('choose()', "choose() with zero parameters should return null"));
-         Assert.isNull(evalXPath('choose(1)', "choose() with one parameter should return null"));
-         Assert.isNull(evalXPath('choose(1, 0)', "choose() with two parameters should return null"));
-         Assert.isNull(evalXPath('choose(1, 0, "x", "y")', "choose() with four parameters should return null"));
+       // Choose requires 3 parameters.
+       Assert.isNull(evalXPath('choose()'), "choose() with zero parameters should return null");
+       Assert.isNull(evalXPath('choose(1)'), "choose() with one parameter should return null");
+       Assert.isNull(evalXPath('choose(1, 0)'), "choose() with two parameters should return null");
+       Assert.isNull(evalXPath('choose(1, 0, "x", "y")'), "choose() with four parameters should return null");
     },
 
-    testChoose : function () {
+    testChooseReturnsString : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("Yes", evalXPath('choose(5 > 1, "Yes", "No")').stringValue(), "choose() failed to return correct string value for true evaluation");
-      Assert.areEqual(1, evalXPath('choose(5 > 1, 1, 0)').numberValue(), "choose() failed to return correct number value for true evaluation");
-      Assert.areEqual(true, evalXPath('choose(5 > 1, "true", "")').booleanValue(), "choose() failed to return correct boolean value for true evaluation");
-      Assert.areEqual("No", evalXPath('choose(1 > 5, "Yes", "No")').stringValue(), "choose() failed to return correct string value for false evaluation");
-      Assert.areEqual(0, evalXPath('choose(1 > 5, 1, 0)').numberValue(), "choose() failed to return correct number value for false evaluation");
-      Assert.areEqual(false, evalXPath('choose(1 > 5, "true", "")').booleanValue(), "choose() failed to return correct boolean value for false evaluation");
+      Assert.areEqual("Yes", evalXPath('choose(true(), "Yes", "No")').stringValue());
+      Assert.areEqual("No", evalXPath('choose(false(), "Yes", "No")').stringValue());
+    },
+
+    testChooseReturnsNumber : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(1, evalXPath('choose(true(), 1, 0)').numberValue());
+      Assert.areEqual(0, evalXPath('choose(false(), 1, 0)').numberValue());
+    },
+
+    testChooseReturnsBoolean : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(true, evalXPath('choose(true(), true(), false())').booleanValue());
+      Assert.areEqual(false, evalXPath('choose(false(), true(), false())').booleanValue());
+    },
+
+    testChooseReturnsNodeSet : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(7, evalXPath('count(choose(true(), test/numbers2/number, test/numbers3/number))').numberValue());
+      Assert.areEqual(6, evalXPath('count(choose(false(), test/numbers2/number, test/numbers3/number))').numberValue());
+    }
+  })//new TestCase
+);
+
+// Test avg().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test avg()",
+
+    testAvgExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["avg"], "avg() is not defined.");
+    },
+
+    testAvgParameters : function () {
+         // Avg requires 1 parameter
+         Assert.isNaN(evalXPath('avg()').numberValue(), "avg() with zero parameters should return NaN");
+         Assert.isNaN(evalXPath('avg(empty)').numberValue(), "avg() with an empty nodeset parameter should return NaN");
+    },
+
+    testAvg : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(2, evalXPath('avg(test/numbers/number)').numberValue());
+      Assert.isNaN(evalXPath('avg(test/numbers2/number)').numberValue(), "avg() failed to return NaN when nodeset contains a non-number");
+      Assert.areEqual(2, evalXPath('avg(test/numbers3/number)').numberValue());
+    }
+  })//new TestCase
+);
+
+// Test min().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test min()",
+
+    testMinExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["min"], "min() is not defined.");
+    },
+
+    testMinParameters : function () {
+         // Min requires 1 parameter
+         Assert.isNaN(evalXPath('min()').numberValue(), "min() with zero parameters should return NaN");
+         Assert.isNaN(evalXPath('min(empty)').numberValue(), "min() with an empty nodeset parameter should return NaN");
+    },
+
+    testMin : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('min(test/numbers/number)').numberValue());
+      Assert.isNaN(evalXPath('min(test/numbers2/number)').numberValue(), "min() failed to return NaN when nodeset contains a non-number");
+      Assert.areEqual(-3, evalXPath('min(test/numbers3/number)').numberValue());
+    }
+  })//new TestCase
+);
+
+// Test max().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test max()",
+
+    testMaxExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["max"], "max() is not defined.");
+    },
+
+    testMaxParameters : function () {
+         // Max requires 1 parameter
+         Assert.isNaN(evalXPath('max()').numberValue(), "max() with zero parameters should return NaN");
+         Assert.isNaN(evalXPath('max(empty)').numberValue(), "max() with an empty nodeset parameter should return NaN");
+    },
+
+    testMax : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(4, evalXPath('max(test/numbers/number)').numberValue());
+      Assert.isNaN(evalXPath('max(test/numbers2/number)').numberValue(), "max() failed to return NaN when nodeset contains a non-number");
+      Assert.areEqual(12, evalXPath('max(test/numbers3/number)').numberValue());
+    }
+  })//new TestCase
+);
+
+// Test count-non-empty().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test count-non-empty()",
+
+    testCountNonEmptyExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["count-non-empty"], "count-non-empty() is not defined.");
+    },
+
+    testCountNonEmptyParameters : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('count-non-empty()').numberValue(), "count-non-empty() with zero parameters should return 0");
+      Assert.areEqual(0, evalXPath('count-non-empty(empty)').numberValue(), "count-non-empty() with an empty nodeset parameter should return 0");
+    },
+
+    testCountNonEmpty : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(4, evalXPath('count-non-empty(test/numbers/number)').numberValue());
+      Assert.areEqual(5, evalXPath('count-non-empty(test/numbers2/number)').numberValue());
+      Assert.areEqual(6, evalXPath('count-non-empty(test/numbers3/number)').numberValue());
+    }
+  })//new TestCase
+);
+
+// Test random().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test random()",
+
+    testRandomExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["random"], "random() is not defined.");
+    },
+
+    testRandom : function () {
+      var Assert = YAHOO.util.Assert;
+
+      var rand = evalXPath('random()').numberValue() ;
+      var valid = rand >= 0 && rand < 1;
+      Assert.isTrue(valid, "random() should return a random number >= 0 and < 1");
+
+      Assert.areNotEqual(evalXPath('random()').numberValue(), evalXPath('random()').numberValue());
+    }
+  })//new TestCase
+);
+
+// Test compare().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test compare()",
+
+    testCompareExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["compare"], "compare() is not defined.");
+    },
+
+    testCompare : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('compare()').stringValue(), "compare() with zero parameters should return NaN");
+      Assert.isNaN(evalXPath('compare("apple")').stringValue(), "compare() with one parameter should return NaN");
+      Assert.areEqual(0, evalXPath('compare("apple", "apple")').stringValue(), "compare() should return 0 when comparing 'apple' to 'apple'");
+      Assert.areEqual(-1, evalXPath('compare("apple", "orange")').stringValue(), "compare() should return -1 when comparing 'apple' to 'orange'");
+      Assert.areEqual(1, evalXPath('compare("orange", "apple")').stringValue(), "compare() should return 1 when comparing 'orange' to 'apple'");
     }
   })//new TestCase
 );
