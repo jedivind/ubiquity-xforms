@@ -151,24 +151,29 @@
 
 										var sExpr = oBind.getAttribute("calculate");
 
-										if (sExpr)
+										if (sExpr) {
 											oModel.createMIP(oVertex, "calculate", sExpr, oPN, oNode);
+										}
 
 										sExpr = oBind.getAttribute("constraint");
-										if (sExpr)
+										if (sExpr) {
 											oModel.createMIP(null, "valid", sExpr, oPN, oNode);
+										}
 
 										sExpr = oBind.getAttribute("readonly");
-										if (sExpr)
+										if (sExpr) {
 											oModel.createMIP(null, "readonly", sExpr, oPN, oNode);
+										}
 
 										sExpr = oBind.getAttribute("relevant");
-										if (sExpr)
+										if (sExpr) {
 											oModel.createMIP(null, "enabled", sExpr, oPN, oNode);
+										}
 
 										sExpr = oBind.getAttribute("required");
-										if (sExpr)
+										if (sExpr) {
 											oModel.createMIP(null, "required", sExpr, oPN, oNode);
+										}
 
 										/*
 										 * Finally, process any nested bind statements
@@ -184,7 +189,7 @@
 							case "number":
 							case "string":
 							default:
-								throw "Binding exception."
+								throw "Binding exception.";
 								break;
 						}
 					}
@@ -288,22 +293,6 @@
 			return;
 		}//testForReady()
 
-		function _replaceInstanceDocument(pThis,sID, oDom)
-		{
-			var bRet = false;
-
-			if (sID)
-			{
-				/*
-				 * [TODO] Should be getElementById().
-				 */
-
-				var oInstance = pThis.element.all(sID);
-				bRet = __replaceInstanceDocument(pThis,oInstance,oDom);
-			}
-			return bRet;
-		}
-
 		function __replaceInstanceDocument(pThis,oInstance, oDom)
 		{	
 			var bRet = false;
@@ -316,6 +305,22 @@
 				oInstance.replaceDocument(oDom);
 				pThis.flagRebuild();
 				bRet = true;
+			}
+			return bRet;
+		}
+
+		function _replaceInstanceDocument(pThis,sID, oDom)
+		{
+			var bRet = false;
+
+			if (sID)
+			{
+				/*
+				 * [TODO] Should be getElementById().
+				 */
+
+				var oInstance = pThis.element.all(sID);
+				bRet = __replaceInstanceDocument(pThis,oInstance,oDom);
 			}
 			return bRet;
 		}
@@ -355,8 +360,9 @@
 			 * one.
 			 */
 
-			else
+			else {
 				oPN = new ProxyNode(null);
+			}
 
 			oRet = oPN;
 			return oRet;
@@ -368,8 +374,9 @@
 
 			pThis.element.ownerDocument.logger.log("Adding expression for '" + oTarget.tagName + "' to '" + sXPath + "'", "mdl");
 
-			if (!oContext)
+			if (!oContext) {
 				oContext = pThis;
+			}
 
 			var oPE = new ProxyExpression(oContext, sXPath, pThis);
 
@@ -414,8 +421,9 @@
 
 //oPN.m_vertex = oCalcVertex;
 			pThis.changeList.addChange(oCalcVertex);
-			if (oVertex)
+			if (oVertex) {
 				oCalcVertex.addDependent(oVertex);
+			}
 
 			/*
 			 * Now we need to see if there are any sub-expressions
@@ -428,43 +436,45 @@
 		
 		
 		
-		function _EvaluateXPath(pThis,sXPath, pContextResolver)
-		{
-			var oRet = null
-
-			if (!pContextResolver)
-				pContextResolver = pThis;
-			else if (pContextResolver["m_oNode"])
-				pContextResolver = pContextResolver["m_oNode"];
-
-			var sType= typeof(pContextResolver.getEvaluationContext);
-			if(sType == "function" || sType == "unknown")
-			{
-				pContext = pContextResolver.getEvaluationContext().node;
-					if(pContext["m_oNode"])
-						pContext = ["m_oNode"];
-			//debugger;
-			}
-			else
-			{
-				pContext = pContextResolver;
-			}
-
-			if (pContext != null)
-			{
-				try
-				{
-					g_currentModel = pThis;
-					oRet = xpathDomEval(sXPath, pContext);
-					g_currentModel = null;
-				}
-				catch(e)
-				{
-				//	this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
-				}
-			}
-			return oRet;
-		}
+    function _EvaluateXPath(pThis,sXPath, pContextResolver)
+    {
+      var oRet = null
+      var pContext = null;
+    	if (!pContextResolver) {
+    		pContextResolver = pThis;
+    	}
+    	else if (pContextResolver["m_oNode"]) {
+    		pContextResolver = pContextResolver["m_oNode"];
+    	}
+    
+    	var sType= typeof(pContextResolver.getEvaluationContext);
+    	if(sType == "function" || sType == "unknown")
+    	{
+    		pContext = pContextResolver.getEvaluationContext().node;
+    			if(pContext["m_oNode"]) {
+    				pContext = ["m_oNode"];
+    			}
+    	}
+    	else
+    	{
+    		pContext = pContextResolver.node?pContextResolver.node:pContextResolver;
+    	}
+    
+    	if (pContext != null)
+    	{
+    		try
+    		{
+    			g_currentModel = pThis;
+    			oRet = xpathDomEval(sXPath, pContext);
+    			g_currentModel = null;
+    		}
+    		catch(e)
+    		{
+    		//	this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
+    		}
+    	}
+    	return oRet;
+    }
 
 
 	/*
@@ -474,20 +484,25 @@
 
 		function _deferredUpdate(pThis)
 		{
-			if (pThis.m_bNeedRebuild)
+			if (pThis.m_bNeedRebuild) {
 				pThis.rebuild();
+			}
 
-			if (pThis.m_bNeedRecalculate)
+			if (pThis.m_bNeedRecalculate) {
 				pThis.recalculate();
+			}
 
-			if (pThis.m_bNeedRevalidate)
+			if (pThis.m_bNeedRevalidate) {
 				pThis.revalidate();
+			}
 
-			if (pThis.m_bNeedRewire)
+			if (pThis.m_bNeedRewire) {
 				pThis.rewire();
+			}
 
-			if (pThis.m_bNeedRefresh)
+			if (pThis.m_bNeedRefresh) {
 				pThis.refresh();
+			}
 
 			return;
 		}
@@ -574,7 +589,7 @@
 		var evt = pThis.element.ownerDocument.createEvent("Events");
 		evt._actionDepth = -1;
 		evt.initEvent("xforms-model-construct-done", true, false);
-		spawn(function(){FormsProcessor.dispatchEvent(pThis.element,evt)});
+		spawn(function(){FormsProcessor.dispatchEvent(pThis.element,evt);});
 
 		return;
 	}

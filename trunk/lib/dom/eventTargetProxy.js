@@ -25,7 +25,7 @@ var EventTarget = null;
 			//There is no need to run this event in line, and doing so may cause a stack overflow,
 			//	if it invokes other actions. 
 			//oEvt._actionDepth = -1;
-			FormsProcessor.dispatchEvent(elmnt,oEvt)
+			FormsProcessor.dispatchEvent(elmnt,oEvt);
 			//spawn(function(){elmnt.dispatchEvent(oEvt)});
 			if(document.all)
 			{
@@ -47,43 +47,43 @@ var EventTarget = null;
 			//	if it invokes other actions. 
 		//	oEvt._actionDepth = -1;
 			FormsProcessor.dispatchEvent(elmnt,oEvt);
-			if(document.all)
-			{
+			if(document.all) {
 				elmnt.document.parentWindow.event.cancelBubble = true;
 				elmnt.document.parentWindow.event.returnValue = false;
 			}
-			else
-			{
+			else {
 				e.stopPropagation();
 			}
 		}
 
-function StyleHoverishly(elmnt)
-{
-	if(elmnt.className.indexOf("pc-hover") == -1)
+function StyleHoverishly(elmnt) {
+	if(elmnt.className.indexOf("pc-hover") == -1) {
 		elmnt.className += " pc-hover";
+	}
 }
 
-function StyleUnhoverishly(elmnt)
-{
+function StyleUnhoverishly(elmnt) {
 	var s = elmnt.className;
-	var i = s.indexOf("pc-hover")
-	if(i != -1)
+	var i = s.indexOf("pc-hover");
+	if(i != -1) {
 		elmnt.className = s.substr(0,i-1) + s.substr(i+8);
+	}
 }
 
 function StyleFocussedly(elmnt)
 {
-	if(elmnt.className.indexOf("pc-focus") == -1)
+	if(elmnt.className.indexOf("pc-focus") == -1) {
 		elmnt.className += " pc-focus";
+	}
 }
 
 function StyleUnfocussedly(elmnt)
 {
 	var s = elmnt.className;
-	var i = s.indexOf("pc-focus")
-	if(i != -1)
+	var i = s.indexOf("pc-focus");
+	if(i != -1) {
 		elmnt.className = s.substr(0,i-1) + s.substr(i+8);
+	}
 }
 
 //There is no need for this in firefox.
@@ -102,19 +102,21 @@ if(document.all)
 			 * If this is the first listener of this type then create
 			 * an empty list
 			 */
-			if(typeof(iPhase) == "boolean")
-			{
+			if(typeof(iPhase) == "boolean") {
 				iPhase = (iPhase) ? this.PHASE_CAPTURE : this.PHASE_BUBBLE;
 			}
-			if (this.arrListener[sType] == null)
-				this.arrListener[sType] = new Array();
+			
+			if (this.arrListener[sType] == null) {
+				this.arrListener[sType] =  [];
+			}
 
 			/*
 			 * Each type can have listeners for different phases
 			 */
 
-			if (this.arrListener[sType][iPhase] == null)
-				this.arrListener[sType][iPhase] = new Array();
+			if (this.arrListener[sType][iPhase] == null) {
+				this.arrListener[sType][iPhase] =  [];
+			}
 
 			/*
 			 * Check to see if we already have this listener, and if not,
@@ -126,8 +128,9 @@ if(document.all)
 
 			for (var i = 0; i < iNext; i++)
 			{
-				if (arr[i] == oListener)
+				if (arr[i] == oListener) {
 					break;
+				}
 			}
 
 			if (i == iNext)
@@ -283,8 +286,9 @@ if(document.all)
 										break;
 								}
 
-								if (bPreventDefault)
+								if (bPreventDefault) {
 									oEvt.preventDefault();
+								}
 
 								/*
 								 * If @ev:propagate is set then we need to
@@ -314,8 +318,9 @@ if(document.all)
 								 * but "stop immediate" does
 								 */
 		
-								if (oEvt._stopImmediatePropagation)
+								if (oEvt._stopImmediatePropagation) {
 									break;
+								}
 							}//for ( each listener in this group )								
 							
 							//flush any events that were added to the queue by the last iteration.
@@ -343,8 +348,9 @@ if(document.all)
 			while (oNode)
 			{
 				var sTypeOfAddEventListener = typeof oNode.addEventListener;
-				if ( sTypeOfAddEventListener == "function" || sTypeOfAddEventListener == "unknown")
+				if ( sTypeOfAddEventListener == "function" || sTypeOfAddEventListener == "unknown") {
 					bRet.push(oNode);
+				}
 				oNode = oNode.parentElement;
 			}
 			return bRet;
@@ -373,8 +379,9 @@ if(document.all)
 				oNode.currentTarget = oNode;
 		
 				oNode._notifyListeners(oEvt);
-				if (oEvt._stopPropagation)
+				if (oEvt._stopPropagation) {
 					break;
+				}
 			}// for ( each ancestor )
 		}
 		
@@ -406,8 +413,9 @@ if(document.all)
 						oEvt.currentTarget = oNode;
 		
 						oNode._notifyListeners(oEvt);
-						if (oEvt._stopPropagation)
+						if (oEvt._stopPropagation) {
 							break;
+						}
 					}// for ( each ancestor )
 				}// if ( the event is a bubbling event )
 			}// if ( propogation has not been stopped )
@@ -436,8 +444,9 @@ if(document.all)
 				g_pendingEvents.push({target:this,evt:oEvt});
 				return false;
 			}
-			else
+			else {
 				return this._dispatchEvent(oEvt);
+			}
 		}
 		
 		function FlushEventQueue()
@@ -472,11 +481,13 @@ if(document.all)
 				* the top-level action handler.
 				*/
 
-				if (oEvt._actionDepth == undefined)
+				if (oEvt._actionDepth == undefined) {
 					oEvt._actionDepth = 0;
+				}
 
-				if (oEvt._actionDepth != -1)
+				if (oEvt._actionDepth != -1) {
 					oEvt._actionDepth++;
+				}
 
 				/*
 				* First build a list of the node's ancestors. Since the
