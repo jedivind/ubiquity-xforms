@@ -244,11 +244,17 @@ suiteXPathCoreFunctions.add(
 
       // We expect an xsd:dateTime representing UTC time in the following format:
       // yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss 'Z'
-      var xpDateTime = evalXPath('now()').stringValue(); 
-      Assert.areEqual(20, xpDateTime.length, "now() returned an xsd:dateTime with too few or too many characters.");
+      var xpDate = evalXPath('now()').stringValue();
+      var jsDate = new Date();
 
-      var match = xpDateTime.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}\T[0-9]{2}\:[0-9]{2}\:[0-9]{2}\Z/);
-      Assert.isNotNull(match, "now() failed to return a properly formatted UTC xsd:dateTime: "+xpDateTime);
+      xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})Z$/ );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "now() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "now() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "now() returned an incorrect day of the month.");
+      Assert.areEqual(jsDate.getUTCHours(), RegExp.$4, "now() returned an incorrect hour.");
+      Assert.areEqual(jsDate.getUTCMinutes(), RegExp.$5, "now() returned incorrect minutes.");
+      Assert.areEqual(jsDate.getUTCSeconds(), RegExp.$6, "now() returned incorrect seconds.");
     }
   })//new TestCase
 );
