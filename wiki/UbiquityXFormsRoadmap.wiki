@@ -70,4 +70,4 @@ Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 ||re-actions||r324||r324||-||
 ||refactor-vertextargets||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||
-||xforms-xpath-functions||r275||-||-||
+||xforms-xpath-functions||r337||r337||-||
