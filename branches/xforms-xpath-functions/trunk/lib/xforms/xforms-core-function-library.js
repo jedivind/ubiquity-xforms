@@ -329,8 +329,8 @@ FunctionCallExpr.prototype.xpathfunctions["count-non-empty"] = function(ctx) {
             count++;
         }
     }
-    return new NumberValue(count);
 
+    return new NumberValue(count);
 };
 
 /**@addon
@@ -340,7 +340,7 @@ FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx) {
 	var s =  this.args[0].evaluate(ctx).stringValue();
 	var oRpt = document.getElementById(s);
 
-  return new NumberValue(oRpt.getIndex());
+    return new NumberValue(oRpt.getIndex());
 };
 
 /**@addon
@@ -481,13 +481,15 @@ FunctionCallExpr.prototype.xpathfunctions["local-dateTime"] = function(ctx) {
     return new StringValue(s);
 };
 
-/**@addon*/
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-now
+*/
 FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx) {
     var d = new Date();
-	var s = getDateTime(d, true);
+    var s = getDateTime(d, true);
 
-	// Return the result as a string.
-	return new StringValue(s);
+    // Return the result as a string.
+    return new StringValue(s);
 };
 
 /**@addon
@@ -501,8 +503,8 @@ FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx) {
     var sDate = this.args[0].evaluate(ctx).stringValue();
 
     // The return value is equal to the number of days difference between the specified date
-    //  or dateTime (normalized to UTC) and 1970-01-01. Hour, minute, and second components
-    //  are ignored after normalization. 
+    // or dateTime (normalized to UTC) and 1970-01-01. Hour, minute, and second components
+    // are ignored after normalization. 
     var dDate = null;
     if (isValidDateTime(sDate)) {
         // Replace '-' with ',', and eval a constructor of the form Date(yearNum,MonthNum,DayNum);
@@ -535,10 +537,10 @@ FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx) {
         return new NumberValue(NaN);
     }
 
-	var dOrigin = new Date(1970,1,1);
-	var diff = dDate - dOrigin;
-	
-	return new NumberValue(Math.floor(diff/86400000));
+    var dOrigin = new Date(1970,1,1);
+    var diff = dDate - dOrigin;
+
+    return new NumberValue(Math.floor(diff/86400000));
 };
 
 /**@addon
@@ -873,6 +875,7 @@ FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx) {
 };		
 
 /**@addon
+	http://www.w3.org/TR/xforms11/#fn-current
 */  
 
 FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx) {
@@ -941,3 +944,4 @@ FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx) {
 	}
 	return new NodeSetValue(ret);
 };
+

@@ -28,23 +28,24 @@
 
 function getProxyNode(oNode)
 {
+  if(oNode === null || oNode === undefined) {
+    throw "getProxyNode, E_INVALIDARG";
+  }
+  
 	var pnRet = null;
-
-	if (oNode)
-	{
+	if (oNode) {
 		// The node could be either a DOM node, or a proxy node.
 		//	 If it's a proxy node, then no more action is required. 
-
-		if (oNode.m_oNode)
+		if (oNode.m_oNode) {
 			pnRet = oNode;
-		else
-		{
+		}
+		else {
 			// If oNode is a DOM node, it may already have a proxy node...
-			if (oNode.m_proxy)
+			if (oNode.m_proxy) {
 				pnRet = oNode.m_proxy;
-			//Otherwise, create one. 
-			else
-			{
+			}
+			else {
+  			//Otherwise, create one. 
 				pnRet = new ProxyNode(oNode);
 				oNode.m_proxy = pnRet;
 			}
@@ -54,20 +55,17 @@ function getProxyNode(oNode)
 }
 
 
-function getElementValueOrContent(oContext, oElement)
-{
-	var sExprValue = oElement.getAttribute("value");
-	var sRet = "";
-
-	if (sExprValue == undefined)
-		sRet = oElement.innerHTML;
-	else
-	{
-		sRet = getStringValue(
-			oContext.model.EvaluateXPath(sExprValue, oContext.node)
-		);
-	}
-	return sRet;
+function getElementValueOrContent(oContext, oElement) {
+  var sExprValue = oElement.getAttribute("value");
+  var sRet = "";
+  
+  if (sExprValue === undefined || sExprValue === null || sExprValue === "") {
+    sRet = oElement.innerHTML;
+  }
+  else {
+    sRet = getStringValue(oContext.model.EvaluateXPath(sExprValue, oContext.node));
+  }
+  return sRet;
 }
 
 /**
@@ -78,60 +76,45 @@ function getElementValueOrContent(oContext, oElement)
 	@returns The first node in the nodeset contained by oRes, if oRes is not a node-set, then this function returns null.
 	
 */
-function getFirstNode(oRes)
-{
+function getFirstNode(oRes) {
 	var oRet = null;
-
-	if (oRes)
-	{
-		if(oRes.type ==  "node-set")
-		{
-			oRet = oRes.nodeSetValue()[0];
+  var nodeSet = null;
+	if(oRes && oRes.type ===  "node-set") {
+    nodeSet = oRes.nodeSetValue();
+    if(nodeSet.length) {
+		  oRet = nodeSet[0];
 		}
 	}
 	return oRet;
 }
 
-/*
- * Get the first text node of an element, or create one.
- */
 
-function getFirstTextNode(oNode)
-{
+
+/**
+	Gets the first text child from a node, if the node has no text children, and is capable of having them,
+	  then one is created, inserted, and returned. 
+	
+				
+	@param {Node} oNode The node whose first text child to return.
+	@returns The first child of node that is a text node.
+	
+*/
+function getFirstTextNode(oNode) {
 	var oRet = null;
 
-	if (oNode)
-	{
-		/*
-		 * If we already have the text node or an attribute
-		 * then just return it.
-		 */
-
-		if ((oNode.nodeType == DOM_TEXT_NODE) || (oNode.nodeType == DOM_ATTRIBUTE_NODE))
+	if (oNode) {
+    //if oNode is a text node, or text-like node (e.g. attribute), return it  
+		if ((oNode.nodeType == DOM_TEXT_NODE) || (oNode.nodeType == DOM_ATTRIBUTE_NODE)) {
 			oRet = oNode;
+		}
+		else if (oNode.nodeType == DOM_ELEMENT_NODE) {
+  		
+  		// Otherwise, if the node is an element then inspect the first child, to see if that is text. 
 
-		/*
-		 * Otherwise, if the node is an element then we want
-		 * the first text node, but we'll create one if there
-		 * isn't one.
-		 */
-
-		else if (oNode.nodeType == DOM_ELEMENT_NODE)
-		{
 			oRet = oNode.firstChild;
 
-			/*
-			 * If there is no child node, or the first child node is
-			 * not a text node, then we need to create an empty text
-			 * node.
-			 */
-
-			if (!oRet || oRet.nodeType != DOM_TEXT_NODE)
-			{
-				/*
-				 * Create an empty text node for insertion.
-				 */
-	
+      //If the first child is either absent, or not text, create a new text node, and insert it. 
+			if (!oRet || oRet.nodeType != DOM_TEXT_NODE) {
 				var newNode = oNode.ownerDocument.createTextNode("");
 	
 				/*
@@ -139,16 +122,16 @@ function getFirstTextNode(oNode)
 				 * text node directly...
 				 */
 	
-				if (!oRet)
+				if (!oRet) {
 					oNode.appendChild(newNode);
-	
-				/*
-				 * ...otherwise place it before the non-text node that
-				 * we just located.
-				 */
-	
-				else
+				}
+				else {
+    			/*
+    			 * ...otherwise place it before the non-text node that
+    			 * we just located.
+    			 */
 					oNode.insertBefore(newNode, oRet);
+				}
 	
 				/*
 				 * It's the new text node that we want to return.
@@ -179,18 +162,16 @@ function getStringValue(oRes)
 					 * return it.
 					 */
 
-					if ((oNode.nodeType == DOM_TEXT_NODE) || (oNode.nodeType == DOM_ATTRIBUTE_NODE))
+					if ((oNode.nodeType == DOM_TEXT_NODE) || (oNode.nodeType == DOM_ATTRIBUTE_NODE)) {
 						sRet = oNode.nodeValue;
-
-					/*
-					 * Otherwise, if the node is an element then we want
-					 * the first text node, but we'll create one if there
-					 * isn't one.
-					 */
-
-					else if (oNode.nodeType == DOM_ELEMENT_NODE)
-					{
-						oNode = oNode.firstChild;
+					}
+					else if (oNode.nodeType == DOM_ELEMENT_NODE) {
+  					/*
+  					 * Otherwise, if the node is an element then we want
+  					 * the first text node, but we'll create one if there
+  					 * isn't one.
+  					 */
+  					oNode = oNode.firstChild;
 						if (oNode && oNode.nodeType == DOM_TEXT_NODE)
 							sRet = oNode.nodeValue;
 					}
@@ -231,7 +212,7 @@ function ProxyExpression(oContext, sXPath, oModel)
 ProxyExpression.prototype.getType = function()
 {
 	return this.datatype;
-}
+};
 
 ProxyExpression.prototype.getNodeset = function()
 {
@@ -250,7 +231,7 @@ ProxyExpression.prototype.getNodeset = function()
 	}
 
 	return oRet;
-}
+};
 
 ProxyExpression.prototype.getValue = function()
 {
@@ -288,7 +269,7 @@ ProxyExpression.prototype.getValue = function()
 		}
 	}
 	return sRet;
-}
+};
 
 /*
  * A ProxyNode is...surprisingly, a proxy for a DOM node, onto
@@ -325,7 +306,7 @@ ProxyNode.prototype.getMIP = function(sMIPName)
 	}
 
 	return mipRet;
-}
+};
 
 ProxyNode.prototype.getMIPState = function(sMIPName)
 {
@@ -336,19 +317,19 @@ ProxyNode.prototype.getMIPState = function(sMIPName)
 		bRet = oMIP.value;
 
 	return bRet;
-}
+};
 
 ProxyNode.prototype.getNode = function()
 {
 	var oRet = this.m_oNode;
 
 	return oRet;
-}
+};
 
 ProxyNode.prototype.getType = function()
 {
 	return this.datatype;
-}
+};
 
 ProxyNode.prototype.getValue = function()
 {
@@ -364,7 +345,7 @@ ProxyNode.prototype.getValue = function()
 	}
 
 	return sRet;
-}
+};
 
 ProxyNode.prototype.setValue = function(sVal, oModel)
 {
@@ -413,7 +394,7 @@ ProxyNode.prototype.setValue = function(sVal, oModel)
 		
 	}
 	return oRet;
-}
+};
 
 function SingleNodeExpression(oTarget,sXPath, oContextResolver,oModel)
 {
@@ -438,7 +419,7 @@ SingleNodeExpression.prototype.update = function()
 		return r.value[0];
 	}
 	return null;
-}
+};
 
 SingleNodeExpression.prototype.determineDependentExpressions = function()
 {
@@ -452,7 +433,7 @@ SingleNodeExpression.prototype.determineDependentExpressions = function()
 	g_bSaveDependencies = false;
 
 	return;
-}
+};
 
 function NodesetExpression(oTarget, sXPath, oContextResolver, oModel)
 {
@@ -489,7 +470,7 @@ NodesetExpression.prototype.update = function()
 		return r.value;
 	}
 	return null;
-}
+};
 
 NodesetExpression.prototype.determineDependentExpressions = function()
 {
@@ -503,7 +484,7 @@ NodesetExpression.prototype.determineDependentExpressions = function()
 	g_bSaveDependencies = false;
 
 	return;
-}
+};
 
 function ComputedXPathExpression(oProxy, sXPath, oContextResolver, oModel)
 {
@@ -532,7 +513,7 @@ ComputedXPathExpression.prototype.update = function()
 
 	this.value = oRet;
 	return oRet;
-}
+};
 
 /*
  * This breaks computed expression into further expressions on which
@@ -601,7 +582,7 @@ ComputedXPathExpression.prototype.addDependentExpressions = function(oVertex, oD
 			oSubVertex.addDependent(oVertex);
 		}
 	}
-}//addDependentExpressions()
+};
 
 ComputedXPathExpression.prototype.determineDependentExpressions = function()
 {
@@ -617,7 +598,7 @@ ComputedXPathExpression.prototype.determineDependentExpressions = function()
 	oRet = this.m_oModel.EvaluateXPath(this.m_sXPathExpr, this.m_oContextResolver);
 	g_bSaveDependencies = false;
 	return oRet;
-}
+};
 
 /*
  * [ISSUE] This is almost exactly the same as ComputedXPathExpression,
@@ -646,7 +627,7 @@ MIPExpression.prototype.update = function()
 
 	this.value = bRet;
 	return bRet;
-}
+};
 
 function SubExpression(oProxy)
 {
@@ -669,4 +650,4 @@ SubExpression.prototype.update = function()
 
 	this.value = oRet;
 	return oRet;
-}
+};
