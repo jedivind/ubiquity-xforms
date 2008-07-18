@@ -45,6 +45,12 @@ Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 
 Addition of the RRRR actions.
 
+== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-tests-and-examples xforms-tests-and-examples] ==
+
+Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
+
+Addition of XForms W3C test suite, a selenium harness and some xforms examples.
+
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-xpath-functions xforms-xpath-functions] ==
 
 Owner: [http://code.google.com/u/merle.sterling/ merle.sterling]
@@ -63,4 +69,5 @@ Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 ||range-map||r229||r235||-||
 ||re-actions||r324||r324||-||
 ||refactor-vertextargets||-||-||-||
+||xforms-tests-and-examples||r334||-||-||
 ||xforms-xpath-functions||r275||-||-||
