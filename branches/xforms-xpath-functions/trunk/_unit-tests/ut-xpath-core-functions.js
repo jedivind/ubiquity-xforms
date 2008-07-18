@@ -56,6 +56,42 @@ var ctx = new ExprContext(
          <number>6</number> \
          <number>12</number> \
       </numbers3> \
+      <days>11688</days> \
+      <days>11687.5</days> \
+      <days>-1</days> \
+      <days></days> \
+      <days>NaN</days> \
+      <days>error</days> \
+      <date>2002-01-01</date> \
+      <date>1970-01-01</date> \
+      <date></date> \
+      <date>NaN</date> \
+      <date>1970-0101</date> \
+      <datetime>1970-01-01T00:00:00Z</datetime> \
+      <datetime>1970-01-01T00:00:00-08:00</datetime> \
+      <datetime></datetime> \
+      <datetime>NaN</datetime> \
+      <datetime>1970-01-0100:00:00</datetime> \
+      <seconds>0</seconds> \
+      <seconds>28800</seconds> \
+      <seconds>66</seconds> \
+      <seconds></seconds> \
+      <seconds>NaN</seconds> \
+      <seconds>error</seconds> \
+      <timezone>1970-01-01T04:00:00Z</timezone> \
+      <timezone>1970-01-01T03:00:00Z</timezone> \
+      <timezone>1970-01-01T04:00:00Z</timezone> \
+      <timezone></timezone> \
+      <timezone>NaN</timezone> \
+      <timezone>1970-01-0100:00:00</timezone> \
+      <duration>P3DT10H30M1.5S</duration> \
+      <duration>P1Y2M</duration> \
+      <duration>P3</duration> \
+      <duration></duration> \
+      <duration>NaN</duration> \
+      <duration>3</duration> \
+      <property>version</property> \
+      <property>conformance-level</property> \
     </test>"
   )
 );
@@ -192,11 +228,15 @@ suiteXPathCoreFunctions.add(
 
       // We expect an xsd:date with time zone in the following format:
       // yyyy '-' mm '-' dd ('+' | '-') hh ':' mm
-      var xpDate = evalXPath('local-date()').stringValue(); 
-      Assert.areEqual(16, xpDate.length, "local-date() returned an xsd:date with too few or too many characters.");
+      var xpDate = evalXPath('local-date()').stringValue();
+      var jsDate = new Date();
 
-      var match = xpDate.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}/);
-      Assert.isNotNull(match, "local-date() failed to return a properly formatted xsd:date with time zone offset: "+xpDate);
+      xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})([+-][0-9]{2}\:[0-9]{2})$/ );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "local-date() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "local-date() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "local-date() returned an incorrect day of the month.");
+      Assert.areEqual(getTZOffset(jsDate), RegExp.$4, "local-date() returned an incorrect time zone.");
     }
   })//new TestCase
 );
@@ -218,11 +258,18 @@ suiteXPathCoreFunctions.add(
 
       // We expect an xsd:dateTime with time zone in the following format:
       // yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss ('+' | '-') hh ':' mm
-      var xpDateTime = evalXPath('local-dateTime()').stringValue(); 
-      Assert.areEqual(25, xpDateTime.length, "local-dateTime() returned an xsd:dateTime with too few or too many characters.");
+      var xpDate = evalXPath('local-dateTime()').stringValue();
+      var jsDate = new Date();
 
-      var match = xpDateTime.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}\T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}/);
-      Assert.isNotNull(match, "local-dateTime() failed to return a properly formatted xsd:dateTime: "+xpDateTime);
+      xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})([+-][0-9]{2}\:[0-9]{2})$/ );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "local-datetime() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "local-datetime() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "local-datetime() returned an incorrect day of the month.");
+      Assert.areEqual(jsDate.getHours(), RegExp.$4, "local-datetime() returned an incorrect hour.");
+      Assert.areEqual(jsDate.getMinutes(), RegExp.$5, "local-datetime() returned incorrect minutes.");
+      Assert.areEqual(jsDate.getSeconds(), RegExp.$6, "local-datetime() returned incorrect seconds.");
+      Assert.areEqual(getTZOffset(jsDate), RegExp.$7, "local-datetime() returned an incorrect time zone.");
     }
   })//new TestCase
 );
@@ -244,11 +291,17 @@ suiteXPathCoreFunctions.add(
 
       // We expect an xsd:dateTime representing UTC time in the following format:
       // yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss 'Z'
-      var xpDateTime = evalXPath('now()').stringValue(); 
-      Assert.areEqual(20, xpDateTime.length, "now() returned an xsd:dateTime with too few or too many characters.");
+      var xpDate = evalXPath('now()').stringValue();
+      var jsDate = new Date();
 
-      var match = xpDateTime.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}\T[0-9]{2}\:[0-9]{2}\:[0-9]{2}\Z/);
-      Assert.isNotNull(match, "now() failed to return a properly formatted UTC xsd:dateTime: "+xpDateTime);
+      xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})Z$/ );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "now() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "now() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "now() returned an incorrect day of the month.");
+      Assert.areEqual(jsDate.getUTCHours(), RegExp.$4, "now() returned an incorrect hour.");
+      Assert.areEqual(jsDate.getUTCMinutes(), RegExp.$5, "now() returned incorrect minutes.");
+      Assert.areEqual(jsDate.getUTCSeconds(), RegExp.$6, "now() returned incorrect seconds.");
     }
   })//new TestCase
 );
@@ -501,6 +554,312 @@ suiteXPathCoreFunctions.add(
       Assert.areEqual(0, evalXPath('compare("apple", "apple")').stringValue(), "compare() should return 0 when comparing 'apple' to 'apple'");
       Assert.areEqual(-1, evalXPath('compare("apple", "orange")').stringValue(), "compare() should return -1 when comparing 'apple' to 'orange'");
       Assert.areEqual(1, evalXPath('compare("orange", "apple")').stringValue(), "compare() should return 1 when comparing 'orange' to 'apple'");
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test days-from-date()",
+
+    testDaysFromDateExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["days-from-date"], "days-from-date() is not defined.");
+    },
+    
+    testDaysFromDateSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(11688, evalXPath('days-from-date("2002-01-01")').numberValue());
+      Assert.areEqual(11688, evalXPath('days-from-date("2002-01-01-07:00")').numberValue());
+      Assert.areEqual(11687, evalXPath('days-from-date("2002-01-01T00:00:00+01:00")').numberValue());
+      Assert.areEqual(-1, evalXPath('days-from-date("1969-12-31")').numberValue());
+      Assert.areEqual(0, evalXPath('days-from-date("1970-01-01")').numberValue());
+      Assert.areEqual(11688, evalXPath('days-from-date(/test/date[1])').numberValue());
+      Assert.areEqual(0, evalXPath('days-from-date(/test/date[2])').numberValue());
+    },
+
+    testDaysFromDateFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('days-from-date()').numberValue());
+      Assert.isNaN(evalXPath('days-from-date("1970-01-01", "1970-01-01")').numberValue());
+      Assert.isNaN(evalXPath('days-from-date("NaN")').numberValue());
+      Assert.isNaN(evalXPath('days-from-date("error")').numberValue());
+      Assert.isNaN(evalXPath('days-from-date("AA1970-01-01ZZ")').numberValue());
+      Assert.isNaN(evalXPath('days-from-date(/test/date[3])').numberValue());
+      Assert.isNaN(evalXPath('days-from-date(/test/date[4])').numberValue());
+      Assert.isNaN(evalXPath('days-from-date(/test/date[5])').numberValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test days-to-date()",
+
+    testDaysToDateExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["days-to-date"], "days-to-date() is not defined.");
+    },
+    
+    testDaysToDateSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date("11688")').stringValue());
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date("11687.5")').stringValue());
+      Assert.areEqual("1969-12-31", evalXPath('days-to-date("-1")').stringValue());
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date(11688)').stringValue());
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date(11687.5)').stringValue());
+      Assert.areEqual("1969-12-31", evalXPath('days-to-date(-1)').stringValue());
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date(/test/days[1])').stringValue());
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date(/test/days[2])').stringValue());
+      Assert.areEqual("1969-12-31", evalXPath('days-to-date(/test/days[3])').stringValue());
+    },
+
+    testDaysToDateFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('days-to-date()').stringValue());
+      Assert.isNaN(evalXPath('days-to-date(11688, 11688)').stringValue());
+      Assert.isNaN(evalXPath('days-to-date("NaN")').stringValue());
+      Assert.isNaN(evalXPath('days-to-date("error")').stringValue());
+      Assert.isNaN(evalXPath('days-to-date(/test/days[4])').stringValue());
+      Assert.isNaN(evalXPath('days-to-date(/test/days[5])').stringValue());
+      Assert.isNaN(evalXPath('days-to-date(/test/days[6])').stringValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test seconds-from-dateTime()",
+
+    testSecondsFromDateTimeExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"], "seconds-from-dateTime() is not defined.");
+    },
+    
+    testSecondsFromDateTimeSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00Z")').numberValue());
+      Assert.areEqual(3600, evalXPath('seconds-from-dateTime("1970-01-01T01:00:00Z")').numberValue());
+      Assert.areEqual(60, evalXPath('seconds-from-dateTime("1970-01-01T00:01:00Z")').numberValue());
+      Assert.areEqual(3666, evalXPath('seconds-from-dateTime("1970-01-01T01:01:06Z")').numberValue());
+      Assert.areEqual(28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00-08:00")').numberValue());
+      Assert.areEqual(-28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00+08:00")').numberValue());
+      Assert.areEqual(144000, evalXPath('seconds-from-dateTime("1970-01-01T20:00:00-20:00")').numberValue());
+      Assert.areEqual(0, evalXPath('seconds-from-dateTime(/test/datetime[1])').numberValue());
+      Assert.areEqual(28800, evalXPath('seconds-from-dateTime(/test/datetime[2])').numberValue());
+    },
+
+    testSecondsFromDateTimeFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('seconds-from-dateTime()').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime("1970-01-01T00:00:00Z", "1970-01-01T00:00:00Z")').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime("NaN")').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime("error")').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime("AA1970-01-01T00:00:00ZZZ")').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime(/test/datetime[3])').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime(/test/datetime[4])').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime(/test/datetime[5])').numberValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test seconds-to-dateTime()",
+
+    testSecondsToDateTimeExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"], "seconds-to-dateTime() is not defined.");
+    },
+    
+    testSecondsToDateTimeSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1970-01-01T00:00:00Z", evalXPath('seconds-to-dateTime("0")').stringValue());
+      Assert.areEqual("1970-01-01T08:00:00Z", evalXPath('seconds-to-dateTime("28800")').stringValue());
+      Assert.areEqual("1970-01-01T00:01:06Z", evalXPath('seconds-to-dateTime("66")').stringValue());
+      Assert.areEqual("1970-01-01T11:11:11Z", evalXPath('seconds-to-dateTime("40271")').stringValue());
+      Assert.areEqual("1970-01-11T00:00:00Z", evalXPath('seconds-to-dateTime("864000")').stringValue());
+      Assert.areEqual("1969-12-31T23:59:59Z", evalXPath('seconds-to-dateTime("-1")').stringValue());
+      Assert.areEqual("1970-01-01T00:00:00Z", evalXPath('seconds-to-dateTime(0)').stringValue());
+      Assert.areEqual("1970-01-01T08:00:00Z", evalXPath('seconds-to-dateTime(28800)').stringValue());
+      Assert.areEqual("1970-01-01T00:01:06Z", evalXPath('seconds-to-dateTime(66)').stringValue());
+      Assert.areEqual("1970-01-01T11:11:11Z", evalXPath('seconds-to-dateTime(40271)').stringValue());
+      Assert.areEqual("1970-01-11T00:00:00Z", evalXPath('seconds-to-dateTime(864000)').stringValue());
+      Assert.areEqual("1969-12-31T23:59:59Z", evalXPath('seconds-to-dateTime(-1)').stringValue());
+      Assert.areEqual("1970-01-01T00:00:00Z", evalXPath('seconds-to-dateTime(/test/seconds[1])').stringValue());
+      Assert.areEqual("1970-01-01T08:00:00Z", evalXPath('seconds-to-dateTime(/test/seconds[2])').stringValue());
+      Assert.areEqual("1970-01-01T00:01:06Z", evalXPath('seconds-to-dateTime(/test/seconds[3])').stringValue());
+    },
+
+    testSecondsToDateTimeFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('seconds-to-dateTime()').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime("0", "0")').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime("NaN")').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime("error")').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime(/test/seconds[4])').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime(/test/seconds[5])').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime(/test/seconds[6])').stringValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test adjust-dateTime-to-timezone()",
+
+    testAdjustToTimezoneExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"], "adjust-dateTime-to-timezone() is not defined.");
+    },
+    
+    testAdjustToTimezoneSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // now() should return the current date and time in UTC format and localTime() should
+      // return the current local date and time with timezone, so the result of adjusting now()
+      // to the local timezone should be equal to the result of local-dateTime().
+      var now = evalXPath('adjust-dateTime-to-timezone(now())').stringValue(); 
+      var localDate = evalXPath('local-dateTime()').stringValue();
+      Assert.areEqual(now, localDate);
+    },
+
+    testAdjustToTimeZoneFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+    Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone()').stringValue());
+    Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone("0", "0")').stringValue());
+    Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone("NaN")').stringValue());
+    Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone("error")').stringValue());
+    Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone("AA2008-07-17T12:00:00-05:00ZZ")').stringValue());
+    Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone(/test/timezone[4])').stringValue());
+    Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone(/test/timezone[5])').stringValue());
+    Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone(/test/timezone[6])').stringValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test seconds()",
+
+    testSecondsExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds"], "seconds() is not defined.");
+    },
+    
+    testSecondsSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(297001.5, evalXPath('seconds("P3DT10H30M1.5S")').numberValue());
+      Assert.areEqual(0, evalXPath('seconds("P1Y2M")').numberValue());
+      Assert.areEqual(0, evalXPath('seconds("P3")').numberValue());
+      Assert.areEqual(259200, evalXPath('seconds("P3D")').numberValue());
+      Assert.areEqual(259200, evalXPath('seconds("P1Y2M3D")').numberValue());
+      Assert.areEqual(-297001.5, evalXPath('seconds("-P3DT10H30M1.5S")').numberValue());
+      Assert.areEqual(-259200, evalXPath('seconds("-P3D")').numberValue());
+      Assert.areEqual(3666, evalXPath('seconds("PT1H1M6S")').numberValue());
+      Assert.areEqual(0, evalXPath('seconds("P1Y2MT")').numberValue());
+      Assert.areEqual(297001.5, evalXPath('seconds(/test/duration[1])').numberValue());
+      Assert.areEqual(0, evalXPath('seconds(/test/duration[2])').numberValue());
+      Assert.areEqual(0, evalXPath('seconds(/test/duration[3])').numberValue());
+    },
+
+    testSecondsFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('seconds()').numberValue());
+      Assert.isNaN(evalXPath('seconds("P1Y2M", "P1Y2M")').numberValue());
+      Assert.isNaN(evalXPath('seconds("NaN")').numberValue());
+      Assert.isNaN(evalXPath('seconds("error")').numberValue());
+      Assert.isNaN(evalXPath('seconds(/test/duration[4])').numberValue());
+      Assert.isNaN(evalXPath('seconds(/test/duration[5])').numberValue());
+      Assert.isNaN(evalXPath('seconds(/test/duration[6])').numberValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test months()",
+
+    testMonthsExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["months"], "months() is not defined.");
+    },
+    
+    testMonthsSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('months("P3DT10H30M1.5S")').numberValue());
+      Assert.areEqual(14, evalXPath('months("P1Y2M")').numberValue());
+      Assert.areEqual(0, evalXPath('months("P3")').numberValue());
+      Assert.areEqual(3, evalXPath('months("P3MT4M")').numberValue());
+      Assert.areEqual(14, evalXPath('months("P1Y2M3D")').numberValue());
+      Assert.areEqual(0, evalXPath('months("-P3DT10H30M1.5S")').numberValue());
+      Assert.areEqual(-19, evalXPath('months("-P19M")').numberValue());
+      Assert.areEqual(0, evalXPath('months("PT1H1M6S")').numberValue());
+      Assert.areEqual(14, evalXPath('months("P1Y2MT")').numberValue());
+      Assert.areEqual(0, evalXPath('months(/test/duration[1])').numberValue());
+      Assert.areEqual(14, evalXPath('months(/test/duration[2])').numberValue());
+      Assert.areEqual(0, evalXPath('months(/test/duration[3])').numberValue());
+    },
+
+    testMonthsFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('months()').numberValue());
+      Assert.isNaN(evalXPath('months("P1Y2M", "P1Y2M")').numberValue());
+      Assert.isNaN(evalXPath('months("NaN")').numberValue());
+      Assert.isNaN(evalXPath('months("error")').numberValue());
+      Assert.isNaN(evalXPath('months(/test/duration[4])').numberValue());
+      Assert.isNaN(evalXPath('months(/test/duration[5])').numberValue());
+      Assert.isNaN(evalXPath('months(/test/duration[6])').numberValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test property()",
+
+    testPropertyExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["property"], "property() is not defined.");
+    },
+    
+    testPropertySuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1.1", evalXPath('property("version")').stringValue());
+      Assert.areEqual("basic", evalXPath('property("conformance-level")').stringValue());
+      Assert.areEqual("1.1", evalXPath('property(/test/property[1])').stringValue());
+      Assert.areEqual("basic", evalXPath('property(/test/property[2])').stringValue());
+    },
+
+    testPropertyReturnEmptyString : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("", evalXPath('property()').stringValue());
+      Assert.areEqual("", evalXPath('property("version", "version")').stringValue());
+      Assert.areEqual("", evalXPath('property("in:valid")').stringValue());
+      Assert.areEqual("", evalXPath('property("invalid")').stringValue());
     }
   })//new TestCase
 );
