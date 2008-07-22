@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+  <xhtml:head>
+  	<xhtml:title>b.8.a Copy Nodeset</xhtml:title>
+  	<xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+  	  	
+  	<xforms:action ev:event="xforms-ready">
+  		<xforms:insert context="people" nodeset="person" origin="instance('prototypes')/person"/>
+  	</xforms:action>
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+  		<xforms:instance>
+  			<data>
+  				<people/>
+  			</data>
+  		</xforms:instance>
+  		<xforms:instance id="prototypes">
+  			<prototypes>
+  				<person>
+  					<name>Jane Doe</name>
+  				</person>
+  				<person>
+  					<name>John Doe</name>
+  				</person>
+  				<person>
+  					<name>Joe Sixpack</name>
+  				</person>
+  			</prototypes>
+  		</xforms:instance>
+  	</xforms:model>
+  	<xforms:group>
+  		<xforms:label class="title">
+  			b.8.a Copy Nodeset
+  		</xforms:label>
+  	</xforms:group>
+  	<xforms:group>
+  		<xforms:label>
+  			You must see the strings "Jane Doe", "John Doe", and "Joe Sixpack" : 
+  		</xforms:label>
+  		<xforms:repeat nodeset="people/person">
+  			<xforms:output class="hlist" value="concat(./name , ' ')">
+  				<xforms:label/>
+  			</xforms:output>
+  		</xforms:repeat>
+  	</xforms:group>
+  </xhtml:body>
+</xhtml:html>

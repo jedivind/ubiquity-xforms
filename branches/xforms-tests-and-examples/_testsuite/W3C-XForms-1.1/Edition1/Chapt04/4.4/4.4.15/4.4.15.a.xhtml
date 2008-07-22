@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+  <xhtml:head>
+    <xhtml:title>4.4.15.a xforms-select and xforms-deselect events</xhtml:title>
+    <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+      <xforms:instance>
+        <selectedCar/>
+      </xforms:instance>
+    </xforms:model>
+    <xforms:group>
+    	<xforms:label class="title">4.4.15.a xforms-select and xforms-deselect events</xforms:label>
+    </xforms:group>
+    <xforms:group>
+    	<xforms:label>  	
+      		You must see an xforms-select message when the value "Subaru" is selected in 
+      		the select control. 
+      		You must see an xforms-deselect message when the value "Subaru" is deselected in 
+      		the select control. 
+      	</xforms:label>	
+    </xforms:group>
+    
+    <xforms:select ref="/selectedCar">
+      	<xforms:label>Cars</xforms:label>
+        <xforms:item>
+          	<xforms:label>Pinto</xforms:label>
+          	<xforms:value>pin</xforms:value>
+        </xforms:item>
+        
+        <xforms:item>
+          	<xforms:label>Subaru</xforms:label>
+          	<xforms:value>sub</xforms:value>
+          	<xforms:action ev:event="xforms-select">
+          		<xforms:message level="modal">xforms-select</xforms:message>
+          	</xforms:action>
+          	<xforms:action ev:event="xforms-deselect">
+          		<xforms:message level="modal">xforms-deselect</xforms:message>
+          	</xforms:action>
+        </xforms:item>
+    </xforms:select>
+	
+  </xhtml:body>
+</xhtml:html>

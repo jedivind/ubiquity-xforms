@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xhtml:head>
+    <xhtml:title>4.4.5.a xforms-invalid event</xhtml:title>
+    <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+      <xforms:instance>
+        <carNumber>43</carNumber>
+      </xforms:instance>
+      <xforms:bind nodeset="/carNumber" constraint="/carNumber='43'"/>
+    </xforms:model>
+    <xforms:group>
+    	<xforms:label class="title">4.4.5.a xforms-invalid event</xforms:label>
+    </xforms:group>
+    <xforms:group>
+    	<xforms:label>
+    	  When you activate the Enter Invalid Value trigger you must see an xforms-invalid message.  
+	    </xforms:label>	
+    </xforms:group>
+    <xforms:input ref="/carNumber">
+        <xforms:label>Car Number</xforms:label>
+        <xforms:action ev:event="xforms-invalid">
+			<xforms:message level="modal">xforms-invalid</xforms:message>
+        </xforms:action>
+    </xforms:input>
+    
+    <xforms:trigger>
+    	<xforms:label>Enter Invalid Value</xforms:label>
+    	<xforms:setvalue ref="/carNumber" ev:event="DOMActivate">42</xforms:setvalue>
+    </xforms:trigger>
+	
+  </xhtml:body>
+</xhtml:html>

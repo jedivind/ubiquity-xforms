@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:foreign="http://www.foreignattribute.com/foreign">
+    <xhtml:head>
+        <xhtml:title>3.3.a processor must ignore unrecognized foreign-namespaced attributes</xhtml:title>
+        <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        
+    </xhtml:head>
+    <xhtml:body>
+    <xforms:model foreign:test="foreignAttribute">
+            <xforms:instance>
+                <car>
+                    <make>Mazda</make>
+                    <color>metallic silver</color>
+                </car>
+            </xforms:instance>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">3.3.a processor must ignore unrecognized foreign-namespaced attributes</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+                You must see a value of "Mazda":
+            </xforms:label>
+        </xforms:group>
+        <xforms:output ref="/car/make" foreign:test="foreignAttribute">
+            <xforms:label/>
+        </xforms:output>
+        
+    </xhtml:body>
+</xhtml:html>

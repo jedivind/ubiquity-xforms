@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+    <xhtml:head>
+        <xhtml:title>4.5.3.a xforms-link-error</xhtml:title>
+        <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        
+        
+    </xhtml:head>
+    <xhtml:body>
+    <xforms:model>
+            <xforms:instance>
+                <data/>
+            </xforms:instance>
+        </xforms:model>
+    <xforms:model id="catcher">
+          <xforms:instance>
+            <eventdata/>
+          </xforms:instance>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">4.5.3.a xforms-link-error</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+            	When you activate the LOAD trigger you must see an xforms-link-error message. You must also see 
+            	the URI associated with the failed link in the Resource URI output. 
+            </xforms:label>
+        </xforms:group>
+        <xforms:group>
+	        <xforms:trigger>
+	            <xforms:label>LOAD</xforms:label>
+	            <xforms:action ev:event="DOMActivate">
+	                <xforms:load resource="badlink.txt" show="new"/>
+	            	<xforms:message ev:event="xforms-link-error" level="modal">xforms-link-error</xforms:message>
+	            	<xforms:action ev:event="xforms-link-error">
+	                  <xforms:setvalue model="catcher" ref="/eventdata" value="event('resource-uri')"/>
+	            	</xforms:action>
+	            </xforms:action>
+	        </xforms:trigger>
+		</xforms:group>
+		<xforms:output model="catcher" ref="/eventdata">
+          <xforms:label>Resource URI : </xforms:label>
+        </xforms:output>
+        
+    </xhtml:body>
+</xhtml:html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ex="http://www.example.com">
+	<xhtml:head>
+		<xhtml:title>8.1.8.b trigger element with appearance attribute</xhtml:title>
+		<xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+		
+	</xhtml:head>
+	<xhtml:body>
+    <xforms:model>
+			<xforms:instance>
+				<root/>
+			</xforms:instance>
+		</xforms:model>
+		<xforms:group>
+			<xforms:label class="title">8.1.8.b trigger element with appearance attribute</xforms:label>
+		</xforms:group>
+		<xforms:group>
+			<xforms:label>
+				You must see two trigger controls on this page, one labeled "Regular Trigger" and 
+				the other labeled "Minimal Trigger". They may look different. 
+			</xforms:label>
+		</xforms:group>
+		<xforms:group>
+			<xforms:trigger>
+				<xforms:label>Regular Trigger</xforms:label>
+			</xforms:trigger>
+		</xforms:group>
+		<xforms:group>
+			<xforms:trigger appearance="minimal">
+				<xforms:label>Minimal Trigger</xforms:label>
+			</xforms:trigger>
+		</xforms:group>
+	</xhtml:body>
+	
+</xhtml:html>

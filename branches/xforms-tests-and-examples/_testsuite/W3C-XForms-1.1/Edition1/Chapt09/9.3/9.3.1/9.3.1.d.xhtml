@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">
+  	<xhtml:head>
+    	<xhtml:title>9.3.1.d unrolling the repeat element</xhtml:title>
+    	<xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    	
+  	</xhtml:head>
+  	<xhtml:body>
+    <xforms:model>
+       		<xforms:instance>
+				<cart>
+					<items>
+						<item>windshield wipers</item>
+						<item>tires</item>
+						<item>exhaust</item>
+						<item>air freshener</item>
+					</items>
+				</cart>
+       		</xforms:instance>
+    	</xforms:model>
+  		<xforms:group>
+  			<xforms:label class="title">9.3.1.d unrolling the repeat element</xforms:label>
+  		</xforms:group>	
+  		<xforms:group>
+  			<xforms:label>
+  			  You must see two lists of items, Items In Cart 1 and Items In Cart 2.  Both lists must contain the 
+  			  values "winshield wipers", "tires", "exhaust", and 
+  			  "air freshener". 
+			</xforms:label>	
+  		</xforms:group>
+  		<xforms:group>
+  			<xforms:label>
+  				Items In Cart 1 : 
+  			</xforms:label>
+			<xforms:repeat nodeset="/cart/items/item">
+					<xforms:output ref=".">
+						<xforms:label/>
+					</xforms:output>
+			</xforms:repeat>
+  		</xforms:group>
+  		<xforms:group>
+  			<xforms:label>
+  				Items In Cart 2 :
+  			</xforms:label>
+  			
+  			<xforms:group>
+	  			<xforms:output ref="/cart/items/item[1]">
+					<xforms:label/>
+			</xforms:output>
+  			</xforms:group>
+  			<xforms:group>
+  			<xforms:output ref="/cart/items/item[2]">
+						<xforms:label/>
+			</xforms:output>
+			</xforms:group>
+			<xforms:group>
+  			<xforms:output ref="/cart/items/item[3]">
+						<xforms:label/>
+			</xforms:output>
+			</xforms:group>
+			<xforms:group>
+  			<xforms:output ref="/cart/items/item[4]">
+						<xforms:label/>
+			</xforms:output>
+			</xforms:group>
+  		</xforms:group>
+		
+  </xhtml:body>
+</xhtml:html>

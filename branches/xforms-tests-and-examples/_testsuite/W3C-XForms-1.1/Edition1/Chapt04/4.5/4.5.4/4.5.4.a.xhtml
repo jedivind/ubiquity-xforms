@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+    <xhtml:head>
+        <xhtml:title>4.5.4.a xforms-link-exception</xhtml:title>
+        <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        
+        
+    </xhtml:head>
+    <xhtml:body>
+    <xforms:model>
+            <xforms:instance resource="badfile.xml">
+            	<data/>
+            </xforms:instance>
+            <xforms:message ev:event="xforms-link-exception" level="modal">xforms-link-exception</xforms:message>
+            <xforms:action ev:event="xforms-link-exception">
+              <xforms:setvalue model="catcher" ref="/eventdata" value="event('resource-uri')"/>
+            </xforms:action>
+        </xforms:model>
+    <xforms:model id="catcher">
+          <xforms:instance>
+            <eventdata/>
+          </xforms:instance>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">4.5.4.a xforms-link-exception</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+            	You must have seen an xforms-link-exception message or a fatal error due to an 
+				xforms-link-exception. You must also see the URI associated with the failed link for the 
+				Resource URI output. 
+            </xforms:label>
+        </xforms:group>
+        <xforms:output model="catcher" ref="/eventdata">
+          <xforms:label>Resource URI : </xforms:label>
+        </xforms:output>
+        
+    </xhtml:body>
+</xhtml:html>

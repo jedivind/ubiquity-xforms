@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xhtml:head>
+    <xhtml:title>11.6.1.a resource element (non-normative)</xhtml:title>
+    <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+    	<xforms:instance>
+    		<root>
+    			<data>1</data>
+    			<data>2</data>
+    			<time/>
+    		</root>
+    	</xforms:instance>
+    	<xforms:submission id="sub1" action="http://xformstest.org/cgi-bin/echo.sh" method="put">
+    		<xforms:resource>submit.txt</xforms:resource>    	
+    	</xforms:submission>     	
+    </xforms:model>
+  	<xforms:group>
+  		<xforms:label class="title">11.6.1.a resource element (non-normative)</xforms:label>
+  	</xforms:group>
+  	<xforms:group>
+  		<xforms:label>
+  		  When you activate the Submit To File submit control the instance data must be submitted to the file 
+  		  submit.txt. If the page is replaced by the form data then you have failed the test case. After submitting 
+  		  the instance data activate the Load submit.txt trigger to see if the instance data was submitted to the 
+  		  file. The data must contain the values "1", "2", and the time that you activated the 
+  		  Submit To File control. This test case is non-normative because it may be difficult to ensure the 
+  		  form is working with the text files. 
+  		</xforms:label>
+  	</xforms:group>
+  	<xforms:action ev:event="xforms-submit" ev:observer="sub1">
+  		<xforms:setvalue ref="time" value="now()"/>
+  	</xforms:action>
+  	<xforms:submit submission="sub1">
+  	  <xforms:label>Submit To File</xforms:label>
+  	</xforms:submit>
+  	<xforms:trigger>
+  	  <xforms:label>Load submit.txt </xforms:label>
+  	  <xforms:action ev:event="DOMActivate">
+  	    <xforms:load resource="submit.txt"/>
+  	  </xforms:action>
+  	</xforms:trigger>
+  	
+  </xhtml:body>
+</xhtml:html>

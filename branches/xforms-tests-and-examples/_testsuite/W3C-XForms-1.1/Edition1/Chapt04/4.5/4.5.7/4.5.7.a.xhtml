@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+    <xhtml:head>
+        <xhtml:title>4.5.7.a xforms-version-exception</xhtml:title>
+        
+        
+        <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
+    </xhtml:head>
+    <xhtml:body>
+    <xforms:model version="1.0">
+            <xforms:instance>
+                <data>
+                    <name/>
+                    <age/>
+                    <sex/>
+                </data>
+            </xforms:instance>
+            <xforms:message ev:event="xforms-version-exception" level="modal">xforms-version-exception</xforms:message>
+            <xforms:action ev:event="xforms-version-exception">
+              <xforms:setvalue model="catcher" ref="/eventdata" value="event('errorinformation')"/>
+            </xforms:action>
+        </xforms:model>
+    <xforms:model id="catcher">
+          <xforms:instance>
+             <eventdata/>
+          </xforms:instance>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">4.5.7.a xforms-version-exception</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+            	You must see an xforms-version-exception message or a fatal error due to an 
+				xforms-version-exception. You may see an output from the Error Information output control. 
+            </xforms:label>
+        </xforms:group>
+        <xforms:output model="catcher" ref="/eventdata">
+          <xforms:label>Error Information : </xforms:label>
+        </xforms:output>
+        
+    </xhtml:body>
+</xhtml:html>

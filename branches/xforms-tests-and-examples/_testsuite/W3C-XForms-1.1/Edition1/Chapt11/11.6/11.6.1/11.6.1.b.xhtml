@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xhtml:head>
+    <xhtml:title>11.6.1.b resource element with value attribute (non-normative)</xhtml:title>
+    <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+    	<xforms:instance>
+    		<root>
+    			<data>1</data>
+    			<data>2</data>
+    		</root>
+    	</xforms:instance>
+    	<xforms:instance id="rsrc_holder">
+    		<root>
+    			<rsrc/>
+    		</root>
+    	</xforms:instance>
+    	<xforms:submission id="sub1" action="http://xformstest.org/cgi-bin/echo.sh" method="put">
+    		<xforms:resource value="instance('rsrc_holder')/rsrc">http://xformstest.org/cgi-bin/echo.sh</xforms:resource>
+    	</xforms:submission>   					   
+    </xforms:model>
+  	<xforms:group>
+  		<xforms:label class="title">11.6.1.b resource element with value attribute (non-normative)</xforms:label>
+  	</xforms:group>
+  	<xforms:group>
+  		<xforms:label>
+  		  Choose a file to submit to in the Select File select1 control. 
+  		  When you activate the Submit To Selected File submit control the instance data must be submitted to the file 
+  		  chosen in Select File. If the page is replaced by the form data then you have failed the 
+  		  test case. After submitting 
+  		  the instance data activate the Load Selected File trigger to see if the instance data was submitted to that 
+  		  file. The data must contain the values "1", "2", and the time that you activated the 
+  		  Submit To Selected File control. This test case is non-normative because it may be difficult to ensure the 
+  		  form is working with the text files. 
+  		</xforms:label>
+  	</xforms:group>
+  	<xforms:group>
+  		<xforms:select1 ref="instance('rsrc_holder')/rsrc">
+  			<xforms:label>Select File:</xforms:label>
+  			<xforms:item>
+  			  <xforms:label>submit3.txt</xforms:label>
+  			  <xforms:value>submit3.txt</xforms:value>
+  			</xforms:item>
+  			<xforms:item>
+  			  <xforms:label>submit4.txt</xforms:label>
+  			  <xforms:value>submit4.txt</xforms:value>
+  			</xforms:item>
+  			<xforms:item>
+  			  <xforms:label>submit5.txt</xforms:label>
+  			  <xforms:value>submit5.txt</xforms:value>
+  			</xforms:item>
+  		</xforms:select1>
+  		<xforms:submit submission="sub1">
+  			<xforms:label>Submit To Selected File</xforms:label>
+  		</xforms:submit>
+  		<xforms:trigger>
+  			<xforms:label>Load Selected File</xforms:label>
+  			<xforms:load ref="instance('rsrc_holder')/rsrc" ev:event="DOMActivate"/>
+  		</xforms:trigger>
+  	</xforms:group>
+  	
+  </xhtml:body>
+</xhtml:html>
