@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+  <xhtml:head>
+    <xhtml:title>3.3.1.b invalid function</xhtml:title>
+    <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+    
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model id="m_001" functions="invalid">
+		<xforms:action ev:event="xforms-compute-exception">
+			<xforms:message level="modal">xforms-compute-exception</xforms:message>
+		</xforms:action>
+    </xforms:model>
+  	<xforms:group>
+  		<xforms:label class="title">3.3.1.b invalid function</xforms:label>
+  	</xforms:group>
+    <xforms:group>
+    	<xforms:label>
+    		
+      	  You must see an xforms-compute-exception message or a fatal error due to an 
+		  xforms-compute-exception. 
+      	</xforms:label>	
+    </xforms:group>
+	
+  </xhtml:body>
+</xhtml:html>

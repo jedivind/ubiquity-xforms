@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+    <xhtml:head>
+        <xhtml:title>5.2.6.b card-number datatype - credit card example</xhtml:title>
+        <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        
+    </xhtml:head>
+    <xhtml:body>
+    <xforms:model>
+	  	  <xforms:instance>
+			<payment xmlns="http://commerce.example.com/payment" method="cc">
+		  	  <number/>
+			  <expiry/>
+			</payment>
+	  	  </xforms:instance>
+	  	  <xforms:bind nodeset="number" type="xforms:ID-card-number" constraint="luhn(.)"/>
+		</xforms:model>
+        <xforms:group>
+            <xforms:label class="title">5.2.6.b card-number datatype - credit card example</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+                When you activate the Valid card-number Test trigger below you must see the message 
+				"You entered a valid card-number". 
+            </xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:input ref="/ID">
+                <xforms:label>ID card number : </xforms:label>
+                <xforms:action ev:event="xforms-valid">
+                    <xforms:message level="modal">You entered a valid card-number</xforms:message>
+                </xforms:action>
+                <xforms:action ev:event="xforms-invalid">
+                    <xforms:message level="modal">Invalid ID number</xforms:message>
+                </xforms:action>
+            </xforms:input>
+        </xforms:group>
+        
+        <xforms:trigger>
+        	<xforms:label>Valid card-number Test</xforms:label>
+    		<xforms:setvalue ref="/ID" ev:event="DOMActivate">4111111111111111</xforms:setvalue>
+    	</xforms:trigger>
+        
+    </xhtml:body>
+</xhtml:html>

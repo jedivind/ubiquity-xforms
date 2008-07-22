@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <xhtml:head>
+    <xhtml:title>7.6.2.a is-card-number() function</xhtml:title>
+    <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+      <xforms:instance>
+		<root>341-1111-1111-1111</root>
+      </xforms:instance>
+    </xforms:model>
+  	<xforms:group>
+  		<xforms:label class="title">7.6.2.a is-card-number() function</xforms:label>
+  	</xforms:group>
+  	
+  	<xforms:group>
+  		<xforms:label>
+  			You must see the value "true" for the Test 1, Test 2, and Test 3 output controls. 
+  			You must see the value "false" for the Test 4, Test 5, and Test 6 output controls. 
+  		</xforms:label>
+  	</xforms:group>
+  	
+  	<xforms:group>
+      <xforms:output value="is-card-number('541234567890125')">
+        <xforms:label>Test 1 : </xforms:label>
+        
+      </xforms:output>
+    </xforms:group>
+    <xforms:group>
+      <xforms:output value="is-card-number('1002312234567990000')">
+      	<xforms:label>Test 2 : </xforms:label>
+      	
+      </xforms:output>
+    </xforms:group>
+    <xforms:group>
+      <xforms:output value="is-card-number(.)"> 
+      	<xforms:label>Test 3 : </xforms:label>
+      	
+      </xforms:output>
+    </xforms:group> 
+    <xforms:group>
+      <xforms:output value="is-card-number('123456789012')">
+        <xforms:label>Test 4 : </xforms:label>
+        
+      </xforms:output>
+    </xforms:group>
+    <xforms:group>
+      <xforms:output value="is-card-number('123')">
+        <xforms:label>Test 5 : </xforms:label>
+        
+      </xforms:output>
+    </xforms:group>
+    <xforms:group>
+      <xforms:output value="is-card-number('12345a789012')">
+      	<xforms:label>Test 6 : </xforms:label>
+      	
+      </xforms:output>
+    </xforms:group>
+		
+  </xhtml:body>
+</xhtml:html>

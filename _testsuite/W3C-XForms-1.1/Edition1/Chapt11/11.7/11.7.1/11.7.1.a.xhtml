@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xhtml:head>
+    <xhtml:title>11.7.1.a method element (non-normative)</xhtml:title>
+    <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+        <xforms:instance>
+            <data>
+                <mthd/>
+                 <lore>geordi</lore>
+             </data>
+        </xforms:instance>
+    	<xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh">
+    		<xforms:method value="mthd">other</xforms:method>    	
+    	</xforms:submission>     	
+    </xforms:model>
+  	<xforms:group>
+  		<xforms:label class="title">11.7.1.a method element (non-normative)</xforms:label>
+  	</xforms:group>
+        <xforms:group>
+            <xforms:label>
+              You must choose a method to use for the submission of the form from the Select A Method select1 control. 
+              Then, when the Submit With Method trigger is activated the page will be replaced by the form data. 
+              The variable on the page for the request method must equal the value you selected. 
+  			</xforms:label>
+  		</xforms:group>
+  		<xforms:select1 ref="mthd">
+  		  <xforms:label>Select A Method : </xforms:label>
+  		  <xforms:item>
+  		    <xforms:label>PUT</xforms:label>
+  		    <xforms:value>put</xforms:value>
+  		  </xforms:item>
+  		  <xforms:item>
+  		    <xforms:label>POST</xforms:label>
+  		    <xforms:value>post</xforms:value>
+  		  </xforms:item>
+  		</xforms:select1>
+        <xforms:submit submission="submit">
+            <xforms:label>Submit With Method</xforms:label>
+        </xforms:submit>  	
+  </xhtml:body>
+</xhtml:html>

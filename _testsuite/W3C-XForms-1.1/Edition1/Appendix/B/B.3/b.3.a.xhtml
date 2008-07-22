@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+  <xhtml:head>
+  	<xhtml:title>b.3.a Duplicate Element</xhtml:title>
+  	<xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+  	  	
+  	<xforms:action ev:event="xforms-ready">
+  		<xforms:insert nodeset="paragraph[2]"/>
+  	</xforms:action>
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+  		<xforms:instance>
+  			<document>
+  				<header>Lorem ipsum</header>
+  				<paragraph>Lorem ipsum verterem voluptaria</paragraph>
+  				<paragraph>Primis abhorreant delicatissimi</paragraph>
+  				<header>Lorem ipsum</header>
+  				<header>Lorem ipsum</header>
+  			</document>
+  		</xforms:instance>
+  	</xforms:model>
+  	<xforms:group>
+  		<xforms:label class="title">
+  			b.3.a Duplicate Element
+  		</xforms:label>
+  	</xforms:group>
+  	<xforms:group>
+  		<xforms:label>
+  			You must see three paragraphs, the last is a duplicate of the second : 
+  		</xforms:label>
+  		<xforms:repeat nodeset="paragraph">
+  			<xforms:output class="hlist" value="concat(. , ' ')">
+  				<xforms:label>Paragraph : </xforms:label>
+  			</xforms:output>
+  		</xforms:repeat>
+  	</xforms:group>
+  </xhtml:body>
+</xhtml:html>

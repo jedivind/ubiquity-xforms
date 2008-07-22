@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+  <xhtml:head>
+    <xhtml:title>4.4.4.a xforms-valid event</xhtml:title>
+    <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model>
+      <xforms:instance>
+      	<car>
+        	<color>green</color>
+        </car>
+      </xforms:instance>
+      <xforms:bind id="bind_constrained" required="true()" nodeset="/car/color"/>
+      <xforms:setvalue ref="color" ev:event="xforms-ready">blue</xforms:setvalue>
+    </xforms:model>
+    <xforms:group>
+    	<xforms:label class="title">4.4.4.a xforms-valid event</xforms:label>
+    </xforms:group>
+    <xforms:group>
+    	<xforms:label>
+    		You must have seen an xforms-valid message.
+    	</xforms:label>	
+    </xforms:group>
+    <xforms:input ref="/car/color" bind="bind_constrained">
+        <xforms:label>Car color</xforms:label>
+        <xforms:action ev:event="xforms-valid">
+			<xforms:message level="modal">xforms-valid</xforms:message>
+        </xforms:action>
+    </xforms:input>
+	
+  </xhtml:body>
+</xhtml:html>

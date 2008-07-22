@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">	
+	<xhtml:head>
+		<xhtml:title>6.1.7.a p3ptype property (non-normative)</xhtml:title>
+		<xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+		
+	</xhtml:head>
+	<xhtml:body>
+    <xforms:model>
+			<xforms:instance>
+				<person-name>
+					<first-name/>
+					<last-name/>
+				</person-name>
+			</xforms:instance>
+			<xforms:bind type="nonEmptyString" nodeset="/person-name/first-name" p3ptype="user.name.given"/>
+			<xforms:bind type="nonEmptyString" nodeset="/person-name/last-name" p3ptype="user.name.family"/>
+			<xforms:submission id="submit_names" action="http://xformstest.org/cgi-bin/echo.sh" method="post"/>
+		</xforms:model>
+		<xforms:group>
+			<xforms:label class="title">6.1.7.a p3ptype property (non-normative)</xforms:label>
+		</xforms:group>
+		<xforms:group>
+			<xforms:label>
+				A p3p data element that tells what kind of data is collected should be attached to the 
+				instance data after submission.
+				A result of the p3ptype attribute may be auto-filled input fields after a second submission 
+				of the same data entries.
+			</xforms:label>
+		</xforms:group>
+		<xforms:input ref="first-name">
+			<xforms:label>First-Name</xforms:label>
+		</xforms:input>
+		<xforms:input ref="last-name">
+			<xforms:label>Last-Name</xforms:label>
+		</xforms:input>
+		<xforms:submit submission="submit_names">
+			<xforms:label>Submit Names</xforms:label>
+		</xforms:submit>
+		
+	</xhtml:body>
+</xhtml:html>
