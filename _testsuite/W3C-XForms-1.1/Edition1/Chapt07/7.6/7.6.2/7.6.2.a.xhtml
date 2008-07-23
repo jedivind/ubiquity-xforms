@@ -18,45 +18,45 @@
   	
   	<xforms:group>
   		<xforms:label>
-  			You must see the value "true" for the Test 1, Test 2, and Test 3 output controls. 
-  			You must see the value "false" for the Test 4, Test 5, and Test 6 output controls. 
+  			You must see the value &quot;true&quot; for the Test 1, Test 2, Test 3, Test 4, and Test 5 output controls. 
+  			You must see the value &quot;false&quot; for the Test 6 output controls.
   		</xforms:label>
   	</xforms:group>
   	
   	<xforms:group>
       <xforms:output value="is-card-number('541234567890125')">
         <xforms:label>Test 1 : </xforms:label>
-        
+        <!-- must output true -->
       </xforms:output>
     </xforms:group>
     <xforms:group>
       <xforms:output value="is-card-number('1002312234567990000')">
       	<xforms:label>Test 2 : </xforms:label>
-      	
+      	<!-- must output true -->
       </xforms:output>
     </xforms:group>
     <xforms:group>
-      <xforms:output value="is-card-number(.)"> 
+      <xforms:output value="is-card-number(.)"> <!-- trying to use the root node in instance data, the # itself is valid -->
       	<xforms:label>Test 3 : </xforms:label>
-      	
+      	<!-- must output true (if it doesn't the XPath may be broken) -->
       </xforms:output>
     </xforms:group> 
     <xforms:group>
       <xforms:output value="is-card-number('123456789012')">
         <xforms:label>Test 4 : </xforms:label>
-        
+        <!-- must output false -->
       </xforms:output>
     </xforms:group>
     <xforms:group>
       <xforms:output value="is-card-number('123')">
         <xforms:label>Test 5 : </xforms:label>
-        
+        <!-- must output false -->
       </xforms:output>
     </xforms:group>
     <xforms:group>
       <xforms:output value="is-card-number('12345a789012')">
       	<xforms:label>Test 6 : </xforms:label>
-      	
+      	<!-- must output false -->
       </xforms:output>
     </xforms:group>
 		

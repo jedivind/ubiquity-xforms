@@ -18,7 +18,7 @@
             <xforms:action ev:event="xforms-delete">
             	<xforms:message ev:event="xforms-delete" level="modal">xforms-delete</xforms:message>
                 <xforms:setvalue model="description_catcher" ref="delete_description" value="event('delete-location')"/>
-                <xforms:setvalue model="description_catcher" ref="new_value" value="event('deleted-nodes')"/>
+                <xforms:setvalue model="description_catcher" ref="new_value" value="event('deleted-nodes')/date" />
             </xforms:action>
         </xforms:model>
     <xforms:model id="description_catcher">
@@ -45,13 +45,13 @@
             </xforms:action>
         </xforms:trigger>
         <xforms:group>
-            <xforms:label>You must see the value "1" : </xforms:label>
+            <xforms:label>You must see the value &quot;1&quot; : </xforms:label>
             <xforms:output model="description_catcher" ref="delete_description">
-                <xforms:label/>
+                <xforms:label></xforms:label>
             </xforms:output>
         </xforms:group>
         <xforms:group>
-            <xforms:label>You must see the value "2006-01-01" : </xforms:label>
+            <xforms:label>You must see the value &quot;2006-01-01&quot; : </xforms:label>
             <xforms:output model="description_catcher" ref="new_value">
                 <xforms:label/>
             </xforms:output>

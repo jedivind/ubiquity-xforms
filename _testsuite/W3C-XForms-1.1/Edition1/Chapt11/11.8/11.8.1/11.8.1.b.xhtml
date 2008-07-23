@@ -17,7 +17,7 @@
     	</xforms:instance>
     	<xforms:submission id="sub1" method="post" action="http://xformstest.org/cgi-bin/echo.sh">
     	  <xforms:header>
-    	    <xforms:name value=""/>
+    	    <xforms:name value=""></xforms:name>
     	    <xforms:value>myValue</xforms:value>
     	  </xforms:header>
     	</xforms:submission>
@@ -28,8 +28,7 @@
   	<xforms:group>
   	  <xforms:label>
   	    When you activate the Submit Now submit control the page must be replaced by the form data. Among the 
-  	    list you must not see a header named "wrongData" with the value 
-  	    "myValue". 
+  	    list you must not see a header with the value &quot;myValue&quot;.
   	  </xforms:label>
   	</xforms:group>
   	<xforms:group>
