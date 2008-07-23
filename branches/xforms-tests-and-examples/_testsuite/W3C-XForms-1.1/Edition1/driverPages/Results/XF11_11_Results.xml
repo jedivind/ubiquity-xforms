@@ -549,6 +549,20 @@
             <testCaseNote/>
         </testCase>
         <testCase>
+            <testCaseSection>11.8</testCaseSection>
+            <testCaseName>11.8.c</testCaseName>
+            <testCaseLink>../../Chapt11/11.8/11.8.c.xhtml</testCaseLink>
+            <testCaseDescription>header element of submission element</testCaseDescription>
+            <testCaseSpecLinkName>11.8</testCaseSpecLinkName>
+            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-header</testCaseSpecLink>
+            <testCaseBasic>true</testCaseBasic>
+            <testCaseNormative>true</testCaseNormative>
+            <testCaseStatus>Unknown</testCaseStatus>
+            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseRequired>true</testCaseRequired>
+            <testCaseNote/>
+        </testCase>
+        <testCase>
             <testCaseSection>11.8.1</testCaseSection>
             <testCaseName>11.8.1.a</testCaseName>
             <testCaseLink>../../Chapt11/11.8/11.8.1/11.8.1.a.xhtml</testCaseLink>
