@@ -33,6 +33,12 @@
 
 = Feature branches in progress =
 
+== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/custom-controls custom-controls] ==
+
+Owner: [http://code.google.com/u/rahul.akolkar/ rahul.akolkar]
+
+Playing with custom controls.
+
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/range-map range-map] ==
 
 Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
@@ -66,6 +72,7 @@ Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Merge in progress?* ||
+||custom-controls||r346 (initial copy)||-||-||
 ||range-map||r229||r235||-||
 ||re-actions||r324||r324||-||
 ||refactor-vertextargets||-||-||-||
