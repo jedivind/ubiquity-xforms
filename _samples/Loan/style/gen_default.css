@@ -1,0 +1,31 @@
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+  
+.company_name {display: block; width: 100%; font-family: times; font-size: 24pt; color: red; font-weight: bold;}
+.company_motto {display: block; width: 100%; font-family: times; font-size: 20pt; color: red; font-weight: italic;}
+.rule {display: block; background-color: blue; }
+
+xforms|input, xforms\:input {display: block; width: 95%; margin-top: 4px; margin-bottom: 4px; background-color: rgb(220,220,220);}
+xforms|input .xf-value, .input-value, xforms\:input > pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms|input > xforms|label, xforms\:input > xforms\:label {width: 280px;  float: left; }
+
+xforms\:input > xforms\:label > pe-value {border: none;  background-color: transparent;}
+
+xforms|select1, xforms\:select1 {display: block; width: 95%; margin-top: 4px; margin-bottom: 4px; background-color: rgb(220,220,220);}
+xforms|select1::value {width: 250px; background-color: white;}
+xforms|select1  .xf-value, .select1-value, xforms\:select1  pe-value {min-width: 45%;}
+xforms|select1 > xforms|label, xforms\:select1 > xforms\:label {width: 280px; float:left; }
+xforms|select1[appearance='full'] > .xf-value, xforms\:select1[appearance='full'] > pe-value {display: block; margin-right: 250px; float: left;  } 
+
+xforms|output.regular, xforms\:output.regular {display: block; background-color: rgb(220,220,220);}
+xforms|output.regular > xforms|label, xforms\:output.regular > xforms\:label { width: 280px; float:left; margin-left: 0px;}
+xforms|output.regular xforms|label .xf-value, xforms\:output.regular > xforms\:label > pe-value {display: block;}
+xforms|output.regular .xf-value, xforms\:output.regular > pe-value {width: 48%;}
+
+xforms|input.red .xf-value {color: red;}
+xforms|input.block {display: block;}
+
+xforms|*:disabled, xforms\*:disabled { display: none; }
+
+xforms|*:invalid, .invalid { border-style: solid; border-width: 2px; border-color: red; }
+xforms|*:required::after {content: "*"; color: red;}             
