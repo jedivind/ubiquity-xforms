@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feedURLs xmlns="">
+	<available>
+	 <feed>
+      <name>Raleigh Local News</name>
+      <url>http://www.wral.com/rs/rss/142</url>
+    </feed>
+    <feed>
+      <name>Case Western Blog</name>
+      <url>http://blog.case.edu/news/feed.atom</url>
+    </feed>
+    <feed>
+      <name>Atomic Starling</name>
+      <url>http://starling.us/cgi-bin/gus_atom_xsl.pl?atom=starling_us_atom.xml!sort_order=Category1</url>
+    </feed>
+    <feed>
+      <name>Pacific Cyclone Updates3</name>
+      <url>http://feeds.feedburner.com/PTCC</url>
+    </feed>
+    <feed>
+      <name>ATOM News</name>
+      <url>http://atompub.org/blog/index.atom/</url>
+    </feed>
+	<feed>
+	  <name>Random ATOM Feed</name>
+	  <url>http://jessey.net/blog/atom.xml/</url>
+	</feed>
+    <feed>
+      <name>BBC World News</name>
+      <url>http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml</url>
+    </feed>
+    <feed>
+      <name>Seattle Times MSFT Feed</name>
+      <url>http://seattletimes.nwsource.com/rss/microsoft.xml</url>
+    </feed>
+   	</available>
+	<selected>http://www.wral.com/rs/rss/142</selected>
+</feedURLs>
