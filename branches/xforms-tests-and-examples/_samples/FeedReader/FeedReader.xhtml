@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:atom="http://www.w3.org/2005/Atom">
+  <xhtml:head>
+    <xhtml:title>XForms Feed Reader</xhtml:title>
+    <xhtml:meta http-equiv="refresh" content="300" />
+    <xhtml:script src="../../ubiquity-loader.js"/>   
+    <xhtml:link href="style/gen_default.css" rel="stylesheet"/>
+  </xhtml:head>
+  <xhtml:body>
+    <xforms:model id="feeds_model">
+      <xforms:instance id="feed_urls_instance" src="feeds.xml"/>
+      <xforms:instance id="feeds_instance">
+        <feeds xmlns="">
+          <feed/>
+        </feeds>
+      </xforms:instance>
+      <xforms:instance id="navigation_instance">
+        <navigation xmlns="">
+          <addInfo>
+            <showing>false</showing>
+            <relevanceHook/>
+          </addInfo>
+          <editInfo>
+            <showing>false</showing>
+            <relevanceHook/>
+          </editInfo>
+          <editingOrAddingRelevanceHook/>
+          <feedTypeSwitch>
+            <rss/>
+            <atom/>
+          </feedTypeSwitch>
+        </navigation>
+      </xforms:instance>
+      <xforms:instance id="addition_instance">
+        <additionInfo xmlns="">
+            <name/>
+            <url/>
+        </additionInfo>
+      </xforms:instance>
+      <xforms:instance id="editing_instance">
+        <editingInfo xmlns="">
+            <name/>
+            <url/>
+        </editingInfo>
+      </xforms:instance>
+      <xforms:bind nodeset="instance('navigation_instance')/feedTypeSwitch/rss"
+                   relevant="local-name(instance('feeds_instance')) = 'rss'"/>
+      <xforms:bind nodeset="instance('navigation_instance')/feedTypeSwitch/atom"
+                   relevant="local-name(instance('feeds_instance')) = 'feed'"/>
+      <xforms:bind nodeset="instance('navigation_instance')/editingOrAddingRelevanceHook" id="editingOrAddingBind"
+                   relevant="instance('navigation_instance')/addInfo/showing != 'true' and instance('navigation_instance')/editInfo/showing != 'true'"/>
+      <xforms:bind nodeset="instance('navigation_instance')/addInfo/relevanceHook" id="addInfoBind"
+                   relevant="instance('navigation_instance')/addInfo/showing = 'true'"/>
+      <xforms:bind nodeset="instance('navigation_instance')/editInfo/relevanceHook" id="editInfoBind"
+                   relevant="instance('navigation_instance')/editInfo/showing = 'true'"/>
+      <xforms:bind xmlns="" nodeset="instance('feed_urls_instance')/selected" id="feedSelectorBind"
+                   readonly="instance('navigation_instance')/addInfo/showing = 'true' or instance('navigation_instance')/editInfo/showing = 'true'"/>
+       
+                         
+      <xforms:submission id="get_feed_submission"
+    		method="get" 
+    		replace="instance"
+    		instance="feeds_instance">
+    		<xforms:resource value="instance('feed_urls_instance')/selected"/>
+    		<xforms:message ev:event="xforms-submit-error" level="modal">Submission Failed, most likely an invalid URL</xforms:message>   		 	   		
+      </xforms:submission>		
+ 
+  
+      <xforms:submission id="save_feed_url_list"
+    		action="feeds.xml" 
+    		method="put" 
+    		mediatype="text/xml">
+      </xforms:submission>  
+     
+      <xforms:action ev:event="xforms-ready">            
+        <xforms:send submission="get_feed_submission"/>
+      </xforms:action> 
+    </xforms:model> 
+    <xhtml:div class="topsection">
+    <xhtml:div class="topdiv">
+      <xforms:group class="readerTitle">
+        <xforms:label>XForms Feed Reader</xforms:label>
+      </xforms:group>
+    </xhtml:div>
+    <xforms:group class="essbanner">
+      <xforms:label>Ubiquity XForms</xforms:label>
+    </xforms:group>
+    <xforms:select1 bind="feedSelectorBind" id="feed_selector">
+      <xforms:label/>
+      <xforms:itemset nodeset="instance('feed_urls_instance')/available/feed">
+        <xforms:label ref="name"/>
+        <xforms:value ref="url"/>
+      </xforms:itemset>
+      <xforms:action ev:event="xforms-value-changed">
+        <xforms:send submission="get_feed_submission"/>
+        <xforms:send submission="save_feed_url_list"/> 
+      </xforms:action>
+    </xforms:select1>
+    
+    <xforms:group class="list-button-group" bind="editingOrAddingBind">
+      <xforms:trigger>
+        <xforms:label>Add</xforms:label>
+        <xforms:action ev:event="DOMActivate">
+          <xforms:setvalue ref="instance('navigation_instance')/addInfo/showing">true</xforms:setvalue>
+        </xforms:action>
+      </xforms:trigger>
+      <xforms:trigger>
+        <xforms:label>Edit</xforms:label>
+        <xforms:action ev:event="DOMActivate">
+          <xforms:setvalue ref="instance('editing_instance')/name" 
+                           value="instance('feed_urls_instance')/available/feed[url = instance('feed_urls_instance')/selected]/name"/>
+          <xforms:setvalue ref="instance('editing_instance')/url"
+                           value="instance('feed_urls_instance')/available/feed[url = instance('feed_urls_instance')/selected]/url"/>
+          <xforms:setvalue ref="instance('navigation_instance')/editInfo/showing">true</xforms:setvalue>          
+        </xforms:action>
+      </xforms:trigger>
+      <xforms:trigger>
+        <xforms:label>Delete</xforms:label>
+        <xforms:action ev:event="DOMActivate">
+          <xforms:delete  nodeset="instance('feed_urls_instance')/available/feed[url=instance('feed_urls_instance')/selected]"/>
+          <xforms:setvalue ref="instance('feed_urls_instance')/selected" 
+                           value="instance('feed_urls_instance')/available/feed[1]/url"/>
+      <!-- <xforms:send submission="save_feed_url_list"/>    -->
+          </xforms:action>
+      </xforms:trigger>
+    
+      <xforms:output ref="instance('feed_urls_instance')/selected" class="urlbottom">
+        <xforms:label/>
+      </xforms:output>
+    </xforms:group>
+    
+    <xforms:group bind="editInfoBind">
+      <xforms:input ref="instance('editing_instance')/name">
+        <xforms:label>Name: </xforms:label>
+      </xforms:input>
+      <xforms:input ref="instance('editing_instance')/url">
+        <xforms:label>URL: </xforms:label>
+      </xforms:input> 
+      <xforms:trigger>
+        <xforms:label>Commit!</xforms:label>
+        <xforms:action ev:event="DOMActivate">          
+          <xforms:setvalue ref="instance('navigation_instance')/editInfo/showing">false</xforms:setvalue> 
+          <xforms:setvalue value="instance('editing_instance')/name" 
+                           ref="instance('feed_urls_instance')/available/feed[url = instance('feed_urls_instance')/selected]/name"/>
+          <xforms:setvalue value="instance('editing_instance')/url"
+                           ref="instance('feed_urls_instance')/available/feed[url = instance('feed_urls_instance')/selected]/url"/>
+
+         <!-- the readonly flag was not allwoing the setvalue to be made -->
+         <xforms:recalculate model="feeds_model"/>
+         
+          <xforms:setvalue ref="instance('feed_urls_instance')/selected" 
+                           value="instance('editing_instance')/url"/>
+   
+          <!-- When the select1 is changed by the setvalue above,  the following auto-occurs                 
+          <xforms:send submission="save_feed_url_list"/>
+       
+          <xforms:send submission="save_feed_url_list"/>  
+       -->                      
+         <xforms:dispatch name="xforms-value-changed" target="feed_selector"/> 
+        </xforms:action>
+      </xforms:trigger>   
+      <xforms:trigger>
+        <xforms:label>Cancel</xforms:label>
+        <xforms:action ev:event="DOMActivate">
+          <xforms:setvalue ref="instance('navigation_instance')/editInfo/showing">false</xforms:setvalue> 
+        </xforms:action>
+      </xforms:trigger>    
+    </xforms:group>
+    <!--  end editInfo -->
+    
+    <xforms:group bind="addInfoBind">
+      <xforms:input ref="instance('addition_instance')/name">
+        <xforms:label>Name: </xforms:label>
+      </xforms:input>
+      <xforms:input ref="instance('addition_instance')/url">
+        <xforms:label>URL: </xforms:label>
+      </xforms:input> 
+      <xforms:trigger>
+        <xforms:label>Add It!</xforms:label>
+        <xforms:action ev:event="DOMActivate">
+          
+          <xforms:insert at="1"
+                         position="before" 
+                         nodeset="instance('feed_urls_instance')/available/feed"/>
+          <xforms:setvalue ref="instance('feed_urls_instance')/available/feed[1]/name"
+                           value="instance('addition_instance')/name"/>
+          <xforms:setvalue ref="instance('feed_urls_instance')/available/feed[1]/url"
+                           value="instance('addition_instance')/url"/> 
+          
+          <xforms:setvalue ref="instance('navigation_instance')/addInfo/showing">false</xforms:setvalue>
+          
+          <!-- the readonly flag was not allwoing the setvalue to be made -->
+         <xforms:recalculate model="feeds_model"/>
+         
+         <xforms:setvalue ref="instance('feed_urls_instance')/selected"
+                           value="instance('addition_instance')/url"/>
+              
+       
+          <xforms:setvalue ref="instance('addition_instance')/name"/>
+          <xforms:setvalue ref="instance('addition_instance')/url"/>
+         
+          <xforms:dispatch name="xforms-value-changed" target="feed_selector"/> 
+          
+        </xforms:action>
+      </xforms:trigger>   
+      <xforms:trigger>
+        <xforms:label>Cancel</xforms:label>
+        <xforms:action ev:event="DOMActivate">
+          <xforms:setvalue ref="instance('navigation_instance')/addInfo/showing">false</xforms:setvalue> 
+        </xforms:action>
+      </xforms:trigger>    
+    </xforms:group>
+    <!--  end addInfo -->
+    </xhtml:div>
+        
+    <!--  start RSS  -->
+  <xforms:group id="rss_group" ref="instance('navigation_instance')/feedTypeSwitch/rss">
+    <xforms:group ref="instance('feeds_instance')/channel"  class="topsection">
+    <xforms:output ref="title" class="channelTitle">
+       <xforms:label/>
+    </xforms:output>
+    <xforms:group class="scrollbody">     
+      <xforms:repeat id="items_repeat_rss" nodeset="item">
+       <xforms:trigger>
+         <xforms:label>Go!</xforms:label>
+         <xforms:load ev:event="DOMActivate" ref="link"/>
+       </xforms:trigger>
+       <xforms:trigger appearance="minimal">
+         <xforms:label ref="title"/>
+       </xforms:trigger>
+      </xforms:repeat>
+    </xforms:group>
+    <xforms:group ref="instance('feeds_instance')/channel/item[index('items_repeat_rss')]" class="bottomsection">
+     <xforms:output ref="title" class="displayTitle">
+       <xforms:label/>
+     </xforms:output>
+     <xforms:output ref="pubDate" class="displayDate">
+       <xforms:label/>
+     </xforms:output>
+     <xforms:output ref="description" class="summary">
+       <xforms:label/>
+     </xforms:output>
+    </xforms:group>
+    <xforms:trigger>
+      <xforms:label>Go!</xforms:label>
+      <xforms:load ev:event="DOMActivate" ref="instance('feeds_instance')/channel/item[index('items_repeat_rss')]/link"/>
+    </xforms:trigger> 
+    </xforms:group>
+  </xforms:group>  
+    <!--  end RSS  -->
+    
+    <!--  start ATOM  -->
+  <xforms:group id="atom_group" ref="instance('navigation_instance')/feedTypeSwitch/atom">
+     <xforms:group ref="instance('feeds_instance')" class="topsection" >
+     <xforms:output ref="atom:title" class="channelTitle">
+        <xforms:label/>
+      </xforms:output>    
+    <xforms:group class="scrollbody">
+     
+      <xforms:repeat id="items_repeat_atom" nodeset="atom:entry">
+       <xforms:trigger>
+         <xforms:label>Go!</xforms:label>
+         <xforms:load ev:event="DOMActivate" ref="atom:link/@href"/>
+       </xforms:trigger>
+       <xforms:trigger appearance="minimal">
+         <xforms:label ref="atom:title"/>
+       </xforms:trigger>
+      </xforms:repeat>
+    </xforms:group>      
+    <xforms:group ref="instance('feeds_instance')/atom:entry[index('items_repeat_atom')]" class="bottomsection">
+     <xforms:output ref="atom:title" class="displayTitle" >
+       <xforms:label/>
+     </xforms:output>
+     <xforms:output ref="atom:published" class="displayDate">
+       <xforms:label/>
+     </xforms:output>
+     <xforms:output ref="atom:summary" class="summary">
+       <xforms:label/>
+     </xforms:output>
+    </xforms:group> 
+    <xforms:trigger>
+      <xforms:label>Go!</xforms:label>
+      <xforms:load ev:event="DOMActivate" ref="instance('feeds_instance')/atom:entry[index('items_repeat_atom')]/atom:link/@href"/>
+    </xforms:trigger>   
+    </xforms:group> 
+  </xforms:group>
+    <!--  End ATOM  -->
+    
+  </xhtml:body>
+</xhtml:html>
