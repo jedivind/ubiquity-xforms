@@ -72,9 +72,9 @@ Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
-||custom-controls||r346 (initial copy)||-||-||
-||range-map||r229||r235||-||
+||custom-controls||r346 (initial copy)||-||-||-||
+||range-map||r229||r235||-||-||
 ||re-actions||-||-||r332||-||
-||refactor-vertextargets||-||-||-||
-||xforms-tests-and-examples||r334||-||-||
-||xforms-xpath-functions||r337||r337||-||
+||refactor-vertextargets||-||-||-||-||
+||xforms-tests-and-examples||r334||-||-||-||
+||xforms-xpath-functions||r337||r337||-||-||
