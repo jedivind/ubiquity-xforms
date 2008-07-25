@@ -3,7 +3,7 @@
 
 = Releases =
 
-== t0.5.1 ==
+== tag 0.5.1 ==
 
   * Fixed issue that {{{choose()}}} was not returning the correct object type.
 
