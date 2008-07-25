@@ -3,7 +3,7 @@
 
 = Releases =
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/tags/0.5.1 0.5.1] ==
+== t0.5.1 ==
 
   * Fixed issue that {{{choose()}}} was not returning the correct object type.
 
