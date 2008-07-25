@@ -77,4 +77,4 @@ Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 ||re-actions||-||-||r332||-||
 ||refactor-vertextargets||-||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||-||
-||xforms-xpath-functions||r337||r337||-||-||
+||xforms-xpath-functions||r337||r337||-||mark.birbeck||
