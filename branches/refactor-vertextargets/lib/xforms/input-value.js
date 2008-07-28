@@ -16,9 +16,10 @@
 
 function XFormsInputValue(elmnt)
 {
-	element = elmnt,
-	currValue = "",
-	m_bFirstSetValue = true
+	
+  	this.element = elmnt;
+  	this.currValue = "";
+  	this.m_bFirstSetValue = true;
 }
 
 function valueChangedIE(pThis,evt)
@@ -67,7 +68,7 @@ XFormsInputValue.prototype.getOwnerNodeName  = function()
 {
 	var sNodeName = this.element.parentNode.nodeName;
 	return sNodeName.slice(sNodeName.indexOf(":")+1,sNodeName.length).toLowerCase();
-}
+};
 
 XFormsInputValue.prototype.onDocumentReady = function()
 {

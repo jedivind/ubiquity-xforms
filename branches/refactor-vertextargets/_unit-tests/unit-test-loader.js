@@ -42,6 +42,19 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-path-to-module", type: "js",  fullpath: moduleBase + "ut-path-to-module.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.addModule({ name: "ux-ut-instance-standalone", type: "js",  fullpath: moduleBase + "ut-instance-standalone.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.addModule({ name: "ux-ut-model-standalone", type: "js",  fullpath: moduleBase + "ut-model-standalone.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.addModule({ name: "ux-ut-reset", type: "js",  fullpath: moduleBase + "ut-reset.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  
+  
+  loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager", "ux-ut-path-to-module", "ux-ut-reset",
+     "ux-ut-model-standalone","ux-ut-instance-standalone");
 
   loader.addModule({ name: "ux-ut-vertex-target", type: "js",  fullpath: moduleBase + "ut-vertex-target.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
@@ -49,6 +62,8 @@ function runTheTests() {
   
   loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager", "ux-ut-path-to-module",
        "ux-ut-vertex-target");
+
+
 
 
   loader.onSuccess = function(o) {
@@ -60,7 +75,12 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
     YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
     YAHOO.tool.TestRunner.add(suiteNamespaceManager);
+  
     YAHOO.tool.TestRunner.add(suiteVertexTarget);
+
+    YAHOO.tool.TestRunner.add(suiteInstanceStandalone);
+    YAHOO.tool.TestRunner.add(suiteModelStandalone);
+    YAHOO.tool.TestRunner.add(suiteReset);
 
     //run the tests
     YAHOO.tool.TestRunner.run();
