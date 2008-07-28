@@ -944,6 +944,6 @@ suiteXPathCoreFunctions.add(
         evalXPath('local-dateTime()').stringValue(),
         evalXPath('adjust-dateTime-to-timezone(now())').stringValue()
       );
-    },
+    }
   })//new TestCase
 );
