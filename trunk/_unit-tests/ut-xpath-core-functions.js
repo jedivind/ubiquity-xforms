@@ -23,15 +23,6 @@
 var ctx = new ExprContext(
   xmlParse(
     "<test> \
-      <true>true</true> \
-      <true>TRUE</true> \
-      <true>TrUe</true> \
-      <true>1</true> \
-      <false>false</false> \
-      <false>FALSE</false> \
-      <false>FaLsE</false> \
-      <false>0</false> \
-      <false>ubiquity</false> \
       <numbers> \
          <number>1</number> \
          <number>2</number> \
@@ -59,6 +50,8 @@ var ctx = new ExprContext(
     </test>"
   )
 );
+
+var reXsdDate = /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})(((([+-])([0-9]{2})\:([0-9]{2}))|(\Z))?)$/;
 
 function evalXPath(expr) {
   var expr1 = xpathParse(expr);
@@ -89,10 +82,6 @@ suiteXPathCoreFunctions.add(
       Assert.isTrue(evalXPath('boolean-from-string("1")').booleanValue(), "boolean-from-string() failed to return true from a string literal of '1'");
       Assert.isTrue(evalXPath('boolean-from-string(1)').booleanValue(), "boolean-from-string() failed to return true from a number of '1'");
       Assert.isTrue(evalXPath('boolean-from-string(true())').booleanValue(), "boolean-from-string() failed to return true from true()");
-      Assert.isTrue(evalXPath('boolean-from-string(/test/true[1])').booleanValue(), "boolean-from-string() failed to return true from true[1]");
-      Assert.isTrue(evalXPath('boolean-from-string(/test/true[2])').booleanValue(), "boolean-from-string() failed to return true from true[2]");
-      Assert.isTrue(evalXPath('boolean-from-string(/test/true[3])').booleanValue(), "boolean-from-string() failed to return true from true[3]");
-      Assert.isTrue(evalXPath('boolean-from-string(/test/true[4])').booleanValue(), "boolean-from-string() failed to return true from true[4]");
     },
 
     testBooleanFromStringFalse : function () {
@@ -106,10 +95,6 @@ suiteXPathCoreFunctions.add(
       Assert.isFalse(evalXPath('boolean-from-string(1.0)').booleanValue(), "boolean-from-string() failed to return false from a number of '1.0'");
       Assert.isFalse(evalXPath('boolean-from-string(89.2)').booleanValue(), "boolean-from-string() failed to return false from a number of '89.2'");
       Assert.isFalse(evalXPath('boolean-from-string(false())').booleanValue(), "boolean-from-string() failed to return false from false()");
-      Assert.isFalse(evalXPath('boolean-from-string(/test/false[1])').booleanValue(), "boolean-from-string() failed to return true from false[1]");
-      Assert.isFalse(evalXPath('boolean-from-string(/test/false[2])').booleanValue(), "boolean-from-string() failed to return true from false[2]");
-      Assert.isFalse(evalXPath('boolean-from-string(/test/false[3])').booleanValue(), "boolean-from-string() failed to return true from false[3]");
-      Assert.isFalse(evalXPath('boolean-from-string(/test/false[4])').booleanValue(), "boolean-from-string() failed to return true from false[4]");
       Assert.isFalse(evalXPath('boolean-from-string("ubiquity")').booleanValue(), "boolean-from-string() failed to return false from a string literal of 'ubiquity'");
     }
   })//new TestCase
@@ -192,11 +177,15 @@ suiteXPathCoreFunctions.add(
 
       // We expect an xsd:date with time zone in the following format:
       // yyyy '-' mm '-' dd ('+' | '-') hh ':' mm
-      var xpDate = evalXPath('local-date()').stringValue(); 
-      Assert.areEqual(16, xpDate.length, "local-date() returned an xsd:date with too few or too many characters.");
+      var xpDate = evalXPath('local-date()').stringValue();
+      var jsDate = new Date();
 
-      var match = xpDate.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}/);
-      Assert.isNotNull(match, "local-date() failed to return a properly formatted xsd:date with time zone offset: "+xpDate);
+      xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})([+-][0-9]{2}\:[0-9]{2})$/ );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "local-date() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "local-date() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "local-date() returned an incorrect day of the month.");
+      Assert.areEqual(getTZOffset(jsDate), RegExp.$4, "local-date() returned an incorrect time zone.");
     }
   })//new TestCase
 );
@@ -218,11 +207,18 @@ suiteXPathCoreFunctions.add(
 
       // We expect an xsd:dateTime with time zone in the following format:
       // yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss ('+' | '-') hh ':' mm
-      var xpDateTime = evalXPath('local-dateTime()').stringValue(); 
-      Assert.areEqual(25, xpDateTime.length, "local-dateTime() returned an xsd:dateTime with too few or too many characters.");
+      var xpDate = evalXPath('local-dateTime()').stringValue();
+      var jsDate = new Date();
 
-      var match = xpDateTime.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}\T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}/);
-      Assert.isNotNull(match, "local-dateTime() failed to return a properly formatted xsd:dateTime: "+xpDateTime);
+      reXsdDate.exec( xpDate );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "local-datetime() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "local-datetime() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "local-datetime() returned an incorrect day of the month.");
+      Assert.areEqual(jsDate.getHours(), RegExp.$4, "local-datetime() returned an incorrect hour.");
+      Assert.areEqual(jsDate.getMinutes(), RegExp.$5, "local-datetime() returned incorrect minutes.");
+      Assert.areEqual(jsDate.getSeconds(), RegExp.$6, "local-datetime() returned incorrect seconds.");
+      Assert.areEqual(getTZOffset(jsDate), RegExp.$7, "local-dateTime() returned an incorrect time zone.");
     }
   })//new TestCase
 );
@@ -245,16 +241,31 @@ suiteXPathCoreFunctions.add(
       // We expect an xsd:dateTime representing UTC time in the following format:
       // yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss 'Z'
       var xpDate = evalXPath('now()').stringValue();
+
+      // Get the current time, in the current timezone.
+      //
       var jsDate = new Date();
+
+      // Unfortunately, we can't use getUTCHours(), etc., to test this time, because
+      // the date may be wrong. For example, running this test just after midnight
+      // in the UK, in BST, will have now() showing a day of the month that is one
+      // day *after* the one from JavaScript. Similarly, running the test in the
+      // afternoon in PST will have JavaScript giving a day of the month that is
+      // one day *earlier* than the one from now().
+      //
+      // So we adjust for the timezone part and ignore the fact that the 'real'
+      // time this object represents is incorrect.
+      //
+      jsDate.setMinutes( jsDate.getMinutes() + jsDate.getTimezoneOffset() );
 
       xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})Z$/ );
 
       Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "now() returned an incorrect year.");
       Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "now() returned an incorrect month.");
       Assert.areEqual(jsDate.getDate(), RegExp.$3, "now() returned an incorrect day of the month.");
-      Assert.areEqual(jsDate.getUTCHours(), RegExp.$4, "now() returned an incorrect hour.");
-      Assert.areEqual(jsDate.getUTCMinutes(), RegExp.$5, "now() returned incorrect minutes.");
-      Assert.areEqual(jsDate.getUTCSeconds(), RegExp.$6, "now() returned incorrect seconds.");
+      Assert.areEqual(jsDate.getHours(), RegExp.$4, "now() returned an incorrect hour.");
+      Assert.areEqual(jsDate.getMinutes(), RegExp.$5, "now() returned incorrect minutes.");
+      Assert.areEqual(jsDate.getSeconds(), RegExp.$6, "now() returned incorrect seconds.");
     }
   })//new TestCase
 );
@@ -280,9 +291,9 @@ suiteXPathCoreFunctions.add(
     testCountSuccess : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(5, evalXPath('count(test/numbers/number)').numberValue());
-      Assert.areEqual(7, evalXPath('count(test/numbers2/number)').numberValue());
-      Assert.areEqual(6, evalXPath('count(test/numbers3/number)').numberValue());
+      Assert.areEqual(5, evalXPath('count(/test/numbers/number)').numberValue());
+      Assert.areEqual(7, evalXPath('count(/test/numbers2/number)').numberValue());
+      Assert.areEqual(6, evalXPath('count(/test/numbers3/number)').numberValue());
     },
 
     testCountEmptyNodeset : function () {
@@ -344,8 +355,8 @@ suiteXPathCoreFunctions.add(
     testChooseReturnsNodeSet : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(7, evalXPath('count(choose(true(), test/numbers2/number, test/numbers3/number))').numberValue());
-      Assert.areEqual(6, evalXPath('count(choose(false(), test/numbers2/number, test/numbers3/number))').numberValue());
+      Assert.areEqual(7, evalXPath('count(choose(true(), /test/numbers2/number, /test/numbers3/number))').numberValue());
+      Assert.areEqual(6, evalXPath('count(choose(false(), /test/numbers2/number, /test/numbers3/number))').numberValue());
     }
   })//new TestCase
 );
@@ -371,9 +382,9 @@ suiteXPathCoreFunctions.add(
     testAvg : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(2, evalXPath('avg(test/numbers/number)').numberValue());
-      Assert.isNaN(evalXPath('avg(test/numbers2/number)').numberValue(), "avg() failed to return NaN when nodeset contains a non-number");
-      Assert.areEqual(2, evalXPath('avg(test/numbers3/number)').numberValue());
+      Assert.areEqual(2, evalXPath('avg(/test/numbers/number)').numberValue());
+      Assert.isNaN(evalXPath('avg(/test/numbers2/number)').numberValue(), "avg() failed to return NaN when nodeset contains a non-number");
+      Assert.areEqual(2, evalXPath('avg(/test/numbers3/number)').numberValue());
     }
   })//new TestCase
 );
@@ -399,9 +410,9 @@ suiteXPathCoreFunctions.add(
     testMin : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(0, evalXPath('min(test/numbers/number)').numberValue());
-      Assert.isNaN(evalXPath('min(test/numbers2/number)').numberValue(), "min() failed to return NaN when nodeset contains a non-number");
-      Assert.areEqual(-3, evalXPath('min(test/numbers3/number)').numberValue());
+      Assert.areEqual(0, evalXPath('min(/test/numbers/number)').numberValue());
+      Assert.isNaN(evalXPath('min(/test/numbers2/number)').numberValue(), "min() failed to return NaN when nodeset contains a non-number");
+      Assert.areEqual(-3, evalXPath('min(/test/numbers3/number)').numberValue());
     }
   })//new TestCase
 );
@@ -427,9 +438,9 @@ suiteXPathCoreFunctions.add(
     testMax : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(4, evalXPath('max(test/numbers/number)').numberValue());
-      Assert.isNaN(evalXPath('max(test/numbers2/number)').numberValue(), "max() failed to return NaN when nodeset contains a non-number");
-      Assert.areEqual(12, evalXPath('max(test/numbers3/number)').numberValue());
+      Assert.areEqual(4, evalXPath('max(/test/numbers/number)').numberValue());
+      Assert.isNaN(evalXPath('max(/test/numbers2/number)').numberValue(), "max() failed to return NaN when nodeset contains a non-number");
+      Assert.areEqual(12, evalXPath('max(/test/numbers3/number)').numberValue());
     }
   })//new TestCase
 );
@@ -456,9 +467,9 @@ suiteXPathCoreFunctions.add(
     testCountNonEmpty : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(4, evalXPath('count-non-empty(test/numbers/number)').numberValue());
-      Assert.areEqual(5, evalXPath('count-non-empty(test/numbers2/number)').numberValue());
-      Assert.areEqual(6, evalXPath('count-non-empty(test/numbers3/number)').numberValue());
+      Assert.areEqual(4, evalXPath('count-non-empty(/test/numbers/number)').numberValue());
+      Assert.areEqual(5, evalXPath('count-non-empty(/test/numbers2/number)').numberValue());
+      Assert.areEqual(6, evalXPath('count-non-empty(/test/numbers3/number)').numberValue());
     }
   })//new TestCase
 );
@@ -508,5 +519,431 @@ suiteXPathCoreFunctions.add(
       Assert.areEqual(-1, evalXPath('compare("apple", "orange")').stringValue(), "compare() should return -1 when comparing 'apple' to 'orange'");
       Assert.areEqual(1, evalXPath('compare("orange", "apple")').stringValue(), "compare() should return 1 when comparing 'orange' to 'apple'");
     }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test days-from-date()",
+
+    testDaysFromDateExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["days-from-date"], "days-from-date() is not defined.");
+    },
+    
+    testDaysFromDateSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(11688, evalXPath('days-from-date("2002-01-01")').numberValue(), "There should be 11688 days since 2002-01-01");
+      Assert.areEqual(11688, evalXPath('days-from-date("2002-01-01-07:00")').numberValue(), "There should be 11688 days since 2002-01-01-07:00");
+      Assert.areEqual(11688, evalXPath('days-from-date("2002-01-01T00:00:00+01:00")').numberValue(), "There should be 11688 days since 2002-01-01T00:00:00+01:00");
+      Assert.areEqual(-1, evalXPath('days-from-date("1969-12-31")').numberValue(), "There should be -1 days since 1969-12-31");
+      Assert.areEqual(0, evalXPath('days-from-date("1970-01-01")').numberValue(), "There should be 0 days since 1970-01-01");
+    },
+
+    testDaysFromDateFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('days-from-date()').numberValue());
+      Assert.isNaN(evalXPath('days-from-date("1970-01-01", "1970-01-01")').numberValue());
+      Assert.isNaN(evalXPath('days-from-date("NaN")').numberValue());
+      Assert.isNaN(evalXPath('days-from-date("error")').numberValue());
+      Assert.isNaN(evalXPath('days-from-date("AA1970-01-01ZZ")').numberValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test days-to-date()",
+
+    testDaysToDateExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["days-to-date"], "days-to-date() is not defined.");
+    },
+
+    testDaysToDateBase : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1970-01-01", evalXPath('days-to-date(0)').stringValue());
+    },
+
+    testDaysToDateInteger : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date(11688)').stringValue());
+    },
+
+    testDaysToDateRounding : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date(11687.5)').stringValue());
+      Assert.areEqual("2001-12-31", evalXPath('days-to-date(11687.49999)').stringValue());
+    },
+
+    testDaysToDateNegative : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1969-12-31", evalXPath('days-to-date(-1)').stringValue());
+    },
+
+    testDaysToDateString : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("2002-01-01", evalXPath('days-to-date("11688")').stringValue());
+    },
+
+    testDaysToDateFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('days-to-date()').stringValue());
+      Assert.isNaN(evalXPath('days-to-date(11688, 11688)').stringValue());
+      Assert.isNaN(evalXPath('days-to-date("NaN")').stringValue());
+      Assert.isNaN(evalXPath('days-to-date("error")').stringValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test seconds-from-dateTime()",
+
+    testSecondsFromDateTimeExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"], "seconds-from-dateTime() is not defined.");
+    },
+
+    testSecondsFromDateTimeSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00Z")').numberValue());
+      Assert.areEqual(3600, evalXPath('seconds-from-dateTime("1970-01-01T01:00:00Z")').numberValue());
+      Assert.areEqual(60, evalXPath('seconds-from-dateTime("1970-01-01T00:01:00Z")').numberValue());
+      Assert.areEqual(3666, evalXPath('seconds-from-dateTime("1970-01-01T01:01:06Z")').numberValue());
+      Assert.areEqual(28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00-08:00")').numberValue());
+      Assert.areEqual(-28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00+08:00")').numberValue());
+      Assert.areEqual(144000, evalXPath('seconds-from-dateTime("1970-01-01T20:00:00-20:00")').numberValue());
+    },
+
+    testSecondsFromDateTimeFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('seconds-from-dateTime()').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime("1970-01-01T00:00:00Z", "1970-01-01T00:00:00Z")').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime("NaN")').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime("error")').numberValue());
+      Assert.isNaN(evalXPath('seconds-from-dateTime("AA1970-01-01T00:00:00ZZZ")').numberValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test seconds-to-dateTime()",
+
+    testSecondsToDateTimeExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"], "seconds-to-dateTime() is not defined.");
+    },
+    
+    testSecondsToDateTimeSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1970-01-01T00:00:00Z", evalXPath('seconds-to-dateTime("0")').stringValue());
+      Assert.areEqual("1970-01-01T08:00:00Z", evalXPath('seconds-to-dateTime("28800")').stringValue());
+      Assert.areEqual("1970-01-01T00:01:06Z", evalXPath('seconds-to-dateTime("66")').stringValue());
+      Assert.areEqual("1970-01-01T11:11:11Z", evalXPath('seconds-to-dateTime("40271")').stringValue());
+      Assert.areEqual("1970-01-11T00:00:00Z", evalXPath('seconds-to-dateTime("864000")').stringValue());
+      Assert.areEqual("1969-12-31T23:59:59Z", evalXPath('seconds-to-dateTime("-1")').stringValue());
+      Assert.areEqual("1970-01-01T00:00:00Z", evalXPath('seconds-to-dateTime(0)').stringValue());
+      Assert.areEqual("1970-01-01T08:00:00Z", evalXPath('seconds-to-dateTime(28800)').stringValue());
+      Assert.areEqual("1970-01-01T00:01:06Z", evalXPath('seconds-to-dateTime(66)').stringValue());
+      Assert.areEqual("1970-01-01T11:11:11Z", evalXPath('seconds-to-dateTime(40271)').stringValue());
+      Assert.areEqual("1970-01-11T00:00:00Z", evalXPath('seconds-to-dateTime(864000)').stringValue());
+      Assert.areEqual("1969-12-31T23:59:59Z", evalXPath('seconds-to-dateTime(-1)').stringValue());
+    },
+
+    testSecondsToDateTimeFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('seconds-to-dateTime()').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime("0", "0")').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime("NaN")').stringValue());
+      Assert.isNaN(evalXPath('seconds-to-dateTime("error")').stringValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test adjust-dateTime-to-timezone()",
+
+    testAdjustToTimezoneExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"]);
+    },
+
+    testAdjustTimeWithNoTimezoneToLocalTimezone : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // If no timezone information is provided, then the local timezone should be used. This means
+      // we need to make the comparison against a localised JavaScript date.
+      //
+      var xpDate = evalXPath("adjust-dateTime-to-timezone('2007-10-07T02:22:00')").stringValue();
+      var jsDate = new Date(2007, 9, 7, 2, 22, 0);
+
+      reXsdDate.exec( xpDate );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "adjust-dateTime-to-timezone() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "adjust-dateTime-to-timezone() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "adjust-dateTime-to-timezone() returned an incorrect day of the month.");
+      Assert.areEqual(jsDate.getHours(), RegExp.$4, "adjust-dateTime-to-timezone() returned an incorrect hour.");
+      Assert.areEqual(jsDate.getMinutes(), RegExp.$5, "adjust-dateTime-to-timezone() returned incorrect minutes.");
+      Assert.areEqual(jsDate.getSeconds(), RegExp.$6, "adjust-dateTime-to-timezone() returned incorrect seconds.");
+    },
+
+    testAdjustTimeWithZuluTimezoneToLocalTimezone : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // If 'Z' is provided, then the offset is zero.
+      //
+      var xpDate = evalXPath("adjust-dateTime-to-timezone('2007-10-02T21:26:43Z')").stringValue();
+
+      // We can't test directly against "2007-10-02T21:26:43Z", because there is no way in JavaScript
+      // to create a date object in a different timezone. However, we can create "2007-10-02T21:26:43"
+      // in our local timezone, and then adjust the minutes, to give us our specific date and time,
+      // but normalised.
+      //
+      var jsDate = new Date( 2007, 9, 2, 21, 26, 43 );
+
+      jsDate.setMinutes( jsDate.getMinutes() - jsDate.getTimezoneOffset() );
+
+      reXsdDate.exec( xpDate );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "adjust-dateTime-to-timezone() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "adjust-dateTime-to-timezone() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "adjust-dateTime-to-timezone() returned an incorrect day of the month.");
+      Assert.areEqual(jsDate.getHours(), RegExp.$4, "adjust-dateTime-to-timezone() returned an incorrect hour.");
+      Assert.areEqual(jsDate.getMinutes(), RegExp.$5, "adjust-dateTime-to-timezone() returned incorrect minutes.");
+      Assert.areEqual(jsDate.getSeconds(), RegExp.$6, "adjust-dateTime-to-timezone() returned incorrect seconds.");
+    },
+
+    testAdjustTimeWithNumericTimezoneToLocalTimezone : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // If an offset is provided, that must be used.
+      //
+      var xpDate = evalXPath("adjust-dateTime-to-timezone('2007-10-02T14:26:43-07:00')").stringValue();
+
+      // We can't test directly against "2007-10-02T14:26:43-07:00", because there is no way in
+      // JavaScript to create a date object in a different timezone. However, we can create
+      // "2007-10-02T14:26:43" in our local timezone, and then adjust the minutes, to give us
+      // our specific date and time, but normalised.
+      //
+      var jsDate = new Date( 2007, 9, 2, 14, 26, 43 );
+
+      jsDate.setMinutes( jsDate.getMinutes() - jsDate.getTimezoneOffset() ); // Normalise our date
+      jsDate.setHours( jsDate.getHours() - 7 ); // Put it into Pacific time, with daylight savings
+
+      xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})([+-])([0-9]{2})\:([0-9]{2})$/ );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "adjust-dateTime-to-timezone() returned an incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "adjust-dateTime-to-timezone() returned an incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "adjust-dateTime-to-timezone() returned an incorrect day of the month.");
+      Assert.areEqual(jsDate.getHours(), RegExp.$4 - (RegExp.$8 * ((RegExp.$7 === "-") ? 1 : -1)), "adjust-dateTime-to-timezone() returned an incorrect hour.");
+      Assert.areEqual(jsDate.getMinutes(), RegExp.$5 - (RegExp.$9 * ((RegExp.$7 === "-") ? 1 : -1)), "adjust-dateTime-to-timezone() returned incorrect minutes.");
+      Assert.areEqual(jsDate.getSeconds(), RegExp.$6, "adjust-dateTime-to-timezone() returned incorrect seconds.");
+    },
+
+    testAdjustToTimeZoneFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone()').stringValue());
+      Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone("0", "0")').stringValue());
+      Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone("NaN")').stringValue());
+      Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone("error")').stringValue());
+      Assert.areEqual("", evalXPath('adjust-dateTime-to-timezone("AA2008-07-17T12:00:00-05:00ZZ")').stringValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test seconds()",
+
+    testSecondsExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds"], "seconds() is not defined.");
+    },
+    
+    testSecondsSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(297001.5, evalXPath('seconds("P3DT10H30M1.5S")').numberValue());
+      Assert.areEqual(0, evalXPath('seconds("P1Y2M")').numberValue());
+      Assert.areEqual(0, evalXPath('seconds("P3")').numberValue());
+      Assert.areEqual(259200, evalXPath('seconds("P3D")').numberValue());
+      Assert.areEqual(259200, evalXPath('seconds("P1Y2M3D")').numberValue());
+      Assert.areEqual(-297001.5, evalXPath('seconds("-P3DT10H30M1.5S")').numberValue());
+      Assert.areEqual(-259200, evalXPath('seconds("-P3D")').numberValue());
+      Assert.areEqual(3666, evalXPath('seconds("PT1H1M6S")').numberValue());
+      Assert.areEqual(0, evalXPath('seconds("P1Y2MT")').numberValue());
+    },
+
+    testSecondsFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('seconds()').numberValue());
+      Assert.isNaN(evalXPath('seconds("P1Y2M", "P1Y2M")').numberValue());
+      Assert.isNaN(evalXPath('seconds("NaN")').numberValue());
+      Assert.isNaN(evalXPath('seconds("error")').numberValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test months()",
+
+    testMonthsExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["months"], "months() is not defined.");
+    },
+    
+    testMonthsSuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(0, evalXPath('months("P3DT10H30M1.5S")').numberValue());
+      Assert.areEqual(14, evalXPath('months("P1Y2M")').numberValue());
+      Assert.areEqual(0, evalXPath('months("P3")').numberValue());
+      Assert.areEqual(3, evalXPath('months("P3MT4M")').numberValue());
+      Assert.areEqual(14, evalXPath('months("P1Y2M3D")').numberValue());
+      Assert.areEqual(0, evalXPath('months("-P3DT10H30M1.5S")').numberValue());
+      Assert.areEqual(-19, evalXPath('months("-P19M")').numberValue());
+      Assert.areEqual(0, evalXPath('months("PT1H1M6S")').numberValue());
+      Assert.areEqual(14, evalXPath('months("P1Y2MT")').numberValue());
+    },
+
+    testMonthsFail : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isNaN(evalXPath('months()').numberValue());
+      Assert.isNaN(evalXPath('months("P1Y2M", "P1Y2M")').numberValue());
+      Assert.isNaN(evalXPath('months("NaN")').numberValue());
+      Assert.isNaN(evalXPath('months("error")').numberValue());
+    }
+  })//new TestCase
+);
+
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test property()",
+
+    testPropertyExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["property"], "property() is not defined.");
+    },
+    
+    testPropertySuccess : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1.1", evalXPath('property("version")').stringValue());
+      Assert.areEqual("basic", evalXPath('property("conformance-level")').stringValue());
+    },
+
+    testPropertyReturnEmptyString : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("", evalXPath('property()').stringValue());
+      Assert.areEqual("", evalXPath('property("version", "version")').stringValue());
+      Assert.areEqual("", evalXPath('property("in:valid")').stringValue());
+      Assert.areEqual("", evalXPath('property("invalid")').stringValue());
+    }
+  })//new TestCase
+);
+// Test now().
+//
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test combinations of functions",
+
+    // This test corresponds to the example given in the description of now() about how to calculate
+    // the time two hours from now.
+    //
+    testNowCalculateTwoHoursFromNow : function () {
+      var Assert = YAHOO.util.Assert;
+
+      var xpDate = evalXPath('seconds-to-dateTime(seconds-from-dateTime(now()) + 7200)').stringValue();
+      var jsDate = new Date();
+
+      // Set the time two hours from now.
+      //
+      jsDate.setHours( jsDate.getHours() + 2 );
+
+      // Since we're only going to compare the date and time, we can adjust for the
+      // timezone part and ignore the fact that the 'real' time this object represents
+      // is incorrect.
+      //
+      jsDate.setMinutes( jsDate.getMinutes() + jsDate.getTimezoneOffset() );
+
+      xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})Z$/ );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "Incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "Incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "Incorrect day of the month.");
+      Assert.areEqual(jsDate.getHours(), RegExp.$4, "Incorrect hour.");
+      Assert.areEqual(jsDate.getMinutes(), RegExp.$5, "Incorrect minutes.");
+      Assert.areEqual(jsDate.getSeconds(), RegExp.$6, "Incorrect seconds.");
+    },
+
+    // This test corresponds to the example given in the description of adjust-dateTime-to-timezone()
+    // about how to calculate the time two hours from now.
+    //
+    testAdjustDateTimeToTimezoneCalculateTwoHoursFromNow : function () {
+      var Assert = YAHOO.util.Assert;
+
+      var xpDate = evalXPath('adjust-dateTime-to-timezone(seconds-to-dateTime(seconds-from-dateTime(now()) + 7200))').stringValue();
+      var jsDate = new Date();
+
+      // Set the time two hours from now.
+      //
+      jsDate.setHours( jsDate.getHours() + 2 );
+
+      // Since we're only going to compare the date and time, we can adjust for the
+      // timezone part and ignore the fact that the 'real' time this object represents
+      // is incorrect.
+      //
+      jsDate.setMinutes( jsDate.getMinutes() + jsDate.getTimezoneOffset() );
+
+      xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})Z$/ );
+
+      Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "Incorrect year.");
+      Assert.areEqual(jsDate.getMonth() + 1, RegExp.$2, "Incorrect month.");
+      Assert.areEqual(jsDate.getDate(), RegExp.$3, "Incorrect day of the month.");
+      Assert.areEqual(jsDate.getHours(), RegExp.$4, "Incorrect hour.");
+      Assert.areEqual(jsDate.getMinutes(), RegExp.$5, "Incorrect minutes.");
+      Assert.areEqual(jsDate.getSeconds(), RegExp.$6, "Incorrect seconds.");
+    },
+
+    testAdjustNowToTimezoneAndCompareToLocalDateTime : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // now() should return the current date and time in UTC format and localTime() should
+      // return the current local date and time with timezone, so the result of adjusting now()
+      // to the local timezone should be equal to the result of local-dateTime().
+      //
+      Assert.areEqual(
+        evalXPath('local-dateTime()').stringValue(),
+        evalXPath('adjust-dateTime-to-timezone(now())').stringValue()
+      );
+    },
   })//new TestCase
 );
