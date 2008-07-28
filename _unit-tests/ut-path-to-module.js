@@ -1,4 +1,4 @@
-var Assert = YAHOO.util.Assert; 
+var Assert = YAHOO.util.Assert;
 
 var oSuitePathToModule = new YAHOO.tool.TestSuite({
 	name : "Test getPathToModule",

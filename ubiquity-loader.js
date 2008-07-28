@@ -1,4 +1,4 @@
-function pathToModule(module) { 
+function pathToModule(module) {
   if (!module) {
     throw("Missing or null parameter supplied.");
   }
