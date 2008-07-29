@@ -20,8 +20,10 @@
 		have been bound to an appropriate XBL, and have performed their decorations, prior to 
 		calling any initialisation code that would otherwise have been called by onload.
 */
+alert("second onload file;")
 function FFInsertElementForOnloadXBL()
 {
+alert("second onload inserting;")
 	document.body.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element'style='width:0px;style:display:inline-block;'>Loading...</p>");
     var oHead = document.getElementsByTagName("head")[0];
     var oStyle = document.createElement('style');
@@ -29,9 +31,10 @@ function FFInsertElementForOnloadXBL()
 
     oStyle.setAttribute("type", "text/css");
     oStyle.innerHTML = "p#second-onload-loading-element{-moz-binding: url(\""+g_sBehaviourDirectory+"onload.xml#loader\");}";
+
     alert(oStyle.innerHTML);
     oHead.insertBefore(oStyle, null);
-
+alert("second onload inserted;")
 }
 
 //This is only required by firefox, which binds XBLs in document order of opening tag, once the script
