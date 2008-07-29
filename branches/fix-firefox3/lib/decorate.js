@@ -180,13 +180,19 @@ var DECORATOR = function()
 */	
 	function ffSetupDecorator(defs)
 	{
-      var cssNode = document.createElement('link');
-      cssNode.type = 'text/css';
-      cssNode.rel = 'stylesheet';
-      cssNode.href = g_sBehaviourDirectory + "generated-css.css";
-      cssNode.media = 'screen';
-      cssNode.title = 'dynamicLoadedSheet';
-      document.getElementsByTagName("head")[0].appendChild(cssNode);   
+	    try{
+        var cssNode = document.createElement('link');
+        cssNode.type = 'text/css';
+        cssNode.rel = 'stylesheet';
+        cssNode.href = g_sBehaviourDirectory + "generated-css.css";
+        cssNode.media = 'screen';
+        cssNode.title = 'dynamicLoadedSheet';
+        document.getElementsByTagName("head")[0].appendChild(cssNode);
+      }catch(e)
+      {
+        alert(e);  
+      }
+      alert(cssNode.href)
 
 	/*
 		var oHead = document.getElementsByTagName("head")[0];
