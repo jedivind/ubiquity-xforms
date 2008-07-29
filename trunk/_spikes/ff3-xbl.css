@@ -6,5 +6,5 @@ div
 .doAlert
 {
 background-color:fuchsia;
-  -moz-binding:url(doalert.xml#doalert)
+  -moz-binding:url(http://ubiquity-xforms.googlecode.com/svn/trunk/_spikes/doalert.xml#doalert)
 }
