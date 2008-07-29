@@ -23,9 +23,8 @@
 	<binding id="loader">
 		<implementation>
 			<constructor>
-			  debugger;
-			  DECORATOR.callDocumentReadyHandlers;
-			  this.parentNode.removeChild(this);
+				this.parentNode.removeChild(this);
+				spawn(DECORATOR.callDocumentReadyHandlers);
 			</constructor>
 		</implementation>
 	</binding>	

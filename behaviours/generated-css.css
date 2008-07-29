@@ -2,124 +2,124 @@ xf\:repeat > * , xforms\:repeat > * {
   -moz-binding:url();
 }
 xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready > xforms\:group {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Group#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Group#decorator");
 }
 xf\:instance, xforms\:instance {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Instance#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Instance#decorator");
 }
 xf\:model, xforms\:model {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Model#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Model#decorator");
 }
 xf\:submission, xforms\:submission {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Submission#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Submission#decorator");
 }
 xf\:trigger, xforms\:trigger {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:output >  pe-value, xforms\:output >  pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsOutputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
 xf\:value  > pe-value,  xforms\:value  > pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsOutputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
 xf\:input, xforms\:input {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:range, xforms\:range {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:output, xforms\:output {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:textarea, xforms\:textarea {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:secret, xforms\:secret {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:label, xforms\:label {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:value, xforms\:value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control&Value#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control&Value#decorator");
 }
 xf\:item, xforms\:item {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Item#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Item#decorator");
 }
 xf\:input > pe-value, xforms\:input > pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsInputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsInputValue#decorator");
 }
 xf\:secret  > pe-value, xforms\:secret  > pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsInputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsInputValue#decorator");
 }
 xf\:textarea > pe-value, xforms\:textarea > pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsInputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsInputValue#decorator");
 }
 xf\:select > pe-value, xforms\:select > pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsInputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsInputValue#decorator");
 }
 xf\:select1 >  pe-value , xforms\:select1 >  pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsInputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsInputValue#decorator");
 }
 xf\:range > pe-value, xforms\:range > pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&RangeValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&RangeValue#decorator");
 }
 xf\:range.geolocation > pe-value, xforms\:range.geolocation > pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&RangeValueGMAP#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&RangeValueGMAP#decorator");
 }
 xf\:range.geolocation > xf\:label > pe-value, xforms\:range.geolocation > xforms\:label > pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsOutputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
 xf\:select, xforms\:select {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control&Select#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control&Select#decorator");
 }
 xf\:select1, xforms\:select1 {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Control&Select1#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control&Select1#decorator");
 }
 xf\:repeat, xforms\:repeat {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Repeat#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Repeat#decorator");
 }
 xf\:group, xforms\:group {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Context&Group#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Group#decorator");
 }
 xf\:case, xforms\:case {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsCase#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsCase#decorator");
 }
 xf\:switch, xforms\:switch {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&Switch#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Switch#decorator");
 }
 xf\:action, xforms\:action {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&XFAction#decorator");
+  -moz-binding: url("decorator.xml?Listener&XFAction#decorator");
 }
 xf\:message, xforms\:message {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Message#decorator");
+  -moz-binding: url("decorator.xml?Listener&Message#decorator");
 }
 xf\:setvalue, xforms\:setvalue {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Context&SetValue#decorator");
+  -moz-binding: url("decorator.xml?Listener&Context&SetValue#decorator");
 }
 xf\:send, xforms\:send {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Send#decorator");
+  -moz-binding: url("decorator.xml?Listener&Send#decorator");
 }
 xf\:toggle, xforms\:toggle {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Toggle#decorator");
+  -moz-binding: url("decorator.xml?Listener&Toggle#decorator");
 }
 xf\:rebuild, xforms\:rebuild {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Rebuild#decorator");
+  -moz-binding: url("decorator.xml?Listener&Rebuild#decorator");
 }
 xf\:recalculate, xforms\:recalculate {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Recalculate#decorator");
+  -moz-binding: url("decorator.xml?Listener&Recalculate#decorator");
 }
 xf\:revalidate, xforms\:revalidate {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Revalidate#decorator");
+  -moz-binding: url("decorator.xml?Listener&Revalidate#decorator");
 }
 xf\:refresh, xforms\:refresh {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Refresh#decorator");
+  -moz-binding: url("decorator.xml?Listener&Refresh#decorator");
 }
 xf\:reset, xforms\:reset {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?Listener&Reset#decorator");
+  -moz-binding: url("decorator.xml?Listener&Reset#decorator");
 }
 xf\:label >  pe-value, xforms\:label >  pe-value {
-  -moz-binding: url("http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/decorator.xml?EventTarget&XFormsOutputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
 xf\:repeat *, xforms\:repeat * {
   -binding-ignore:true;
