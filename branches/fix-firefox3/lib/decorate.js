@@ -238,7 +238,7 @@ var DECORATOR = function()
     		}
     		oStyle.innerHTML = s;
     		oHead.insertBefore(oStyle, null);
-    		alert(s);l
+    		alert(s);
     	}
   		
 		return;
