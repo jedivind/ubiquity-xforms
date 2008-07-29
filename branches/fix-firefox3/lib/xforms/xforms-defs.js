@@ -25,6 +25,7 @@ NamespaceManager.addSelectionNamespace("xf","http://www.w3.org/2002/xforms");
 
 DECORATOR.setupDecorator(
 	[
+	  "http://www.w3.org/2002/xforms", //to tell the decorator so that it doesn't need to write these definitions again
 	//Switch off bindings within repeat, during load-time (FF )
 		{
 			selector:"xf|repeat > * ",
