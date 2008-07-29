@@ -183,6 +183,7 @@ var DECORATOR = function()
 	  //HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and 
 	  //  unexpected namepsace prefixes are ignored.
       if(defs[0] === "http://www.w3.org/2002/xforms") {
+      alert("hello")
         try{
           var cssNode = document.createElement('link');
           cssNode.type = 'text/css';
@@ -191,8 +192,8 @@ var DECORATOR = function()
           cssNode.media = 'screen';
           cssNode.title = 'dynamicLoadedSheet';
           document.getElementsByTagName("head")[0].appendChild(cssNode);
-        }catch(e)
-        {
+        }
+        catch(e) {
           alert(e);  
         }
       }
