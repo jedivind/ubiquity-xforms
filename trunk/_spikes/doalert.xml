@@ -3,7 +3,13 @@
   <binding id="doalert">
     <implementation>
       <constructor>
+        try{
         alert("hello");
+        CallAlertInDocument();
+        }catch(e)
+        {
+          alert(e);
+        }
       </constructor>
     </implementation>
   </binding>
