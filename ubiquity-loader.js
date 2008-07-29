@@ -39,6 +39,9 @@ function pathToModule(module) {
 }
 
 
+var baseDefaultPath = pathToModule("ubiquity-loader");
+var g_sBehaviourDirectory = baseDefaultPath + "behaviours/";
+
 (
   function()
   {
