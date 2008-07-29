@@ -1,8 +1,10 @@
 <bindings
   xmlns="http://www.mozilla.org/xbl">
   <binding id="doalert">
-    <constructor>
-      alert("hello");
-    </constructor>
+    <implementation>
+      <constructor>
+        alert("hello");
+      </constructor>
+    </implementation>
   </binding>
 </bindings>
