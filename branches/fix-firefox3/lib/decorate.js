@@ -184,7 +184,7 @@ var DECORATOR = function()
         var cssNode = document.createElement('link');
         cssNode.type = 'text/css';
         cssNode.rel = 'stylesheet';
-        cssNode.href = "http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/behaviours/generated-css.css";
+        cssNode.href = g_sBehaviourDirectory +"generated-css.css";
         cssNode.media = 'screen';
         cssNode.title = 'dynamicLoadedSheet';
         document.getElementsByTagName("head")[0].appendChild(cssNode);
