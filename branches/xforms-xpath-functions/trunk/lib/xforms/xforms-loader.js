@@ -16,11 +16,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+var g_sBehaviourDirectory  = "";
+ 
 (
   function(){
     var moduleBase = pathToModule("xforms-loader");
-  
+    g_sBehaviourDirectory = moduleBase + "../../behaviours/";
+    
   	window.status = "configuring module loader";
   	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../default.css" });
   

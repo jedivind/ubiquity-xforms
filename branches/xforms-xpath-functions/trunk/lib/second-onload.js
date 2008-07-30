@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+function isFirefox3()
+{
+  return (navigator.oscpu && document.getElementsByClassName);
+}
 /**
 	Inserts an element as the last child of body, and sets up the CSS to bind this to onload.xml
 		Calling this as a final step in the script loading process ensures that all existing elements
@@ -22,14 +26,26 @@
 */
 function FFInsertElementForOnloadXBL()
 {
-	document.body.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element'style='width:0px;style:display:inline-block;'>Loading...</p>");
-    var oHead = document.getElementsByTagName("head")[0];
-    var oStyle = document.createElement('style');
-    var s = "";
-
-    oStyle.setAttribute("type", "text/css");
-    oStyle.innerHTML = "p#second-onload-loading-element{-moz-binding: url(\""+g_sBehaviourDirectory+"onload.xml#loader\");}";
-    oHead.insertBefore(oStyle, null);
+  document.body.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element'style='width:0px;style:display:inline-block;'>Loading...</p>");
+  if(isFirefox3()) {
+    var cssNode = document.createElement('link');
+    cssNode.type = 'text/css';
+    cssNode.rel = 'stylesheet';
+    cssNode.href = g_sBehaviourDirectory +"onload.css";
+    cssNode.media = 'screen';
+    cssNode.title = 'dynamicLoadedSheet';
+    document.getElementsByTagName("head")[0].appendChild(cssNode);
+   }
+   else
+   {
+      var oHead = document.getElementsByTagName("head")[0];
+      var oStyle = document.createElement('style');
+      var s = "";
+  
+      oStyle.setAttribute("type", "text/css");
+      oStyle.innerHTML = "p#second-onload-loading-element{-moz-binding: url(\""+g_sBehaviourDirectory+"onload.xml#loader\");}";
+      oHead.insertBefore(oStyle, null);
+   }
 
 }
 

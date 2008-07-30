@@ -495,81 +495,85 @@ FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx) {
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-days-from-date
 */
+// The return value is equal to the number of days difference between the specified date
+// or dateTime (normalized to UTC) and 1970-01-01. Hour, minute, and second components
+// are ignored after normalization.
+//
 FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx) {
-	if (!this.args || (this.args.length != 1)) {
+  var dDate, dBase;
+  var dOrigin;
+
+  if (!this.args || (this.args.length != 1)) {
     	return new NumberValue(NaN);
 	}
-	
-    var sDate = this.args[0].evaluate(ctx).stringValue();
 
-    // The return value is equal to the number of days difference between the specified date
-    // or dateTime (normalized to UTC) and 1970-01-01. Hour, minute, and second components
-    // are ignored after normalization. 
-    var dDate = null;
-    if (isValidDateTime(sDate)) {
-        // Replace '-' with ',', and eval a constructor of the form Date(yearNum,MonthNum,DayNum);
-        var sCommaDate = sDate.replace(/\-/g,",").substr(0,10);
-        dDate = eval("new Date("+ sCommaDate  +")");
+  // Create an array based on parsing the input. First try parsing an xsd:dateTime
+  // and if that fails try parsing an xsd:date.
+  //
+	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
+	  this.args[0].evaluate(ctx).stringValue()
+	);
 
-        // If a time zone is present, normalize the dateTime to UTC.
-        if (sDate.length == 25) {
-            var hours = parseInt(sDate.substr(11,2), 10);
-            var minutes = parseInt(sDate.substr(14,2), 10);
-            var seconds = parseInt(sDate.substr(17,2), 10);
-            var tzSign = sDate.substr(19, 1);
-            var tzHours = parseInt(sDate.substr(20,2), 10);
-            var tzMinutes = parseInt(sDate.substr(23,2), 10);
-
-            if (tzSign == "-") {
-                hours += tzHours;
-                minutes += tzMinutes;
-            } else {
-                hours -= tzHours;
-                minutes -= tzMinutes;
-            }
-            dDate.setHours(hours, minutes, seconds);
-        }
-    } else if (isValidDate(sDate)) {
-        // Replace '-' with ',', and eval a constructor of the form Date(yearNum,MonthNum,DayNum);
-        var sCommaDate = sDate.replace(/\-/g,",").substr(0,10);
-        dDate = eval("new Date("+ sCommaDate  +")");
-    } else {
-        return new NumberValue(NaN);
+  if (!res) {
+  	res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDate.exec(
+  	  this.args[0].evaluate(ctx).stringValue()
+  	);
+  	if (!res) {
+    	return new NumberValue(NaN);
     }
+  }
 
-    var dOrigin = new Date(1970,1,1);
-    var diff = dDate - dOrigin;
+  // Create a JS Date from the parsed input, normalised to UTC.
+  //
+  dDate = new Date(res[1], res[2] - 1, res[3]);
 
-    return new NumberValue(Math.floor(diff/86400000));
+  // Now that we have a timezone offset (in minutes), we can adjust the date.
+  //
+  dDate.setMinutes( dDate.getMinutes() + dDate.getTimezoneOffset() );
+
+  // Return the number of days since 1970-01-01. The problem with simply using getTime() on its
+  // own is that any timezone information will show up as an error. So we get a version of the
+  // base date in our own timezone, and normalise it, before using that.
+  //
+  dBase = new Date(1970, 0, 1);
+  dBase.setMinutes( dBase.getMinutes() + dBase.getTimezoneOffset() );
+
+  return new NumberValue( Math.round( (dDate.getTime() - dBase.getTime()) / (1000 * 60 * 60 * 24) ) );
 };
 
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-days-to-date
 */
 FunctionCallExpr.prototype.xpathfunctions["days-to-date"] = function(ctx) {
-	// This function can only have 1 parameter.
+  var month;
+  var date;
+	var days;
+	var dOrigin;
+
+  // This function can only have 1 parameter.
 	if (!this.args || (this.args.length != 1)) {
-    	return new StringValue("NaN");
+    	return new StringValue("");
 	}
 
 	// The parameter must be a number.
 	var number = this.args[0].evaluate(ctx).numberValue();
-	if(isNaN(number))
-		return new StringValue("NaN");
 
-	var days = Math.round(number) + 1;
-	// Set the date the correct number of days away from 1970-01-01.
-	var dOrigin = new Date();
-	dOrigin.setTime(days * 86400000);
-	
-	// Make sure the date is displayed correctly.
-    var month = dOrigin.getMonth() + 1;
+  if( isNaN(number) )
+		return new StringValue("");
+
+	days = Math.round(number);
+	dOrigin = new Date(1970, 0, 1);
+	dOrigin.setDate( dOrigin.getDate() + days );
+
+  // Make sure the date is displayed correctly.
+  //
+  month = dOrigin.getMonth() + 1;
 	if (month < 10)
 		month = "0" + month;
 
-    var date = dOrigin.getDate();
-     if (date < 10)
-		date = "0" + date;
+  date = dOrigin.getDate();
+  if (date < 10)
+    date = "0" + date;
 	
 	// Return the date as a string.
 	return new StringValue(dOrigin.getFullYear() + "-" + month + "-" + date);
@@ -579,47 +583,60 @@ FunctionCallExpr.prototype.xpathfunctions["days-to-date"] = function(ctx) {
 	http://www.w3.org/TR/xforms11/#fn-seconds-from-dateTime
 */
 FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"] = function(ctx) {
-	// This function can only have 1 parameter.
-	if (!this.args || (this.args.length != 1)) {
+  var dDate;
+  var dOrigin;
+  var tzOffset;
+
+  if (!this.args || (this.args.length != 1)) {
     	return new NumberValue(NaN);
 	}
 
-	var sDate = this.args[0].evaluate(ctx).stringValue();
+  // Create an array based on parsing the input. First try parsing an xsd:dateTime
+  // and if that fails try parsing an xsd:date.
+  //
+	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
+	  this.args[0].evaluate(ctx).stringValue()
+	);
 
-	// The date must be a valid xsd:dateTime.
-    if (!isValidDateTime(sDate)) {
-        return new NumberValue(NaN);
+  if (!res) {
+    return new NumberValue(NaN);
+  }
+
+  // Create a JS Date from the parsed input, normalised to UTC.
+  //
+  dDate = new Date(res[1], res[2] - 1, res[3], res[4], res[5], res[6]);
+
+  // If no timezone information was provided, then use the local timezone.
+  //
+  if (!res[7]) {
+    tzOffset = 0;
+  } else {
+    // Remove the effect of the local timezone, before adding on whatever
+    // offset we need.
+    //
+    tzOffset = -dDate.getTimezoneOffset();
+
+    // If the provided timezone was 'Z', then it's UTC, which has an offset of zero.
+    //
+    if (res[7] === "Z") {
+      tzOffset += 0;
+    } else {
+
+      // Any other offset gives us a number of hours and minutes by which the time
+      // need to be adjusted.
+      //
+      tzOffset += ((Number(res[11]) * 60) + Number(res[12])) * /* number of minutes */
+        ((res[10] === "-") ? 1 : -1); /* take into account the sign of the timezone */
     }
+  }
 
-    // Replace '-' with ',', and eval a constructor of the form Date(yearNum,MonthNum,DayNum);
-    var sCommaDate = sDate.replace(/\-/g,",").substr(0,10);
-    var dDate = eval("new Date("+ sCommaDate  +")");
+  // Now that we have a timezone offset (in minutes), we can adjust the date.
+  //
+  dDate.setMinutes( dDate.getMinutes() + tzOffset );
 
-    var hours = parseInt(sDate.substr(11,2), 10);
-    var minutes = parseInt(sDate.substr(14,2), 10);
-    var seconds = parseInt(sDate.substr(17,2), 10);
-
-    // If a time zone is present, normalize the dateTime to UTC.
-    if (sDate.length == 25) {
-        var tzSign = sDate.substr(19, 1);
-        var tzHours = parseInt(sDate.substr(20,2), 10);
-        var tzMinutes = parseInt(sDate.substr(23,2), 10);
-
-        if (tzSign == "-") {
-            hours += tzHours;
-            minutes += tzMinutes;
-        } else {
-            hours -= tzHours;
-            minutes -= tzMinutes;
-        }
-    }
-
-    dDate.setHours(hours, minutes, seconds);
-    var dOrigin = new Date(1970,1,1);
-	var diff = dDate - dOrigin;
-	
-	// Return the difference between the dates / 1000, which is the number of seconds away from 1970-01-01.
-	return new NumberValue(Math.floor(diff/1000));
+  // Return the number of days since 1970-01-01.
+  //
+  return new NumberValue( dDate.getTime() / 1000 );
 };
 
 /**@addon
@@ -647,60 +664,71 @@ FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"] = function(ctx)
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-adjust-dateTime-to-timezone
 */
+FunctionCallExpr.prototype.xpathfunctions["expr"] = {
+  xsdDate: /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})(((([+-])([0-9]{2})\:([0-9]{2}))|(\Z))?)$/,
+  xsdDateTime: /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})(((([+-])([0-9]{2})\:([0-9]{2}))|(\Z))?)$/
+};
+
 FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = function(ctx) {
 	// This function can only have 1 parameter.
+	//
 	if (!this.args || (this.args.length != 1)) {
     	return new StringValue("");
 	}
-	var sDate = this.args[0].evaluate(ctx).stringValue();
 
-    // sDate must be a valid xsd:dateTime.
-    if (!isValidDateTime(sDate)) {
-        return new StringValue("");
-    }
+  // Create an array based on parsing the input.
+  //
+	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
+	  this.args[0].evaluate(ctx).stringValue()
+	);
 
-    // Create a JS Date from the xsd:dateTime.
-    var year = parseInt(sDate.substr(0, 4), 10);
-    var month = parseInt(sDate.substr(5, 2), 10) - 1;
-    var day = parseInt(sDate.substr(8, 2), 10);
-    var hours = parseInt(sDate.substr(11,2), 10);
-    var minutes = parseInt(sDate.substr(14,2), 10);
-    var seconds = parseInt(sDate.substr(17,2), 10);
-    var dDate = new Date(year, month, day, hours, minutes, seconds);
+  if (!res) {
+    return new StringValue("");
+  }
 
-    // Get the date in milliseconds so we can adjust for the time zone offset.
-    var time = dDate.getTime();
+  // Create a JS Date from the xsd:dateTime.
+  //
+  var dDate = new Date(res[1], res[2] - 1, res[3], res[4], res[5], res[6]);
 
-    // Get the local timezone offset from a local date.
-    var localDate = new Date();
-    var tzOffset = localDate.getTimezoneOffset();
+  // Get the local timezone offset from a local date.
+  var localDate = new Date();
+  var tzOffset;
 
-    // If a time zone is present, adjust the time zone offset to account
-    // for the difference between the input timezone and the local timezone.
-    if (sDate.length == 25) {
-        var tzSign = sDate.substr(19, 1);
-        var tzHours = parseInt(sDate.substr(20,2), 10);
-        var tzMinutes = parseInt(sDate.substr(23,2), 10);
-        var tz = tzHours * 60 + tzMinutes;
-        if (tzSign == "-") {
-            tz *= -1;
-        }
+  // If no timezone information was provided, then use the local timezone.
+  //
+  if (!res[7]) {
+    tzOffset = 0;
+  } else {
+    // Remove the effect of the local timezone, before adding on whatever
+    // offset we need.
+    //
+    tzOffset = -localDate.getTimezoneOffset();
 
-        tzOffset += tz;
-    }
-    
-    // Convert the time zone offset to milliseconds and adjust the date.
-    if (tzOffset < 0) {
-        time += (tzOffset * 60 * 1000);
+    // If the provided timezone was 'Z', then it's UTC, which has an offset of zero.
+    //
+    if (res[7] === "Z") {
+      tzOffset += 0;
     } else {
-        time -= (tzOffset * 60 * 1000);
-    }
-    dDate.setTime(time);
 
-    // Convert the date to xsd:dateTime format.
-    var s = getDateTime(dDate, false);
-    // Add the time zone offset string for the local time zone to the xsd:dateTime.
-    s += getTZOffset(localDate);
+      // Any other offset gives us a number of hours and minutes by which the time
+      // need to be adjusted.
+      //
+      tzOffset += ((Number(res[11]) * 60) + Number(res[12])) * /* number of minutes */
+        ((res[10] === "-") ? 1 : -1); /* take into account the sign of the timezone */
+    }
+  }
+
+  // Now that we have a timezone offset (in minutes), we can adjust the date.
+  //
+  dDate.setMinutes( dDate.getMinutes() + tzOffset );
+
+  // Convert the JavaScript date to xsd:dateTime format.
+  //
+  var s = getDateTime(dDate, false);
+
+  // Add the time zone offset string for the local time zone to the xsd:dateTime.
+  //
+  s += getTZOffset(localDate);
 
 	// Return the result as a string.
 	return new StringValue(s);
