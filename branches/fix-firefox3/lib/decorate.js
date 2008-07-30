@@ -188,7 +188,7 @@ var DECORATOR = function()
           alert(e);  
         }
       }
-      else if(ns === "http://www.w3.org/2005/SMIL21/BasicAnimation")
+   /*   else if(ns === "http://www.w3.org/2005/SMIL21/BasicAnimation")
       {
         try{
           var cssNode = document.createElement('link');
@@ -203,7 +203,7 @@ var DECORATOR = function()
           alert(e);  
         }
       }
-      else {
+     */ else {
 	
     		var oHead = document.getElementsByTagName("head")[0];
     		var oStyle = document.createElement('style');
