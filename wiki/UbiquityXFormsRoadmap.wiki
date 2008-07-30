@@ -81,4 +81,4 @@ Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 ||re-actions||-||-||r332||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||-||
-||xforms-xpath-functions||r337||r337||r359||-||
+||xforms-xpath-functions||r416||-||r359||-||
