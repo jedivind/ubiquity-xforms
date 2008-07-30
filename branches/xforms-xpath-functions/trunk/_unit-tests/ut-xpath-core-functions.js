@@ -636,16 +636,28 @@ suiteXPathCoreFunctions.add(
       Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"], "seconds-from-dateTime() is not defined.");
     },
 
-    testSecondsFromDateTimeSuccess : function () {
+    testSecondsFromDateTimeBase : function () {
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual(0, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00Z")').numberValue());
+    },
+
+    testSecondsFromDateTimeNoTimeZone : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(3600, evalXPath('seconds-from-dateTime("1970-01-01T01:00:00")').numberValue());
+    },
+
+    testSecondsFromDateTimeZuluTimeZone : function () {
+      var Assert = YAHOO.util.Assert;
+
       Assert.areEqual(3600, evalXPath('seconds-from-dateTime("1970-01-01T01:00:00Z")').numberValue());
-      Assert.areEqual(60, evalXPath('seconds-from-dateTime("1970-01-01T00:01:00Z")').numberValue());
-      Assert.areEqual(3666, evalXPath('seconds-from-dateTime("1970-01-01T01:01:06Z")').numberValue());
-      Assert.areEqual(28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00-08:00")').numberValue());
-      Assert.areEqual(-28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00+08:00")').numberValue());
-      Assert.areEqual(144000, evalXPath('seconds-from-dateTime("1970-01-01T20:00:00-20:00")').numberValue());
+    },
+
+    testSecondsFromDateTimeNumericTimezone : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(-28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00-08:00")').numberValue()); /* from spec */
     },
 
     testSecondsFromDateTimeFail : function () {
@@ -667,10 +679,28 @@ suiteXPathCoreFunctions.add(
     testSecondsToDateTimeExists : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"], "seconds-to-dateTime() is not defined.");
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"]);
+    },
+
+    testSecondsToDateTimeBase : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1970-01-01T00:00:00Z", evalXPath('seconds-to-dateTime(0)').stringValue());
+    },
+
+    testSecondsToDateTimePositiveNumber : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1970-01-01T08:00:00Z", evalXPath('seconds-to-dateTime(28800)').stringValue());
     },
     
-    testSecondsToDateTimeSuccess : function () {
+    testSecondsToDateTimeNegativeNumber : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("1969-12-31T16:00:00Z", evalXPath('seconds-to-dateTime(-28800)').stringValue());
+    },
+    
+    testSecondsToDateTimeString : function () {
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("1970-01-01T00:00:00Z", evalXPath('seconds-to-dateTime("0")').stringValue());
@@ -679,21 +709,15 @@ suiteXPathCoreFunctions.add(
       Assert.areEqual("1970-01-01T11:11:11Z", evalXPath('seconds-to-dateTime("40271")').stringValue());
       Assert.areEqual("1970-01-11T00:00:00Z", evalXPath('seconds-to-dateTime("864000")').stringValue());
       Assert.areEqual("1969-12-31T23:59:59Z", evalXPath('seconds-to-dateTime("-1")').stringValue());
-      Assert.areEqual("1970-01-01T00:00:00Z", evalXPath('seconds-to-dateTime(0)').stringValue());
-      Assert.areEqual("1970-01-01T08:00:00Z", evalXPath('seconds-to-dateTime(28800)').stringValue());
-      Assert.areEqual("1970-01-01T00:01:06Z", evalXPath('seconds-to-dateTime(66)').stringValue());
-      Assert.areEqual("1970-01-01T11:11:11Z", evalXPath('seconds-to-dateTime(40271)').stringValue());
-      Assert.areEqual("1970-01-11T00:00:00Z", evalXPath('seconds-to-dateTime(864000)').stringValue());
-      Assert.areEqual("1969-12-31T23:59:59Z", evalXPath('seconds-to-dateTime(-1)').stringValue());
     },
 
     testSecondsToDateTimeFail : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.isNaN(evalXPath('seconds-to-dateTime()').stringValue());
-      Assert.isNaN(evalXPath('seconds-to-dateTime("0", "0")').stringValue());
-      Assert.isNaN(evalXPath('seconds-to-dateTime("NaN")').stringValue());
-      Assert.isNaN(evalXPath('seconds-to-dateTime("error")').stringValue());
+      Assert.areEqual("", evalXPath('seconds-to-dateTime()').stringValue());
+      Assert.areEqual("", evalXPath('seconds-to-dateTime("0", "0")').stringValue());
+      Assert.areEqual("", evalXPath('seconds-to-dateTime("NaN")').stringValue());
+      Assert.areEqual("", evalXPath('seconds-to-dateTime("error")').stringValue());
     }
   })//new TestCase
 );
@@ -964,6 +988,12 @@ suiteXPathCoreFunctions.add(
         evalXPath('local-dateTime()').stringValue(),
         evalXPath('adjust-dateTime-to-timezone(now())').stringValue()
       );
+    },
+
+    testSecondsToAndFromDateTime : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual(-28800, evalXPath('seconds-from-dateTime(seconds-to-dateTime(-28800))').numberValue());
     }
   })//new TestCase
 );
