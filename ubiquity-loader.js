@@ -38,8 +38,8 @@ function pathToModule(module) {
   return s;
 }
 
+
 var baseDefaultPath = pathToModule("ubiquity-loader");
-g_sBehaviourDirectory = baseDefaultPath + "behaviours/";
 
 (
   function()
