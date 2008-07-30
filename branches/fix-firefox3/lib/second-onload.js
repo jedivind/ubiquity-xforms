@@ -23,13 +23,25 @@
 function FFInsertElementForOnloadXBL()
 {
   document.body.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element'style='width:0px;style:display:inline-block;'>Loading...</p>");
-  var cssNode = document.createElement('link');
-  cssNode.type = 'text/css';
-  cssNode.rel = 'stylesheet';
-  cssNode.href = g_sBehaviourDirectory +"onload.css";
-  cssNode.media = 'screen';
-  cssNode.title = 'dynamicLoadedSheet';
-  document.getElementsByTagName("head")[0].appendChild(cssNode);
+  if(isFirefox3())
+    var cssNode = document.createElement('link');
+    cssNode.type = 'text/css';
+    cssNode.rel = 'stylesheet';
+    cssNode.href = g_sBehaviourDirectory +"onload.css";
+    cssNode.media = 'screen';
+    cssNode.title = 'dynamicLoadedSheet';
+    document.getElementsByTagName("head")[0].appendChild(cssNode);
+   }
+   else
+   {
+      var oHead = document.getElementsByTagName("head")[0];
+      var oStyle = document.createElement('style');
+      var s = "";
+  
+      oStyle.setAttribute("type", "text/css");
+      oStyle.innerHTML = "p#second-onload-loading-element{-moz-binding: url(\""+g_sBehaviourDirectory+"onload.xml#loader\");}";
+      oHead.insertBefore(oStyle, null);
+   }
 
 }
 

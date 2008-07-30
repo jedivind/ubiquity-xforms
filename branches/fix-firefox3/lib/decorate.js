@@ -128,7 +128,7 @@ var DECORATOR = function()
 */	
 	function ieSetupDecorator(defs)
 	{
-        		var bDocumentAlreadyLoaded = g_bDocumentLoaded;
+    var bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
 		var oStyleSheet = document.createStyleSheet("",0);
 		//non-htc method
@@ -163,7 +163,10 @@ var DECORATOR = function()
 		}
 
 	}
-	
+	function isFirefox3()
+	{
+	  return (navigator.oscpu && document.getElementsByClassName)
+	}
 /**
 	Adds rules to the document's stylesheet cascade that cause the decoration of elements in Firefox.
 	Do not call directly, Call setupDecorator(defs)
@@ -174,7 +177,7 @@ var DECORATOR = function()
 	{
 	  //HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and 
 	  //  unexpected namepsace prefixes are ignored.
-      if(ns === "http://www.w3.org/2002/xforms") {
+      if(ns === "http://www.w3.org/2002/xforms" && isFirefox3();) {
         try{
           var cssNode = document.createElement('link');
           cssNode.type = 'text/css';
@@ -188,7 +191,7 @@ var DECORATOR = function()
           alert(e);  
         }
       }
-      else if(ns === "http://www.w3.org/2005/SMIL21/BasicAnimation")
+      else if(ns === "http://www.w3.org/2005/SMIL21/BasicAnimation" && isFirefox3())
       {
       //ignore, this is already in generated-css
    /*     try{
