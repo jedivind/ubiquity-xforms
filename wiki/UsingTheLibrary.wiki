@@ -30,7 +30,7 @@ The root of the document needs to contain the XForms namespace, as follows:
 
 == Referencing the library ==
 
-To load the library simply refer to the {{{ubiquity-loader.js}}} file in the version of the library that you want to use, or on your own server. The currently recommended release is 0.6.0, which is referenced as follows:
+To load the library simply refer to the {{{ubiquity-loader.js}}} file in the version of the library that you want to use, or on your own server. The currently recommended release is 0.6.1, which is referenced as follows:
 {{{
   <head>
     <title>XForms input and output controls</title>
