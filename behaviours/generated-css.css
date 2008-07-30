@@ -13,18 +13,23 @@ xf\:model, xforms\:model {
 xf\:submission, xforms\:submission {
   -moz-binding: url("decorator.xml?EventTarget&Context&Submission#decorator");
 }
+
 xf\:trigger, xforms\:trigger {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
+
 xf\:output >  pe-value, xforms\:output >  pe-value {
   -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
+
 xf\:value  > pe-value,  xforms\:value  > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
+
 xf\:input, xforms\:input {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
+
 xf\:range, xforms\:range {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
@@ -127,3 +132,14 @@ xf\:repeat *, xforms\:repeat * {
 xf\:repeat.repeat-ready *, xforms\:repeat.repeat-ready * {
   -binding-ignore:false;
 }
+
+smil\:animate {
+  -moz-binding: url("decorator.xml?Listener&SmilAnimate#decorator");
+}
+smil\:animateColor {
+  -moz-binding: url("decorator.xml?Listener&SmilAnimate#decorator");
+}
+smil\:set {
+  -moz-binding: url("decorator.xml?Listener&SmilSet#decorator");
+}
+
