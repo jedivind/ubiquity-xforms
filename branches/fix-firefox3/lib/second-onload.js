@@ -23,7 +23,7 @@
 function FFInsertElementForOnloadXBL()
 {
   document.body.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element'style='width:0px;style:display:inline-block;'>Loading...</p>");
-  if(isFirefox3())
+  if(isFirefox3()) {
     var cssNode = document.createElement('link');
     cssNode.type = 'text/css';
     cssNode.rel = 'stylesheet';
