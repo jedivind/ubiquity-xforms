@@ -181,7 +181,7 @@ var DECORATOR = function()
           cssNode.rel = 'stylesheet';
           cssNode.href = g_sBehaviourDirectory +"generated-css.css";
           cssNode.media = 'screen';
-          cssNode.title = 'XFormsSheet';
+          cssNode.title = 'dynamicLoadedSheet';
           document.getElementsByTagName("head")[0].appendChild(cssNode);
         }
         catch(e) {
@@ -196,7 +196,7 @@ var DECORATOR = function()
           cssNode.rel = 'stylesheet';
           cssNode.href = g_sBehaviourDirectory +"smil.css";
           cssNode.media = 'screen';
-          cssNode.title = 'SMILSheet';
+          cssNode.title = 'dynamicLoadedSheet';
           document.getElementsByTagName("head")[0].appendChild(cssNode);
         }
         catch(e) {
