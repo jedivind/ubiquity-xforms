@@ -12,4 +12,40 @@ Ubiquity XForms already contains some code for {{{select}}} and {{{select1}}}. T
 
 The initial goal is to make use of YUI widgets as much as possible, before opening things out to use widgets from other libraries.
 
-The motivation for this is that there are many interesting UI patterns that YUI use, which we should transpose to XForms patterns.
+The motivation for this is that there are many interesting UI patterns that YUI uses, which we should transpose to XForms patterns. There are also many ways that select lists, sliders, date-pickers, and so on, cross over with each other, and we'd like to capture this as much as possible.
+
+== Menus ==
+
+In many Ajax libraries, selection lists are often regarded as menus, with the corresponding formatting and actions. In XForms, a {{{select1}}} with hierarchical entries could also be regarded as a menu.
+
+=== Basic menus ===
+
+The YUI site has examples that show menus that are [http://developer.yahoo.com/yui/examples/menu/leftnavfrommarkup_source.html expanded], [http://developer.yahoo.com/yui/examples/menu/topnavfrommarkup_source.html contracted] and [http://developer.yahoo.com/yui/examples/menu/programsmenu_source.html contain images].
+
+=== Button menus ===
+
+In some situations the label on a {{{select1}}} doesn't add a great deal of value. In this case authors might want to use a 'button menu', which simply shows the selected value as the button caption. YUI has an example [http://developer.yahoo.com/yui/examples/button/btn_example12.html here].
+
+One way the YUI example might be marked up is:
+{{{
+<xf:select1 ref="x" appearance="xf:trigger">
+  <xf:label>Select a category</xf:label>
+  <xf:item>
+    <xf:label>Category 1</xf:label>
+    <xf:value>1</xf:value>
+  </xf:item>
+  <xf:item>
+    <xf:label>Category 2</xf:label>
+    <xf:value>2</xf:value>
+  </xf:item>
+  <xf:item>
+    <xf:label>Category 3</xf:label>
+    <xf:value>3</xf:value>
+  </xf:item>
+  <xf:item>
+    <xf:label>A Really, Really Long Category 4</xf:label>
+    <xf:value>4</xf:value>
+  </xf:item>
+</xf:select1>
+}}}
+The initial value of {{{xf:label}}} will be overwritten once the user makes a change, or if the value of node {{{x}}} becomes empty.
