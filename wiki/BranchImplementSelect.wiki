@@ -1,0 +1,15 @@
+#summary Feature branch to implement select and select1.
+#labels Phase-Design,Phase-Implementation
+
+|| Branch: || == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-select implement-select] ||
+|| Owner: || [http://code.google.com/u/paul.butcher/ paul.butcher] ||
+
+= Introduction =
+
+Ubiquity XForms already contains some code for {{{select}}} and {{{select1}}}. This feature branch aims to complete it.
+
+= Design Notes =
+
+The initial goal is to make use of YUI widgets as much as possible, before opening things out to use widgets from other libraries.
+
+The motivation for this is that there are many interesting UI patterns that YUI use, which we should transpose to XForms patterns.
