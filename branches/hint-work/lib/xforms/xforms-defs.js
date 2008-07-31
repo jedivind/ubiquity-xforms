@@ -108,6 +108,10 @@ DECORATOR.setupDecorator(
 			objects:["EventTarget", "Context", "Control"]
 		},
 		{
+			selector:"xf|hint",
+			objects:["EventTarget", "Context", "Hint"]
+		},
+		{
 			selector:"xf|value",
 			objects:["EventTarget", "Context", "Control","Value"]
 		},

@@ -14,12 +14,26 @@
 
 			evt.initUIEvent("DOMActivate", true, false, window, 1);
    			this.dispatchEvent(evt);
+   			
+   			if (this.yahooPanel)
+            {
+                this.yahooPanel.destroy();
+                this.yahooPanel = null;
+            }
 		</handler>
 		<handler event="mouseover">
-			var evt = document.createEvent('UIEvents');
-
-			evt.initUIEvent("xforms-hint", true, false, window, 1);
-			this.dispatchEvent(evt);
+			if (this.element.innerHTML.toLowerCase().match("xf:hint") == "xf:hint")
+			{
+   	    		var innerHTML = this.element.innerHTML;
+   	    		var hintSTR = "";
+   	    		if(innerHTML.search("&lt;xf:hint&gt;") == -1) {
+   	    			hintSTR = innerHTML.slice(innerHTML.search("&lt;pe-value&gt;")+10, innerHTML.search("&lt;/pe-value&gt;"));
+   	    		}
+   	    		else {
+   	    			hintSTR = innerHTML.slice(innerHTML.search("&lt;xf:hint&gt;")+9, innerHTML.search("&lt;/xf:hint&gt;"));
+   	    		}
+				Hint.prototype.performAction(this.element, hintSTR);
+            }
 		</handler>
 	</handlers>
 </binding>
