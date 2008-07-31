@@ -48,6 +48,10 @@ Owner: [http://code.google.com/u/rahul.akolkar/ rahul.akolkar]
 
 Playing with custom controls.
 
+== [BranchImplementSelect implement-select] ==
+
+Completing support for {{{select}}} and {{{select1}}}.
+
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-tests-and-examples xforms-tests-and-examples] ==
 
 Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
