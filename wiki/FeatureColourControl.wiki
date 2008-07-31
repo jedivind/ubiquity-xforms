@@ -6,7 +6,8 @@ The YUI library contains a colour-picker, as illustrated [http://developer.yahoo
 <xf:range ref="x" appearance="ux:color-picker">
   ...
 </xf:range>
-
+}}}
+{{{
 <xf:select1 ref="x" appearance="ux:color-picker">
   ...
 </xf:select1>
