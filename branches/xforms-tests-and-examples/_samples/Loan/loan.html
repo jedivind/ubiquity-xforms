@@ -7,21 +7,21 @@
  <head>
     <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
     <title>XForms Loan Application Form</title>     
-    <script type="text/javascript" src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js"/> 
+    <script type="text/javascript" src="http://ubiquity-xforms.googlecode.com/svn/tags/0.6.1/ubiquity-loader.js"> </script>
     <link href="style/gen_default.css" rel="stylesheet"/>
   </head>
   <body>
     <xforms:model id="loan_model">
         <xforms:instance id="loan">
         	<LoanRecord xmlns="">
-        		<StartDate></StartDate>
+        		<StartDate>2008-07-30</StartDate>
         		<Borrower>
         			<Name>John Q. Public</Name>
         			<Addr>123 Main St. Tinyville</Addr>
         		</Borrower>
-        		<Principal currency="USD">90000</Principal>
-        		<Duration>81</Duration>
-        		<InterestRate>7</InterestRate>
+        		<Principal currency="USD">10000</Principal>
+        		<Duration>12</Duration>
+        		<InterestRate>5</InterestRate>
         		<Monthly-Payment></Monthly-Payment>
         		<TotalPayout></TotalPayout>
         	</LoanRecord>
@@ -98,16 +98,22 @@
     <xforms:input ref="/LoanRecord/StartDate"> 
            <xforms:label>Agreement Date: </xforms:label>
     </xforms:input> 
+    
+    <br />
 
       <xforms:input class="red" ref="Borrower/Name">
          	<xforms:label>Borrower Name:</xforms:label>
          	<xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
       </xforms:input>
 
+    <br />
+
       <xforms:input ref="Borrower/Addr">
           <xforms:label>Borrower's Address:</xforms:label> 
           <xforms:hint>You need to know where the borrower lives so you can visit him if needed.</xforms:hint>
       </xforms:input>
+
+    <br />
 
       <xforms:input ref="Principal">
           <xforms:label>Principal of Loan:</xforms:label>
@@ -115,6 +121,7 @@
           <xforms:alert>The dollar value must be between 1000 and 100000</xforms:alert>
       </xforms:input>
 
+    <br />
   
       <xforms:select1 ref="Principal/@currency" appearance="minimal" incremental="true">
             <xforms:label>Choose currency</xforms:label> 
@@ -132,6 +139,7 @@
             </xforms:item>
          </xforms:select1>
 
+    <br />
 
          <xforms:input ref="Duration">
              <xforms:label>Duration of Loan in Months:</xforms:label>
@@ -140,6 +148,8 @@
          </xforms:input>
         
       
+    <br />
+
          <xforms:input ref="InterestRate" incremental="true">
              <xforms:label>Yearly Interest Rate (compounded monthly):</xforms:label>
              <xforms:hint>We're only loan dogfish, so no more than sixty percent.</xforms:hint>
@@ -151,42 +161,17 @@
      <xforms:output class="regular" ref="Monthly-Payment">
              <xforms:label>Monthly Payment: </xforms:label>
          </xforms:output>
-         <!--  styling
-         <justify>right</justify>
-         <size>
-            <width>30</width>
-            <height>1</height>
-         </size>
-         <format>
-             <datatype>currency</datatype>
-             <presentation>
-                 <showcurrency>on</showcurrency>
-             </presentation>
-         </format>
-         -->
       
+    <br />
+
       <xforms:output class="regular" ref="TotalPayout">
              <xforms:label>Total Payout: </xforms:label>
          </xforms:output>
-         <!-- style
-         <justify>right</justify>
-         <size>
-            <width>30</width>
-            <height>1</height>
-         </size>
-         <format>
-             <datatype>currency</datatype>
-             <presentation>
-                 <showcurrency>on</showcurrency>
-                 <separator>,</separator>
-             </presentation>
-         </format>
-         -->
 
       <hr size="6" class="rule"/>
            
     <!-- This submit button connects to a submission -->
-	  <xforms:submit submission="makeLoan">
+      <xforms:submit submission="makeLoan">
           <xforms:hint>Sends the loan transaction to Big Red</xforms:hint>
           <xforms:label>Submit Loan</xforms:label>
       </xforms:submit>
