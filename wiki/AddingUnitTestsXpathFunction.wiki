@@ -163,7 +163,7 @@ The first step is to add such an assertion to the {{{testPowerFail}}} test:
 This will give a red bar because the function itself hasn't been written to defend against this. However, it's easy enough to add a check that there are two parameters:
 {{{
 FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
-  if (!this.args || this.args.length != 2)
+  if (!this.args || this.args.length !== 2)
     return new NumberValue(NaN);
 
   return new NumberValue(
