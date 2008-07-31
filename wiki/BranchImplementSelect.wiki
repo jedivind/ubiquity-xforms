@@ -45,3 +45,30 @@ One way the YUI example might be marked up is:
 </xf:select1>
 }}}
 The initial value of {{{xf:label}}} will be overwritten once the user makes a change, or if the value of node {{{x}}} becomes empty.
+
+== Split buttons ==
+
+With a _button menu_, clicking on the button part simply invokes the 'value changer' part. With a _split button_ clicking on the button part can invoke some action, and the 'value changer' is marked out more distinctly. YUI has a number of examples [http://developer.yahoo.com/yui/examples/button/btn_example08.html here].
+
+There are a number of ways that the first example on that page might be marked up, but one possibility is this:
+{{{
+<xf:select1 ref="x" appearance="ux:split-button">
+  <xf:label>Split button 1</xf:label>
+  <xf:action ev:event="DOMActivate">
+    ...
+  </xf:action>
+  <xf:item>
+    <xf:label>One</xf:label>
+    <xf:value>1</xf:value>
+  </xf:item>
+  <xf:item>
+    <xf:label>Two</xf:label>
+    <xf:value>2</xf:value>
+  </xf:item>
+  <xf:item>
+    <xf:label>Three</xf:label>
+    <xf:value>3</xf:value>
+  </xf:item>
+</xf:select1>
+}}}
+This would require that the {{{DOMActivate}}} handler is observing the {{{xf:label}}}.
