@@ -4,3 +4,32 @@
 Most Ajax libraries have some kind of tooltip feature, for adding text or images that will be displayed to the user when they mouseover some part of the document. In XForms this functionality is provided by the {{{hint}}} element.
 
 The YUI library supports tooltips, as described [http://developer.yahoo.com/yui/container/tooltip/ here].
+
+= Usage =
+
+An author can indicate that they would like to use a tooltip in the following ways:
+
+== XForms ==
+
+{{{
+<xf:input ref="x">
+  <xf:label>Name:</xf:label>
+  <xf:hint>Please enter your name.</xf:hint>
+</xf:input>
+}}}
+
+== Any parent element ==
+
+{{{
+<div>
+  <xf:hint>Please enter your name.</xf:hint>
+</div>
+}}}
+
+== Any other element ==
+
+{{{
+<input id="x" name="x" >
+
+<xf:hint for="x">Please enter your name.</xf:hint>
+}}}
