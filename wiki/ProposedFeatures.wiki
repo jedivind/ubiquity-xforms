@@ -1,0 +1,6 @@
+#summary A list of features that it would be good to implement at some point.
+#labels Phase-Design
+
+= User interface features =
+
+FeatureColourControl -- a colour-picker, implemented as a {{{select1}}} or {{{range}}}.
