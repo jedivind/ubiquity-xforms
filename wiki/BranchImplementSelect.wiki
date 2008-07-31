@@ -4,7 +4,7 @@
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-select implement-select] ||
 || Owner: || [http://code.google.com/u/paul.butcher/ paul.butcher] ||
 || Discussion: || To discuss implementation details on this branch, use the [http://groups.google.com/group/ubiquity-xforms-eng/ ubiquity-xforms-eng group], and add {{{[BranchImplementSelect]}}} to your comments. ||
-|| Features: || Some of the features to consider are FeatureMenus and FeatureColourPicker. ||
+|| Features: || Some of the features to consider are FeatureMenus and FeatureColourControl. ||
 
 Ubiquity XForms already contains some code for {{{select}}} and {{{select1}}}. This feature branch aims to complete it.
 
