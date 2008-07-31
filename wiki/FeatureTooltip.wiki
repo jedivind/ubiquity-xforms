@@ -1,0 +1,6 @@
+#summary Notes on design and implementation of tooltips using hint.
+#labels Phase-Requirements,Phase-Design
+
+Most Ajax libraries have some kind of tooltip feature, for adding text or images that will be displayed to the user when they mouseover some part of the document. In XForms this functionality is provided by the {{{hint}}} element.
+
+The YUI library supports tooltips, as described [http://developer.yahoo.com/yui/container/tooltip/ here].
