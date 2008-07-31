@@ -1,4 +1,5 @@
 #summary Notes about implementing menus.
+#labels Phase-Design,Phase-Requirements
 
 = Introduction =
 
