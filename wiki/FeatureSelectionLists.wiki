@@ -1,0 +1,4 @@
+#summary Notes on implementing selection lists as list-boxes, drop-boxes, etc.
+#labels Phase-Design,Phase-Requirements
+
+XForms' {{{select}}} and {{{select1}}} can be rendered in many different ways, whilst still using the same mark-up. Separate feature descriptions look at [FeatureColourControl colour-pickers] and [FeatureMenus menus]. This page focuses on list-boxes, drop-boxes, and so on.
