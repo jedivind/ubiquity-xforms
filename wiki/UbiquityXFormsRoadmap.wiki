@@ -83,4 +83,4 @@ Making the hint element work and possibly updating other elements, like help, al
 ||hint-work||r436||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||-||
-||xforms-xpath-functions||r419||-||r359||-||
+||xforms-xpath-functions||r467||-||r359||-||
