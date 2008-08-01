@@ -22,17 +22,15 @@
             }
 		</handler>
 		<handler event="mouseover">
-			if (this.element.innerHTML.toLowerCase().match("xf:hint") == "xf:hint")
+			var hintList = this.element.getElementsByTagName("xf:hint");
+			if (hintList.length !== 0)
 			{
-   	    		var innerHTML = this.element.innerHTML;
-   	    		var hintSTR = "";
-   	    		if(innerHTML.search("&lt;xf:hint&gt;") == -1) {
-   	    			hintSTR = innerHTML.slice(innerHTML.search("&lt;pe-value&gt;")+10, innerHTML.search("&lt;/pe-value&gt;"));
-   	    		}
-   	    		else {
-   	    			hintSTR = innerHTML.slice(innerHTML.search("&lt;xf:hint&gt;")+9, innerHTML.search("&lt;/xf:hint&gt;"));
-   	    		}
-				Hint.prototype.performAction(this.element, hintSTR);
+			    var newEvt = document.createEvent('UIEvents');
+		
+				newEvt.initUIEvent("xforms-hint", true, false, window, 1);
+				this.dispatchEvent(newEvt);
+				
+				var hint = new Hint(this.element);
             }
 		</handler>
 	</handlers>
