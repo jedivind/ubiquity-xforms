@@ -24,12 +24,14 @@ I am still working on the "for" support.
 
 === Message ===
 
-I updated the message code and it is working better.
+A message was not displaying correctly, so I decide to work on it and I made it display pretty nicely.
 
-I will give more details later.
+I made the message's OK button visible with the code that I added in lib/xforms/actions.js.
+
+I also made the message display correctly with the code that I added in default.css.  The message and it's header look a lot better with these settings.
 
 === Send ===
 
-I updated the send code and it is working better.
+The send code was not working, so I decide to work on it and I made it work for now.
 
-I will give more details later.
+The main thing I changed was that I made the xform:send send an Event instead of a SubmissionEvent.  I don't think xforms:submission is working, so that could be affecting SubmissionEvent.  Keith is working on xforms:submission, so if we get that working, we might consider trying the SubmissionEvent again.
