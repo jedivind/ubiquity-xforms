@@ -1,4 +1,4 @@
-#summary Notes on design and implementation of hint, message, and send.
+#summary Feature branch to implement hint, message, and send.
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/hint-work hint-work] ||
 || Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
@@ -12,14 +12,15 @@
 For setup, I created a lib/xforms/Hint.js file to have most of the hint code go in there.
 
 So, when a mouseover event happens, it is recognized in the behaviours/decorator.xml file.
-I added a some code to check to see if the element contained a hint element (as a child or as itself).  If the element does contain the hint element, the code gets the hint's inline text and passes the element and the text into a Hint's method that shows the hint message.
+I added a some code to check to see if the element contained a hint element (as a child or as itself).  If the element does contain the hint element, the code dispatches a xforms-hint event.
 
-This method in Hint.js creates a message by using YAHOO.widget.Tooltip.  It's context is the element that was passed in.  It's text is the text that was passed in.  And it's autodismissdelay is 2 seconds (which makes the hint message go away after 2 seconds).
-Also this method dispatches a xforms-hint event. 
+The xforms-hint event is suppose to be recognized by the Hint's contructor, because the Hint's contructor has an EventListener listening for an xforms-hint event, but I don't think that is working right now.  The EventListener then calls the performAction method.  
+
+The performAction method gets the text from the hint element.  Then, the method creates a message by using YAHOO.widget.Tooltip.  It's context is the element where the event came from.  It's text is the text that was just gotten.  And it's autodismissdelay is 2 seconds (which makes the hint message go away after 2 seconds).
 
 I also added some display code in the default.css file to make the hint message look good.
 
-This is what I have initially.  I think there is an easier way to do this, but this is what I have so far.  I am still working on making it better.  I am still working on the "for" support also.
+I am still working on the "for" support.
 
 === Message ===
 
