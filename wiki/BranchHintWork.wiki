@@ -19,7 +19,7 @@ Also this method dispatches a xforms-hint event.
 
 I also added some display code in the default.css file to make the hint message look good.
 
-This is what I have initially.  I think there is an easier way to do this, but this is what I have so far.  I am still working on making it better.
+This is what I have initially.  I think there is an easier way to do this, but this is what I have so far.  I am still working on making it better.  I am still working on the "for" support also.
 
 === Message ===
 
