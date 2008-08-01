@@ -1,0 +1,10 @@
+#summary Notes on design and implementation of hint, message, and send.
+
+|| SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/hint-work hint-work] ||
+|| Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
+|| Discussion: || To discuss implementation details on this branch, use the [http://groups.google.com/group/ubiquity-xforms-eng/ ubiquity-xforms-eng group], and add {{{[BranchHintWork]}}} to your comments. ||
+|| Features: || One of the features to consider are FeatureToolTip. ||
+
+Hint, message, and send are coming along nicely.
+
+More information is to come shortly.
