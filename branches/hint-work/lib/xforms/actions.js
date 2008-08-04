@@ -131,9 +131,9 @@ Send.prototype.performAction = function (evt)
 
 		if (oSubmission)
 		{
-			var oEvt = this.ownerDocument.createEvent("UIEvents");
+			var oEvt = this.ownerDocument.createEvent("Events");
 
-			oEvt.initUIEvent("xforms-submit", false, false, null, null);
+			oEvt.initEvent("xforms-submit", false, false, null, null);
 
 			/*
 				* Copy through the current event depth.
@@ -149,8 +149,8 @@ Send.prototype.performAction = function (evt)
 				* debugger statement.
 				*/
 
-			//if (evt._actionDepth != oEvt._actionDepth)
-			//	debugger;
+			if (evt._actionDepth != oEvt._actionDepth)
+				debugger;
 		}
 		else {
 			throw "There is no submission element with an ID of '" + sID + "'";

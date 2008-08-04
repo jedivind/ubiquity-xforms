@@ -22,16 +22,16 @@
             }
 		</handler>
 		<handler event="mouseover">
-			var hintList = this.element.getElementsByTagName("xf:hint");
-			if (hintList.length !== 0)
-			{
+			//var hintList = this.element.getElementsByTagName("xf:hint");
+			//if (hintList.length !== 0)
+			//{
 			    var newEvt = document.createEvent('UIEvents');
-		
+				
 				newEvt.initUIEvent("xforms-hint", true, false, window, 1);
 				this.dispatchEvent(newEvt);
 				
 				var hint = new Hint(this.element);
-            }
+            //}
 		</handler>
 	</handlers>
 </binding>

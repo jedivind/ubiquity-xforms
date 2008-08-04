@@ -19,7 +19,7 @@ function Hint(elmnt)
 	this.element = elmnt;
 	this.element.addEventListener(
 		"xforms-hint",
-		Hint.prototype.performAction, 
+		Hint.prototype.performAction2, 
 		true
 	);
 }
@@ -37,4 +37,45 @@ Hint.prototype.performAction = function()
 	    		autodismissdelay:2000
 	    	}
 	    );
+};
+
+Hint.prototype.performAction2 = function()
+{
+		var hintList = this.element.getElementsByTagName("xf:hint");
+		if(hintList.length !== 0)
+		{
+	   	    var hintSTR = hintList[0].textContent;
+	   		
+			YAHOO.myToolTip = new YAHOO.widget.Tooltip(
+				"myToolTip",
+				{
+		    		context:this.element,
+		    		text:hintSTR,
+		    		autodismissdelay:2000
+		    	}
+		    );
+	    }
+	    else if(this.element.getAttribute("id"))
+	    {
+	    	hintList = this.ownerDocument.getElementsByTagName("xf:hint");
+	    	if(hintList.length !== 0)
+			{
+				for(var counter = 0; counter < hintList.length; counter++)
+				{
+					if(hintList[counter].getAttribute("for") === this.element.getAttribute("id"))
+					{
+						var hintSTR = hintList[counter].textContent;
+		   		
+						YAHOO.myToolTip = new YAHOO.widget.Tooltip(
+							"myToolTip",
+							{
+					    		context:this.element,
+					    		text:hintSTR,
+					    		autodismissdelay:2000
+					    	}
+					    );
+					}
+				}
+		    }
+	    }
 };

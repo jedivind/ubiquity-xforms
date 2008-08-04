@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xml:lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fp="urn:formsplayer.com">
+	<head>
+		<title>Testing Hint</title>
+		<script>
+//    debugger;
+		</script>
+		<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
+	  <script src="../../../ubiquity-loader.js">/**/</script>
+	</head>
+	<body>
+	    
+	   <xf:model id="m0">
+			<xf:instance id="inst0">
+				<x xmlns="">
+					<y>hint</y>
+					<z>no hint</z>
+				</x>
+			</xf:instance>
+		</xf:model>
+	  
+	  <script type="text/javascript">
+		//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+		<h1>Testing Hint</h1>
+		<hr></hr>
+		<xf:output id="o1" ref="y"></xf:output>
+		<xf:output id="o2" ref="z"></xf:output>
+		<hr></hr>
+		<xf:input id="i1" ref="/x/y">
+			<xf:label id="l1">Hint:</xf:label>
+			<xf:hint>This is the hint</xf:hint>
+	        <xf:action ev:event="xforms-hint">
+		        <xf:message level="modal">xforms-hint</xf:message>
+	    	</xf:action>
+		</xf:input>
+		
+		<xf:input id="i2" ref="/x/z">
+			<xf:label id="l2">No Hint:</xf:label>
+	        <xf:action ev:event="xforms-hint">
+		        <xf:message level="modal">xforms-not-hint</xf:message>
+	    	</xf:action>
+		</xf:input>
+		
+		<xf:input id="i3" ref="/x/y">
+			<xf:label id="l3">Hint:</xf:label>
+			<xf:hint>This is a hint</xf:hint>
+		</xf:input>
+		
+		<xf:input id="i4" ref="/x/z">
+			<xf:label id="l4">No Hint:</xf:label>
+		</xf:input>
+		
+		<xf:input id="i5" ref="/x/y">
+			<xf:label id="l5">Hint:</xf:label>
+		</xf:input>
+		
+		<xf:hint for="i5">This is the for support</xf:hint>
+		
+		<xf:input ref="/x/z">
+			<xf:label id="l6">No Hint:</xf:label>
+		</xf:input>
+	  <hr />
+	</body>
+</html>
