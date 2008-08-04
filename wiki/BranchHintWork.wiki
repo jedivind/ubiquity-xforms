@@ -16,11 +16,13 @@ I added a some code to check to see if the element contained a hint element (as 
 
 The xforms-hint event is suppose to be recognized by the Hint's contructor, because the Hint's contructor has an EventListener listening for an xforms-hint event, but I don't think that is working right now.  The EventListener then calls the performAction method.  
 
-The performAction method gets the text from the hint element.  Then, the method creates a message by using YAHOO.widget.Tooltip.  It's context is the element where the event came from.  It's text is the text that was just gotten.  And it's autodismissdelay is 2 seconds (which makes the hint message go away after 2 seconds).
+The performAction method checks if the hint element is in the element that was moused-over.  If it is, then the method gets the text from the hint element.  Then, the method creates a message by using YAHOO.widget.Tooltip.  It's context is the element where the event came from.  It's text is the text that was just gotten.  And it's autodismissdelay is 2 seconds (which makes the hint message go away after 2 seconds).
+
+If the hint element is not in the element that was moused-over, then the performAction method checks to see if a hint some place else belongs to that element with its "for" attribute.  The method gets the hint elements to check to see if a hint has a "for" attribute with the same value as the moused-over element's "id" attribute.  Then one is found, then the method gets the method gets the text from the hint element.  Then, the method creates a message by using YAHOO.widget.Tooltip.  It's context is the element where the event came from.  It's text is the text that was just gotten.  And it's autodismissdelay is 2 seconds (which makes the hint message go away after 2 seconds).  If none are found than there is no hint message that is shown.
 
 I also added some display code in the default.css file to make the hint message look good.
 
-I am still working on the "for" support.
+There is a problem with the hint the way it is now.  An input can display a message when the input has an action element that is looking for the "xforms-hint" event even when that input does not have a hint element in it.  The test case I added should fail because of this problem, so you can look at it more in the _testsuite folder if you want to.
 
 === Message ===
 
