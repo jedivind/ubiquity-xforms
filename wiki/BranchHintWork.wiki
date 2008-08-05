@@ -1,13 +1,9 @@
-#summary Feature branch to implement hint, message, and send.
+#summary Feature branch to implement hint.
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/hint-work hint-work] ||
 || Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
 || Discussion: || To discuss implementation details on this branch, use the [http://groups.google.com/group/ubiquity-xforms-eng/ ubiquity-xforms-eng group], and add {{{[BranchHintWork]}}} to your comments. ||
 || Features: || One of the features to consider are FeatureTooltip. ||
-
-=== ===
-
-=== Hint ===
 
 For setup, I created a lib/xforms/Hint.js file to have most of the hint code go in there.
 
@@ -21,17 +17,3 @@ The performAction method makes sure that the event that was handled was actually
 I also added some display code in the default.css file to make the hint message look good.
 
 There is a no problem anymore with the hint.  An input should display a message when the input has an action element that is looking for the "xforms-hint" event even when that input does not have a hint element in it.
-
-=== Message ===
-
-A message was not displaying correctly, so I decide to work on it and I made it display pretty nicely.
-
-I made the message's OK button visible with the code that I added in lib/xforms/actions.js.
-
-I also made the message display correctly with the code that I added in default.css.  The message and it's header look a lot better with these settings.
-
-=== Send ===
-
-The send code was not working, so I decide to work on it and I made it work for now.
-
-The main thing I changed was that I made the xform:send send an Event instead of a SubmissionEvent.  I don't think xforms:submission is working, so that could be affecting SubmissionEvent.  Keith is working on xforms:submission, so if we get that working, we might consider trying the SubmissionEvent again.
