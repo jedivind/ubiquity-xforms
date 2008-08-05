@@ -79,7 +79,7 @@ Making the hint element work and possibly updating other elements, like help, al
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
-||custom-controls||r346 (initial copy)||-||-||-||
+||custom-controls||r474||-||-||-||
 ||hint-work||r436||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||-||
