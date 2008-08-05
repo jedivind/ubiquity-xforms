@@ -1,4 +1,4 @@
-#summary Feature branch to implement hint, message, and send.
+#summary Feature branch to implement message.
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-message implement-message] ||
 || Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
@@ -12,6 +12,9 @@ I made the message's OK button visible with the code that I added in lib/xforms/
 I also made the message display correctly with the code that I added in default.css.  The message and it's header look a lot better with these settings.
 
 -"modeless" and "ephemeral" messages still need work.
+
 -"modal" needs to be the default level of a message.
+
 -@ref & @nodeset need to be supported.
+
 -output elements inside a message need to be supported.
