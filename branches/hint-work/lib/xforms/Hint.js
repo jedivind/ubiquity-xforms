@@ -28,7 +28,7 @@ function Hint(elmnt)
 	  }
 	}
 	
-	this.element.addEventListener(
+	this.context.addEventListener(
 		"xforms-hint",
 		this, 
 		true
