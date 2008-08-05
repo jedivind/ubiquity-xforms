@@ -42,6 +42,10 @@
 
 = Feature branches in progress =
 
+== [http://ubiquity-xforms.googlecode.com/svn/branches/ajax-xforms-model] ==
+
+Owner: [http://code.google.com/u/nkling/ nkling]
+
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/custom-controls custom-controls] ==
 
 Owner: [http://code.google.com/u/rahul.akolkar/ rahul.akolkar]
