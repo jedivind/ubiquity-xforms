@@ -12,17 +12,15 @@
 For setup, I created a lib/xforms/Hint.js file to have most of the hint code go in there.
 
 So, when a mouseover event happens, it is recognized in the behaviours/decorator.xml file.
-I added a some code to check to see if the element contained a hint element (as a child or as itself).  If the element does contain the hint element, the code dispatches a xforms-hint event.
+The code dispatches a xforms-hint event next always.
 
-The xforms-hint event is suppose to be recognized by the Hint's contructor, because the Hint's contructor has an EventListener listening for an xforms-hint event, but I don't think that is working right now.  The EventListener then calls the performAction method.  
+The Hint's contructor is called next and checks to see if the hint element has a @for attribute on it.  If it does, it will use that context for the hint.  Then, an EventListener is activated because the xforms-hint event occurred.  The Hint's eventHandler is called next, which calls the performAction method after that.
 
-The performAction method checks if the hint element is in the element that was moused-over.  If it is, then the method gets the text from the hint element.  Then, the method creates a message by using YAHOO.widget.Tooltip.  It's context is the element where the event came from.  It's text is the text that was just gotten.  And it's autodismissdelay is 2 seconds (which makes the hint message go away after 2 seconds).
-
-If the hint element is not in the element that was moused-over, then the performAction method checks to see if a hint some place else belongs to that element with its "for" attribute.  The method gets the hint elements to check to see if a hint has a "for" attribute with the same value as the moused-over element's "id" attribute.  If one is found, then the method gets the text from the hint element.  Then, the method creates a message by using YAHOO.widget.Tooltip.  It's context is the moused-over element.  It's text is the text that was just gotten.  And it's autodismissdelay is 2 seconds (which makes the hint message go away after 2 seconds).  If no matching hint elemnts are found than there is no hint message that is shown.
+The performAction method makes sure that the event that was handled was actually a xforms-hint event.  Then, the method checks to see if the hint element has a @ref attribute or a @nodeset attribute.  If the element does, then that XPath's value is used for the hint's string.  If the element does not, then the hint's string is the hint element's inline text data.  Then, the method creates a message by using YAHOO.widget.Tooltip.  It's context is the context of the element.  It's text is the hint's string that was just gotten.  And it's autodismissdelay is 2 seconds (which makes the hint message go away after 2 seconds).
 
 I also added some display code in the default.css file to make the hint message look good.
 
-There is a PROBLEM with the hint the way it is now.  An input can display a message when the input has an action element that is looking for the "xforms-hint" event even when that input does not have a hint element in it.  The test case I added should fail because of this problem, so you can look at it more in the _testsuite folder if you want to.
+There is a no problem anymore with the hint.  An input should display a message when the input has an action element that is looking for the "xforms-hint" event even when that input does not have a hint element in it.
 
 === Message ===
 
