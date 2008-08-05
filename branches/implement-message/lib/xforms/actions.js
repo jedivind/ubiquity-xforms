@@ -246,11 +246,18 @@ Message.prototype.performAction = function(evt)
     	            constraintoviewport: true,
     	            modal: true,
     	            visible: false,
-    	            width: (this.element.style.width) ? this.element.style.width : "300px",
-    	            height: (this.element.style.height) ? this.element.style.height : "200px"
+    	            width: this.element.style.width ? this.element.style.width : "300px",
+    	            height: this.element.style.height ? this.element.style.height : "100px"
     	        }
     	    );
-    	    //this.yahooPanel.setHeader("Modal dialog");
+    	    
+			var handleOK = function() {
+			 this.hide(); 
+			};
+			var myButtons = [ { text:"OK", handler:handleOK } ]; 
+			this.yahooPanel.cfg.queueProperty("buttons", myButtons);
+    	    
+    	    this.yahooPanel.setHeader("[XForms]");
     	    this.yahooPanel.setBody(this.element.innerHTML);
     	    this.yahooPanel.render(document.body);
     	    //this.yahooPanel.setFooter("Some footer");
@@ -267,8 +274,7 @@ Message.prototype.performAction = function(evt)
                 "fP",
                 "alarm.png",
                 false,
-                0
-            );
+                0);
 		    break;
 
         case "ephemeral":
@@ -278,19 +284,20 @@ Message.prototype.performAction = function(evt)
           		    this.element,
           		    {
           		        //visible: false,
-          		        width: (this.element.style.width) ? this.element.style.width : "300px",
-          		        height: (this.element.style.height) ? this.element.style.height : "200px",
+          		        width: this.element.style.width ? this.element.style.width : "300px",
+          		        height: this.element.style.height ? this.element.style.height : "100px",
           		        context: [ evt.targetElement, "tl", "bl" ]
           		    }
           		);
 
-          		//this.yahooPanel.setHeader("Ephemeral dialog");
-          		//this.yahooPanel.setBody(this.element.innerHTML);
-          		//this.yahooPanel.render(document.body);
+    	    	this.yahooPanel.setHeader("[XForms]");
+          		this.yahooPanel.setBody(this.element.innerHTML);
+          		this.yahooPanel.render(document.body);
           		//this.yahooPanel.render();
             }
-            else
+            else {
               this.yahooPanel.show();
+            }
 		    break;
 
         default :
