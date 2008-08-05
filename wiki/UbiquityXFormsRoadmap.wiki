@@ -80,7 +80,7 @@ Completing support for hint.
 
 Owner: [http://code.google.com/u/mdmcente/ mdmcente]
 
-Completing support for hint.
+Completing support for message.
 
 = Merge status of feature branches =
 
