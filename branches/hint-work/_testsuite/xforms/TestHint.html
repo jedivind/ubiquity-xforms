@@ -38,10 +38,16 @@
 				  <td>Ensures correct form loaded</td>
 				</tr>
 				<tr>
-				  <td>pause</td>
-				  <td>3000</td>
-				  <td></td>
-				  <td>Waits for the xforms to load first</td>
+					<td>waitForText</td>
+					<td>o1</td>
+					<td>show hint</td>
+					<td>Waits for the xforms to load</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>o2</td>
+					<td>no hint</td>
+					<td>Waits for the xforms to load</td>
 				</tr>
 				<tr>
 					<td>verifyTextNotPresent</td>
@@ -51,15 +57,9 @@
 				</tr>
 				<tr>
 					<td>mouseOver</td>
-					<td>xpath=/html/body/xf:input[@id='i3']</td>
+					<td>xpath=/html/body/xf:input[@id='i3']/xf:hint</td>
 					<td></td>
 					<td>Makes the regular hint appear</td>
-				</tr>
-				<tr>
-					<td>mouseOver</td>
-					<td>xpath=/html/body/xf:input[@id='i3']</td>
-					<td></td>
-					<td>Makes sure the regular hint appears</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
@@ -69,7 +69,7 @@
 				</tr>
 				<tr>
 					<td>verifyTextNotPresent</td>
-					<td>hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint</td>
+					<td>hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint</td>
 					<td></td>
 					<td>Makes sure the test is set up correctly</td>
 				</tr>
@@ -80,14 +80,8 @@
 					<td>Tries to make a regular hint appear</td>
 				</tr>
 				<tr>
-					<td>mouseOver</td>
-					<td>xpath=/html/body/xf:input[@id='i4']</td>
-					<td></td>
-					<td>Tries again to make a regular hint appear</td>
-				</tr>
-				<tr>
 					<td>verifyTextNotPresent</td>
-					<td>hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint</td>
+					<td>hint*hint*hint*hint*hint*hint*hint*hint*hint*hint*hint</td>
 					<td></td>
 					<td>Checks to see if the regular hint appeared</td>
 				</tr>
@@ -99,7 +93,7 @@
 				</tr>
 				<tr>
 					<td>mouseOver</td>
-					<td>xpath=/html/body/xf:input[@id='i5']</td>
+					<td>xpath=/html/body/xf:hint[@for='i5']</td>
 					<td></td>
 					<td>Tries to make the hint with @for appear</td>
 				</tr>
@@ -107,13 +101,49 @@
 					<td>mouseOver</td>
 					<td>xpath=/html/body/xf:input[@id='i5']</td>
 					<td></td>
-					<td>Tries again to make the hint with @for appear</td>
+					<td>Tries to make the hint with @for appear</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
 					<td>This is the for support*This is the for support</td>
 					<td></td>
 					<td>Checks to see if the hint with @for appeared</td>
+				</tr>
+				<tr>
+					<td>verifyTextNotPresent</td>
+					<td>show hint*show hint*show hint*show hint</td>
+					<td></td>
+					<td>Makes sure the test is set up correctly</td>
+				</tr>
+				<tr>
+					<td>mouseOver</td>
+					<td>xpath=/html/body/xf:input[@id='i6']/xf:hint</td>
+					<td></td>
+					<td>Makes the @ref hint appear</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>show hint*show hint*show hint*show hint</td>
+					<td></td>
+					<td>Checks to see if the @ref hint appeared</td>
+				</tr>
+				<tr>
+					<td>verifyTextNotPresent</td>
+					<td>message*message*message</td>
+					<td></td>
+					<td>Makes sure the test is set up correctly</td>
+				</tr>
+				<tr>
+					<td>mouseOver</td>
+					<td>xpath=/html/body/xf:input[@id='i7']/xf:hint</td>
+					<td></td>
+					<td>Makes the @nodeset hint appear</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>message*message*message</td>
+					<td></td>
+					<td>Checks to see if the @nodeset hint appeared</td>
 				</tr>
 				<tr>
 					<td>verifyTextNotPresent</td>
@@ -141,9 +171,9 @@
 				</tr>
 				<tr>
 					<td>mouseOver</td>
-					<td>xpath=/html/body/xf:input[@id='i1']</td>
+					<td>xpath=/html/body/xf:input[@id='i1']/xf:hint</td>
 					<td></td>
-					<td>Makes the hint message appear</td>
+					<td>Makes the hint message appears</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>

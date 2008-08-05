@@ -13,8 +13,9 @@
 	   <xf:model id="m0">
 			<xf:instance id="inst0">
 				<x xmlns="">
-					<y>hint</y>
+					<y>show hint</y>
 					<z>no hint</z>
+					<yz>message</yz>
 				</x>
 			</xf:instance>
 		</xf:model>
@@ -61,6 +62,16 @@
 		
 		<xf:input ref="/x/z">
 			<xf:label id="l6">No Hint:</xf:label>
+		</xf:input>
+		
+		<xf:input id="i6" ref="/x/y">
+			<xf:label id="l7">Hint:</xf:label>
+			<xf:hint id="hintBind" ref="/x/y">Inline Hint Message (WRONG)</xf:hint>
+		</xf:input>
+		
+		<xf:input id="i7" ref="/x/z">
+			<xf:label id="l8">Hint:</xf:label>
+			<xf:hint id="hintSrc" nodeset="/x/yz"></xf:hint>
 		</xf:input>
 	  <hr />
 	</body>

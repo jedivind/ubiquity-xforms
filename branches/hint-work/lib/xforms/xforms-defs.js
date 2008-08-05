@@ -109,7 +109,7 @@ DECORATOR.setupDecorator(
 		},
 		{
 			selector:"xf|hint",
-			objects:["Listener", "Hint"]
+			objects:["EventTarget", "Context", "Control", "Hint"]
 		},
 		{
 			selector:"xf|value",
@@ -144,6 +144,10 @@ DECORATOR.setupDecorator(
 		{
 			selector:"xf|range > pe-value",
 			objects:["EventTarget", "RangeValue"]
+		},
+		{
+			selector:" xf|hint > pe-value",
+			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
 		{

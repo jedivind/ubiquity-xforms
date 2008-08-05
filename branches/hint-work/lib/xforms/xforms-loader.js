@@ -72,8 +72,6 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: moduleBase + "Instance.js",
   		requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
   	
-  	loader.addModule({ name: "xforms-hint",                type: "js",  fullpath: moduleBase + "Hint.js" });
-  	
   	//control values
   	loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: moduleBase + "input-value.js" });
   	loader.addModule({ name: "xforms-output-value",        type: "js",  fullpath: moduleBase + "output-value.js" });
@@ -116,6 +114,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
 
+    loader.addModule({ name: "xforms-hint",                type: "js",  fullpath: moduleBase + "Hint.js" });
   	
   	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
   	  requires: [
@@ -124,11 +123,12 @@ var g_sBehaviourDirectory  = "";
   	    "xforms-listener", "xforms-event-target-proxy",
   	    "xforms-conditional-invocation",
   	    "xforms-model", "xforms-instance", "xforms-submission",
-  	    "xforms-action", "xforms-context", "xforms-control", "xforms-hint",
+  	    "xforms-action", "xforms-context", "xforms-control",
   	    "xforms-input-value", "xforms-output-value", "xforms-range-value", 
   	    "xforms-group","xforms-repeat","xforms-switch",
   	    "xforms-select","xforms-item",
-  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions"
+  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
+  	    "xforms-hint"
   	  ]
   	});
     loader.require( "xforms-defs" );

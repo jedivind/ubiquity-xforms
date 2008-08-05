@@ -17,65 +17,41 @@
 function Hint(elmnt)
 {
 	this.element = elmnt;
+
+    this.context = this.element.parentNode;
+	var forAttr = this.element.getAttribute("for");
+	if (forAttr) {
+	  //find the element with id === forAttr
+	  var findForElement = this.element.ownerDocument.getElementById(forAttr);
+	  if (findForElement) {
+	     this.context = findForElement;
+	  }
+	}
+	
 	this.element.addEventListener(
 		"xforms-hint",
-		Hint.prototype.performAction2, 
+		this, 
 		true
 	);
 }
 
-Hint.prototype.performAction = function()
+Hint.prototype.handleEvent = DeferToConditionalInvocationProcessor;
+
+Hint.prototype.performAction = function(oEvt)
 {
-		var hintList = this.element.getElementsByTagName("xf:hint");
-   	    var hintSTR = hintList[0].textContent;
-   		
+    if (oEvt.type === "xforms-hint") {
+        var hintSTR = this.element.textContent;
+    	if(this.element.getAttribute("ref") || this.element.getAttribute("nodeset")) {
+    		hintSTR = this.element.m_value.textContent;
+    	}
+    	
 		YAHOO.myToolTip = new YAHOO.widget.Tooltip(
 			"myToolTip",
 			{
-	    		context:this.element,
+	    		context:this.context,
 	    		text:hintSTR,
 	    		autodismissdelay:2000
 	    	}
 	    );
-};
-
-Hint.prototype.performAction2 = function()
-{
-		var hintList = this.element.getElementsByTagName("xf:hint");
-		if(hintList.length !== 0)
-		{
-	   	    var hintSTR = hintList[0].textContent;
-	   		
-			YAHOO.myToolTip = new YAHOO.widget.Tooltip(
-				"myToolTip",
-				{
-		    		context:this.element,
-		    		text:hintSTR,
-		    		autodismissdelay:2000
-		    	}
-		    );
-	    }
-	    else if(this.element.getAttribute("id"))
-	    {
-	    	hintList = this.ownerDocument.getElementsByTagName("xf:hint");
-	    	if(hintList.length !== 0)
-			{
-				for(var counter = 0; counter < hintList.length; counter++)
-				{
-					if(hintList[counter].getAttribute("for") === this.element.getAttribute("id"))
-					{
-						var hintSTR = hintList[counter].textContent;
-		   		
-						YAHOO.myToolTip = new YAHOO.widget.Tooltip(
-							"myToolTip",
-							{
-					    		context:this.element,
-					    		text:hintSTR,
-					    		autodismissdelay:2000
-					    	}
-					    );
-					}
-				}
-		    }
-	    }
+    }
 };
