@@ -6,7 +6,7 @@
 //    debugger;
 		</script>
 		<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
-	    <script src="../../../ubiquity-loader.js">/**/</script>
+	  <script src="http://ubiquity-xforms.googlecode.com/svn/branches/fix-firefox3/ubiquity-loader.js">/**/</script>
 	</head>
 	<body>
 	    
@@ -62,11 +62,17 @@
       <xf:label id="tl1">t1</xf:label>
       <xf:reset ev:event="DOMActivate"></xf:reset>
     </xf:trigger>
-    
-    <xf:trigger id="t2">
-      <xf:label id="tl2">t2</xf:label>
-      <xf:reset model="m1" ev:event="DOMActivate"></xf:reset>
-    </xf:trigger>
+	  
+	  <xf:trigger id="t2">
+	    <xf:label id="tl2">t2</xf:label>
+	    <xf:reset model="m1" ev:event="DOMActivate"></xf:reset>
+	  </xf:trigger> 
+	  <xf:trigger id="t3">
+	    <xf:label id="tl3">t3</xf:label>
+	    <xf:action ev:event="DOMActivate">
+  	    <xf:reset model="m1"></xf:reset>
+	    </xf:action>
+	  </xf:trigger>
 	  <hr />
 	</body>
 </html>

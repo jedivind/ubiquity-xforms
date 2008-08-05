@@ -32,6 +32,22 @@ String.prototype.trim=function() {
     return this.replace(/^\s*|\s*$/g,'');
 };
 
+Date.prototype.setTimeInSeconds = function( seconds ) {
+  this.setTime( seconds * 1000 );
+}
+
+Date.prototype.setTimeInMinutes = function( minutes ) {
+  this.setTimeInSeconds( minutes * 60 );
+}
+
+Date.prototype.setTimeInHours = function( hours ) {
+  this.setTimeInMinutes( hours * 60 );
+}
+
+Date.prototype.setTimeInDays = function( days ) {
+  this.setTimeInHours( days * 24 );
+}
+
 function ThrowNotImpl(ctx) {
 	throw "Not Implemented";
 }
@@ -135,6 +151,37 @@ function getTZOffset(oDate) {
     s += minutes;
 
     return s;
+}
+
+/**
+	Determine if a given string is a valid xsd:date.
+	
+	@param {string} sDate, the date to validate.
+	@returns {boolean} True if valid xsd:date, otherwise false.
+*/
+function isValidDate(sDate) {
+    if (sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/) ||
+        sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+	Determine if a given string is a valid xsd:dateTime.
+	
+	@param {string} sDateTime, the dateTime to validate.
+	@returns {boolean} True if valid xsd:dateTime, otherwise false.
+*/
+function isValidDateTime(sDateTime) {
+    if (sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) ||
+        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}Z$/) ||
+        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)) {
+        return true;
+    }
+
+    return false;
 }
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-bool
@@ -298,20 +345,23 @@ FunctionCallExpr.prototype.xpathfunctions["count-non-empty"] = function(ctx) {
             count++;
         }
     }
-    return new NumberValue(count);
 
+    return new NumberValue(count);
 };
 
-/**
-@addon
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-index
 */
 FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx) {
 	var s =  this.args[0].evaluate(ctx).stringValue();
 	var oRpt = document.getElementById(s);
 
-  return new NumberValue(oRpt.getIndex());
+    return new NumberValue(oRpt.getIndex());
 };
 
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-power
+*/
 FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
   if (!this.args || (this.args.length != 2)) {
     return new NumberValue(NaN);
@@ -358,7 +408,9 @@ FunctionCallExpr.prototype.xpathfunctions["compare"] = function(ctx) {
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-string
 
-/**@addon*/
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-if
+*/
 FunctionCallExpr.prototype.xpathfunctions["if"] = function(ctx) {
 	var bIf = this.args[0].evaluate(ctx).booleanValue();
 	if (bIf)	{
@@ -368,8 +420,50 @@ FunctionCallExpr.prototype.xpathfunctions["if"] = function(ctx) {
 	}
 };
 
-FunctionCallExpr.prototype.xpathfunctions["property"] = ThrowNotImpl;
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-property
+*/
+FunctionCallExpr.prototype.xpathfunctions["property"] = function(ctx) {
+	// This function can only have 1 parameter.
+	if (!this.args || (this.args.length != 1)) {
+    	return new StringValue("");
+	}
+	
+	var property = this.args[0].evaluate(ctx).stringValue();
+
+	// Check for common properties.
+    var ret = "";
+	if(property == "version") {
+		ret = "1.1";
+    } else if(property == "conformance-level") {
+		ret = "basic";
+    } else {
+        // If the property is a valid NCName other than the common properties above we throw an exception.
+        // NCName           ::=    NCNameStartChar NCNameChar* /* An XML Name, minus the ":" */ 
+        // NCNameChar       ::=    NameChar - ':' 
+        // NCNameStartChar  ::=    Letter | '_'  
+        // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender  
+
+        var match = property.match(/^[_a-z][\w\.\-]*/i);
+        if (match && match[0] == property) {
+            // Matched the whole property string so it is a valid NCName.
+            var evt = document.createEvent("Events");
+            evt.initEvent("xforms-compute-exception", true, false);
+            FormsProcessor.dispatchEvent(document.defaultModel,evt);
+        }
+    }
+
+	return new StringValue(ret);
+};
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-digest
+*/
 FunctionCallExpr.prototype.xpathfunctions["digest"] = ThrowNotImpl;
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-hmac
+*/
 FunctionCallExpr.prototype.xpathfunctions["hmac"] = ThrowNotImpl;
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-date
@@ -403,48 +497,404 @@ FunctionCallExpr.prototype.xpathfunctions["local-dateTime"] = function(ctx) {
     return new StringValue(s);
 };
 
-/**@addon*/
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-now
+*/
 FunctionCallExpr.prototype.xpathfunctions["now"] = function(ctx) {
     var d = new Date();
-	var s = getDateTime(d, true);
+    var s = getDateTime(d, true);
+
+    // Return the result as a string.
+    return new StringValue(s);
+};
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-days-from-date
+*/
+// The return value is equal to the number of days difference between the specified date
+// or dateTime (normalized to UTC) and 1970-01-01. Hour, minute, and second components
+// are ignored after normalization.
+//
+FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx) {
+  var dDate, dBase;
+  var dOrigin;
+
+  if (!this.args || (this.args.length != 1)) {
+    	return new NumberValue(NaN);
+	}
+
+  // Create an array based on parsing the input. First try parsing an xsd:dateTime
+  // and if that fails try parsing an xsd:date.
+  //
+	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
+	  this.args[0].evaluate(ctx).stringValue()
+	);
+
+  if (!res) {
+  	res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDate.exec(
+  	  this.args[0].evaluate(ctx).stringValue()
+  	);
+  	if (!res) {
+    	return new NumberValue(NaN);
+    }
+  }
+
+  // Create a JS Date from the parsed input, normalised to UTC.
+  //
+  dDate = new Date(res[1], res[2] - 1, res[3]);
+
+  // Now that we have a timezone offset (in minutes), we can adjust the date.
+  //
+  dDate.setMinutes( dDate.getMinutes() + dDate.getTimezoneOffset() );
+
+  // Return the number of days since 1970-01-01. The problem with simply using getTime() on its
+  // own is that any timezone information will show up as an error. So we get a version of the
+  // base date in our own timezone, and normalise it, before using that.
+  //
+  dBase = new Date(1970, 0, 1);
+  dBase.setMinutes( dBase.getMinutes() + dBase.getTimezoneOffset() );
+
+  return new NumberValue( Math.round( (dDate.getTime() - dBase.getTime()) / (1000 * 60 * 60 * 24) ) );
+};
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-days-to-date
+*/
+FunctionCallExpr.prototype.xpathfunctions["days-to-date"] = function(ctx) {
+  var month;
+  var date;
+	var days;
+	var d;
+
+  // This function can only have 1 parameter.
+	if (!this.args || (this.args.length != 1)) {
+    	return new StringValue("");
+	}
+
+	// The parameter must be a number.
+	//
+	var number = this.args[0].evaluate(ctx).numberValue();
+
+  if( isNaN(number) )
+		return new StringValue("");
+
+  // Set up the date.
+  //
+  d = new Date( );
+  d.setTimeInDays( Math.round( number ) );
+
+  // Make sure the date is displayed correctly.
+  //
+  month = d.getUTCMonth() + 1;
+	if (month < 10)
+		month = "0" + month;
+
+  date = d.getUTCDate();
+  if (date < 10)
+    date = "0" + date;
+	
+	// Return the date as an xsd:date string.
+	return new StringValue(d.getUTCFullYear() + "-" + month + "-" + date);
+};
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-seconds-from-dateTime
+*/
+FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"] = function(ctx) {
+  var dDate;
+  var dBase;
+  var tzOffset;
+
+  if (!this.args || (this.args.length != 1)) {
+    	return new NumberValue(NaN);
+	}
+
+  // Create an array based on parsing the input as an xsd:dateTime.
+  //
+	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
+	  this.args[0].evaluate(ctx).stringValue()
+	);
+
+  if (!res) {
+    return new NumberValue(NaN);
+  }
+
+  // Create a JS Date from the parsed input, normalised to UTC.
+  //
+  dDate = new Date(Date.UTC(res[1], res[2] - 1, res[3], res[4], res[5], res[6]));
+  //tzOffset = dDate.getTimezoneOffset();
+
+  // If no timezone information was provided, then there is no further adjustment
+  // necessary.
+  //
+  if (!res[7] || (res[7] === "Z")) {
+    tzOffset = 0;
+  } else {
+    // Any other offset gives us a number of hours and minutes by which the time
+    // need to be adjusted.
+    //
+    tzOffset = ((Number(res[11]) * 60) + Number(res[12])) * /* number of minutes */
+      ((res[10] === "-") ? -1 : 1); /* take into account the sign of the timezone */
+  }
+
+  // Now that we have a timezone offset (in minutes), we can adjust the date.
+  //
+  dDate.setUTCMinutes( dDate.getUTCMinutes() + tzOffset );
+
+  // Return the number of days since 1970-01-01. The problem with simply using getTime() on its
+  // own is that any timezone information will show up as an error. So we get a version of the
+  // base date in our own timezone, and normalise it, before using that.
+  //
+  dBase = new Date(Date.UTC(1970, 0, 1));
+  //dBase.setMinutes( dBase.getMinutes() + dBase.getTimezoneOffset() );
+
+  return new NumberValue( Math.round( (dDate.getTime() - dBase.getTime()) / (1000) ) );
+};
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-seconds-to-dateTime
+*/
+FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"] = function(ctx) {
+	var d, number;
+
+  // This function can only have 1 parameter.
+  //
+	if (!this.args || (this.args.length != 1)) {
+    	return new StringValue("");
+	}
+
+	// The parameter must be a number.
+	//
+	number = this.args[0].evaluate(ctx).numberValue();
+
+  if( isNaN(number) )
+		return new StringValue("");
+
+	d = new Date( );
+  d.setTimeInSeconds( number );
+
+	// Return the result as a UTC string.
+	//
+	return new StringValue(getDateTime(d, true));
+};
+
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-adjust-dateTime-to-timezone
+*/
+FunctionCallExpr.prototype.xpathfunctions["expr"] = {
+  xsdDate: /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})(((([+-])([0-9]{2})\:([0-9]{2}))|(\Z))?)$/,
+  xsdDateTime: /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})(((([+-])([0-9]{2})\:([0-9]{2}))|(\Z))?)$/
+};
+
+FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = function(ctx) {
+	// This function can only have 1 parameter.
+	//
+	if (!this.args || (this.args.length != 1)) {
+    	return new StringValue("");
+	}
+
+  // Create an array based on parsing the input.
+  //
+	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
+	  this.args[0].evaluate(ctx).stringValue()
+	);
+
+  if (!res) {
+    return new StringValue("");
+  }
+
+  // Create a JS Date from the xsd:dateTime.
+  //
+  var dDate = new Date(res[1], res[2] - 1, res[3], res[4], res[5], res[6]);
+
+  // Get the local timezone offset from a local date.
+  var localDate = new Date();
+  var tzOffset;
+
+  // If no timezone information was provided, then use the local timezone.
+  //
+  if (!res[7]) {
+    tzOffset = 0;
+  } else {
+    // Remove the effect of the local timezone, before adding on whatever
+    // offset we need.
+    //
+    tzOffset = -localDate.getTimezoneOffset();
+
+    // If the provided timezone was 'Z', then it's UTC, which has an offset of zero.
+    //
+    if (res[7] === "Z") {
+      tzOffset += 0;
+    } else {
+
+      // Any other offset gives us a number of hours and minutes by which the time
+      // need to be adjusted.
+      //
+      tzOffset += ((Number(res[11]) * 60) + Number(res[12])) * /* number of minutes */
+        ((res[10] === "-") ? 1 : -1); /* take into account the sign of the timezone */
+    }
+  }
+
+  // Now that we have a timezone offset (in minutes), we can adjust the date.
+  //
+  dDate.setMinutes( dDate.getMinutes() + tzOffset );
+
+  // Convert the JavaScript date to xsd:dateTime format.
+  //
+  var s = getDateTime(dDate, false);
+
+  // Add the time zone offset string for the local time zone to the xsd:dateTime.
+  //
+  s += getTZOffset(localDate);
 
 	// Return the result as a string.
 	return new StringValue(s);
 };
 
-/**@addon*/
-FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx) {
-	var sDate = this.args[0].evaluate(ctx).stringValue();
-	var dDate = null;
-	//if date is of format 1970-01-01, JavaScript Date.parse cannot handle it, unfortunately, as well as being the best format for dates anyway,
-	//    this is also the prescribed format for xml dates.
-	if (sDate.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/)) {
-	                //The easiest way to deal with this is to replace '-' with ',', and eval a constructor of the form Date(yearNum,MonthNum,DayNum);
-		var sCommaDate = sDate.replace(/\-/g,",").substr(0,10);
-		dDate = eval("new Date("+ sCommaDate  +")");
-	}	else {	
-	            //If the date is not in the above format, let Date.parse handle it, if it is a screwy date, not our problem.
-		dDate = new Date(sDate);
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-seconds
+*/
+FunctionCallExpr.prototype.xpathfunctions["seconds"] = function(ctx) {
+	// This function can only have 1 parameter.
+	if (!this.args || (this.args.length != 1)) {
+    	return new NumberValue(NaN);
 	}
-	var dOrigin = new Date(1970,1,1);
-	var diff = dDate-dOrigin;
+
+	// Initialize variables.
+	var duration = this.args[0].evaluate(ctx).stringValue();
+	var totalSeconds = 0;
+	var index = 0;
+	var endingIndex = 0;
+	var length = 0;
+	var durationIsNegative = false;
 	
-	return new NumberValue(Math.floor(diff/86400000));
+	// A valid duration begins with 'P' or '-P'.
+	if (!duration.match(/^P|\-P/)) {
+		return new NumberValue(NaN);
+	}
+	// If the duration is negative, turn the durationIsNegative flag on and skip the "-" sign.
+	if (duration.match(/^\-/)) {
+		durationIsNegative = true;
+		index++;
+	}
+	// If the duration has some days in it, ...
+	if (duration.match(/D/)) {
+		// If the duration has some years in it, ignore the years.
+		if (duration.indexOf("Y") > 0 && duration.indexOf("Y") < duration.indexOf("D"))
+			index = duration.indexOf("Y");
+		// If the duration has some months in it, ignore the months.
+		if (duration.indexOf("M") > 0 && duration.indexOf("M") < duration.indexOf("D"))
+			index = duration.indexOf("M");
+		// Calculate the number of days.
+		endingIndex = duration.indexOf("D");
+		length = endingIndex - index - 1;
+		var days = duration.substr(index + 1, length);
+		// Add the days to the totalSeconds and move to the next index.
+		totalSeconds = totalSeconds + 60 * 60 * 24 * parseFloat(days);
+		index = endingIndex;
+	}
+	// If the duration has some time in it, make the duration string only contain the time information,
+	// so the M now stands for minutes (not months).
+	if (duration.indexOf("T") != -1) {
+		index = 0;
+		duration = duration.substr(duration.indexOf("T"));
+	}
+	// If the duration has some hours in it, calculate the number of hours,
+	// add them to the totalSeconds, and move to the next index.
+	if (duration.match(/H/)) {
+		endingIndex = duration.indexOf("H");
+		length = endingIndex - index - 1;
+		var hours = duration.substr(index + 1, length);
+		totalSeconds = totalSeconds + 60 * 60 * parseFloat(hours);
+		index = endingIndex;
+	}
+	// If the duration has some minutes in it, calculate the number of minutes,
+	// add them to the totalSeconds, and move to the next index.
+	if (duration.match(/M/) && duration.indexOf("T") == 0) {
+		endingIndex = duration.indexOf("M");
+		length = endingIndex - index - 1;
+		var minutes = duration.substr(index + 1, length);
+		totalSeconds = totalSeconds + 60 * parseFloat(minutes);
+		index = endingIndex;
+	}
+	// If the duration has some seconds in it, calculate the number of seconds,
+	// add them to the totalSeconds.
+	if (duration.match(/S/)) {
+		endingIndex = duration.indexOf("S");
+		length = endingIndex - index - 1;
+		var seconds = duration.substr(index + 1, length);
+		totalSeconds = totalSeconds + parseFloat(seconds);
+		index = endingIndex;
+	}
+	// If the durationIsNegative flag is on, make the totalSeconds negative.
+	if (durationIsNegative) {
+		totalSeconds = totalSeconds * -1;
+	}
+	
+	// Return the total number of seconds.
+	return new NumberValue(totalSeconds);
 };
 
-FunctionCallExpr.prototype.xpathfunctions["days-to-date"] = ThrowNotImpl;
-FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"] = ThrowNotImpl;
-FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"] = ThrowNotImpl;
-FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = ThrowNotImpl;
-FunctionCallExpr.prototype.xpathfunctions["seconds"] = ThrowNotImpl;
-FunctionCallExpr.prototype.xpathfunctions["months"] = ThrowNotImpl;
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-months
+*/
+FunctionCallExpr.prototype.xpathfunctions["months"] = function(ctx) {
+	// This function can only have 1 parameter.
+	if (!this.args || (this.args.length != 1)) {
+    	return new NumberValue(NaN);
+	}
+
+	// Initialize variables.
+	var duration = this.args[0].evaluate(ctx).stringValue();
+	var totalMonths = 0;
+	var index = 0;
+	var endingIndex = 0;
+	var length = 0;
+	var durationIsNegative = false;
+	
+	// A valid duration begins with 'P' or '-P'.
+	if (!duration.match(/^P|\-P/)) {
+		return new NumberValue(NaN);
+	}
+	// If the duration is negative, turn the durationIsNegative flag on and skip the "-" sign.
+	if (duration.match(/^\-/)) {
+		durationIsNegative = true;
+		index++;
+	}
+	// If the duration has some years in it, calculate the number of years,
+	// add them to the totalMonths, and move to the next index.
+	if (duration.match(/Y/)) {
+		endingIndex = duration.indexOf("Y");
+		length = endingIndex - index - 1;
+		var years = duration.substr(index + 1, length);
+		totalMonths = totalMonths + 12 * parseFloat(years);
+		index = endingIndex;
+	}
+	// If the duration has some months in it, calculate the number of months,
+	// add them to the totalMonths.
+	if (duration.match(/M/)) {
+		endingIndex = duration.indexOf("M");
+		length = endingIndex - index - 1;
+		var months = duration.substr(index + 1, length);
+		if(duration.indexOf("T") < 0 || duration.indexOf("T") > endingIndex)
+			totalMonths = totalMonths + parseFloat(months);
+		index = endingIndex;
+	}
+	// If the durationIsNegative flag is on, make the totalMonths negative.
+	if (durationIsNegative) {
+		totalMonths = totalMonths * -1;
+	}
+	
+	// Return the total number of months.
+	return new NumberValue(totalMonths);
+};
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-nodeset
 
 /**
 @addon
 	http://www.w3.org/TR/xforms11/#fn-instance
-	@throws String if the first instance with the given id in doecument order is not inside the context model. 
+	@throws String if the first instance with the given id in document order is not inside the context model. 
 */
 FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx) {
 	var ret = null;
@@ -470,6 +920,7 @@ FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx) {
 };		
 
 /**@addon
+	http://www.w3.org/TR/xforms11/#fn-current
 */  
 
 FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx) {
@@ -538,3 +989,4 @@ FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx) {
 	}
 	return new NodeSetValue(ret);
 };
+
