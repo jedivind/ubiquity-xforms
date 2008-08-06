@@ -46,6 +46,10 @@ xf\:input xf\:label pe-value {
   background-color: transparent;
 }
 
+xf\:hint {
+  display: none;
+}
+
 xf\:trigger xf\:label {
   background-color: silver;
   border: 1px solid black;
@@ -62,13 +66,6 @@ xf\:trigger xf\:label {
   position: absolute; 
   top: 4px; 
 }
-
-/*
-Copyright (c) 2007, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 2.3.0
-*/
 
 .yui-tt {
 	visibility:hidden;
@@ -99,9 +96,10 @@ version: 2.3.0
 	color:#000;
 	font-size:100%;
 	line-height:100%;
-	border-bottom:1px solid #999;
+	border-bottom:14px solid #CCC;
 	font-weight:bold;
 	padding:4px;
+	padding-bottom:6px;
 	white-space:nowrap;
 	text-align:left;
 }

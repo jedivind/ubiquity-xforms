@@ -106,7 +106,7 @@ Dispatch.prototype.performAction = function (evt)
 					*/
 
 				if (evt._actionDepth != oEvt._actionDepth) {
-					throw "Unexpected Discord between action depths.";
+					throw "Unexpected Discord between action depths."
 				}
 			}
 		}
@@ -125,15 +125,15 @@ Send.prototype.performAction = function (evt)
 	var sID = this.element.getAttribute("submission");
 	if (sID)
 	{
-		evt.target.ownerDocument.logger.log("Sending to '" + sID + "'", "submission");
+		evt.target.document.logger.log("Sending to '" + sID + "'", "submission");
 
-		var oSubmission = document.getElementById(sID);
+		var oSubmission =document.getElementById(sID);
 
 		if (oSubmission)
 		{
-			var oEvt = this.ownerDocument.createEvent("Events");
+			var oEvt = this.ownerDocument.createEvent("SubmissionEvents");
 
-			oEvt.initEvent("xforms-submit", false, false, null, null);
+			oEvt.initSubmissionEvent("xforms-submit", false, false, null, null);
 
 			/*
 				* Copy through the current event depth.
@@ -146,11 +146,12 @@ Send.prototype.performAction = function (evt)
 				* I'm assuming that there is no point in copying the
 				* 'new' depth, since it should be the same as the
 				* old one...but that might not be true, hence the
-				* debugger statement.
+				* debugger statement (now changed to throw).
 				*/
 
-			if (evt._actionDepth != oEvt._actionDepth)
-				debugger;
+			if (evt._actionDepth != oEvt._actionDepth) {
+				throw "Unexpected Discord between action depths."
+			}
 		}
 		else {
 			throw "There is no submission element with an ID of '" + sID + "'";
@@ -189,16 +190,15 @@ Load.prototype.performAction 	= function(evt)
 			this.element.setAttribute("xlink:href", this.element.getAttribute("resource"));
 			this.element.setAttribute("xlink:show", this.element.getAttribute("show"));
 			//element.setAttribute("xlink:actuate","onLoad");
-			var sTarget = this.element.getAttribute("target");
+			var sTarget = this.element.getAttribute("target")
 
-			if (sTarget === undefined || sTarget === "")
+			if (sTarget == undefined || sTarget == "")
 			{
 				debugger;
 				var sId = evt.target.id;
 
-				if (sId !== "") {
+				if (sId != "")
 					this.element.setAttribute("target", sId);
-				}
 			}
 			this.element.addEventListener("xlink-traversed",this);
 			
@@ -246,18 +246,11 @@ Message.prototype.performAction = function(evt)
     	            constraintoviewport: true,
     	            modal: true,
     	            visible: false,
-    	            width: this.element.style.width ? this.element.style.width : "300px",
-    	            height: this.element.style.height ? this.element.style.height : "100px"
+    	            width: (this.element.style.width) ? this.element.style.width : "300px",
+    	            height: (this.element.style.height) ? this.element.style.height : "200px"
     	        }
     	    );
-    	    
-			var handleOK = function() {
-			 this.hide(); 
-			};
-			var myButtons = [ { text:"OK", handler:handleOK } ]; 
-			this.yahooPanel.cfg.queueProperty("buttons", myButtons);
-    	    
-    	    this.yahooPanel.setHeader("[XForms]");
+    	    //this.yahooPanel.setHeader("Modal dialog");
     	    this.yahooPanel.setBody(this.element.innerHTML);
     	    this.yahooPanel.render(document.body);
     	    //this.yahooPanel.setFooter("Some footer");
@@ -285,20 +278,19 @@ Message.prototype.performAction = function(evt)
           		    this.element,
           		    {
           		        //visible: false,
-          		        width: this.element.style.width ? this.element.style.width : "300px",
-          		        height: this.element.style.height ? this.element.style.height : "100px",
+          		        width: (this.element.style.width) ? this.element.style.width : "300px",
+          		        height: (this.element.style.height) ? this.element.style.height : "200px",
           		        context: [ evt.targetElement, "tl", "bl" ]
           		    }
           		);
 
-    	    	this.yahooPanel.setHeader("[XForms]");
-          		this.yahooPanel.setBody(this.element.innerHTML);
-          		this.yahooPanel.render(document.body);
+          		//this.yahooPanel.setHeader("Ephemeral dialog");
+          		//this.yahooPanel.setBody(this.element.innerHTML);
+          		//this.yahooPanel.render(document.body);
           		//this.yahooPanel.render();
             }
-            else {
+            else
               this.yahooPanel.show();
-            }
 		    break;
 
         default :
