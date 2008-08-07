@@ -114,7 +114,8 @@ var g_sBehaviourDirectory  = "";
   	    	requires:["xforms-dom2events"]});
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
-
+    loader.addModule({ name: "xforms-submit",             type: "js",  fullpath: moduleBase + "submit.js",
+  	    	requires:["xforms-submission"]});
   	
   	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
   	  requires: [
@@ -126,8 +127,9 @@ var g_sBehaviourDirectory  = "";
   	    "xforms-action", "xforms-context", "xforms-control",
   	    "xforms-input-value", "xforms-output-value", "xforms-range-value", 
   	    "xforms-group","xforms-repeat","xforms-switch",
-  	    "xforms-select","xforms-item",
-  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions"
+  	    "xforms-select","xforms-item",  	    
+  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
+  	    "xforms-submit"
   	  ]
   	});
     loader.require( "xforms-defs" );

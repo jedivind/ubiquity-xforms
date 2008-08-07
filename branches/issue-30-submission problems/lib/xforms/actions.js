@@ -125,15 +125,17 @@ Send.prototype.performAction = function (evt)
 	var sID = this.element.getAttribute("submission");
 	if (sID)
 	{
-		evt.target.document.logger.log("Sending to '" + sID + "'", "submission");
+		evt.target.ownerDocument.logger.log("Sending to '" + sID + "'", "submission");
 
 		var oSubmission =document.getElementById(sID);
 
 		if (oSubmission)
 		{
-			var oEvt = this.ownerDocument.createEvent("SubmissionEvents");
+//			var oEvt = this.ownerDocument.createEvent("SubmissionEvents");
+			var oEvt = this.ownerDocument.createEvent("Events");
 
-			oEvt.initSubmissionEvent("xforms-submit", false, false, null, null);
+//			oEvt.initSubmissionEvent("xforms-submit", false, false, null, null);
+			oEvt.initEvent("xforms-submit", false, false, null, null);
 
 			/*
 				* Copy through the current event depth.
