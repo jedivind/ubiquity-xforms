@@ -1,0 +1,29 @@
+#summary A summary of the features demonstrated in the loan form
+
+= Introduction =
+
+The [https://ubiquity-xforms.googlecode.com/svn/branches/xforms-tests-and-examples/_samples/Loan/loan.html XForms Loan Application Form] demonstrates various XForms features, not all of which are implemented in ubiquity-xforms.  What follows is a list of all such features.
+
+= Implemented Features =
+
+  * [FeatureModel model]
+  * [FeatureBind bind]
+  * [FeatureSetValue setvalue]
+  * [FeatureOutput output]
+  * [FeatureInput input]
+  * [FeatureSubmit submit]
+
+ 
+= Incomplete Features =
+
+  * [FeatureInlineInstances inline instances]
+  * [FeatureSubmission submission]
+
+= Unimplemented Features =
+
+  * [FeatureSelect1 select1]
+    * [FeatureItem item]
+      * [FeatureValue value]
+  * [FeatureAlert alert]
+  * [FeatureHint hint]
+  * [FeatureValidation validation]
