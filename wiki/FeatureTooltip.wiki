@@ -21,7 +21,7 @@ An author can indicate that they would like to use a tooltip in the following wa
 
 == Script ==
 
-[To do]
+To do
 
 == Mark-up ==
 
