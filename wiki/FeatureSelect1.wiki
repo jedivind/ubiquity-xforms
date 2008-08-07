@@ -12,7 +12,8 @@ Implementation details for the select1 element.
 
 
 = See Also = 
-  * [FeatureItemCopy copy]
+  * [FeatureItem item]
   * [FeatureItemValue value]
+  * [FeatureItemCopy copy]
   * [FeatureItemset itemset]
   * [FeatureChoices choices]
