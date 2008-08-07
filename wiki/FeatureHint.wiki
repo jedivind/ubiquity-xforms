@@ -1,0 +1,9 @@
+#summary The XForms hint element
+
+= Introduction =
+
+Implementation details of the XForms [http://www.w3.org/TR/xforms11/#ui-commonelems-hint hint] element.
+
+= Stories =  
+
+ * user hovers over a control, a hint is displayed
