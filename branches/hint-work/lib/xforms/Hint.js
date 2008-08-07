@@ -41,7 +41,7 @@ Hint.prototype.performAction = function(oEvt)
 {
     if (oEvt.type === "xforms-hint") {
         var hintSTR = this.element.textContent;
-    	if(this.element.getAttribute("ref") || this.element.getAttribute("nodeset")) {
+    	if(this.element.getAttribute("ref") || this.element.getAttribute("value")) {
     		hintSTR = this.element.m_value.textContent;
     	}
     	
@@ -50,7 +50,7 @@ Hint.prototype.performAction = function(oEvt)
 			{
 	    		context:this.context,
 	    		text:hintSTR,
-	    		autodismissdelay:2000
+	    		autodismissdelay:3000
 	    	}
 	    );
     }
