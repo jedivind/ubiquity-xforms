@@ -1,7 +1,7 @@
 #summary A calendar control
 #labels Feature,Phase-Design
 
-The YUI library contains a calendar control, as illustrated [http://developer.yahoo.com/yui/examples/calendar/quickstart.html here]. This could be invoked in XForms using the an {{{xf:input}}} control, bound to a node of type {{{xsd:date}}}:
+The YUI library contains a calendar control, as illustrated [http://developer.yahoo.com/yui/examples/button/btn_example09.html here] and [http://developer.yahoo.com/yui/examples/button/btn_example10.html here]. This could be invoked in XForms using the an {{{xf:input}}} control, bound to a node of type {{{xsd:date}}}:
 {{{
 <xf:model>
   <xf:instance>
