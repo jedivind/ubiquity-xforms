@@ -58,7 +58,7 @@ Playing with custom controls.
 
 Completing support for {{{select}}} and {{{select1}}}.
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/#branches/issue-30-submission%20problems Issue 30 submssion problems for loan xforms doc] ==
+== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/#branches/issue-30-submission%20problems Issue 30 submission problems for loan xforms doc] ==
 
 Owner: [http://code.google.com/u/wellsk0705/ wellsk0705]
 
