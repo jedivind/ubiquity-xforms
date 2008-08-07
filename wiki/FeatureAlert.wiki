@@ -1,0 +1,15 @@
+#summary The XForms Alert Element
+#labels Phase-Implementation
+
+= Introduction =
+
+Implementation details for the XForms [http://www.w3.org/TR/xforms11/#ui-commonelems-alert Alert] Element.
+
+= Stories =
+  * A user enters invalid data into a control, the alert message is shown.
+  * A user enters data that cannot be rendered into a control, the alert message is shown.
+  * A user enters valid data into a control currently showing an alert message, the alert message is hidden.
+
+= Prerequisites =
+  * [FeatureValidation validation]
+  * [FeatureOutOfRange xforms-out-of-range]
