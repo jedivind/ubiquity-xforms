@@ -2,7 +2,7 @@
 
 = Introduction =
 
-The [https://ubiquity-xforms.googlecode.com/svn/branches/xforms-tests-and-examples/_samples/Loan/loan.html XForms Loan Application Form] demonstrates various XForms features, not all of which are implemented in ubiquity-xforms.  What follows is a list of all such features.
+The [http://ubiquity-xforms.googlecode.com/svn/branches/xforms-tests-and-examples/_samples/Loan/loan.html XForms Loan Application Form] demonstrates various XForms features, not all of which are implemented in ubiquity-xforms.  What follows is a list of all such features.
 
 = Implemented Features =
 
