@@ -3,8 +3,8 @@
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-alert implement-alert] ||
 || Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
 || Discussion: || To discuss implementation details on this branch, use the [http://groups.google.com/group/ubiquity-xforms-eng/ ubiquity-xforms-eng group], and add {{{[BranchImplementAlert]}}} to your comments. ||
-|| Features: || No others. ||
+|| Features: || FeatureAlert ||
 
-A "modal" message will be used to display an alert element.
+The inline text of an alert will be used to display an alert element.
 
-I think I will implement alert in a similar way that xf:hint was implemented (sort of).
+When a control form is valid, I got the alert to be hidden.  When a control form is invalid, I got the alert to be displayed.
