@@ -5,11 +5,19 @@
 
 Implementation details for the XForms [http://www.w3.org/TR/xforms11/#ui-commonelems-alert Alert] Element.
 
-= Stories =
+== Implementation ==
+
+The inline text of an alert will be used to display an alert element.
+
+When a control form is valid by its 'constraint', the alert will be hidden. When a control form is invalid by its 'constraint', the alert will to be displayed.
+
+Since the Schema Validation is not supported yet, that part of the alert support is not supported yet either. I did put two test situations in my alert test case that test this and fail. When the Schema Validation is supported, those situations should pass (I think). 
+
+== Stories ==
   * A user enters invalid data into a control, the alert message is shown.
   * A user enters data that cannot be rendered into a control, the alert message is shown.
   * A user enters valid data into a control currently showing an alert message, the alert message is hidden.
 
-= Prerequisites =
+== Prerequisites ==
   * [FeatureValidation validation]
   * [FeatureOutOfRange xforms-out-of-range]
