@@ -1,5 +1,5 @@
 #summary How to add a unit-test for an XPath function.
-#labels Phase-QA,Phase-Implementation
+#labels Phase-QA,Phase-Implementation,HowTo
 
 = Introduction =
 
