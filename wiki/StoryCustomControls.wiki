@@ -14,7 +14,7 @@ The table below surveys some of the widget landscape, and relates it to XForms.
 || *Widget (etc.)* || *Equivalence (roughly)* || *Binding/Effect (roughly)* || *Comments* ||
 ||YAHOO.widget.AutoComplete||xf:input (custom)||xsd:string||YUI DataSource enabled||
 ||YAHOO.widget.Button (all its variants)||xf:trigger(s)||Executes handler(s)||||
-||YAHOO.widget.Calendar||xf:input (custom LnF)||xsd:date||||
+||YAHOO.widget.Calendar||xf:input (custom LnF) / xf:select1 / xf:range||xsd:date||||
 ||YAHOO.widget.LineChart (all chart variants)||SVG||Displays inline charts||YUI DataSource enabled||
 ||YAHOO.widget.ColorPicker||xf:select1 (custom LnF)||custom color type||||
 ||YAHOO.widget.DataTable||xf:repeat||Displays data table||YUI DataSource enabled||
