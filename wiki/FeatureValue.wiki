@@ -1,4 +1,5 @@
 #summary The value element
+#labels Feature
 
 = Introduction =
 Implementation details for the value element
