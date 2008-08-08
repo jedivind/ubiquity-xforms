@@ -1,4 +1,5 @@
 #summary Feature branch to implement hint.
+#labels Branch
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/hint-work hint-work] ||
 || Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
