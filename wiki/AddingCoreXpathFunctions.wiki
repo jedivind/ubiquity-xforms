@@ -1,5 +1,5 @@
 #summary How to add XPath Functions.
-#labels Phase-Implementation,ajaxslt,xslt,xpath
+#labels Phase-Implementation,ajaxslt,xslt,xpath,HowTo
 
 = Introduction =
 
