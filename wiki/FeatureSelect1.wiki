@@ -1,4 +1,5 @@
 #summary The Select1 element
+#labels Feature
 
 = Introduction =
 
