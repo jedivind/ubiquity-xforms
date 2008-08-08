@@ -72,12 +72,6 @@ Owner: [http://code.google.com/u/wellsk0705/ wellsk0705]
 
 Addition of XForms W3C test suite, a selenium harness and some xforms examples.
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-xpath-functions xforms-xpath-functions] ==
-
-Owner: [http://code.google.com/u/merle.sterling/ merle.sterling]
-
-Adding core XPath functions.
-
 == refactor-vertextargets ==
 
 Refactoring vertextargets.js.
