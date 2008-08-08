@@ -6,7 +6,31 @@ The submssion component should be enhanced to support the [http://www.w3.org/TR/
 
 
 = Stories =
-  * tbd
+  * Attributes
+    * resource
+    * mode
+    * validate
+    * relevant
+    * version
+    * indent
+    * mediatype
+    * encoding
+    * omit-xml-declarations
+    * standalone
+    * cdata-section-elements
+    * replace=text (all, instance, none are supported)
+    * target
+    * separator
+    * includenamespaceprefixes
+  * method element implementation
+    * support "delete"
+    * support "multipart-post"
+    * support "form-data-post"
+    * support "urlencoded-post"
+  * resource element implementation
+  * header element implementation
+    * name element
+    * value element
   * implement serialization 
     * dispatch xforms-submit-serialization event
     * submission-body property  
@@ -30,4 +54,5 @@ The submssion component should be enhanced to support the [http://www.w3.org/TR/
     * property=response-reason-phrase
 
 = See Also =
-  * tbd
+  * [SampleLoanForm]
+  * [FeatureValidation]
