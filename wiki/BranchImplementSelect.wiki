@@ -1,5 +1,5 @@
 #summary Feature branch to implement select and select1.
-#labels Phase-Design,Phase-Implementation
+#labels Phase-Design,Phase-Implementation,Branch
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-select implement-select] ||
 || Owner: || [http://code.google.com/u/paul.butcher/ paul.butcher] ||
