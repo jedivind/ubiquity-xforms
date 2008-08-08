@@ -1,4 +1,5 @@
 #summary Schema Validation in ubiquity-xforms
+#labels Feature
 
 = Introduction =
 
