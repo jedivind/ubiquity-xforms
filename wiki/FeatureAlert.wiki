@@ -18,6 +18,19 @@ Since the Schema Validation is not supported yet, that part of the alert support
   * A user enters data that cannot be rendered into a control, the alert message is shown.
   * A user enters valid data into a control currently showing an alert message, the alert message is hidden.
 
+  <xf:input ref="return">
+    <xf:label>Return date</xf:label>
+    <xf:alert>
+      The return date must be <em>after</em> the
+      <xf:trigger>
+        <xf:label>outbound date</xf:label>
+        <xf:setfocus control="outbound" ev:event="DOMActivate" />
+      </xf:trigger>
+      .
+    </xf:alert>
+  </xf:input>
+  * This code is used, a user enters invalid data into this control, and the alert message is shown correctly.  (Not checked yet.)
+
 == Prerequisites ==
   * [FeatureValidation validation]
   * [FeatureOutOfRange xforms-out-of-range]
