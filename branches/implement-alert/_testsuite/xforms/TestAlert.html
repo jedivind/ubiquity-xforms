@@ -44,70 +44,113 @@
 					<td>Waits for the xforms to load</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>You must be at least 18</td>
-					<td></td>
-					<td>Makes sure the test is set up right</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xf:input[@ref='number[2]']</td>
-					<td></td>
-					<td>Types 21 into the first input box</td>
-				</tr>
-				<tr>
-					<td>type</td>
-					<td>xpath=/html/body/xf:input[@ref='number[2]']</td>
-					<td>21</td>
-					<td>Types 21 into the first input box</td>
-				</tr>
-				<tr>
-					<td>verifyTextNotPresent</td>
-					<td>You must be at least 18</td>
-					<td></td>
-					<td>Checks to see if the alert disappeared</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
-					<td>You must be at least 21</td>
-					<td></td>
-					<td>Makes sure the test is set up right</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xf:input[@ref='number[3]']</td>
-					<td></td>
-					<td>Types 21 into the first input box</td>
-				</tr>
-				<tr>
-					<td>type</td>
-					<td>xpath=/html/body/xf:input[@ref='number[3]']</td>
-					<td>25</td>
-					<td>Types 25 into the first input box</td>
-				</tr>
-				<tr>
-					<td>verifyTextNotPresent</td>
-					<td>You must be at least 21</td>
-					<td></td>
-					<td>Checks to see if the alert disappeared</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
-					<td>alert0</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t0']/xf:alert</td>
 					<td></td>
 					<td>Checks to see if the alert appeared</td>
 				</tr>
 				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/xf:trigger[@id='t2']</td>
-					<td>&nbsp;</td>
-					<td>Clicks trigger 2</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t1']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
 				</tr>
 				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/xf:trigger[@id='t3']</td>
-					<td>&nbsp;</td>
-					<td>Clicks trigger 3</td>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t2']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t3']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[2]']/xf:alert</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:input[@ref='number[2]']/pe-value/input</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xf:input[@ref='number[2]']/pe-value/input</td>
+					<td>21</td>
+					<td>Types 21 into the first input box</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[2]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/xf:alert</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/pe-value/input</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/pe-value/input</td>
+					<td>25</td>
+					<td>Types 25 into the second input box</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[4]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[4]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[5]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='year[1]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='year[2]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
 				</tr>
 				
 				<tr>
