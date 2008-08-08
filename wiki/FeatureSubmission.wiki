@@ -1,0 +1,16 @@
+#summary The Submission element for XForms 1.1
+
+= Introduction =
+
+The submssion component should be enhanced to support the [http://www.w3.org/TR/xforms11/#submit XForms 1.1 spec].
+
+
+= Stories =
+  * tbd
+  * tbd
+  * xforms-submit-error with context
+    * error-type=submission-in-progress
+    * error-type=no-data
+
+= See Also =
+  * tbd
