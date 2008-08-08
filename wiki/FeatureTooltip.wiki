@@ -1,5 +1,5 @@
 #summary Notes on design and implementation of tooltips using hint.
-#labels Phase-Requirements,Phase-Design
+#labels Phase-Requirements,Phase-Design,Feature
 
 Most Ajax libraries have some kind of tooltip feature, for adding text or images that will be displayed to the user when they mouseover some part of the document.
 
