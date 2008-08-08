@@ -1,4 +1,5 @@
 #summary A summary of the features demonstrated in the loan form
+#labels Sample
 
 = Introduction =
 
