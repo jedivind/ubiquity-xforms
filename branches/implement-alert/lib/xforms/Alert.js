@@ -17,18 +17,9 @@
 function Alert(elmnt)
 {
 	this.element = elmnt;
+	
+	if(elmnt.getAttribute("ref"))
+   	{
+   		elmnt.textContent = "";
+   	}
 }
-
-
-Alert.prototype.handleEvent = DeferToConditionalInvocationProcessor;
-
-Alert.prototype.performAction = function(oEvt)
-{
-    	if(this.element.getAttribute("ev:event")) {
-    		this.element.m_MIPSCurrentlyShowing.valid = false;
-    		this.element.className = "invalid";
-    	}
-    	
-    	//var el = this.element;
-    	//el.causeError();
-};

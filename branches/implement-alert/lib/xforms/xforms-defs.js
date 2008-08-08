@@ -147,7 +147,7 @@ DECORATOR.setupDecorator(
 		},
 		{
 			selector:" xf|alert > pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
+			objects:["Listener", "XFormsOutputValue"]
 		},
 
 		{
