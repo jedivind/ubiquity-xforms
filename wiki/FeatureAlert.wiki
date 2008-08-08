@@ -13,6 +13,8 @@ When a control form is valid by its 'constraint', the alert will be hidden. When
 
 Since the Schema Validation is not supported yet, that part of the alert support is not supported yet either. I did put two test situations in my alert test case that test this and fail. When the Schema Validation is supported, those situations should pass (I think). 
 
+The last story already works pretty nicely.
+
 == Stories ==
   * A user enters invalid data into a control, the alert message is shown.
   * A user enters data that cannot be rendered into a control, the alert message is shown.
@@ -20,16 +22,16 @@ Since the Schema Validation is not supported yet, that part of the alert support
 
   <xf:input ref="return">
     <xf:label>Return date</xf:label>
-    <xf:alert>
-      The return date must be <em>after</em> the
-      <xf:trigger>
-        <xf:label>outbound date</xf:label>
-        <xf:setfocus control="outbound" ev:event="DOMActivate" />
-      </xf:trigger>
-      .
-    </xf:alert>
+      <xf:alert>
+        The return date must be <em>after</em> the
+          <xf:trigger>
+            <xf:label>outbound date</xf:label>
+            <xf:setfocus control="outbound" ev:event="DOMActivate" />
+          </xf:trigger>
+          .
+      </xf:alert>
   </xf:input>
-  * This code is used, a user enters invalid data into this control, and the alert message is shown correctly.  (Not checked yet.)
+  * This code is used, a user enters invalid data into this control, and the alert message is shown correctly.
 
 == Prerequisites ==
   * [FeatureValidation validation]
