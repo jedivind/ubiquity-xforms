@@ -1,4 +1,5 @@
 #summary Feature branch to implement alert.
+#labels Branch
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-alert implement-alert] ||
 || Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
