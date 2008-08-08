@@ -8,4 +8,6 @@
 
 The inline text of an alert will be used to display an alert element.
 
-When a control form is valid, I got the alert to be hidden.  When a control form is invalid, I got the alert to be displayed.
+When a control form is valid by its 'constraint', the alert will be hidden.  When a control form is invalid by its 'constraint', the alert will to be displayed.
+
+Since the Schema Validation is not supported yet, that part of the alert support is not supported yet either.  I did put two test situations in my alert test case that test this and fail.  When the Schema Validation is supported, those situations should pass (I think).
