@@ -7,11 +7,27 @@ The submssion component should be enhanced to support the [http://www.w3.org/TR/
 
 = Stories =
   * tbd
-  * implement serialization and dispatch xforms-submit-serialization event.
+  * implement serialization 
+    * dispatch xforms-submit-serialization event
+    * submission-body property  
   * xforms-submit-error with context
-    * error-type=submission-in-progress
-    * error-type=no-data
-    * error-type=validation-error
+    * property=resource-uri
+    * property=response-status-code
+    * property=response-headers
+    * property=response-reason-phrase
+    * property=response-body
+    * property=error-type
+      * error-type=submission-in-progress
+      * error-type=no-data
+      * error-type=validation-error
+      * error-type=parse-error
+      * error-type=target-error
+      * error-type=resource-error
+  * xforms-submit-done with context
+    * property=resource-uri
+    * property=response-status-code
+    * property=response-headers
+    * property=response-reason-phrase
 
 = See Also =
   * tbd
