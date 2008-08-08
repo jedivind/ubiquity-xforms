@@ -1,5 +1,5 @@
 #summary The XForms Alert Element
-#labels Phase-Implementation
+#labels Phase-Implementation,Feature
 
 = Introduction =
 
