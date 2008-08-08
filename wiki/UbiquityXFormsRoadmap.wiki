@@ -113,4 +113,3 @@ Completing support for alert.
 ||issue-30-submission problems||r512||r512||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||-||
-||xforms-xpath-functions||r467||-||r359||-||
