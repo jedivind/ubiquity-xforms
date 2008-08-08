@@ -1,4 +1,5 @@
 #summary Feature branch to implement message.
+#labels Branch
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-message implement-message] ||
 || Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
