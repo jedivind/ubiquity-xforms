@@ -60,6 +60,10 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: moduleBase + "../decorate.js", 
   		requires:["libxh-namespace-manager"]});
   
+    // crypto
+    loader.addModule({ name: "md5",          type: "js",  fullpath: moduleBase + "../_backplane/md5.js" });
+    loader.addModule({ name: "sha1",        type: "js",  fullpath: moduleBase + "../_backplane/sha1.js" });
+
   	loader.addModule({ name: "xforms-dom-misc",            type: "js",  fullpath: moduleBase + "../ajaxslt/misc.js" });
   	loader.addModule({ name: "xforms-dom",                 type: "js",  fullpath: moduleBase + "../ajaxslt/dom.js",
   		requires: [ "xforms-dom-misc" ] });
@@ -67,8 +71,9 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-ajaxslt-improvements", type: "js",  fullpath: moduleBase + "ajaxslt-improvements.js",
   		requires: [ "xforms-dom", "xforms-xpath" ] });
   	loader.addModule({ name: "xforms-core-function-library", type: "js",  fullpath: moduleBase + "xforms-core-function-library.js",
-  	requires: [ "xforms-xpath" ] });
-  	
+  	requires: [ "xforms-xpath", "md5", "sha1" ] });
+
+
   	loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: moduleBase + "Instance.js",
   		requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
   	
