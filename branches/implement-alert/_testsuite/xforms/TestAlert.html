@@ -27,7 +27,7 @@
 				</tr>
 				<tr>
 					<td>open</td>
-					<td>../../xforms/html/test_alert.html</td>
+					<td>../../../_samples/xforms_alert.html</td>
 					<td>&nbsp;</td>
 					<td>Opens the form.</td>
 				</tr>
@@ -58,12 +58,6 @@
 				<tr>
 					<td>verifyNotVisible</td>
 					<td>xpath=/html/body/xf:trigger[@id='t2']/xf:alert</td>
-					<td></td>
-					<td>Checks to see if the alert appeared</td>
-				</tr>
-				<tr>
-					<td>verifyNotVisible</td>
-					<td>xpath=/html/body/xf:trigger[@id='t3']/xf:alert</td>
 					<td></td>
 					<td>Checks to see if the alert appeared</td>
 				</tr>
@@ -151,6 +145,44 @@
 					<td>xpath=/html/body/xf:input[@ref='year[2]']/xf:alert</td>
 					<td></td>
 					<td>Checks to see if the alert appeared</td>
+				</tr>
+				
+				
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/pe-value/input</td>
+					<td>18</td>
+					<td>Types 18 into the second input box</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[7]/xf:alert</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[8]/xf:alert</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xf:input[7]/xf:alert/xf:trigger</td>
+					<td></td>
+					<td>Clicks the trigger inside of the alert</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[7]/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[8]/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
 				</tr>
 				
 				<tr>

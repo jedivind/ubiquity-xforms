@@ -16,15 +16,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xfe="http://www.w3.org/2002/xforms/extensions">
 	<head>
 		<title>Test xf:alert</title>
-
 	<script>
 		//    debugger;
 	</script>
 	<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
-	    <script>
-	        var g_sBehaviourDirectory = "../../../behaviours/";
-	    </script>
-	    <script src="../../../ubiquity-loader.js">/**/</script>
+		<script type="text/javascript" src="../ubiquity-loader.js" >/**/</script>
 	    
 <style>
 	xf\:trigger
@@ -83,6 +79,7 @@
 		    <xf:label>Enter your year</xf:label>
 		    <xf:alert>It must be valid</xf:alert>
 		</xf:input>
+		
 		<xf:trigger id="t0" ref="number[2]">
 			<xf:label>label0</xf:label>
 			<xf:alert>alert0</xf:alert>
@@ -95,9 +92,25 @@
 			<xf:label>label2</xf:label>
 			<xf:alert>alert2</xf:alert>
 		</xf:trigger>
-		<xf:trigger id="t3">
-			<xf:label>label3</xf:label>
-			<xf:alert>alert3</xf:alert>
-		</xf:trigger>
+		
+		<xf:input ref="number[3]">
+		    <xf:label>Enter your age</xf:label>
+		    <xf:alert>
+		        You must be at <em>least</em> 21.
+		        <xf:trigger>
+		            <xf:label>Try 22.</xf:label> <xf:setvalue ref="." ev:event="DOMActivate" >22</xf:setvalue>
+		        </xf:trigger> It should work.
+		    </xf:alert> 
+		</xf:input>
+		<xf:input ref="number[3]">
+		    <xf:label>Enter your age</xf:label>
+		    <xf:alert>
+		        You must be at <em>least</em> 21.
+		        <xf:input ref=".">
+		          <xf:label>Age</xf:label>
+		        </xf:input>
+		        This should work.
+		    </xf:alert> 
+		</xf:input>
 	</body>
 </html>
