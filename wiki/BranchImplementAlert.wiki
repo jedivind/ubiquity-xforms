@@ -11,3 +11,13 @@ The inline text of an alert will be used to display an alert element.
 When a control form is valid by its 'constraint', the alert will be hidden.  When a control form is invalid by its 'constraint', the alert will to be displayed.
 
 Since the Schema Validation is not supported yet, that part of the alert support is not supported yet either.  I did put two test situations in my alert test case that test this and fail.  When the Schema Validation is supported, those situations should pass (I think).
+
+
+The alert code was updated with most of Mark B’s suggestions, but I didn’t change everything that was suggested.
+
+I didn’t change xf\:alert.invalid on the default.css file, because a form can be valid and an alert can be invalid.  If the alert is invalid, I think the alert should be shown.  For example, this trigger is valid and the alert is invalid, so I think the alert should be shown: 
+		<xf:trigger id="t1">
+			<xf:label>label1</xf:label>
+			<xf:alert ref="/data/number[2]">wrong alert1</xf:alert>
+		</xf:trigger>
+Also, I didn’t remove the Alert.js file, because the @ref support is in that file.  I don’t know where else to put it.  It should be supported, because the xforms 1.1 spec says that “single node binding attributes” should be supported.
