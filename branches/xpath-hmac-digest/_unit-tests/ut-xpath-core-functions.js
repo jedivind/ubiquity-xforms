@@ -1013,29 +1013,25 @@ suiteXPathCoreFunctions.add(
     testDigestMD5Base64 : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("kAFQmDzST7DWlj99KOF/cg==", evalXPath('digest("abc", "MD5", "base64")').stringValue(),
-                      "digest() returned an incorrect base64 encoded MD5 value for 'abc'");
+      Assert.areEqual("kAFQmDzST7DWlj99KOF/cg==", evalXPath('digest("abc", "MD5", "base64")').stringValue());
     },
 
     testDigestMD5Hex : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("900150983cd24fb0d6963f7d28e17f72", evalXPath('digest("abc", "MD5", "hex")').stringValue(),
-                      "digest() returned an incorrect hex encoded MD5 value for 'abc'");
+      Assert.areEqual("900150983cd24fb0d6963f7d28e17f72", evalXPath('digest("abc", "MD5", "hex")').stringValue());
     },
 
     testDigestSHA1Base64 : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("qZk+NkcGgWq6PiVxeFDCbJzQ2J0=", evalXPath('digest("abc", "SHA-1", "base64")').stringValue(),
-                      "digest() returned an incorrect hex encoded SHA-1 value for 'abc'");
+      Assert.areEqual("qZk+NkcGgWq6PiVxeFDCbJzQ2J0=", evalXPath('digest("abc", "SHA-1", "base64")').stringValue());
     },
 
     testDigestSHA1Hex : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("a9993e364706816aba3e25717850c26c9cd0d89d", evalXPath('digest("abc", "SHA-1", "hex")').stringValue(),
-                      "digest() returned an incorrect hex encoded SHA-1 value for 'abc'");
+      Assert.areEqual("a9993e364706816aba3e25717850c26c9cd0d89d", evalXPath('digest("abc", "SHA-1", "hex")').stringValue());
     }
 
   })//new TestCase
@@ -1055,29 +1051,25 @@ suiteXPathCoreFunctions.add(
     testHmacMD5Base64 : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("0v6YBj+HawMZOvtJtJeVkQ==", evalXPath('hmac("key", "abc", "MD5", "base64")').stringValue(),
-                      "hmac() returned an incorrect base64 encoded MD5 value for 'abc'");
+      Assert.areEqual("0v6YBj+HawMZOvtJtJeVkQ==", evalXPath('hmac("key", "abc", "MD5", "base64")').stringValue());
     },
 
     testHmacMD5Hex : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("d2fe98063f876b03193afb49b4979591", evalXPath('hmac("key", "abc", "MD5", "hex")').stringValue(),
-                      "hmac() returned an incorrect hex encoded MD5 value for 'abc'");
+      Assert.areEqual("d2fe98063f876b03193afb49b4979591", evalXPath('hmac("key", "abc", "MD5", "hex")').stringValue());
     },
 
     testHmacSHA1Base64 : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("T9CyFSdu8S8rPkyOysKBFJi2Vvw=", evalXPath('hmac("key", "abc", "SHA-1", "base64")').stringValue(),
-                      "hmac() returned an incorrect base64 encoded SHA-1 value for 'abc'");
+      Assert.areEqual("T9CyFSdu8S8rPkyOysKBFJi2Vvw=", evalXPath('hmac("key", "abc", "SHA-1", "base64")').stringValue());
     },
 
     testHmacSHA1Hex : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual("4fd0b215276ef12f2b3e4c8ecac2811498b656fc", evalXPath('hmac("key", "abc", "SHA-1", "hex")').stringValue(),
-                      "hmac() returned an incorrect hex encoded SHA-1 value for 'abc'");
+      Assert.areEqual("4fd0b215276ef12f2b3e4c8ecac2811498b656fc", evalXPath('hmac("key", "abc", "SHA-1", "hex")').stringValue());
     }
 
   })//new TestCase
