@@ -135,9 +135,29 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#evt-valid xforms-valid] || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-invalid xforms-invalid] || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-readonly xforms-readonly] || || || || || || || 
+|| || [http://www.w3.org/TR/xforms11/#evt-readwrite xforms-readwrite] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-required xforms-required] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-optional xforms-optional] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-enabled xforms-enabled] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-disabled xforms-disabled] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-activate DOMActivate] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-DOMFocusIn DOMFocusIn] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-DOMFocusOut DOMFocusOut] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-select xforms-select and xforms-deselect] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-in-range xforms-in-range] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-out-of-range xforms-out-of-range] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-scroll xforms-scroll-first and xforms-scroll-last] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-submit-done xforms-submit-done] || || || || || || ||
 
 == Error Indication Events ==
 || *wiki* || *Event* || *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
+|| || [http://www.w3.org/TR/xforms11/#evt-bindingException xforms-binding-exception] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-computeException xforms-compute-exception] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-linkError xforms-link-error] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-linkException xforms-link-exception] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-output-error xforms-output-error] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-submit-error xforms-submit-error] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-versionException xforms-version-exception] || || || || || || ||
 
 
 = Blocking Issues =
