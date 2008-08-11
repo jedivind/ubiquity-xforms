@@ -20,4 +20,7 @@ I didn’t change xf\:alert.invalid on the default.css file, because a form can 
 			<xf:label>label1</xf:label>
 			<xf:alert ref="/data/number[2]">wrong alert1</xf:alert>
 		</xf:trigger>
+
+JB: An alert is not a form control, so its ref is not a "UI binding".  Therefore, when elements like label, help, hint and alert can bind to an invalid node but they are not themselves invalid.  Only form controls distinguish rendition between valid and invalid states, and the alert element provides some additional information that a form control can use when making this distinction.  Moreover, the data to which an alert is bound is a message about the invalidity of some other node.  That message is not itself likely to be invalid anyway.  I remain convinced, as per my last email to you on the eng group, that the best thing to do with alert text is to make it appear (perhaps default styled to red) in the hint tooltip *and* when an invalid form control receives focus.
+
 Also, I didn’t remove the Alert.js file, because the @ref support is in that file.  I don’t know where else to put it.  It should be supported, because the xforms 1.1 spec says that “single node binding attributes” should be supported.
