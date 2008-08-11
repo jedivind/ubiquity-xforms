@@ -466,10 +466,7 @@ FunctionCallExpr.prototype.xpathfunctions["digest"] = function(ctx) {
 
 	var data = this.args[0].evaluate(ctx).stringValue();
 	var algorithm = this.args[1].evaluate(ctx).stringValue();
-	var encoding = "base64";
-    if (this.args.length == 3) {
-        encoding = this.args[2].evaluate(ctx).stringValue();
-    }
+	var encoding = (this.args.length === 3) ? this.args[2].evaluate(ctx).stringValue() : "base64";
 
     var digest = "";
     if (algorithm == "MD5") {
@@ -500,10 +497,7 @@ FunctionCallExpr.prototype.xpathfunctions["hmac"] = function(ctx) {
 	var key = this.args[0].evaluate(ctx).stringValue();
 	var data = this.args[1].evaluate(ctx).stringValue();
 	var algorithm = this.args[2].evaluate(ctx).stringValue();
-	var encoding = "base64";
-    if (this.args.length == 4) {
-        encoding = this.args[3].evaluate(ctx).stringValue();
-    }
+	var encoding = (this.args.length === 4) ? this.args[3].evaluate(ctx).stringValue() : "base64";
 
     var hmac = "";
     if (algorithm == "MD5") {
