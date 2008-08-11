@@ -1,99 +1,110 @@
-#summary The Implementation status of XForms features.
+#summary The Implementation status of XForms 1.1 features.
 #labels Phase-Requirements
 
 All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_testsuite/selenium/core/TestRunner.html?test=..%2F..%2Fxforms%2FTestSuite.html Selenium TestRunner]
-= Elements =
 
-|| *Element* || *feature*  || *IE* || *Firefox* ||
-|| [http://www.w3.org/TR/xforms11/#structure-model model] || || || ||
-|| ||  functions || || ||
-|| ||  schema || || ||
-|| ||  version || || ||
-|| [http://www.w3.org/TR/xforms11/#structure-model-instance instance] || || || ||
-|| || src || || ||
-|| || resource || || ||
-|| || content || || ||
-|| [http://www.w3.org/TR/xforms11/#structure-model-submission submission] || || || ||
-|| [http://www.w3.org/TR/xforms11/#structure-model-bind  bind] || || || ||
-|| [http://www.w3.org/TR/xforms11/#structure-extension extension] || || || ||
-|| *Core Form Controls* || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-input input] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-secret secret] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-textarea textarea] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-output output] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-upload upload] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-range range] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-trigger trigger] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-submit submit] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-select select] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-select1 select1] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-commonelems-label label] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-commonelems-help help] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-commonelems-hint hint] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-commonelems-alert alert] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-choices choices] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-item item] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-value value] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-itemset itemset] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-copy copy] || || || ||
-|| *Container Elements* || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-group group] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-switch switch] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-case case] || || || ||
-|| [http://www.w3.org/TR/xforms11/#ui-repeat repeat] || || || ||
-|| *Actions* || || || ||
+= *Legend* =
+*wiki:* _Wiki Feature Page_
+
+*Implemented:* _ Code Implemented but not yet Verified_
+
+*Browser Columns:* _Verified on IE6, IE7, Firefox 2, Firefox 3, and Safari_
+
+|| *wiki* || *Element* || *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
+|| [FeatureValidation] || || *no* || || || || || ||
+
+= Structure =
+|| *wiki* || *Structure* || *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
+|| || [http://www.w3.org/TR/xforms11/#structure-model model] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#structure-model-instance instance] || || || ||
+|| [FeatureSubmission] || [http://www.w3.org/TR/xforms11/#structure-model-submission submission] || *Partially* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#structure-model-bind  bind] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#structure-extension extension] || || || ||
+
+= Core Form Controls =
+|| *wiki* || *Control* || *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
+|| || [http://www.w3.org/TR/xforms11/#ui-input input] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-secret secret] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-textarea textarea] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-output output] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-upload upload] || *no* || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-range range] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-trigger trigger] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-submit submit] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-select select] || || || ||
+|| [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-select1 select1] || *no* || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-label label] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-help help] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-hint hint] || yes || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-alert alert] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-choices choices] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-item item] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-value value] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-itemset itemset] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-copy copy] || || || ||
+|| || *Container Elements* || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-group group] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-switch switch] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-case case] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-repeat repeat] || || || ||
+
+= Actions =
+||*wiki* || *Action* || *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
 || || [http://www.w3.org/TR/xforms11/#action-conditional conditional] || || ||
 || || [http://www.w3.org/TR/xforms11/#action-iteration iteration] || || ||
-|| [http://www.w3.org/TR/xforms11/#action-action action] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-setvalue setvalue] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-setindex setindex] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-insert insert] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-delete delete] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-toggle toggle] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-setfocus setfocus] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-dispatch dispatch] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-rebuild rebuild] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-recalculate recalculate] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-refresh refresh] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-reset reset] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-load load] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-send send] || || || ||
-|| [http://www.w3.org/TR/xforms11/#action-message message] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-action action] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-setvalue setvalue] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-setindex setindex] || *no*  || ||
+|| || [http://www.w3.org/TR/xforms11/#action-insert insert] || *no* || ||
+|| || [http://www.w3.org/TR/xforms11/#action-delete delete] || *no* || ||
+|| || [http://www.w3.org/TR/xforms11/#action-toggle toggle] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-setfocus setfocus] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-dispatch dispatch] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-rebuild rebuild] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-recalculate recalculate] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-refresh refresh] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-reset reset] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-load load] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-send send] || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-message message] || || || ||
 
 = XPath Functions =
 
-|| *Function* || *IE* || *Firefox* ||
-|| [http://www.w3.org/TR/xforms11/#fn-boolean-from-string boolean-from-string]||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-is-card-number is-card-number]||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-avg avg] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-min min] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-max max] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-count-non-empty count-non-empty] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-index index] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-power power] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-random random ] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-compare compare] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-local-date local-date] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-property property] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-digest digest] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-hmac hmac] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-if if] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-local-dateTime local-dateTime] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-now now] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-days-from-date days-from-date] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-days-to-date days-to-date] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-seconds-from-dateTime seconds-from-dateTime] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-seconds-to-dateTime seconds-to-dateTime] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-adjust-dateTime-to-timezone adjust-dateTime-to-timezone] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-seconds seconds] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-months months] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-instance instance] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-current current] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-id id] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-context context] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-choose choose] ||  ||  ||
-|| [http://www.w3.org/TR/xforms11/#fn-event event] ||  ||  ||
+|| *wiki* || *Function* || *Unknown*|| *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
+|| || [http://www.w3.org/TR/xforms11/#fn-boolean-from-string boolean-from-string]||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-is-card-number is-card-number]||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-avg avg] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-min min] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-max max] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-count-non-empty count-non-empty] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-index index] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-power power] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-random random ] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-compare compare] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-local-date local-date] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-property property] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-digest digest] || *no*  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-hmac hmac] || *no* ||
+|| || [http://www.w3.org/TR/xforms11/#fn-if if] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-local-dateTime local-dateTime] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-now now] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-days-from-date days-from-date] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-days-to-date days-to-date] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-seconds-from-dateTime seconds-from-dateTime] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-seconds-to-dateTime seconds-to-dateTime] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-adjust-dateTime-to-timezone adjust-dateTime-to-timezone] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-seconds seconds] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-months months] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-instance instance] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-current current] || *no*  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-id id] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-context context] || *no*  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-choose choose] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-event event] || *no* ||
 
 = Events =
 
-|| *Event* || *Target* || *IE* || *Firefox* ||
+|| *wiki* || *Event* || *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
+
+= Blocking Issues =
+  *  TBD
