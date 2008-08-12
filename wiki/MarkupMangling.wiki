@@ -1,4 +1,5 @@
 #summary A list of markup mangling issues in ubiquity.
+#labels Index,Firefox
 
 = Introduction =
 
