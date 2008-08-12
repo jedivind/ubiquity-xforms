@@ -18,7 +18,9 @@ We use the following labels (please arrange alphabetically, use as many as appli
 || *Label* || *Meaning* ||
 || Branch || Information about the branch _owner_, purpose, links to SVN, status and other notes. Lasts while branch exists. ||
 || Feature || Desired feature for UX with background, ideas, code snippets, references. The design palette that can turn into documentation. ||
+|| Firefox || Issues, quirks, discussions related to support in the Firefox browser(s). ||
 || HowTo || A tutorial of sorts, for any audience -- developers or contributors. This page is one! ||
+|| Index || A listing of other wiki pages, a main page. ||
 || Sample || Page for discussing a specific sample application or example. ||
 || Story || A motivating (set of) scenario(s) for deriving a rich feature set from. ||
 
