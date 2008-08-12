@@ -1,4 +1,5 @@
 #summary Firefox mangles the DOM given certain elements.
+#labels Firefox
 
 = Introduction =
 
