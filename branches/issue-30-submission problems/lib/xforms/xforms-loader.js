@@ -114,8 +114,7 @@ var g_sBehaviourDirectory  = "";
   	    	requires:["xforms-dom2events"]});
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
-    loader.addModule({ name: "xforms-submit",             type: "js",  fullpath: moduleBase + "submit.js",
-  	    	requires:["xforms-submission"]});
+    loader.addModule({ name: "xforms-submit",             type: "js",  fullpath: moduleBase + "submit.js"});
   	
   	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
   	  requires: [

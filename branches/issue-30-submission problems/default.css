@@ -58,7 +58,9 @@ xf\:input xf\:label pe-value {
 }
 
 xforms\:submit,
-xf\:submit {
+xf\:submit,
+xforms\:trigger,
+xf\:trigger {
   background-color: #D3D3D3;
   border-width: 2px;
   border-style: outset;
@@ -67,22 +69,21 @@ xf\:submit {
 }
 
 xforms\:submit:hover,
-xf\:submit:hover {
+xf\:submit:hover,
+xforms\:trigger:hover,
+xf\:trigger:hover {
   border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
   border-style: inset;
   cursor: pointer;
 }
 
-xforms\:submit > xforms\:label
-xf\:submit > xf\:label {  	
+xforms\:submit  xforms\:label,
+xf\:submit xf\:label,
+xforms\:trigger xforms\:label,
+xf:\trigger xf:\label
+ {  	
   background-color: #D3D3D3;
   padding: 3px;
-}
-
-xforms\:trigger,
-xf\:trigger {
-  background-color: silver;
-  border: 1px solid black;
 }
 
 .slider-bg {

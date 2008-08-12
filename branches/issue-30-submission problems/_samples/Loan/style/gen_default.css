@@ -9,13 +9,13 @@ xforms\:hint {
   display: none;
 }
 
-xforms\:input {display: block; width: 95%; /* margin-top: 4px; margin-bottom: 4px; */ background-color: rgb(220,220,220);}
-xforms\:input  pe-value {width: 48%; background-color: white; border: 1px inset black;}
-xforms\:input  xforms\:label {width: 280px; float: left; }
-
 xforms|input{display: block; width: 95%; margin-top: 4px; margin-bottom: 4px; background-color: rgb(220,220,220);}
 xforms|input .xf-value, .input-value {width: 48%; background-color: white; border: 1px inset black;}
 xforms|input > xforms|label {width: 280px;  float: left; }
+
+xforms\:input {display: block; width: 95%; /* margin-top: 4px; margin-bottom: 4px; */ background-color: rgb(220,220,220);}
+xforms\:input  pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms\:input  xforms\:label {width: 280px; float: left; }
 
 xforms\:select1 {display: block; width: 95%; margin-top: 4px; margin-bottom: 4px; background-color: rgb(220,220,220);}
 xforms\:select1 >  pe-value {min-width: 45%;}

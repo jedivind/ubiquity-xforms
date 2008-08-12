@@ -40,12 +40,6 @@ if (!document.createEvent)
 				oRet = new MutationEvent();
 				break;
 
-			case "SubmissionEvents":
-			    throw "NOT_SUPPORTED_ERR";
-/*			    
-				oRet = new SubmissionEvent();
-				break;
-*/
 			case "UIEvents":
 				oRet = new UIEvent();
 				break;

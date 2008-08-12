@@ -131,10 +131,8 @@ Send.prototype.performAction = function (evt)
 
 		if (oSubmission)
 		{
-//			var oEvt = this.ownerDocument.createEvent("SubmissionEvents");
 			var oEvt = this.ownerDocument.createEvent("Events");
 
-//			oEvt.initSubmissionEvent("xforms-submit", false, false, null, null);
 			oEvt.initEvent("xforms-submit", false, false, null, null);
 
 			/*

@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function Submit(elmnt)
-{
+function Submit(elmnt) {
 	this.element = elmnt;
     this.element.addEventListener(
    		"DOMActivate",
@@ -31,24 +30,39 @@ Submit.prototype.performAction = function(oEvt) {
    if (oEvt.type === "DOMActivate") { 
      var sID = control.element.getAttribute("submission");
     
+     var oSubmission = null;
 	 if (sID){
-		var oSubmission = control.element.ownerDocument.getElementById(sID);
+		oSubmission = control.element.ownerDocument.getElementById(sID);
+     }
+     else {
+       // if there is not a declared submssion id,  get the first submission element of the default model 
+       var oModel = getModelFor(control.element.ownerDocument);
+       if (oModel) {
+         // halt on the first submission in model
+          var nsChildNodes = oModel.element.childNodes;
+          for (var i = 0; i < nsChildNodes.length; i++) {
+			 if (CheckElementName(nsChildNodes[i],"submission","http://www.w3.org/2002/xforms")) {
+			    var oSubmission = nsChildNodes[i];
+			    break;
+			 }   
+		  }
+       }
+     }
 
-		if (oSubmission) {
-			var oEvt1 =  oSubmission.ownerDocument.createEvent("Events"); // ("SubmissionEvents");
-//			var oEvt1 = document.createEvent("SubmissionEvents");
+	 if (oSubmission) {
+		var oEvt1 =  oSubmission.ownerDocument.createEvent("Events"); 
 
-//			oEvt1.initSubmissionEvent("xforms-submit", false, false, null, null);
-            oEvt1.initEvent("xforms-submit", false, false, null, null);
+        oEvt1.initEvent("xforms-submit", false, false, null, null);
 			
-			spawn(function(){FormsProcessor.dispatchEvent(oSubmission,oEvt1)});
+		spawn(function(){FormsProcessor.dispatchEvent(oSubmission,oEvt1)});
+ 	 }
+	 else {
+	    if (sID) {
+		  throw "There is no submission element with an ID of '" + sID + "'";
 		}
 		else {
-			throw "There is no submission element with an ID of '" + sID + "'";
+		  throw "There is no submission element associated with the default model.";
 		}
-	 }
-	 else {
-		throw "A submission ID is required.";
-	 }
+	 }	 
   }
 };
