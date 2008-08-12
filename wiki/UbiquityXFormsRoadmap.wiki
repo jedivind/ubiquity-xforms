@@ -114,4 +114,4 @@ Implement XPath functions hmac and digest.
 ||issue-30-submission problems||r512||r512||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||-||
-||xpath-hmac-digest||r569||r582||-||merle.sterling||
+||xpath-hmac-digest||-||-||r585||-||
