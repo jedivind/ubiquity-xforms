@@ -120,21 +120,44 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
 
-  	
-  	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
-  	  requires: [
-  	    "ux-default-css",
+    // --- CUSTOM CONTROLS ---
+
+    //     -- YUI --
+
+    // ColorPicker widget
+  	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: baseDefaultPath + "lib/extensions/yui-custom-controls/input-color.js",
+  		requires: ["yui-color"]});
+  	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/colorpicker-min.js",
+  		requires: ["yui-slider", "yui-utilities"]});
+  	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/slider/slider-min.js" });
+  	loader.addModule({ name: "yui-utilities",       type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/utilities/utilities.js" });
+
+    // Modules for the base UX implementation
+    UX.modules = [
+        "ux-default-css",
         "libxh-decorator",
-  	    "xforms-listener", "xforms-event-target-proxy",
-  	    "xforms-conditional-invocation",
-  	    "xforms-model", "xforms-instance", "xforms-submission",
-  	    "xforms-action", "xforms-context", "xforms-control",
-  	    "xforms-input-value", "xforms-output-value", "xforms-range-value", 
-  	    "xforms-group","xforms-repeat","xforms-switch",
-  	    "xforms-select","xforms-item",
-  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions"
-  	  ]
-  	});
+        "xforms-listener", "xforms-event-target-proxy",
+        "xforms-conditional-invocation",
+        "xforms-model", "xforms-instance", "xforms-submission",
+        "xforms-action", "xforms-context", "xforms-control",
+        "xforms-input-value", "xforms-output-value", "xforms-range-value", 
+        "xforms-group","xforms-repeat","xforms-switch",
+        "xforms-select","xforms-item",
+        "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions"
+    ];
+
+    // Modules for the custom controls, loaded iff g_loadCustomControls
+    UX.customModules = [];
+
+    if (g_loadCustomControls) {
+        UX.customModules = [
+            "yui-input-color"
+        ];
+    }
+
+    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
+      requires: UX.modules.concat(UX.customModules)
+    });
     loader.require( "xforms-defs" );
 
     loader.addModule({

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+    <head>
+        <title>Color Picker widget</title>
+        <script>g_sBehaviourDirectory = "../../behaviours/"; g_loadCustomControls = true;</script>
+        <script src="../../ubiquity-loader.js">/**/</script>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/skins/sam/colorpicker.css"></link>
+        <style type="text/css">
+          .code {background-color:#eeeeee;padding:10px;display:block;font-family:monospace;border:solid navy;}
+          .spacer {padding-bottom:18em;}
+          .ux-color-bg {position:relative;background-color:#eeeeee;width:360px;height:200px;}
+        </style>
+    </head>
+
+    <body>
+
+    <xf:model>
+        <xf:instance>
+            <instanceData xmlns="">
+                <color>FFFFFF</color>
+            </instanceData>
+        </xf:instance>
+    </xf:model>
+
+    <p>
+      This sample contains an input widget bound to 2 colorpicker widgets.
+    </p>
+    <h3>Simple input control</h3>
+    <xf:input ref="color">
+        <xf:label>Change color with an input (RGB hex value):</xf:label>
+    </xf:input>
+
+    <h3>Bound to 2 YUI ColorPicker controls</h3>
+
+    <table><tr><td>
+
+    Variant 1:
+    <div class="code">
+      &lt;xf:input ref="color" class="yui-widget-color"&gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;Choose color:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+    </div>
+
+    <div class="spacer">
+      <xf:input ref="color" class="yui-widget-color">
+        <xf:label>Choose color:</xf:label>
+      </xf:input>
+    </div>
+
+    </td><td>
+
+    Variant 2:
+    <div class="code">
+      &lt;xf:input ref="color" appearance="yui:color"&gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;Choose color:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+    </div>
+
+    <div class="spacer">
+      <xf:input ref="color" appearance="yui:color">
+        <xf:label>Choose color:</xf:label>
+      </xf:input>
+    </div>
+
+    </td></tr></table>
+
+    </body>
+</html>

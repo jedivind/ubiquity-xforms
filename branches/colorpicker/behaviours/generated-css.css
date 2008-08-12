@@ -75,6 +75,14 @@ xf\:range.geolocation > pe-value, xforms\:range.geolocation > pe-value {
 xf\:range.geolocation > xf\:label > pe-value, xforms\:range.geolocation > xforms\:label > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
+xf\:input.yui-widget-color > pe-value, xforms\:input.yui-widget-color > pe-value,
+xf\:input[appearance='yui\:color'] > pe-value, xforms\:input[appearance='yui\:color'] > pe-value {
+  -moz-binding: url("decorator.xml?EventTarget&YUIColorValue#decorator");
+}
+xf\:input.yui-widget-color > xf\:label > pe-value, xforms\:input.yui-widget-color > xforms\:label > pe-value,
+xf\:input[appearance='yui\:color'] > xf\:label > pe-value, xforms\:input[appearance='yui\:color'] > xforms\:label > pe-value {
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
+}
 xf\:select, xforms\:select {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control&Select#decorator");
 }
