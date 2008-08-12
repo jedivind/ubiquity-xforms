@@ -152,6 +152,17 @@ DECORATOR.setupDecorator(
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
+		// YUI Calendar as <xf:input>
+		{
+			selector:"xf|input.yui-widget-calendar > pe-value, xf|input[appearance='yui:calendar'] > pe-value, xf|input[datatype='xsd:date'] > pe-value",
+			objects:["EventTarget", "YUICalendarValue"]
+		},
+		//HACK: IE does not support child selectors.
+		{
+			selector:"xf|input.yui-widget-calendar > xf|label > pe-value, xf|input[appearance='yui:calendar'] > xf|label > pe-value, xf|input[datatype='xsd:date'] > xf|label > pe-value",
+			objects:["EventTarget", "XFormsOutputValue"]
+		},
+
 		{
 			selector:"xf|select",
 			objects:["EventTarget", "Context", "Control", "Select"]
