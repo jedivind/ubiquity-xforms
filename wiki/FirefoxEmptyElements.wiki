@@ -1,4 +1,5 @@
 #summary Firefox, Ubiquity, and empty elements
+#labels Firefox
 
 = Introduction =
 
