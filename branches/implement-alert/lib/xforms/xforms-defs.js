@@ -109,7 +109,7 @@ DECORATOR.setupDecorator(
 		},
 		{
 			selector:"xf|alert",
-			objects:["EventTarget", "Context", "Control", "Alert"]
+			objects:["EventTarget", "Context", "Control"]
 		},
 		{
 			selector:"xf|value",

@@ -21,6 +21,11 @@ function Context(elmnt)
 	this.m_arrNodes = null;
 	this.m_model = null;
 	this.m_proxy = null;
+	
+	if(elmnt.localName.toLowerCase() == "xf:alert" && elmnt.getAttribute("ref"))
+   	{
+   		elmnt.textContent = "";
+   	}
 }
 Context.prototype.unwire = function()
 {

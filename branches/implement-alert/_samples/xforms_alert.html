@@ -36,19 +36,13 @@
 		<xf:model>
 			<xf:instance>
 				<data xmlns="">
-					<number>right alert1</number>
+					<number>right alert</number>
 					<number>2</number>
 					<number>4</number>
-					<year xsi:type="xsd:gYear">2008</year>
-					<year xsi:type="xsd:gYear">leap year</year>
-					<number>4</number>
-					<number>five</number>
 				</data>
 			</xf:instance>
       		<xf:bind nodeset="/data/number[2]" constraint="/data/number[2] > 18"/>
       		<xf:bind nodeset="/data/number[3]" constraint="/data/number[3] > 21"/>
-			<xf:bind id="bind4" type="xsd:integer" nodeset="/data/number[4]"/>
-			<xf:bind id="bind5" type="xsd:integer" nodeset="/data/number[5]"/>
 		</xf:model>
 		<h1>Testing Alert</h1>
 		<hr></hr>
@@ -63,22 +57,6 @@
 		    <xf:label>Enter your age</xf:label>
 		    <xf:alert>You must be at least 21</xf:alert>
 		</xf:input>
-		<xf:input ref="number[4]">
-		    <xf:label>Enter your age</xf:label>
-		    <xf:alert>You must be at least 18</xf:alert>
-		</xf:input>
-		<xf:input ref="number[5]">
-		    <xf:label>Enter your age</xf:label>
-		    <xf:alert>You must be at least 21</xf:alert>
-		</xf:input>
-		<xf:input ref="year[1]">
-		    <xf:label>Enter your year</xf:label>
-		    <xf:alert>It must be valid</xf:alert>
-		</xf:input>
-		<xf:input ref="year[2]">
-		    <xf:label>Enter your year</xf:label>
-		    <xf:alert>It must be valid</xf:alert>
-		</xf:input>
 		
 		<xf:trigger id="t0" ref="number[2]">
 			<xf:label>label0</xf:label>
@@ -86,11 +64,15 @@
 		</xf:trigger>
 		<xf:trigger id="t1">
 			<xf:label>label1</xf:label>
-			<xf:alert ref="/data/number[2]">wrong alert1</xf:alert>
+			<xf:alert ref="/data/number[2]">wrong alert</xf:alert>
 		</xf:trigger>
-		<xf:trigger id="t2">
+		<xf:trigger id="t2" ref="number[2]">
 			<xf:label>label2</xf:label>
-			<xf:alert>alert2</xf:alert>
+			<xf:alert ref="/data/number[2]">wrong alert</xf:alert>
+		</xf:trigger>
+		<xf:trigger id="t3">
+			<xf:label>label3</xf:label>
+			<xf:alert>alert3</xf:alert>
 		</xf:trigger>
 		
 		<xf:input ref="number[3]">

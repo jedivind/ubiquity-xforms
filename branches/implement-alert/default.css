@@ -51,12 +51,12 @@ xf\:trigger xf\:label {
   border: 1px solid black;
 }
 
-.valid xf\:alert {
-  display: none;
+.invalid xf\:alert {
+  display: inline;
 }
 
-xf\:alert.invalid {
-  display: inline;
+.valid xf\:alert {
+  display: none;
 }
 
 .slider-bg {
