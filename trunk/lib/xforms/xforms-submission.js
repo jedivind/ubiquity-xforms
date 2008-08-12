@@ -67,14 +67,13 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 {
 	if (oObserver)
 	{
-		var oEvt = oObserver.document.createEvent("SubmissionEvents");
+		var oEvt = oObserver.ownerDocument.createEvent("Events");
 		var oNewDom = xmlParse(sData);
 
 		if (isFailure)
 		{
 			alert("Transaction failed.  The error is: " + sData);
-
-			oEvt.initSubmissionEvent("xforms-submit-error", false, false);
+			oEvt.initEvent("xforms-submit-error", false, false);
 			FormsProcessor.dispatchEvent(oObserver,oEvt);
 		}
 		else
@@ -84,17 +83,18 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 			 * what the @replace value was set to.
 			 */
 
-			var sReplace = (oObserver["replace"]) ? oObserver["replace"] : "all";
+            var sReplace = oObserver.getAttribute("replace");
+			sReplace = (sReplace) ? sReplace : "all";
 
 			switch (sReplace)
 			{
 				case "all":
-					oObserver.document.logger.log("@replace = 'all'", "submission");
+					oObserver.ownerDocument.logger.log("@replace = 'all'", "submission");				
 					document.write(sData);
 					break;
 
 				case "instance":
-					oObserver.document.logger.log("@replace = 'instance'", "submission");
+					oObserver.ownerDocument.logger.log("@replace = 'instance'", "submission");
 
 					/*
 					 * @replace="instance" causes the returned data to overwrite
@@ -120,15 +120,16 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 					break;
 
 				case "none":
-					oObserver.document.logger.log("@replace = 'none'", "submission");
+					oObserver.ownerDocument.logger.log("@replace = 'none'", "submission");
 					break;
 
 				default:
-					throw "Invalid replace value.";
+				    oObserver.ownerDocument.logger.log("Invalid replace value.", "submission");
 					break;
 			}
 
-			oEvt.initSubmissionEvent("xforms-submit-done", false, false);
+
+        	oEvt.initEvent("xforms-submit-done", false, false);		
 			FormsProcessor.dispatchEvent(oObserver,oEvt);
 		}
 	}
@@ -176,12 +177,15 @@ submission.prototype.submit = function(oSubmission)
 
 	 */
 
-	var nTimeout = oSubmission["timeout"];
-	var sAction = oSubmission["action"];
+	var nTimeout = oSubmission.getAttribute("timeout");
+	if (nTimeout === null) {
+	   nTimeout = 5000;
+	}
+	var sAction = oSubmission.getAttribute("action");
 	var sSerialisation;
 	var sBody;
 	var oContext = oSubmission.getBoundNode();	
-	if(oContext.node && !oSubmission["instance"])
+	if(oContext.node && !oSubmission.getAttribute("instance"))
 		oSubmission.srcInstance = oContext.node.ownerDocument.XFormsInstance;
 	if(oContext.model == null)	
 		oContext = oSubmission.getEvaluationContext();
@@ -212,7 +216,7 @@ submission.prototype.submit = function(oSubmission)
 			{
 				for (var i = 0; i < ns.length; i++)
 					sAction += getElementValueOrContent(oContext, ns[i]);
-				oSubmission.document.logger.log("@action = '" + sAction + "'", "submission");
+				oSubmission.ownerDocument.logger.log("@action = '" + sAction + "'", "submission");
 			}
 		}
 	}
@@ -227,7 +231,7 @@ submission.prototype.submit = function(oSubmission)
 
 	var sMethod = "";
 
-	switch (oSubmission["method"])
+	switch (oSubmission.getAttribute("method"))
 	{
 		case "get":
 			sMethod = "GET";
@@ -253,7 +257,7 @@ submission.prototype.submit = function(oSubmission)
 		default:
 			/* the submission method being used needs to be implemented */
 			debugger;
-			oSubmission.document.logger.log("Submission method '" + oSubmission["method"] + "' is not defined.", "error");
+			oSubmission.ownerDocument.logger.log("Submission method '" + oSubmission["method"] + "' is not defined.", "error");
 			break;
 	}
 
@@ -266,14 +270,14 @@ submission.prototype.submit = function(oSubmission)
 	 */
 try
 {
-	var oEvt = oSubmission.document.createEvent("SubmissionEvents");
-
-	oEvt.initSubmissionEvent("needs-clarifying-xforms-submit-starting", false, false, sMethod, sAction);
+	var oEvt =  oSubmission.ownerDocument.createEvent("Events"); 
+    oEvt.initEvent("needs-clarifying-xforms-submit-starting", false, false, sMethod, sAction);
+		
 	FormsProcessor.dispatchEvent(oSubmission,oEvt);
 }
 catch(e)
 {
-	oSubmission.document.logger.log("Error: " + e.description, "error");
+	oSubmission.ownerDocument.logger.log("Error: " + e.description, "error");
 }
 
 	/*

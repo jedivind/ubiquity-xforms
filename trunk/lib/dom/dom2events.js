@@ -40,10 +40,6 @@ if (!document.createEvent)
 				oRet = new MutationEvent();
 				break;
 
-			case "SubmissionEvents":
-				oRet = new SubmissionEvent();
-				break;
-
 			case "UIEvents":
 				oRet = new UIEvent();
 				break;
@@ -60,96 +56,91 @@ if (!document.createEvent)
 	* =========
 	*/
 
-	function Event()
-	{
+	var Event = function (){
+	    var that = {};
+
+	    that.CAPTURING_PHASE = 0;
+		that.AT_TARGET = 1;
+		that.BUBBLING_PHASE = 2;
+		that.DEFAULT_PHASE = 3;
+
+	    that.initEvent = function(eventTypeArg, canBubbleArg, cancellableArg){
+
+			that.type = eventTypeArg;
+			that.target = null;
+			that.currentTarget = null;
+			that.eventPhase = null;
+			that.bubbles = canBubbleArg;
+			that.cancelable = cancellableArg;
+			that.timeStamp = new Date();
+
+			that._cancelled = false;
+			that._stopPropagation = false;
+			that._stopImmediatePropagation = false;
+		return;
+		};
+
+		that.stopPropagation = function() {
+			that._stopPropagation = true;
+		return;
+	};
+
+		that.stopImmediatePropagation = function(){
+			that._stopImmediatePropagation = true;
+			that.stopPropagation();
+		return;
+	};
+
+		that.preventDefault = function()	{
+			if (that.cancelable)
+				that._cancelled = true;
+		return;
+	};
+
+
+	   return that;
 	}
 
-	Event.prototype.CAPTURING_PHASE = 0;
-	Event.prototype.AT_TARGET = 1;
-	Event.prototype.BUBBLING_PHASE = 2;
-	Event.prototype.DEFAULT_PHASE = 3;
+	
 
-	Event.prototype.initEvent = function(eventTypeArg, canBubbleArg, cancellableArg)
-	{
-		this.type = eventTypeArg;
-		this.target = null;
-		this.currentTarget = null;
-		this.eventPhase = null;
-		this.bubbles = canBubbleArg;
-		this.cancelable = cancellableArg;
-		this.timeStamp = new Date();
-
-		this._cancelled = false;
-		this._stopPropagation = false;
-		this._stopImmediatePropagation = false;
-		return;
-	}
-
-	Event.prototype.stopPropagation = function()
-	{
-		this._stopPropagation = true;
-		return;
-	};
-
-	Event.prototype.stopImmediatePropagation = function()
-	{
-		this._stopImmediatePropagation = true;
-		this.stopPropagation();
-		return;
-	};
-
-	Event.prototype.preventDefault = function()
-	{
-		if (this.cancelable)
-			this._cancelled = true;
-		return;
-	};
-
+	
 
 	/*
 	* U I E V E N T
 	* =============
 	*/
 
-	function UIEvent()
-	{
-		UIEvent.superclass.constructor.call(this);
-	}
+	var UIEvent = function (){
+	    var that = Event();
 
-	YAHOO.extend(UIEvent, Event);
-
-	UIEvent.prototype.initUIEvent = function(
+		    that.initUIEvent = function(
 		eventTypeArg,
 		canBubbleArg,
 		cancellableArg,
 		viewArg,
-		detailArg
-	)
-	{
-		this.initEvent(eventTypeArg, canBubbleArg, cancellableArg);
+				detailArg) {
+				that.initEvent(eventTypeArg, canBubbleArg, cancellableArg);
 
-		this.view = viewArg;
-		this.detail = detailArg;
+				that.view = viewArg;
+				that.detail = detailArg;
 	}
 
+		return that;
+	}
 
 	/*
 	* M U T A T I O N E V E N T
 	* =========================
 	*/
 
-	function MutationEvent()
+	var MutationEvent = function()
 	{
-		MutationEvent.superclass.constructor.call(this);
-	}
+	    var that = Event();
+	    that.MODIFICATION = 1;
+		that.ADDITION = 2;
+		that.REMOVAL = 3;
 
-	YAHOO.extend(MutationEvent, Event);
-
-	MutationEvent.prototype.MODIFICATION = 1;
-	MutationEvent.prototype.ADDITION = 2;
-	MutationEvent.prototype.REMOVAL = 3;
-
-	MutationEvent.prototype.initEvent = function(
+		that.initMutationEvent = function(
 		eventTypeArg,
 		canBubbleArg,
 		cancellableArg,
@@ -157,47 +148,17 @@ if (!document.createEvent)
 		prevValueArg,
 		newValueArg,
 		attrNameArg,
-		attrChangeArg
-	)
-	{
-		MutationEvent.superclass.initEvent.call(
-			this,
-			eventTypeArg,
-			canBubbleArg,
-			cancellableArg
-		);
+				attrChangeArg) {
 
-		this.relatedNode = relatedNodeArg;
-		this.prevValue = prevValueArg;
-		this.newValue = newValueArg;
-		this.attrName = attrNameArg;
-		this.attrChange = attrChangeArg;
+ 		that.initEvent(eventTypeArg, canBubbleArg, cancellableArg);
+
+		that.relatedNode = relatedNodeArg;
+		that.prevValue = prevValueArg;
+		that.newValue = newValueArg;
+		that.attrName = attrNameArg;
+		that.attrChange = attrChangeArg;
 	}
+	    return that;
+	};
 
-
-	/*
-	* S U B M I S S I O N E V E N T
-	* =============================
-	*/
-
-	function SubmissionEvent()
-	{
-		SubmissionEvent.superclass.constructor.call(this);
-	}
-
-	YAHOO.extend(SubmissionEvent, Event);
-
-	SubmissionEvent.prototype.initSubmissionEvent = function(
-		eventTypeArg,
-		canBubbleArg,
-		cancellableArg,
-		methodArg,
-		actionArg
-	)
-	{
-		this.initEvent(eventTypeArg, canBubbleArg, cancellableArg);
-
-		this.method = methodArg;
-		this.action = actionArg;
-	}
 }
