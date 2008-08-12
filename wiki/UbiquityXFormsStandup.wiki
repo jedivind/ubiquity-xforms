@@ -1,0 +1,28 @@
+#summary Daily heads-up on what we're each working on...
+#labels Featured,HowTo
+
+= Introduction =
+In the spirit of "distributed agile" teamwork, let's see if it's helpful for each of us to keep a daily entry in the table below highlighting (answers to all not required!):
+
+1. What has happened since yesterday?
+
+2. What are our goals for the day?
+
+3. What is blocking us and/or we need help on?
+
+
+We don't need to be this formal, i.e. feel free to write whatever makes sense if the above questions are too constricting!
+
+Just overwrite your entry each day so we keep a table with one row per team member...
+ 
+----
+
+||Charlie||Working with Rahul and Thomas to evolve the stories around styling -- both for CSS and for layout of container elements (group, repeat, switch).  Starting simple to make the loan form look better (issue 32).||
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
