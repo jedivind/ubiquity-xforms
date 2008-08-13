@@ -1,5 +1,5 @@
 #summary Adjusting look and feel using UX.
-#labels Story
+#labels Story,Index
 
 = Introduction =
 
@@ -19,3 +19,9 @@ Styling should be possible at various levels of granularity:
  * It should be possible to style pieces within controls. For example, it should be possible to style the label of a control differently from the control itself.
 
 *Notes:* Great comments. Just on the last one, this is already possible, and is a crucial part of the architecture. We have a pseudo element that represents the 'active' part of the control, and this can not only be styled independently of the label, hint, alert, help, etc., but can also have a distinct custom control attached. We'll try to get some of this documented, but in the meantime see [http://www.formsplayer.com/node/121 anatomy of a control] on the formsPlayer site.
+
+= Feature pages =
+
+ * FeatureControlElementsStyle
+ * FeatureControlSize
+ * FeatureControlStyle
