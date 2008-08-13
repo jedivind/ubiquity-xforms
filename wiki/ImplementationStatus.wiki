@@ -72,7 +72,7 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 
 = XPath Functions =
 
-|| *wiki* || *Function* || *Unknown*|| *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
+|| *wiki* || *Function* || *Implemented* || *IE 6* || *IE 7* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Safari* ||
 || || [http://www.w3.org/TR/xforms11/#fn-boolean-from-string boolean-from-string]|| yes ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-is-card-number is-card-number]|| yes ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-avg avg] || yes ||  ||
@@ -83,7 +83,7 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#fn-power power] || yes ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-random random ] || yes ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-compare compare] || yes ||  ||
-|| || [http://www.w3.org/TR/xforms11/#fn-local-date local-date] ||  ||  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-local-date local-date] || yes ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-property property] || yes ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-digest digest] || yes  ||
 || || [http://www.w3.org/TR/xforms11/#fn-hmac hmac] || yes ||
