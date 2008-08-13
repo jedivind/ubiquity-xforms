@@ -126,8 +126,12 @@ var g_sBehaviourDirectory  = "";
 
     // Calendar widget
     loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: baseDefaultPath + "lib/extensions/yui-custom-controls/input-calendar.js",
-            requires: ["yui-calendar"]});
+            requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar"]});
     loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/calendar-min.js" });
+    loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/container/container_core-min.js" });
+    loader.addModule({ name: "yui-button",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/button/button-min.js" });
+    loader.addModule({ name: "yui-dom-event",       type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js" });
+    loader.addModule({ name: "yui-element",         type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/element/element-beta-min.js" });
 
     // Modules for the base UX implementation
     UX.modules = [
