@@ -18,7 +18,7 @@ Just overwrite your entry each day so we keep a table with one row per team memb
 ----
 
 ||Charlie||Working with Rahul and Thomas to evolve the stories around styling -- both for CSS and for layout of container elements (group, repeat, switch).  Starting simple to make the loan form look better (issue 32).||
-||Rahul||Waiting for feedback on [http://ubiquity-xforms.googlecode.com/svn/branches/calendar/ calendar branch] (related to issue 39). Working on [http://ubiquity-xforms.googlecode.com/svn/branches/colorpicker/ colorpicker branch] and stories around [StoryStyling styling] and [StoryLayouts layouts].||
+||Rahul||Waiting for feedback on [http://ubiquity-xforms.googlecode.com/svn/branches/calendar/ calendar branch] (related to issue 39) and [http://ubiquity-xforms.googlecode.com/svn/branches/colorpicker/ colorpicker branch]. Working on a popup calendar version and fleshing out stories around [StoryStyling styling] (for controls -- starting with field width and label vs. control) and [StoryLayouts layouts] (starting with flow based for xf:group).||
 
 
 = Details =
