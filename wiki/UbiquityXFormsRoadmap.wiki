@@ -64,14 +64,6 @@ Implementing a colorpicker custom control.
 
 Completing support for {{{select}}} and {{{select1}}}.
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/#branches/issue-30-submission%20problems Issue 30 submission problems for loan xforms doc] ==
-
-Owner: [http://code.google.com/u/wellsk0705/ wellsk0705]
-
-[http://code.google.com/p/ubiquity-xforms/issues/detail?id=30&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue 30 submssion problems for loan xforms doc]
-
-Determine and fix submission issues for Loan XForms doc for IE 6 and FF2.
-
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-tests-and-examples xforms-tests-and-examples] ==
 
 Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
@@ -118,7 +110,6 @@ Implement XPath functions hmac and digest.
 ||hint-work||r436 (r510)||not yet||-||-||
 ||implement-alert||r521 (r557)||not yet||-||-||
 ||implement-message||r479||-||-||-||
-||issue-30-submission problems||r599||||-||wellsk0705||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||-||
 ||xpath-hmac-digest||-||-||r585||-||
