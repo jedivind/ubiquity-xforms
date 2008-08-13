@@ -1,0 +1,14 @@
+#summary They don't have to match.
+#labels Feature
+
+= Introduction =
+
+It should be possible to style various bits in the anatomy of a control separately -- be it:
+ * the {{{<xf:label>}}},
+ * the {{{<xf:hint>}}},
+ * the {{{<xf:alert>}}} or
+ * the control itself.
+
+= Details =
+
+Architecturally, this is enabled by using the child pseudo-element ({{{pe-value}}}) to hold the control itself. We need to flesh this out, document it and add examples.
