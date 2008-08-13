@@ -1,0 +1,12 @@
+#summary Specifying the size of core form and custom controls.
+#labels Feature
+
+= Introduction =
+
+It should be possible to _size_ controls individually.
+
+= Details =
+
+For example, there is no need for an {{{<xf:input>}}} collecting a credit card number and an {{{<xf:input>}}} collecting a zip code to be of the same width (the HTML analogy being the {{{<input size="10">}}}).
+
+Similarly, textareas may need to be different sizes, and so on.
