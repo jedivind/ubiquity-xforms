@@ -46,7 +46,7 @@
 
 Owner: [http://code.google.com/u/nkling/ nkling]
 
-Model Binding problem in FF2/3 (see issue. 38)
+Model Binding problem in Firefox 2/3 (see issue 38.)
 
 == [http://ubiquity-xforms.googlecode.com/svn/branches/ajax-xforms-model ajax-xforms-model] ==
 
