@@ -94,13 +94,6 @@ Owner: [http://code.google.com/u/mdmcente/ mdmcente]
 
 Completing support for alert.
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xpath-hmac-digest xpath-hmac-digest] ==
-
-Owner: [http://code.google.com/u/merle.sterling/ merle.sterling]
-
-Implement XPath functions hmac and digest.
-
-
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
@@ -112,4 +105,3 @@ Implement XPath functions hmac and digest.
 ||implement-message||r479||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r334||-||-||-||
-||xpath-hmac-digest||-||-||r585||-||
