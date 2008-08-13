@@ -30,7 +30,7 @@ The YUI calendar control also allows a start and end date to be specified, which
 
 Finally, all of the above options should be available to the author without having to use {{{@type}}}, simply by setting {{{@datatype}}} or {{{@appearance}}} on the control itself:
 {{{
-<xf:input ref="d" appearance="ux:calendar">
+<xf:input ref="d" appearance="yui:calendar">
   ...
 </xf:input>
 }}}
