@@ -39,3 +39,10 @@ Finally, all of the above options should be available to the author without havi
   ...
 </xf:input>
 }}}
+
+The above variants currently produce a _static_ calendar. A popup calendar is desired on many occassions. The following option should produce an input field with a button that can be used to popup the calendar for selecting a date:
+{{{
+<xf:input ref="d" appearance="yui:popup-calendar">
+  ...
+</xf:input>
+}}}
