@@ -42,6 +42,12 @@
 
 = Feature branches in progress =
 
+== [http://ubiquity-xforms.googlecode.com/svn/branches/ff-model-binding ff-model-binding] ==
+
+Owner: [http://code.google.com/u/nkling/ nkling]
+
+Model Binding problem in FF2/3 (see issue. 38)
+
 == [http://ubiquity-xforms.googlecode.com/svn/branches/ajax-xforms-model ajax-xforms-model] ==
 
 Owner: [http://code.google.com/u/nkling/ nkling]
@@ -97,6 +103,7 @@ Completing support for alert.
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
+||ff-model-binding||r626||-||-||-||
 ||ajax-xforms-model||r485||-||-||-||
 ||calendar||r588||-||-||-||
 ||colorpicker||r592||-||-||-||
