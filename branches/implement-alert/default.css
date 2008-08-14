@@ -34,6 +34,7 @@ xf\:input {
 xf\:input xf\:label {
   display: inline-block;
   width: 200px;
+  color: black;
 }
 
 xf\:input pe-value {
@@ -46,16 +47,26 @@ xf\:input xf\:label pe-value {
   background-color: transparent;
 }
 
+xf\:trigger {
+  color: black;
+}
+
 xf\:trigger xf\:label {
   background-color: silver;
   border: 1px solid black;
 }
 
-.invalid xf\:alert {
-  display: inline;
+xf\:alert {
+  display: none;
 }
 
-.valid xf\:alert {
+alert.invalid {
+  display: inline;
+  background-color: transparent;
+  color: #D00;
+}
+
+alert.valid {
   display: none;
 }
 

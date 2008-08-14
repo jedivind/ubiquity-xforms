@@ -41,8 +41,8 @@
 					<number>4</number>
 				</data>
 			</xf:instance>
-      		<xf:bind nodeset="/data/number[2]" constraint="/data/number[2] > 18"/>
-      		<xf:bind nodeset="/data/number[3]" constraint="/data/number[3] > 21"/>
+      		<xf:bind nodeset="/data/number[2]" constraint="/data/number[2] >= 18"/>
+      		<xf:bind nodeset="/data/number[3]" constraint="/data/number[3] >= 21"/>
 		</xf:model>
 		<h1>Testing Alert</h1>
 		<hr></hr>
@@ -84,7 +84,7 @@
 		        </xf:trigger> It should work.
 		    </xf:alert> 
 		</xf:input>
-		<xf:input ref="number[3]">
+		<xf:input value="number[3]">
 		    <xf:label>Enter your age</xf:label>
 		    <xf:alert>
 		        You must be at <em>least</em> 21.
