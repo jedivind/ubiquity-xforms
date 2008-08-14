@@ -148,9 +148,9 @@ var g_sBehaviourDirectory  = "";
     ];
 
     // Modules for the custom controls, loaded iff g_loadCustomControls
-    UX.customModules = [];
-
-    if (g_loadCustomControls) {
+    if (typeof g_temporaryFlagLoadCustomControls == 'undefined') {
+        UX.customModules = [];
+    } else if (g_temporaryFlagLoadCustomControls) {
         UX.customModules = [
             "yui-input-calendar"
         ];

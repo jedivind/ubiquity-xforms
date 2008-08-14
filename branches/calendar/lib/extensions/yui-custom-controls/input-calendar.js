@@ -57,14 +57,17 @@ YUICalendarValue.prototype.onDocumentReady = function()
 {
     if (this.element.ownerDocument.media != "print")
     {
-        var pThis = this;
+        var pThis = this,
+            appearance = this.element.parentNode.getAttribute("appearance"),
+            datatype = this.element.parentNode.getAttribute("datatype");
 
-        if (this.element.parentNode.getAttribute("appearance") === 'yui:popup-calendar') { // popup
+        if (appearance === 'yui:popup-calendar' ||
+            ((datatype === 'xsd:date' || datatype === 'xf:date' || datatype === 'xforms:date') && appearance === 'compact')) { // popup
 
             this.m_bPopup = true;
             this.m_sInputId = "ux-calendar-input-" + UX.yuicalendarcount;
             this.element.innerHTML = "<div id='ux-calendar-bg" + UX.yuicalendarcount + "' class='ux-calendar-bg'>" +
-                "<input type='text' disabled='true' size='12' style='background:#ffffff;color:#000000;vertical-align:top' id='" +
+                "<input type='text' disabled='true' class='ux-input-compact-calendar' id='" +
                 this.m_sInputId + "'></input></div>";
 
             var calendarMenu = new YAHOO.widget.Overlay("calendarmenu" + UX.yuicalendarcount,
@@ -86,9 +89,11 @@ YUICalendarValue.prototype.onDocumentReady = function()
                 if (pThis.m_value == null) {
 
                     pThis.m_value = new YAHOO.widget.Calendar("ux-calendar-" + calcount, calendarMenu.body.id);
-                    pThis.m_value.setYear(pThis.currValue.substring(6,10));
-                    pThis.m_value.setMonth(pThis.currValue.substring(0,2) - 1);
-                    pThis.m_value.select(pThis.currValue);
+                    if (pThis.currValue != null) { // set initial date, if one is bound
+                        pThis.m_value.setYear(pThis.currValue.substring(6,10));
+                        pThis.m_value.setMonth(pThis.currValue.substring(0,2) - 1);
+                        pThis.m_value.select(pThis.currValue);
+                    }
                     pThis.m_value.render();
 
                     pThis.m_value.changePageEvent.subscribe(function () {
@@ -130,20 +135,25 @@ YUICalendarValue.prototype.setValue = function(sValue)
 {
     var bRet = false;
 
-    if (this.currValue != sValue || m_bFirstSetValue)
-    {
-        if (this.m_bPopup) {
-            YAHOO.util.Dom.get(this.m_sInputId).value = sValue;
+    if (sValue.match( /^(\d{2})\/(\d{2})\/(\d{4})/ )) {
+
+        if (this.currValue != sValue || m_bFirstSetValue) {
+            this.currValue = sValue;
+            if (this.m_bPopup) {
+                YAHOO.util.Dom.get(this.m_sInputId).value = sValue;
+            }
+            if (this.m_value != null) { // avoid race when popup
+                this.m_value.setYear(RegExp.$3);
+                this.m_value.setMonth(RegExp.$1 - 1);
+                this.m_value.select(sValue);
+                this.m_value.render();
+            }
+            bRet = true;
+            if (m_bFirstSetValue) {
+                m_bFirstSetValue = false;
+            }
         }
-        this.currValue = sValue;
-        this.m_value.setYear(sValue.substring(6,10));
-        this.m_value.setMonth(sValue.substring(0,2) - 1);
-        this.m_value.select(sValue);
-        this.m_value.render();
-        bRet = true;
-        if (m_bFirstSetValue) {
-            m_bFirstSetValue = false;
-        }
+    
     }
 
     return bRet;

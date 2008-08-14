@@ -62,3 +62,10 @@ xf\:trigger xf\:label {
   position: absolute; 
   top: 4px; 
 }
+
+.ux-input-compact-calendar {
+  background: #ffffff;
+  color:#000000;
+  vertical-align:top;
+  max-width:75px;
+}
