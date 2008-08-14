@@ -1,4 +1,5 @@
 #summary This is the running list of contributors' action items that is to be updated based on the weekly teleconference results.
+#labels Status
 
 *Paul* will work on a few remaining issues for select1 needed for the loan form, then merge results to trunk.  The remainder of select1 work should be entered as issues and solved on other branches in the future. 
 
@@ -19,12 +20,12 @@ _Note:_ John advises that you need to ensure the license is still BSD before upg
   # Merge resulting alert work to trunk.  This needs to be done no later than close of business Friday.  Please notify group if you will be late, esp. Rahul and Paul
 
 *Rahul* will perform the following tasks:
-  # Let datatype="xf:date" and datatype="date" also work to select calendar picker
-  # Let appearance="minimal" and any date datatype choose plaintext field
-  # Let appearance="compact" and any date datatype choose popup calendar style
-  # Let appearance="full" and any date datatype choose calendar widget
-  # Change name of g_loadCustomControls to more clearly signify that it is a temporary flag that will no-op in the future when loading is optimized.
-  # Enter future issue that suggests model needs to project type info into UI control's datatype, if type info is available.
+  # Let datatype="xf:date" and datatype="date" also work to select calendar picker *done*
+  # Let appearance="minimal" and any date datatype choose plaintext field *done*
+  # Let appearance="compact" and any date datatype choose popup calendar style *done*
+  # Let appearance="full" and any date datatype choose calendar widget *done*
+  # Change name of g_loadCustomControls to more clearly signify that it is a temporary flag that will no-op in the future when loading is optimized. *done*
+  # Enter future issue that suggests model needs to project type info into UI control's datatype, if type info is available. *done*
   # After above, merge calendar and colorpicker work to trunk.  This needs to be done by close of business Monday Aug. 18.  Assume merge will happen after Mark !McEntee's alert work.  If you are ready to go first, coordinate with Mark.  If you will be late, please notify group, as Paul may be able to merge select1 work.
 
 *Team*: Need to rally around Merle to see what can be done to repair deficiencies in Ajaxslt processor, esp. problems with math operators.  We may have to code these ourselves if they will not be available very soon in Ajaxslt.
