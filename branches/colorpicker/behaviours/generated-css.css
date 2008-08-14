@@ -78,6 +78,8 @@ xf\:range.geolocation > xf\:label > pe-value, xforms\:range.geolocation > xforms
 xf\:input.yui-widget-color > pe-value, xforms\:input.yui-widget-color > pe-value,
 xf\:input[appearance='yui\:color'] > pe-value, xforms\:input[appearance='yui\:color'] > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&YUIColorValue#decorator");
+  border: none;
+  background-color: transparent;
 }
 xf\:input.yui-widget-color > xf\:label > pe-value, xforms\:input.yui-widget-color > xforms\:label > pe-value,
 xf\:input[appearance='yui\:color'] > xf\:label > pe-value, xforms\:input[appearance='yui\:color'] > xforms\:label > pe-value {

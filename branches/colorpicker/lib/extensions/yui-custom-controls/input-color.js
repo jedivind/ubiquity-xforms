@@ -64,14 +64,15 @@ YUIColorValue.prototype.setValue = function(sValue)
 {
     var bRet = false;
 
-    if (this.currValue != sValue || m_bFirstSetValue)
-    {
-        var rgb = YAHOO.util.Color.hex2rgb(sValue);
-        this.m_value.setValue(rgb, true);
-        this.currValue = sValue;
-        bRet = true;
-        if (m_bFirstSetValue) {
-            m_bFirstSetValue = false;
+    if (sValue.match( /^[0-9abcdefABCDEF]{6}/ )) {
+        if (this.currValue != sValue || m_bFirstSetValue) {
+            var rgb = YAHOO.util.Color.hex2rgb(sValue);
+            this.m_value.setValue(rgb, true);
+            this.currValue = sValue;
+            bRet = true;
+            if (m_bFirstSetValue) {
+                m_bFirstSetValue = false;
+            }
         }
     }
 
