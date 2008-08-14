@@ -1,5 +1,5 @@
 #summary Daily heads-up on what we're each working on...
-#labels Featured,HowTo,Status
+#labels Featured,HowTo
 
 = Introduction =
 In the spirit of "distributed agile" teamwork, let's see if it's helpful for each of us to keep a daily entry in the table below highlighting (answers to all not required!):
@@ -19,7 +19,7 @@ Just overwrite your entry each day so we keep a table with one row per team memb
 
 ||Charlie||Working with Rahul and Thomas to evolve the stories around styling -- both for CSS and for layout of container elements (group, repeat, switch).  Starting simple to make the loan form look better (issue 32).||
 ||Rahul||Waiting for feedback on [http://ubiquity-xforms.googlecode.com/svn/branches/calendar/ calendar branch] (related to issue 39) and [http://ubiquity-xforms.googlecode.com/svn/branches/colorpicker/ colorpicker branch]. Working on John's suggestions for the calendar variants using {{{minimal}}}, {{{compact}}} and {{{full}}} values of the {{{appearance}}} attribute. Fleshing out stories around [StoryStyling styling] (for controls -- starting with field width and label vs. control) and [StoryLayouts layouts] (starting with flow based for xf:group).||
-||Thomas|| Working on Loan Form model binding problem on Firefox 2/3 (issue 38). A new banch is created  for the issues [https://ubiquity-xforms.googlecode.com/svn/branches/ff-model-binding ff-model-binding barnch] After Loan Form's model data instance and all it's references changed to lowercase, only one of the input field data got intialized; the rest of the remaining fields still empty. The problem seems to related to xpath evaluation with a possible invalid context node. ||
+||Thomas|| Fleshing out stories around [StoryStyling styling] starting with group style (horiontal & vertical & controls flow)||
 
 = Details =
 
