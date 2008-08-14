@@ -14,4 +14,6 @@ Since the Schema Validation is not supported yet, that part of the alert support
 
 JB: An alert is not a form control, so its ref is not a "UI binding".  Therefore, when elements like label, help, hint and alert can bind to an invalid node but they are not themselves invalid.  Only form controls distinguish rendition between valid and invalid states, and the alert element provides some additional information that a form control can use when making this distinction.  Moreover, the data to which an alert is bound is a message about the invalidity of some other node.  That message is not itself likely to be invalid anyway.  I remain convinced, as per my last email to you on the eng group, that the best thing to do with alert text is to make it appear (perhaps default styled to red) in the hint tooltip *and* when an invalid form control receives focus.
 
-The Alert.js file will eventually be removed.  The @ref support will have to be fixed to work correctly.
+I need a code review on r648 for my changes in Alert.js.  I actually did not move the xf:alert element after the control.  I created a new element called alert (notice no xf:) and put that after the control.  Then, I made xf:alert have "display: none" as its style and I updated the new alert element's style to work correctly.
+
+The @ref support will have to be fixed to work correctly.
