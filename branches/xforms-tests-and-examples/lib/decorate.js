@@ -21,14 +21,6 @@
 	
 */
 
-/**
-	path to the directory that contains decorator.xml and applicator.htc
-*/
-
-if (typeof g_sBehaviourDirectory === "undefined") {
-  g_sBehaviourDirectory = "http://ubiquity-xforms.googlecode.com/svn/branches/0.3/behaviours/";
-}
-
 var g_bIsInXHTMLMode = false;
 
 var DECORATOR = function()
@@ -136,7 +128,7 @@ var DECORATOR = function()
 */	
 	function ieSetupDecorator(defs)
 	{
-        		var bDocumentAlreadyLoaded = g_bDocumentLoaded;
+    var bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
 		var oStyleSheet = document.createStyleSheet("",0);
 		//non-htc method
@@ -171,43 +163,81 @@ var DECORATOR = function()
 		}
 
 	}
-	
+	function isFirefox3()
+	{
+	  return (navigator.oscpu && document.getElementsByClassName);
+	}
 /**
 	Adds rules to the document's stylesheet cascade that cause the decoration of elements in Firefox.
 	Do not call directly, Call setupDecorator(defs)
 	@param {Array} defs decorator definitions 
 	@see (somewhere else)
 */	
-	function ffSetupDecorator(defs)
+	function ffSetupDecorator(defs, ns)
 	{
-		var oHead = document.getElementsByTagName("head")[0];
-		var oStyle = document.createElement('style');
-		var s = "";
-		
-		oStyle.setAttribute("type", "text/css");
-		
-		if (g_bIsInXHTMLMode)
-		{
-			s += "@namespace xf url(http://www.w3.org/2002/xforms);";
-			s += "@namespace smil url(http://www.w3.org/2005/SMIL21/BasicAnimation);";
-			s += "@namespace h url(http://www.w3.org/1999/xhtml);";
-		}
-		
-		for (var i = 0; defs.length > i; ++i)
-		{
-			if (g_bIsInXHTMLMode) {
-			    defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
-			}
-		
-			sRule = defs[i].selector + "{" + generateMozBindingStyle(defs[i].objects) + (defs[i].cssText || "") + "}";
-			//oStyle.sheet.insertRule(sRule, oStyle.sheet.length);
-			s += sRule;
-		}
-		oStyle.innerHTML = s;
-		oHead.insertBefore(oStyle, null);
-		
-		
+	  //HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and 
+	  //  unexpected namepsace prefixes are ignored.
+      if(ns === "http://www.w3.org/2002/xforms" && isFirefox3()) {
+        try{
+          var cssNode = document.createElement('link');
+          cssNode.type = 'text/css';
+          cssNode.rel = 'stylesheet';
+          cssNode.href = g_sBehaviourDirectory +"generated-css.css";
+          cssNode.media = 'screen';
+          cssNode.title = 'dynamicLoadedSheet';
+          document.getElementsByTagName("head")[0].appendChild(cssNode);
+        }
+        catch(e) {
+          alert(e);  
+        }
+      }
+      else if(ns === "http://www.w3.org/2005/SMIL21/BasicAnimation" && isFirefox3())
+      {
+      //ignore, this is already in generated-css
+   /*     try{
+          var cssNode = document.createElement('link');
+          cssNode.type = 'text/css';
+          cssNode.rel = 'stylesheet';
+          cssNode.href = g_sBehaviourDirectory +"smil.css";
+          cssNode.media = 'screen';
+          cssNode.title = 'dynamicLoadedSheet';
+          document.getElementsByTagName("head")[0].appendChild(cssNode);
+        }
+        catch(e) {
+          alert(e);  
+        }
+     */ }
+      else {
+	
+    		var oHead = document.getElementsByTagName("head")[0];
+    		var oStyle = document.createElement('style');
+    		var s = "";
+    		
+    		oStyle.setAttribute("type", "text/css");
+    		
+    		if (g_bIsInXHTMLMode)
+    		{
+    			s += "@namespace xf url(http://www.w3.org/2002/xforms);";
+    			s += "@namespace smil url(http://www.w3.org/2005/SMIL21/BasicAnimation);";
+    			s += "@namespace h url(http://www.w3.org/1999/xhtml);";
+    		}
+    		
+    		for (var i = 0; defs.length > i; ++i)
+    		{
+    			if (g_bIsInXHTMLMode) {
+    			    defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
+    			}
+    		
+    			sRule = defs[i].selector + "{" + generateMozBindingStyle(defs[i].objects) + (defs[i].cssText || "") + "}";
+    			//oStyle.sheet.insertRule(sRule, oStyle.sheet.length);
+    			s += sRule;
+    		}
+    		oStyle.innerHTML = s;
+    		oHead.insertBefore(oStyle, null);
+    	}
+  		
 		return;
+		
 	}//ffSetupDecorator
 	
 	function ffXHTMLSetupDecorator(defs)
@@ -287,7 +317,7 @@ var DECORATOR = function()
 	@see (somewhere else)
 */	
 	var innerSetupDecorator = null;
-	function setupDecorator(defs)
+	function setupDecorator(defs,ns)
 	{
 		var bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
@@ -296,7 +326,7 @@ var DECORATOR = function()
 			defs[i].selector = NamespaceManager.translateCSSSelector(defs[i].selector);	
 		}
 		
-		innerSetupDecorator(defs);
+		innerSetupDecorator(defs,ns);
 		if(bDocumentAlreadyLoaded)
 		{
 			spawn(callDocumentReadyHandlers);
