@@ -1,5 +1,5 @@
 #summary The Implementation status of XForms 1.1 features.
-#labels Phase-Requirements,Index
+#labels Phase-Requirements,Index,Status
 
 All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_testsuite/selenium/core/TestRunner.html?test=..%2F..%2Fxforms%2FTestSuite.html Selenium TestRunner]
 
