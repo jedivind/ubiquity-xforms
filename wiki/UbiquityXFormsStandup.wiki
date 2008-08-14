@@ -1,5 +1,5 @@
 #summary Daily heads-up on what we're each working on...
-#labels Featured,HowTo
+#labels Featured,HowTo,Status
 
 = Introduction =
 In the spirit of "distributed agile" teamwork, let's see if it's helpful for each of us to keep a daily entry in the table below highlighting (answers to all not required!):
