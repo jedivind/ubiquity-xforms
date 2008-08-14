@@ -1,10 +1,4 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-This is the running list of contributors' action items.  It is to be updated based on the weekly teleconference results.
-
-= Details =
+#summary This is the running list of contributors' action items that is to be updated based on the weekly teleconference results.
 
 *Paul* will work on a few remaining issues for select1 needed for the loan form, then merge results to trunk.  The remainder of select1 work should be entered as issues and solved on other branches in the future. 
 
