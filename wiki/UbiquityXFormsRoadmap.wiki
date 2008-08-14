@@ -1,5 +1,5 @@
 #summary An overview of plans for the Ubiquity XForms library.
-#labels Featured,Phase-Requirements
+#labels Featured,Phase-Requirements,Status
 
 = Releases =
 
