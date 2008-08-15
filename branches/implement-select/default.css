@@ -62,7 +62,7 @@ xf\:trigger xf\:label {
   position: absolute; 
   top: 4px; 
 }
-xforms\:item {
+xforms\:item, xf\:item {
   display:block;
 }
 .pe-choices {

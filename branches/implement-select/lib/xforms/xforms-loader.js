@@ -110,8 +110,16 @@ var g_sBehaviourDirectory  = "";
   	    	requires:["xforms-actions"]});
   	loader.addModule({ name: "xforms-toggle",             type: "js",  fullpath: moduleBase + "toggle.js",
   	    	requires:["xforms-actions"]});
+
+  	loader.addModule({ name: "backplane-multimap",             type: "js",  fullpath: moduleBase + "../_backplane/multimap.js"});
+  	
+  	loader.addModule({ name: "backplane-select",             type: "js",  fullpath: moduleBase + "../_backplane/select.js",
+  	    	requires:["backplane-multimap"]});
+
+  	loader.addModule({ name: "finite-control",             type: "js",  fullpath: moduleBase + "finite-control.js"});
+
   	loader.addModule({ name: "xforms-select",             type: "js",  fullpath: moduleBase + "select.js",
-  	    	requires:["xforms-dom2events"]});
+  	    	requires:["xforms-dom2events", "menu", "backplane-select", "finite-control"]});
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
 

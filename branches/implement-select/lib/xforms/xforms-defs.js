@@ -68,11 +68,6 @@ DECORATOR.setupDecorator(
 			selector:"xf|output >  pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
-
-		{
-			selector:" xf|value  > pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
-		},
 /*
 		{
 			selector:"pe-value",
@@ -103,18 +98,6 @@ DECORATOR.setupDecorator(
 			selector:"xf|secret",
 			objects:["EventTarget", "Context", "Control"]
 		},
-		{
-			selector:"xf|label",
-			objects:["EventTarget", "Context", "Control"]
-		},
-		{
-			selector:"xf|value",
-			objects:["EventTarget", "Context", "Control","Value"]
-		},
-		{
-			selector:"xf|item",
-			objects:["EventTarget", "Context", "Item"]
-		},
 
 		{
 			selector:"xf|input > pe-value",
@@ -131,17 +114,33 @@ DECORATOR.setupDecorator(
 	
 		{
 			selector:"xf|select > pe-value",
-			objects:["EventTarget", "XFormsInputValue"]
+			objects:["EventTarget", "XFormsSelectValue"]
 		},
 		{
 			selector:"xf|select1 >  pe-value ",
-			objects:["EventTarget", "XFormsInputValue"]
+			objects:["EventTarget", "XFormsSelect1Value"]
 		},
 		{
 			selector:"xf|range > pe-value",
 			objects:["EventTarget", "RangeValue"]
 		},
 
+		{
+			selector:"xf|label",
+			objects:["EventTarget", "Context", "Control"]
+		},
+		{
+			selector:"xf|value",
+			objects:["EventTarget", "Context", "Value", "Control"]
+		},
+		{
+			selector:"xf|value > pe-value",
+			objects:["EventTarget"]
+		},
+		{
+			selector:"xf|item",
+			objects:["EventTarget", "Context", "Item"]
+		},
 		{
 			selector:"xf|range.geolocation > pe-value",
 			objects:["EventTarget", "RangeValueGMAP"]
@@ -159,7 +158,7 @@ DECORATOR.setupDecorator(
 		
 		{
 			selector:"xf|select1",
-			objects:["EventTarget", "Context", "Control", "Select1"]
+			objects:["EventTarget", "Context", "Control", "XFormsSelect1", "FiniteControl"]
 		},
 
     		{
