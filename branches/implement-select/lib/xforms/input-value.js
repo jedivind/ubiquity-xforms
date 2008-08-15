@@ -119,18 +119,16 @@ XFormsInputValue.prototype.onDocumentReady = function()
 XFormsInputValue.prototype.setValue = function(sValue)
 {
 	var bRet = false;
-
 	if (this.m_value.value != sValue)
 	{
 		this.m_value.value = sValue;
 		this.currValue = sValue;
 		bRet = true;
 	}
-	else if(m_bFirstSetValue)
+	else if(this.m_bFirstSetValue)
 	{
 		bRet = true;
 		m_bFirstSetValue = false;
 	}
-	
 	return bRet;
 };
