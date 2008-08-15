@@ -19,6 +19,7 @@ var EventTarget = null;
 	
 		function mapclick2domactivate(elmnt,e)
 		{
+
 			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
 
 			oEvt.initUIEvent("DOMActivate", true, true, null, 1);
@@ -572,12 +573,12 @@ else
 	EventTarget = function (elmnt)
 	{
 		this.element = elmnt;
-		this.element.onclick = function(evt){mapclick2domactivate(elmnt,evt);};
-		this.element.ondblclick = function(evt){mapdblclick2domactivate(elmnt,evt);};
-		this.element.onmouseover = function(evt){StyleHoverishly(elmnt);};
-		this.element.onmouseout = function(evt){StyleUnhoverishly(elmnt);};
-		this.element.onfocusin = function(evt){StyleFocussedly(elmnt);};
-		this.element.onfocusout = function(evt){StyleUnfocussedly(elmnt);};
+		this.element.addEventListener("click", function(evt){mapclick2domactivate(elmnt,evt);},false);
+		this.element.addEventListener("dblclick", function(evt){mapdblclick2domactivate(elmnt,evt);},false);
+		this.element.addEventListener("mouseover",function(evt){StyleHoverishly(elmnt);},false);
+		this.element.addEventListener("mouseout",function(evt){StyleUnhoverishly(elmnt);},false);
+		this.element.addEventListener("focus",function(evt){StyleFocussedly(elmnt);},false);
+		this.element.addEventListener("blur",function(evt){StyleUnfocussedly(elmnt);},false);
 	};
 }
 
