@@ -88,19 +88,13 @@ Owner: [http://code.google.com/u/mdmcente/ mdmcente]
 
 Completing support for message.
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-alert implement-alert] ==
-
-Owner: [http://code.google.com/u/mdmcente/ mdmcente]
-
-Completing support for alert.
-
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
 ||ajax-xforms-model||r485||-||-||-||
 ||calendar||r588||yes||-||-||
 ||colorpicker||r592||yes||-||-||
-||hint-work||r436 (r510)||not yet||-||-||
+||hint-work||r436||needs a code review||-||-||
 ||implement-alert||-||-||r680||-||
 ||implement-message||r479||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
