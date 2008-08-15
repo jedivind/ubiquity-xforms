@@ -20,7 +20,7 @@ Just overwrite your entry each day so we keep a table with one row per team memb
 ||Charlie||Working with Rahul and Thomas to evolve the stories around styling -- both for CSS and for layout of container elements (group, repeat, switch).  Starting simple to make the loan form look better (issue 32).||
 ||Rahul||Waiting for feedback on [http://ubiquity-xforms.googlecode.com/svn/branches/calendar/ calendar branch] (related to issue 39) and [http://ubiquity-xforms.googlecode.com/svn/branches/colorpicker/ colorpicker branch]. Working on John's suggestions for the calendar variants using {{{minimal}}}, {{{compact}}} and {{{full}}} values of the {{{appearance}}} attribute. Fleshing out stories around [StoryStyling styling] (for controls -- starting with field width and label vs. control) and [StoryLayouts layouts] (starting with flow based for xf:group).||
 ||Thomas|| Fleshing out stories around [StoryStyling styling] starting with group style (horiontal & vertical & controls flow)||
-||MarkMc|| Finishing xf:alert. Should be ready to merge that branch into the trunk when my last code review today is done. ||
+||Mark_Mc|| Finishing xf:alert. I am now merging my branch into the trunk. The IE support will be added as an issue along with the other issues I have to still add. ||
 
 = Details =
 
