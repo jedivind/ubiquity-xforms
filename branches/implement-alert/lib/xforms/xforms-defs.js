@@ -58,8 +58,12 @@ DECORATOR.setupDecorator(
 		},
 
     /* Controls */
+        {
+			selector:"xf|submit",
+			objects:["EventTarget", "Context", "Control", "Submit"]
+		},
 
-    {
+        {
 			selector:"xf|trigger",
 			objects:["EventTarget", "Context", "Control"]
 		},

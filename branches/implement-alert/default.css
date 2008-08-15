@@ -25,35 +25,66 @@ body {
   font-size: 14px;
 }
 
-xf\:output,
-xf\:input {
-  display: block;
-  padding: 0.2em;
+xforms\:hint,
+xf\:hint {
+  display: none;
 }
 
+xforms\:output,
+xf\:output,
+xforms\:input,
+xf\:input {
+  display: block;
+  padding: 0.2em; 
+}
+
+xforms\:input xforms\:label,
 xf\:input xf\:label {
   display: inline-block;
-  width: 200px;
+  width: 200px; 
   color: black;
 }
 
+xforms\:input pe-value,
 xf\:input pe-value {
   border: 2px inset #f0f0f0;
   background-color: white;
 }
 
+xforms\:input xforms\:label pe-value,
 xf\:input xf\:label pe-value {
   border: none;
   background-color: transparent;
 }
 
+xforms\:submit,
+xf\:submit,
+xforms\:trigger,
 xf\:trigger {
+  background-color: #D3D3D3;
+  border-width: 2px;
+  border-style: outset;
+  border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
   color: black;
+  padding: 3px;
 }
 
-xf\:trigger xf\:label {
-  background-color: silver;
-  border: 1px solid black;
+xforms\:submit:hover,
+xf\:submit:hover,
+xforms\:trigger:hover,
+xf\:trigger:hover {
+  border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+  border-style: inset;
+  cursor: pointer;
+}
+
+xforms\:submit  xforms\:label,
+xf\:submit xf\:label,
+xforms\:trigger xforms\:label,
+xf:\trigger xf:\label
+ {  	
+  background-color: #D3D3D3;
+  padding: 3px;
 }
 
 .invalid xf\:alert {
