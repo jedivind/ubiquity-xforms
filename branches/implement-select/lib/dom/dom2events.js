@@ -148,8 +148,8 @@ if (!document.createEvent)
 	MutationEvent.prototype.MODIFICATION = 1;
 	MutationEvent.prototype.ADDITION = 2;
 	MutationEvent.prototype.REMOVAL = 3;
-
-	MutationEvent.prototype.initEvent = function(
+  
+	MutationEvent.prototype.initMutationEvent = function(
 		eventTypeArg,
 		canBubbleArg,
 		cancellableArg,
@@ -173,7 +173,8 @@ if (!document.createEvent)
 		this.attrName = attrNameArg;
 		this.attrChange = attrChangeArg;
 	}
-
+  
+  MutationEvent.prototype.initEvent = MutationEvent.prototype.initMutationEvent;
 
 	/*
 	* S U B M I S S I O N E V E N T
