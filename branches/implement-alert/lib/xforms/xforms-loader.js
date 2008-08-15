@@ -115,8 +115,6 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
   	
-    loader.addModule({ name: "xforms-alert",               type: "js",  fullpath: moduleBase + "Alert.js" });
-  	
   	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
   	  requires: [
   	    "ux-default-css",
@@ -128,8 +126,7 @@ var g_sBehaviourDirectory  = "";
   	    "xforms-input-value", "xforms-output-value", "xforms-range-value", 
   	    "xforms-group","xforms-repeat","xforms-switch",
   	    "xforms-select","xforms-item",
-  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
-  	    "xforms-alert"
+  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions"
   	  ]
   	});
     loader.require( "xforms-defs" );

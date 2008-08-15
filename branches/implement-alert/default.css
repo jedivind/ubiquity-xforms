@@ -56,17 +56,13 @@ xf\:trigger xf\:label {
   border: 1px solid black;
 }
 
-xf\:alert {
-  display: none;
-}
-
-alert.invalid {
+.invalid xf\:alert {
   display: inline;
   background-color: transparent;
   color: #D00;
 }
 
-alert.valid {
+.valid xf\:alert {
   display: none;
 }
 
