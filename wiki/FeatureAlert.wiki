@@ -7,13 +7,19 @@ Implementation details for the XForms [http://www.w3.org/TR/xforms11/#ui-commone
 
 == Implementation ==
 
-The inline text of an alert will be used to display an alert element.
+The inline text of an alert will be used to display an alert element and it will be red.
 
 When a control form is valid by its 'constraint', the alert will be hidden. When a control form is invalid by its 'constraint', the alert will to be displayed.
 
 Since the Schema Validation is not supported yet, that part of the alert support is not supported yet either. I did put two test situations in my alert test case that test this and fail. When the Schema Validation is supported, those situations should pass (I think). 
 
 The last story already works pretty nicely.
+
+The alert text is after the control by a for loop in Control.js that iterates over the control's children and inserts the <pe-value> before the first <xf:alert> child (if none, <pe-value> goes at the end).
+
+The @ref support will have to be fixed to work correctly.
+
+Alerts do not work in IE now, because IE thinks the xf:alerts are always valid (so they are hidden).
 
 == Stories ==
   * A user enters invalid data into a control, the alert message is shown.
