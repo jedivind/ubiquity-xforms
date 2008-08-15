@@ -44,13 +44,28 @@ Hint.prototype.performAction = function(oEvt)
     	if(this.element.getAttribute("ref") || this.element.getAttribute("value")) {
     		hintSTR = this.element.m_value.textContent;
     	}
+    	this.element.className = "pc-hint-timeout";
+    	var timeout = 3000;
+    	/*  // You can review this code if you like, but it is not a big focus yet.
+    	var styles = "";
+    	for(var counter = 0; counter < document.getElementsByTagName("style").length; counter++)
+    	{
+    		styles = document.getElementsByTagName("style")[counter].textContent;
+    		if(styles.match("timeout:") == "timeout:")
+    		{
+    			styles = styles.substring(styles.indexOf("timeout:"));
+    			styles = styles.substring(styles.indexOf(":") + 1, styles.indexOf(";"));
+    			timeout = parseInt(styles);
+    		}
+    	}
+    	*/
     	
 		YAHOO.myToolTip = new YAHOO.widget.Tooltip(
 			"myToolTip",
 			{
 	    		context:this.context,
 	    		text:hintSTR,
-	    		autodismissdelay:3000
+	    		autodismissdelay:timeout
 	    	}
 	    );
     }

@@ -50,6 +50,12 @@ xf\:hint {
   display: none;
 }
 
+/*
+.pc-hint-timeout {
+  timeout: 2000;
+}
+*/
+
 xf\:trigger xf\:label {
   background-color: silver;
   border: 1px solid black;

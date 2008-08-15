@@ -5,8 +5,14 @@
 		<script>
 //    debugger;
 		</script>
+		<script>g_sBehaviourDirectory = "../../behaviours/"</script>
 		<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
-	  <script src="../../../ubiquity-loader.js">/**/</script>
+		<script type="text/javascript" src="../ubiquity-loader.js" >/**/</script>
+<style>
+	xf\:hint {
+	  timeout: 3000;
+	}
+</style>
 	</head>
 	<body>
 	    
@@ -67,6 +73,10 @@
 		<xf:input id="i6" ref="/x/y">
 			<xf:label id="l7">Hint:</xf:label>
 			<xf:hint id="hintBind" ref="/x/y">Inline Hint Message (WRONG)</xf:hint>
+		</xf:input>
+		<xf:input id="i7" ref="/x/y">
+			<xf:label id="l8">Hint:</xf:label>
+			<xf:hint id="hintBind2" value="/x/yz">Inline Hint Message (WRONG)</xf:hint>
 		</xf:input>
 	  <hr />
 	</body>
