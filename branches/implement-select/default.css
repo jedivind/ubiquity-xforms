@@ -36,12 +36,12 @@ xf\:input xf\:label {
   width: 200px;
 }
 
-xf\:input pe-value {
+xf\:input pe-value, xforms\:input pe-value {
   border: 2px inset #f0f0f0;
   background-color: white;
 }
 
-xf\:input xf\:label pe-value {
+xf\:input xf\:label pe-value, xforms\:input xforms\:label pe-value {
   border: none;
   background-color: transparent;
 }
@@ -61,4 +61,29 @@ xf\:trigger xf\:label {
 .slider-thumb { 
   position: absolute; 
   top: 4px; 
+}
+xforms\:item {
+  display:block;
+}
+.pe-choices {
+}
+
+xforms\:select1 pe-value,
+xf\:select1 pe-value {
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+
+ xf\item pe-value,
+ xforms\item pe-value {
+  border: none;
+  background-color:transparent;
+}
+
+xf\:select1 xf\:label pe-value, xforms\:select1 xforms\:label pe-value {
+  border: none;
+  background-color: transparent;
+}
+.xforms-out-of-range {
+  border:#ffcc00 1px solid;
 }
