@@ -101,7 +101,7 @@ Completing support for alert.
 ||calendar||r588||yes||-||-||
 ||colorpicker||r592||yes||-||-||
 ||hint-work||r436 (r510)||not yet||-||-||
-||implement-alert||r521 (r557)||not yet||-||-||
+||implement-alert||r676||r676||-||mdmcente||
 ||implement-message||r479||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
