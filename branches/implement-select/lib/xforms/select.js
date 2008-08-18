@@ -39,7 +39,9 @@ XFormsSelect1.prototype = new CommonSelect();
 					oEvt.stopPropagation();
 					break;
 				case "xforms-value-changed" :
-          this.element.itemChanged(oEvt);
+				//This needn't be run inline, and causes stack overflow in IE if it is.
+				  var element = this.element;
+          spawn(function(){element.itemChanged(oEvt);});
 				
 			}			
 		};
