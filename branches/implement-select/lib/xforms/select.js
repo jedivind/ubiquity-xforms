@@ -174,7 +174,7 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 				case "fp-select":
 					this.m_values.push(oEvt.target.getValue());
 					oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
-					oEvt1.initEvent("control-value-changed", false, true,
+					oEvt1.initMutationEvent("control-value-changed", false, true,
 						null, "",this.m_values.join(" "), 1);
 					oEvt1._actionDepth = oEvt._actionDepth;
 					FormsProcessor.dispatchEvent(this.element.m_value,oEvt1);
@@ -189,7 +189,7 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 							this.m_values.splice(i,1);
 
 							oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
-							oEvt1.initEvent("control-value-changed", false, true,
+							oEvt1.initMutationEvent("control-value-changed", false, true,
 								null, "",this.m_values.join(" "), 1);
 							oEvt1._actionDepth = oEvt._actionDepth;
 							FormsProcessor.dispatchEvent(this.element.m_value,oEvt1);
@@ -212,7 +212,7 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 		Select.prototype.onSelectionChanged = function(s)
 		{
 			var oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
-			oEvt1.initEvent("selection-changed", false, false,null, "",s.split(" "), 1);
+			oEvt1.initMutationEvent("selection-changed", false, false,null, "",s.split(" "), 1);
 			FormsProcessor.dispatchEvent(element,oEvt1);
 			return;
 		};

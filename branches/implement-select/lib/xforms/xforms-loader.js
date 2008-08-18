@@ -60,6 +60,10 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: moduleBase + "../decorate.js", 
   		requires:["libxh-namespace-manager"]});
   
+    // crypto
+    loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
+    loader.addModule({ name: "xpath-extension-sha1",        type: "js",  fullpath: moduleBase + "../third-party/sha1.js" });
+
   	loader.addModule({ name: "xforms-dom-misc",            type: "js",  fullpath: moduleBase + "../ajaxslt/misc.js" });
   	loader.addModule({ name: "xforms-dom",                 type: "js",  fullpath: moduleBase + "../ajaxslt/dom.js",
   		requires: [ "xforms-dom-misc" ] });
@@ -67,8 +71,9 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-ajaxslt-improvements", type: "js",  fullpath: moduleBase + "ajaxslt-improvements.js",
   		requires: [ "xforms-dom", "xforms-xpath" ] });
   	loader.addModule({ name: "xforms-core-function-library", type: "js",  fullpath: moduleBase + "xforms-core-function-library.js",
-  	requires: [ "xforms-xpath" ] });
-  	
+  	requires: [ "xforms-xpath", "xpath-extension-md5", "xpath-extension-sha1" ] });
+
+
   	loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: moduleBase + "Instance.js",
   		requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
   	
@@ -122,7 +127,7 @@ var g_sBehaviourDirectory  = "";
   	    	requires:["xforms-dom2events", "menu", "backplane-select", "finite-control"]});
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
-
+    loader.addModule({ name: "xforms-submit",             type: "js",  fullpath: moduleBase + "submit.js"});
   	
   	loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
   	  requires: [
@@ -134,8 +139,9 @@ var g_sBehaviourDirectory  = "";
   	    "xforms-action", "xforms-context", "xforms-control",
   	    "xforms-input-value", "xforms-output-value", "xforms-range-value", 
   	    "xforms-group","xforms-repeat","xforms-switch",
-  	    "xforms-select","xforms-item",
-  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions"
+  	    "xforms-select","xforms-item",  	    
+  	    "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
+  	    "xforms-submit"
   	  ]
   	});
     loader.require( "xforms-defs" );

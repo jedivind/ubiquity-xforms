@@ -30,7 +30,7 @@ function valueChangedIE(pThis,evt)
 
 	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
 	
-	oEvt.initEvent("control-value-changed", true, true,
+	oEvt.initMutationEvent("control-value-changed", true, true,
 		null, pThis.currValue, evt.srcElement.value, null, null);
 
 	spawn(function(){FormsProcessor.dispatchEvent(pThis.element,oEvt);});

@@ -85,8 +85,21 @@ Control.prototype.RetrieveValuePseudoElement = function()
 						}
 						else
 						{
-							this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
-							this.m_value = this.element.lastChild;
+							var foundAlert = false;
+							for(var counter = 0; counter < this.element.childNodes.length && !foundAlert; counter++)
+							{
+								var childNode = this.element.childNodes[counter];
+								if(childNode.localName && childNode.localName.toLowerCase() == "xf:alert")
+								{
+									foundAlert = true;
+									childNode.insertAdjacentHTML("beforeBegin","<pe-value></pe-value>");
+									this.m_value = childNode.previousSibling;
+								}
+							}
+							if(!foundAlert) {
+								this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
+								this.m_value = this.element.lastChild;
+							}
 						}
 	
 						window.status = "";

@@ -58,6 +58,10 @@ DECORATOR.setupDecorator(
 		},
 
     /* Controls */
+        {
+			selector:"xf|submit",
+			objects:["EventTarget", "Context", "Control", "Submit"]
+		},
 
     {
 			selector:"xf|trigger",
@@ -98,6 +102,14 @@ DECORATOR.setupDecorator(
 			selector:"xf|secret",
 			objects:["EventTarget", "Context", "Control"]
 		},
+		{
+			selector:"xf|label",
+			objects:["EventTarget", "Context", "Control"]
+		},
+		{
+			selector:"xf|alert",
+			objects:["EventTarget", "Context", "Control"]
+		},
 
 		{
 			selector:"xf|input > pe-value",
@@ -123,6 +135,10 @@ DECORATOR.setupDecorator(
 		{
 			selector:"xf|range > pe-value",
 			objects:["EventTarget", "RangeValue"]
+		},
+		{
+			selector:" xf|alert > pe-value",
+			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
 		{

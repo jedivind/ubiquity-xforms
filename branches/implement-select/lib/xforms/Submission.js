@@ -36,7 +36,7 @@ Submission.prototype.onDocumentReady = function()
 		{
 			handleEvent: function(evt)
 			{
-				evt.target.document.submission.submit(evt.target);
+			    evt.target.ownerDocument.submission.submit(evt.target);
 				return;
 			}
 		}
