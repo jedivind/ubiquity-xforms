@@ -14,13 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+/*globals document, YAHOO, spawn, FormsProcessor */
+/*members Dom, addClass, createEvent, dispatchEvent, initEvent, 
+    isInRange, onInRange, onOutOfRange, removeClass, util 
+*/
 
 /**
   @constructor
   @class
     Specifies a control that may be requested to  display values that it is incapable of displaying. 
 */
-  FiniteControl = function(elmnt)
+  var FiniteControl = function(elmnt)
   {
     var m_bInRange = true;
     var element = elmnt;
@@ -33,7 +38,7 @@
        if(m_bInRange) {
           m_bInRange = false;
           if(element) {
-            YAHOO.util.Dom.addClass(element,"xforms-out-of-range");
+           YAHOO.util.Dom.addClass(element,"xforms-out-of-range");
             if(element.dispatchEvent) {
               var oEvt = document.createEvent("Events");
               oEvt.initEvent("xforms-out-of-range", false, true);
