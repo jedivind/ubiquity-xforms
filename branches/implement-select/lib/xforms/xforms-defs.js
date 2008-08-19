@@ -28,7 +28,7 @@ DECORATOR.setupDecorator(
 	  
 	//Switch off bindings within repeat, during load-time (FF )
 		{
-			selector:"xf|repeat > * ",
+			selector:"xf|repeat > * , xf|itemset > *",
 			cssText:"-moz-binding:url();"
 		},
 		
@@ -38,7 +38,10 @@ DECORATOR.setupDecorator(
 			selector:"xf|repeat.repeat-ready > xf|group",
 			objects:["EventTarget", "Context", "Group"]
 		},
-
+		{
+		  selector:"xf|itemset.repeat-ready > xf|item",
+			objects:["EventTarget", "Context", "Item"]
+		},
   /* Model */
 
 		{
@@ -158,6 +161,10 @@ DECORATOR.setupDecorator(
 			objects:["EventTarget", "Context", "Item"]
 		},
 		{
+			selector:"xf|itemset",
+			objects:["EventTarget", "Context", "Itemset"]
+		},
+		{
 			selector:"xf|range.geolocation > pe-value",
 			objects:["EventTarget", "RangeValueGMAP"]
 		},
@@ -252,15 +259,15 @@ DECORATOR.setupDecorator(
 		},
 	//Switch off bindings within repeat, during load-time (IE )
 		{
-			selector:"xf|repeat *",
+			selector:"xf|repeat *, xf|itemset *", 
 			cssText:"-binding-ignore:true;"
 		},
 	//Switch bindings repeat back on within repeat.  (IE )
 		{
-			selector:"xf|repeat.repeat-ready *",
+			selector:"xf|repeat.repeat-ready *, xf|itemset.repeat-ready *",
 			cssText:"-binding-ignore:false;"
 		}
-
+    
 	],
 	"http://www.w3.org/2002/xforms"); //to tell the decorator so that it doesn't need to write these definitions again
 

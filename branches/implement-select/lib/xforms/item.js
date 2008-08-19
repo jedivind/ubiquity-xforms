@@ -46,6 +46,8 @@ function Itemset(elmnt)
 	this.element = elmnt;
 	this.element.iterationTagName = "item";
 }
+Itemset.prototype = new Repeat();
+
 //TODO: The  functions here have just been pasted from the .htc, and have not been checked for 
 //	compatibility with the new .js object mechanism.  Certainly, functions towards the end are not 
 //	expected to work.
@@ -80,7 +82,12 @@ Item.prototype.getLabel = function() {
   
   var s;
   if(this.m_label) {
-    s = this.m_label.getValue();
+    if(this.m_label.getValue) {
+      s = this.m_label.getValue();
+    }
+    else {
+      s = this.m_label.innerHTML;
+    }
   }
   else {
     s = this.m_value.getValue();

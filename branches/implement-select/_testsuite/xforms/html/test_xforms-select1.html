@@ -61,6 +61,10 @@
 		    <xf:label ref="name"></xf:label>
 		    <xf:value ref="abbr"></xf:value>
 		  </xf:item>
+	    <xf:itemset nodeset="instance('currencies')/currency">
+	      <xf:label ref="name"></xf:label>
+	      <xf:value ref="abbr"></xf:value>
+	    </xf:itemset>	  
 	  </xf:select1>
 	  
 	  <xf:select1 ref="principal/@currency" appearance="minimal" incremental="true" id="s1">
@@ -78,7 +82,7 @@
 	      <xf:value>eur</xf:value>
 	    </xf:item>
 	    <xf:item>
-	      <xf:label ref="instance('currencies')/currency/name"></xf:label>
+	      <xf:label value="concat('Proper', ' Money')"></xf:label>
 	      <xf:value ref="instance('currencies')/currency/abbr"></xf:value>
 	    </xf:item>
 	    <xf:item ref="instance('currencies')/currency[2]">

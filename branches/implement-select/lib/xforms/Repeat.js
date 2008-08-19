@@ -19,7 +19,9 @@ function Repeat(elmnt)
 	this.element = elmnt;
 	this.m_nLastStartIndex = -1;
 	this.m_nIndex = 1;
-	this.element.iterationTagName = "group";
+	if(this.element) {
+	  this.element.iterationTagName = "group";
+	}
 	this.m_CurrentIterationCount = 0;
 	//MUST occur prior to oncontentready, as otherwise, access to the DOM by descendent 
 	//	(.htc-bound) nodes may cause crashes.
@@ -61,11 +63,11 @@ function Repeat(elmnt)
 		Repeat.prototype.storeTemplate = function()
 		{
 			this.element.setAttribute("sTemplate",this.element.innerHTML);
-			this.element.className = "repeat-ready";
 			while(this.element.childNodes.length)
 			{
 				this.element.removeChild(this.element.firstChild);
 			}
+			this.element.className = "repeat-ready";
 		}
 
 		//register this element with the model

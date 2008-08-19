@@ -426,6 +426,14 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			}
 			return;
 		};
+			Control.prototype.getValue = function() {
+		  if(this.m_value.getValue) {
+		    return this.m_value.getValue();
+		  }
+		  else {
+		    return this.m_sValue;
+		  }
+		}
 		
 Control.prototype.onDocumentReady = Control.prototype.addcontroltomodel;
 Control.prototype.onContentReady  = Control.prototype.AddValuePseudoElement;
