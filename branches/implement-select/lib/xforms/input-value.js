@@ -128,7 +128,7 @@ XFormsInputValue.prototype.setValue = function(sValue)
 	else if(this.m_bFirstSetValue)
 	{
 		bRet = true;
-		m_bFirstSetValue = false;
+		this.m_bFirstSetValue = false;
 	}
 	return bRet;
 };
