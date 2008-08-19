@@ -64,6 +64,12 @@ Owner: [http://code.google.com/u/wellsk0705/ wellsk0705]
 
 Addition of XForms W3C test suite, a selenium harness and some xforms examples.
 
+== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/loan-form loan-form] ==
+
+Owner: [http://code.google.com/u/rahul.akolkar/ rahul.akolkar]
+
+Branch for loan form improvements such as adding a popup calendar and group styling.
+
 == refactor-vertextargets ==
 
 Refactoring vertextargets.js.
@@ -99,6 +105,7 @@ Upgrade ajaxslt to version 0.8.1.
 ||implement-alert||-||-||r680||-||
 ||implement-message||r479||-||-||-||
 ||implement-select||r693|| - || r702 || - ||
+||loan-form||r720||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
 ||upgrade-ajaxslt||r697||yes||-||-||
