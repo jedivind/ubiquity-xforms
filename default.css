@@ -108,3 +108,25 @@ xf:\trigger xf:\label
   position: absolute; 
   top: 4px; 
 }
+xforms\:item, xf\:item {
+  display:block;
+}
+xforms\:select1 pe-value,
+xf\:select1 pe-value {
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+
+ xf\item pe-value,
+ xforms\item pe-value {
+  border: none;
+  background-color:transparent;
+}
+
+xf\:select1 xf\:label pe-value, xforms\:select1 xforms\:label pe-value {
+  border: none;
+  background-color: transparent;
+}
+.xforms-out-of-range {
+  border:#ffcc00 1px solid;
+}
