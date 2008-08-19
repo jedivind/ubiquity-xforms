@@ -1,4 +1,5 @@
 #summary The XForms Message Element
+#labels Phase-Implementation,Feature
 
 = Introduction =
 
