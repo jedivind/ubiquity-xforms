@@ -48,12 +48,6 @@ Owner: [http://code.google.com/u/nkling/ nkling]
 
 Wrap ubiquity xforms's model into different Ajax toolkit (ex. dojo, YUI)
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/calendar calendar] ==
-
-Owner: [http://code.google.com/u/rahul.akolkar/ rahul.akolkar]
-
-Implementing a calendar custom control.
-
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/colorpicker colorpicker] ==
 
 Owner: [http://code.google.com/u/rahul.akolkar/ rahul.akolkar]
@@ -100,7 +94,6 @@ Upgrade ajaxslt to version 0.8.1.
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
 ||ajax-xforms-model||r485||-||-||-||
-||calendar||r715||yes||-||rahul.akolkar||
 ||colorpicker||r592||yes||-||-||
 ||hint-work||r436||needs a code review||-||-||
 ||implement-alert||-||-||r680||-||
