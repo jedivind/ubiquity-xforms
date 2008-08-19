@@ -7,15 +7,15 @@ Implementation details for the XForms [http://www.w3.org/TR/xforms11/#action-mes
 
 == Implementation ==
 
+xf:message elements have an @level attribute that can be "modal", "modeless", or "ephemeral".  The default is "modal".
+
 A "modal" xf:message is displaying pretty nicely in a dialog window.  Since it is "modal", you have to click on the OK button before you can do anything else on the page.
 
 A "modeless" xf:message is displaying pretty nicely in a dialog window.  Since it is "modeless", you can still select on other buttons and type words on the page.
 
 I made the xf:message's OK button visible with the code that I added in lib/xforms/actions.js. I also made the xf:message display correctly with the code that I added in default.css.  The xf:message and it's header look a lot better with these settings.
 
-A "ephemeral" xf:message works pretty well, but it still needs work, because the message does not always appear where it should.
-
-"modal" is the default level of a xf:message.
+A "ephemeral" xf:message works pretty well.  It displays in a tooltip, like xf:hint (not in a dialog window).  But, it still needs work, because the message does not always appear where it should.
 
 @ref & @value are supported.
 
