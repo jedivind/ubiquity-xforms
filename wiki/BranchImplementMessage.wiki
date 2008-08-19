@@ -6,16 +6,16 @@
 || Discussion: || To discuss implementation details on this branch, use the [http://groups.google.com/group/ubiquity-xforms-eng/ ubiquity-xforms-eng group], and add {{{[BranchImplementMessage]}}} to your comments. ||
 || Features: || One of the features to consider is FeatureTooltip. (It is used when the message's level is ephemeral.) ||
 
-A "modal" message is displaying pretty nicely now.
+A "modal" xf:message is displaying pretty nicely in a dialog window.  Since it is "modal", you have to click on the OK button before you can do anything else on the page.
 
-I made the message's OK button visible with the code that I added in lib/xforms/actions.js.
+A "modeless" xf:message is displaying pretty nicely in a dialog window.  Since it is "modeless", you can still select on other buttons and type words on the page.
 
-I also made the message display correctly with the code that I added in default.css.  The message and it's header look a lot better with these settings.
+I made the xf:message's OK button visible with the code that I added in lib/xforms/actions.js. I also made the xf:message display correctly with the code that I added in default.css.  The xf:message and it's header look a lot better with these settings.
 
--"modeless" and "ephemeral" messages still need work.
+A "ephemeral" xf:message works pretty well, but it still needs work, because the message does not always appear where it should.
 
--"modal" needs to be the default level of a message.
+"modal" is the default level of a xf:message.
 
--@ref & @nodeset need to be supported.
+@ref & @value are supported.
 
--output elements inside a message need to be supported.
+xf:output elements inside a xf:message are supported, even though the message can contain the inline text when you only want the instance text (see issue 46).
