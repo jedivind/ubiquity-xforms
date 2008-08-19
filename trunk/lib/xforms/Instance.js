@@ -105,7 +105,9 @@ Instance.prototype.parseInstance = function() {
 	if (sXML !== "") {
 		this.m_oDOM = xmlParse(sXML);
 		this.elementState = 0;
-		this.parentNode.flagRebuild();
+		if(this.parentNode.flagRebuild) {
+		  this.parentNode.flagRebuild();
+		}
 	}
 	else {
 		this.elementState = -1;

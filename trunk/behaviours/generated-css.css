@@ -4,6 +4,14 @@ xf\:repeat > * , xforms\:repeat > * {
 xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready > xforms\:group {
   -moz-binding: url("decorator.xml?EventTarget&Context&Group#decorator");
 }
+
+xf\:select1 > xf\:item , xforms\:select1 > xforms\:item {
+  -moz-binding:url();
+}
+xf\:select1 > xf\:item *, xforms\:select1 >  xforms\:item *{
+  -moz-binding:url();
+}
+
 xf\:instance, xforms\:instance {
   -moz-binding: url("decorator.xml?EventTarget&Instance#decorator");
 }
@@ -46,7 +54,7 @@ xf\:label, xforms\:label {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:value, xforms\:value {
-  -moz-binding: url("decorator.xml?EventTarget&Context&Control&Value#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Value&Control#decorator");
 }
 xf\:item, xforms\:item {
   -moz-binding: url("decorator.xml?EventTarget&Context&Item#decorator");
@@ -64,7 +72,7 @@ xf\:select > pe-value, xforms\:select > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&XFormsInputValue#decorator");
 }
 xf\:select1 >  pe-value , xforms\:select1 >  pe-value {
-  -moz-binding: url("decorator.xml?EventTarget&XFormsInputValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&XFormsSelect1Value#decorator");
 }
 xf\:range > pe-value, xforms\:range > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&RangeValue#decorator");
@@ -79,7 +87,7 @@ xf\:select, xforms\:select {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control&Select#decorator");
 }
 xf\:select1, xforms\:select1 {
-  -moz-binding: url("decorator.xml?EventTarget&Context&Control&Select1#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control&XFormsSelect1&FiniteControl#decorator");
 }
 xf\:repeat, xforms\:repeat {
   -moz-binding: url("decorator.xml?EventTarget&Context&Repeat#decorator");
