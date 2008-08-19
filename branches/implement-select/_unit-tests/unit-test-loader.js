@@ -54,10 +54,14 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-finite-control", type: "js",  fullpath: moduleBase + "ut-finite-control.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+    
+  loader.addModule({ name: "ux-ut-insertAdjacentHTML", type: "js",  fullpath: moduleBase + "ut-insertAdjacentHTML.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   
   
   loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager", "ux-ut-path-to-module", "ux-ut-reset",
-     "ux-ut-model-standalone","ux-ut-instance-standalone", "ux-ut-select1", "ux-ut-finite-control");
+     "ux-ut-model-standalone","ux-ut-instance-standalone", "ux-ut-select1", "ux-ut-finite-control","ux-ut-insertAdjacentHTML");
   
   var sBars = "";
   loader.onProgress = function(o) {
@@ -81,6 +85,7 @@ function runTheTests() {
 
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
+    YAHOO.tool.TestRunner.add(suiteInsertAdjacentHTML);
     //run the tests
     YAHOO.tool.TestRunner.run();
     window.status = "tested"; 
