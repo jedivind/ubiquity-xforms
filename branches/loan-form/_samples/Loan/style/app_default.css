@@ -1,0 +1,157 @@
+xforms\:group { 
+  display: table; 
+  width: 800px;
+  font-family: verdana;
+  font-size: 11px;
+  font-weight: normal;
+  text-align: left;
+}
+
+xforms\:group > xforms\:input { 
+  display: table-row;
+  color: #333333;
+  background-color: #ffffff;
+  line-height: 15px;
+}
+
+xforms\:group > xforms\:input pe-value { 
+  display: table-cell;
+  font-family: verdana, arial;
+  font-size: 11px;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
+  border: thin blue solid; 
+  width: 250px;
+  min-height: 10em;
+  vertical-align: middle;
+  padding-bottom: 2px;
+  padding-top: 2px; 
+  margin-bottom: 10px;     
+}
+
+xforms\:group > xforms\:input > xforms\:label {
+  display: table-cell; 
+  padding: 0 10px 0px 0;
+  font-weight: bold; 
+  border: none; 
+  text-align: right; 
+  width: 200px;
+  vertical-align: middle; 
+  margin-bottom: 10px;     
+}
+
+xforms\:group > xforms\:input > xforms\:label pe-value {  
+  display: table-cell; 
+  border: none; 
+}
+
+xforms\:group > xforms\:output { 
+  display: table-row;
+  color: #333333;
+  background-color: #ffffff;
+  line-height: 15px;
+  width: 250px;
+}
+
+xforms\:group > xforms\:output pe-value { 
+  display: table-cell;
+  font-family: verdana, arial;
+  font-size: 11px;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
+  width: 150px;
+  min-height: 10em;
+  padding-bottom: 2px;
+  padding-top: 2px; 
+  margin-bottom: 10px;     
+}
+
+xforms\:group > xforms\:output > xforms\:label {
+  display: table-cell; 
+  padding: 0 10px 0px 0;
+  font-weight: bold; 
+  border: none; 
+  text-align: left; 
+  width: 100px;
+  vertical-align: middle; 
+  margin-bottom: 10px;     
+}
+
+xforms\:group > xforms\:output > xforms\:label pe-value {  
+  display: table-cell; 
+  border: none; 
+}
+
+xforms\:group > xforms\:select1 { 
+  display: table-row;
+  color: #333333;
+  background-color: #ffffff;
+  line-height: 15px;
+}
+
+xforms\:group > xforms\:select1 pe-value { 
+  display: table-cell;
+  font-family: verdana, arial;
+  font-size: 11px;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
+  border: thin blue solid; 
+  width: 250px;
+  min-height: 10em;
+  vertical-align: middle;
+  padding-bottom: 2px;
+  padding-top: 2px; 
+  margin-bottom: 10px;     
+}
+
+xforms\:group > xforms\:select1 > xforms\:label {
+  display: table-cell; 
+  padding: 0 10px 0px 0;
+  font-weight: bold; 
+  border: none; 
+  text-align: right; 
+  width: 200px;
+  vertical-align: middle; 
+  margin-bottom: 10px;     
+}
+
+xforms\:group > xforms\:select1 > xforms\:label pe-value {  
+  display: table-cell; 
+  border: none; 
+}
+
+.valid xforms\:alert {
+  display: none;
+}
+
+.invalid xforms\:alert {
+  display: table-cell;
+  float: right;
+  text-align: left;
+  background-color: transparent;
+  color: #D00;
+  width: 300px;
+  padding: 5px 10px 5px 0;
+}
+
+.yui-button{display:-moz-inline-box;display:inline-block;vertical-align:text-bottom;}
+.yui-button .first-child{display:block;*display:inline-block;}
+.yui-button button,.yui-button a{display:block;*display:inline-block;border:none;margin:0;}
+.yui-button button{background-color:transparent;*overflow:visible;cursor:pointer;}
+.yui-skin-sam .yui-button{border-width:1px 0;border-style:solid;border-color:#808080;background:url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/../../../../assets/skins/sam/sprite.png) repeat-x 0 0;margin:auto .25em;}
+.yui-skin-sam .yui-button .first-child{border-width:0 1px;border-style:solid;border-color:#808080;margin:0 -1px;*position:relative;*left:-1px;}
+.yui-skin-sam .yui-button button,.yui-skin-sam .yui-button a{padding:0 10px;font-size:93%;line-height:2;*line-height:1.7;min-height:1.75em;*min-height:auto;color:#000;}
+.yui-skin-sam .yui-split-button button,.yui-skin-sam .yui-menu-button button{background-position:right center;background-repeat:no-repeat;}
+.yui-skin-sam .yui-menu-button button{background-image:url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);}
