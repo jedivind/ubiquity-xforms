@@ -445,7 +445,7 @@ FunctionCallExpr.prototype.xpathfunctions["property"] = function(ctx) {
         // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender  
 
         var match = property.match(/^[_a-z][\w\.\-]*/i);
-        if (match && match[0] == property) {
+        if (match && match[0] == property && document.defaultModel) {
             // Matched the whole property string so it is a valid NCName.
             var evt = document.createEvent("Events");
             evt.initEvent("xforms-compute-exception", true, false);

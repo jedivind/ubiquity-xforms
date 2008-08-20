@@ -72,11 +72,6 @@ DECORATOR.setupDecorator(
 			selector:"xf|output >  pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
-
-		{
-			selector:" xf|value  > pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
-		},
 /*
 		{
 			selector:"pe-value",
@@ -119,10 +114,6 @@ DECORATOR.setupDecorator(
 			selector:"xf|value",
 			objects:["EventTarget", "Context", "Control","Value"]
 		},
-		{
-			selector:"xf|item",
-			objects:["EventTarget", "Context", "Item"]
-		},
 
 		{
 			selector:"xf|input > pe-value",
@@ -139,11 +130,11 @@ DECORATOR.setupDecorator(
 	
 		{
 			selector:"xf|select > pe-value",
-			objects:["EventTarget", "XFormsInputValue"]
+			objects:["EventTarget", "XFormsSelectValue"]
 		},
 		{
 			selector:"xf|select1 >  pe-value ",
-			objects:["EventTarget", "XFormsInputValue"]
+			objects:["EventTarget", "XFormsSelect1Value"]
 		},
 		{
 			selector:"xf|range > pe-value",
@@ -155,6 +146,22 @@ DECORATOR.setupDecorator(
 		},
 
 		{
+			selector:"xf|label",
+			objects:["EventTarget", "Context", "Control"]
+		},
+		{
+			selector:"xf|value",
+			objects:["EventTarget", "Context", "Value", "Control"]
+		},
+		{
+			selector:"xf|value > pe-value",
+			objects:["EventTarget"]
+		},
+		{
+			selector:"xf|item",
+			objects:["EventTarget", "Context", "Item"]
+		},
+		{
 			selector:"xf|range.geolocation > pe-value",
 			objects:["EventTarget", "RangeValueGMAP"]
 		},
@@ -164,6 +171,22 @@ DECORATOR.setupDecorator(
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
+		// YUI Calendar as <xf:input>
+		{
+			selector:"xf|input.yui-widget-calendar > pe-value, xf|input[appearance='yui:calendar'] > pe-value, xf|input[appearance='yui:popup-calendar'] > pe-value, xf|input[datatype='xsd:date'] > pe-value, xf|input[datatype='xf:date'] > pe-value",
+			objects:["EventTarget", "YUICalendarValue"]
+		},
+		//HACK: IE does not support child selectors.
+		{
+			selector:"xf|input.yui-widget-calendar > xf|label > pe-value, xf|input[appearance='yui:calendar'] > xf|label > pe-value, xf|input[appearance='yui:popup-calendar'] > xf|label > pe-value, xf|input[datatype='xsd:date'] > xf|label > pe-value, xf|input[datatype='xf:date'] > xf|label > pe-value",
+			objects:["EventTarget", "XFormsOutputValue"]
+		},
+		// Calendar with "minimal" appearance resorts to regular xf:input appearance
+		{
+			selector:"xf|input[datatype='xsd:date'][appearance='minimal'] > pe-value, xf|input[datatype='xf:date'][appearance='minimal'] > pe-value",
+			objects:["EventTarget", "XFormsInputValue"]
+		},
+
 		{
 			selector:"xf|select",
 			objects:["EventTarget", "Context", "Control", "Select"]
@@ -171,7 +194,7 @@ DECORATOR.setupDecorator(
 		
 		{
 			selector:"xf|select1",
-			objects:["EventTarget", "Context", "Control", "Select1"]
+			objects:["EventTarget", "Context", "Control", "XFormsSelect1", "FiniteControl"]
 		},
 
     		{

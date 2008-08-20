@@ -47,16 +47,28 @@ function runTheTests() {
 
   loader.addModule({ name: "ux-ut-reset", type: "js",  fullpath: moduleBase + "ut-reset.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+  
+  loader.addModule({ name: "ux-ut-select1", type: "js",  fullpath: moduleBase + "ut-select1.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.addModule({ name: "ux-ut-finite-control", type: "js",  fullpath: moduleBase + "ut-finite-control.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
   
   
   loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager", "ux-ut-path-to-module", "ux-ut-reset",
-     "ux-ut-model-standalone","ux-ut-instance-standalone");
-
+     "ux-ut-model-standalone","ux-ut-instance-standalone", "ux-ut-select1", "ux-ut-finite-control");
+  
+  var sBars = "";
+  loader.onProgress = function(o) {
+    sBars += ("|");
+    window.status = ("Loading test modules: " + sBars + " [" + o.name + "]");
+  };
 
   loader.onSuccess = function(o) {
     //create the logger
     var logger = new YAHOO.tool.TestLogger();
+    window.status = "testing"; 
 
     //add the test suite to the runner's queue
     YAHOO.tool.TestRunner.add(oSuitePathToModule);
@@ -67,8 +79,12 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteModelStandalone);
     YAHOO.tool.TestRunner.add(suiteReset);
 
+    YAHOO.tool.TestRunner.add(suiteFiniteControl);
+    YAHOO.tool.TestRunner.add(suiteSelect1);
     //run the tests
     YAHOO.tool.TestRunner.run();
+    window.status = "tested"; 
+
   };
   
   loader.insert();
