@@ -25,7 +25,7 @@ Value.prototype.onContentReady = function(){
 	if(this.element.parentNode.m_ancestorEventTarget){
         this.element.parentNode.m_ancestorEventTarget.addItem(this.element.parentNode);
 	}
-}
+};
 
 Value.prototype.getValue = function()
 {
@@ -46,6 +46,7 @@ function Itemset(elmnt)
 	this.element = elmnt;
 	this.element.iterationTagName = "item";
 }
+
 Itemset.prototype = new Repeat();
 
 //TODO: The  functions here have just been pasted from the .htc, and have not been checked for 
@@ -68,7 +69,7 @@ Item.prototype.getAncestorEventTarget = function() {
 		while(el) {
       var s = el.nodeName;
 	    s = s.slice(s.indexOf(":")+1,s.length).toLowerCase();
-	    if(s.indexOf("select") == 0) {
+	    if(s.indexOf("select") === 0) {
 				this.m_ancestorEventTarget = el;
 				break;
 			}
@@ -93,7 +94,7 @@ Item.prototype.getLabel = function() {
     s = this.m_value.getValue();
   }
   return s;
-}
+};
 
 
 
@@ -131,7 +132,7 @@ Item.prototype.onContentReady = function()
 	this.findLabelElement();
 	this.addVisualRepresentation();
 
-	var ownerSelect = this.getAncestorEventTarget()
+	var ownerSelect = this.getAncestorEventTarget();
 	if(ownerSelect) {
   	var pThis = this;
   	ownerSelect.addEventListener("selection-changed", function(e){pThis.handleEvent(e);}, false);
@@ -164,7 +165,7 @@ Item.prototype.handleEvent = function(oEvt)
 {
 	if(oEvt.type == "selection-changed" && oEvt.target == this.getAncestorEventTarget())
 	{
-		if(typeof(oEvt.newValue) == "object")
+		if(typeof oEvt.newValue == "object")
 		{
 			oEvt.newValue = this.array_tryDataselect(oEvt.newValue);
 		}
@@ -188,7 +189,7 @@ Item.prototype.getValue = function()
 Item.prototype.string_tryDataselect = function(s)
 {
 
-	if(s != "" && s == this.getValue())
+	if(s !== "" && s == this.getValue())
 	{
 		this.onDataSelect();
 		return true;
@@ -206,7 +207,7 @@ Item.prototype.array_tryDataselect = function(arr)
 	//	if present, 
 	var s = this.getValue();
 //	debugger;
-	if(s != "")
+	if(s !== "")
 	{
 		for(var i = 0;i < arr.length;++i)
 		{

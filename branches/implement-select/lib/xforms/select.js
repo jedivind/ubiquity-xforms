@@ -254,7 +254,7 @@ XFormsSelect1Value.prototype.onDocumentReady = function()
       oInput.addEventListener("focus",function(){pSelect.showChoices();}, false);
     }
     else {
-      oInput.attachEvent("onchange", function(e){pThis.trySetManuallyEnteredValue(oInput.value)});
+      oInput.attachEvent("onchange", function(e){pThis.trySetManuallyEnteredValue(oInput.value);});
       oInput.attachEvent("onfocus",function(){pSelect.showChoices();});
     }
   
