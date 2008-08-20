@@ -32,6 +32,9 @@ xforms\:output.regular  xforms\:label { width: 175px; float:left; margin-left: 0
 xforms\:output.regular   xforms\:label  pe-value {display: block; width: 150px;}
 xforms\:output.regular   pe-value {width: 48%;}
 
+xforms\:output.group {display: block; background-color: rgb(235,235,235); margin-bottom: 5px; }
+xforms\:output.group  xforms\:label { float:left; margin-left: 0px; }
+
 xforms|output.regular {display: block; background-color: rgb(235,235,235); margin-bottom: 10px;}
 xforms|output.regular > xforms|label{ width: 280px; float:left; margin-left: 0px;}
 xforms|output.regular xforms|label .xf-value{display: block; width: 150px;}
