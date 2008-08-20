@@ -90,6 +90,22 @@
 	      <xf:value ref="abbr"></xf:value>
 	    </xf:item>
 	  </xf:select1>
+	  
+	  <xf:select1 ref="principal/@currency" appearance="minimal" incremental="true" id="s2" selection="open">
+	    <xf:label>Dead Currency</xf:label>
+	    <xf:item>
+	      <xf:label>French Francs</xf:label>
+	      <xf:value>FFR</xf:value>
+	    </xf:item>
+	    <xf:item>
+	      <xf:label>German Marks</xf:label>
+	      <xf:value>DM</xf:value>
+	    </xf:item>
+	    <xf:item>
+	      <xf:label>Dutch Guilders</xf:label>
+	      <xf:value>DFL</xf:value>
+	    </xf:item>
+	  </xf:select1>	  
 	  <hr />
 	  <xf:input ref="instance('currencies')/currency/name" id="i0"></xf:input>
 	  <xf:input ref="instance('currencies')/currency/abbr" id="i1"></xf:input>
