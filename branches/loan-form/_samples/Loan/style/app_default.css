@@ -9,7 +9,6 @@ xforms\:group {
 
 xforms\:group > xforms\:input { 
   display: table-row;
-  color: #333333;
   background-color: #ffffff;
   line-height: 15px;
 }
@@ -24,7 +23,7 @@ xforms\:group > xforms\:input pe-value {
   font-variant: normal;
   font-weight: normal;
   line-height: normal;
-  border: thin blue solid; 
+  border: thin black solid; 
   width: 250px;
   min-height: 10em;
   vertical-align: middle;
@@ -36,7 +35,6 @@ xforms\:group > xforms\:input pe-value {
 xforms\:group > xforms\:input > xforms\:label {
   display: table-cell; 
   padding: 0 10px 0px 0;
-  font-weight: bold; 
   border: none; 
   text-align: right; 
   width: 200px;
@@ -47,18 +45,16 @@ xforms\:group > xforms\:input > xforms\:label {
 xforms\:group > xforms\:input > xforms\:label pe-value {  
   display: table-cell; 
   border: none; 
+  font-weight: bold; 
 }
 
 xforms\:group > xforms\:output { 
   display: table-row;
-  color: #333333;
-  background-color: #ffffff;
   line-height: 15px;
-  width: 250px;
 }
 
 xforms\:group > xforms\:output pe-value { 
-  display: table-cell;
+  display: block;
   font-family: verdana, arial;
   font-size: 11px;
   font-size-adjust: none;
@@ -67,32 +63,29 @@ xforms\:group > xforms\:output pe-value {
   font-variant: normal;
   font-weight: normal;
   line-height: normal;
-  width: 150px;
-  min-height: 10em;
   padding-bottom: 2px;
-  padding-top: 2px; 
-  margin-bottom: 10px;     
+  padding-top: 2px;
+  width: 500px;
 }
 
 xforms\:group > xforms\:output > xforms\:label {
   display: table-cell; 
   padding: 0 10px 0px 0;
-  font-weight: bold; 
   border: none; 
-  text-align: left; 
-  width: 100px;
+  text-align: right; 
+  width: 200px;
   vertical-align: middle; 
-  margin-bottom: 10px;     
+       
 }
 
 xforms\:group > xforms\:output > xforms\:label pe-value {  
   display: table-cell; 
   border: none; 
+  font-weight: bold; 
 }
 
 xforms\:group > xforms\:select1 { 
   display: table-row;
-  color: #333333;
   background-color: #ffffff;
   line-height: 15px;
 }
@@ -107,7 +100,7 @@ xforms\:group > xforms\:select1 pe-value {
   font-variant: normal;
   font-weight: normal;
   line-height: normal;
-  border: thin blue solid; 
+  border: thin black solid; 
   width: 250px;
   min-height: 10em;
   vertical-align: middle;
@@ -119,7 +112,6 @@ xforms\:group > xforms\:select1 pe-value {
 xforms\:group > xforms\:select1 > xforms\:label {
   display: table-cell; 
   padding: 0 10px 0px 0;
-  font-weight: bold; 
   border: none; 
   text-align: right; 
   width: 200px;
@@ -130,6 +122,24 @@ xforms\:group > xforms\:select1 > xforms\:label {
 xforms\:group > xforms\:select1 > xforms\:label pe-value {  
   display: table-cell; 
   border: none; 
+  font-weight: bold; 
+}
+
+xforms\:submit {
+    background-color: #99cccc !important;
+    border-color: #d8dfea rgb(14, 31, 91) rgb(14, 31, 91) rgb(216, 223, 234) !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif !important;    
+    font-size: 11px !important;
+    margin: 0 2px !important;
+    padding: 2px 18px !important;
+    float: right;
+}
+
+xforms\:submit:hover {
+   cursor: pointer !important;
+   border: 1px solid #ffc !important;
 }
 
 .valid xforms\:alert {
