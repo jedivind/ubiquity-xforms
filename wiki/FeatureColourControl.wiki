@@ -1,22 +1,39 @@
 #summary A simple feature to add would be a colour-picker as a range control
 #labels Phase-Design,Feature
 
-The YUI library contains a colour-picker, as illustrated [http://developer.yahoo.com/yui/examples/button/btn_example11.html here]. This could be invoked in XForms using either of the following techniques:
+The YUI library contains a color-picker, as illustrated [http://developer.yahoo.com/yui/examples/button/btn_example11.html here].
+
+= Indicating the control =
+
+The color-picker could be invoked in XForms using any of the following techniques:
 {{{
-<xf:range ref="x" appearance="ux:color-picker">
+<xf:input ref="x" datatype="xhd:Color">
+  ...
+</xf:input>
+}}}
+{{{
+<xf:range ref="x" datatype="xhd:Color">
   ...
 </xf:range>
 }}}
 {{{
-<xf:select1 ref="x" appearance="ux:color-picker">
+<xf:select1 ref="x" datatype="xhd:Color">
   ...
 </xf:select1>
 }}}
-An enhancement to this would be to include predefined values. This could allow the user to choose any colour from the palette, or to pick a saved one from the list:
+Note that the datatype indicator is based on the [XHTML Modularisation 1.1http://www.w3.org/TR/xhtml-modularization/] datatype for color, which is {{{http://www.w3.org/1999/xhtml/datatypes/Color}}}.
+
+= Appearance =
+
+The color-picker can appear in a fully expanded mode, or compact, waiting for the user to interact with the control. This can be indicated using {{{appearance="full"}}} and {{{@appearance="compact"}}} respectively, with the latter being the default setting.
+
+= Using palettes =
+
+An enhancement to the basic color-picker would be to include predefined values. This would allow the user to choose any color from the palette, or to pick a saved one from the list:
 {{{
-<xf:select1 ref="x" appearance="ux:color-picker">
+<xf:select1 ref="x" datatype="xhd:Color">
   <xf:label>Background colour:</xf:label>
-  <xf:itemset nodset="saved-colors">
+  <xf:itemset nodeset="saved-colors">
     <xf:label ref="label"></xf:label>
     <xf:value ref="value"></xf:value>
   </xf:itemset>
