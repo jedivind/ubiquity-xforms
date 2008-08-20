@@ -21,7 +21,7 @@ The color-picker could be invoked in XForms using any of the following technique
   ...
 </xf:select1>
 }}}
-Note that the datatype indicator is based on the [XHTML Modularisation 1.1http://www.w3.org/TR/xhtml-modularization/] datatype for color, which is {{{http://www.w3.org/1999/xhtml/datatypes/Color}}}.
+Note that the datatype indicator is based on the [http://www.w3.org/TR/xhtml-modularization/ XHTML Modularisation 1.1] datatype for color, which is {{{http://www.w3.org/1999/xhtml/datatypes/Color}}}.
 
 = Appearance =
 
