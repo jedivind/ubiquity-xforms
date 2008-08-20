@@ -2092,6 +2092,8 @@ var xpathGrammarRules =
    [ XPathExpr, [ XPathExpr, TOK_MINUS, XPathExpr ], -1,
      makeBinaryExpr, ASSOC_LEFT ],
 
+    [ XPathExpr, [ XPathExpr, TOK_ASTERISK], 0,
+      passExpr, ASSOC_LEFT ],
    [ XPathExpr, [ XPathExpr, TOK_ASTERISK, XPathExpr ], -1,
      makeBinaryExpr, ASSOC_LEFT ],
    [ XPathExpr, [ XPathExpr, TOK_DIV, XPathExpr ], -1,
