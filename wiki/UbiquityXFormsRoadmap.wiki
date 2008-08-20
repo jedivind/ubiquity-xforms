@@ -108,4 +108,4 @@ Upgrade ajaxslt to version 0.8.1.
 ||loan-form||r720||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
-||upgrade-ajaxslt||r728||yes||-||merle.sterling||
+||upgrade-ajaxslt||-||-||r731||||
