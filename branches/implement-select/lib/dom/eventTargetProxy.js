@@ -90,6 +90,7 @@ function StyleUnfocussedly(elmnt)
 //There is no need for this in firefox.
 if(document.all)
 {
+
 	EventTarget = EventTargetProxy;
 
 /*
@@ -529,42 +530,42 @@ if(document.all)
 			return !oEvt._cancelled;
 		}//dispatchEvent
 
-
-function EventTargetProxy(elmnt)
-{
-	this.arrListener = new Object();
-	this.element = elmnt;
-	this.element.onclick = function(evt){mapclick2domactivate(elmnt);};
-	this.element.ondblclick = function(evt){mapdblclick2domactivate(elmnt);};
-	this.element.onmouseover = function(evt){StyleHoverishly(elmnt);};
-	this.element.onmouseout = function(evt){StyleUnhoverishly(elmnt);};
-	this.element.onfocusin = function(evt){StyleFocussedly(elmnt);};
-	this.element.onfocusout = function(evt){StyleUnfocussedly(elmnt);};
-}
-
-/*
-* There are essentially 4 phases:
-*	1. capturing
-*	2. at target
-*	3. bubbling
-*	4. processing defaults
-*
-* However, from the point of view of storing the listeners
-* we can keep the target and bubbling listeners in the
-* same place.
-*/
-
-EventTargetProxy.prototype.PHASE_CAPTURE =0;
-EventTargetProxy.prototype.PHASE_BUBBLE = 1;
-EventTargetProxy.prototype.PHASE_DEFAULT = 2;
-EventTargetProxy.prototype.addEventListener = _addEventListener;
-EventTargetProxy.prototype.removeEventListener = _removeEventListener;
-EventTargetProxy.prototype._notifyListeners = __notifyListeners;
-EventTargetProxy.prototype.dispatchEvent = _dispatchEvent;
-EventTargetProxy.prototype._dispatchEvent = __dispatchEvent;
-EventTargetProxy.prototype.capture = capture;
-EventTargetProxy.prototype.bubble = bubble;
-
+  
+  function EventTargetProxy(elmnt)
+  {
+  	this.arrListener = new Object();
+  	this.element = elmnt;
+  	this.element.onclick = function(evt){mapclick2domactivate(elmnt);};
+  	this.element.ondblclick = function(evt){mapdblclick2domactivate(elmnt);};
+  	this.element.onmouseover = function(evt){StyleHoverishly(elmnt);};
+  	this.element.onmouseout = function(evt){StyleUnhoverishly(elmnt);};
+  	this.element.onfocusin = function(evt){StyleFocussedly(elmnt);};
+  	this.element.onfocusout = function(evt){StyleUnfocussedly(elmnt);};
+  }
+  
+  /*
+  * There are essentially 4 phases:
+  *	1. capturing
+  *	2. at target
+  *	3. bubbling
+  *	4. processing defaults
+  *
+  * However, from the point of view of storing the listeners
+  * we can keep the target and bubbling listeners in the
+  * same place.
+  */
+  
+  EventTargetProxy.prototype.PHASE_CAPTURE =0;
+  EventTargetProxy.prototype.PHASE_BUBBLE = 1;
+  EventTargetProxy.prototype.PHASE_DEFAULT = 2;
+  EventTargetProxy.prototype.addEventListener = _addEventListener;
+  EventTargetProxy.prototype.removeEventListener = _removeEventListener;
+  EventTargetProxy.prototype._notifyListeners = __notifyListeners;
+  EventTargetProxy.prototype.dispatchEvent = _dispatchEvent;
+  EventTargetProxy.prototype._dispatchEvent = __dispatchEvent;
+  EventTargetProxy.prototype.capture = capture;
+  EventTargetProxy.prototype.bubble = bubble;
+  
 
 }
 else
