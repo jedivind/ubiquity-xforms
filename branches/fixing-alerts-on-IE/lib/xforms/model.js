@@ -465,7 +465,7 @@
     		try
     		{
     			g_currentModel = pThis;
-    			oRet = xpathDomEval(sXPath, pContext);
+    			oRet = xpathDomEvaluate(sXPath, pContext);
     			g_currentModel = null;
     		}
     		catch(e)

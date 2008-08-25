@@ -67,7 +67,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					  var childNodes =this.element.childNodes; 
 					  if(childNodes) {
 					    for(var i = 0; i < childNodes.length; ++i) {
-					      if(DOM_TEXT_NODE === childNodes[i].nodeType) {
+					      if(DOM_TEXT_NODE === childNodes[i].nodeType && this.element.parentNode.nodeName.toLowerCase().match("item") == "item") {
 					        this.m_sValue = childNodes[i].nodeValue;
 					        childNodes[i].parentNode.removeChild(childNodes[i]);
 					        break;
@@ -81,22 +81,34 @@ Control.prototype.RetrieveValuePseudoElement = function()
 						if(document.all)
 						{
 							this.m_value = document.createElement("pe-value");
-							this.element.appendChild(this.m_value);
+							var foundLabel = false;
+							for(var counter = 0; counter < this.element.childNodes.length && !foundLabel; counter++)
+							{
+								var childNode = this.element.childNodes[counter];
+								if(childNode.nodeName && childNode.nodeName.toLowerCase().match("label") == "label")
+								{
+									foundLabel = true;
+									this.element.insertBefore(this.m_value, childNode.nextSibling);
+								}
+							}
+							if(!foundLabel) {
+								this.element.appendChild(this.m_value);
+							}
 						}
 						else
 						{
-							var foundAlert = false;
-							for(var counter = 0; counter < this.element.childNodes.length && !foundAlert; counter++)
+							var foundLabel = false;
+							for(var counter = 0; counter < this.element.childNodes.length && !foundLabel; counter++)
 							{
 								var childNode = this.element.childNodes[counter];
-								if(childNode.localName && childNode.localName.toLowerCase() == "xf:alert")
+								if(childNode.localName && childNode.localName.toLowerCase().match("label") == "label")
 								{
-									foundAlert = true;
-									childNode.insertAdjacentHTML("beforeBegin","<pe-value></pe-value>");
-									this.m_value = childNode.previousSibling;
+									foundLabel = true;
+									childNode.insertAdjacentHTML("afterEnd","<pe-value></pe-value>");
+									this.m_value = childNode.nextSibling;
 								}
 							}
-							if(!foundAlert) {
+							if(!foundLabel) {
 								this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
 								this.m_value = this.element.lastChild;
 							}
