@@ -230,3 +230,9 @@ There are a few tentative decisions I have assumed in the proccess on converting
   </group>
 }}}
   The syntax is a tentative decision to cater more to the existing HTML syntax. I would imagine others might has differnt opinion on that. Some has suggested we could simpify it by adding a _label_ attribute on the input or putting the label as inline text of an input.
+  {{{
+    <!-- inline text -->
+    <input id="name" name="name" type="string" default="Joe Q. Public">Name: </input>
+    <!-- label attribute -->
+    <input id="name" label="Name :" name="name" type="string" default="Joe Q. Public" />
+}}}
