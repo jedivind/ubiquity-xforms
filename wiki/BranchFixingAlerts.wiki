@@ -1,0 +1,11 @@
+#summary Feature branch to fix alerts on IE.
+#labels Phase-Support,Branch
+
+|| SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/fixing-alerts-on-IE fixing-alerts-on-IE] ||
+|| Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
+|| Discussion: || To discuss implementation details on this branch, use the [http://groups.google.com/group/ubiquity-xforms-eng/ ubiquity-xforms-eng group], and add {{{[BranchImplementMessage]}}} to your comments. ||
+|| Features: || One of the features to consider is FeatureAlert. ||
+
+Working on fixing xf:alerts on IE.
+
+Working on fixing xf:alerts display.
