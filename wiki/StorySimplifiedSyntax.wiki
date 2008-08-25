@@ -137,8 +137,10 @@ Discussion of the form element in the XForms simplified syntax is at: [http://li
 
 == Loan Form Example ==
 
-The following form shown the simplified syntax of the Loan Form example.
-The original sample form can be found at [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html]
+The following form shown the simplified syntax of the Loan Form example from John.
+
+The original sample form can be found at 
+[http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html]
 
 {{{
 
@@ -152,7 +154,10 @@ The original sample form can be found at [http://ubiquity-xforms.googlecode.com/
 </head>
 <body>
 
-<form name="datarecord" action="http://xformstest.org/cgi-bin/echo.sh" method="post" >
+<form impl="xforms-simple"
+      name="datarecord" 
+      action="http://xformstest.org/cgi-bin/echo.sh" 
+      method="post" >
    <label>Loan Form</label>
    <label for="startdate" >Agreement Date:</label>
    <input name="startdate" type="date" default="08/08/2008" />
@@ -187,4 +192,30 @@ The original sample form can be found at [http://ubiquity-xforms.googlecode.com/
 </body>
 </html>
 
+}}}
+
+There are a few tentative decisions I have assumed in the proccess on converting the orginal form to the above simplified syntax:
+
+  # The elements of the simplified syntax is assumed to be in the HTML namespace tentatively.
+  # Since the form is assumed to be in an HTML namespace, there should be a way to separate/switch the simplified syntax from a regular HTML's form. Since namespace seems to be a non-starter. I added an tentatively attribute: _impl_ to indicate the content of the form is implemented using xforms's simplified syntax.
+{{{
+<form impl="xforms-simple"... >
+..
+</form>
+}}}
+  # In the original Loan Form, the data instance has a structure that doesn't involve a repeat (such as the one in the summarized example). I have added a _group_ element to capture the same data structure of the data instance from the original example.
+{{{
+   <!-- sturcture data instance -->
+   <group name="borrower">
+     <input id="name" name="name" type="string" default="Joe Q. Public" />
+     ...
+     <input id="addr" name="addr" type="string" default="123 Main St. Tinyville" />
+     ...
+   </group>
+
+   <!-- equivalent data reprsentation in a data instance -->
+   <borrower>
+     <name>John Q. Public</name>
+     <addr>123 Main St. Tinyville</addr>
+   </borrower>   
 }}}
