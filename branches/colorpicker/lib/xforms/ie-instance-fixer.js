@@ -12,7 +12,7 @@ Inserts htc instruction to prevent IE mangling instancedata markup.
       var i;
       //set a default behaviour directory, if none exists already,
       if (typeof g_sBehaviourDirectory === "undefined") {
-        g_sBehaviourDirectory = "http://ubiquity-xforms.googlecode.com/svn/trunk/behaviours/";
+        g_sBehaviourDirectory = baseDefaultPath + "behaviours/";
       }
       
       //import the instance htc for all prefixes that match xforms.

@@ -64,9 +64,10 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
     loader.addModule({ name: "xpath-extension-sha1",        type: "js",  fullpath: moduleBase + "../third-party/sha1.js" });
 
-  	loader.addModule({ name: "xforms-dom-misc",            type: "js",  fullpath: moduleBase + "../ajaxslt/misc.js" });
+  	loader.addModule({ name: "xforms-dom-util",            type: "js",  fullpath: moduleBase + "../ajaxslt/util.js" });
+  	loader.addModule({ name: "xforms-dom-xml",            type: "js",  fullpath: moduleBase + "../ajaxslt/xmltoken.js" });
   	loader.addModule({ name: "xforms-dom",                 type: "js",  fullpath: moduleBase + "../ajaxslt/dom.js",
-  		requires: [ "xforms-dom-misc" ] });
+  		requires: [ "xforms-dom-util", "xforms-dom-xml" ] });
   	loader.addModule({ name: "xforms-xpath",               type: "js",  fullpath: moduleBase + "../ajaxslt/xpath.js" });
   	loader.addModule({ name: "xforms-ajaxslt-improvements", type: "js",  fullpath: moduleBase + "ajaxslt-improvements.js",
   		requires: [ "xforms-dom", "xforms-xpath" ] });
@@ -115,10 +116,20 @@ var g_sBehaviourDirectory  = "";
   	    	requires:["xforms-actions"]});
   	loader.addModule({ name: "xforms-toggle",             type: "js",  fullpath: moduleBase + "toggle.js",
   	    	requires:["xforms-actions"]});
+
+  	loader.addModule({ name: "backplane-multimap",             type: "js",  fullpath: moduleBase + "../_backplane/multimap.js"});
+  	
+  	loader.addModule({ name: "backplane-select",             type: "js",  fullpath: moduleBase + "../_backplane/select.js",
+  	    	requires:["backplane-multimap"]});
+
+  	loader.addModule({ name: "finite-control",             type: "js",  fullpath: moduleBase + "finite-control.js"});
+
   	loader.addModule({ name: "xforms-select",             type: "js",  fullpath: moduleBase + "select.js",
-  	    	requires:["xforms-dom2events"]});
+  	    	requires:["xforms-dom2events", "menu", "backplane-select", "finite-control"]});
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
+
+    loader.addModule({ name: "xforms-submit",             type: "js",  fullpath: moduleBase + "submit.js"});
 
     // --- CUSTOM CONTROLS ---
 
@@ -132,8 +143,20 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/slider/slider-min.js" });
   	loader.addModule({ name: "yui-utilities",       type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/utilities/utilities.js" });
 
-    // Modules for the base UX implementation
-    UX.modules = [
+    // Calendar widget
+    loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: baseDefaultPath + "lib/extensions/yui-custom-controls/input-calendar.js",
+            requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
+    loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/calendar-min.js" });
+    loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/container/container_core-min.js" });
+    loader.addModule({ name: "yui-button",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/button/button-min.js" });
+    loader.addModule({ name: "yui-dom-event",       type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js" });
+    loader.addModule({ name: "yui-element",         type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/element/element-beta-min.js" });
+    loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css" });
+    loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/button.css" });
+
+
+    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
+      requires: [
         "ux-default-css",
         "libxh-decorator",
         "xforms-listener", "xforms-event-target-proxy",
@@ -143,20 +166,10 @@ var g_sBehaviourDirectory  = "";
         "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-item",
-        "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions"
-    ];
-
-    // Modules for the custom controls, loaded iff g_loadCustomControls
-    if (typeof g_temporaryFlagLoadCustomControls == 'undefined') {
-        UX.customModules = [];
-    } else if (g_temporaryFlagLoadCustomControls) {
-        UX.customModules = [
-            "yui-input-color"
-        ];
-    }
-
-    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
-      requires: UX.modules.concat(UX.customModules)
+        "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
+        "xforms-submit",
+        "yui-input-calendar","yui-input-color"
+      ]
     });
     loader.require( "xforms-defs" );
 

@@ -64,6 +64,17 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					//document.logger.log("Attaching: " + this.element.tagName + ":" + this.element.uniqueID, "info");
 					if(!this.m_value)
 					{
+					  var childNodes =this.element.childNodes; 
+					  if(childNodes) {
+					    for(var i = 0; i < childNodes.length; ++i) {
+					      if(DOM_TEXT_NODE === childNodes[i].nodeType) {
+					        this.m_sValue = childNodes[i].nodeValue;
+					        childNodes[i].parentNode.removeChild(childNodes[i]);
+					        break;
+					      }
+					    }
+					      
+					  }
 						//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
 						//	If createElement is used in firefox, the xbl does not bind.
 						//	If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
@@ -74,8 +85,21 @@ Control.prototype.RetrieveValuePseudoElement = function()
 						}
 						else
 						{
-							this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
-							this.m_value = this.element.lastChild;
+							var foundAlert = false;
+							for(var counter = 0; counter < this.element.childNodes.length && !foundAlert; counter++)
+							{
+								var childNode = this.element.childNodes[counter];
+								if(childNode.localName && childNode.localName.toLowerCase() == "xf:alert")
+								{
+									foundAlert = true;
+									childNode.insertAdjacentHTML("beforeBegin","<pe-value></pe-value>");
+									this.m_value = childNode.previousSibling;
+								}
+							}
+							if(!foundAlert) {
+								this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
+								this.m_value = this.element.lastChild;
+							}
 						}
 	
 						window.status = "";
@@ -86,7 +110,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			catch(e)
 			{
 				//debugger;
-				alert("e.description");
+				alert(e.description);
 			}
 		};
 		/*
@@ -97,7 +121,6 @@ Control.prototype.RetrieveValuePseudoElement = function()
 		{
 			if (!this.m_bAddedToModel)
 			{
-				
 				var oModel = getModelFor(this);
 
 				if (oModel)
@@ -177,14 +200,25 @@ Control.prototype.RetrieveValuePseudoElement = function()
 				}
 			}
 		};
+		Control.prototype.getValue = function() {
+		  if(this.m_value.getValue) {
+		    return this.m_value.getValue();
+		  }
+		  else {
+		    return this.m_sValue;
+		  }
+		}
 
 		/*
 		 * Setting the value on a control actually sets it on the
 		 * pe-value child.
 		 */
 
-		Control.prototype.setValue = function(sValue)
-		{
+    Control.prototype.setValue = function(sValue)
+    {
+      var oldVal = this.m_sValue;
+      this.m_sValue = sValue;
+
 			try
 			{	
 				if(this.m_value && this.m_value.setValue !== undefined)
@@ -199,23 +233,21 @@ Control.prototype.RetrieveValuePseudoElement = function()
 
 						var oEvt = document.createEvent("MutationEvents");
 
-						oEvt.initEvent("data-value-changed", false, false,
-							null, "", sValue, null);
+						oEvt.initMutationEvent("data-value-changed", false, false,
+							null, "", sValue, "" ,null);
 	//					FormsProcessor.dispatchEvent(this.element,oEvt);
 						oEvt._actionDepth = -1;
 						var pThis = this;
 						spawn(function(){FormsProcessor.dispatchEvent(pThis.element,oEvt);});
-						var oEvt2 = document.createEvent("Events");
-
-						oEvt2.initEvent("xforms-value-changed", false, false,
-							null, "", sValue, null);
-						FormsProcessor.dispatchEvent(this.element,oEvt2);
 					}
 				}
-				else
-				{
-					this.m_sValue = sValue;
-				}
+        
+        if(oldVal !== sValue) {
+          // value changes, even if there is no pseudoelement.
+          var oEvt2 = document.createEvent("MutationEvents");
+          oEvt2.initMutationEvent("xforms-value-changed", true, false, null, oldVal, sValue,"", null);
+          FormsProcessor.dispatchEvent(this.element,oEvt2);
+         }
 			}
 			catch(e)
 			{
@@ -394,6 +426,14 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			}
 			return;
 		};
+			Control.prototype.getValue = function() {
+		  if(this.m_value.getValue) {
+		    return this.m_value.getValue();
+		  }
+		  else {
+		    return this.m_sValue;
+		  }
+		}
 		
 Control.prototype.onDocumentReady = Control.prototype.addcontroltomodel;
 Control.prototype.onContentReady  = Control.prototype.AddValuePseudoElement;
