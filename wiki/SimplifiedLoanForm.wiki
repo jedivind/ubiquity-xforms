@@ -2,7 +2,7 @@
 #labels Sample,SimplifiedSyntax
 
 = Introduction =
-The [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form] demonstrates various XForms features. In order to further refine the notation and explore an approach to implementing the [StorySimplifiedSyntax simplified syntax in Ubiquity XForms ]. We converted the loan form example to simplified syntax based on [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html XForms 1.2 Simplified Syntax Proposal] and some [TentativeSyntax tentative syntax].  
+The [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form] demonstrates various XForms features. In order to further refine the notation and explore an approach to implementing the [StorySimplifiedSyntax simplified syntax in Ubiquity XForms ]. We converted the loan form example to simplified syntax based on the [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html XForms 1.2 Simplified Syntax Proposal] and additional syntax in the tentative syntax section.
 
 = Simplified Loan Form =
 
