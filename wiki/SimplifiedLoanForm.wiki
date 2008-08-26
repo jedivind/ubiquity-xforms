@@ -67,7 +67,7 @@ The following form shown the simplified syntax of the [http://ubiquity-xforms.go
 
 = Tentative Syntax =
 
-In order to complete the conversion to the simplified syntax. Assumption is made and tentative syntaxes is introduced in addition to the  [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html Summarized XForms Simplified Syntax Proposal]. Here is the summary:
+In order to complete the conversion to the simplified syntax. Assumptions are made and tentative syntaxes are introduced in addition to the  [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html Summarized XForms Simplified Syntax Proposal]. Here is the summary:
 
   
 ====1) Namespace====
