@@ -137,11 +137,12 @@ var g_sBehaviourDirectory  = "";
 
     // ColorPicker widget
   	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: baseDefaultPath + "lib/extensions/yui-custom-controls/input-color.js",
-  		requires: ["yui-color"]});
+  		requires: ["yui-color","yui-colorpicker-css"]});
   	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/colorpicker-min.js",
   		requires: ["yui-slider", "yui-utilities"]});
   	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/slider/slider-min.js" });
   	loader.addModule({ name: "yui-utilities",       type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/utilities/utilities.js" });
+  	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/skins/sam/colorpicker.css" });
 
     // Calendar widget
     loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: baseDefaultPath + "lib/extensions/yui-custom-controls/input-calendar.js",
