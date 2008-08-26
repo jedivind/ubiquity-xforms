@@ -53,7 +53,7 @@ InputValueColor.prototype.onDocumentReady = function()
         var pThis = this;
         this.m_value.on("rgbChange",
             function(o) {
-                colorValueChanged(pThis, pThis.m_value.get("hex"));
+                colorValueChanged(pThis, "#" + pThis.m_value.get("hex"));
             }
          );
 
@@ -64,9 +64,9 @@ InputValueColor.prototype.setValue = function(sValue)
 {
     var bRet = false;
 
-    if (sValue.match( /^[0-9abcdefABCDEF]{6}/ )) {
+    if (sValue.match( /^#[0-9abcdefABCDEF]{6}/ )) {
         if (this.currValue != sValue || m_bFirstSetValue) {
-            var rgb = YAHOO.util.Color.hex2rgb(sValue);
+            var rgb = YAHOO.util.Color.hex2rgb(sValue.substring(1));
             this.m_value.setValue(rgb, true);
             this.currValue = sValue;
             bRet = true;
