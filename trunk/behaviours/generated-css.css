@@ -88,7 +88,7 @@ xf\:input[appearance='yui\:calendar'] > pe-value, xforms\:input[appearance='yui\
 xf\:input[appearance='yui\:popup-calendar'] > pe-value, xforms\:input[appearance='yui\:popup-calendar'] > pe-value,
 xf\:input[datatype='xsd\:date'] > pe-value, xforms\:input[datatype='xsd\:date'] > pe-value,
 xf\:input[datatype='xf\:date'] > pe-value, xforms\:input[datatype='xforms\:date'] > pe-value {
-  -moz-binding: url("decorator.xml?EventTarget&YUICalendarValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&InputValueCalendar#decorator");
   border: none;
   background-color: transparent;
 }
