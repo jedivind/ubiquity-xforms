@@ -8,10 +8,7 @@
     <head>
         <title>Color Picker widget</title>
         <script src="../../ubiquity-loader.js">/**/</script>
-        <style type="text/css">
-          .code {background-color:#eeeeee;padding:10px;display:block;font-family:monospace;border:solid navy;}
-          .spacer {padding-bottom:18em;}
-        </style>
+        <link rel="stylesheet" href="../samples.css"></link>
     </head>
 
     <body>
@@ -37,32 +34,28 @@
     <table><tr><td>
 
     Variant 1:
-    <div class="code">
-      &lt;xf:input ref="color" class="yui-widget-color"&gt;<br>
-      &nbsp;&nbsp;&lt;xf:label&gt;Choose color:&lt;/xf:label&gt;<br>
-      &lt;/xf:input&gt;
-    </div>
+<pre>
+&lt;xf:input ref="color" class="yui-widget-color"&gt;
+  &lt;xf:label&gt;Choose color:&lt;/xf:label&gt;
+&lt;/xf:input&gt;
+</pre>
 
-    <div class="spacer">
-      <xf:input ref="color" class="yui-widget-color">
-        <xf:label>Choose color:</xf:label>
-      </xf:input>
-    </div>
+    <xf:input ref="color" class="yui-widget-color">
+      <xf:label>Choose color:</xf:label>
+    </xf:input>
 
     </td><td>
 
     Variant 2:
-    <div class="code">
-      &lt;xf:input ref="color" appearance="yui:color"&gt;<br>
-      &nbsp;&nbsp;&lt;xf:label&gt;Choose color:&lt;/xf:label&gt;<br>
-      &lt;/xf:input&gt;
-    </div>
+<pre>
+&lt;xf:input ref="color" appearance="yui:color"&gt;
+  &lt;xf:label&gt;Choose color:&lt;/xf:label&gt;
+&lt;/xf:input&gt;
+</pre>
 
-    <div class="spacer">
-      <xf:input ref="color" appearance="yui:color">
-        <xf:label>Choose color:</xf:label>
-      </xf:input>
-    </div>
+    <xf:input ref="color" appearance="yui:color">
+      <xf:label>Choose color:</xf:label>
+    </xf:input>
 
     </td></tr></table>
 
