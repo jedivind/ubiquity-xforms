@@ -136,7 +136,7 @@ var g_sBehaviourDirectory  = "";
     //     -- YUI --
 
     // ColorPicker widget
-  	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: baseDefaultPath + "lib/extensions/yui-custom-controls/input-color.js",
+  	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: baseDefaultPath + "lib/extensions/input-color.js",
   		requires: ["yui-color","yui-colorpicker-css"]});
   	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/colorpicker-min.js",
   		requires: ["yui-slider", "yui-utilities"]});
