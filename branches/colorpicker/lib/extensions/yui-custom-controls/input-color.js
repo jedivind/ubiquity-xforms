@@ -12,9 +12,9 @@
  * limitations under the License.
  */
 
-UX.yuicolorcount = 0;
+UX.colorcount = 0;
 
-function YUIColorValue    (elmnt)
+function InputValueColor    (elmnt)
 {
     this.element = elmnt;
     this.currValue = "";
@@ -22,7 +22,7 @@ function YUIColorValue    (elmnt)
 }
 
 
-function yuiColorValueChanged(pThis, sNewValue)
+function colorValueChanged(pThis, sNewValue)
 {
     var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
     if(oEvt.initMutationEvent === undefined) {
@@ -37,30 +37,30 @@ function yuiColorValueChanged(pThis, sNewValue)
     });
 }
 
-YUIColorValue.prototype.onDocumentReady = function()
+InputValueColor.prototype.onDocumentReady = function()
 {
     if (this.element.ownerDocument.media != "print")
     {
-        this.element.innerHTML = "<div id='ux-color-bg" + UX.yuicolorcount + "' class='ux-color-bg'></div>";
-        this.m_value = new YAHOO.widget.ColorPicker("ux-color-bg" + UX.yuicolorcount, {
+        this.element.innerHTML = "<div id='ux-color-bg" + UX.colorcount + "' class='ux-color-bg'></div>";
+        this.m_value = new YAHOO.widget.ColorPicker("ux-color-bg" + UX.colorcount, {
             images: {
                 PICKER_THUMB : "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/picker_thumb.png",
                 HUE_THUMB : "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/hue_thumb.png"
             }
         });
-        UX.yuicolorcount++;
+        UX.colorcount++;
         
         var pThis = this;
         this.m_value.on("rgbChange",
             function(o) {
-                yuiColorValueChanged(pThis, pThis.m_value.get("hex"));
+                colorValueChanged(pThis, pThis.m_value.get("hex"));
             }
          );
 
     }
 };
 
-YUIColorValue.prototype.setValue = function(sValue)
+InputValueColor.prototype.setValue = function(sValue)
 {
     var bRet = false;
 
@@ -70,13 +70,13 @@ YUIColorValue.prototype.setValue = function(sValue)
             this.m_value.setValue(rgb, true);
             this.currValue = sValue;
             bRet = true;
-            if (m_bFirstSetValue) {
-                m_bFirstSetValue = false;
+            if (this.m_bFirstSetValue) {
+                this.m_bFirstSetValue = false;
             }
         }
     }
 
     return bRet;
-    
+
 };
 

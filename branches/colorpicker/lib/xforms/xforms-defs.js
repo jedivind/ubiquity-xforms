@@ -174,7 +174,7 @@ DECORATOR.setupDecorator(
         // YUI ColorPicker as <xf:input>
         {
             selector:"xf|input.yui-widget-color > pe-value, xf|input[appearance='yui:color'] > pe-value",
-            objects:["EventTarget", "YUIColorValue"]
+            objects:["EventTarget", "InputValueColor"]
         },
         //HACK: IE does not support child selectors.
         {
