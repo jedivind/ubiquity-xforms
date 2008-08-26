@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+    <head>
+        <title>Calendar widget</title>
+        <script src="../../ubiquity-loader.js">/**/</script>
+        <style type="text/css">
+          .code {background-color:#eeeeee;padding:10px;display:block;font-family:monospace;border:solid navy;}
+          .spacer {padding-bottom:18em;}
+        </style>
+    </head>
+
+    <body class="yui-skin-sam">
+
+    <xf:model>
+        <xf:instance>
+            <data xmlns="">
+                <date>08/08/2008</date>
+            </data>
+        </xf:instance>
+    </xf:model>
+
+    <p>
+      This sample contains an input widget bound to 3 calendar widgets.
+    </p>
+
+    <h3>Simple input control</h3>
+    <xf:input ref="date">
+        <xf:label>Change date with an input (mm/dd/yyyy):</xf:label>
+    </xf:input>
+
+    <h3>Bound to 3 YUI Calendar controls</h3>
+
+    <table><tr><td>
+
+    Variant 1:
+    <div class="code">
+      &lt;xf:input ref="date" class="yui-widget-calendar"&gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;Choose date:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+    </div>
+
+    <div class="spacer">
+      <xf:input ref="date" class="yui-widget-calendar">
+        <xf:label>Choose date:</xf:label>
+      </xf:input>
+    </div>
+    
+    </td><td>
+
+    Variant 2:
+    <div class="code">
+      &lt;xf:input ref="date" appearance="yui:calendar"&gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;Choose date:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+    </div>
+
+    <div class="spacer">
+      <xf:input ref="date" appearance="yui:calendar">
+        <xf:label>Choose date:</xf:label>
+      </xf:input>
+    </div>
+
+    </td><td>
+
+    Variant 3:
+    <div class="code">
+      &lt;xf:input ref="date" datatype="xsd:date"&gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;Choose date:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+    </div>
+
+    <div class="spacer">
+      <xf:input ref="date" datatype="xsd:date">
+        <xf:label>Choose date:</xf:label>
+      </xf:input>
+    </div>
+
+    </td></tr></table>
+
+    </body>
+</html>
