@@ -64,20 +64,18 @@ The following form shown the simplified syntax of the Loan Form example.
 = Tentative Syntax =
 
 In order to complete the conversion to the simplified syntax. Assumption is made and tentative syntaxes is introduced in addition to the  [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html Summarized XForms Simplified Syntax Proposal]. Here is the summary:
-
-  * The elements of the simplified syntax is assumed to be in the HTML namespace tentatively.
-
-
-  * Since the form is assumed to be in an HTML namespace, there should be a way to separate/switch the simplified syntax from a regular HTML's form. Since namespace seems to be a non-starter. An _impl_ attribute is tentatively added to indicate the content of the form is implemented using xforms's simplified syntax. 
-    {{{
+  # ===namespace===
+  The elements of the simplified syntax is assumed to be in the HTML namespace tentatively.
+  # ===form impl===
+  Since the form is assumed to be in an HTML namespace, there should be a way to separate/switch the simplified syntax from a regular HTML's form. Since namespace seems to be a non-starter. An _impl_ attribute is tentatively added to indicate the content of the form is implemented using xforms's simplified syntax. 
+{{{
 <form impl="xforms-simple"... >
 ..
 </form>
 }}}
-  
 
-  * In the original loan form example, the data instance has a structure that doesn't involve a repeat (such as the one in the summarized example). A _group_ element is added to capture the same data structure of a  structured data instance.
-    {{{
+  In the original loan form example, the data instance has a structure that doesn't involve a repeat (such as the one in the summarized example). A _group_ element is added to capture the same data structure of a  structured data instance.
+{{{
    <!-- sturcture data instance using simplified syntax -->
    <group name="borrower">
      <input id="name" name="name" type="string" default="Joe Q. Public" />
@@ -93,10 +91,9 @@ In order to complete the conversion to the simplified syntax. Assumption is made
    </borrower>   
 }}}
 
-
-  * In the Simplified Syntax Proposal, there is no dicussion of where to obtain or how to specific the xforms's label in the syntax. Most of the time in HTML, label is just a brunch of text nodes in front of the HTML input field. 
+  In the Simplified Syntax Proposal, there is no dicussion of where to obtain or how to specific the xforms's label in the syntax. Most of the time in HTML, label is just a brunch of text nodes in front of the HTML input field. 
   In above loan form example, the HTML label/for syntax is used as to define an input's label. A _label_ element is specified with inline text and a _for_ attribute is referenced to input element's id; Also notice a label element can be hanged as a child element of a container (form/group) which indicate that the label is for the corresponding group/form.
-    {{{
+{{{
   <group name="borrower">
     <label>Borrower</label>
     <label for="name">Name:</label>
@@ -105,7 +102,7 @@ In order to complete the conversion to the simplified syntax. Assumption is made
   </group>
 }}}
   The syntax is a tentative decision to cater more to the existing HTML syntax. I would imagine others might has differnt opinion on that. Some has suggested we could simpify it by adding a _label_ attribute on the input or putting the label as inline text of an input.
-    {{{
+{{{
     <!-- inline text -->
     <input id="name" name="name" type="string" default="Joe Q. Public">Name: </input>
     <!-- label attribute -->
