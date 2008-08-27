@@ -3,9 +3,9 @@
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/fixing-alerts-on-IE fixing-alerts-on-IE] ||
 || Owner: || [http://code.google.com/u/mdmcente/ mdmcente] ||
-|| Discussion: || To discuss implementation details on this branch, use the [http://groups.google.com/group/ubiquity-xforms-eng/ ubiquity-xforms-eng group], and add {{{[BranchImplementMessage]}}} to your comments. ||
+|| Discussion: || To discuss implementation details on this branch, use the [http://groups.google.com/group/ubiquity-xforms-eng/ ubiquity-xforms-eng group], and add {{{[BranchFixingAlerts]}}} to your comments. ||
 || Features: || One of the features to consider is FeatureAlert. ||
 
-Working on fixing xf:alerts on IE.
+XPaths on IE need to be checked case insensitive.  The code was checking case sensitive before, which wasn't working.  The new code checks to see if g_bIsInXHTMLMode is true or false.  If it is false (which it is now for IE), then the code will check XPaths case insensitive.  If it is true (which I think will be supported sometime later for maybe a different situation), then the code will check XPaths case sensitive.
 
-Working on fixing xf:alerts display.
+This branch does not fix xf:alerts display.  Another branch will have to do that.
