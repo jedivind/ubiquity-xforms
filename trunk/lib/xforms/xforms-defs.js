@@ -171,6 +171,17 @@ DECORATOR.setupDecorator(
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
+        // YUI ColorPicker as <xf:input>
+        {
+            selector:"xf|input.yui-widget-color > pe-value, xf|input[datatype='xhd:color'] > pe-value",
+            objects:["EventTarget", "InputValueColor"]
+        },
+        //HACK: IE does not support child selectors.
+        {
+            selector:"xf|input.yui-widget-color > xf|label > pe-value, xf|input[datatype='xhd:color'] > xf|label > pe-value",
+            objects:["EventTarget", "XFormsOutputValue"]
+        },
+
 		// YUI Calendar as <xf:input>
 		{
 			selector:"xf|input.yui-widget-calendar > pe-value, xf|input[datatype='xsd:date'] > pe-value, xf|input[datatype='xf:date'] > pe-value",
