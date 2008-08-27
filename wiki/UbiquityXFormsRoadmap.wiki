@@ -42,6 +42,13 @@
 
 = Feature branches in progress =
 
+== [BranchImplementGetLocalName Implement getLocalName] ==
+
+Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
+
+Adding a consistent universal mechanism for resolving element names in non-namespace aware browsers.
+
+
 == [http://ubiquity-xforms.googlecode.com/svn/branches/ajax-xforms-model ajax-xforms-model] ==
 
 Owner: [http://code.google.com/u/nkling/ nkling]
