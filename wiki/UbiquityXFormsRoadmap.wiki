@@ -42,6 +42,12 @@
 
 = Feature branches in progress =
 
+== [http://ubiquity-xforms.googlecode.com/svn/branches/simplified simplified] ==
+
+Owner: [http://code.google.com/u/nkling/ nkling]
+
+Branch for XForms simplified syntax
+
 == [BranchImplementGetLocalName Implement getLocalName] ==
 
 Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
@@ -106,6 +112,7 @@ Upgrade ajaxslt to version 0.8.1.
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
+||simplified ||r825||-||-||-||
 ||implement-getLocalName||r821||r821||-||-||
 ||ajax-xforms-model||r485||-||-||-||
 ||fixing-alerts-on-IE||r747||needs a code review (r811)||-||-||
@@ -116,4 +123,4 @@ Upgrade ajaxslt to version 0.8.1.
 ||loan-form||r720||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
-||upgrade-ajaxslt||-||-||r731||||
+||upgrade-ajaxslt||-||-||r731||-||
