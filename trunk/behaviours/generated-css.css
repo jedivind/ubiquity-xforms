@@ -111,6 +111,10 @@ xf\:input[datatype='xsd\:date'][appearance='minimal'] > pe-value, xforms\:input[
   border: 2px inset #f0f0f0;
   background-color: white;
 }
+xf\:input[datatype='xf\:date'][appearance='minimal'] > xf\:label > pe-value, xforms\:input[datatype='xforms\:date'][appearance='minimal'] > xforms\:label > pe-value,
+xf\:input[datatype='xsd\:date'][appearance='minimal'] > xf\:label > pe-value, xforms\:input[datatype='xsd\:date'][appearance='minimal'] > xforms\:label > pe-value {
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
+}
 xf\:select, xforms\:select {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control&Select#decorator");
 }
