@@ -106,7 +106,7 @@ Upgrade ajaxslt to version 0.8.1.
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
-||implement-getLocalName||r773||-||-||-||
+||implement-getLocalName||r821||r821||-||-||
 ||ajax-xforms-model||r485||-||-||-||
 ||fixing-alerts-on-IE||r747||needs a code review (r811)||-||-||
 ||hint-work||r436||needs a code review||-||-||
