@@ -1,5 +1,5 @@
 #summary Feature Branch to implement consistent localName lookup
-#labels Phase-Implementation
+#labels Phase-Implementation,Branch
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-getLocalName implement-getLocalName] ||
 || Owner: || [http://code.google.com/u/paul.butcher/ paul.butcher] ||
