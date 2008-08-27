@@ -20,7 +20,8 @@ The following form shown the simplified syntax of the [http://ubiquity-xforms.go
 </head>
 <body>
 
-<form name="datarecord" action="http://xformstest.org/cgi-bin/echo.sh" method="post" >
+<form name="datarecord" impl="xforms-simple" 
+      action="http://xformstest.org/cgi-bin/echo.sh" method="post" >
    <label>Loan Form</label>
    <label for="startdate" >Agreement Date:</label>
    <input name="startdate" type="date" default="08/08/2008" />
