@@ -55,7 +55,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 
 		Control.prototype.AddValuePseudoElement = function()
 		{
-			try{
+			//try{
 				if (document.media != "print")
 				{
 					//if (this.element.getElementByTagName("pe-value"))
@@ -76,7 +76,13 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					      
 					  }
             //Prepare to insert a value pseudoelement after the label
-						var labelChild = NamespaceManager.getElementsByTagNameNS(this.element,"http://www.w3.org/2002/xforms","label")[0];
+						var labelChild = null;
+						for (i = 0; i < childNodes.length ; ++i) {
+						  if(NamespaceManager.compareFullName(childNodes[i],"label","http://www.w3.org/2002/xforms")) {
+						    labelChild = childNodes[i];
+						    break;
+						  }
+						}
             var referenceNode = null;
 
 						//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
@@ -85,7 +91,6 @@ Control.prototype.RetrieveValuePseudoElement = function()
 
 						if(document.all)
 						{  
-						  
 							this.m_value = document.createElement("pe-value");
               //insertBefore will be used to insert the new node, so the referenceNode will be the one after the node we have already decided to be reference. 
               if(labelChild) {
@@ -124,11 +129,11 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					}
 					this.m_bAddedToModel = false;
 				}
-			}
-			catch(e)
+		//	}
+		//	catch(e)
 			{
 				//debugger;
-				alert(e.description);
+//				alert(e.description);
 			}
 		};
 		/*
