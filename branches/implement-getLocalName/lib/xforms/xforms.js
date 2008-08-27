@@ -208,25 +208,4 @@ XFormsProcessor.prototype.invokeDefault = function (oTarget, e)
 		}
 	}
 		
-function CheckElementName(oNode,sTagName,sURN)
-{
-	var sQualifiedTagName;
-	//Hmm. lookupprefix doesn't work, fudge it.
-	if(oNode.lookupPrefix &&sURN == "http://www.w3.org/2002/xforms")
-	{
-		var sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI( "http://www.w3.org/2002/xforms")[0] + ":";
-		sQualifiedTagName = sDefaultPrefix + sTagName;
-	//	sQualifiedTagName = oNode.lookupPrefix(sURN) + ":" + sTagName;
-	}
-	else
-	{
-		sQualifiedTagName = sTagName;
-	}
-	var tagNameOnNode = String(oNode.tagName);
-	if(!g_bIsInXHTMLMode)
-		tagNameOnNode = tagNameOnNode.toLowerCase();
-	return tagNameOnNode == sQualifiedTagName;
-	
-}
-
 var g_DeferredUpdateDepth = 0;
