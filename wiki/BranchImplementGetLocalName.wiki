@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Feature Branch to implement consistent localName lookup
 #labels Phase-Implementation
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-getLocalName implement-getLocalName] ||
