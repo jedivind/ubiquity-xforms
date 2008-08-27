@@ -135,8 +135,17 @@ var g_sBehaviourDirectory  = "";
 
     //     -- YUI --
 
+    // ColorPicker widget
+  	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: baseDefaultPath + "lib/extensions/input-color.js",
+  		requires: ["yui-color","yui-colorpicker-css"]});
+  	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/colorpicker-min.js",
+  		requires: ["yui-slider", "yui-utilities"]});
+  	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/slider/slider-min.js" });
+  	loader.addModule({ name: "yui-utilities",       type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/utilities/utilities.js" });
+  	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/skins/sam/colorpicker.css" });
+
     // Calendar widget
-    loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: baseDefaultPath + "lib/extensions/yui-custom-controls/input-calendar.js",
+    loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: baseDefaultPath + "lib/extensions/input-calendar.js",
             requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
     loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/calendar-min.js" });
     loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/container/container_core-min.js" });
@@ -160,7 +169,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-select","xforms-item",
         "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
         "xforms-submit",
-        "yui-input-calendar"
+        "yui-input-calendar","yui-input-color"
       ]
     });
     loader.require( "xforms-defs" );
