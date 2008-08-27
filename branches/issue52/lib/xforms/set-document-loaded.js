@@ -1,6 +1,9 @@
 var g_bDocumentLoaded = false;
 
 function RegisterDocumentLoaded() {
+  if (UX.isIE6) {
+    UX.applySelectorsIE6(document);
+  }
   g_bDocumentLoaded = true;
 }
 
