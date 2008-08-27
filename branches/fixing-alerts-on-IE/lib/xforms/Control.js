@@ -67,20 +67,14 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					  var childNodes =this.element.childNodes; 
 					  if(childNodes) {
 					    for(var i = 0; i < childNodes.length; ++i) {
-					      if(DOM_TEXT_NODE === childNodes[i].nodeType && this.element.parentNode.nodeName.toLowerCase().match("item") == "item") {
+					      if(DOM_TEXT_NODE === childNodes[i].nodeType) {
 					        this.m_sValue = childNodes[i].nodeValue;
 					        childNodes[i].parentNode.removeChild(childNodes[i]);
 					        break;
 					      }
 					    }
-					      
 					  }
-						//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
-						//	If createElement is used in firefox, the xbl does not bind.
-						//	If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
-						if(document.all)
-						{
-							this.m_value = document.createElement("pe-value");
+					  
 							var foundLabel = false;
 							for(var counter = 0; counter < this.element.childNodes.length && !foundLabel; counter++)
 							{
@@ -88,31 +82,12 @@ Control.prototype.RetrieveValuePseudoElement = function()
 								if(childNode.nodeName && childNode.nodeName.toLowerCase().match("label") == "label")
 								{
 									foundLabel = true;
-									this.element.insertBefore(this.m_value, childNode.nextSibling);
+									addValueToDocument(this, childNode, "after_label");
 								}
 							}
 							if(!foundLabel) {
-								this.element.appendChild(this.m_value);
+								addValueToDocument(this, this.element, "at_the_end");
 							}
-						}
-						else
-						{
-							var foundLabel = false;
-							for(var counter = 0; counter < this.element.childNodes.length && !foundLabel; counter++)
-							{
-								var childNode = this.element.childNodes[counter];
-								if(childNode.localName && childNode.localName.toLowerCase().match("label") == "label")
-								{
-									foundLabel = true;
-									childNode.insertAdjacentHTML("afterEnd","<pe-value></pe-value>");
-									this.m_value = childNode.nextSibling;
-								}
-							}
-							if(!foundLabel) {
-								this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
-								this.m_value = this.element.lastChild;
-							}
-						}
 	
 						window.status = "";
 					}
@@ -125,6 +100,35 @@ Control.prototype.RetrieveValuePseudoElement = function()
 				alert(e.description);
 			}
 		};
+		
+		//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
+		//	If createElement is used in firefox, the xbl does not bind.
+		//	If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
+		function addValueToDocument(pThis, element, position)
+		{
+			if(document.all)
+			{
+				pThis.m_value = document.createElement("pe-value");
+				if(position == "after_label") {
+					element.parentNode.insertBefore(pThis.m_value, element.nextSibling);
+				}
+				else {
+					element.appendChild(pThis.m_value);
+				}
+			}
+			else
+			{
+				if(position == "after_label") {
+					element.insertAdjacentHTML("afterEnd","<pe-value></pe-value>");
+					pThis.m_value = element.nextSibling;
+				}
+				else {
+					element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
+					pThis.m_value = element.lastChild;
+				}
+			}
+		};
+		
 		/*
 		 * Let the model know that we exist.
 		 */
