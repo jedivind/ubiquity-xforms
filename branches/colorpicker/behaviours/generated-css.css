@@ -94,8 +94,6 @@ xf\:input[datatype='xhd:color'] > xf\:label > pe-value, xforms\:input[datatype='
   -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
 xf\:input.yui-widget-calendar > pe-value, xforms\:input.yui-widget-calendar > pe-value,
-xf\:input[appearance='yui\:calendar'] > pe-value, xforms\:input[appearance='yui\:calendar'] > pe-value,
-xf\:input[appearance='yui\:popup-calendar'] > pe-value, xforms\:input[appearance='yui\:popup-calendar'] > pe-value,
 xf\:input[datatype='xsd\:date'] > pe-value, xforms\:input[datatype='xsd\:date'] > pe-value,
 xf\:input[datatype='xf\:date'] > pe-value, xforms\:input[datatype='xforms\:date'] > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&InputValueCalendar#decorator");
@@ -103,8 +101,6 @@ xf\:input[datatype='xf\:date'] > pe-value, xforms\:input[datatype='xforms\:date'
   background-color: transparent;
 }
 xf\:input.yui-widget-calendar > xf\:label > pe-value, xforms\:input.yui-widget-calendar > xforms\:label > pe-value,
-xf\:input[appearance='yui\:calendar'] > xf\:label > pe-value, xforms\:input[appearance='yui\:calendar'] > xforms\:label > pe-value,
-xf\:input[appearance='yui\:popup-calendar'] > xf\:label > pe-value, xforms\:input[appearance='yui\:popup-calendar'] > xforms\:label > pe-value,
 xf\:input[datatype='xsd\:date'] > xf\:label > pe-value, xforms\:input[datatype='xsd\:date'] > xforms\:label > pe-value,
 xf\:input[datatype='xf\:date'] > xf\:label > pe-value, xforms\:input[datatype='xforms\:date'] > xforms\:label > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");

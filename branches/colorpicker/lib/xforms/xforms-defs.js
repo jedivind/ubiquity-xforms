@@ -184,12 +184,12 @@ DECORATOR.setupDecorator(
 
 		// YUI Calendar as <xf:input>
 		{
-			selector:"xf|input.yui-widget-calendar > pe-value, xf|input[appearance='yui:calendar'] > pe-value, xf|input[appearance='yui:popup-calendar'] > pe-value, xf|input[datatype='xsd:date'] > pe-value, xf|input[datatype='xf:date'] > pe-value",
+			selector:"xf|input.yui-widget-calendar > pe-value, xf|input[datatype='xsd:date'] > pe-value, xf|input[datatype='xf:date'] > pe-value",
 			objects:["EventTarget", "InputValueCalendar"]
 		},
 		//HACK: IE does not support child selectors.
 		{
-			selector:"xf|input.yui-widget-calendar > xf|label > pe-value, xf|input[appearance='yui:calendar'] > xf|label > pe-value, xf|input[appearance='yui:popup-calendar'] > xf|label > pe-value, xf|input[datatype='xsd:date'] > xf|label > pe-value, xf|input[datatype='xf:date'] > xf|label > pe-value",
+			selector:"xf|input.yui-widget-calendar > xf|label > pe-value, xf|input[datatype='xsd:date'] > xf|label > pe-value, xf|input[datatype='xf:date'] > xf|label > pe-value",
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
 		// Calendar with "minimal" appearance resorts to regular xf:input appearance
