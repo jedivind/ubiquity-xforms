@@ -129,5 +129,4 @@ JB: A few issues need to be fixed:
   * The monthly payment and total payout need relevant calculations
   * The interestrate needs to be a hidden input, not an output~~
   * Please apply the better looking stylings of the new loan form
-
 TL: Cross out items are fixed
