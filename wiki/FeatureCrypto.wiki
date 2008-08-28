@@ -1,4 +1,5 @@
-Support for cryptographic functions hmac() and digest().
+#summary Support for cryptographic functions hmac() and digest().
+#labels Featured
 = Introduction =
 
 XForms 1.1 introduced the cryptographic functions hmac() and digest():
