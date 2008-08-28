@@ -1,6 +1,13 @@
 #summary Loan Form Example in XForms's simplified syntax
 #labels Sample,SimplifiedSyntax
 
+JB: A few issues need to be fixed:
+1) The default date should be conformant to xsd:date
+2) The monthly payment and total payout calculations are all wrong.  Where are the ones that use the power function?
+3) The monthly payment and total payout need relevant calculations
+4) The interestrate needs to be a hidden input, not an output
+5) Please apply the better looking stylings of the new loan form
+
 = Introduction =
 The [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form] demonstrates various XForms features. In order to further refine the notation and explore an approach to implementing the [StorySimplifiedSyntax simplified syntax in Ubiquity XForms ]. We converted the loan form example to simplified syntax based on the [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html XForms 1.2 Simplified Syntax Proposal] and additional syntax in the tentative syntax section.
 
