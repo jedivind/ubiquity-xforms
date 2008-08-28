@@ -124,10 +124,10 @@ In order to complete the conversion to the simplified syntax. Assumptions are ma
 = Comment =
 
 JB: A few issues need to be fixed:
-  # The default date should be conformant to xsd:date
-  # The monthly payment and total payout calculations are all wrong. Where are the ones that use the power function?
-  # The monthly payment and total payout need relevant calculations
-  # The interestrate needs to be a hidden input, not an output
-  # Please apply the better looking stylings of the new loan form
+  * ~~The default date should be conformant to xsd:date
+  * The monthly payment and total payout calculations are all wrong. Where are the ones that use the power function?
+  * The monthly payment and total payout need relevant calculations
+  * The interestrate needs to be a hidden input, not an output~~
+  * Please apply the better looking stylings of the new loan form
 
 TL: Cross out items are fixed
