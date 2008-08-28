@@ -42,12 +42,6 @@
 
 = Feature branches in progress =
 
-== [http://ubiquity-xforms.googlecode.com/svn/branches/issue52 issue52] ==
-
-Owner: [http://code.google.com/u/rahul.akolkar/ rahul.akolkar]
-
-Bugfix branch for issue 52.
-
 == [http://ubiquity-xforms.googlecode.com/svn/branches/simplified simplified] ==
 
 Owner: [http://code.google.com/u/nkling/ nkling]
@@ -126,7 +120,6 @@ Upgrade ajaxslt to version 0.8.1.
 ||implement-alert||-||-||r680||-||
 ||implement-message||r479||-||-||-||
 ||implement-select||r693|| - || r702 || - ||
-||issue52||r827||r830||-||-||
 ||loan-form||r720||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
