@@ -1,22 +1,22 @@
 #summary XPath processing using the ajaxslt library.
 
 = Introduction =
-[http://code.googlecode.com/p/ajaxslt/ Ajaxslt] is a pure Javascript implementation of XSLT and XPATH. Ubiquity XForms uses ajaxslt (with a few minor modifications) for processing XPath expressions.
+[http://code.google.com/p/ajaxslt/ Ajaxslt] is a pure Javascript implementation of XSLT and XPATH. Ubiquity XForms uses ajaxslt (with a few minor modifications) for processing XPath expressions.
 
 = Details =
 ==== Current Version: *0.8.1* ====
 ==== Modifications: ====
  * \lib\ajaxslt\xpath.js
-   # Add global variable g_OuterMostContextNode;
-   # Add this.OuterMostContextNode = node and this.currentModel = g_currentModel to the constructor of ExprContext. 
-   # Add this.OuterMostContextNode to the ExprContext returned from ExprContext.prototype.clone.
+   # Add global variable {{{var g_OuterMostContextNode;}}}
+   # Add {{{this.OuterMostContextNode = node;}}} and {{{this.currentModel = g_currentModel;}}} to the constructor of {{{ExprContext}}}.
+   # Add {{{this.OuterMostContextNode}}} to the {{{ExprContext}}} returned from {{{ExprContext.prototype.clone}}}.
 
  * \lib\xforms\ajaxslt-improvements.js
-   # Add XNode.prototype.cloneNode method (ajaxslt does not support cloneNode.)
-   # Add 'local-name' and 'namespace-uri' XPath functions to FunctionCallExpr prototype.
-   # Add global variable g_currentModel = null;
-   # Add global variable g_bSaveDependencies = false;
-   # Override LocationExpr.prototype.evaluate function. If the global var g_bSaveDependencies is true, save each of the XPath steps (nodes) from the LocationExpr in the array g_arrSavedDependencies. The saved nodes are used to build the dependency graph for ComputedExpressions (such as @calculate).
+   # Add {{{XNode.prototype.cloneNode}}} method (ajaxslt does not support cloneNode.)
+   # Add 'local-name' and 'namespace-uri' XPath functions to {{{FunctionCallExpr}}}prototype.
+   # Add global variable {{{var g_currentModel = null;}}}
+   # Add global variable {{{var g_bSaveDependencies = false;}}}
+   # Override {{{LocationExpr.prototype.evaluate}}}} function. If the global var {{{g_bSaveDependencies}}} is true, save each of the XPath steps (nodes) from the {{{LocationExpr}}} in the array {{{g_arrSavedDependencies}}}. The saved nodes are used to build the dependency graph for {{{ComputedExpressions}}} (such as @calculate).
 
 _Note: We need to try to make all modifications in ajaxslt-improvements.js; otherwise, we will need to port all of the changes to xpath.js everytime we upgrade to a newer version of ajaxslt._
 
