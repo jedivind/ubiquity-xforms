@@ -1,12 +1,14 @@
-#summary Loan Form Example in XForms's simplified syntax
-#labels Sample,SimplifiedSyntax
+#summary Loan Form Example in XForms's stream-lined syntax
+#labels Sample,StreamLinedSyntax
 
 = Introduction =
-The [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form] demonstrates various XForms features. In order to further refine the notation and explore an approach to implementing the [StorySimplifiedSyntax simplified syntax in Ubiquity XForms ]. We converted the loan form example to simplified syntax based on the [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html XForms 1.2 Simplified Syntax Proposal] and additional syntax in the tentative syntax section.
+The [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form] demonstrates various XForms features. In order to further refine the notation and explore an approach to implementing the [StorySimplifiedSyntax stream-lined syntax in Ubiquity XForms ]. We converted the loan form example to stream-lined syntax based on the [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html XForms 1.2 Simplified Syntax Proposal] and additional syntax in the tentative syntax section.
 
-= Simplified Loan Form =
+  * *stream-lined syntax formerly known as simplified syntax*
 
-The following form shown the simplified syntax of the [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form].
+= Stream-lined Loan Form =
+
+The following form shown the stream-linedsyntax of the [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form].
 
 {{{
 
@@ -70,14 +72,14 @@ The following form shown the simplified syntax of the [http://ubiquity-xforms.go
 
 = Tentative Syntax =
 
-In order to complete the conversion to the simplified syntax. Assumptions are made and tentative syntaxes are introduced in addition to the  [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html Summarized XForms Simplified Syntax Proposal]. Here is the summary:
+In order to complete the conversion to the stream-lined syntax. Assumptions are made and tentative syntaxes are introduced in addition to the  [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html Summarized XForms Simplified Syntax Proposal]. Here is the summary:
 
   
 ====1) Namespace====
-  The elements of the simplified syntax is assumed to be in the HTML namespace tentatively.
+  The elements of the stream-lined syntax is assumed to be in the HTML namespace tentatively.
 
 ====2) Impl Attribute====
-  Since the form is assumed to be in an HTML namespace, there should be a way to separate/switch the simplified syntax from a regular HTML's form. Since namespace seems to be a non-starter. An _impl_ attribute is tentatively added to indicate the content of the form is implemented using xforms's simplified syntax. 
+  Since the form is assumed to be in an HTML namespace, there should be a way to separate/switch the stream-lined syntax from a regular HTML's form. Since namespace seems to be a non-starter. An _impl_ attribute is tentatively added to indicate the content of the form is implemented using xforms's stream-lined syntax. 
 {{{
 <form impl="xforms-simple"... >
 ..
@@ -87,7 +89,7 @@ In order to complete the conversion to the simplified syntax. Assumptions are ma
 ====3) Group Element====
   In the original loan form example, the data instance has a structure that doesn't involve a repeat (such as the one in the summarized example). A _group_ element is added to capture the same data structure of a structured data instance.
 {{{
-   <!-- sturcture data instance using simplified syntax -->
+   <!-- sturcture data instance using stream-lined syntax -->
    <group name="borrower">
      <input id="name" name="name" type="string" default="Joe Q. Public" />
      ...
@@ -113,7 +115,7 @@ In order to complete the conversion to the simplified syntax. Assumptions are ma
     ....
   </group>
 }}}
-  The syntax is a tentative decision to cater more to the existing HTML syntax. I would imagine others might has differnt opinion on that. Some has suggested we could simpify it by adding a _label_ attribute on the input or putting the label as inline text of an input.
+  The syntax is a tentative decision to cater more to the existing HTML syntax. I would imagine others might has different opinion on that. Some has suggested we could simpify it by adding a _label_ attribute on the input or putting the label as inline text of an input.
 {{{
     <!-- inline text -->
     <input id="name" name="name" type="string" default="Joe Q. Public">Name: </input>
