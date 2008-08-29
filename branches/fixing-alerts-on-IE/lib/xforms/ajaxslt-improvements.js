@@ -120,13 +120,3 @@ LocationExpr.prototype.evaluate = function(ctx) {
   }
   return retval;
 };
-
-function xpathDomEvaluate(expr, node) {
-	var expr1 = xpathParse(expr);
-	var oExpr = new ExprContext(node);
-	if (!g_bIsInXHTMLMode) {
-		oExpr.setCaseInsensitive(true);
-	}
-	var ret = expr1.evaluate(oExpr);
-	return ret;
-};

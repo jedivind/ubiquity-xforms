@@ -97,24 +97,6 @@ xf:\trigger xf:\label
   display: none;
 }
 
-xforms\:input xforms\:alert pe-value,
-xf\:input xf\:alert pe-value {
-  border: none;
-  background-color: transparent;
-}
-
-xforms\:alert xforms\:input pe-value,
-xf\:alert xf\:input pe-value {
-  border: 2px inset #f0f0f0;
-  background-color: white;
-}
-
-xforms\:alert xforms\:input xforms\:label pe-value,
-xf\:alert xf\:input xf\:label pe-value {
-  border: none;
-  background-color: transparent;
-}
-
 .slider-bg {
     position: relative; 
     background:url(bg-fader.gif) 5px 0 no-repeat; 
