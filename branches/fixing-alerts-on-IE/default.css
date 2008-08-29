@@ -87,14 +87,32 @@ xf:\trigger xf:\label
   padding: 3px;
 }
 
-.invalid xf\:alert {
+.invalid xf\:alert, .invalid xforms\:alert {
   display: inline;
   background-color: transparent;
   color: #D00;
 }
 
-.valid xf\:alert {
+.valid xf\:alert, .valid xforms\:alert  {
   display: none;
+}
+
+xforms\:input xforms\:alert pe-value,
+xf\:input xf\:alert pe-value {
+  border: none;
+  background-color: transparent;
+}
+
+xforms\:alert xforms\:input pe-value,
+xf\:alert xf\:input pe-value {
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+
+xforms\:alert xforms\:input xforms\:label pe-value,
+xf\:alert xf\:input xf\:label pe-value {
+  border: none;
+  background-color: transparent;
 }
 
 .slider-bg {
@@ -137,5 +155,12 @@ xf\:select1 xf\:label pe-value, xforms\:select1 xforms\:label pe-value {
   color:#000000;
   vertical-align:top;
   max-width:75px;
+}
+
+.ux-color-bg {
+  position:relative;
+  background-color:#eeeeee;
+  width:360px;
+  height:200px;
 }
 

@@ -135,17 +135,28 @@ var g_sBehaviourDirectory  = "";
 
     //     -- YUI --
 
+    // ColorPicker widget
+  	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: baseDefaultPath + "lib/extensions/input-color.js",
+  		requires: ["yui-color","yui-colorpicker-css"]});
+  	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/colorpicker-min.js",
+  		requires: ["yui-slider"]});
+  	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/slider/slider-min.js" });
+  	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/skins/sam/colorpicker.css" });
+
     // Calendar widget
-    loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: baseDefaultPath + "lib/extensions/yui-custom-controls/input-calendar.js",
-            requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar"]});
+    loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: baseDefaultPath + "lib/extensions/input-calendar.js",
+            requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
     loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/calendar-min.js" });
     loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/container/container_core-min.js" });
     loader.addModule({ name: "yui-button",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/button/button-min.js" });
     loader.addModule({ name: "yui-dom-event",       type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js" });
     loader.addModule({ name: "yui-element",         type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/element/element-beta-min.js" });
+    loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css" });
+    loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/button.css" });
 
-    // Modules for the base UX implementation
-    UX.modules = [
+
+    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
+      requires: [
         "ux-default-css",
         "libxh-decorator",
         "xforms-listener", "xforms-event-target-proxy",
@@ -156,20 +167,9 @@ var g_sBehaviourDirectory  = "";
         "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-item",
         "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
-        "xforms-submit"
-    ];
-
-    // Modules for the custom controls, loaded iff g_loadCustomControls
-    if (typeof g_temporaryFlagLoadCustomControls == 'undefined') {
-        UX.customModules = [];
-    } else if (g_temporaryFlagLoadCustomControls) {
-        UX.customModules = [
-            "yui-input-calendar"
-        ];
-    }
-
-    loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
-      requires: UX.modules.concat(UX.customModules)
+        "xforms-submit",
+        "yui-input-calendar","yui-input-color"
+      ]
     });
     loader.require( "xforms-defs" );
 

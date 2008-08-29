@@ -7,12 +7,10 @@
 >
     <head>
         <title>Calendar widget</title>
-        <script>g_sBehaviourDirectory = "../../behaviours/"; g_temporaryFlagLoadCustomControls = true;</script>
-        <script src="../../ubiquity-loader.js">/**/</script>
-        <link rel="stylesheet" href="http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css"></link>
+        <script src="../ubiquity-loader.js">/**/</script>
         <style type="text/css">
           .code {background-color:#eeeeee;padding:10px;display:block;font-family:monospace;border:solid navy;}
-          .spacer {padding-bottom:18em;}
+          td {vertical-align:top;}
         </style>
     </head>
 
@@ -27,7 +25,7 @@
     </xf:model>
 
     <p>
-      This sample contains an input widget bound to 3 calendar widgets.
+      This sample contains an input widget bound to 3 date widgets with different appearances.
     </p>
 
     <h3>Simple input control</h3>
@@ -35,49 +33,49 @@
         <xf:label>Change date with an input (mm/dd/yyyy):</xf:label>
     </xf:input>
 
-    <h3>Bound to 3 YUI Calendar controls</h3>
+    <h3>Bound to 3 date widgets with different appearances</h3>
 
     <table><tr><td>
 
-    Variant 1:
+    "minimal": Same as xf:input
     <div class="code">
-      &lt;xf:input ref="date" class="yui-widget-calendar"&gt;<br>
+      &lt;xf:input ref="date" appearance="minimal" datatype="xf:date"&gt;<br>
       &nbsp;&nbsp;&lt;xf:label&gt;Choose date:&lt;/xf:label&gt;<br>
       &lt;/xf:input&gt;
     </div>
 
     <div class="spacer">
-      <xf:input ref="date" class="yui-widget-calendar">
+      <xf:input ref="date" appearance="minimal" datatype="xf:date">
         <xf:label>Choose date:</xf:label>
       </xf:input>
     </div>
     
     </td><td>
 
-    Variant 2:
+    "compact" (default): Popup calendar
     <div class="code">
-      &lt;xf:input ref="date" appearance="yui:calendar"&gt;<br>
+      &lt;xf:input ref="date" appearance="compact" datatype="xf:date"&gt;<br>
       &nbsp;&nbsp;&lt;xf:label&gt;Choose date:&lt;/xf:label&gt;<br>
       &lt;/xf:input&gt;
     </div>
 
     <div class="spacer">
-      <xf:input ref="date" appearance="yui:calendar">
+      <xf:input ref="date" appearance="compact" datatype="xf:date">
         <xf:label>Choose date:</xf:label>
       </xf:input>
     </div>
 
     </td><td>
 
-    Variant 3:
+    "full": Static calendar
     <div class="code">
-      &lt;xf:input ref="date" datatype="xsd:date"&gt;<br>
+      &lt;xf:input ref="date" appearance="full" datatype="xf:date"&gt;<br>
       &nbsp;&nbsp;&lt;xf:label&gt;Choose date:&lt;/xf:label&gt;<br>
       &lt;/xf:input&gt;
     </div>
 
     <div class="spacer">
-      <xf:input ref="date" datatype="xsd:date">
+      <xf:input ref="date" appearance="full" datatype="xf:date">
         <xf:label>Choose date:</xf:label>
       </xf:input>
     </div>

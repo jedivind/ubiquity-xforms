@@ -65,28 +65,33 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					if(!this.m_value)
 					{
 					  var childNodes =this.element.childNodes; 
-                                          if(childNodes) {
-                                            for(var i = 0; i < childNodes.length; ++i) {
-                                              if(DOM_TEXT_NODE === childNodes[i].nodeType) {
-                                                this.m_sValue = childNodes[i].nodeValue;
-                                                childNodes[i].parentNode.removeChild(childNodes[i]);
-                                                break;
-                                              }
-                                            }
-                                              
-                                          }
+					  if(childNodes) {
+					    for(var i = 0; i < childNodes.length; ++i) {
+					      if(DOM_TEXT_NODE === childNodes[i].nodeType) {
+					        this.m_sValue = childNodes[i].nodeValue;
+					        childNodes[i].parentNode.removeChild(childNodes[i]);
+					        break;
+					      }
+					    }
+					      
+					  }
             //Prepare to insert a value pseudoelement after the label
-                                                var labelChild = NamespaceManager.getElementsByTagNameNS(this.element,"http://www.w3.org/2002/xforms","label")[0];
+						var labelChild = null;
+						for (i = 0; i < childNodes.length ; ++i) {
+						  if(NamespaceManager.compareFullName(childNodes[i],"label","http://www.w3.org/2002/xforms")) {
+						    labelChild = childNodes[i];
+						    break;
+						  }
+						}
             var referenceNode = null;
 
-                                                //Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
-                                                //      If createElement is used in firefox, the xbl does not bind.
-                                                //      If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
+						//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
+						//	If createElement is used in firefox, the xbl does not bind.
+						//	If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
 
-                                                if(document.all)
-                                                {  
-                                                  
-                                                        this.m_value = document.createElement("pe-value");
+						if(document.all)
+						{  
+							this.m_value = document.createElement("pe-value");
               //insertBefore will be used to insert the new node, so the referenceNode will be the one after the node we have already decided to be reference. 
               if(labelChild) {
                 referenceNode = labelChild.nextSibling;
@@ -119,21 +124,6 @@ Control.prototype.RetrieveValuePseudoElement = function()
                 this.m_value = this.element.firstChild;
               }
             }
-
-					  
-							/* var foundLabel = false;
-							for(var counter = 0; counter < this.element.childNodes.length && !foundLabel; counter++)
-							{
-								var childNode = this.element.childNodes[counter];
-								if(childNode.nodeName && childNode.nodeName.toLowerCase().match("label") == "label")
-								{
-									foundLabel = true;
-									addValueToDocument(this, childNode, "after_label");
-								}
-							}
-							if(!foundLabel) {
-								addValueToDocument(this, this.element, "at_the_end");
-							} */
 	
 						window.status = "";
 					}
@@ -143,38 +133,9 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			catch(e)
 			{
 				//debugger;
-				alert(e.description);
+//				alert(e.description);
 			}
 		};
-		
-		//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
-		//	If createElement is used in firefox, the xbl does not bind.
-		//	If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
-		function addValueToDocument(pThis, element, position)
-		{
-			if(document.all)
-			{
-				pThis.m_value = document.createElement("pe-value");
-				if(position == "after_label") {
-					element.parentNode.insertBefore(pThis.m_value, element.nextSibling);
-				}
-				else {
-					element.appendChild(pThis.m_value);
-				}
-			}
-			else
-			{
-				if(position == "after_label") {
-					element.insertAdjacentHTML("afterEnd","<pe-value></pe-value>");
-					pThis.m_value = element.nextSibling;
-				}
-				else {
-					element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
-					pThis.m_value = element.lastChild;
-				}
-			}
-		};
-		
 		/*
 		 * Let the model know that we exist.
 		 */
