@@ -1,11 +1,11 @@
-#summary Story outlining an implementation of the Forms WG simplified syntax for XForms suitable for HTML4 forms authors
-#labels Story,SimplifiedSyntax
+#summary Story outlining an implementation of the Forms WG stram-lined syntax for XForms suitable for HTML4 forms authors
+#labels Story,StreamLinedSyntax
 
 = Introduction =
 
-As part of the Forms WG, a simplified syntax for XForms has been proposed along with a mapping onto the equivalent "canonical" XForms notation.  This syntax is summarized in [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html].  
+As part of the Forms WG, a stram-lined syntax for XForms has been proposed along with a mapping onto the equivalent "canonical" XForms notation.  This syntax is summarized in [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html].  
 
-This story is where we can explore an approach to implementing the simplified syntax in Ubiquity XForms in order to further refine the notation and to be able to show running example forms to other interested parties...
+This story is where we can explore an approach to implementing the stram-lined syntax in Ubiquity XForms in order to further refine the notation and to be able to show running example forms to other interested parties...
 
 
 = Details =
@@ -108,33 +108,33 @@ at="index('row')" position="after" origin="instance('row_template')"/>
 
 We can derive the following Features from this mapping:
 
-===FeatureSimplifiedGenerateInstances===
+===FeatureStreamLinedGenerateInstances===
 
 The `name` attributes, and their nesting, imply the element names and hierarchy for an associated canonical XForms instance.  Note that the generated instance need not in general be flat in that `name`'s may be nested in groups and/or on repeats and their child elements (other repeats or controls).
 
 Another interesting aspect of this Feature, is that row insertion in XForms 1.1 uses a separate instance to contain the template for new rows (unlike XForms 1.0 where row insertion used a row internal to the list as template).  This Feature therefore also needs to generate these insertion templates for repeats in the input simplified markup.
 
-===FeatureSimplifiedGenerateBinds===
+===FeatureStreamLinedGenerateBinds===
 
 Binds too are implied by the occurance of `name`s in the simplified markup and have important characteristics in terms of the evaluation context for any calculate expressions that may occur on the UI markup.  See the link above for detailed discussion in the Forms WG email archives for the generation of appropriate context attributes and nesting rules for implied binds.
 
-===FeatureSimplifiedGenerateVariables===
+===FeatureStreamLinedGenerateVariables===
 
 XPath variables are implied as an additional mechanism for surfacing the calculation results of binds for use in calculate expressions in the simplified syntax.  This feature is probably of lower priority for initial implementation as the element names of the implied instance data can be used directly as shown in the example form above.
 
-===FeatureSimplifiedInsertDeleteRows===
+===FeatureStreamLinedInsertDeleteRows===
 
 Some design work may still be required to nail down the IDL for row insert/delete and its use from HTML4 style event handlers...let's discuss directly on the Feature wiki page when we get here...
 
-===FeatureSimplifiedSubmission===
+===FeatureStreamLinedSubmission===
 
 Some proposals for submission and related discussion are given in [http://lists.w3.org/Archives/Public/public-forms/2008Apr/0063.html]
 
-===FeatureSimplifiedFormElement===
+===FeatureStreamLinedFormElement===
 
 Discussion of the form element in the XForms simplified syntax is at: [http://lists.w3.org/Archives/Public/public-forms/2008Apr/0064.html]
 
 
-== Simplified Syntax Examples ==
+== StreamLined Syntax Examples ==
 
   * [SimplifiedLoanForm XForms Loan Application Form]
