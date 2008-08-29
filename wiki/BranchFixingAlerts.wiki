@@ -1,4 +1,4 @@
-#summary Feature branch to fix alerts on IE.
+#summary Feature branch to fix alerts on IE and fix alert messages' displays.
 #labels Phase-Support,Branch
 
 || SVN: || [http://code.google.com/p/ubiquity-xforms/source/browse/branches/fixing-alerts-on-IE fixing-alerts-on-IE] ||
@@ -8,4 +8,4 @@
 
 XPaths on IE need to be checked case insensitive.  The code was checking case sensitive before, which wasn't working.  The new code checks to see if g_bIsInXHTMLMode is true or false.  If it is false (which it is now for IE), then the code will check XPaths case insensitive.  If it is true (which I think will be supported sometime later for maybe a different situation), then the code will check XPaths case sensitive.
 
-This branch does not fix xf:alerts display.  Another branch will have to do that.
+This branch fixes xf:alert messages' displays by css styles.  The main css style that fixes this is the one that makes alerts' pe-value have no border and transparent color.
