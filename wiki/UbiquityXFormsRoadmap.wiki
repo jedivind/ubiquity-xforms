@@ -42,11 +42,11 @@
 
 = Feature branches in progress =
 
-== [http://ubiquity-xforms.googlecode.com/svn/branches/simplified simplified] ==
+== [http://ubiquity-xforms.googlecode.com/svn/branches/stream-lined stream-lined] ==
 
 Owner: [http://code.google.com/u/nkling/ nkling]
 
-Branch for XForms simplified syntax
+Branch for XForms stream-lined syntax
 
 == [http://ubiquity-xforms.googlecode.com/svn/branches/ajax-xforms-model ajax-xforms-model] ==
 
@@ -105,7 +105,7 @@ Upgrade ajaxslt to version 0.8.1.
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
-||simplified ||r825||-||-||-||
+||stream-lined ||r867||-||-||-||
 ||ajax-xforms-model||r485||-||-||-||
 ||fixing-alerts-on-IE||r858||needs a code review (r858)||-||-||
 ||hint-work||r436||needs a code review||-||-||
