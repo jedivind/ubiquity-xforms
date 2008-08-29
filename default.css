@@ -87,13 +87,13 @@ xf:\trigger xf:\label
   padding: 3px;
 }
 
-.invalid xf\:alert {
+.invalid xf\:alert, .invalid xforms\:alert {
   display: inline;
   background-color: transparent;
   color: #D00;
 }
 
-.valid xf\:alert {
+.valid xf\:alert, .valid xforms\:alert  {
   display: none;
 }
 
