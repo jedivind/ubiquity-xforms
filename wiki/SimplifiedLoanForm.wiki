@@ -8,7 +8,7 @@ The [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/
 
 = Stream-lined Loan Form =
 
-The following form shown the stream-linedsyntax of the [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form].
+The following form shown the stream-lined syntax of the [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form].
 
 {{{
 
