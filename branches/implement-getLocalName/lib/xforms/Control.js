@@ -55,7 +55,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 
 		Control.prototype.AddValuePseudoElement = function()
 		{
-			//try{
+			try{
 				if (document.media != "print")
 				{
 					//if (this.element.getElementByTagName("pe-value"))
@@ -129,8 +129,8 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					}
 					this.m_bAddedToModel = false;
 				}
-		//	}
-		//	catch(e)
+			}
+			catch(e)
 			{
 				//debugger;
 //				alert(e.description);
