@@ -52,8 +52,7 @@ XFormsSelect1.prototype.onValueSelected = function(value) {
 
 XFormsSelect1.prototype.itemChanged = function(oEvt) {
   if(oEvt.target !== this.element) {
-    var sNodeName = oEvt.target.nodeName;
-    sNodeName = sNodeName.slice(sNodeName.indexOf(":")+1,sNodeName.length).toLowerCase();
+    var sNodeName = NamespaceManager.getLowerCaseLocalName(oEvt.target);
     if(sNodeName === "value") {
       this.itemValueChanged(oEvt.target.parentNode,oEvt.prevValue,oEvt.newValue);
     }
@@ -98,8 +97,7 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 					var nl = this.childNodes;
 					for(var i = 0;i < nl.length; ++i) {
 						var n = nl[i];
-						var s = n.nodeName;
-						s = s.slice(s.indexOf(":")+1,s.length).toLowerCase();
+						var s = NamespaceManager.getLowerCaseLocalName(n);
 						switch(s) {
 							case "item":
 							case "itemset":
@@ -236,8 +234,7 @@ function XFormsSelect1Value(elmnt)
 
 XFormsSelect1Value.prototype.getOwnerNodeName  = function()
 {
-	var sNodeName = this.element.parentNode.nodeName;
-	return sNodeName.slice(sNodeName.indexOf(":")+1,sNodeName.length).toLowerCase();
+  return NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
 };
 
 XFormsSelect1Value.prototype.onDocumentReady = function()

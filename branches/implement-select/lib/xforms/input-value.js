@@ -66,8 +66,7 @@ function valueChangedFF(pThis,evt)
 
 XFormsInputValue.prototype.getOwnerNodeName  = function()
 {
-	var sNodeName = this.element.parentNode.nodeName;
-	return sNodeName.slice(sNodeName.indexOf(":")+1,sNodeName.length).toLowerCase();
+	return NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
 };
 
 XFormsInputValue.prototype.onDocumentReady = function()

@@ -67,8 +67,7 @@ Item.prototype.getAncestorEventTarget = function() {
 		var el  = this.element.parentNode;
     //seek through ancestors until the select is found.
 		while(el) {
-      var s = el.nodeName;
-	    s = s.slice(s.indexOf(":")+1,s.length).toLowerCase();
+      var s = NamespaceManager.getLowerCaseLocalName(el);
 	    if(s.indexOf("select") === 0) {
 				this.m_ancestorEventTarget = el;
 				break;

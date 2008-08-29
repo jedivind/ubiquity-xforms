@@ -97,18 +97,24 @@ xf\:range.geolocation > pe-value, xforms\:range.geolocation > pe-value {
 xf\:range.geolocation > xf\:label > pe-value, xforms\:range.geolocation > xforms\:label > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
+xf\:input.yui-widget-color > pe-value, xforms\:input.yui-widget-color > pe-value,
+xf\:input[datatype='xhd:color'] > pe-value, xforms\:input[datatype='xhd:color'] > pe-value {
+  -moz-binding: url("decorator.xml?EventTarget&InputValueColor#decorator");
+  border: none;
+  background-color: transparent;
+}
+xf\:input.yui-widget-color > xf\:label > pe-value, xforms\:input.yui-widget-color > xforms\:label > pe-value,
+xf\:input[datatype='xhd:color'] > xf\:label > pe-value, xforms\:input[datatype='xhd:color'] > xforms\:label > pe-value {
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
+}
 xf\:input.yui-widget-calendar > pe-value, xforms\:input.yui-widget-calendar > pe-value,
-xf\:input[appearance='yui\:calendar'] > pe-value, xforms\:input[appearance='yui\:calendar'] > pe-value,
-xf\:input[appearance='yui\:popup-calendar'] > pe-value, xforms\:input[appearance='yui\:popup-calendar'] > pe-value,
 xf\:input[datatype='xsd\:date'] > pe-value, xforms\:input[datatype='xsd\:date'] > pe-value,
 xf\:input[datatype='xf\:date'] > pe-value, xforms\:input[datatype='xforms\:date'] > pe-value {
-  -moz-binding: url("decorator.xml?EventTarget&YUICalendarValue#decorator");
+  -moz-binding: url("decorator.xml?EventTarget&InputValueCalendar#decorator");
   border: none;
   background-color: transparent;
 }
 xf\:input.yui-widget-calendar > xf\:label > pe-value, xforms\:input.yui-widget-calendar > xforms\:label > pe-value,
-xf\:input[appearance='yui\:calendar'] > xf\:label > pe-value, xforms\:input[appearance='yui\:calendar'] > xforms\:label > pe-value,
-xf\:input[appearance='yui\:popup-calendar'] > xf\:label > pe-value, xforms\:input[appearance='yui\:popup-calendar'] > xforms\:label > pe-value,
 xf\:input[datatype='xsd\:date'] > xf\:label > pe-value, xforms\:input[datatype='xsd\:date'] > xforms\:label > pe-value,
 xf\:input[datatype='xf\:date'] > xf\:label > pe-value, xforms\:input[datatype='xforms\:date'] > xforms\:label > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
@@ -118,6 +124,10 @@ xf\:input[datatype='xsd\:date'][appearance='minimal'] > pe-value, xforms\:input[
   -moz-binding: url("decorator.xml?EventTarget&XFormsInputValue#decorator");
   border: 2px inset #f0f0f0;
   background-color: white;
+}
+xf\:input[datatype='xf\:date'][appearance='minimal'] > xf\:label > pe-value, xforms\:input[datatype='xforms\:date'][appearance='minimal'] > xforms\:label > pe-value,
+xf\:input[datatype='xsd\:date'][appearance='minimal'] > xf\:label > pe-value, xforms\:input[datatype='xsd\:date'][appearance='minimal'] > xforms\:label > pe-value {
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
 xf\:select, xforms\:select {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control&Select#decorator");

@@ -14,6 +14,40 @@
  * limitations under the License.
  */
 
+//[ISSUE 52] IE6 does not allow CSS attribute selectors. This means those
+//  selectors that require attribute selection must conditionally leave
+//  those out when the user agent is IE6 and use the mechanism specified in
+//  ie6-css-selectors-fixer.js instead.
+
+// UX.selectors below (initial value) must not contain any attribute selectors
+UX.selectors = {
+    input : {
+        color : {
+            value : "xf|input.yui-widget-color > pe-value",
+            labelvalue : "xf|input.yui-widget-color > xf|label > pe-value"
+        },
+        date : {
+            value : "xf|input.yui-widget-calendar > pe-value",
+            labelvalue : "xf|input.yui-widget-calendar > xf|label > pe-value"
+        },
+        dateminimal : {
+            value : "xf|input.minimal-date > pe-value",
+            labelvalue : "xf|input.minimal-date > xf|label > pe-value"
+        }
+    }
+};
+
+// Attribute selectors are added if the user agent supports them
+if (!UX.isIE6) {
+    UX.selectors.input.color.value += ", xf|input[datatype='xhd:color'] > pe-value";
+    UX.selectors.input.color.labelvalue += ", xf|input[datatype='xhd:color'] > xf| label > pe-value";
+    UX.selectors.input.date.value += ", xf|input[datatype='xsd:date'] > pe-value, xf|input[datatype='xf:date'] > pe-value";
+    UX.selectors.input.date.labelvalue += ", xf|input[datatype='xsd:date'] > xf|label > pe-value, xf|input[datatype='xf:date'] > xf|label > pe-value";
+    UX.selectors.input.dateminimal.value += ", xf|input[datatype='xsd:date'][appearance='minimal'] > pe-value, xf|input[datatype='xf:date'][appearance='minimal'] > pe-value";
+    UX.selectors.input.dateminimal.labelvalue += ", xf|input[datatype='xsd:date'][appearance='minimal'] > xf|label > pe-value, xf|input[datatype='xf:date'][appearance='minimal'] > xf|label > pe-value";
+}
+// else, we delegate selection to ie6-css-selectors-fixer.js
+
 //[ISSUE 8] IE does not natively support child selectors, but will ignore ">"
 //	if found in css, making a selector such as "x > y", behave as a descendent
 //	selector "x y".  This means that the order of occurrence of some of these
@@ -171,6 +205,38 @@ DECORATOR.setupDecorator(
 		//HACK: re-override the value binding for rangemap/label, because IE does not support child selectors.
 		{
 			selector:"xf|range.geolocation > xf|label > pe-value",
+			objects:["EventTarget", "XFormsOutputValue"]
+		},
+
+        // YUI ColorPicker as <xf:input>
+        {
+            selector: UX.selectors.input.color.value,
+            objects:["EventTarget", "InputValueColor"]
+        },
+        //HACK: IE does not support child selectors.
+        {
+            selector: UX.selectors.input.color.labelvalue,
+            objects:["EventTarget", "XFormsOutputValue"]
+        },
+
+		// YUI Calendar as <xf:input>
+		{
+			selector: UX.selectors.input.date.value,
+			objects:["EventTarget", "InputValueCalendar"]
+		},
+		//HACK: IE does not support child selectors.
+		{
+			selector: UX.selectors.input.date.labelvalue,
+			objects:["EventTarget", "XFormsOutputValue"]
+		},
+		// Calendar with "minimal" appearance resorts to regular xf:input appearance
+		{
+			selector: UX.selectors.input.dateminimal.value,
+			objects:["EventTarget", "XFormsInputValue"]
+		},
+		//HACK: IE does not support child selectors.
+		{
+			selector: UX.selectors.input.dateminimal.labelvalue,
 			objects:["EventTarget", "XFormsOutputValue"]
 		},
 
