@@ -113,7 +113,7 @@ Upgrade ajaxslt to version 0.8.1.
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
 ||simplified ||r825||-||-||-||
-||implement-getLocalName||r821||r821||-||-||
+||implement-getLocalName||r851||r851||-|| paul.butcher||
 ||ajax-xforms-model||r485||-||-||-||
 ||fixing-alerts-on-IE||r747||needs a code review (r811)||-||-||
 ||hint-work||r436||needs a code review||-||-||
