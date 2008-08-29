@@ -2,7 +2,7 @@
 #labels Sample,StreamLinedSyntax
 
 = Introduction =
-The [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form] demonstrates various XForms features. In order to further refine the notation and explore an approach to implementing the [StorySimplifiedSyntax stream-lined syntax in Ubiquity XForms ]. We converted the loan form example to stream-lined syntax based on the [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html XForms 1.2 Simplified Syntax Proposal] and additional syntax in the tentative syntax section.
+The [http://ubiquity-xforms.googlecode.com/svn/branches/loan-form/_samples/Loan/loan-lowercase.html XForms Loan Application Form] demonstrates various XForms features. In order to further refine the notation and explore an approach to implementing the [StorySimplifiedSyntax stream-lined syntax in Ubiquity XForms ]. We converted the loan form example to stream-lined syntax based on the [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html XForms 1.2 Stream-Lined Syntax Proposal] and additional syntax in the tentative syntax section.
 
   * *stream-lined syntax formerly known as simplified syntax*
 
@@ -72,7 +72,7 @@ The following form shown the stream-linedsyntax of the [http://ubiquity-xforms.g
 
 = Tentative Syntax =
 
-In order to complete the conversion to the stream-lined syntax. Assumptions are made and tentative syntaxes are introduced in addition to the  [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html Summarized XForms Simplified Syntax Proposal]. Here is the summary:
+In order to complete the conversion to the stream-lined syntax. Assumptions are made and tentative syntaxes are introduced in addition to the  [http://lists.w3.org/Archives/Public/public-forms/2008Mar/0097.html Summarized XForms Stream-Lined Syntax Proposal]. Here is the summary:
 
   
 ====1) Namespace====
@@ -105,7 +105,7 @@ In order to complete the conversion to the stream-lined syntax. Assumptions are 
 }}}
 
 ====4) Label Syntax====
-  In the Simplified Syntax Proposal, there is no dicussion of where to obtain or how to specific the xforms's label in the syntax. Most of the time in HTML, label is just a brunch of text nodes in front of the HTML input field. 
+  In the Stream-Lined Syntax Proposal, there is no dicussion of where to obtain or how to specific the xforms's label in the syntax. Most of the time in HTML, label is just a brunch of text nodes in front of the HTML input field. 
   In above loan form example, the HTML label/for syntax is used as to define an input's label. A _label_ element is specified with inline text and a _for_ attribute is referenced to input element's id; Also notice a label element can be hanged as a child element of a container (form/group) which indicate that the label is for the corresponding group/form.
 {{{
   <group name="borrower">
