@@ -50,6 +50,9 @@ function runTheTests() {
   
   loader.addModule({ name: "ux-ut-select1", type: "js",  fullpath: moduleBase + "ut-select1.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+    
+  loader.addModule({ name: "ux-ut-xpath-case", type: "js",  fullpath: moduleBase + "ut-xpath-case.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
   loader.addModule({ name: "ux-ut-finite-control", type: "js",  fullpath: moduleBase + "ut-finite-control.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
@@ -57,7 +60,7 @@ function runTheTests() {
   
   
   loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager", "ux-ut-path-to-module", "ux-ut-reset",
-     "ux-ut-model-standalone","ux-ut-instance-standalone", "ux-ut-select1", "ux-ut-finite-control");
+     "ux-ut-model-standalone","ux-ut-instance-standalone", "ux-ut-select1", "ux-ut-xpath-case", "ux-ut-finite-control");
   
   var sBars = "";
   loader.onProgress = function(o) {
@@ -81,6 +84,7 @@ function runTheTests() {
 
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
+    YAHOO.tool.TestRunner.add(suiteXPathCase);
     //run the tests
     YAHOO.tool.TestRunner.run();
     window.status = "tested"; 
