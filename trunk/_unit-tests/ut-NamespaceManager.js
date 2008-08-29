@@ -220,7 +220,79 @@ var oTestGetElementsByTagName = new YAHOO.tool.TestCase({
 	
 });
 
+var oTestGetLocalName = new YAHOO.tool.TestCase({
+	name		:	"Test getLocalName",
+	_should: { 
+		error: { 
+			testNoParam: true,
+			testNullParam: true,
+			testNotANodeParam: true
+		} 
+	}, 
+  testNoNamespacePrefix : function() {
+    Assert.areSame(NamespaceManager.getLowerCaseLocalName(document.body),"body");
+  },
+  testSomeNamespacePrefix : function() {
+    var node =  NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns0", "canal")[0];
+    Assert.areSame(NamespaceManager.getLowerCaseLocalName(node),"canal");
+  },
+  testNoParam : function() {
+    NamespaceManager.getLowerCaseLocalName();
+  },
+  testNullParam : function() {
+    NamespaceManager.getLowerCaseLocalName(null);
+  },
+  testNotANodeParam : function() {
+    NamespaceManager.getLowerCaseLocalName("Hello Sailor");
+  }
+});
+
+var oTestCompareFullName = new YAHOO.tool.TestCase({
+	name		:	"Test compareFullName",
+	_should: { 
+		error: { 
+			testNoParam: true,
+			testNullParam: true,
+			testNotANodeParam: true
+		} 
+	}, 
+  testNoNamespacePrefixOnNode : function() {
+    Assert.areSame(NamespaceManager.compareFullName(document.body,"body",""),true);
+  },
+  testNoNamespacePrefixOnNodeAndOnlyTwoParameters : function() {
+    Assert.areSame(NamespaceManager.compareFullName(document.body,"body"),true);
+  },
+  testSameNameAndNamespace : function() {
+    var node = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns0", "canal")[0];
+    Assert.areSame(NamespaceManager.compareFullName(node,"canal","http://www.example.org/ns0"),true);
+  },
+  testSameNameButDifferentNamespace : function() {
+    var node = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns0", "canal")[0];
+    Assert.areSame(NamespaceManager.compareFullName(node,"canal","BOO!!!"),false);
+  },
+  testSameNamespaceButDifferentName : function() {
+    var node = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns0", "canal")[0];
+    Assert.areSame(NamespaceManager.compareFullName(node,"Rangoon","http://www.example.org/ns0"),false);
+  },
+  testQNameSuppliedAsLocalName : function() {
+    var node = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns0", "canal")[0];
+    Assert.areSame(NamespaceManager.compareFullName(node,"a:canal"),false);
+  },
+  testNoParam : function() {
+    NamespaceManager.getLowerCaseLocalName();
+  },
+  testNullParam : function() {
+    NamespaceManager.getLowerCaseLocalName(null);
+  },
+  testNotANodeParam : function() {
+    NamespaceManager.getLowerCaseLocalName("Hello Sailor");
+  }
+});
+
+
 oSuiteGetElementsByTagName.add(oTestGetElementsByTagName);
+oSuiteGetElementsByTagName.add(oTestGetLocalName);
+oSuiteGetElementsByTagName.add(oTestCompareFullName);
 var suiteNamespaceManager = new YAHOO.tool.TestSuite("Test Namespace Manager");
 suiteNamespaceManager.add(oTestAddSelectionNamespace);
 suiteNamespaceManager.add(oTestAddOutputNamespace);

@@ -236,7 +236,7 @@ Context.prototype.getBoundNode = function(nOrdinal)
 				}
 				oRet = { model: pThis.m_model, node: pThis.m_proxy };
 			}
-			else if(pThis.tagName == "model")
+			else if(NamespaceManager.getLowerCaseLocalName(pThis) === "model")
 			{
 				oRet = pThis.getEvaluationContext();
 			}
