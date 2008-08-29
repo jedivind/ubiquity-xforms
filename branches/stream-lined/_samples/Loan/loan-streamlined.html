@@ -11,7 +11,7 @@
       action="http://xformstest.org/cgi-bin/echo.sh"  >
    <label>Loan Form</label>
    <label for="startdate" >Agreement Date:</label>
-   <input name="startdate" type="date" default="08/08/2008" />
+   <input name="startdate" type="date" default="08-08-2008" />
    <br/>
    <group name="borrower">
      <label>Borrower</label>
@@ -45,9 +45,11 @@
    <label for="submit">Apply Loan</label>
    <submit id="submit" />
 </form>
-<output name="rates" calculate="interestrate div 1200.0" />
-<output name="totalpayout" calculate="ceiling(principal + (125 * interestrate * (duration * 0.1)))" />
-<output name="monthly-payment" calculate="ceiling(totalpayout div duration)" />
-
+<hidden name="rate" calculate="interestrate div 1200.0" />
+<output name="monthly-payment" 
+        calculate="if(rate &gt; 0, principal * rate div (1.0 - power(1.0 + rate, -duration)), principal div duration" 
+        relevant="principal > 0 and duration > 0" />
+<output name="totalpayout" calculate="monthly-Payment * duration" 
+        relevant="monthly-payment &gt; 0 and duration &gt; 0" />
 </body>
 </html>
