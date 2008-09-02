@@ -107,7 +107,7 @@ Upgrade ajaxslt to version 0.8.1.
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
 ||stream-lined ||r866||-||-||-||
 ||ajax-xforms-model||r485||-||-||-||
-||fixing-alerts-on-IE||r858||needs a code review (r858)||-||-||
+||fixing-alerts-on-IE||r858||r858||-||mdmcente||
 ||hint-work||r436||needs a code review||-||-||
 ||implement-alert||-||-||r680||-||
 ||implement-message||r479||-||-||-||
