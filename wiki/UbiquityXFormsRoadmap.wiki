@@ -58,6 +58,12 @@ Wrap ubiquity xforms's model into different Ajax toolkit (ex. dojo, YUI)
 
 Completing support for {{{select}}} and {{{select1}}}.
 
+== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/issue-44 issue-44] ==
+
+Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
+
+Provide support for *.xhtml (application/xhtml+xml) content. 
+
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/issue-59 issue-59] ==
 
 Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
@@ -118,6 +124,7 @@ Upgrade ajaxslt to version 0.8.1.
 ||implement-alert||-||-||r680||-||
 ||implement-message||r479||-||-||-||
 ||implement-select||r693|| - || r702 || - ||
+||issue-44||r895|| - || - || - ||
 ||issue-59||r883|| r883 || - || - ||
 ||issue-60||r888|| r888 || - || - ||
 ||loan-form||r720||-||-||-||
