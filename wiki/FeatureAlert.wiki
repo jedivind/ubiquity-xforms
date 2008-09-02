@@ -13,13 +13,15 @@ When a control form is valid by its 'constraint', the alert will be hidden. When
 
 Since the Schema Validation is not supported yet, that part of the alert support is not supported yet either. I did put two test situations in my alert test case that test this and fail. When the Schema Validation is supported, those situations should pass (I think). 
 
-The last story already works pretty nicely.
+The last story already works nicely.
 
 The alert text is after the control by a for loop in Control.js that iterates over the control's children and inserts the <pe-value> before the first <xf:alert> child (if none, <pe-value> goes at the end).
 
-The @ref support will have to be fixed to work correctly.
+The @ref support works okay for now.  It doesn't work on Firefox 3.
 
-Alerts do not work in IE now, because IE thinks the xf:alerts are always valid (so they are hidden).
+XPaths on IE need to be checked case insensitive. The code was checking case sensitive before, which wasn't working. The new code checks to see if g_bIsInXHTMLMode is true or false. If it is false (which it is now for IE), then the code will check XPaths case insensitive. If it is true (which I think will be supported sometime later for maybe a different situation), then the code will check XPaths case sensitive.
+
+The xf:alert messages' displays were fixed by css styles. The main css style that fixes this is the one that makes alerts' pe-value have no border and transparent color.
 
 == Stories ==
   * A user enters invalid data into a control, the alert message is shown.
