@@ -35,8 +35,8 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-select1 select1] || *in-progress* || ||
 || || [http://www.w3.org/TR/xforms11/#ui-commonelems-label label] ||  || || ||
 || || [http://www.w3.org/TR/xforms11/#ui-commonelems-help help] || || || ||
-|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-hint hint] || yes || ||
-|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-alert alert] ||*in-progress* || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-hint hint] || basically yes || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-alert alert] || yes || || ||
 || [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-choices choices] || *in-progress* || || ||
 || [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-item item] || *in-progress* || || ||
 || [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-value value] || *in-progress* || || ||
