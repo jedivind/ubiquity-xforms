@@ -22,6 +22,10 @@ xf\:submission, xforms\:submission {
   -moz-binding: url("decorator.xml?EventTarget&Context&Submission#decorator");
 }
 
+xf\:submit, xforms\:submit {
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control&Submit#decorator");
+}
+
 xf\:trigger, xforms\:trigger {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
