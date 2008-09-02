@@ -112,7 +112,7 @@ Upgrade ajaxslt to version 0.8.1.
 ||implement-alert||-||-||r680||-||
 ||implement-message||r479||-||-||-||
 ||implement-select||r693|| - || r702 || - ||
-||issue-59||r883|| - || - || - ||
+||issue-59||r883|| r883 || - || - ||
 ||loan-form||r720||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
