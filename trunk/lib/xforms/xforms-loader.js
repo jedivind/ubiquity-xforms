@@ -44,11 +44,11 @@ var g_sBehaviourDirectory  = "";
   		requires: [ "backplane-pds" ] });
   	loader.addModule({ name: "xforms-model",               type: "js",  fullpath: moduleBase + "modelObj.js",
   		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager", "xforms-threads", "xforms-vertex-target" ] });
+
   	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: moduleBase + "xforms-submission.js" });
-  	loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: moduleBase + "xforms-submission-yui.js",
-  		requires: [ "xforms-submission-core", "connection" ] });
-  	loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: moduleBase + "Submission.js",
-  		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core-yui" ] });
+
+    loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: moduleBase + "Submission.js",
+  		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core" ] });
   	
   	loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: moduleBase + "xforms.js",
   		requires: [ "xforms-model"] });
