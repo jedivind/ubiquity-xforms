@@ -1,4 +1,5 @@
 #summary XPath processing using the ajaxslt library.
+#labels Feature
 
 = Introduction =
 [http://code.google.com/p/ajaxslt/ Ajaxslt] is a pure Javascript implementation of XSLT and XPATH. Ubiquity XForms uses ajaxslt (with a few minor modifications) for processing XPath expressions.
