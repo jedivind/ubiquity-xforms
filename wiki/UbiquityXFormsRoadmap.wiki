@@ -108,14 +108,6 @@ Completing support for message.
 
 = Merge status of feature branches =
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/upgrade-ajaxslt upgrade-ajaxslt] ==
-
-Owner: [http://code.google.com/u/merle.sterling/ merle.sterling]
-
-Upgrade ajaxslt to version 0.8.1.
-
-= Merge status of feature branches =
-
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
 ||stream-lined ||r866||-||-||-||
 ||ajax-xforms-model||r485||-||-||-||
@@ -130,4 +122,3 @@ Upgrade ajaxslt to version 0.8.1.
 ||loan-form||r720||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
-||upgrade-ajaxslt||-||-||r731||-||
