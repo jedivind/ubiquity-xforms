@@ -120,6 +120,6 @@ Completing support for message.
 ||issue-44||r895|| - || - || - ||
 ||issue-59||r883|| r883 || - || - ||
 ||issue-60||r888|| r888 || - || - ||
-||loan-form||r720||-||-||-||
+||loan-form||r925||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
