@@ -110,8 +110,6 @@ We can derive the following Features from this mapping:
 
 ===FeaturesStreamLinedSyntaxRendering===
 
-[Feature StreamLined Syntax Rendering]
-
 ===FeatureStreamLinedGenerateInstances===
 
 The `name` attributes, and their nesting, imply the element names and hierarchy for an associated canonical XForms instance.  Note that the generated instance need not in general be flat in that `name`'s may be nested in groups and/or on repeats and their child elements (other repeats or controls).
