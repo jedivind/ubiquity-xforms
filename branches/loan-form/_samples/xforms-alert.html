@@ -17,8 +17,6 @@
 	<head>
 		<title>Test xf:alert</title>
 		
-		<script>g_sBehaviourDirectory = "../../behaviours/"</script>
-		
 	<script>
 		//    debugger;
 	</script>
@@ -44,8 +42,8 @@
 					<number>4</number>
 				</data>
 			</xf:instance>
-      		<xf:bind nodeset="/data/number[2]" constraint="/data/number[2] >= 18"/>
-      		<xf:bind nodeset="/data/number[3]" constraint="/data/number[3] >= 21"/>
+      		<xf:bind nodeset="/data/number[2]" constraint="/data/number[2] &gt;= 18"/>
+      		<xf:bind nodeset="/data/number[3]" constraint="/data/number[3] &gt;= 21"/>
 		</xf:model>
 		<h1>Testing Alert</h1>
 		<hr></hr>

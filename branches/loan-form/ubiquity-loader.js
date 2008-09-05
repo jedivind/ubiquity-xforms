@@ -49,9 +49,11 @@ var baseDefaultPath = pathToModule("ubiquity-loader");
     var arrScripts = [
       "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js",
       baseDefaultPath + "lib/xforms/ie-instance-fixer.js",
+      baseDefaultPath + "lib/xforms/ie6-css-selectors-fixer.js",
       baseDefaultPath + "lib/xforms/set-document-loaded.js",
       baseDefaultPath + "lib/xforms/loader-begin.js",
       baseDefaultPath + "lib/xforms/xforms-loader.js",
+      baseDefaultPath + "lib/_platform/yui/xforms-loader-yui.js",
       baseDefaultPath + "lib/xforms/loader-end.js"
     ];
     var arrScriptElements = [ ];

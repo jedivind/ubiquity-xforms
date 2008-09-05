@@ -43,7 +43,7 @@
 			{
 			
 				var oBind = nsBinds[i];
-				if(!CheckElementName(oBind,"bind","http://www.w3.org/2002/xforms"))
+				if(!NamespaceManager.compareFullName(oBind,"bind","http://www.w3.org/2002/xforms"))
 					continue;
 
 				oBind["ownerModel"] = oModel;

@@ -62,12 +62,11 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					//	debugger;
 					this.RetrieveValuePseudoElement();
 					//document.logger.log("Attaching: " + this.element.tagName + ":" + this.element.uniqueID, "info");
-					if(!this.m_value)
-					{
+					if (!this.m_value) {
 					  var childNodes =this.element.childNodes; 
-					  if(childNodes) {
-					    for(var i = 0; i < childNodes.length; ++i) {
-					      if(DOM_TEXT_NODE === childNodes[i].nodeType) {
+					  if (childNodes) {
+					    for (var i = 0; i < childNodes.length; ++i) {
+					      if (DOM_TEXT_NODE === childNodes[i].nodeType) {
 					        this.m_sValue = childNodes[i].nodeValue;
 					        childNodes[i].parentNode.removeChild(childNodes[i]);
 					        break;
@@ -75,32 +74,43 @@ Control.prototype.RetrieveValuePseudoElement = function()
 					    }
 					      
 					  }
+            			//Prepare to insert a value pseudoelement after the label
+						var labelChild = null;
+						for (i = 0; i < childNodes.length ; ++i) {
+						  if (NamespaceManager.compareFullName(childNodes[i], "label", "http://www.w3.org/2002/xforms")) {
+						    labelChild = childNodes[i];
+						    break;
+						  }
+						}
+            			var referenceNode = null;
+            			var insertionPoint = "";
+            
 						//Counterintuitively, insertAdjacentHTML works in Firefox, and createElement in IE.
 						//	If createElement is used in firefox, the xbl does not bind.
 						//	If innerHTML is used in IE, it does not interpret <pe-value /> as an element, and inserts "".
-						if(document.all)
-						{
-							this.m_value = document.createElement("pe-value");
-							this.element.appendChild(this.m_value);
-						}
-						else
-						{
-							var foundAlert = false;
-							for(var counter = 0; counter < this.element.childNodes.length && !foundAlert; counter++)
-							{
-								var childNode = this.element.childNodes[counter];
-								if(childNode.localName && childNode.localName.toLowerCase() == "xf:alert")
-								{
-									foundAlert = true;
-									childNode.insertAdjacentHTML("beforeBegin","<pe-value></pe-value>");
-									this.m_value = childNode.previousSibling;
-								}
-							}
-							if(!foundAlert) {
-								this.element.insertAdjacentHTML("beforeEnd","<pe-value></pe-value>");
-								this.m_value = this.element.lastChild;
-							}
-						}
+
+						if (document.all) {  
+						  this.m_value = document.createElement("pe-value");
+			              //insertBefore will be used to insert the new node, so the referenceNode will be the one after the node we have already decided to be reference. 
+			                // In the absence of a label, the value element should be added as the first child
+			                //    If there are no children, this will be null, insertBefore(newNode, null) is identical to appendChild
+			              referenceNode = (labelChild) ? labelChild.nextSibling : this.element.firstChild;
+			              this.element.insertBefore(this.m_value, referenceNode);
+			            }
+			            else {
+			              //ReferenceNode for insertAdjacentHTML must exist, but the insertion point varies, 
+			              //  insert after a label, or at the beginning of the parent.
+			              if (labelChild) {
+			                referenceNode = labelChild;
+			                insertionPoint = "afterEnd";
+			              }
+			              else {
+			                referenceNode = this.element;
+			                insertionPoint = "afterBegin";
+			              }
+			              referenceNode.insertAdjacentHTML(insertionPoint, "<pe-value></pe-value>");
+			              this.m_value = (labelChild) ? labelChild.nextSibling : this.element.firstChild;
+			            }
 	
 						window.status = "";
 					}
@@ -110,7 +120,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 			catch(e)
 			{
 				//debugger;
-				alert(e.description);
+//				alert(e.description);
 			}
 		};
 		/*
