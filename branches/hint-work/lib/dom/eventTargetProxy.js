@@ -60,11 +60,6 @@ function StyleHoverishly(elmnt) {
 	if(elmnt.className.indexOf("pc-hover") == -1) {
 		elmnt.className += " pc-hover";
 	}
-	
-	// This code is for dispatching a xforms-hint event on IE.
-	var evt = document.createEvent('UIEvents');
-	evt.initUIEvent("xforms-hint", true, false, window, 1);
-	elmnt.dispatchEvent(evt);
 }
 
 function StyleUnhoverishly(elmnt) {

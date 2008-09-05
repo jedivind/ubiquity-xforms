@@ -26,6 +26,14 @@ xf\:value  > pe-value,  xforms\:value  > pe-value {
   -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
 }
 
+xf\:hint >  pe-value, xforms\:hint >  pe-value {
+  -moz-binding: url("decorator.xml?EventTarget&XFormsOutputValue#decorator");
+}
+
+xf\:hint, xforms\:hint {
+  -moz-binding: url("decorator.xml?EventTarget&Context&Control&Hint#decorator");
+}
+
 xf\:input, xforms\:input {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
