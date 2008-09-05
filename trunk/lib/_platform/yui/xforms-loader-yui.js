@@ -20,11 +20,13 @@
 (
   function(){
     var moduleBase = pathToModule("xforms-loader-yui");
-    
-  	window.status = "configuring YUI module loader";
-  	loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: moduleBase + "xforms-submission-yui.js",
-  		requires: [ "connection" ] });
+    var yuiLoader = new YAHOO.util.YUILoader();
 
-    loader.require( "xforms-submission-core-yui" );
+    window.status = "configuring YUI module loader";
+    yuiLoader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: moduleBase + "xforms-submission-yui.js",
+      requires: [ "connection" ] });
+
+    yuiLoader.require( "xforms-submission-core-yui" );
+    yuiLoader.insert();
   }()
 );
