@@ -106,11 +106,18 @@ Owner: [http://code.google.com/u/mdmcente/ mdmcente]
 
 Completing support for message.
 
+== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/fixing-alerts-on-FF3 fixing-alerts-on-FF3] ==
+
+Owner: [http://code.google.com/u/mdmcente/ mdmcente]
+
+Adding alerts to the generated-css file, so only the instance text is shown instead of the inline text.
+
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
 ||stream-lined ||r866||-||-||-||
 ||ajax-xforms-model||r485||-||-||-||
+||fixing-alerts-on-FF3||r912||-||-||-||
 ||fixing-alerts-on-IE||-||-||r875||-||
 ||hint-work||r436||needs a code review||-||-||
 ||implement-alert||-||-||r680||-||
