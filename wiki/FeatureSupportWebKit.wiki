@@ -1,0 +1,16 @@
+#summary Ubiquity XForms should run in Webkit-based browsers.
+#labels Feature,Browser-Webkit,Phase-Requirements
+
+Author: [http://code.google.com/u/mark.birbeck@webBackplane.com/ Mark Birbeck]
+
+= Introduction =
+
+It's always been the intention to have UX running in Webkit, since it puts XForms into Safari, Android, the iPhone, Mac OX Dashboard widgets, and so on. But the recent interest in Google's browser -- _Chrome_ -- has made this an even more desirable goal.
+
+= Issues =
+
+The current technique of using CSS to 'bootstrap' the object decoration process -- and to add new decorators dynamically during form operation -- will not work in Webkit. This means that some other approach, such as walking the DOM, or maintaining a list of rules and applying them jQuery-style, will need to be worked out.
+
+= Requirements =
+
+A first step towards this will be to [WorkItemRemoveNeedForListOfClassesInDecoratorUri remove the need to express classes in the decorator URI], which then breaks the current connection between the bootstrapping, and the step that works out which classes to use to decorate an object.
