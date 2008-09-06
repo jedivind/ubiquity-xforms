@@ -1,4 +1,4 @@
-#summary Story outlining an implementation of the Forms WG stram-lined syntax for XForms suitable for HTML4 forms authors
+#summary Story outlining an implementation of the Forms WG streamlined syntax for XForms suitable for HTML4 forms authors
 #labels Story,StreamLinedSyntax
 
 = Introduction =
