@@ -1,10 +1,11 @@
 #summary Design and sequence for adding support for the HTML input control.
+#labels WorkItem
 
 Author: [http://code.google.com/u/mark.birbeck@webBackplane.com/ Mark Birbeck]
 
 = Introduction =
 
-A key goal of the streamlined syntax proposal is that ordinary HTML elements should work smoothly with other XForms elements. This means that authors can begin with simple HTML forms, and gradually add more and XForms functionality as their need grows.
+A key goal of the [StorySimplifiedSyntax streamlined syntax proposal] is that ordinary HTML elements should work smoothly with other XForms elements. This means that authors can begin with simple HTML forms, and gradually add more and XForms functionality as their need grows.
 
 This work item is intended to establish a basis on which to build the simplification work, by providing support for one HTML control. Other work items will outline how other parts of the simplified syntax can be supported.
 
