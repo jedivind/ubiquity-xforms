@@ -19,7 +19,7 @@
    # Add global variable {{{var g_bSaveDependencies = false;}}}
    # Override {{{LocationExpr.prototype.evaluate}}}} function. If the global var {{{g_bSaveDependencies}}} is true, save each of the XPath steps (nodes) from the {{{LocationExpr}}} in the array {{{g_arrSavedDependencies}}}. The saved nodes are used to build the dependency graph for {{{ComputedExpressions}}} (such as @calculate).
 
-_Note: We need to try to make all modifications in ajaxslt-improvements.js; otherwise, we will need to port all of the changes to xpath.js everytime we upgrade to a newer version of ajaxslt._
+_Note: We need to try to make all modifications in ajaxslt-improvements.js; otherwise, we will need to port all of the changes to xpath.js everytime we upgrade to a newer version of ajaxslt._ --Mark Birbeck That's true, although it has just occurred to me that as a first step we could at least maintain a diff file, like the one submitted to Google.
 
 ==== Bug Fixes: ====
  * xpathParse/xpathReduce fails to reduce an XPath expression to a single Expr (that would then be evaluated with respect to a context node) when the expression contains a path followed by the multiplication operator (asterisk) followed by a function call. {{{[example: ../principal * instance('rate')]}}}
