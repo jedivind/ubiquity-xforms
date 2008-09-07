@@ -3,6 +3,8 @@
 
 Author: [http://code.google.com/u/mark.birbeck@webBackplane.com/ Mark Birbeck]
 
+Status: Rahul has implemented this work-item and it is [/p/ubiquity-xforms/source/detail?r=941 available for review].
+
 = Introduction =
 
 The decoration process currently involves three steps:
