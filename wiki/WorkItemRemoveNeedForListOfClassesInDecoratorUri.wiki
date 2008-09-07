@@ -3,7 +3,7 @@
 
 Author: [http://code.google.com/u/mark.birbeck@webBackplane.com/ Mark Birbeck]
 
-Status: Rahul has implemented this work-item and it is [/p/ubiquity-xforms/source/detail?r=941 available for review].
+Status: Rahul has implemented this work-item and it is available for review at r941.
 
 = Introduction =
 
