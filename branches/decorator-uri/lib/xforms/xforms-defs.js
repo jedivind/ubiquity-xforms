@@ -124,7 +124,7 @@ DECORATOR.setupDecorator(
 
     	{
 			selector:"xf|output",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[] // Removed list of classes from decorator URI
 		},
 
 		{

@@ -50,7 +50,7 @@ xf\:range, xforms\:range {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
 }
 xf\:output, xforms\:output {
-  -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");
+  -moz-binding: url("decorator.xml#decorator"); /* Removed list of classes from decorator URI */
 }
 xf\:textarea, xforms\:textarea {
   -moz-binding: url("decorator.xml?EventTarget&Context&Control#decorator");

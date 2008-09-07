@@ -113,7 +113,7 @@ var DECORATOR = function()
 	function generateMozBindingStyle(objs)
 	{
 		if(objs !== undefined) {
-			return "-moz-binding: url(\""+g_sBehaviourDirectory+"decorator.xml?" + objs.join("&") + "#decorator\");";
+			return "-moz-binding: url(\""+g_sBehaviourDirectory+"decorator.xml" + (objs.length > 0 ? "?"+ objs.join("&") : "") + "#decorator\");";
 		}
 		else {
 			return "";
@@ -347,16 +347,14 @@ var DECORATOR = function()
 	
 	function getDecorationObjectNames(element)
 	{
-		var sBehaviours = getCustomCSSProperty(element,"-moz-binding");
+		var sBehaviours = getCustomCSSProperty(element,"-moz-binding"),
+		    arrBehaviours = [];
 		if(sBehaviours !== undefined && sBehaviours.indexOf('?') !== -1)
 		{
 			sBehaviours = sBehaviours.substring(sBehaviours.indexOf('?')+1,sBehaviours.lastIndexOf('#') );
+			arrBehaviours = sBehaviours.split("&");
 		}
-		else
-		{
-			sBehaviours = "";
-		}
-		return sBehaviours.split("&");
+		return arrBehaviours;
 	}
 
 
@@ -376,6 +374,7 @@ var DECORATOR = function()
 		element.attachSingleBehaviour = attachSingleBehaviour;
 
 		var arrBehaviours = getDecorationObjectNames(element);				
+		arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
 		if(arrBehaviours.length  > 0){
 			for(var i = 0;i < arrBehaviours.length;++i){
 				addObjectBehaviour(element,arrBehaviours[i],false);
@@ -397,6 +396,29 @@ var DECORATOR = function()
 		return bReturn;
 	}
 	
+	function updateDecorationObjectNames(element,arrBehaviours)
+	{
+		var arrUpdatedBehaviours = [],
+		    arrAdditionalBehaviours = additionalDecorationObjectNames(element);
+
+		if (arrAdditionalBehaviours.length > 0) {
+			arrUpdatedBehaviours = arrBehaviours.concat(arrAdditionalBehaviours);
+		} else {
+			arrUpdatedBehaviours = arrBehaviours;
+		}
+		return arrUpdatedBehaviours;
+	}
+
+	function additionalDecorationObjectNames(element)
+	{
+		var decorationNames = [];
+		if (NamespaceManager.compareFullName(element,"output","http://www.w3.org/2002/xforms")) {
+			decorationNames = ["EventTarget", "Context", "Control"];
+		}
+		// only output needs to be augmented for this test
+		return decorationNames;
+	}
+
 	function attachSingleBehaviour(sBehaviour)
 	{
 		addObjectBehaviour(this,sBehaviour,false);
