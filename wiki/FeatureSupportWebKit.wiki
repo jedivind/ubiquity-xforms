@@ -3,6 +3,8 @@
 
 Author: [http://code.google.com/u/mark.birbeck@webBackplane.com/ Mark Birbeck]
 
+Status: The first requirement is awaiting code review at r941.
+
 = Introduction =
 
 It's always been the intention to have UX running in Webkit, since it puts XForms into Safari, Android, the iPhone, Mac OX Dashboard widgets, and so on. But the recent interest in Google's browser -- _Chrome_ -- has made this an even more desirable goal.
