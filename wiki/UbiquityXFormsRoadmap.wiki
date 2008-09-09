@@ -119,7 +119,7 @@ Completing support for message.
 ||implement-select||r693|| - || r702 || - ||
 ||issue-44||r895|| - || - || - ||
 ||issue-59||r883|| r883 || - || - ||
-||issue-60||r888|| r888 || - || - ||
+||issue-60||r949|| - || - || wellsk0705 ||
 ||loan-form||r925||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
