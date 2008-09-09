@@ -70,12 +70,6 @@ Owner: [http://code.google.com/u/wellsk0705/ wellsk0705]
 
 Remove duplicate creation of DOMActivate
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/issue-60 issue-60] ==
-
-Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
-
-Add submit to generated-css.css, and remove duplicate xf|value from xforms-defs.js
-
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-tests-and-examples xforms-tests-and-examples] ==
 
 Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
@@ -119,7 +113,6 @@ Completing support for message.
 ||implement-select||r693|| - || r702 || - ||
 ||issue-44||r895|| - || - || - ||
 ||issue-59||r883|| r883 || - || - ||
-||issue-60||r949|| - || - || wellsk0705 ||
 ||loan-form||r925||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
