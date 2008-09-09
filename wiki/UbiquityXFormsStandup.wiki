@@ -18,6 +18,6 @@ Just overwrite your entry each day so we keep a table with one row per team memb
 = Details =
 
 ||Charlie||Working with Rahul and Thomas to evolve the stories around styling -- both for CSS and for layout of container elements (group, repeat, switch).  Starting simple to make the loan form look better (issue 32).  Starting to think about the Simplified XForms syntax Story and reviewing the WG discussion with Thomas...||
-||Rahul||Thinking about abstract vs. library-dependent controls. Looking at getting model data type information and using that for UI control style and sizing (see issue 45). Fleshing out details around [StoryStyling styling] for controls.||
+||Rahul||Separating the list of decoration class names from the decorator URIs. Thinking about abstract vs. library-dependent controls. Looking at getting model data type information and using that for UI control style and sizing (see issue 45). Fleshing out details around [StoryStyling styling] for controls.||
 ||Thomas|| Fleshing out stories around [StoryStyling styling] starting with group style (horiontal & vertical & controls flow). Looking at Simplified XForms for ubiquity. ||
 ||Mark_Mc|| xf:alert work has finished and been added to the trunk. My hint work needs a code review (see r893).  I will be finishing up the hint work shortly and the xpath case checking shortly. ||
