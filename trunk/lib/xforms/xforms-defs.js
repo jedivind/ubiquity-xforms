@@ -184,10 +184,6 @@ DECORATOR.setupDecorator(
 			objects:["EventTarget", "Context", "Control"]
 		},
 		{
-			selector:"xf|value",
-			objects:["EventTarget", "Context", "Value", "Control"]
-		},
-		{
 			selector:"xf|value > pe-value",
 			objects:["EventTarget"]
 		},
