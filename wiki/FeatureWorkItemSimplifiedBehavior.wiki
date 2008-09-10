@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Add support of the streamlined syntax to the Ubiquity XForms's namespace
+Add support of the [StorySimplifiedSyntax streamlined syntax] to the Ubiquity XForms's namespace
 
 
 = Details =
