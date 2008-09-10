@@ -20,7 +20,7 @@ For a quick implementation of the Streamlined Syntax, we purpose the followings:
   * hidden
   * output
   * submit
-3. Design and implement a Streamlined Behavior Object which attached to all streamlined elements. and performs the following:
+3. Design and implement a Streamlined Behavior Object which attached to all streamlined elements and performs the following:
   * Generate the referenced node in the instance
   * Extract the bindings, calculations, constriants information from the element and store it in a *binding information stack*.
   
