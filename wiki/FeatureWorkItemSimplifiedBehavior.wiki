@@ -25,6 +25,6 @@ For a quick implementation of the streamlined syntax, we purpose the followings:
   * Add the generated instance to the model
   * Generate all the bindings from the *binding information stack* and attached it to the model.
 
-= Future WorkItem =
+= Future Work Item =
 The above design should provide the basic features of the streamlined syntax,
 then we will look into how to  provide support for [WorkItemSupportHtmlInput Streamlined Syntax elements in HTML namespace].
