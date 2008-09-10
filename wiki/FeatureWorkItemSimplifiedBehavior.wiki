@@ -8,13 +8,12 @@ Add support of the [StorySimplifiedSyntax streamlined syntax] to the Ubiquity XF
 
 = Details =
 
-For a quick implementation of the Streamlined Syntax, we purpose the followings:
+For a quick implementation of the streamlined syntax, we purpose the followings:
 
 1.  Add the decorator, and implement for the new streamlined elements:
   * form - it generates an empty model for the streamlined form.
-
 2. Add the decorator rules for the following elements with a *name* attribute 
-  (the name attribute is used as an identifier of Streamlined element)
+  (the name attribute is used as an identifier of streamlined element)
   * group 
   * input
   * hidden
@@ -23,7 +22,6 @@ For a quick implementation of the Streamlined Syntax, we purpose the followings:
 3. Design and implement a Streamlined Behavior Object which attached to all streamlined elements and performs the following:
   * Generate the referenced node in the instance
   * Extract the bindings, calculations, constriants information from the element and store it in a *binding information stack*.
-  
 4. After the model is created and the document is processed, 
   * Add the generated instance to the model
   * Generate all the bindings from the *binding information stack* and attached it to the model.
