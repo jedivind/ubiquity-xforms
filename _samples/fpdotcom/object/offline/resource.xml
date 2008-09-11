@@ -1,0 +1,41 @@
+<Strings>
+	<!-- labels -->
+	<label idref="iName">Full Name:</label>
+	<label idref="iAddressLine1">Address Line 1</label>
+	<label idref="iAddressLine2">        Line 2</label>
+	<label idref="iTown">Town or City</label>
+	<label idref="iCounty">County</label>
+	<label idref="iPostcode">Postcode</label>
+	<label idref="iCountry">Country</label>
+	<label idref="iTelephone">Telephone</label>
+	<label idref="iUseDeliveryAddress">Deliver To</label>
+	<label idref="iPaymentType">Payment Type</label>
+	<label idref="iCardType">Card Type</label>
+	<label idref="iCardNo">Card Number</label>
+	<label idref="iIssueNo">Issue Number</label>
+	<label idref="iNameOnCard">Name On Card</label>
+	<label idref="iExpiryDate">Expiry Date</label>
+	<label idref="iMonth">Month</label>
+	<label idref="iYear">Year</label>
+	<label idref="iUseInvoiceAddress">Invoice To</label>
+	
+	<!-- hints -->
+	<hint idref="iName">Please enter your full name</hint>
+	<hint idref="iAddressLine1">The first line of your address</hint>
+	<hint idref="iAddressLine2">The second line of your address</hint>
+	<hint idref="iTown">The town or city of your address</hint>
+	<hint idref="iCounty">The county</hint>
+	<hint idref="iPostcode">Your postal code</hint>
+	<hint idref="iCountry">Country</hint>
+	<hint idref="iTelephone">Your daytime telephone number</hint>
+	<hint idref="iUse">Where you would like the goods delivered to</hint>
+	<hint idref="iPaymentType">The method you would like to use for payment</hint>
+	<hint idref="iCardType">The type of your credit card</hint>
+	<hint idref="iCardNo">Your credit card number</hint>
+	<hint idref="iIssueNo">The issue number on your card</hint>
+	<hint idref="iNameOnCard">The name as printed on your card</hint>
+	<hint idref="iExpiryDate">The expiry date on your card</hint>
+	<hint idref="iMonth">The month your card expires</hint>
+	<hint idref="iYear">The year your card expires</hint>
+	<hint idref="iUseInvoiceAddress">Where the invoice should be sent to</hint>
+</Strings>
