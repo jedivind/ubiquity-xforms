@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      
+      function CallAlertInDocument()
+      {
+        alert("yoyoyo!");
+      }
+      </script>
+    <script type="text/javascript">
+      function changeFirstP()
+      {
+        document.getElementById("p0").className = "doAlert";
+      }
+      function addNewRule()
+      {
+      try{
+        document.styleSheets[0].insertRule(".doAnotherAlert{background-color:cyan;-moz-binding:url(http://ubiquity-xforms.googlecode.com/svn/trunk/_spikes/doalert.xml#doalert)}",0);
+      }catch(e){alert(e);}
+      }
+      function modExistingRule()
+      {
+      try{
+      document.styleSheets[0].cssRules[1].selectorText += ", .doAnotherAlert";
+      }catch(e){alert(e);}
+      }
+      function addastylesheet()
+      {
+      try{
+      var cssNode = document.createElement('link');
+      cssNode.type = 'text/css';
+      cssNode.rel = 'stylesheet';
+      cssNode.href = 'http://ubiquity-xforms.googlecode.com/svn/trunk/_spikes/ff3-xbl.css';
+      cssNode.media = 'screen';
+      cssNode.title = 'dynamicLoadedSheet';
+      document.getElementsByTagName("head")[0].appendChild(cssNode);   
+      }catch(e){alert(e);}
+      }
+    </script>
+
+  </head>
+    <body>
+      <a href="javascript:addastylesheet();">add a stylesheet</a>
+      <a href="javascript:changeFirstP();">change first p</a>
+      <a href="javascript:addNewRule();">add new rule</a>
+      <a href="javascript:modExistingRule();">modify existing rule</a>
+      <div>Hello</div>
+      <p class="doAlertx" id="p0">
+        hello
+      </p>
+      <p class="doAnotherAlert" id="p1">
+        hello
+      </p>
+    </body>
+  </html>
