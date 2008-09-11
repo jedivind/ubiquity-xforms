@@ -32,7 +32,13 @@ Action 2 and 3 effectively modify the XForms model, and the model requires rebui
   * Does the streamlined syntax automaticlly perform the rebuild, recalculate, revalidate, refresh actions?
   * Should it behaves the same in HTML namespace and XForms namespace? 
 
+Charlie's comments: The XForms spec has the notion of "deferred updates" to allow for multiple actions to fire without triggering a rebuild etc cycle between each one.  So perhaps we can think of a similar feature here:
 
+1. The streamlined behavior still has encapsulated knowledge of how to extend the instance with its implied element (in the right nesting order), and actually carries out this action by fetching the instance and doing the DOM manipulation required to insert its new element.  Likewise it adds the appropriate bind expression(s).
+
+2. However, there's some deferred update switch available so that the streamlined behavior will defer doing the rebuild etc work until the entire set of elements have been added.  How this deferred period is bounded is an interesting question.  When we're not doing deferred updates, i.e. when a streamlined control is created dynamically during runtime, then it seems that the behavior should go on and call RRRR on its own.
+
+Thus we still avoid the need for a global name stack and global control of the streamlined processing except for knowing when to trigger model rebuild etc.  At document load time there may well be other logic in UX that will do this anyway so we can punt on the question simply by telling the stremlined behavior not to do a rebuild when in doc load time.
 
 = Details =
 
