@@ -17,20 +17,20 @@ Questions/comments from Charlie:
 After our discussion and putting more thought on the issue, I think this is more an issue on what do you want the streamlined xforms processing model to be. From my understand xforms preocessing is always done in a batch ways. 
 
 One example to illustrate the batch nature of XForms is 
-if you use the getInstanceDocument to retrieve an instance of XForms model, and use DOM method to update the instance document, all the changes from the instance is not applied to the views until the developer explicit make a call on the model to Rebuild, Recalculate, Revalidate, Refresh.
+if you use the getInstanceDocument to retrieve an instance of XForms model, and use DOM method to update the instance document, all the changes from the instance is not applied to the views until the developer explicit make a call on the model to rebuild, recalculate, revalidate, refresh.
 
-Another example is if use script to dynamic create one or more bind elements and insert it to the model. The bind element won't be applied to the model until the developer explicit make a call on the model to Rebuild, Recalculate, Revalidate, Refresh.
+Another example is if use script to dynamic create one or more bind elements and insert it to the model. The bind element won't be applied to the model until the developer explicit make a call on the model to rebuild, recalculate, revalidate, refresh.
 
 There is never automatic update in the original Xforms processing model, and I would assume that there must be some reasons why the spec is written this way. 
-So, the question is do we want to introduce this new feature to the Streamlined XForms.
+So, the question is do we want to introduce this new feature to the streamlined syntax.
 
 Drawing a parallel from the streamlined syntax, dynamicly create a streamlined input element is equivanlent to the following actions in the xforms:
-1. Create an xforms input
+1. Create an XForms input
 2. Modify the instance document using the DOM
 3. Add a bind/calculate/constriant to the model
-Action 2 and 3 effectively modify the XForms model, and the model will requires Rebuild, Recalculate, Revalidate, Refresh. So now the question are the following:
-I. Does the streamlined syntax automaticlly perform the Rebuild, Recalculate, Revalidate, Refresh actions?
-II. Does it behave the same within both HTML namespace and XForms namespace?
+Action 2 and 3 effectively modify the XForms model, and the model will requires rebuild, recalculate, revalidate, refresh. So now the question are the following:
+I. Does the streamlined syntax automaticlly perform the rebuild, recalculate, revalidate, refresh actions?
+II. Should it behaves the same within both HTML namespace and XForms namespace?
 
 
 = Details =
