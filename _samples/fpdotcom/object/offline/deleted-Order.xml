@@ -1,0 +1,26 @@
+<Order>
+	<Person>
+		<Name></Name>
+		<Address>
+			<AddressLine1></AddressLine1>
+			<AddressLine2></AddressLine2>
+			<Town></Town>
+			<County></County>
+			<Postcode></Postcode>
+			<Country>GB</Country>
+		</Address>
+		<Telephone></Telephone>
+	</Person>
+	<Payment>
+		<CreditCard>
+			<CardType></CardType>
+			<CardNo></CardNo>
+			<ExpiryDate>
+				<Month></Month>
+				<Year></Year>
+			</ExpiryDate>
+			<IssueNo></IssueNo>
+			<NameOnCard></NameOnCard>
+		</CreditCard>
+	</Payment>
+</Order>
