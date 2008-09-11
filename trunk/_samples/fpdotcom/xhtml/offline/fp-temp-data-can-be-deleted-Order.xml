@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order>
+	<Person>
+		<Name/>
+		<Address>
+			<AddressLine1/>
+			<AddressLine2/>
+			<Town/>
+			<County/>
+			<Postcode/>
+			<Country>GB</Country>
+		</Address>
+		<Telephone/>
+	</Person>
+	<Payment>
+		<CreditCard>
+			<CardType/>
+			<CardNo/>
+			<ExpiryDate>
+				<Month/>
+				<Year/>
+			</ExpiryDate>
+			<IssueNo/>
+			<NameOnCard/>
+		</CreditCard>
+	</Payment>
+</Order>
