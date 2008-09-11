@@ -21,7 +21,7 @@ if you use the getInstanceDocument to retrieve an instance of XForms model, and 
 
 Another example is if use script to dynamic create one or more bind elements and insert it to the model. The bind element won't be applied to the model until the developer explicit make a call on the model to rebuild, recalculate, revalidate, refresh.
 
-There is never automatic update in the original Xforms processing model, and I would assume that there must be some reasons why the spec is written this way. 
+There is no automatic update in the original XForms processing model, and I would assume that there's reasons why the spec is written this way. 
 So, the question is do we want to introduce this new feature to the streamlined syntax.
 
 Drawing a parallel from the streamlined syntax, dynamicly create a streamlined input element is equivanlent to the following actions in the xforms:
