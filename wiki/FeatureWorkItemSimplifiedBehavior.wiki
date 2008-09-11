@@ -25,9 +25,9 @@ There is never automatic update in the original Xforms processing model, and I w
 So, the question is do we want to introduce this new feature to the streamlined syntax.
 
 Drawing a parallel from the streamlined syntax, dynamicly create a streamlined input element is equivanlent to the following actions in the xforms:
-1. Create an XForms input
-2. Modify the instance document using the DOM
-3. Add a bind/calculate/constriant to the model
+  # Create an XForms input
+  # Modify the instance document using the DOM
+  # Add a bind/calculate/constriant to the model
 Action 2 and 3 effectively modify the XForms model, and the model will requires rebuild, recalculate, revalidate, refresh. So now the question are the following:
 I. Does the streamlined syntax automaticlly perform the rebuild, recalculate, revalidate, refresh actions?
 II. Should it behaves the same within both HTML namespace and XForms namespace?
