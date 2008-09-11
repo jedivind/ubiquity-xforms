@@ -5,6 +5,12 @@
 
 Add support of the [StorySimplifiedSyntax streamlined syntax] to the Ubiquity XForms's namespace
 
+Questions/comments from Charlie:
+
+1. Do we want to *require* a form element in order to create the model, submission, and instance?  I believe some use cases for streamlined syntax, particularly when used in the xforms namespace, won't require a form.  Perhaps any use of @name would generate the appropriate model, instance, and binds...
+
+2. Can we find a way to do the instance and bind generation that doesn't require a global binding information stack?  This processing model seems a bit "batch oriented"...i.e. has both a centralized stack and defers instance/bind creation to a centralized object and point of time...can this be broken up and placed directly on the streamlined behavior object -- just executed at the appropriate time???  I'm thinking this would help in the case where we're doing dynamic control creation, e.g. for repeats or just under script control, during page execution.  The logic for cooking up a new instance and bind, and wiring things up would need to be incrementally executable in that case too...
+
 
 = Details =
 
