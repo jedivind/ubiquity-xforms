@@ -30,7 +30,7 @@ Drawing a parallel from the streamlined syntax, dynamicly create a streamlined i
   # Add a bind/calculate/constriant to the model
 Action 2 and 3 effectively modify the XForms model, and the model requires rebuild, recalculate, revalidate, refresh. So now the questions are the following:
   * Does the streamlined syntax automaticlly perform the rebuild, recalculate, revalidate, refresh actions?
-  * Should it behaves the same within both HTML namespace and XForms namespace?
+  * Should it behaves the same in HTML namespace and XForms namespace? 
 
 
 
