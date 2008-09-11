@@ -5,13 +5,39 @@
 
 Add support of the [StorySimplifiedSyntax streamlined syntax] to the Ubiquity XForms's namespace
 
-Questions/comments from Charlie:
+= Details =
 
-1. Do we want to *require* a form element in order to create the model, submission, and instance?  I believe some use cases for streamlined syntax, particularly when used in the xforms namespace, won't require a form.  Perhaps any use of @name would generate the appropriate model, instance, and binds...
+For a quick implementation of the streamlined syntax, we purpose the followings:
+
+1.  Add the decorator, and implement for the new streamlined elements:
+  * form 
+
+2. Add the decorator rules for the following elements with a *name* attribute, and
+the first element with the name attribute will create an empty model for the streamlined form. (the name attribute is used as an identifier of streamlined element)
+  * group 
+  * input
+  * hidden/sercet (HTML tagname or XForms?)
+  * output
+  * submit
+3. Design and implement a Streamlined Behavior Object which attached to all streamlined elements and performs the following:
+  * Generate the referenced node in the instance or bind it to an existing referenced node.
+  * Extract the bindings, calculations, constriants information from the element and add it to the generated model.
+4. After the document is loaded.
+  * Ensure that the generated streamlined model is rebuild, recalculate, revalidate and refresh.
+
+5. When a streamlined element is created dynamiclly, the css selector should trigger #3 but we need to ensure RRRR actions after 3 is completed.
+
+= Future Work Item =
+The above design should provide the basic features of the streamlined syntax,
+then we will look into how to  provide support for [WorkItemSupportHtmlInput Streamlined Syntax elements in HTML namespace].
+
+= Questions/Comments: =
+
+*Charlie* 1. Do we want to *require* a form element in order to create the model, submission, and instance?  I believe some use cases for streamlined syntax, particularly when used in the xforms namespace, won't require a form.  Perhaps any use of @name would generate the appropriate model, instance, and binds...
 
 *Thomas:* The document is updated to reflect the form is not necessary the root element for streamlined syntax.
 
-2. Can we find a way to do the instance and bind generation that doesn't require a global binding information stack?  This processing model seems a bit "batch oriented"...i.e. has both a centralized stack and defers instance/bind creation to a centralized object and point of time...can this be broken up and placed directly on the streamlined behavior object -- just executed at the appropriate time???  I'm thinking this would help in the case where we're doing dynamic control creation, e.g. for repeats or just under script control, during page execution.  The logic for cooking up a new instance and bind, and wiring things up would need to be incrementally executable in that case too...
+*Charlie* 2. Can we find a way to do the instance and bind generation that doesn't require a global binding information stack?  This processing model seems a bit "batch oriented"...i.e. has both a centralized stack and defers instance/bind creation to a centralized object and point of time...can this be broken up and placed directly on the streamlined behavior object -- just executed at the appropriate time???  I'm thinking this would help in the case where we're doing dynamic control creation, e.g. for repeats or just under script control, during page execution.  The logic for cooking up a new instance and bind, and wiring things up would need to be incrementally executable in that case too...
 
 *Thomas:* 
 After our discussion and putting more thought on the issue, I think this is more an issue on what do we want the streamlined xforms processing model to be. From my understand XForms preocessing is always done in a "batch oriented" way. 
@@ -32,7 +58,7 @@ Action 2 and 3 effectively modify the XForms model, and the model requires rebui
   * Does the streamlined syntax automaticlly perform the rebuild, recalculate, revalidate, refresh actions?
   * Should it behaves the same in HTML namespace and XForms namespace? 
 
-Charlie's comments: The XForms spec has the notion of "deferred updates" to allow for multiple actions to fire without triggering a rebuild etc cycle between each one.  So perhaps we can think of a similar feature here:
+*Charlie's comments:* The XForms spec has the notion of "deferred updates" to allow for multiple actions to fire without triggering a rebuild etc cycle between each one.  So perhaps we can think of a similar feature here:
 
 1. The streamlined behavior still has encapsulated knowledge of how to extend the instance with its implied element (in the right nesting order), and actually carries out this action by fetching the instance and doing the DOM manipulation required to insert its new element.  Likewise it adds the appropriate bind expression(s).
 
@@ -40,27 +66,6 @@ Charlie's comments: The XForms spec has the notion of "deferred updates" to allo
 
 Thus we still avoid the need for a global name stack and global control of the streamlined processing except for knowing when to trigger model rebuild etc.  At document load time there may well be other logic in UX that will do this anyway so we can punt on the question simply by telling the stremlined behavior not to do a rebuild when in doc load time.
 
-= Details =
-
-For a quick implementation of the streamlined syntax, we purpose the followings:
-
-1.  Add the decorator, and implement for the new streamlined elements:
-  * form 
-
-2. Add the decorator rules for the following elements with a *name* attribute, and
-the first element with the name attribute will create an empty model for the streamlined form. (the name attribute is used as an identifier of streamlined element)
-  * group 
-  * input
-  * hidden
-  * output
-  * submit
-3. Design and implement a Streamlined Behavior Object which attached to all streamlined elements and performs the following:
-  * Generate the referenced node in the instance
-  * Extract the bindings, calculations, constriants information from the element and store it in a *binding information stack*.
-4. After the model is created and the document is processed, 
-  * Add the generated instance to the model
-  * Generate all the bindings from the *binding information stack* and attached it to the model.
-
-= Future Work Item =
-The above design should provide the basic features of the streamlined syntax,
-then we will look into how to  provide support for [WorkItemSupportHtmlInput Streamlined Syntax elements in HTML namespace].
+*Thomas* The document is updated to reflect the changes.
+  * Remove the binding stack
+  * Add the requirement to ensure the RRRR actions at the appropriate time.
