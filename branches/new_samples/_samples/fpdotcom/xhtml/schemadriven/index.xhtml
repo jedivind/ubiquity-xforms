@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+>
+<head>
+		<title>Schema Driven Forms</title>
+
+		<xf:model id="mdlDate">
+			<xf:instance>
+				<instanceData
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+				>
+					<theNumber xsi:type="xsd:int">976</theNumber>
+					<theDate xsi:type="xsd:date">2001-06-04</theDate>
+					<theBool xsi:type="xsd:boolean">false</theBool>
+				</instanceData>
+			</xf:instance>
+		</xf:model>
+	
+		<style type="text/css">
+			body {
+				font-family			:	"Trebuchet MS", Verdana, Helvetica, sans-serif;
+			}
+			
+			xf\:select1,
+			xf\:input,
+			xf\:output,
+			xf\:trigger
+			{
+				display			:	block;
+				margin-bottom	:	5px;
+			}
+			
+			xf\:label {
+				width	:	200px;
+			}
+			
+			.normalText {
+				font-weight		:	normal;
+			}
+			
+			.boldText {
+				font-weight		:	bold;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>
+			Schema-driven Forms
+		</h1>
+		<p>
+			An important technique to help reduce the amount of programming and maintenance involved in a
+			large internet application is to drive as much of the software as possible from the schema. One
+			part of this is that if new data fields are added, or their data type changes, the user interface
+			should automatically change to reflect this - both the data validation and the rendering.
+		</p>
+		<p>
+			At the level of the user's interaction with the data, XForms eases the maintenance by
+			allowing a schema to be used to drive validation. For example, if the data type of the data is an integer
+			then an XForms processor will prevent the user entering names, dates or floating point numbers.
+			Similarly, if the data type is a date, then the user should be prevented from entering non-date
+			values.
+		</p>
+		<p>
+			Whilst this reduces the amount of work involved in keeping sites up to date, it also reduces the
+			load on a server, since validation can be performed on a user's machine. Of course we will always
+			have to validate again on the server before committing data to a database, or performing some actions,
+			but at least the server has not had to perform all the intermediate validation as users enter invalid
+			values - a saving of the user's time, and a reduction in demands on the server.
+		</p>
+		<p>
+			In this example, try entering a non-integral value, and note how when you leave the field (by
+			tabbing or clicking the mouse outside the field) the alert event fires - displaying our message - and
+			then the control is bordered in red:
+		</p>
+		
+		<xf:input ref="theNumber">
+			<xf:label>Input a number:</xf:label>
+			<xf:hint>Enter an integer here</xf:hint>
+			<xf:alert>Can't you do <i>anything</i> right? All I want is an integer!</xf:alert>
+		</xf:input>
+		
+		<p>
+			In addition to using the schema to validate, XForms 1.0 indicates that the data type should be
+			used to determine how the user interacts with the data. If the data type is a date, for example,
+			then the user should be given access to a calendar. This calendar could be very different when
+			rendered on a mobile phone or PDA, but regardless of how it works, the forms developer has only
+			to specify the data type to know that the user will receive the best possible interface for the
+			device the are using.
+		</p>
+		<p>
+			In this example we have used two normal input fields, but because they are bound to instance
+			nodes with data types of 'date' and 'boolean', they are rendered as a calendar control and a
+			check box respectively:
+		</p>
+		
+		<xf:input ref="theDate">
+			<xf:label>Please enter your date of birth:<br /></xf:label>
+			<xf:hint>Enter your date of birth ... you never know, you might get a present</xf:hint>
+		</xf:input>
+		
+		<xf:output ref="theDate" class="boldText">
+			<xf:label class="normalText">Your birthday is:</xf:label>
+		</xf:output>
+		
+		<xf:input ref="theBool">
+			<xf:label>Check or un-check the box:<br /></xf:label>
+		</xf:input>
+		
+		<xf:output ref="theBool" class="boldText">
+			<xf:label class="normalText">Checkbox value:</xf:label>
+		</xf:output>
+	</body>
+</html>
