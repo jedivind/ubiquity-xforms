@@ -66,6 +66,6 @@ Action 2 and 3 effectively modify the XForms model, and the model requires rebui
 
 Thus we still avoid the need for a global name stack and global control of the streamlined processing except for knowing when to trigger model rebuild etc.  At document load time there may well be other logic in UX that will do this anyway so we can punt on the question simply by telling the stremlined behavior not to do a rebuild when in doc load time.
 
-*Thomas* The document is updated to reflect the changes.
+*Thomas:* The document is updated to reflect the changes.
   * Remove the binding stack
   * Add the requirement to ensure the RRRR actions at the appropriate time.
