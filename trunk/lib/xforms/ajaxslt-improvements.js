@@ -20,6 +20,21 @@
         This file contains the methods required by ajaxfp in order to work
 */
 
+var g_currentModel = null;
+var g_bSaveDependencies = false;
+
+/**
+    The entry point for the library: match an expression against a DOM
+    node. Returns an XPath value.
+    @addon
+*/
+function xpathDomEval(expr, node) {
+    var expr1 = xpathParse(expr);
+    var ctx = new ExprContext(node); 
+    ctx["currentModel"] = g_currentModel;
+    var ret = expr1.evaluate(ctx);
+    return ret;
+}
 
 /** 
     The AJAXSLT XNode does not support cloneNode
@@ -89,13 +104,14 @@ FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
 
 /**@addon
 */  
-var g_currentModel = null;
-var g_bSaveDependencies = false;
 
 FunctionCallExpr.prototype.xpathfunctions["namespace-uri"] = function(ctx)
 {
     alert('not IMPLEMENTED yet: XPath function namespace-uri()');
 };
+
+/**@addon
+*/  
 
 FunctionCallExpr.prototype.evaluate = function(ctx) {
   var fn = String(this.name.value);
@@ -115,6 +131,9 @@ FunctionCallExpr.prototype.evaluate = function(ctx) {
   }
   return retval;
 };
+
+/**@addon
+*/  
 
 LocationExpr.prototype.evaluate = function(ctx) {
   var start, i, retval;
