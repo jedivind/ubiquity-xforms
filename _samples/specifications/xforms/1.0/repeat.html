@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<title>
+			repeat | formsPlayer Test Suite
+		</title>
+
+		<script type="text/javascript" src="../../../../ubiquity-loader.js" >/**/</script>
+
+		<style type="text/css">
+			li, .repeat-item
+			{
+				display: block;
+				margin: 2px;
+				padding: 2px;
+				border: 2px solid black;
+			}
+
+			.repeat-index
+			{
+				border: 2px solid green;
+			}
+
+			p
+			{
+				padding: 0px;
+				margin: 0px;
+			}
+
+			#output-status
+			{
+				float: right;
+				color: gray;
+			}
+		</style>
+	</head>
+
+	<body>
+		<xf:model id="mdl">
+			<xf:instance id="inst">
+				<inst xmlns="">
+					<status>Loading...</status>
+					<a ></a>
+					<a ></a>
+					<a ></a>
+				</inst>
+			</xf:instance>
+
+			<xf:bind nodeset="instance('inst')">
+				<xf:bind id="status" nodeset="status" ></xf:bind>
+				<xf:bind id="a" nodeset="a" ></xf:bind>
+			</xf:bind>
+
+			<xf:action ev:event="xforms-ready">
+				<xf:setvalue bind="status" value="'Ready'" ></xf:setvalue>
+			</xf:action>
+		</xf:model>
+		
+		<xf:output id="output-status" bind="status" ></xf:output>
+
+		<h1>
+			formsPlayer Test Suite
+		</h1>
+
+		<h2>
+			repeat
+		</h2>
+
+		<ol>
+			<li>
+				<p>
+					This repeat should contain three items. Clicking on each item should update the index value. The currently selected item (indicated by the index value) should have a green border.
+				</p>
+
+				<xf:repeat id="rpt" bind="a">
+					repeat item
+				</xf:repeat>
+
+				<xf:output value="index('rpt')">
+					<xf:label>
+						Index:
+					</xf:label>
+				</xf:output>
+			</li>
+		</ol>
+	</body>
+</html>

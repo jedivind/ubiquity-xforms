@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:atom="http://www.w3.org/2005/Atom"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+ xmlns:fp="urn:formsplayer.com"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <title>Submission headers</title>
+	<script type="text/javascript" src="../../../../ubiquity-loader.js" >/**/</script>
+    <style type="text/css">
+      xf\:output { display: block; }
+    </style>
+  </head>
+  <body>
+    <xf:model id="mdl" functions="fp:HTMLSerialise">
+      <xf:instance id="inst-results">
+        <instanceData xmlns="" status="not started">
+          <t1></t1>
+        </instanceData>
+      </xf:instance>
+
+      <!--
+        The first instance manages the data for the request.
+        
+        For more details see:
+        
+          http://code.google.com/apis/accounts/AuthForInstalledApps.html
+      -->
+      <xf:instance id="inst-rq">
+        <instanceData xmlns="">
+          <accountType>HOSTED_OR_GOOGLE</accountType>
+          <Email>test-docs@formsPlayer.com</Email>
+          <Passwd>formsPlayer docs</Passwd>
+          <service>wise</service>
+          <source>formsplayer-unittest-1.0</source>
+        </instanceData>
+      </xf:instance>
+
+      <!--
+        We use this instance to store the results of the request.
+      -->
+      <xf:instance id="inst-rs">
+        <result xmlns="" ></result>
+      </xf:instance>
+
+      <!--
+        We use this instance to store the user's data.
+      -->
+      <xf:instance id="inst-user-data">
+        <instanceData xmlns="">
+          <authid></authid>
+        </instanceData>
+      </xf:instance>
+
+      <!--
+        First we need to login to Google Spreadsheets.
+      -->
+      <xf:submission
+       id="sub-login"
+       method="urlencoded-post" resource="https://www.google.com/accounts/ClientLogin" separator="&amp;"
+       ref="instance('inst-rq')"
+       replace="text" target="instance('inst-rs')"
+      >
+        <xf:action ev:event="xforms-submit-done">
+          <xf:setvalue
+            ref="instance('inst-user-data')/authid"
+            value="substring-after(instance('inst-rs'), 'Auth=')"
+          ></xf:setvalue>
+          <xf:dispatch target="mdl" name="my-login-successful" ></xf:dispatch>
+        </xf:action>
+        <xf:action ev:event="xforms-submit-error">
+          <xf:dispatch target="mdl" name="my-complete" ></xf:dispatch>
+        </xf:action>
+      </xf:submission>
+
+      <!--
+        Now we can retrieve a list of spreadsheets. The authorisation header is
+        needed in order to do this.
+      -->
+      <xf:submission id="sub-get-spreadsheet-list"
+        method="get" resource="http://spreadsheets.google.com/feeds/spreadsheets/private/full"
+        serialize="false"
+        replace="instance" instance="inst-rs"
+        >
+        <xf:header>
+          <xf:name>Authorization</xf:name>
+          <xf:value value="concat(
+              'GoogleLogin auth=',
+              instance('inst-user-data')/authid
+            )"
+          ></xf:value>
+        </xf:header>
+        <xf:action ev:event="xforms-submit-done">
+          <xf:setvalue
+            ref="instance('inst-results')/t1"
+            value="if(boolean(instance('inst-rs')/atom:category), 'ok', 'fail')"
+          ></xf:setvalue>
+          <xf:dispatch target="mdl" name="my-retrieved-spreadsheets" ></xf:dispatch>
+        </xf:action>
+        <xf:action ev:event="xforms-submit-error">
+          <xf:dispatch target="mdl" name="my-complete" ></xf:dispatch>
+        </xf:action>
+      </xf:submission>
+
+      <!--
+        Chain the tests together. We do this because we might at
+        some point want to allow each test to be run from a trigger,
+        or one test might use the results of a prior test.
+      -->
+      <xf:send submission="sub-login" ev:event="xforms-ready" ></xf:send>
+      <xf:send submission="sub-get-spreadsheet-list" ev:event="my-login-successful" ></xf:send>
+      <xf:dispatch target="mdl" name="my-complete" ev:event="my-retrieved-spreadsheets" ></xf:dispatch>
+
+      <!--
+        Indicate that we're done.
+      -->
+      <xf:action ev:event="my-complete">
+        <xf:setvalue ref="@status">complete</xf:setvalue>
+      </xf:action>
+    </xf:model>
+    <xf:output id="t1" ref="instance('inst-results')/t1">
+      <xf:label>Test 1:</xf:label>
+    </xf:output>
+    <xf:output id="status" ref="@status">
+      <xf:label>Status:</xf:label>
+    </xf:output>    
+  </body>
+</html>

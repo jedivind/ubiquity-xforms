@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<head>
+		<title>Load using the resource element</title>
+		<script type="text/javascript" src="../../../../ubiquity-loader.js" >/**/</script>
+		<link rel="stylesheet" href="../style/sample.css" type="text/css" />
+		<style type="text/css">
+			xf\:output { display: block; }
+		</style>
+	</head>
+	<body>
+		<xf:model>
+			<xf:instance>
+				<instanceData xmlns="">
+					<url ></url>
+				</instanceData>
+			</xf:instance>
+		</xf:model>
+		
+		<xf:output id="status" value="concat('rea', 'dy')" style="display: none;" ></xf:output>
+
+	  <xf:trigger id="t1">
+	    <xf:label>Open page 1</xf:label>
+	    <xf:load ev:event="DOMActivate">
+	      <xf:resource>../dummy-page-load-1.html</xf:resource>
+	    </xf:load>
+	  </xf:trigger>
+
+	  <xf:trigger id="t2" value="">
+	    <xf:label>Open page 2</xf:label>
+	    <xf:load ev:event="DOMActivate">
+	      <xf:resource value="'../dummy-page-load-2.html'" ></xf:resource>
+	    </xf:load>
+	  </xf:trigger>
+	  
+	  <xf:trigger id="t3">
+	    <xf:label>Open page 3</xf:label>
+	    <xf:action ev:event="DOMActivate">
+	      <xf:setvalue ref="url" value="'../dummy-page-load-3.html'" ></xf:setvalue>
+	      <xf:load>
+	        <xf:resource value="url" ></xf:resource>
+	      </xf:load>
+	    </xf:action>
+	  </xf:trigger>
+	</body>
+</html>
