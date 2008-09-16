@@ -45,6 +45,7 @@ var baseDefaultPath = pathToModule("ubiquity-loader");
       baseDefaultPath + "lib/xforms/set-document-loaded.js",
       baseDefaultPath + "lib/xforms/loader-begin.js",
       baseDefaultPath + "lib/xforms/xforms-loader.js",
+      baseDefaultPath + "lib/_platform/yui/xforms-loader-yui.js",
       baseDefaultPath + "lib/xforms/loader-end.js"
     ];
     var arrScriptElements = [ ];

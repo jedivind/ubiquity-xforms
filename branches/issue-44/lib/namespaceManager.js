@@ -306,6 +306,20 @@ var NamespaceManager  = function(){
     return retval;
   }
   
+  function getNamespaceURI(node) {
+    var nsURI = node.namespaceURI,
+        arrSegments,
+        nodePrefix;
+    if (!nsURI) {
+        arrSegments = node.nodeName.toLowerCase().split(":"),
+        nodePrefix = arrSegments.length === 1? node.scopeName :arrSegments[0];
+        if (nodePrefix) {
+            nsURI = m_outputNamespaceURIs[nodePrefix];
+        }
+    }
+    return nsURI;
+  }
+  
 	var itself = function () {};
 	itself.translateCSSSelector = translateCSSSelector;
 //	itself.getSelectionNamespaces = getSelectionNamespaces;
@@ -314,6 +328,7 @@ var NamespaceManager  = function(){
 	itself.addOutputNamespace = addOutputNamespace;
   itself.getLowerCaseLocalName = getLowerCaseLocalName;
   itself.compareFullName = compareFullName;
+  itself.getNamespaceURI = getNamespaceURI;
 	itself.clean = clean;
 	if(document.namespaces) {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;

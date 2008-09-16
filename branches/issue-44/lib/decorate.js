@@ -27,6 +27,59 @@
 var DECORATOR = function()
 {
 	/**
+        The decorator maintains a set of rules that it applies to each element
+        that needs to be decorated. Rules have the following properties:
+         * name - Used to identify the rule (not currently used)
+         * match - The optional function that returns true iff the candidate
+                   element needs to be decorated by the rule (see notes on
+                   rules partitioning below as to why this is optional)
+         * apply - The function that manipulates the list of class names
+        For performance, the rules are partitioned by namespace URI and
+        further by element name. The match() function is optional since if
+        the only criteria for matching is element QName, that is handled by
+        the partitioning. A missing match() is the same as always returning
+        true.
+        For rules that may be applicable across element names within a
+        namespace (for example, the presence of a "ref" attribute in XForms
+        mark-up), a "wildcard" partition is used (we have no such rules at
+        present).
+        There is also a wildcard partition to match any element across any
+        namespace (expected to be used sparingly, if at all).
+        @see xforms/xforms-defs.js for an example of such rules.
+    **/
+    var g_DecorationRules = { };
+
+    function addDecorationRules(decorationRules)
+    {
+        if (decorationRules.namespaceURI && decorationRules.rules) {
+            addDecorationRulesForNamespace(decorationRules.namespaceURI,decorationRules.rules);
+        } else if (decorationRules.rules) {
+            addDecorationRulesForNamespace("*",decorationRules.rules);
+        }
+    }
+
+    function addDecorationRulesForNamespace(namespaceURI,rules)
+    {
+        if (g_DecorationRules[namespaceURI]) {
+            extendDecorationRules(g_DecorationRules[namespaceURI],rules);
+        } else {
+            g_DecorationRules[namespaceURI] = rules;
+        }
+    }
+
+    function extendDecorationRules(rules,additions)
+    {
+        var key;
+        for (key in additions) {
+            if (rules[key]) {
+                rules[key] = rules[key].concat(additions[key]);
+            } else {
+                rules[key] = additions[key];
+            }
+        }
+    }
+
+	/**
 		runs through a list of functions and calls them in the context of obj as this
 		@param {Object} obj object in whose context the functions in handlers should be executed.
 		@param {Array} handlers list of functions that should be executed with obj as this
@@ -114,7 +167,7 @@ var DECORATOR = function()
 	function generateMozBindingStyle(objs)
 	{
 		if(objs !== undefined) {
-			return "-moz-binding: url(\""+g_sBehaviourDirectory+"decorator.xml?" + objs.join("&") + "#decorator\");";
+			return "-moz-binding: url(\""+g_sBehaviourDirectory+"decorator.xml" + (objs.length > 0 ? "?"+ objs.join("&") : "") + "#decorator\");";
 		}
 		else {
 			return "";
@@ -380,17 +433,15 @@ var DECORATOR = function()
 	
 	function getDecorationObjectNames(element)
 	{
-		var sBehaviours = getCustomCSSProperty(element,"-moz-binding");
+		var sBehaviours = getCustomCSSProperty(element,"-moz-binding"),
+		    arrBehaviours = [];
 		if(sBehaviours !== undefined && sBehaviours.indexOf('?') !== -1)
 		{
 			sBehaviours = sBehaviours.substring(sBehaviours.indexOf('?')+1,sBehaviours.lastIndexOf('#') );
+			arrBehaviours = sBehaviours.split("&");
 		}
-		else
-		{
-			sBehaviours = "";
+		return arrBehaviours;
 		}
-		return sBehaviours.split("&");
-	}
 
 
 	function attachDecoration(element,handleContentReady, handleDocumentReady)
@@ -410,6 +461,7 @@ var DECORATOR = function()
 		element.attachSingleBehaviour = attachSingleBehaviour;
 
 		var arrBehaviours = getDecorationObjectNames(element);				
+		arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
 		if(arrBehaviours.length  > 0){
 			for(var i = 0;i < arrBehaviours.length;++i){
 				addObjectBehaviour(element,arrBehaviours[i],false);
@@ -431,6 +483,45 @@ var DECORATOR = function()
 		return bReturn;
 	}
 	
+
+    function updateDecorationObjectNames(element,arrBehaviours)
+    {
+        var arrUpdatedBehaviours = arrBehaviours, // default is no change
+            elementNSURI = NamespaceManager.getNamespaceURI(element),
+            elementLocalName = NamespaceManager.getLowerCaseLocalName(element),
+            elementRules,
+            wildcardRules,
+            rules,
+            rulecount;
+
+        // Rules are a concatenation of the element name rules and
+        // wildcard rules (if any) for the given element namespace ...
+        if (g_DecorationRules[elementNSURI]) {
+            elementRules = g_DecorationRules[elementNSURI][elementLocalName] ? g_DecorationRules[elementNSURI][elementLocalName] : [];
+            wildcardRules = g_DecorationRules[elementNSURI]["*"] ? g_DecorationRules[elementNSURI]["*"] : [];
+            rules = elementRules.concat(wildcardRules);
+        }
+        // ... and wildcard rules across namespaces (if any)
+        if (g_DecorationRules["*"]) {
+            rules = rules ? rules.concat(g_DecorationRules["*"]) : g_DecorationRules["*"];
+        }
+
+        // <pe-value> is a special case, since its not in the XForms namespace
+        if (elementLocalName === "pe-value") {
+            rules = rules ? rules.concat(g_DecorationRules["http://www.w3.org/2002/xforms"][elementLocalName]) : g_DecorationRules["http://www.w3.org/2002/xforms"][elementLocalName];
+            rules = rules.concat(g_DecorationRules["http://www.w3.org/2002/xforms"]["*"]);
+        }
+
+        for (rulecount = 0; rules && rulecount < rules.length; rulecount++) {
+            if (rules[rulecount].match === undefined || rules[rulecount].match(element)) {
+                arrUpdatedBehaviours = rules[rulecount].apply(arrUpdatedBehaviours);
+            }
+        }
+
+        return arrUpdatedBehaviours;
+    }
+
+
 	function attachSingleBehaviour(sBehaviour)
 	{
 		addObjectBehaviour(this,sBehaviour,false);
@@ -537,6 +628,7 @@ var DECORATOR = function()
 	itself.attachDecoration = attachDecoration;
 	itself.decorate = decorate;
 	itself.callDocumentReadyHandlers = callDocumentReadyHandlers;
+	itself.addDecorationRules = addDecorationRules;
 	return itself;		
 }();
 

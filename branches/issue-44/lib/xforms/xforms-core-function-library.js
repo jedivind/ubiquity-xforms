@@ -975,7 +975,7 @@ FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx) {
 */  
 
 FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx) {
-    return new NodeSetValue([ctx.OutermostContextNode]);
+    return new NodeSetValue([ctx.node]);
 };
 
 //	id is implemented by ajaxslt, but not in a manner conformant with XForms.

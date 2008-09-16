@@ -49,10 +49,9 @@ if (document.contentType === "application/xhtml+xml") {
   	loader.addModule({ name: "xforms-model",               type: "js",  fullpath: moduleBase + "modelObj.js",
   		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager", "xforms-threads", "xforms-vertex-target" ] });
   	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: moduleBase + "xforms-submission.js" });
-  	loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: moduleBase + "xforms-submission-yui.js",
-  		requires: [ "xforms-submission-core", "connection" ] });
+
   	loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: moduleBase + "Submission.js",
-  		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core-yui" ] });
+  		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core" ] });
   	
   	loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: moduleBase + "xforms.js",
   		requires: [ "xforms-model"] });
@@ -144,7 +143,7 @@ if (document.contentType === "application/xhtml+xml") {
     //     -- YUI --
 
     // ColorPicker widget
-  	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: baseDefaultPath + "lib/extensions/input-color.js",
+  	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: moduleBase + "../extensions/input-color.js",
   		requires: ["yui-color","yui-colorpicker-css"]});
   	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/colorpicker-min.js",
   		requires: ["yui-slider"]});
@@ -152,7 +151,7 @@ if (document.contentType === "application/xhtml+xml") {
   	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/skins/sam/colorpicker.css" });
 
     // Calendar widget
-    loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: baseDefaultPath + "lib/extensions/input-calendar.js",
+    loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: moduleBase + "../extensions/input-calendar.js",
             requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
     loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/calendar-min.js" });
     loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/container/container_core-min.js" });
