@@ -26,7 +26,8 @@ With Mozilla Firefox 3, other security capabilities have been added and previous
 How do you test cross domain URLs with Ubiquity XForms on Mozilla Firefox 3?
 The ONLY way found to work so far is to separately add the following Security Privilege,
 
-{{{//experimental for Firefox Cross Domain problem
+{{{
+//experimental for Firefox Cross Domain problem
     try {
       netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
      } catch (e) {
@@ -37,11 +38,13 @@ The ONLY way found to work so far is to separately add the following Security Pr
 
 in xforms-submission-yui.js before this statement,
 
-{{{return YAHOO.util.Connect.asyncRequest(
+{{{
+return YAHOO.util.Connect.asyncRequest(
 		sMethod,
 		sAction,
 		oCallback,
 		sBody
-	);}}}.
+	);
+}}}.
 
 Please be extra careful in your testing with this security instruction!
