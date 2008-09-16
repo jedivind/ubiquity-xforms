@@ -233,6 +233,43 @@ FunctionCallExpr.prototype.xpathfunctions["is-card-number"] = function(ctx) {
     return new BooleanValue(sum % 10 == 0);
 };
 
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-is-card-number
+*/
+FunctionCallExpr.prototype.xpathfunctions["luhn"] = function(ctx) {
+    var sCardNum = "";
+    if (!this.args || this.args.length == 0) {
+        // default to the string value of the current context node.
+        sCardNum = xmlValue(ctx.node);
+    } else {
+        sCardNum = this.args[0].evaluate(ctx).stringValue();
+    }
+    sCardNum = sCardNum.trim();
+
+    // Check if the card number is a valid Luhn number.
+    var sum = 0;
+    var alt = false;
+
+    for (var i = sCardNum.length - 1; i >= 0; --i) {
+      var currentChar = sCardNum.charAt(i);
+      if (currentChar < '0' || currentChar > '9') {
+          return new BooleanValue(false);
+      }
+      var digit = currentChar - '0';
+
+      if (alt) {
+        digit *= 2;
+        if (digit > 9) {
+          digit -= 9;
+        }
+      }
+      sum += digit;
+      alt = !alt;
+    }
+
+    return new BooleanValue(sum % 10 == 0);
+};
+
 //	http://www.w3.org/TR/xforms11/#expr-lib-num
 
 /**@addon

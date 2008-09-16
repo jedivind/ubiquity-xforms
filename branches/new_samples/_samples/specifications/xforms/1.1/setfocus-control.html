@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<head>
+		<title>Load using the resource element</title>
+		<script type="text/javascript" src="../../../../ubiquity-loader.js" >/**/</script>
+		<link rel="stylesheet" href="../style/sample.css" type="text/css" />
+	  <style type="text/css">
+			xf\:output { display: block; }
+		</style>
+	</head>
+	<body>
+		<xf:model id="m">
+			<xf:instance>
+				<instanceData xmlns="">
+				  <control ></control>
+				  <result ></result>
+				</instanceData>
+			</xf:instance>
+		</xf:model>
+		
+		<xf:output id="status" value="concat('rea', 'dy')" style="display: none;" ></xf:output>
+
+	  <xf:input id="c1" ref="control">
+	    <xf:label>Control:</xf:label>
+	  </xf:input>
+
+    <xf:output id="c2" ref="control" ></xf:output>
+
+	  <xf:output id="c3" ref="control" ></xf:output>
+
+	  <xf:output id="c3" ref="control" ></xf:output>
+
+	  <xf:output id="c4" ref="control" ></xf:output>
+
+	  <xf:output id="fail" ref="control" ></xf:output>
+
+	  <xf:output id="result" ref="result" ></xf:output>
+
+	  <xf:action ev:observer="m" ev:event="xforms-ready">
+	    <xf:setvalue ref="result" value="'started'" ></xf:setvalue>
+	    <xf:setfocus>
+	      <xf:control>c1</xf:control>
+	    </xf:setfocus>
+	  </xf:action>
+
+	  <xf:action ev:observer="c1" ev:event="DOMFocusIn">
+	    <xf:setvalue ref="control" value="1" ></xf:setvalue>
+	    <xf:setfocus>
+	      <xf:control value="'c2'" ></xf:control>
+	    </xf:setfocus>
+	  </xf:action>
+
+	  <xf:action ev:observer="c2" ev:event="DOMFocusIn">
+	    <xf:setvalue ref="control" value="2" ></xf:setvalue>
+	    <xf:setfocus>
+	      <xf:control value="concat('c', control + 1)" ></xf:control>
+	    </xf:setfocus>
+	  </xf:action>
+
+	  <xf:action ev:observer="c3" ev:event="DOMFocusIn">
+	    <xf:setvalue ref="control" value="3" ></xf:setvalue>
+	    <xf:setfocus>
+	      <xf:control value="concat('c', control + 1)">fail</xf:control>
+	    </xf:setfocus>
+	  </xf:action>
+
+	  <xf:action ev:observer="c4" ev:event="DOMFocusIn">
+	    <xf:setvalue ref="result" value="success" ></xf:setvalue>
+	  </xf:action>
+
+	  <xf:action ev:observer="fail" ev:event="DOMFocusIn">
+	    <xf:setvalue ref="result" value="fail" ></xf:setvalue>
+	  </xf:action>
+	</body>
+</html>

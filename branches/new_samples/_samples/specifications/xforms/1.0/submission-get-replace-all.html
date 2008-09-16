@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<head>
+		<title>Submission using GET with @replace="all"</title>
+		<script type="text/javascript" src="../../../../ubiquity-loader.js" >/**/</script>
+		<link rel="stylesheet" href="../style/sample.css" type="text/css" />
+	</head>
+	<body>
+		<xf:model id="m">
+			<!--
+				Get a new page.
+			-->
+			<xf:submission id="sub1"
+			  method="get" action="../dummy-page-load-1.html"
+				separator="&amp;"
+				replace="all"
+			></xf:submission>
+		</xf:model>
+		<xf:output id="status" value="concat('rea', 'dy')" style="display: none;" ></xf:output>
+
+    <xf:submit id="s1" submission="sub1">
+      <xf:label>Load dummy page 1</xf:label>
+    </xf:submit>
+	</body>
+</html>

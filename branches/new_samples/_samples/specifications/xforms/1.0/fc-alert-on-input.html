@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<head>
+		<title>Using xf:label on xf:output</title>
+		<script type="text/javascript" src="../../../../ubiquity-loader.js" >/**/</script>
+		<link rel="stylesheet" href="../style/sample.css" type="text/css" />
+		<style type="text/css">
+			xf\:input { display: block; }
+			xf\:alert { display: inline; }
+		</style>
+	</head>
+	<body>
+		<xf:model id="m">
+			<xf:instance>
+				<instanceData xmlns="">
+					<t1>1</t1>
+					<t2>a</t2>
+				</instanceData>
+			</xf:instance>
+
+			<xf:bind nodeset="t1 | t2" type="xs:integer" ></xf:bind>
+		</xf:model>
+		<xf:output id="ready" value="concat('rea', 'dy')" ></xf:output>
+		
+		<!--
+			Using a simple string.
+		-->
+		<xf:input ref="t1">
+			<xf:label>Test 1:</xf:label>
+			<xf:alert id="t1">Test 1</xf:alert>
+		</xf:input>
+
+		<xf:input ref="t2">
+			<xf:label>Test 2:</xf:label>
+			<xf:alert id="t2">Test 2</xf:alert>
+		</xf:input>
+	</body>
+</html>

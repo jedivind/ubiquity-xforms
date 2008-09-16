@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<title>Using xf:switch and xf:case</title>
+		<script type="text/javascript" src="../../../../ubiquity-loader.js" >/**/</script>
+		<link rel="stylesheet" href="../style/sample.css" type="text/css" />
+		<style type="text/css">
+			xf\:output { display: block; }
+		</style>
+	</head>
+	<body>
+		<xf:model id="m">
+			<!--
+				We use this instance to store other data.
+			-->
+			<xf:instance>
+				<instanceData xmlns="">
+					<t3>3</t3>
+					<t4>Test 4</t4>
+					<t5>Test 5</t5>
+					<t6>Node hasn't been updated!</t6>
+				</instanceData>
+			</xf:instance>
+			<xf:bind id="b-t5" nodeset="t5" ></xf:bind>
+		</xf:model>
+		<xf:output id="ready" value="concat('rea', 'dy')" ></xf:output>
+		<h1>Testing the switch module</h1>
+		
+		<h2>test that the first case is selected by default</h2>
+		
+		<xf:switch id="s0">
+			<xf:case id="s0c0">s0c0</xf:case>
+			<xf:case id="s0c1">s0c1</xf:case>
+		</xf:switch>
+
+		<h2>test that the first case is selected, when it has a selected attribute of true</h2>
+		<xf:switch id="s1">
+			<xf:case id="s1c0" selected="true">s1c0</xf:case>
+			<xf:case id="s1c1">s1c1</xf:case>
+		</xf:switch>
+
+		<h2>test that a later case is selected, when it has a selected attribute of true</h2>
+		<xf:switch id="s2">
+			<xf:case id="s2c0">s2c0</xf:case>
+			<xf:case id="s2c1" selected="true">s2c1</xf:case>
+		</xf:switch>
+
+		<h2>test that the first case is selected when all cases have @selected="true"</h2>
+		<xf:switch id="s3">
+			<xf:case id="s3c0" selected="true">s3c0</xf:case>
+			<xf:case id="s3c1" selected="true">s3c1</xf:case>
+			<xf:case id="s3c2" selected="true">s3c2</xf:case>
+		</xf:switch>
+
+		<h2>test that the first of a set of later case is selected, when multiple cases a selected attribute of true</h2>
+		<xf:switch id="s4">
+			<xf:case id="s4c0">s4c0</xf:case>
+			<xf:case id="s4c1" selected="true">s4c1</xf:case>
+			<xf:case id="s4c2" selected="true">s4c2</xf:case>
+		</xf:switch>
+		
+		<h2>test nested cases</h2>
+		<xf:switch id="s5">
+			<xf:case id="s5c0">
+				<xf:switch id="s5c0s0">
+					<xf:case id="s5c0s0c0">
+						s5c0s0c0
+					</xf:case>
+					<xf:case id="s5c0s0c1">
+						s5c0s0c1
+					</xf:case>
+				</xf:switch>
+			</xf:case>
+			<xf:case id="s5c1">
+				<xf:switch id="s5c1s0">
+					<xf:case id="s5c1s0c0">
+						s5c1s0c0
+					</xf:case>
+					<xf:case id="s5c1s0c1">
+						s5c1s0c1
+					</xf:case>
+				</xf:switch>
+			</xf:case>
+		</xf:switch>
+		
+		<br></br>
+		
+		<xf:trigger id="t-s5c0s0c0">
+			<xf:label>s5c0s0c0</xf:label>
+			<xf:toggle case="s5c0s0c0" ev:event="DOMActivate" ></xf:toggle>
+		</xf:trigger>
+		
+		<xf:trigger id="t-s5c0s0c1">
+			<xf:label>s5c0s0c1</xf:label>
+			<xf:toggle case="s5c0s0c1" ev:event="DOMActivate" ></xf:toggle>
+		</xf:trigger>
+
+		<xf:trigger id="t-s5c1s0c0">
+			<xf:label>s5c1s0c0</xf:label>
+			<xf:toggle case="s5c1s0c0" ev:event="DOMActivate" ></xf:toggle>
+		</xf:trigger>
+		<xf:trigger id="t-s5c1s0c1">
+			<xf:label>s5c1s0c1</xf:label>
+			<xf:toggle case="s5c1s0c1" ev:event="DOMActivate" ></xf:toggle>
+		</xf:trigger>
+
+		<xf:trigger id="t-s5c0">
+			<xf:label>s5c0</xf:label>
+			<xf:toggle case="s5c0" ev:event="DOMActivate" ></xf:toggle>
+		</xf:trigger>
+		
+		<xf:trigger id="t-s5c1">
+			<xf:label>s5c1</xf:label>
+			<xf:toggle case="s5c1" ev:event="DOMActivate" ></xf:toggle>
+		</xf:trigger>
+
+		
+		<xf:setvalue ev:event="xforms-ready" ev:observer="m" ref="t6" value="'Test 6'" />
+	</body>
+</html>
