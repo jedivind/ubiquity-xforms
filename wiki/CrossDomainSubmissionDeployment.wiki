@@ -48,4 +48,4 @@ return YAHOO.util.Connect.asyncRequest(
 	);
 }}}.
 
-Please be extra careful in your testing with this security instruction!
+*Please be extra careful in your testing with this security instruction!*
