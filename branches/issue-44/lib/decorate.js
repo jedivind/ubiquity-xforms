@@ -21,7 +21,8 @@
 	
 */
 
-var g_bIsInXHTMLMode = false;
+
+
 
 var DECORATOR = function()
 {
@@ -75,7 +76,7 @@ var DECORATOR = function()
 	*/
 	function registerForOnloadOrCallNow(obj,arr)
 	{
-		if(g_bDocumentLoaded)
+		if (g_bDocumentLoaded)
 		{
 			callHandlers(obj,arr);
 		}
@@ -217,9 +218,24 @@ var DECORATOR = function()
     		
     		if (g_bIsInXHTMLMode)
     		{
-    			s += "@namespace xf url(http://www.w3.org/2002/xforms);";
+    		   // look for prefixes from the document and figure out what to use
+    		   var htmlPrefix = "h";
+       		   var htmlNamespaceURI = "http://www.w3.org/1999/xhtml";
+               var xformsPrefix = "xf";
+               var xformsNamespaceURI = "http://www.w3.org/2002/xforms";
+               
+               var anHTMLPrefix = NamespaceManager.getOutputPrefixesFromURI(htmlNamespaceURI);
+               if ((anHTMLPrefix !== undefined) && (anHTMLPrefix !== null)) {
+    	         htmlPrefix =  anHTMLPrefix[0];
+    	       }
+               var aXFormsPrefix = NamespaceManager.getOutputPrefixesFromURI(xformsNamespaceURI);
+               if ((aXFormsPrefix !== undefined) && (aXFormsPrefix !== null)) {
+    	          xformsPrefix =  aXFormsPrefix[0];
+    	       }
+    		
     			s += "@namespace smil url(http://www.w3.org/2005/SMIL21/BasicAnimation);";
-    			s += "@namespace h url(http://www.w3.org/1999/xhtml);";
+    		    s += "@namespace" + " " + xformsPrefix + " " + "url(" + xformsNamespaceURI +");";
+      		    s += "@namespace" + " " + htmlPrefix  + " " + "url(" + htmlNamespaceURI + ");";
     		}
     		
     		for (var i = 0; defs.length > i; ++i)
@@ -242,13 +258,30 @@ var DECORATOR = function()
 	
 	function ffXHTMLSetupDecorator(defs)
 	{
-		var oHead =document.getElementsByTagName("head")[0];
+		var oHead = document.getElementsByTagName("head")[0];
+
+        var htmlPrefix = "h";
+        var htmlNamespaceURI = "http://www.w3.org/1999/xhtml";
+        var xformsPrefix = "xf";
+        var xformsNamespaceURI = "http://www.w3.org/2002/xforms";
+
+        if (g_bIsInXHTMLMode) {
+           var anHTMLPrefix = NamespaceManager.getOutputPrefixesFromURI(htmlNamespaceURI);
+           if ((anHTMLPrefix !== undefined) && (anHTMLPrefix !== null)) {
+    	         htmlPrefix =  anHTMLPrefix[0];
+    	   }
+           var aXFormsPrefix = NamespaceManager.getOutputPrefixesFromURI(xformsNamespaceURI);
+           if ((aXFormsPrefix !== undefined) && (aXFormsPrefix !== null)) {
+    	         xformsPrefix =  aXFormsPrefix[0];
+    	   }
+    	}
 
 		var oStyle = document.createElement('style');
 		oStyle.setAttribute("type","text/css");
-		var s = "@namespace xf url(http://www.w3.org/2002/xforms);";
+		var s = '';
 		s += "@namespace smil url(http://www.w3.org/2005/SMIL21/BasicAnimation);";
-		s += "@namespace h url(http://www.w3.org/1999/xhtml);";
+		s += "@namespace" + " " + xformsPrefix + " " + "url(" + xformsNamespaceURI + ");";
+      	s += "@namespace" + " " + htmlPrefix + " " + "url(" + htmlNamespaceURI + ");";		
 
 		for(var i = 0;defs.length > i;++i)
 		{
@@ -362,6 +395,7 @@ var DECORATOR = function()
 
 	function attachDecoration(element,handleContentReady, handleDocumentReady)
 	{
+
 		//window.status = "decorating: " + element.nodeName; 
 		var bReturn = false;
 		var tIndex = element.getAttribute("tabindex");
@@ -467,7 +501,7 @@ var DECORATOR = function()
 	
 	//Once the decorator has been set up, in IE, this function wil be called to decorate the elements.
 	function decorate(e)
-	{
+	{   
 		//Don't decorate a second time.
 		if(e.decorated)
 		{
@@ -503,10 +537,9 @@ var DECORATOR = function()
 	itself.attachDecoration = attachDecoration;
 	itself.decorate = decorate;
 	itself.callDocumentReadyHandlers = callDocumentReadyHandlers;
-	return itself;
+	return itself;		
 }();
 
-	
 
 //for debugging
 function SomeObject(elmnt)

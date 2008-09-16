@@ -58,33 +58,21 @@ var EventTarget = null;
 		}
 
 function StyleHoverishly(elmnt) {
-	if(elmnt.className.indexOf("pc-hover") == -1) {
-		elmnt.className += " pc-hover";
-	}
+    addClassName(elmnt, " pc-hover");
 }
 
 function StyleUnhoverishly(elmnt) {
-	var s = elmnt.className;
-	var i = s.indexOf("pc-hover");
-	if(i != -1) {
-		elmnt.className = s.substr(0,i-1) + s.substr(i+8);
-	}
+   removeClassName(elmnt, "pc-hover");
 }
 
 function StyleFocussedly(elmnt)
 {
-	if(elmnt.className.indexOf("pc-focus") == -1) {
-		elmnt.className += " pc-focus";
-	}
+  addClassName(elmnt, " pc-focus");
 }
 
 function StyleUnfocussedly(elmnt)
 {
-	var s = elmnt.className;
-	var i = s.indexOf("pc-focus");
-	if(i != -1) {
-		elmnt.className = s.substr(0,i-1) + s.substr(i+8);
-	}
+  removeClassName(elmnt, "pc-focus");
 }
 
 //There is no need for this in firefox.

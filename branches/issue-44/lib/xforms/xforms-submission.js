@@ -90,7 +90,20 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 			{
 				case "all":
 					oObserver.ownerDocument.logger.log("@replace = 'all'", "submission");				
+				
+					if (document.all) {
 					document.write(sData);
+					}
+					else  {
+					   // on FF2, it chokes on <?xml version="1.0"?> 
+					   if (sData.indexOf('<?',0) === 0) {
+						  var len = sData.indexOf('?>');
+						  ( len > 0 )? len += 2 : len = 0;						  
+						  sData = sData.substr(len);
+					   }					  
+ 					   document.documentElement.innerHTML=sData; 					 
+ 					}				
+	
 					break;
 
 				case "instance":

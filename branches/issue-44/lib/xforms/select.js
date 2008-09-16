@@ -73,7 +73,7 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 			var s = this.getAttribute("appearance");
 			if(s !== undefined && s !== "")
 			{
-				this.className += "appearance-" + s;
+				addClassName(this, "appearance-" + s);
 			}
 		};
 		
@@ -82,12 +82,12 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 				if(!this.m_choices)
 				{
 				  //YUI menus only work with divs
-				  this.element.className += " yui-skin-sam";
+				    addClassName(this.element, "yui-skin-sam");
 					var oPeChoicesWrapper = this.element.ownerDocument.createElement("div");
-					oPeChoicesWrapper.className = "pe-choices-wrapper yuimenu";
+ 				    addClassName(oPeChoicesWrapper, "pe-choices-wrapper yuimenu");
 					
 					var oPeChoices = this.element.ownerDocument.createElement("div");
-					oPeChoices.className = "pe-choices bd";
+					addClassName(oPeChoices, "pe-choices bd");
 					this.element.appendChild(oPeChoicesWrapper);
 					oPeChoicesWrapper.appendChild(oPeChoices);
 
@@ -101,7 +101,7 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 							case "choices":
 								//shift to pc-choices.
 								oPeChoices.appendChild(n);
-								n.className += " yuimenuitem";
+								addClassName(n, " yuimenuitem");
 								--i;
 							break;
 							default:

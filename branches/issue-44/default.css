@@ -19,6 +19,9 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
  */
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
 
 body {
   font-family: "Lucida Grande",verdana,arial,helvetica,sans-serif;
@@ -40,9 +43,10 @@ xf\:input {
 
 xforms\:input xforms\:label,
 xf\:input xf\:label {
-  display: inline-block;
+ /* display: inline-block;*/
   width: 200px; 
   color: black;
+  white-space: -moz-pre-wrap;
 }
 
 xforms\:input pe-value,
@@ -93,9 +97,10 @@ xf:\trigger xf:\label
   color: #D00;
 }
 
-.valid xf\:alert, .valid xforms\:alert  {
+.valid xf\:alert, .valid xforms\:alert  { 
   display: none;
 }
+
 
 xforms\:alert pe-value,
 xf\:alert pe-value {
@@ -103,17 +108,20 @@ xf\:alert pe-value {
   background-color: transparent;
 }
 
+/*
 xforms\:alert xforms\:input pe-value,
 xf\:alert xf\:input pe-value {
   border: 2px inset #f0f0f0;
-  background-color: white;
+  background-color: white; 
 }
+
 
 xforms\:alert xforms\:label pe-value,
 xf\:alert xf\:label pe-value {
   border: none;
   background-color: transparent;
 }
+*/
 
 .slider-bg {
     position: relative; 
@@ -136,8 +144,8 @@ xf\:select1 pe-value {
   background-color: white;
 }
 
- xf\item pe-value,
- xforms\item pe-value {
+ xf\:item pe-value,
+ xforms\:item pe-value {
   border: none;
   background-color:transparent;
 }

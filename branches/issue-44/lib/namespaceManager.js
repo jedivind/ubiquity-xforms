@@ -27,8 +27,7 @@ var NamespaceManager  = function(){
 	/**
 		returns the lists of namespaces to an uninitialised state.
 	*/
-	function clean()
-	{
+	function clean() { 
 		m_selectionNamespaces = {};
 		m_outputNamespaces = {};
 	}
@@ -60,9 +59,8 @@ var NamespaceManager  = function(){
 		@param {String} prefix The prefix to be output for the given URI
 		@param {String} uri  The URI for prefix
   	*/
-	function addOutputNamespace(prefix,uri)
-	{
-		if(m_outputNamespaces[uri] === undefined) {
+	function addOutputNamespace(prefix,uri)	{
+		if (m_outputNamespaces[uri] === undefined) {
 			m_outputNamespaces[uri] = [];
 		}
 		m_outputNamespaces[uri].push(prefix);
@@ -96,14 +94,18 @@ var NamespaceManager  = function(){
 			}
 		}
 	}
-
+/*
+	function getSelectionNamespaces(prefix)
+	{
+		return m_selectionNamespaces[prefix];
+	}
+*/
 	/**
 		Retrieves the list of output prefixes that represent the given namespace.
 		@param {String} uri  The URI to look up.
 		@returns {Array} An array of prefixes that represent the given URI in the current output context.
   	*/
-	function getOutputPrefixesFromURI(uri)
-	{
+	function getOutputPrefixesFromURI(uri) {
 		return m_outputNamespaces[uri];
 	}
 	
@@ -159,6 +161,20 @@ var NamespaceManager  = function(){
 		}
 		return newSelector;
 	}
+		/**
+		Searches searchNode for descendents
+		that have a tagName that matches elementName, and
+		that are in the namespace namespaceURI
+		@param searchNode {Node} topmost node (document or element) to look in to find the desired nodes.
+		@param namespaceURI {String} namespace URI to match
+		@param elementName {String}  element name to match
+		@returns an array of nodes that match the given criteria
+	*/	
+	function getElementsByTagNameNS(searchNode,namespaceURI,elementName) {
+		return searchNode.getElementsByTagNameNS(namespaceURI,elementName);		
+	}
+	
+	
 	/**
 		Searches searchNode for descendents
 		that have a tagName that matches elementName, and
@@ -292,6 +308,7 @@ var NamespaceManager  = function(){
   
 	var itself = function () {};
 	itself.translateCSSSelector = translateCSSSelector;
+//	itself.getSelectionNamespaces = getSelectionNamespaces;
 	itself.getOutputPrefixesFromURI = getOutputPrefixesFromURI;
 	itself.addSelectionNamespace = addSelectionNamespace;
 	itself.addOutputNamespace = addOutputNamespace;
@@ -306,8 +323,9 @@ var NamespaceManager  = function(){
 	}
 	if(document.namespaces) {
 		itself.getElementsByTagNameNS = getElementsByTagNameNS_Aware;
-	}
-	else {
+	} else if (g_bIsInXHTMLMode) {
+	    itself.getElementsByTagNameNS = getElementsByTagNameNS;
+	} else {
 		itself.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
 	}
 	return itself;

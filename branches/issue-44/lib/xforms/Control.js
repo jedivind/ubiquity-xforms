@@ -271,14 +271,15 @@ Control.prototype.RetrieveValuePseudoElement = function()
 		{
 			if (sType != this.m_type)
 			{
-				YAHOO.util.Dom.removeClass(this.element, this.m_type);
+				removeClassName(this.element, this.m_type);
 	
 				/*
 				 * [ISSUE] Need to mung the name.
 				 */
 	
 				this.m_type = sType;
-				YAHOO.util.Dom.addClass(this.element, this.m_type);
+
+				addClassName(this.element, this.m_type);
 			}
 			return;
 		};

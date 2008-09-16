@@ -57,6 +57,14 @@ if (!UX.isIE6) {
 
 NamespaceManager.addSelectionNamespace("xf","http://www.w3.org/2002/xforms");	
 
+// The default.css has selectors for IE and FF (HTML parsing).  Instead of having a
+// separate file for the defaults for XML parsing ( and by the way, the \: selector notation
+// does cause interference with the '|' notation) the defaults.css file will be transformed
+// by taking the xf/:xxxstyle or xforms:/xxxstyle and produce styling for xf|xxxstyle or xforms|xxxstyle
+if (g_bIsInXHTMLMode) {
+   CSSManager.setupCSSSelectors("default.css");
+}   
+
 DECORATOR.setupDecorator(
 	[
 	  

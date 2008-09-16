@@ -61,7 +61,7 @@ function Repeat(elmnt)
 		Repeat.prototype.storeTemplate = function()
 		{
 			this.element.setAttribute("sTemplate",this.element.innerHTML);
-			this.element.className = "repeat-ready";
+		    addClassName(this.element, "repeat-ready");
 			while(this.element.childNodes.length)
 			{
 				this.element.removeChild(this.element.firstChild);
