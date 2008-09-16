@@ -34,17 +34,16 @@ After the Sept 16 meeting, Mark suggested the following approach should better i
 
 These are the workitems for this approach:
 
-1. Introduce and implement the form element to the XForms namespace.
+1. Introduce and implement the form element for the XForms namespace.
 
 2. Implement the lazy authoring for XForms context.
 
-3. Use lazy authoring to generate the model for streamlined.
+3. Use lazy authoring to generate the model/instance for streamlined.
 
 4. Handle these streamlined attributes (name, constraint, type) within the element's context and do the following:
    * Generate the referenced node within the model's instance (lazy authouring)
    * Extract the constraint and type; Generate the necessary binds for the element and insert it to the model.
    * Process the default attribute in the context (use DOM )or control (setValue).
-
 
 = Future Work Item =
 The above design should provide the basic features of the streamlined syntax,
