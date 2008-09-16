@@ -35,7 +35,8 @@ The ONLY way found to work so far is to separately add the following Security Pr
       alert("Permission UniversalBrowserRead denied.");
      }
    //end experimental
-}}},
+}}}
+,
 
 in xforms-submission-yui.js before this statement,
 
@@ -46,6 +47,7 @@ return YAHOO.util.Connect.asyncRequest(
 		oCallback,
 		sBody
 	);
-}}}.
+}}}
+.
 
 *Please be extra careful in your testing with this security instruction!*
