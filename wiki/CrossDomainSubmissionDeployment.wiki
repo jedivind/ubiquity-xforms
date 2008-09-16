@@ -1,0 +1,26 @@
+#summary How to enable Browsers for Cross Domain Submissions
+
+= Introduction =
+
+On some Browsers, cross domain submissions are not a problem (i.e. Internet Explorer so far).  But on other browsers like Firefox, this may be a bigger issue because the architects/developers have removed some of the past capability to issue cross domain requests.  This page will document some techniques to help test the cross domain submissions using XMLHTTPRequests.
+
+
+= Details =
+
+==Firefox 2==
+
+For Mozilla Firefox 2, a user can modify security permissions to allow XMLHTTPRequests.  To do this, follow these steps:
+
+  # Completely close your Mozilla Firefox 2 browser
+  # Determine the location and Edit your Firefox 2 profile
+    * On Windows:
+      * The location is usually found in the vicinity of C:\Documents and Settings\Administrator\Application Data\Mozilla\Firefox\Profiles\xxxxxxxx.default (where xxxxxxxx is a series of letters and numbers established by Mozilla Firefox, and default is the default name for a profile
+      * The Application Data folder is a hidden folder, so you may have to modify some "Windows Explorer" settings to allow easy access to the profiles.
+      * Edit the prefs.js file in the profile folder.
+      * Add in lecical order the following permission: *{{{user_pref("capability.policy.default.XMLHttpRequest.open", "allAccess");}}}*
+      * This permission will allow your Mozilla Firefox 2 browser to open XMLHTTPRequests to all cross domain URLS. ( Be Careful and Be Aware of this setting )
+  # When you restart your Mozilla Firefox 2 browser, you shoud now be able to submit to a cross domain location. 
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
