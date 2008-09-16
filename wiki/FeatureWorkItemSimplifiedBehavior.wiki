@@ -43,7 +43,7 @@ These are the workitems for this approach:
 4. Handle these streamlined attributes (name, constraint, type) within the element's context and do the following:
    * Generate the referenced node within the model's instance (lazy authouring)
    * Extract the constraint and type; Generate the necessary binds for the element and insert it to the model.
-   * Process the default attribute in the context (use DOM )or control (setValue).
+   * Process the default attribute in the context (use DOM )or the control (setValue).
 
 = Future Work Item =
 The above design should provide the basic features of the streamlined syntax,
