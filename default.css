@@ -30,11 +30,6 @@ xf\:hint {
   display: none;
 }
 
-xforms\:setvalue,
-xf\:setvalue {
-  display: none;
-}
-
 xforms\:output,
 xf\:output,
 xforms\:input,
