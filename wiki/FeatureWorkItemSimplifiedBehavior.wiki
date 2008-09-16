@@ -9,6 +9,7 @@ Add support of the [StorySimplifiedSyntax streamlined syntax] to the Ubiquity XF
 
 For a quick implementation of the streamlined syntax, we purpose the followings:
 
+== First Purposal  ==
 1.  Add the decorator, and implement for the new streamlined elements:
   * form 
 
@@ -26,6 +27,24 @@ the first element with the name attribute will create an empty model for the str
   * Ensure that the generated streamlined model is rebuild, recalculate, revalidate and refresh.
 
 5. When a streamlined element is created dynamiclly, the css selector should trigger #3 but we need to ensure RRRR actions after 3 is completed.
+
+== Second Proposal (Sept 16) ==
+
+After the Sept 16 meeting, Mark suggested the following approach should better integrate the streamlined syntax into the current ubiquity xforms architecture. Instead of processing the streamlined syntax as a new syntax/behaviour, the streamlined syntax should be treated as part of standard XForms functionality. The streamlined syntax will use existing decorator rules and behaviour objects to handle the additional functionaility introduced.
+
+These are the workitems for this approach:
+
+1. Introduce and implement the form element to the XForms namespace.
+
+2. Implement the lazy authoring for XForms context.
+
+3. Use lazy authoring to generate the model for streamlined.
+
+4. Handle these streamlined attributes (name, constraint, type) within the element's context and do the following:
+   * Generate the referenced node within the model's instance (lazy authouring)
+   * Extract the constraint and type; Generate the necessary binds for the element and insert it to the model.
+   * Process the default attribute in the context (use DOM )or control (setValue).
+
 
 = Future Work Item =
 The above design should provide the basic features of the streamlined syntax,
