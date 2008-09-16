@@ -1,4 +1,5 @@
 #summary How to enable Browsers for Cross Domain Submissions
+#labels HowTo
 
 = Introduction =
 
