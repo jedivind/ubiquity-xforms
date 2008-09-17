@@ -1,0 +1,230 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fp="urn:formsplayer.com" 
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	
+	<head> 
+		<title>A wizard using model-based switching</title>
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
+
+		<style type="text/css">
+			body {
+				font-family: "Trebuchet MS", Verdana, Helvetica, sans-serif;
+			}
+
+			h2 {
+				background-color: lightblue;
+				font-size: 80%;
+			}
+
+			.wzFrame {
+				height	:	400px;
+				width	:	600px;
+				border	:	3px groove;
+			}
+			
+			.the-demo {
+				background-color	:	lightyellow;
+				border				:	1px thin solid darkyellow;
+				padding				:	5px;
+			}			
+			
+			*:disabled, 
+			*.disabled 
+			{
+				display		:	none;
+			}
+
+			xf\:group {
+				display		:	block;
+				height		:	100%;
+			}
+		</style>
+	</head>
+	<body>
+		<xf:model id="mdlWizardController">
+			<!--
+				The first instance is the 'wizard controller'. It keeps track of the
+				current page, whether its possible to go next and previous,
+				and the number of pages. It also has some simple configuration
+				for the labels for the 'next' and 'previous' triggers
+			-->
+			<xf:instance id="instWizardController">
+				<wizard xmlns="">
+					<currentPage>1</currentPage>
+					<lblPrev>&lt;&lt; Prev</lblPrev>
+					<lblNext>Next &gt;&gt;</lblNext>
+					<relPrev></relPrev>
+					<relNext></relNext>
+					<pageSize></pageSize>
+				</wizard>
+			</xf:instance>
+
+			<!--
+				Using nested binds as a shorthand doesn't seem to work in
+				X-Smiles so we have to spell out every one!
+			-->
+			<!-- xf:bind nodeset="instance('instWizardController')" -->
+				<!--
+					Set the datatypes
+				-->
+				<xf:bind nodeset="instance('instWizardController')/currentPage" type="xsd:integer"></xf:bind>
+
+				<!--
+					This is just a convenience so that we don't have to keep
+					repeating the expression for the number of pages.
+
+					NOTE: If the nodes in the source are changed then this expression
+					also needs to change
+				-->
+				<xf:bind nodeset="instance('instWizardController')/pageSize" calculate="count(instance('instWizardSource')/page)"></xf:bind>
+	
+				<!--
+					If the current page number goes below 1 or above the pageSize then bring it into line
+				-->
+				<xf:bind nodeset="instance('instWizardController')/currentPage" calculate="if(. &lt; 1, 1, if(. &gt; ../pageSize, ../pageSize, .))" readonly="false()"></xf:bind>
+
+				<!--
+					We have two flags to say when it is possible to go previous and next
+				-->
+				<xf:bind id="bndPrev" nodeset="instance('instWizardController')/relPrev" relevant="../currentPage &gt; 1"></xf:bind>
+				<xf:bind id="bndNext" nodeset="instance('instWizardController')/relNext" relevant="../currentPage &lt; ../pageSize"></xf:bind>
+			<!-- /xf:bind -->
+
+			<!--
+				These event handlers perform the actions required to go to the previous or next
+				pages. Note that we don't concern ourselves here with going too high or low
+				since that is handled by @calculate on 'currentPage'.
+			-->
+			<xf:action ev:event="wizard-prev-page">
+				<xf:setvalue ref="currentPage" value=". - 1"></xf:setvalue>
+				<xf:refresh></xf:refresh>
+			</xf:action>
+
+			<xf:action ev:event="wizard-next-page">
+				<xf:setvalue ref="currentPage" value=". + 1"></xf:setvalue>
+				<xf:refresh></xf:refresh>
+			</xf:action>
+
+			<!--
+				The second instance is the actual page data info
+			-->
+			<xf:instance id="instWizardSource">
+				<pages xmlns="">
+					<page id="1" title="Search"></page>
+					<page id="2" title="Make Selection"></page>
+					<page id="3" title="Confirm Choice"></page>
+					<page id="4" title="View Shopping Basket"></page>
+					<page id="5" title="Place Order"></page>
+				</pages>
+			</xf:instance>
+
+			<!--
+				This shorthand doesn't seem to work in X-Smiles
+				so we have to spell out every bind!
+			-->
+			<!-- xf:bind nodeset="instance('instWizardSource')" -->
+				<!--
+					Set the datatypes
+				-->
+				<xf:bind nodeset="instance('instWizardSource')/page/@id" type="xsd:integer"></xf:bind>
+	
+				<!--
+					A page is made relevant if the current page number in the 'wizard controller'
+					is the same as a page's @id
+				-->
+				<xf:bind nodeset="instance('instWizardSource')/page" relevant="@id = instance('instWizardController')/currentPage"></xf:bind>
+			<!-- /xf:bind -->
+		</xf:model>
+		<h1>
+			A wizard using model-based switching
+		</h1>
+		<div>
+			This demonstration shows how easy it is to implement a wizard-style form.
+		</div>
+		<div>
+     		
+     			<h2>This demo also illustrates:</h2>
+     			<ul>
+     				<li>declaring portable CSS rules;</li>
+     				<li>showing and hiding <code>trigger</code>s based on relevance.</li>
+     			</ul>
+     		
+		</div>
+		<div class="the-demo">
+     		<!--
+     			Lots of ways this could be done. Ideally we would use xf:repeat,
+     			or one xf:group which is bound to:
+     
+     				page[@id=some-current-page-value]
+     
+     			and obtain all of the page content from the instance. However,
+     			XForms processors other than formsPlayer don't allow nested mark-up,
+     			so to keep this technique cross-platform, put all content here.
+     
+     			This does have the advantage of making the following mark-up
+     			look much like xf:switch/xf:case.
+     		-->
+     		<xf:group ref="instance('instWizardSource')" class="wzFrame">
+     			<xf:group ref="page[1]" style="background-color: white;">
+     				<h1><xf:output ref="@title"></xf:output></h1>
+     				I'm the first page ...
+     			</xf:group>
+     
+     			<xf:group ref="page[2]" style="background-color: lightblue;">
+     				<h1><xf:output ref="@title"></xf:output></h1>
+     				... and I'm the second.
+     			</xf:group>
+     
+     			<xf:group ref="page[3]" style="background-color: salmon;">
+     				<h1><xf:output ref="@title"></xf:output></h1>
+     			</xf:group>
+     
+     			<xf:group ref="page[4]" style="background-color: pink;">
+     				<h1><xf:output ref="@title"></xf:output></h1>
+     			</xf:group>
+     
+     			<xf:group ref="page[5]" style="background-color: silver;">
+     				<h1><xf:output ref="@title"></xf:output></h1>
+     			</xf:group>
+     		</xf:group>
+     
+     		<!--
+     			The xf:triggers could do the 'add one' and 'subtract one' inline,
+     			but it makes it easier to maintain if they just dispatch events
+     			and the real processing is done in the event handler.
+     
+     			Note that by binding the xf:triggers to some instance data that
+     			will be set relevant, we can prevent rendering when at the beginning
+     			and end of the list.
+     		-->
+     		<xf:trigger bind="bndPrev">
+     			<xf:label ref="instance('instWizardController')/lblPrev"></xf:label>
+     			<xf:dispatch ev:event="DOMActivate" name="wizard-prev-page" target="mdlWizardController"></xf:dispatch>
+     		</xf:trigger>
+     
+     		<xf:trigger bind="bndNext">
+     			<xf:label ref="instance('instWizardController')/lblNext"></xf:label>
+     			<xf:dispatch ev:event="DOMActivate" name="wizard-next-page" target="mdlWizardController"></xf:dispatch>
+     		</xf:trigger>
+		</div>
+	</body>
+</html>

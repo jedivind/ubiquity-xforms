@@ -1,0 +1,379 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>Off-line Forms</title>
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
+		
+		<style type="text/css">
+			body {
+				font-family			:	"Trebuchet MS", Verdana, Helvetica, sans-serif;
+			}
+			
+			xf\:group,
+			xf\:input,
+			xf\:select1
+			{
+				display			:	block;
+				margin-bottom	:	5px;
+			}
+			
+			xf\:label {
+				width	:	200px;
+			}
+			
+			xf\:submit xf\:label,
+			xf\:trigger xf\:label 
+			{
+				width	:	auto;
+			}
+		</style>
+	</head>
+	<body>
+		<xf:model id="mdlOrder">
+			<xf:instance src="order.xml" ></xf:instance>
+			<!--
+				This will save to your desktop if the form was loaded from another 
+				protocol (e.g., HTTP). Otherwise it will save in the same directory 
+				as the form was loaded from.
+			-->
+			<xf:submission
+				id="siOrder_SaveLocal"
+				action="file:fp-temp-data-can-be-deleted-Order.xml"
+				method="put"
+				replace="none"
+			></xf:submission>
+			
+			<xf:submission
+				id="siOrder_LoadLocal"
+				action="file:fp-temp-data-can-be-deleted-Order.xml"
+				method="get"
+				replace="instance"
+				ref="/ANodeThatDOESNotExist"
+			></xf:submission>
+			
+			<xf:submission
+				id="siOrder_Submit"
+				action="order.asp"
+				method="post"
+				replace="all"
+				ref="/Order"
+			></xf:submission>
+			
+			<xf:action ev:event="xforms-model-destruct">
+				<xf:send submission="siOrder_SaveLocal" ></xf:send>
+			</xf:action>
+			
+			<xf:action ev:event="xforms-link-error">
+				<xf:message level="modal">Could not load order data</xf:message>
+			</xf:action>
+		</xf:model>
+		
+		<!-- Country List Model -->
+		<xf:model id="mdlCountryList">
+			<xf:instance src="iso3166en.xml" ></xf:instance>
+
+			<xf:action ev:event="xforms-link-error">
+				<xf:message level="modal">Could not load country data</xf:message>
+			</xf:action>
+		</xf:model>
+		
+		<!-- Resource Model -->
+		<xf:model id="mdlStrings">
+			<xf:instance src="resource.xml" ></xf:instance>
+			
+			<xf:action ev:event="xforms-link-error">
+				<xf:message level="modal">Could not load resource data</xf:message>
+			</xf:action>
+		</xf:model>
+		<h1>
+			Off-line Forms
+		</h1>
+		<p>
+			A feature of XForms that will prove itself extremely useful is the ability to interact with
+			data in other ways than simply posting to a server. With HTML forms, all data is posted to
+			the server for processing, and perhaps later retrieval. This has meant that working with forms
+			when disconnected from a server has required expensive specialist applications. These keep track
+			of issues such as synchronisation and validation, but since they are generally proprietary
+			solutions, they are difficult to generalise to solve other problems within an organisation.
+		</p>
+		<p>
+			XForms changes this by providing a standard means of accessing local files. In this sample we
+			show a few pages of an ecommerce wizard, collecting data from a user. When the user leaves the
+			form the data is saved locally. The user is able at any time to reload the data into the form.
+		</p>
+		<p>
+			(This sample makes use of labels and hints that are stored in a
+			<a href="resource.xml">separate file</a>.)
+		</p>
+		<p>
+			<xf:trigger id="trSavePrevData">
+				<xf:label>Save Saved Data</xf:label>
+				<xf:hint>Save data for later</xf:hint>
+				<xf:action ev:event="DOMActivate">
+					<xf:send submission="siOrder_SaveLocal" ></xf:send>
+				</xf:action>
+			</xf:trigger>
+			|
+			<xf:trigger id="trLoadPrevData">
+				<xf:label>Load Saved Data</xf:label>
+				<xf:hint>Load from previous save</xf:hint>
+				<xf:action ev:event="DOMActivate">
+					<xf:send submission="siOrder_LoadLocal" ></xf:send>
+				</xf:action>
+			</xf:trigger>
+
+			<xf:switch id="swOrder">
+				<xf:case id="swOrder_casePerson" selected="true">
+					<!-- PERSON PAGE -->
+					<xf:group model="mdlOrder" ref="/Order/Person">
+
+						<xf:input ref="Name">
+							<xf:label model="mdlStrings" ref="//label[@idref='iName']"></xf:label>
+							<xf:hint model="mdlStrings" ref="//hint[@idref='iName']" ></xf:hint>
+						</xf:input>
+
+						<xf:group ref="Address">
+							<xf:input ref="AddressLine1">
+								<xf:label model="mdlStrings" ref="//label[@idref='iAddressLine1']" ></xf:label>
+								<xf:hint model="mdlStrings" ref="//hint[@idref='iAddressLine1']" ></xf:hint>
+							</xf:input>
+
+							<xf:input ref="AddressLine2">
+								<xf:label model="mdlStrings" ref="//label[@idref='iAddressLine2']" ></xf:label>
+								<xf:hint model="mdlStrings" ref="//hint[@idref='iAddressLine2']" ></xf:hint>
+							</xf:input>
+
+							<xf:input ref="Town">
+								<xf:label model="mdlStrings" ref="//label[@idref='iTown']" ></xf:label>
+								<xf:hint model="mdlStrings" ref="//hint[@idref='iTown']" ></xf:hint>
+							</xf:input>
+
+							<xf:input ref="County">
+								<xf:label model="mdlStrings" ref="//label[@idref='iCounty']" ></xf:label>
+								<xf:hint model="mdlStrings" ref="//hint[@idref='iCounty']" ></xf:hint>
+							</xf:input>
+
+							<xf:input ref="Postcode">
+								<xf:label model="mdlStrings" ref="//label[@idref='iPostcode']" ></xf:label>
+								<xf:hint model="mdlStrings" ref="//hint[@idref='iPostcode']" ></xf:hint>
+							</xf:input>
+
+							<xf:select1 ref="Country">
+								<xf:label model="mdlStrings" ref="//label[@idref='iCountry']" ></xf:label>
+								<xf:hint model="mdlStrings" ref="//hint[@idref='iCountry']" ></xf:hint>
+									
+								<xf:itemset model="mdlCountryList" nodeset="country">
+									<xf:label ref="name" ></xf:label>
+									<xf:value ref="code" ></xf:value>
+								</xf:itemset>
+							</xf:select1>
+						</xf:group>
+						<!-- End of "Address" -->
+
+						<xf:input ref="Telephone">
+							<xf:label model="mdlStrings" ref="//label[@idref='iTelephone']" ></xf:label>
+							<xf:hint model="mdlStrings" ref="//hint[@idref='iTelephone']" ></xf:hint>
+						</xf:input>
+					</xf:group>
+					<!-- End of "/Order/Person" -->
+
+					<xf:trigger id="trCasePayment">
+						<xf:label>Next</xf:label>
+						<xf:action ev:event="DOMActivate">
+							<xf:toggle case="swOrder_casePayment" ></xf:toggle>
+						</xf:action>
+					</xf:trigger>
+				</xf:case>
+				<xf:case id="swOrder_casePayment" selected="false">
+					<!-- PAYMENT PAGE -->
+					<xf:group model="mdlOrder" ref="/Order/Payment/CreditCard">
+						<xf:select1 ref="CardType">
+							<xf:label model="mdlStrings" ref="//label[@idref='iCardType']" ></xf:label>
+							<xf:hint model="mdlStrings" ref="//hint[@idref='iCardType']" ></xf:hint>
+							<xf:item>
+								<xf:label>Visa/Delta/Electron</xf:label>
+								<xf:value>V</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>MasterCard</xf:label>
+								<xf:value>M</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>EuroCard</xf:label>
+								<xf:value>M</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>American Express</xf:label>
+								<xf:value>A</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Switch/Solo</xf:label>
+								<xf:value>S</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:group ref="ExpiryDate">
+							<xf:select1 ref="Month">
+								<xf:label model="mdlStrings" ref="//label[@idref='iMonth']" style="width: 100;" ></xf:label>
+								<xf:hint model="mdlStrings" ref="//hint[@idref='iMonth']" ></xf:hint>
+								<xf:item>
+									<xf:label>01</xf:label>
+									<xf:value>1</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>02</xf:label>
+									<xf:value>2</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>03</xf:label>
+									<xf:value>3</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>04</xf:label>
+									<xf:value>4</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>05</xf:label>
+									<xf:value>5</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>06</xf:label>
+									<xf:value>6</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>07</xf:label>
+									<xf:value>7</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>08</xf:label>
+									<xf:value>8</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>09</xf:label>
+									<xf:value>9</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>10</xf:label>
+									<xf:value>10</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>11</xf:label>
+									<xf:value>11</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>12</xf:label>
+									<xf:value>12</xf:value>
+								</xf:item>
+							</xf:select1>
+							<xf:select1 ref="Year">
+								<xf:label model="mdlStrings" ref="//label[@idref='iYear']" style="width: 100;" ></xf:label>
+								<xf:hint model="mdlStrings" ref="//hint[@idref='iYear']" ></xf:hint>
+								<xf:item>
+									<xf:label>02</xf:label>
+									<xf:value>02</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>03</xf:label>
+									<xf:value>03</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>04</xf:label>
+									<xf:value>04</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>05</xf:label>
+									<xf:value>05</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>06</xf:label>
+									<xf:value>06</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>07</xf:label>
+									<xf:value>07</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>08</xf:label>
+									<xf:value>08</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>09</xf:label>
+									<xf:value>09</xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label>10</xf:label>
+									<xf:value>10</xf:value>
+								</xf:item>
+							</xf:select1>
+						</xf:group>
+						<xf:input ref="CardNo">
+							<xf:label model="mdlStrings" ref="//label[@idref='iCardNo']" ></xf:label>
+							<xf:hint model="mdlStrings" ref="//hint[@idref='iCardNo']" ></xf:hint>
+						</xf:input>
+						<xf:input ref="IssueNo">
+							<xf:label model="mdlStrings" ref="//label[@idref='iIssueNo']" ></xf:label>
+							<xf:hint model="mdlStrings" ref="//hint[@idref='iIssueNo']" ></xf:hint>
+						</xf:input>
+						<xf:input ref="NameOnCard">
+							<xf:label model="mdlStrings" ref="//label[@idref='iNameOnCard']" ></xf:label>
+							<xf:hint model="mdlStrings" ref="//hint[@idref='iNameOnCard']" ></xf:hint>
+						</xf:input>
+					</xf:group>
+					<!-- End of "/Order/Payment/CreditCard" -->
+
+					<xf:trigger id="trCasePerson">
+						<xf:label>Prev</xf:label>
+						<xf:action ev:event="DOMActivate">
+							<xf:toggle case="swOrder_casePerson" ></xf:toggle>
+						</xf:action>
+					</xf:trigger>
+												
+					<xf:trigger id="caseCreditCardNextBtn">
+						<xf:label>Next</xf:label>
+						<xf:action ev:event="DOMActivate">
+							<xf:toggle case="swOrder_caseConfirm" ></xf:toggle>
+						</xf:action>
+					</xf:trigger>
+				</xf:case>
+				<!-- End of Payment page -->
+				<xf:case id="swOrder_caseConfirm" selected="false">
+					<!-- CONFIRMATION PAGE -->
+					<p>
+						Press submit to confirm your order. The data will also be saved 
+						locally for your records.
+					</p>
+					<xf:trigger id="trCaseConfirm">
+						<xf:label>Prev</xf:label>
+						<xf:action ev:event="DOMActivate">
+							<xf:toggle case="swOrder_casePayment" ></xf:toggle>
+						</xf:action>
+					</xf:trigger>
+					<xf:submit submission="siOrder_Submit">
+						<xf:label>Submit</xf:label>
+					</xf:submit>
+				</xf:case>
+				<!-- End of Confirmation page -->
+			</xf:switch>
+		</p>
+	</body>
+</html>
