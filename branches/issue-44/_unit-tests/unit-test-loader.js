@@ -35,9 +35,6 @@ function runTheTests() {
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
   loader.addModule({ name: "ux-ut-NamespaceManager", type: "js",  fullpath: moduleBase + "ut-NamespaceManager.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
-
-  loader.addModule({ name: "ux-ut-CSSManager", type: "js",  fullpath: moduleBase + "ut-CSSManager.js",
-    requires: [ "yuitest", "logger-css", "test-logger-css", "ux-ut-NamespaceManager"] });
     
   loader.addModule({ name: "ux-ut-path-to-module", type: "js",  fullpath: moduleBase + "ut-path-to-module.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
@@ -59,7 +56,7 @@ function runTheTests() {
 
   
   
-  loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager", "ux-ut-CSSManager", "ux-ut-path-to-module", "ux-ut-reset",
+  loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager",  "ux-ut-path-to-module", "ux-ut-reset",
      "ux-ut-model-standalone","ux-ut-instance-standalone", "ux-ut-select1", "ux-ut-finite-control");
   
   var sBars = "";
@@ -78,7 +75,6 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
     YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
     YAHOO.tool.TestRunner.add(suiteNamespaceManager);
-    YAHOO.tool.TestRunner.add(suiteCSSManager);
     YAHOO.tool.TestRunner.add(suiteInstanceStandalone);
     YAHOO.tool.TestRunner.add(suiteModelStandalone);
     YAHOO.tool.TestRunner.add(suiteReset);

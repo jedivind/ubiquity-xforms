@@ -29,7 +29,11 @@ if (document.contentType === "application/xhtml+xml") {
     g_sBehaviourDirectory = moduleBase + "../../behaviours/";
     
   	window.status = "configuring module loader";
-  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../default.css" });
+  	var defaultCSS = "../../default.css";
+  	if (g_bIsInXHTMLMode) {
+  	   defaultCSS = "../../default-xml.css"
+  	}
+  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + defaultCSS});
   
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
   		requires: [ "connection" ] });
@@ -59,11 +63,8 @@ if (document.contentType === "application/xhtml+xml") {
   		requires: [ "xforms-processor" ] });
   	
   	loader.addModule({ name: "libxh-namespace-manager",            type: "js",  fullpath: moduleBase + "../namespaceManager.js",
-  			requires:["dom"]});
-  			
-    loader.addModule({ name: "css-manager",            type: "js",  fullpath: moduleBase + "../CSSManager.js",
-  			requires:["dom"]}); 			
-  	
+  			requires:["dom"]});		
+ 
   	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: moduleBase + "../decorate.js", 
   		requires:["libxh-namespace-manager"]});
   
@@ -166,7 +167,6 @@ if (document.contentType === "application/xhtml+xml") {
       requires: [
         "ux-default-css",
         "libxh-decorator",
-        "css-manager",
         "xforms-listener", "xforms-event-target-proxy",
         "xforms-conditional-invocation",
         "xforms-model", "xforms-instance", "xforms-submission",
