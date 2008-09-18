@@ -94,12 +94,7 @@ var NamespaceManager  = function(){
 			}
 		}
 	}
-/*
-	function getSelectionNamespaces(prefix)
-	{
-		return m_selectionNamespaces[prefix];
-	}
-*/
+
 	/**
 		Retrieves the list of output prefixes that represent the given namespace.
 		@param {String} uri  The URI to look up.
@@ -322,13 +317,12 @@ var NamespaceManager  = function(){
   
 	var itself = function () {};
 	itself.translateCSSSelector = translateCSSSelector;
-//	itself.getSelectionNamespaces = getSelectionNamespaces;
 	itself.getOutputPrefixesFromURI = getOutputPrefixesFromURI;
 	itself.addSelectionNamespace = addSelectionNamespace;
 	itself.addOutputNamespace = addOutputNamespace;
-  itself.getLowerCaseLocalName = getLowerCaseLocalName;
-  itself.compareFullName = compareFullName;
-  itself.getNamespaceURI = getNamespaceURI;
+    itself.getLowerCaseLocalName = getLowerCaseLocalName;
+    itself.compareFullName = compareFullName;
+    itself.getNamespaceURI = getNamespaceURI;
 	itself.clean = clean;
 	if(document.namespaces) {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;
