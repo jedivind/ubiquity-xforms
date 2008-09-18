@@ -19,10 +19,11 @@
 var g_sBehaviourDirectory  = "";
 var g_bIsInXHTMLMode = false;
  
-if (document.contentType === "application/xhtml+xml") {
+// determine if content-type is html or xhtml (application/xhtml+xml)
+if (document.xmlVersion || (document.contentType && document.contentType === "application/xhtml+xml")) {
    g_bIsInXHTMLMode = true;
 } 
- 
+
 (
   function(){
     var moduleBase = pathToModule("xforms-loader");
