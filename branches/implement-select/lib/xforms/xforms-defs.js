@@ -14,6 +14,434 @@
  * limitations under the License.
  */
 
+// Add XForms decoration rules
+DECORATOR.addDecorationRules({
+    "namespaceURI" : "http://www.w3.org/2002/xforms",
+    "rules" : {
+        // model decorations
+        "model" : [
+        {
+            "name" : "model-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Model"]);
+            }
+        }
+        ],
+
+        "instance" : [
+        {
+            "name" : "instance-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Instance"]);
+            }
+        }
+        ],
+
+        "submission" : [
+        {
+            "name" : "submission-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Submission"]);
+            }
+        }
+        ],
+        // end model decorations
+
+        // begin core form control decorations
+        "submit" : [
+        {
+            "name" : "submit-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control", "Submit"]);
+            }
+        }
+        ],
+
+        "trigger" : [
+        {
+            "name" : "trigger-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+            }
+        }
+        ],
+
+        "input": [
+        {
+            "name" : "input-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+            }
+        }
+        ],
+
+        "output" : [
+        {
+            "name" : "output-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+            }
+        }
+        ],
+
+        "range" : [
+        {
+            "name" : "range-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+            }
+        }
+        ],
+
+        "textarea" : [
+        {
+            "name" : "textarea-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+            }
+        }
+        ],
+
+        "secret" : [
+        {
+            "name" : "secret-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+            }
+        }
+        ],
+
+        "select" : [
+        {
+            "name" : "select-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control", "Select"]);
+            }
+        }
+        ],
+
+        "select1" : [
+        {
+            "name" : "select1-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control", "XFormsSelect1", "FiniteControl"]);
+            }
+        }
+        ],
+        // end core form control decorations
+
+        // begin common support decorations
+        "label" : [
+        {
+            "name" : "label-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+            }
+        }
+        ],
+
+        "alert" : [
+        {
+            "name" : "alert-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+            }
+        }
+        ],
+        // end common support decorations
+
+        // begin common markup for selection controls decorations
+        "item" : [
+        {
+            "name" : "item-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Item"]);
+            }
+        }
+        ],
+
+        "value" : [
+        {
+            "name" : "value-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Control", "Value"]);
+            }
+        }
+        ],
+        // end common markup for selection controls decorations
+
+        // begin container form control decorations
+        "group" : [
+        {
+            "name" : "group-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Group"]);
+            }
+        }
+        ],
+
+        "switch" : [
+        {
+            "name" : "switch-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Switch"]);
+            }
+        }
+        ],
+
+        "case" : [
+        {
+            "name" : "case-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "XFormsCase"]);
+            }
+        }
+        ],
+
+        "repeat" : [
+        {
+            "name" : "repeat-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Repeat"]);
+            }
+        }
+        ],
+        // end container form control decorations
+
+        // begin action decorations
+        "action" : [
+        {
+            "name" : "action-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "XFAction"]);
+            }
+        }
+        ],
+
+        "message" : [
+        {
+            "name" : "message-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Message"]);
+            }
+        }
+        ],
+
+        "setvalue" : [
+        {
+            "name" : "setvalue-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Context", "SetValue"]);
+            }
+        }
+        ],
+
+        "send" : [
+        {
+            "name" : "send-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Send"]);
+                return arrBehaviours;
+            }
+        }
+        ],
+
+        "toggle" : [
+        {
+            "name" : "toggle-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Toggle"]);
+            }
+        }
+        ],
+
+        "rebuild" : [
+        {
+            "name" : "rebuild-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Rebuild"]);
+            }
+        }
+        ],
+
+        "recalculate" : [
+        {
+            "name" : "recalculate-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Recalculate"]);
+            }
+        }
+        ],
+
+        "revalidate" : [
+        {
+            "name" : "revalidate-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Revalidate"]);
+            }
+        }
+        ],
+
+        "refresh" : [
+        {
+            "name" : "refresh-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Refresh"]);
+            }
+        }
+        ],
+
+        "reset" : [
+        {
+            "name" : "reset-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Reset"]);
+            }
+        }
+        ],
+        // end action decorations
+
+        // begin pseudo element value decorations
+        "pe-value" : [
+        {
+            "name" : "value-pevalue",
+            "match" : function(element) {
+                return NamespaceManager.compareFullName(element.parentNode,"value","http://www.w3.org/2002/xforms");
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget"]);
+            }
+        },
+        {
+            "name" : "output-pevalue",
+            "match" : function(element) {
+                return NamespaceManager.compareFullName(element.parentNode,"output","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"secret","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"textarea","http://www.w3.org/2002/xforms");
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "XFormsOutputValue"]);
+            }
+        },
+        {
+            "name" : "input-pevalue",
+            "match" : function(element) {
+                return NamespaceManager.compareFullName(element.parentNode,"input","http://www.w3.org/2002/xforms");
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "XFormsInputValue"]);
+            }
+        },
+        {
+            "name" : "select-pevalue",
+            "match" : function(element) {
+                return NamespaceManager.compareFullName(element.parentNode,"select","http://www.w3.org/2002/xforms");
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "XFormsSelectValue"]);
+            }
+        },
+        {
+            "name" : "select1-pevalue",
+            "match" : function(element) {
+                return NamespaceManager.compareFullName(element.parentNode,"select1","http://www.w3.org/2002/xforms");
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "XFormsSelect1Value"]);
+            }
+        },
+        {
+            "name" : "range-pevalue",
+            "match" : function(element) {
+                return NamespaceManager.compareFullName(element.parentNode,"range","http://www.w3.org/2002/xforms");
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "RangeValue"]);
+            }
+        },
+        // custom control pe-values below
+        {
+            "name" : "inputcalendar-pevalue",
+            "match" : function(element) {
+                var parent = element.parentNode,
+                    datatype = parent.getAttribute("datatype"),
+                    appearance = parent.getAttribute("appearance"),
+                    prefixes = [],
+                    prefix = "",
+                    isDate = false,
+                    match = false;
+                if (NamespaceManager.compareFullName(parent,"input","http://www.w3.org/2002/xforms")) {
+                    prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms");
+                    prefix = prefixes[prefixes.length-1];
+                    isDate = (datatype === "xsd:date" || datatype === (prefix + ":date"));
+                    if (isDate && appearance !== "minimal") {
+                        match = true;
+                    }
+                }
+                return match;
+            },
+            "apply" : function(arrBehaviours) {
+                UX.replaceArrayElement(arrBehaviours,"XFormsInputValue","InputValueCalendar");
+                return arrBehaviours;
+            }
+        },
+        {
+            "name" : "inputcolor-pevalue",
+            "match" : function(element) {
+                var parent = element.parentNode,
+                    datatype = parent.getAttribute("datatype"),
+                    appearance = parent.getAttribute("appearance"),
+                    match = false;
+                if (NamespaceManager.compareFullName(parent,"input","http://www.w3.org/2002/xforms") &&
+                    datatype === "xhd:color") {
+                        match = true;
+                }
+                return match;
+            },
+            "apply" : function(arrBehaviours) {
+                UX.replaceArrayElement(arrBehaviours,"XFormsInputValue","InputValueColor");
+                return arrBehaviours;
+            }
+        },
+        {
+            "name" : "rangemap-pevalue",
+            "match" : function(element) {
+                var parent = element.parentNode,
+                    rangeClass = parent.className,
+                    match = false;
+                if (NamespaceManager.compareFullName(parent,"range","http://www.w3.org/2002/xforms") &&
+                    rangeClass && rangeClass.indexOf("geolocation") !== -1) {
+                        match = true;
+                }
+                return match;
+            },
+            "apply" : function(arrBehaviours) {
+                UX.replaceArrayElement(arrBehaviours,"RangeValue","RangeValueGMAP");
+                return arrBehaviours;
+            }
+        }
+        ],
+        // end pseudo element value decorations
+
+        // wildcard decorations (applied irrespective of element name)
+        "*" : [
+        ]
+        // end wildcard decorations
+	}
+});
+
+UX.replaceArrayElement = function (array,remove,add) {
+    var counter;
+    for (counter = 0; counter < array.length; counter++) {
+        if (array[counter] === remove) {
+            array[counter] = add;
+            break;
+        }
+    }
+};
+
 //[ISSUE 52] IE6 does not allow CSS attribute selectors. This means those
 //  selectors that require attribute selection must conditionally leave
 //  those out when the user agent is IE6 and use the mechanism specified in
@@ -70,7 +498,7 @@ DECORATOR.setupDecorator(
 
 		{
 			selector:"xf|repeat.repeat-ready > xf|group",
-			objects:["EventTarget", "Context", "Group"]
+			objects:[]
 		},
 		{
 		  selector:"xf|itemset.repeat-ready > xf|item",
@@ -80,34 +508,34 @@ DECORATOR.setupDecorator(
 
 		{
 			selector:"xf|instance",
-			objects:["EventTarget", "Instance"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|model",
-			objects:["EventTarget", "Model"]
+			objects:[]
 		},
 
 
 		{
 			selector:"xf|submission",
-			objects:["EventTarget", "Context", "Submission"]
+			objects:[]
 		},
 
     /* Controls */
         {
 			selector:"xf|submit",
-			objects:["EventTarget", "Context", "Control", "Submit"]
+			objects:[]
 		},
 
     {
 			selector:"xf|trigger",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[]
 		},
 		
 		{
 			selector:"xf|output >  pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
+			objects:[]
 		},
 /*
 		{
@@ -117,82 +545,82 @@ DECORATOR.setupDecorator(
     */
 		{
 			selector:"xf|input",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|range",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[]
 		},
 
     	{
 			selector:"xf|output",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|textarea",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[]
 		},
 		
 		{
 			selector:"xf|secret",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[]
 		},
 		{
 			selector:"xf|label",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[]
 		},
 		{
 			selector:"xf|alert",
-			objects:["EventTarget", "Context", "Control"]
+			objects:[]
+		},
+		{
+			selector:"xf|value",
+			objects:[]
 		},
 
 		{
 			selector:"xf|input > pe-value",
-			objects:["EventTarget", "XFormsInputValue"]
+			objects:[]
 		},
 		{
 			selector:"xf|secret  > pe-value",
-			objects:["EventTarget", "XFormsInputValue"]
+			objects:[]
 		},
 		{
 			selector:"xf|textarea  > pe-value",
-			objects:["EventTarget", "XFormsInputValue"]
+			objects:[]
 		},
 	
 		{
 			selector:"xf|select > pe-value",
-			objects:["EventTarget", "XFormsSelectValue"]
+			objects:[]
 		},
 		{
 			selector:"xf|select1 >  pe-value ",
-			objects:["EventTarget", "XFormsSelect1Value"]
+			objects:[]
 		},
 		{
 			selector:"xf|range > pe-value",
-			objects:["EventTarget", "RangeValue"]
+			objects:[]
 		},
 		{
 			selector:" xf|alert > pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|label",
-			objects:["EventTarget", "Context", "Control"]
-		},
-		{
-			selector:"xf|value",
-			objects:["EventTarget", "Context", "Value", "Control"]
+			objects:[]
 		},
 		{
 			selector:"xf|value > pe-value",
-			objects:["EventTarget"]
+			objects:[]
 		},
 		{
 			selector:"xf|item",
-			objects:["EventTarget", "Context", "Item"]
+			objects:[]
 		},
 		{
 			selector:"xf|itemset",
@@ -200,127 +628,127 @@ DECORATOR.setupDecorator(
 		},
 		{
 			selector:"xf|range.geolocation > pe-value",
-			objects:["EventTarget", "RangeValueGMAP"]
+			objects:[]
 		},
 		//HACK: re-override the value binding for rangemap/label, because IE does not support child selectors.
 		{
 			selector:"xf|range.geolocation > xf|label > pe-value",
-			objects:["EventTarget", "XFormsOutputValue"]
+			objects:[]
 		},
 
         // YUI ColorPicker as <xf:input>
         {
             selector: UX.selectors.input.color.value,
-            objects:["EventTarget", "InputValueColor"]
+            objects:[]
         },
         //HACK: IE does not support child selectors.
         {
             selector: UX.selectors.input.color.labelvalue,
-            objects:["EventTarget", "XFormsOutputValue"]
+            objects:[]
         },
 
 		// YUI Calendar as <xf:input>
 		{
 			selector: UX.selectors.input.date.value,
-			objects:["EventTarget", "InputValueCalendar"]
+			objects:[]
 		},
 		//HACK: IE does not support child selectors.
 		{
 			selector: UX.selectors.input.date.labelvalue,
-			objects:["EventTarget", "XFormsOutputValue"]
+			objects:[]
 		},
 		// Calendar with "minimal" appearance resorts to regular xf:input appearance
 		{
 			selector: UX.selectors.input.dateminimal.value,
-			objects:["EventTarget", "XFormsInputValue"]
+			objects:[]
 		},
 		//HACK: IE does not support child selectors.
 		{
 			selector: UX.selectors.input.dateminimal.labelvalue,
-			objects:["EventTarget", "XFormsOutputValue"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|select",
-			objects:["EventTarget", "Context", "Control", "Select"]
+			objects:[]
 		},				
 		
 		{
 			selector:"xf|select1",
-			objects:["EventTarget", "Context", "Control", "XFormsSelect1", "FiniteControl"]
+			objects:[]
 		},
 
     		{
 			selector:"xf|repeat",
-			objects:["EventTarget", "Context", "Repeat"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|group",
-			objects:["EventTarget", "Context", "Group"]
+			objects:[]
 		},
 
     		{
 			selector:"xf|case",
-			objects:["EventTarget", "XFormsCase"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|switch",
-			objects:["EventTarget", "Switch"]
+			objects:[]
 		},
 
     /* Actions */
 
 		{
 			selector:"xf|action",
-			objects:["Listener", "XFAction"]
+			objects:[]
 		},
 		
 		{
     		selector:"xf|message",
-    		objects:["Listener", "Message"]
+    		objects:[]
 		},
 
 		{
 			selector:"xf|setvalue",
-			objects:["Listener", "Context", "SetValue"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|send",
-			objects:["Listener", "Send"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|toggle",
-			objects:["Listener", "Toggle"]
+			objects:[]
 		},
 
 		{
 			selector:"xf|rebuild",
-			objects:["Listener", "Rebuild"]
+			objects:[]
 		},
 		{
 			selector:"xf|recalculate",
-			objects:["Listener", "Recalculate"]
+			objects:[]
 		},
 		{
 			selector:"xf|revalidate",
-			objects:["Listener", "Revalidate"]
+			objects:[]
 		},
 		{
 			selector:"xf|refresh",
-			objects:["Listener", "Refresh"]
+			objects:[]
 		},
 		{
 			selector:"xf|reset",
-			objects:["Listener", "Reset"]
+			objects:[]
 		},
 	//Common child elements
 		{
 			selector:"xf|label >  pe-value",
-			objects:["EventTarget", "XFormsOutputValue"],
+			objects:[],
 			important:true
 		},
 	//Switch off bindings within repeat, during load-time (IE )

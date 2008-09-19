@@ -40,8 +40,6 @@
 // @return an expression object that can be evaluated with an
 // expression context.
 
-var g_OutermostContextNode = null;
-
 function xpathParse(expr) {
   xpathLog('parse ' + expr);
   xpathParseInit();
@@ -428,18 +426,14 @@ function ExprContext(node, opt_position, opt_nodelist, opt_parent, opt_caseInsen
   } else {
     this.root = node.ownerDocument;
   }
-  this.OutermostContextNode = node;
-  this.currentModel = g_currentModel;
 }
 
 ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
-  var oRet = new ExprContext(opt_node || this.node,
+  return new ExprContext(
+      opt_node || this.node,
       typeof opt_position != 'undefined' ? opt_position : this.position,
       opt_nodelist || this.nodelist, this, this.caseInsensitive,
       this.ignoreAttributesWithoutValue);
-  oRet.OutermostContextNode = this.OutermostContextNode;
-
-  return oRet;
 };
 
 ExprContext.prototype.setVariable = function(name, value) {
