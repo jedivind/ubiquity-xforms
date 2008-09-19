@@ -14,7 +14,7 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || [FeatureValidation] || || *no* || || || || || || || || || || || || ||
 
 = Structure =
-|| *wiki* || *Structure* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
+|| *wiki* || *Structure* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
 || || [http://www.w3.org/TR/xforms11/#structure-model model] || || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#structure-model-instance instance] || || || || || || || || || || || || || ||
 || [FeatureSubmission] || [http://www.w3.org/TR/xforms11/#structure-model-submission submission] || *Partially* || || || || || || || || || || || || ||
@@ -22,7 +22,7 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#structure-extension extension] || || || || || || || || || || || || || ||
 
 = Core Form Controls =
-|| *wiki* || *Control* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2 XHTML* || *FF 3 XHTML* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
+|| *wiki* || *Control* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
 || || [http://www.w3.org/TR/xforms11/#ui-input input] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#ui-secret secret] || || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#ui-textarea textarea] || || || || || || || || || || || || || ||
