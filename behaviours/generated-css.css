@@ -157,6 +157,9 @@ xf\:setvalue, xforms\:setvalue {
 xf\:send, xforms\:send {
   -moz-binding: url("decorator.xml#decorator");
 }
+xf\:dispatch, xforms\:dispatch {
+  -moz-binding: url("decorator.xml#decorator");
+}
 xf\:toggle, xforms\:toggle {
   -moz-binding: url("decorator.xml#decorator");
 }
