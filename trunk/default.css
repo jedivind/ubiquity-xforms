@@ -25,9 +25,18 @@ body {
   font-size: 14px;
 }
 
+/*
+ * These rules concern the default appearance of a hint. For the rules that
+ * govern its behaviour, see lib/xforms/style/hint.css.
+ */
+
 xforms\:hint,
 xf\:hint {
-  display: none;
+  padding: 5px;
+  background-color: #323232;
+  color: #fff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 xforms\:output,

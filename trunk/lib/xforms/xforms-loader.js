@@ -155,6 +155,10 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css" });
     loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/button.css" });
 
+    loader.addModule({ name: "xforms-notify",       type: "js",  fullpath: moduleBase + "../_backplane/notify.js" });
+    loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + "style/hint.css" });
+    loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "hint.js",
+      requires: [ "xforms-hint-css", "xforms-notify" ] });
 
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
       requires: [
@@ -169,6 +173,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-select","xforms-item",
         "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
         "xforms-submit",
+        "xforms-hint",
         "yui-input-calendar","yui-input-color"
       ]
     });

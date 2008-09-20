@@ -151,7 +151,8 @@ xf\:action, xforms\:action {
 xf\:message, xforms\:message {
   -moz-binding: url("decorator.xml#decorator");
 }
-xf\:setvalue, xforms\:setvalue {
+xf\:setvalue, xforms\:setvalue,
+xf\:hint, xforms\:hint {
   -moz-binding: url("decorator.xml#decorator");
 }
 xf\:send, xforms\:send {
