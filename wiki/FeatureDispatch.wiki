@@ -15,6 +15,8 @@ FormsProcessor.dispatchEvent(oTarget, oEvt);
 @name is the name of the event being dispatched.
 @delay is the time to wait before the event can be dispatched.
 
+These attributes could be elements.  Should they be xf: elements or not?
+
 If target or name are not defined (by attribute or element), nothing is dispatched.
 
 For now, the @delay support is coded like this:
