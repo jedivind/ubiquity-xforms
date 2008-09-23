@@ -30,10 +30,8 @@ if (document.xmlVersion || (document.contentType && document.contentType === "ap
     g_sBehaviourDirectory = moduleBase + "../../behaviours/";
     
   	window.status = "configuring module loader";
-  	var defaultCSS = "../../default.css";
-  	if (g_bIsInXHTMLMode) {
-  	   defaultCSS = "../../default-xml.css"
-  	}
+  	var defaultCSS = (UX.isXHTML) ? "../../default-xml.css" : "../../default.css";
+  	
   	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + defaultCSS});
   
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
@@ -42,7 +40,7 @@ if (document.xmlVersion || (document.contentType && document.contentType === "ap
   	loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: moduleBase + "../threads.js" });
   	loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: moduleBase + "../dom/dom2events.js",
   		requires: [ "yahoo" ] });
-  	loader.addModule({ name: "xforms-utils", type: "js",  fullpath: moduleBase + "../firefoxUtils.js" });
+  	loader.addModule({ name: "xforms-utils", type: "js",  fullpath: moduleBase + "../UXUtils.js" });
   	
   	loader.addModule({ name: "xforms-vertex-target",       type: "js",  fullpath: moduleBase + "VertexTargets.js",
   		requires: [ "yahoo" ] });

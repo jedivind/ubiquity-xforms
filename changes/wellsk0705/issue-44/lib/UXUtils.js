@@ -135,11 +135,11 @@ if(typeof Element!="undefined" && !Element.prototype.insertAdjacentElement)
 	function addClassName(oElement, classString){
 	   //HACK: is there a better place to initialize the className from the class attribute?
 	   //Synchronize with any class attribute predefines
-	    if (g_bIsInXHTMLMode && oElement.className === "") {
+	    if (UX.isXHTML && oElement.className === "") {
 	      oElement.className = oElement.getAttribute("class");
 	    }	   
 		YAHOO.util.Dom.addClass(oElement, classString);
-		if (g_bIsInXHTMLMode && oElement.setAttribute) {		   
+		if (UX.isXHTML && oElement.setAttribute) {		   
 		   oElement.setAttribute("class", oElement.className);
 		}	    
 	}
@@ -153,10 +153,14 @@ if(typeof Element!="undefined" && !Element.prototype.insertAdjacentElement)
 */
     function removeClassName(oElement, classString) {
         YAHOO.util.Dom.removeClass(oElement, classString);
-        if (g_bIsInXHTMLMode && oElement.setAttribute) {
+        if (UX.isXHTML && oElement.setAttribute) {
 		   oElement.setAttribute("class", oElement.className);
 		}
 	}
+
+//Add the functions to the UX prototype, if absent
+	UX.addClassName = addClassName;
+	UX.removeClassName = removeClassName;
 	
 /**
 	Utility to add a className property for Firefox (XML), this alone doesn't affect how classNames are interpreted.  
@@ -178,7 +182,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
 	      // At this point, you are not IE or Firefox with HTML parsing
 	      // There is not a .style property for the XML Parser on Firefox
 	      // Instead, the style will have to be added using the CSS DOM model
-	      if (g_bIsInXHTMLMode) {
+	      if (UX.isXHTML) {
 	         // get the computed style and see if it is already set to the value
 	         if (document.defaultView.getComputedStyle(oElement, null)[styleName] !== value) {
   	  	  	    stylesheet = oElement.ownerDocument.styleSheets[0];
@@ -188,4 +192,6 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
  	         }
  	      }
 	   }
-    }	
+    }
+    
+	UX.addStyle = addStyle;

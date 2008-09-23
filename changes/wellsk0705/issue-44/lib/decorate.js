@@ -269,7 +269,7 @@ var DECORATOR = function()
     		
     		oStyle.setAttribute("type", "text/css");
     		
-    		if (g_bIsInXHTMLMode)
+    		if (UX.isXHTML)
     		{
     		   // look for prefixes from the document and figure out what to use
     		   var htmlPrefix = "h";
@@ -293,7 +293,7 @@ var DECORATOR = function()
     		
     		for (var i = 0; defs.length > i; ++i)
     		{
-    			if (g_bIsInXHTMLMode) {
+    			if (UX.isXHTML) {
     			    defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
     			}
     		
@@ -318,7 +318,7 @@ var DECORATOR = function()
         var xformsPrefix = "xf";
         var xformsNamespaceURI = "http://www.w3.org/2002/xforms";
 
-        if (g_bIsInXHTMLMode) {
+        if (UX.isXHTML) {
            var anHTMLPrefix = NamespaceManager.getOutputPrefixesFromURI(htmlNamespaceURI);
            if ((anHTMLPrefix !== undefined) && (anHTMLPrefix !== null)) {
     	         htmlPrefix =  anHTMLPrefix[0];
@@ -338,7 +338,7 @@ var DECORATOR = function()
 
 		for(var i = 0;defs.length > i;++i)
 		{
-			if(g_bIsInXHTMLMode) {
+			if(UX.isXHTML) {
 				defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
 			}
 			var sRule = defs[i].selector + "{"+generateMozBindingStyle(defs[i].objects)+ (defs[i].cssText || "") +"}";
@@ -423,7 +423,7 @@ var DECORATOR = function()
 	if(document.all) {
 		innerSetupDecorator = ieSetupDecorator;
 	}
-	else if(g_bIsInXHTMLMode) {
+	else if(UX.isXHTML) {
 		innerSetupDecorator = ffXHTMLSetupDecorator;
 	}
 	else {
@@ -444,9 +444,7 @@ var DECORATOR = function()
 		}
 
 
-	function attachDecoration(element,handleContentReady, handleDocumentReady)
-	{
-
+	function attachDecoration(element,handleContentReady, handleDocumentReady) {
 		//window.status = "decorating: " + element.nodeName; 
 		var bReturn = false;
 		var tIndex = element.getAttribute("tabindex");

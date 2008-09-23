@@ -43,7 +43,6 @@ xf|input {
 
 xforms|input xforms|label,
 xf|input xf|label {
- /* display: inline-block;*/
   width: 200px; 
   color: black;
   white-space: -moz-pre-wrap;
@@ -85,7 +84,7 @@ xf|trigger:hover {
 xforms|submit  xforms|label,
 xf|submit xf|label,
 xforms|trigger xforms|label,
-xf:\trigger xf:\label
+xf|trigger xf|label
  {  	
   background-color: #D3D3D3;
   padding: 3px;
@@ -108,20 +107,18 @@ xf|alert pe-value {
   background-color: transparent;
 }
 
-/*
+
 xforms|alert xforms|input pe-value,
 xf|alert xf|input pe-value {
   border: 2px inset #f0f0f0;
   background-color: white; 
 }
 
-
 xforms|alert xforms|label pe-value,
 xf|alert xf|label pe-value {
   border: none;
   background-color: transparent;
 }
-*/
 
 *[class~="slider-bg"] {
     position: relative; 
@@ -171,4 +168,3 @@ xf|select1 xf|label pe-value, xforms|select1 xforms|label pe-value {
   width:360px;
   height:200px;
 }
-

@@ -20,7 +20,7 @@ function Instance(elmnt)
 	this.m_oDOM = null;
 	this.elementState = 1;
 	
-	addStyle(this.element, "display", "none");	
+	UX.addStyle(this.element, "display", "none");	
 }
 
 Instance.prototype.xlinkEmbed = function(s)
@@ -87,7 +87,7 @@ Instance.prototype.initialisedom = function()
 
 Instance.prototype.parseInstance = function() {
 	var sXML = "";
-	if(g_bIsInXHTMLMode) {
+	if(UX.isXHTML) {
 		var o =  new XMLSerializer();
 		var n = this.element.firstChild;
 		while(n) {

@@ -28,20 +28,20 @@ function setState(pThis,oProxy, sMIPName, sOn, sOff){
 	//To Reiterate - If we want more performant software, then we must optimise out pointless calls such as this.
 	if(pThis.m_MIPSCurrentlyShowing[sMIPName] === undefined || (oProxy.getMIPState !== undefined && pThis.m_MIPSCurrentlyShowing[sMIPName] != oProxy.getMIPState(sMIPName)))
 	{
-		removeClassName(pThis.element, sOn);
-		removeClassName(pThis.element,sOff);
+		UX.removeClassName(pThis.element, sOn);
+		UX.removeClassName(pThis.element,sOff);
 
 		if (typeof oProxy.getMIPState  == "function")
 		{
 			if (oProxy.getMIPState(sMIPName))
 			{
 				pThis.m_MIPSCurrentlyShowing[sMIPName] = true;
-				addClassName(pThis.element, sOn);
+				UX.addClassName(pThis.element, sOn);
 			}
 			else
 			{
 				pThis.m_MIPSCurrentlyShowing[sMIPName] = false;
-				addClassName(pThis.element, sOff);
+				UX.addClassName(pThis.element, sOff);
 			}
 		}
 	}
@@ -54,5 +54,5 @@ function setInitialState(pThis) {
 	pThis.m_MIPSCurrentlyShowing.required = false;
 	pThis.m_MIPSCurrentlyShowing.valid = true;
 	pThis.m_MIPSCurrentlyShowing.enabled = true;
-    addClassName(pThis.element, " read-write enabled valid optional");
+    UX.addClassName(pThis.element, " read-write enabled valid optional");
 }

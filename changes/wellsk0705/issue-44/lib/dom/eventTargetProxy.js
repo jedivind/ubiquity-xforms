@@ -58,21 +58,21 @@ var EventTarget = null;
 		}
 
 function StyleHoverishly(elmnt) {
-    addClassName(elmnt, " pc-hover");
+    UX.addClassName(elmnt, " pc-hover");
 }
 
 function StyleUnhoverishly(elmnt) {
-   removeClassName(elmnt, "pc-hover");
+   UX.removeClassName(elmnt, "pc-hover");
 }
 
 function StyleFocussedly(elmnt)
 {
-  addClassName(elmnt, " pc-focus");
+  UX.addClassName(elmnt, " pc-focus");
 }
 
 function StyleUnfocussedly(elmnt)
 {
-  removeClassName(elmnt, "pc-focus");
+  UX.removeClassName(elmnt, "pc-focus");
 }
 
 //There is no need for this in firefox.

@@ -164,7 +164,7 @@ var oSuiteGetElementsByTagName = new YAHOO.tool.TestSuite({
 	{
 		this.testElement = document.createElement("div");
 		
-		if (g_bIsInXHTMLMode) {
+		if (UX.isXHTML) {
 		   	var aMan = document.createElementNS("http://www.example.org/ns0" , "a:man");
 			var aPlan = document.createElementNS("http://www.example.org/ns0" , "a:plan");
 			var aCanal = document.createElementNS("http://www.example.org/ns0" , "a:canal");
@@ -317,7 +317,7 @@ var oTestCompareFullName = new YAHOO.tool.TestCase({
     NamespaceManager.getLowerCaseLocalName();
   },
   testNullParam : function() {
-   NamespaceManager.getLowerCaseLocalName(null);
+    NamespaceManager.getLowerCaseLocalName(null);
   },
   testNotANodeParam : function() {
     NamespaceManager.getLowerCaseLocalName("Hello Sailor");

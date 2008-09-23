@@ -271,7 +271,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 		{
 			if (sType != this.m_type)
 			{
-				removeClassName(this.element, this.m_type);
+				UX.removeClassName(this.element, this.m_type);
 	
 				/*
 				 * [ISSUE] Need to mung the name.
@@ -279,7 +279,7 @@ Control.prototype.RetrieveValuePseudoElement = function()
 	
 				this.m_type = sType;
 
-				addClassName(this.element, this.m_type);
+				UX.addClassName(this.element, this.m_type);
 			}
 			return;
 		};

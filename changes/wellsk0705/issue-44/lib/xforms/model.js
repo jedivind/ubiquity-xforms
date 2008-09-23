@@ -319,7 +319,7 @@
 				 * [TODO] Should be getElementById().
 				 */
 
-				var oInstance = pThis.element.getElementById(sId);
+				var oInstance = pThis.element.getElementById(sID);
 				bRet = __replaceInstanceDocument(pThis,oInstance,oDom);
 			}
 			return bRet;

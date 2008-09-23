@@ -330,10 +330,10 @@ var NamespaceManager  = function(){
 	else {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromDocumentElementAtrributeList;
 	}
-	if(document.namespaces) {
-		itself.getElementsByTagNameNS = getElementsByTagNameNS_Aware;
-	} else if (g_bIsInXHTMLMode) {
+	if (UX.isXHTML){
 	    itself.getElementsByTagNameNS = getElementsByTagNameNS;
+	} else if(document.namespaces) {
+		itself.getElementsByTagNameNS = getElementsByTagNameNS_Aware;
 	} else {
 		itself.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
 	}

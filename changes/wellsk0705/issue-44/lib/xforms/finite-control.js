@@ -38,7 +38,7 @@
        if(m_bInRange) {
           m_bInRange = false;
           if(element) {
-            addClassName(element, "xforms-out-of-range");
+            UX.addClassName(element, "xforms-out-of-range");
             if(element.dispatchEvent) {
               var oEvt = document.createEvent("Events");
               oEvt.initEvent("xforms-out-of-range", false, true);
@@ -55,7 +55,7 @@
        if(!m_bInRange) {
         m_bInRange = true;
           if(element) {
-            removeClassName(element, "xforms-out-of-range");
+            UX.removeClassName(element, "xforms-out-of-range");
             if(element.dispatchEvent) {
               var oEvt = document.createEvent("Events");
               oEvt.initEvent("xforms-in-range", false, true);
