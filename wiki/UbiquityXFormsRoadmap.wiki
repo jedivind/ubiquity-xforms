@@ -64,12 +64,6 @@ Owner: [http://code.google.com/u/wellsk0705/ wellsk0705]
 
 Provide support for *.xhtml (application/xhtml+xml) content. 
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/issue-59 issue-59] ==
-
-Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
-
-Remove duplicate creation of DOMActivate
-
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-tests-and-examples xforms-tests-and-examples] ==
 
 Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
@@ -112,7 +106,6 @@ Completing support for message.
 ||implement-message||r479||-||-||-||
 ||implement-select||r693|| - || r702 || - ||
 ||issue-44||r1014|| r1014 || - || - ||
-||issue-59||r883|| r883 || - || - ||
 ||loan-form||r925||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
