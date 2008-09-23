@@ -19,6 +19,9 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
  */
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
 
 body {
   font-family: "Lucida Grande",verdana,arial,helvetica,sans-serif;
@@ -145,8 +148,8 @@ xf\:select1 pe-value {
   background-color: white;
 }
 
- xf\item pe-value,
- xforms\item pe-value {
+ xf\:item pe-value,
+ xforms\:item pe-value {
   border: none;
   background-color:transparent;
 }

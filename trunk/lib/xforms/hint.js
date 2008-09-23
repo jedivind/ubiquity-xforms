@@ -46,7 +46,7 @@ function Hint( el ) {
   // indicate that it's a hint container, so that the CSS styles
   // in hint.css can kick in.
   //
-  YAHOO.util.Dom.addClass(context, "xf-hint-container");
+  UX.addClassName(context, "xf-hint-container");
 
   // Save a pointer to the element.
   //

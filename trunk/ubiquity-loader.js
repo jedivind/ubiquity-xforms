@@ -4,24 +4,17 @@ function pathToModule(module) {
   if (!module) {
     throw("Missing or null parameter supplied.");
   }
-  var childNodes = document.childNodes; 
-  var l = childNodes.length;
   var i;
-  var head;
-  for (i = 0; i < l; ++i) {
-    if(childNodes[i].nodeName.toLowerCase() === "html") {
-      head = childNodes[i].firstChild;
-    }
-  }
+  var head = document.getElementsByTagName("head")[0];
   
-  childNodes = head.childNodes;
-  l = childNodes.length;
+  var childNodes = head.childNodes;
+  var l = childNodes.length;
   var s = null;
   var el, src, pos;
 
   for (i = 0; i < l; ++i) {
     el = childNodes[i];
-    if (el.nodeType === 1 && el.nodeName === "SCRIPT") {
+    if (el.nodeType === 1 && (el.nodeName.slice(el.nodeName.indexOf(":")+1,el.nodeName.length).toLowerCase() === "script")) { 
       src = el.src;
       if (src) {
         pos = src.lastIndexOf(module + ".js");
@@ -44,8 +37,7 @@ function pathToModule(module) {
 var baseDefaultPath = pathToModule("ubiquity-loader");
 
 (
-  function()
-  {
+  function() {
     var arrScripts = [
       "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js",
       baseDefaultPath + "lib/sniffer.js",
@@ -60,9 +52,14 @@ var baseDefaultPath = pathToModule("ubiquity-loader");
     var arrScriptElements = [ ];
     var i, l = arrScripts.length;
 
-    for (i = 0 ; i < l ; ++i) {
-      arrScriptElements.push('<script src="' + arrScripts[i] +'" type="text/javascript">/**/</script>');
+    var head = document.getElementsByTagName("head")[0];
+    var scriptElement;    
+    for (i = 0 ; i < l ; i++) {
+       scriptElement = document.createElement('script');
+       head.appendChild(scriptElement);
+       scriptElement.setAttribute("type","text/javascript");
+       scriptElement.setAttribute("src", arrScripts[i]);    
     }
-    document.write(arrScriptElements.join("\n"));
+            
   }()
 );
