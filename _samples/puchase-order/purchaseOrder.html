@@ -104,7 +104,7 @@
        <xforms:label>Superior School Supplies</xforms:label>
     </xforms:output>
       
-    <hr size="6" class="rule"/>
+    <hr size="6" class="rule"></hr>
       
     <xforms:trigger>
         <xforms:label>Add to Order</xforms:label>
@@ -113,10 +113,10 @@
            <!-- Insert a new item after the currently indexed item
                 (the last focused item before this trigger was activated) -->
            <xforms:insert context="order" nodeset="item" at="index('orderTable')" 
-                          position="after" origin="instance('prototype')/order/item"/>
+                          position="after" origin="instance('prototype')/order/item"></xforms:insert>
         
            <!-- Send the focus to the new item in the order table -->
-           <xforms:setfocus control="orderTable"/>
+           <xforms:setfocus control="orderTable"></xforms:setfocus>
         
         </xforms:action> 
     </xforms:trigger>
@@ -126,14 +126,14 @@
         <xforms:action ev:event="DOMActivate">
 
            <!-- Delete the currently indexed item -->
-           <xforms:delete nodeset="order/item" at="index('orderTable')"/>
+           <xforms:delete nodeset="order/item" at="index('orderTable')"></xforms:delete>
 
            <!-- Insert a blank item if the last one was just deleted -->
            <xforms:insert context="order" origin="instance('prototype')/order/item" 
-           	              if="count(item)=0"/>
+           	              if="count(item)=0"></xforms:insert>
            
            <!-- Put the focus to the indexed item of the order table -->
-           <xforms:setfocus control="orderTable"/>
+           <xforms:setfocus control="orderTable"></xforms:setfocus>
            
         </xforms:action>
     </xforms:trigger>
@@ -207,7 +207,7 @@
          <xforms:alert>The maximum purchase order is 200 dollars.</xforms:alert>
     </xforms:output>
 
-    <hr size="6" class="rule"/>
+    <hr size="6" class="rule"></hr>
     
    </body>
 </html>
