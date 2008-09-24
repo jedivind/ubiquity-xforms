@@ -163,7 +163,42 @@ var oSuiteGetElementsByTagName = new YAHOO.tool.TestSuite({
 	setUp		: 	function()
 	{
 		this.testElement = document.createElement("div");
-		this.testElement.innerHTML = '<a:man><a:plan><a:canal id="aCanal"></a:canal></a:plan></a:man><a0:man><a0:plan><a0:canal id="a0Canal"></a0:canal></a0:plan></a0:man><b:man><b:plan><b:canal id="bCanal"></b:canal></b:plan></b:man><man><plan><canal id="noNamespaceCanal"></canal></plan></man>'
+		
+		if (UX.isXHTML) {
+		   	var aMan = document.createElementNS("http://www.example.org/ns0" , "a:man");
+			var aPlan = document.createElementNS("http://www.example.org/ns0" , "a:plan");
+			var aCanal = document.createElementNS("http://www.example.org/ns0" , "a:canal");
+			aCanal.setAttribute("id", "aCanal");
+			aPlan.appendChild(aCanal);
+			aMan.appendChild(aPlan);
+			this.testElement.appendChild(aMan);
+			
+			aMan = document.createElementNS("http://www.example.org/ns0" , "a0:man");
+			aPlan = document.createElementNS("http://www.example.org/ns0" , "a0:plan");
+			aCanal = document.createElementNS("http://www.example.org/ns0" , "a0:canal");
+			aCanal.setAttribute("id", "a0Canal");
+			aPlan.appendChild(aCanal);
+			aMan.appendChild(aPlan);
+			this.testElement.appendChild(aMan);
+			
+			aMan = document.createElementNS("http://www.example.org/ns1" , "b:man");
+			aPlan = document.createElementNS("http://www.example.org/ns1" , "b:plan");
+			aCanal = document.createElementNS("http://www.example.org/ns1" , "b:canal");
+			aCanal.setAttribute("id", "bCanal");
+			aPlan.appendChild(aCanal);
+			aMan.appendChild(aPlan);
+			this.testElement.appendChild(aMan);
+			
+			aMan = document.createElementNS("","man");
+			aPlan = document.createElementNS("","plan");
+			aCanal = document.createElementNS("","canal");
+			aCanal.setAttribute("id", "noNamespaceCanal");
+			aPlan.appendChild(aCanal);
+			aMan.appendChild(aPlan);
+			this.testElement.appendChild(aMan);
+	    } else {
+	        this.testElement.innerHTML = '<a:man><a:plan><a:canal id="aCanal"></a:canal></a:plan></a:man><a0:man><a0:plan><a0:canal id="a0Canal"></a0:canal></a0:plan></a0:man><b:man><b:plan><b:canal id="bCanal"></b:canal></b:plan></b:man><man><plan><canal id="noNamespaceCanal"></canal></plan></man>';	
+		}
 		document.body.appendChild(this.testElement);
 		NamespaceManager.clean();
 		NamespaceManager.readOutputNamespacesFromDocument();
@@ -195,14 +230,14 @@ var oTestGetElementsByTagName = new YAHOO.tool.TestCase({
 	function() {
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "", "canal");
 		Assert.areEqual(elements.length, 1);
-		Assert.areEqual(elements[0].id, "noNamespaceCanal");
+		Assert.areEqual(elements[0].getAttribute("id"), "noNamespaceCanal");
 	},
 	testGetElementsWithOnePrefix:
 	function() {
 
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns1", "canal");
 		Assert.areEqual(elements.length, 1);
-		Assert.areEqual(elements[0].id, "bCanal");
+		Assert.areEqual(elements[0].getAttribute("id"), "bCanal");
 
 	},
 	testGetElementsWithDifferentPrefixes:
@@ -214,8 +249,8 @@ var oTestGetElementsByTagName = new YAHOO.tool.TestCase({
 	function() {
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns0", "canal");
 		Assert.areEqual(elements.length, 2);
-		Assert.areEqual(elements[0].id, "aCanal");
-		Assert.areEqual(elements[1].id, "a0Canal");
+		Assert.areEqual(elements[0].getAttribute("id"), "aCanal");
+		Assert.areEqual(elements[1].getAttribute("id"), "a0Canal");
 	}	
 	
 });

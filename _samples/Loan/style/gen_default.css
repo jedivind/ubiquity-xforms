@@ -5,49 +5,22 @@
 .company_motto {display: block; width: 100%; font-family: times; font-size: 20pt; color: red; font-weight: italic;}
 .rule {display: block; background-color: blue; }
 
-xforms\:hint {
-  display: none;
-}
 
-xforms|input{display: block; width: 95%; margin-top: 4px; margin-bottom: 4px; background-color: rgb(220,220,220);}
-xforms|input .xf-value, .input-value {width: 48%; background-color: white; border: 1px inset black;}
-xforms|input > xforms|label {width: 280px;  float: left; }
-
-xforms\:input {display: block; width: 95%; /* margin-top: 4px; margin-bottom: 4px; */ background-color: rgb(220,220,220);}
+xforms\:input {display: block; width: 95%; background-color: rgb(220,220,220);}
 xforms\:input  pe-value {width: 48%; background-color: white; border: 1px inset black;}
 xforms\:input  xforms\:label {width: 280px; float: left; }
 
-xforms\:select1 {display: block; width: 95%; margin-top: 4px; margin-bottom: 4px; background-color: rgb(220,220,220);}
-xforms\:select1 >  pe-value {min-width: 45%;}
-xforms\:select1 > xforms\:label {width: 280px; float:left; }
-xforms\:select1[appearance='full'] > pe-value {display: block; margin-right: 250px; float: left;  } 
-
-xforms|select1{display: block; width: 95%; margin-top: 4px; margin-bottom: 4px; background-color: rgb(220,220,220);}
-xforms|select1::value {width: 250px; background-color: white;}
-xforms|select1  .xf-value, .select1-value {min-width: 45%;}
-xforms|select1 > xforms|label {width: 280px; float:left; }
-xforms|select1[appearance='full'] > .xf-value {display: block; margin-right: 250px; float: left;  } 
+xforms\:select1 {display: block; width: 95%;  background-color: rgb(220,220,220);}
+xforms\:select1  pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms\:select1  xforms\:label  pe-value {width: 205px;  float:left;  }
+xforms\:select1  xforms\:item xforms\:label pe-value  { float:none;  }
 
 xforms\:output.regular {display: block;  width: 95%; background-color: rgb(220,220,220);}
-xforms\:output.regular  xforms\:label { width: 280px; float:left; margin-left: 0px;}
-xforms\:output.regular   xforms\:label  pe-value {display: block;}
-xforms\:output.regular   pe-value {width: 48%;}
-
-xforms|output.regular {display: block; background-color: rgb(220,220,220);}
-xforms|output.regular > xforms|label{ width: 280px; float:left; margin-left: 0px;}
-xforms|output.regular xforms|label .xf-value{display: block;}
-xforms|output.regular .xf-value {width: 48%;}
+xforms\:output.regular  xforms\:label pe-value { width: 205px; float:left;}
 
 xforms\:input.red  pe-value {color: red;}
 xforms\:input.block {display: block;}
 
-xforms|input.red .xf-value {color: red;}
-xforms|input.block {display: block;}
-
-xforms\:*:disabled, xforms\:*:disabled { display: none; }
-xforms\:*:invalid, .invalid { border-style: solid; border-width: 2px; border-color: red; }
-xforms\:*:required::after {content: "*"; color: red;}
-
-xforms|*:disabled { display: none; }
-xforms|*:invalid, .invalid { border-style: solid; border-width: 2px; border-color: red; }
-xforms|*:required::after {content: "*"; color: red;}            
+xforms\:*.disabled { display: none; }
+xforms\:*.invalid { border-style: solid; border-width: 2px; border-color: red; }
+xforms\:*.required::after {content: "*"; color: red;}            
