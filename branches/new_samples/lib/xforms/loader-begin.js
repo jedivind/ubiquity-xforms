@@ -20,6 +20,7 @@ loader.onSuccess = function(o) {
       if (document.all) {
         window.status = "ready";
       }
+      DECORATOR.applyDecorationRules();
     }
   );
   window.status = "Successfully loaded Ubiquity XForms";

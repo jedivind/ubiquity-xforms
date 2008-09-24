@@ -17,16 +17,6 @@
 
 // Needs to be kept in sync with content in xforms-defs.js
 
-UX.userAgent = navigator.userAgent;
-
-UX.isFF2 = UX.userAgent.toUpperCase().indexOf("FIREFOX/2.") != -1;
-UX.isFF3 = UX.userAgent.toUpperCase().indexOf("FIREFOX/3.") != -1;
-UX.isFF = UX.isFF2 || UX.isFF3;
-
-UX.isIE6 = UX.userAgent.toUpperCase().indexOf("MSIE 6.") != -1;
-UX.isIE7 = UX.userAgent.toUpperCase().indexOf("MSIE 7.") != -1;
-UX.isIE = UX.isIE6 || UX.isIE7;
-
 // As the name indicates, this is a IE6-specific function
 UX.applySelectorsIE6 = function(doc) {
 

@@ -24,8 +24,10 @@ var g_sBehaviourDirectory  = "";
     var moduleBase = pathToModule("xforms-loader");
     g_sBehaviourDirectory = moduleBase + "../../behaviours/";
     
-  	window.status = "configuring module loader";
-  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../default.css" });
+  	window.status = "configuring module loader";  	
+  	var defaultCSS = (UX.isXHTML) ? "../../default-xml.css" : "../../default.css";
+  	
+  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + defaultCSS});
   
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
   		requires: [ "connection" ] });
@@ -33,7 +35,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: moduleBase + "../threads.js" });
   	loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: moduleBase + "../dom/dom2events.js",
   		requires: [ "yahoo" ] });
-  	loader.addModule({ name: "xforms-insert-adjacent-html", type: "js",  fullpath: moduleBase + "../insertAdjacentHTML.js" });
+  	loader.addModule({ name: "xforms-utils", type: "js",  fullpath: moduleBase + "../UXUtils.js" });
   	
   	loader.addModule({ name: "xforms-vertex-target",       type: "js",  fullpath: moduleBase + "VertexTargets.js",
   		requires: [ "yahoo" ] });
@@ -99,7 +101,7 @@ var g_sBehaviourDirectory  = "";
   	
   	
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
-  		requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-insert-adjacent-html" ] });
+  		requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
   	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: moduleBase + "context.js",
   	    requires:[ "libxh-namespace-manager"]});
   	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: moduleBase + "../dom/eventTargetProxy.js",
@@ -155,6 +157,10 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css" });
     loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/button.css" });
 
+    loader.addModule({ name: "xforms-notify",       type: "js",  fullpath: moduleBase + "../_backplane/notify.js" });
+    loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + "style/hint.css" });
+    loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "hint.js",
+      requires: [ "xforms-hint-css", "xforms-notify" ] });
 
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
       requires: [
@@ -169,6 +175,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-select","xforms-item",
         "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
         "xforms-submit",
+        "xforms-hint",
         "yui-input-calendar","yui-input-color"
       ]
     });
@@ -178,7 +185,7 @@ var g_sBehaviourDirectory  = "";
       name: "second-onload",
       type: "js",  
       fullpath: moduleBase + "../second-onload.js", 
-      requires:[ "xforms-insert-adjacent-html" ]
+      requires:[ "xforms-utils" ]
     });
 
     loader.require( "second-onload" );

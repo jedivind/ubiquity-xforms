@@ -17,7 +17,7 @@
 function Value(elmnt)
 {
 	this.element = elmnt;
-	this.element.style.display = "none";
+	UX.addStyle(this.element, "display", "none");	
 }
 
 Value.prototype.onContentReady = function(){
@@ -143,7 +143,7 @@ Item.prototype.onContentReady = function()
 	{
 		//appear as though deselected.
 		this.m_bSelected = false;
-		YAHOO.util.Dom.addClass(this.element, "pc-deselected");
+		UX.addClassName(this.element, "pc-deselected");
 	}
 };
 
@@ -252,8 +252,8 @@ Item.prototype.onDataSelect = function()
 	if(!this.m_bSelected || !this.m_bReady)
 	{
 		this.m_bSelected = true;
-		YAHOO.util.Dom.removeClass(this.element,"pc-deselected");
-		YAHOO.util.Dom.addClass(this.element, "pc-selected");
+		UX.removeClassName(this.element, "pc-deselected");
+		UX.addClassName(this.element, "pc-selected");
 		var oEvt = this.element.ownerDocument.createEvent("Events");
 		oEvt.initEvent("xforms-select", true, true);
 		FormsProcessor.dispatchEvent(this.element,oEvt);
@@ -266,8 +266,8 @@ Item.prototype.onDataDeselect = function()
 	if(this.m_bSelected || !this.m_bReady)
 	{
 		this.m_bSelected = false;
-		YAHOO.util.Dom.removeClass(this.element,"pc-selected");
-		YAHOO.util.Dom.addClass(this.element, "pc-deselected");
+		UX.removeClassName(this.element, "pc-selected");
+		UX.addClassName(this.element, "pc-deselected");
 		var oEvt = this.element.ownerDocument.createEvent("Events");
 		oEvt.initEvent("xforms-deselect", true, true);
 		FormsProcessor.dispatchEvent(this.element,oEvt);

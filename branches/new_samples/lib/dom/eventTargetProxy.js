@@ -16,7 +16,44 @@
 
 var EventTarget = null;
 
-	
+		function dispatchXformsHint(elmnt, e) {
+			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+
+			oEvt.initUIEvent("xforms-hint", true, true, null, 1);
+			//There is no need to run this event in line, and doing so may cause a stack overflow,
+			//	if it invokes other actions. 
+			//oEvt._actionDepth = -1;
+			FormsProcessor.dispatchEvent(elmnt,oEvt);
+			//spawn(function(){elmnt.dispatchEvent(oEvt)});
+			if (document.all) {
+				elmnt.document.parentWindow.event.cancelBubble = true;
+				elmnt.document.parentWindow.event.returnValue = false;
+			}
+			else
+			{
+				e.stopPropagation();
+			}
+		}
+
+		function dispatchXformsHintOff(elmnt, e) {
+			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+
+			oEvt.initUIEvent("xforms-hint-off", true, true, null, 1);
+			//There is no need to run this event in line, and doing so may cause a stack overflow,
+			//	if it invokes other actions. 
+			//oEvt._actionDepth = -1;
+			FormsProcessor.dispatchEvent(elmnt,oEvt);
+			//spawn(function(){elmnt.dispatchEvent(oEvt)});
+			if (document.all) {
+				elmnt.document.parentWindow.event.cancelBubble = true;
+				elmnt.document.parentWindow.event.returnValue = false;
+			}
+			else
+			{
+				e.stopPropagation();
+			}
+		}
+
 		function mapclick2domactivate(elmnt,e)
 		{
 
@@ -58,33 +95,21 @@ var EventTarget = null;
 		}
 
 function StyleHoverishly(elmnt) {
-	if(elmnt.className.indexOf("pc-hover") == -1) {
-		elmnt.className += " pc-hover";
-	}
+    UX.addClassName(elmnt, " pc-hover");
 }
 
 function StyleUnhoverishly(elmnt) {
-	var s = elmnt.className;
-	var i = s.indexOf("pc-hover");
-	if(i != -1) {
-		elmnt.className = s.substr(0,i-1) + s.substr(i+8);
-	}
+   UX.removeClassName(elmnt, "pc-hover");
 }
 
 function StyleFocussedly(elmnt)
 {
-	if(elmnt.className.indexOf("pc-focus") == -1) {
-		elmnt.className += " pc-focus";
-	}
+  UX.addClassName(elmnt, " pc-focus");
 }
 
 function StyleUnfocussedly(elmnt)
 {
-	var s = elmnt.className;
-	var i = s.indexOf("pc-focus");
-	if(i != -1) {
-		elmnt.className = s.substr(0,i-1) + s.substr(i+8);
-	}
+  UX.removeClassName(elmnt, "pc-focus");
 }
 
 //There is no need for this in firefox.
@@ -535,11 +560,25 @@ if(document.all)
   {
   	this.arrListener = new Object();
   	this.element = elmnt;
-  	this.element.onclick = function(evt){mapclick2domactivate(elmnt);};
-  	this.element.ondblclick = function(evt){mapdblclick2domactivate(elmnt);};
-  	this.element.onmouseover = function(evt){StyleHoverishly(elmnt);};
-  	this.element.onmouseout = function(evt){StyleUnhoverishly(elmnt);};
-  	this.element.onfocusin = function(evt){StyleFocussedly(elmnt);};
+
+  	this.element.onclick = function( evt ) {
+  	  mapclick2domactivate(elmnt);
+  	  dispatchXformsHintOff(elmnt, evt);
+  	};
+
+    this.element.ondblclick = function(evt){mapdblclick2domactivate(elmnt);};
+
+    this.element.onmouseover = function( evt ) {
+  	  StyleHoverishly(elmnt);
+      dispatchXformsHint(elmnt, evt);
+    };
+
+  	this.element.onmouseout = function( evt ) {
+  	  StyleUnhoverishly(elmnt);
+  	  dispatchXformsHintOff(elmnt, evt);
+  	};
+
+    this.element.onfocusin = function(evt){StyleFocussedly(elmnt);};
   	this.element.onfocusout = function(evt){StyleUnfocussedly(elmnt);};
   }
   
@@ -578,8 +617,14 @@ else
 		this.element.addEventListener("dblclick", function(evt){mapdblclick2domactivate(elmnt,evt);},false);
 		this.element.addEventListener("mouseover",function(evt){StyleHoverishly(elmnt);},false);
 		this.element.addEventListener("mouseout",function(evt){StyleUnhoverishly(elmnt);},false);
+
+    // Hint is turned on with a mouseover, and off with a mouseout or a click.
+    //
+		this.element.addEventListener("mouseover", function( evt ){ dispatchXformsHint(elmnt, evt); },false);
+		this.element.addEventListener("mouseout",  function( evt ){ dispatchXformsHintOff(elmnt, evt); },false);
+		this.element.addEventListener("click",     function( evt ){ dispatchXformsHintOff(elmnt, evt); },false);
+
 		this.element.addEventListener("focus",function(evt){StyleFocussedly(elmnt);},false);
 		this.element.addEventListener("blur",function(evt){StyleUnfocussedly(elmnt);},false);
 	};
 }
-

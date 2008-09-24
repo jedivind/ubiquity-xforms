@@ -18,12 +18,8 @@ var oSuitePathToModule = new YAHOO.tool.TestSuite({
     var childNodes = document.childNodes; 
     var l = childNodes.length;
     var i;
-    var head;
-    for (i = 0; i < l; ++i) {
-      if(childNodes[i].nodeName.toLowerCase() === "html") {
-        head = childNodes[i].firstChild;
-      }
-    }
+    var head = document.getElementsByTagName("head")[0];
+    
     this.addedElements = [];
     l = arrScripts.length;
     for (i = 0 ; i < l ; ++i) {
