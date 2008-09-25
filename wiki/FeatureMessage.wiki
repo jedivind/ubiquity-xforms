@@ -9,17 +9,21 @@ Implementation details for the XForms [http://www.w3.org/TR/xforms11/#action-mes
 
 xf:message elements have an @level attribute that can be "modal", "modeless", or "ephemeral".  The default is "modal".
 
-A "modal" xf:message is displaying pretty nicely in a dialog window.  Since it is "modal", you have to click on the OK button before you can do anything else on the page.
+There already is an ephemeral function that creates an ephemeral message in lib/_backplane/notify.js.  There will soon be a modal function that creates a modal message using YAHOO.widget.SimpleDialog and a modeless function that creates a modeless message using YAHOO.widget.SimpleDialog in lib/_backplane/notify.js.
 
-A "modeless" xf:message is displaying pretty nicely in a dialog window.  Since it is "modeless", you can still select on other buttons and type words on the page.
+So, the xf:message's performAction function will check the xf:message's @level and call one of these functions to show or hide the message.
 
-I made the xf:message's OK button visible with the code that I added in lib/xforms/actions.js. I also made the xf:message display correctly with the code that I added in default.css.  The xf:message and it's header look a lot better with these settings.
+A "modal" xf:message will display pretty nicely in a dialog window.  Since it is "modal", you have to click on the OK button before you can do anything else on the page.
 
-A "ephemeral" xf:message works pretty well.  It displays in a tooltip, like xf:hint (not in a dialog window).  But, it still needs work, because the message does not always appear where it should.
+A "modeless" xf:message will display pretty nicely in a dialog window.  Since it is "modeless", you can still select on other buttons and type words on the page.
 
-@ref & @value are supported.
+I will make the xf:message's OK button visible with the code that I will add in lib/xforms/actions.js. I also will make the xf:message display correctly with the code that I add in default.css.  The xf:message and it's header will look a lot better with these settings.
 
-xf:output elements inside a xf:message are supported, even though the message can contain the inline text when you only want the instance text (see issue 46).
+A "ephemeral" xf:message will work exactly as a xf:hint does (not in a dialog window), because they are both using the same function in lib/_backplane/notify.js to do it.
+
+@ref should be supported.
+
+xf:output elements inside a xf:message should be supported.
 
 == Stories ==
 
