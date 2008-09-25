@@ -14,280 +14,318 @@
  * limitations under the License.
  */
 
-function Context(elmnt)
-{
+
+UX.findParentContext = function(oParent, nOrdinal) {
+    var rootNode = document.documentElement;
+    
+    if (!oParent || rootNode === oParent ) {
+        if (!document.defaultModel) {
+            var models = NamespaceManager.getElementsByTagNameNS(rootNode, 
+                             "http://www.w3.org/2002/xforms", "model");
+            if (models && models.length > 0) {
+                document.defaultModel = models[0];
+            } else {
+                // TODO: Streamlined syntax - No model in document, generate a default model
+                // document.defaultModel = UX.utils.createXFormsModel();
+                return { model: null, node: null }; 
+            }
+        } 
+        return document.defaultModel.getEvaluationContext();        
+    } else {
+        if (oParent.getBoundNode) {
+            var oContext = oParent.getBoundNode(nOrdinal);
+            if (oContext && (oContext.model || oContext.node)) {
+                return oContext;
+            }
+        }
+    }
+    return UX.findParentContext(oParent.parentNode, nOrdinal);
+}
+
+
+function Context(elmnt) {
 	this.element = elmnt;
 	this.m_context = null;
 	this.m_arrNodes = null;
 	this.m_model = null;
 	this.m_proxy = null;
-}
-Context.prototype.unwire = function()
-{
+};
+
+Context.prototype.unwire = function() {
 	this.m_context = null;
 	this.m_arrNodes = null;
 };
+
 //TODO: rewrite these functions to have more objectiness,
 //	Originally written to remove an amount of stuff from the .htc
 //	so just calls equivalent friend function with pThis.
 //	This is no longer needed or desired, with the advent of the decorator stuff.
 
-Context.prototype.getEvaluationContext = function(nOrdinal)
-{
-	return _getEvaluationContext(this,nOrdinal);
+Context.prototype.getEvaluationContext = function(nOrdinal) {
+	return this._getEvaluationContext(nOrdinal);
 };
 
 
 /*
-	* If an element doesn't have an evaluation context then we
-	* use the parent's.
-	*/
+ *  If an element doesn't have an evaluation context then we
+ * use the parent's.
+ */
 
-Context.prototype.getParentEvaluationContext = function(nOrdinal)
-{
-	return _getParentEvaluationContext(this,nOrdinal);
+Context.prototype.getParentEvaluationContext = function(nOrdinal) {
+	return this._getParentEvaluationContext(nOrdinal);
 };
+
 
 /*
-	* Get the node that this element is bound to.
-	*/
-
-Context.prototype.getBoundNode = function(nOrdinal)
-{
-	return _getBoundNode(this,nOrdinal);
+ * Get the node that this element is bound to.
+ */
+Context.prototype.getBoundNode = function(nOrdinal) {
+	return this._getBoundNode(nOrdinal);
 };
 
-//Friend functions:
 
-		function _getEvaluationContext(pThis,nOrdinal)
-		{
-		
-			if(!nOrdinal || isNaN(nOrdinal)) {
-				nOrdinal = 1;
-			}
-
-			if(pThis.m_context && nOrdinal == 1)
-			{
-				return { model: pThis.m_context.model, node: pThis.m_context.node};
-			}
-			else if(pThis.m_arrNodes)
-			{
-				return { model: pThis.m_model, node: pThis.m_arrNodes[nOrdinal - 1]};
-			}
-				
-			
-			var oRet = { model: null, node: null };
-
-			/*
-			 * If we have a bind attribute then use it to find
-			 * the model and evaluation context.
-			 */
-
-			var sBindID = pThis.element.getAttribute("bind");
-
-			if (sBindID)
-			{
-				var oBind  = pThis.element.ownerDocument.getElementById(sBindID);
-
-				if (oBind)
-				{
-					oRet.model = oBind.ownerModel;
-					if (oBind.boundNodeSet) {
-						oRet.node = oBind.boundNodeSet[nOrdinal-1];
-					}
-					//else
-					//	debugger;
-				}
-				//else
-				//	throw "No bind with an ID of '" + sBindID + "'";
-			}
-			else {
-				
-				 //If there is a model attribute, or the element *is* a model
-				 //    then subject to further checks, the evaluation context
-				 //    may be retrieved from the model itself.
-				 
-
-				if (pThis.element.getAttribute("model")) {
-
-					var oModel  = pThis.element.ownerDocument.getElementById(pThis.element.getAttribute("model"));
-					//TODO: The form author cannot be relied upon to provide an IDREF in @model that actually corresponds
-					//	to a model. In order to prevent errors throwing out and causing problems, a test is required to ensure that
-					//	oModel, retrieved above does not only exist (as the following test proves) but is also actually a model 
-					//	(a possibility which is ignored by the following test)
-					//  (The obvious test of using a tagname for pThis should not be done as the behaviours should not need to know 
-					//	what they are bound to, i.e. a node may behave as a model even without being a <model>)
-					if (oModel) {
-						//Having fetched a model node which corresponds to the given @model IDREF
-						//	Find the model to which the parent element is bound.
-						var oCTXModel = getModelFor(pThis.element.parentNode);
-						//In the case that the parent's model and the model fetched from the @model IDREF
-						//	are identical, the evaluation context for pThis node is the context gleaned
-						//	from its position within the document, to wit, the same context as though it 
-						//	had no model attribute at all.
-						if(oCTXModel == oModel) {	
-							oRet = _getParentEvaluationContext(pThis);
-						}
-						//Where the above clause is false, i.e. a disparity exists between the model to which 
-						//	the parent node is bound, and the model to which pThis node is bound, then pThis node is
-						//	not evaluated in the context of the parent node, but is evaluated in the default context for
-						//	the model whose id matches the IDREF given in pThis element's model attribute.
-						else {
-							oRet = oModel.getEvaluationContext();
-						}
-					}
-					else {
-						throw "No model with an ID of '" + sModelID + "'";
-					}
-				}
-				else {
-            //Otherwise  use the parent's evaluation context.
-            oRet = _getParentEvaluationContext(pThis);
+Context.prototype._getEvaluationContext = function(nOrdinal) {
+    if (!nOrdinal || isNaN(nOrdinal)) {
+        nOrdinal = 1;
+    }
+    
+    if (this.m_context && nOrdinal === 1) {
+        return this.m_context;
+    }
+    
+    var oContext = {
+        model: null,
+        node: null
+    };
+    
+    if (this.m_arrNodes) {
+        oContext.model = this.m_model;
+        oContext.node  = this.m_arrNodes[nOrdinal - 1]; 
+        return oContext;            
+    }
+    
+    var oElement = this.element;
+    var oDocument = oElement.ownerDocument;
+    var sBindId = oElement.getAttribute("bind");
+    
+    if (sBindId) {
+        var oBind = oDocument.getElementById(sBindId);
+        
+        if (oBind && oBind.ownerModel && oBind.boundNodeSet) {
+            oContext.model = oBind.ownerModel;
+            oContext.node  = oBind.boundNodeSet;
+        } else {
+            // Dispatch xforms-binding-exception if bind is not resolved 
+            UX.dispatchEvent(this.element, "xforms-binding-exception", false, true, true);
         }
-			}
-			pThis.m_context = { model: oRet.model, node: oRet.node };
-			return oRet;
-		}
-		
-		
-		function _getParentEvaluationContext(pThis,nOrdinal)
-		{
-			var oRet = { model: null, node: null };
-			var oParent = pThis.element.parentNode;
-			
-			if(!nOrdinal || isNaN(nOrdinal))
-			{
-				var nOrdinal = Number(pThis.element.getAttribute("ordinal"));
-				if(!nOrdinal || isNaN(nOrdinal))
-					nOrdinal = 1;
-			}
-				
-			while (oParent)
-			{
-			
-				if(oParent.getBoundNode === undefined)
-				{
-					oParent = oParent.parentNode;
-				}
-				else
-				{
-					oRet = oParent.getBoundNode(nOrdinal);
-					//if oParent is not the sort of node that binds to nodes
-					//	then it will return a null-filled object.
-					//	In this case, context needs to be passed through from its parent.
-					if(oRet === null || (oRet.model === null && oRet.node === null))
-					{
-						//Although recursion would be the more beauteous solution here, 
-						//	invoking it at this point leads inexorably to a stack overflow
-						//	therefore, the less elegant solution of stepping round to the 
-						//	next iteration of the loop is employed.	
-						oParent = oParent.parentNode;
-					}
-					else
-					{
-						//Now that a real context has been found, leave the loop
-						break;
-					}
-				}
-			}
+        return oContext;
+    }
+    
+    var sModelId = oElement.getAttribute("model");
+    
+    if (sModelId) {
+        var oModel = oDocument.getElementById(sModelId);
+        if (oModel && oModel.getInstanceDocument) {
+            // Having fetched a model node which corresponds to the given @model IDREF
+            // Find the model to which the parent element is bound.
+            var oContextModel = getModelFor(oElement.parentNode);
+            
+            if (oContextModel == oModel) {
+                // In the case that the parent's model and the model fetched from the @model IDREF
+                // are identical, the evaluation context for pThis node is the context gleaned
+                // from its position within the document, to wit, the same context as though it 
+                // had no model attribute at all.
+                oContext = this._getParentEvaluationContext();
+            } else {
+                // Where the above clause is false, i.e. a disparity exists between the model to which 
+                // the parent node is bound, and the model to which pThis node is bound, then pThis node is
+                // not evaluated in the context of the parent node, but is evaluated in the default context for
+                // the model whose id matches the IDREF given in pThis element's model attribute.
+                oContext = oModel.getEvaluationContext();
+            }        
+        } else {
+            // Dispatch xforms-binding-exception if model is not resolved
+            UX.dispatchEvent(this.element, "xforms-binding-exception", false, true, true);
+        }
+    } else {
+        //Otherwise  use the parent's evaluation context.
+        oContext = this._getParentEvaluationContext();        
+    }
+    
+    this.m_context = oContext;
+    return oContext;
+};
 
-			/*
-			 * If we don't get a context then we must be the
-			 * highest element, so we use the evaluation context
-			 * of the first model.
-			 */
 
-			if (!oParent)
-			{
-				//retrieve the first model in document order.	
-				if(!document.defaultModel) {
-					var models = NamespaceManager.getElementsByTagNameNS( pThis.element.ownerDocument, "http://www.w3.org/2002/xforms","model");
-					if (models && models.length > 0) {
-						document.defaultModel = models[0];
-					}
-				}
-				
-				if(document.defaultModel) {
-					oRet = document.defaultModel.getEvaluationContext();
-				}
-			}
-			return oRet;
-		}
+Context.prototype._getParentEvaluationContext = function(nOrdinal) {
+    var oElement = this.element;
+    
+    if (!nOrdinal || isNaN(nOrdinal)) {
+        var nOrdinal = Number(oElement.getAttribute("ordinal"));
+        if (!nOrdinal || isNaN(nOrdinal)) {
+            nOrdinal = 1;
+        }
+    }
+    
+    return UX.findParentContext(
+              oElement.parentNode, nOrdinal);
+};
 
-		function _getBoundNode(pThis,nOrdinal)
-		{
-			var oRet = { model: null, node: null };
-			
-			if(!nOrdinal || isNaN(nOrdinal))
-				nOrdinal = 1;
 
-			/*
-			 * If we have a proxy node (and not a proxy expression)
-			 * then use that.
-			 */
+Context.prototype._getBoundNode = function(nOrdinal) {
 
-			if (pThis.m_proxy && !pThis.m_proxy.m_xpath)
-			{
-				if (!pThis.m_model)
-				{
-					var oContext = _getEvaluationContext(pThis);
+    if (!nOrdinal || isNaN(nOrdinal)) {
+        nOrdinal = 1;
+    }
+    
+    var oContext = { 
+            model: null, 
+            node: null 
+    };
 
-					pThis.m_model = oContext.model;
-				}
-				oRet = { model: pThis.m_model, node: pThis.m_proxy };
-			}
-			else if(NamespaceManager.getLowerCaseLocalName(pThis) === "model")
-			{
-				oRet = pThis.getEvaluationContext();
-			}
-			else
-			{
-				
-				//Bind has the highest priority - see:
-				//	http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-single-node
-				//	http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-nodeset
-				if (pThis.element.getAttribute("bind"))
-				{
-					if (!pThis.m_arrNodes)
-					{
-						var oBind = pThis.element.ownerDocument.getElementById( pThis.element.getAttribute("bind"));
+    /*
+     * If we have a proxy node (and not a proxy expression)
+     * then use that.
+     */
+    var oProxy = this.m_proxy;
+    
+    if (oProxy && !oProxy.m_xpath) {        
+        oContext.node = oProxy;
+        
+        if (!this.m_model) {
+            this.m_model = this.getEvaluationContext().m_model;            
+        }        
+        oContext.model = this.m_model;
+        return oContext;
+    }
 
-						pThis.m_arrNodes = oBind["boundNodeSet"];
-						pThis.m_model = oBind["ownerModel"];
-					}
-					oRet.node = pThis.m_arrNodes[nOrdinal - 1];
-					oRet.model = pThis.m_model;
-				}
-				else
-				{
-					//Don't bother going through all pThis palaver if there is no ref or nodeset.
-					if(pThis.element.getAttribute("ref") || pThis.element.getAttribute("nodeset"))
-					{
-					   /*
-						* Get the evaluation context, and save the model
-						* value.
-						*/
-						var oContext = _getEvaluationContext(pThis);
+    if (NamespaceManager.getLowerCaseLocalName(this) === "model") {
+        return this.getEvaluationContext();
+    }
+    
+    // Bind has the highest priority - see:
+    // http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-single-node
+    // http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-nodeset
+    
+    var oElement = this.element;
+    var sBindId  = oElement.getAttribute("bind");
+    var oBindNodes = this.m_arrNodes;
+       
+    if (sBindId) {        
+        if (!oBindNodes) { 
+            var oBind = oElement.ownerDocument.getElementById(sBindId);
+            
+            if (!oBind) {
+                // Dispatch xforms-binding-exception if bind is not resolved 
+                UX.dispatchEvent(this.element, "xforms-binding-exception", false, true, true);
+                return oContext;
+            }
+            
+            this.m_arrNodes = oBind["boundNodeSet"];
+            this.m_model = oBind["ownerModel"];
+        } 
+        oContext.model = this.m_model;
+        oContext.node = oBindNodes[nOrdinal - 1];
+        return oContext;
+    }
+    
+    var sRef = oElement.getAttribute("ref");
+    var sNodeset = oElement.getAttribute("nodeset");
+    var sName = oElement.getAttribute("name");
 
-						pThis.m_model = oContext.model;
+    if (!sRef && !sNodeset && !sName) {
+        // Return if no ref | nodeset | name to evaluate
+        return oContext;
+    }
 
-						if (pThis.element.getAttribute("ref") && nOrdinal == 1)
-						{
-							oRet.node = getFirstNode(
-								pThis.m_model.EvaluateXPath(pThis.element.getAttribute("ref"), oContext.node)
-							);
-							oRet.model = pThis.m_model;
-						}
-						else if (pThis.element.getAttribute("nodeset"))
-						{
-							if (!pThis.m_arrNodes)
-								pThis.m_arrNodes = pThis.m_model.EvaluateXPath(pThis.element.getAttribute("nodeset"), oContext.node).value;
+    /*
+     * Get the evaluation context, and save the model
+     * value.
+     */
+    oContext = this._getEvaluationContext();
+     
+    // if no model found - this is possible if user reference to a non-existing model
+    // not possible after we added the code to create a lazy model by default
+    // but we will check for it anyway.
+    if (!oContext.model) {
+        return oContext;
+    }
+    
+    this.m_model = oContext.model;        
+    var oModel = this.m_model;
+    
+    
+    /* TODO: Streamlined syntax
+    if (sName) {
+    }
+    */
+    if (sRef && nOrdinal === 1) {
+        
+        var oRefNode = getFirstNode(oModel.EvaluateXPath(sRef, oContext.node));
+        if (!oRefNode) {
+            // Lazy authoring 
+            var oInstDoc = this._getDefaultInstanceDocument(oModel);
+            
+            if (oInstDoc) {
+                // Actually we need to check for the QName is valid  but
+                // it seems that createElement will accept any QName (valid or not)
+                
+                oRefNode = oInstDoc.createElement(sRef);
+                if (oRefNode) {
+                    oInstDoc.documentElement.appendChild(oRefNode);
+                } 
+                // If we created the node from lazy authoring, we need to verify 
+                // that it it is actually created properly
+                oRefNode = getFirstNode(oModel.EvaluateXPath(sRef, oContext.node));
+                
+                if (!oRefNode) {
+                    UX.dispatchEvent(this.element, "xforms-binding-exception", false, true, true);
+                }
+            } else {
+                // console.log("no instance doc")
+            }
+        }
+        oContext.node = oRefNode;
+    }
+    
+    if (sNodeset) {
+        if (!oBindNodes) {
+            oBindNodes = oModel.EvaluateXPath(sNodeset, oContext.node).value;
+            if (!oBindNodes) {
+                // Dispatch xforms-binding-exception if bind is not resolved 
+                UX.dispatchEvent(this.element, "xforms-binding-exception", false, true, true);
+                return { model: null, node: null };
+            }
+            this.m_arrNodes = oBindNodes;                
+        }
+        oContext.node = this.m_arrNodes[nOrdinal - 1];
+    }
+    return oContext;
+};
 
-							oRet.node = pThis.m_arrNodes[nOrdinal - 1];
-							oRet.model = pThis.m_model;
-						}
-					}
-				}
-			}
-			return oRet;
-		}
+
+Context.prototype._getDefaultInstanceDocument = function(oModel) {    
+    var oInstDoc = null;
+    
+    try {
+        // try to get the default instance document,
+        // if no default document an exception is throw.
+        oInstDoc = oModel.getInstanceDocument();
+        return oInstDoc;
+    } catch (e) { }
+    
+    var namespaceURI = "http://www.w3.org/2002/xforms";
+    // Create a default instance 
+    if (UX.isXHTML) {
+        var instanceRoot = document.createElementNS("instanceData", "");
+        instanceNode = document.createElementNS("instance", namespaceURI);
+        instanceNode.appendChild(instanceRoot);
+     } else {
+        var sPrefix = NamespaceManager.getOutputPrefixesFromURI(namespaceURI)[0];
+        instanceNode = document.createElement(sPrefix + ":" + "instance");
+        instanceNode.innerHTML = "<instanceData xmlns='' ></instanceData>";
+     }
+    
+    oModel.appendChild(instanceNode);
+    return oModel.getInstanceDocument();
+}

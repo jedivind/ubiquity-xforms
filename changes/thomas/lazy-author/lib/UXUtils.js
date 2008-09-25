@@ -203,4 +203,18 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
  	         }
  	      }
 	   }
-    }	
+    }
+    
+    /**
+     * 
+     */
+    UX.dispatchEvent = function(oTarget, sEventName, bBubble, bCancel, bSpawn) {
+       var oEvent = oTarget.ownerDocument.createEvent("Events");
+       oEvent.initEvent(sEventName, bBubble, bCancel);   
+        
+       if (bSpawn) {
+          spawn( function() { FormsProcessor.dispatchEvent(oTarget, oEvent); } );
+       } else {
+          FormsProcessor.dispatchEvent(oTarget, oEvent);
+       }
+    }
