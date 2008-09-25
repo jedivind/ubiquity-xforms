@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xf="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance">
+<head>
+    <title>Lazy Authoring</title>
+    <script src="../ubiquity-loader.js">/**/</script>
+    <style type="text/css">
+    .code {background-color:#eeeeee;padding:10px;display:block;font-family:monospace;border:solid navy;}
+     td {vertical-align:top;}
+    </style>
+    </head>
+<body class="yui-skin-sam">
+   <!-- model m1, empty model -->
+   <xf:model></xf:model>
+
+   <!-- model m2 -->   
+   <xf:model id="m2">
+       <xf:instance>
+           <data xmlns="">
+               <name>thomas</name>
+               <tel>784-6173</tel>
+           </data>
+       </xf:instance>
+   </xf:model>   
+   
+   <h3>XForms controls with lazy authoring, bindings and xforms-bind-exception</h3> 
+   
+   <table><tr><td>
+   
+      Two xf:input ref to an empty default model.
+             
+      <div class="code">
+      &lt;xf:input ref="lazy" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;Lazy input:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+      
+      <div class="spacer">
+        <xf:input ref="lazy">
+          <xf:label>Lazy input:</xf:label>
+        </xf:input>
+      </div>
+   
+      <div class="spacer">
+        <xf:input ref="lazy">
+          <xf:label>Lazy input:</xf:label>
+        </xf:input>
+      </div>
+
+      <br/>
+      <br/>
+      
+      xf:input ref the second model(id="m2") with a valid node.
+             
+      <div class="code">
+      &lt;xf:input id="i1" model="m2" ref="name" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;Name:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+
+      <div class="spacer">
+        <xf:input model="m2" id="i1" ref="name">
+          <xf:label>Name:</xf:label>
+        </xf:input>
+      </div>
+                  
+   </td></tr>
+   </table>
+   <br/>
+   <br/>
+
+   <p>The following xf:input(s) have invalid bind</p>
+   
+   <table>
+   <tr><td>
+
+      <div class="code">
+      &lt;xf:input id="i2" model="m2" ref="instance('xyz')/atest" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;invalid ref:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+
+      <div class="spacer">   
+      <xf:input id="i2" model="m2" ref="instance('xyz')/atest">
+         <xf:label>invalid ref:</xf:label>
+      </xf:input>
+      </div>
+
+      <br/>
+            
+      <div class="code">
+      &lt;xf:input id="i3" bind="b1" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;invalid bind:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+
+      <div class="spacer">
+      <xf:input id="i3" bind="b1">
+         <xf:label>invalid bind:</xf:label>
+      </xf:input>
+      </div>
+
+      <br/>      
+
+      <div class="code">
+      &lt;xf:input model="m5" id="i4" ref="name" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;invalid model:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+      
+      <div class="spacer">         
+      <xf:input model="m5" id="i4" ref="test">
+         <xf:label>invalid model:</xf:label>
+      </xf:input>
+      </div>        
+   </td></tr>
+   </table>
+
+
+   <!-- invalid bind -->   
+   <script>
+   function a() {
+       alert("Bind-Exception");    
+   }
+   var i4Elem = document.getElementById("i2");
+   var i6Elem = document.getElementById("i3");
+   var i5Elem = document.getElementById("i4");
+   i4Elem.addEventListener("xforms-binding-exception", a, false);
+   i5Elem.addEventListener("xforms-binding-exception", a, false);
+   i6Elem.addEventListener("xforms-binding-exception", a, false);
+   </script>
+</body>
+</html>
