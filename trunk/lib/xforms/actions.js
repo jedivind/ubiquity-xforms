@@ -246,8 +246,8 @@ Message.prototype.performAction = function(evt)
     	            constraintoviewport: true,
     	            modal: true,
     	            visible: false,
-    	            width: (this.element.style.width) ? this.element.style.width : "300px",
-    	            height: (this.element.style.height) ? this.element.style.height : "200px"
+    	            width: (UX.getStyle(this.element, "width")) ? UX.getStyle(this.element, "width") : "300px",
+    	            height: (UX.getStyle(this.element, "height")) ? UX.getStyle(this.element, "height") : "200px"
     	        }
     	    );
     	    //this.yahooPanel.setHeader("Modal dialog");
@@ -278,8 +278,8 @@ Message.prototype.performAction = function(evt)
           		    this.element,
           		    {
           		        //visible: false,
-          		        width: (this.element.style.width) ? this.element.style.width : "300px",
-          		        height: (this.element.style.height) ? this.element.style.height : "200px",
+          		        width:  (UX.getStyle(this.element, "width")) ? UX.getStyle(this.element, "width") : "300px",
+          		        height: (UX.getStyle(this.element, "height")) ? UX.getStyle(this.element, "height") : "200px",
           		        context: [ evt.targetElement, "tl", "bl" ]
           		    }
           		);

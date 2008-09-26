@@ -250,10 +250,10 @@ XFormsSelect1Value.prototype.onDocumentReady = function()
       oInput.attachEvent("onfocus",function(){pSelect.showChoices();});
     }
     
-		oInput.style.backgroundColor = "transparent";
-		oInput.style.padding = "0";
-		oInput.style.margin = "0";
-		oInput.style.border = "0";
+		UX.addStyle(oInput, "backgroundColor", "transparent");
+        UX.addStyle(oInput, "padding", "0");
+	    UX.addStyle(oInput, "margin", "0");
+	    UX.addStyle(oInput, "border", "0");
 			
 		this.element.appendChild(oInput);
 

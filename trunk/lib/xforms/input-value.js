@@ -77,10 +77,10 @@ XFormsInputValue.prototype.onDocumentReady = function()
 		var sElementToCreate = (sTagNameLC == "textarea")?"textarea":"input"; 
 		var oInput = document.createElement(sElementToCreate);
 	
-		oInput.style.backgroundColor = "transparent";
-		oInput.style.padding = "0";
-		oInput.style.margin = "0";
-		oInput.style.border = "0";
+		UX.addStyle(oInput, "backgroundColor", "transparent");
+		UX.addStyle(oInput, "padding", "0");
+		UX.addStyle(oInput, "margin", "0");
+		UX.addStyle(oInput, "border", "0");
 
 		var pThis = this;
 		if(document.all)

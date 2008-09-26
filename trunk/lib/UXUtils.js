@@ -203,4 +203,20 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
  	         }
  	      }
 	   }
-    }	
+    }	    
+/**
+	Utility to get a style for an element.   
+	With the XML Parser in Firefox, the style property is not supported, instead styles are set with the stylesheet
+	objects. This utility centralizes getting the style on an Element to one location.
+*/
+	UX.getStyle = function(oElement, styleName) {
+		if (oElement.style) {
+			return oElement.style[styleName];
+		} else if (UX.isXHTML) {
+			// At this point, you are not IE or Firefox with HTML parsing
+			// There is not a .style property for the XML Parser on Firefox
+			// Instead, the computed style can be returned
+			// get the computed style and see if it is already set to the value
+			return document.defaultView.getComputedStyle(oElement, null)[styleName]; 
+		}
+	}
