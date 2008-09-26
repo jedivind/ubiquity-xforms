@@ -142,6 +142,11 @@ xf\:alert xf\:label pe-value {
 xforms\:item, xf\:item {
   display:block;
 }
+
+xforms\:message, xf\:message {
+  display: none;
+}
+
 xforms\:select1 pe-value,
 xf\:select1 pe-value {
   border: 2px inset #f0f0f0;
