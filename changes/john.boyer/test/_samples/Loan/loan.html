@@ -68,7 +68,13 @@
         <xforms:submission id="makeLoan" 
                            method="post" 
                            includenamespaceprefixes=""
-                           action="http://xformstest.org/cgi-bin/echo.sh"></xforms:submission>
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal" appearance="minimal">Unable to submit</xforms:message>
+            <!--
+            <xforms:message ev:event="xforms-submit" level="modal" appearance="minimal">xforms-submit</xforms:message>
+            <xforms:message ev:event="xforms-submit-done" level="modal" appearance="minimal">xforms-submit-done</xforms:message>
+            -->
+        </xforms:submission>
                      
     </xforms:model>
  

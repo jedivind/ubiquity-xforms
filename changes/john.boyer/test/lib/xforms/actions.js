@@ -219,24 +219,32 @@ Message.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 Message.prototype.performAction = function(evt)
 {
     var sLevel = this.getAttribute("level");
-
+    var appearance = this.getAttribute("appearance");
+    
+    if (appearance === "minimal" && sLevel === "modal")
+        sLevel = "minimal-modal";
+        
 	switch (sLevel)
 	{
+	    case "minimal-modal" :
+            window.alert(this.element.innerHTML);
+            break;
+	    
 		case "modal":
-		    /*
-		     * Ideally we'd register on the close event and delete the panel
-		     * at that point, but I can't get it working. :)
-		     */
-
+		    //
+		    // Ideally we'd register on the close event and delete the panel
+		    // at that point, but I can't get it working. :)
+		    //
+		    
             if (this.yahooPanel)
             {
                 this.yahooPanel.destroy();
                 this.yahooPanel = null;
             }
 
-            /*
-             * Create a modal panel.
-             */
+            //
+            // Create a modal panel.
+            //
 
           this.yahooPanel = new YAHOO.widget.SimpleDialog(
     	        "temp-modal",

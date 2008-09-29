@@ -283,6 +283,7 @@ submission.prototype.submit = function(oSubmission)
 	 * Notify any listeners that we are about to begin the
 	 * submission.
 	 */
+	 
 try
 {
 	var oEvt =  oSubmission.ownerDocument.createEvent("Events"); 
@@ -306,14 +307,22 @@ catch(e)
 	 */
 	if(sAction != "")
 	{
-		this.setHeaders(oContext.model,this.getConnection(),oExtDom);
-		return this.request(
-			sMethod,
-			sAction,
-			sBody,
-			nTimeout,
-			oCallback
-		);
+		this.setHeaders(oContext.model,this.getConnection(),oExtDom);		
+		
+        try {    
+		    return this.request(
+			    sMethod,
+			    sAction,
+			    sBody,
+			    nTimeout,
+			    oCallback
+		    );
+        }
+        catch(e) {
+		    var oEvt = oSubmission.ownerDocument.createEvent("Events");
+		    oEvt.initEvent("xforms-submit-error", false, false);
+		    FormsProcessor.dispatchEvent(oSubmission,oEvt);
+        }
 	}
 	else
 	{

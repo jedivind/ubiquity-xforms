@@ -63,10 +63,16 @@
         <xforms:setvalue ev:event="xforms-ready" 
                          ref="startdate" 
                          value="choose(.='',substring(local-date(),1,10),.)"></xforms:setvalue>                                    
-		<xforms:submission id="makeloan" 
+		    <xforms:submission id="makeloan" 
                            method="post" 
                            includenamespaceprefixes=""
-                           action="http://xformstest.org/cgi-bin/echo.sh"></xforms:submission>
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal" appearance="minimal">Unable to submit</xforms:message>
+            <!--
+            <xforms:message ev:event="xforms-submit" level="modal" appearance="minimal">xforms-submit</xforms:message>
+            <xforms:message ev:event="xforms-submit-done" level="modal" appearance="minimal">xforms-submit-done</xforms:message>
+            -->
+        </xforms:submission>
     </xforms:model>
  
     <xforms:output class="company_name"> 
@@ -157,8 +163,9 @@
            
     <!-- This submit button connects to a submission -->
       <xforms:submit submission="makeloan">
-          <xforms:hint>Sends the loan transaction to Big Red</xforms:hint>
           <xforms:label>Submit Loan</xforms:label>
+          <xforms:hint>Sends the loan transaction to Big Red</xforms:hint>
+          <xforms:message ev:event="DOMActivate">DOMActivate</xforms:message>
       </xforms:submit>
 
    </body>
