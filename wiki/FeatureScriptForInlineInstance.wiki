@@ -1,4 +1,5 @@
 #summary Using Script Elements for inline instance data
+#labels Feature
 
 = Introduction =
 
