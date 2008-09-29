@@ -169,6 +169,15 @@ DECORATOR.addDecorationRules({
         }
         ],
 
+        "itemset" : [
+        {
+            "name" : "item-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["EventTarget", "Context", "Itemset"]);
+            }
+        }
+        ],
+        
         "value" : [
         {
             "name" : "value-element",
@@ -507,7 +516,7 @@ DECORATOR.setupDecorator(
 	  
 	//Switch off bindings within repeat, during load-time (FF )
 		{
-			selector:"xf|repeat > * ",
+			selector:"xf|repeat > *,  xf|itemset > *",
 			cssText:"-moz-binding:url();"
 		},
 		
@@ -634,6 +643,10 @@ DECORATOR.setupDecorator(
 		},
 		{
 			selector:"xf|item",
+			objects:[]
+		},
+		{
+			selector:"xf|itemset",
 			objects:[]
 		},
 		{
@@ -773,12 +786,12 @@ DECORATOR.setupDecorator(
 		},
 	//Switch off bindings within repeat, during load-time (IE )
 		{
-			selector:"xf|repeat *",
+			selector:"xf|repeat *, xf|itemset *", 
 			cssText:"-binding-ignore:true;"
 		},
 	//Switch bindings repeat back on within repeat.  (IE )
 		{
-			selector:"xf|repeat.repeat-ready *",
+			selector:"xf|repeat.repeat-ready *, xf|itemset.repeat-ready *",
 			cssText:"-binding-ignore:false;"
 		}
 
