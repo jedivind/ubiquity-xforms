@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xf="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance">
+<head>
+    <title>Lazy Authoring</title>
+    <script src="../ubiquity-loader.js">/**/</script>
+    <style type="text/css">
+    .code {background-color:#eeeeee;padding:10px;display:block;font-family:monospace;border:solid navy;}
+     td {vertical-align:top;}
+    </style>
+    </head>
+<body class="yui-skin-sam">
+   <!-- model m1, empty model -->
+   <xf:model></xf:model>
+
+   <!-- model m2 -->   
+   <xf:model id="m2">
+       <xf:instance>
+           <data xmlns="">
+               <name>thomas</name>
+               <tel>784-6173</tel>
+           </data>
+       </xf:instance>
+   </xf:model>   
+   
+   <h3>XForms event xforms-bind-exception should be dispatched when a binding is invalid</h3> 
+   <font color="blue">
+   <h4>The following xf:input(s) have invalid bind</h4>
+   <p>Note: xf:message is not working properly, so it is disabled for now and use js.</p>
+   </font>
+   
+   <table>
+   <tr><td>
+
+      <div class="code">
+      &lt;xf:input id="i2" model="m2" ref="instance('xyz')/atest" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;invalid ref:&lt;/xf:label&gt;<br>
+      &nbsp;&nbsp;&lt;xf:message ev:event="xforms-binding-exception"&gt;invalid input ref&lt;/xf:message&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+
+      <div class="spacer">   
+      <xf:input id="i2" model="m2" ref="instance('xyz')/atest">
+         <xf:label>invalid ref:</xf:label>
+         <!--  
+         <xf:message ev:event="xforms-binding-exception" >invalid input ref</xf:message>
+         -->
+      </xf:input>
+      </div>
+
+      <br/>
+            
+      <div class="code">
+      &lt;xf:input id="i3" bind="b1" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;invalid bind:&lt;/xf:label&gt;<br>
+      &nbsp;&nbsp;&lt;xf:message ev:event="xforms-binding-exception"&gt;invalid input bind&lt;/xf:message&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+
+      <div class="spacer">
+      <xf:input id="i3" bind="b1">
+         <xf:label>invalid bind:</xf:label>
+         <!-- 
+         <xf:message ev:event="xforms-binding-exception" >invalid input bind</xf:message>
+         -->
+      </xf:input>
+      </div>
+
+      <br/>      
+
+      <div class="code">
+      &lt;xf:input model="m5" id="i4" ref="name" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;invalid model:&lt;/xf:label&gt;<br>
+      &nbsp;&nbsp;&lt;xf:message ev:event="xforms-binding-exception"&gt;invalid model reference&lt;/xf:message&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+      
+      <div class="spacer">         
+      <xf:input model="m5" id="i4" ref="test">
+         <xf:label>invalid model:</xf:label>
+         <!-- 
+         <xf:message ev:event="xforms-binding-exception" >invalid model reference</xf:message>
+         -->
+      </xf:input>
+      </div>        
+   </td></tr>
+   </table>
+
+
+   <!-- invalid bind .. xf:message is not working somehow, use javascript for now.-->    
+   <script>
+   function ex() { alert("xforms-binding-exception occurred"); }
+   var i2 = document.getElementById("i2");
+   var i3 = document.getElementById("i3");
+   var i4 = document.getElementById("i4");
+   
+   if (!document.all) {
+       i2.addEventListener("xforms-binding-exception", ex, false);
+       i3.addEventListener("xforms-binding-exception", ex, false);
+       i4.addEventListener("xforms-binding-exception", ex, false);
+   }
+   </script>
+</body>
+</html>

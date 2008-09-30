@@ -56,10 +56,11 @@ function getModelFor(oNode)
 		if(oNode.getAttribute("bind"))
 		{
 			var oBind = document.getElementById(oNode.getAttribute("bind"));
-			if(!oBind)
-				debugger;
-			else
-				oNode.ownerModel = getModelFor(oBind);
+			if(oBind) {
+	             oNode.ownerModel = getModelFor(oBind);
+			} else {
+                UX.dispatchEvent(oNode, "xforms-binding-exception", false, true, false);			    
+			}
 		}
 		//If the node has a model attribute return the corresponding node.
 		//	if the model attribute does not correspond to the ID of a model
@@ -67,10 +68,11 @@ function getModelFor(oNode)
 		else if(oNode.getAttribute("model"))
 		{
 			var oMightBeAModel = document.getElementById(oNode.getAttribute("model"));
-			if(oMightBeAModel && oMightBeAModel.xformselement == "model")
+			if(oMightBeAModel && oMightBeAModel.xformselement == "model") {
 				oNode.ownerModel = oMightBeAModel;
-			else
-				debugger;
+		    } else {
+	            UX.dispatchEvent(oNode, "xforms-binding-exception", false, true, false);
+			}
 		}
 		//Only certain nodes within model take the model as context, others follow the 
 		//	normal context resolution pattern.

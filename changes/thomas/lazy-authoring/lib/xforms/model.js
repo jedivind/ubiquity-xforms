@@ -436,45 +436,44 @@
 		
 		
 		
-    function _EvaluateXPath(pThis,sXPath, pContextResolver)
-    {
-      var oRet = null
-      var pContext = null;
-    	if (!pContextResolver) {
-    		pContextResolver = pThis;
-    	}
-    	else if (pContextResolver["m_oNode"]) {
-    		pContextResolver = pContextResolver["m_oNode"];
-    	}
-    
-    	var sType= typeof(pContextResolver.getEvaluationContext);
-    	if(sType == "function" || sType == "unknown")
-    	{
-    		pContext = pContextResolver.getEvaluationContext().node;
-    			if(pContext["m_oNode"]) {
-    				pContext = ["m_oNode"];
-    			}
-    	}
-    	else
-    	{
-    		pContext = pContextResolver.node?pContextResolver.node:pContextResolver;
-    	}
-    
-    	if (pContext != null)
-    	{
-    		try
-    		{
-    			g_currentModel = pThis;
-    			oRet = xpathDomEval(sXPath, pContext);
-    			g_currentModel = null;
-    		}
-    		catch(e)
-    		{
-    		//	this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
-    		}
-    	}
-    	return oRet;
-    }
+	   function _EvaluateXPath(oElement, sXPath, oResolver) {
+	        var oResult = null;
+	        var oContextNode = null;
+	        var oContextResolver = oResolver;        
+	         
+	        if (!oContextResolver) {
+	            oContextResolver = oElement;
+	        } else if (oContextResolver["m_oNode"]) {
+	            oContextResolver = oContextResolver["m_oNode"];
+	        }
+	        
+	        var sType = typeof(oContextResolver.getEvaluationContext);
+	        if (sType === "function" || sType === "unknown") {
+	            var oContext = oContextResolver.getEvaluationContext();
+               // for lazy authoring or an empty model
+               // getEvaluationContext can return a context without
+               // a node, so check for it first!
+	           if (oContext.node) {
+	               // Shouldn't it be oContext.node["m_oNode"] ?? 
+	               oContextNode = oContext.node["m_oNode"] ? 
+	                    ["m_oNode"] : oContext.node;
+	           }
+	        } else {
+	            oContextNode = oContextResolver.node ? 
+	                oContextResolver.node : oContextResolver;
+	        }
+	        
+	        if (oContextNode) {
+	            try {
+	                g_currentModel = oElement;
+	                oResult = xpathDomEval(sXPath, oContextNode);
+	                g_currentModel = null;
+	            } catch(e) {
+	                //  this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
+	            }
+	        }
+	        return oResult;
+	    }
 
 
 	/*
