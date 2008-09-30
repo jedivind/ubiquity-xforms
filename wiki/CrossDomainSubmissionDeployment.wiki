@@ -7,6 +7,17 @@ On some Browsers, cross domain submissions are not a problem (i.e. Internet Expl
 
 = Details =
 
+==Internet Explorer 7 (IE 7)==
+
+The following setting will allow IE 7 to reference the echo service site "http://xformstest.org/cgi-bin/echo.sh" from an xforms:submission when the xforms document is served from the ubiquity-xforms google code site.
+
+ # Navigate to Tools > Internet Options > Security tab, select the Internet Zone,
+ # Open the custom level panel via the Custom level button, 
+ # Scroll down to "Miscellaneous", and 
+ # Enable the "Access data sources across domains" option.
+
+You'll have to exit out of IE and restart it for these setting to work.
+
 ==Mozilla Firefox 2==
 
 For Mozilla Firefox 2, a user can modify security permissions to allow XMLHttpRequests from his browser.  To do this, follow these steps:
