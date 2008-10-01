@@ -13,7 +13,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
   
     <link href="style/gen_default-xml.css" rel="stylesheet"/>
   </head>
-  <body>
+  <body class="yui-skin-sam">
     <xforms:model id="loan_model">
         <xforms:instance id="loan">
         	<LoanRecord xmlns="">
@@ -71,7 +71,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
         <xforms:submission id="makeLoan" 
                            method="post" 
                            includenamespaceprefixes=""
-                           action="http://xformstest.org/cgi-bin/echo.sh"/>
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit</xforms:message>
+        </xforms:submission>                           
 
                                       
     </xforms:model>

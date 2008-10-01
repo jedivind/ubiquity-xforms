@@ -10,7 +10,7 @@
     <script src="../../ubiquity-loader.js" type="text/javascript">/**/</script>
     <link type="text/css" href="style/gen_default.css" rel="stylesheet"></link>
   </head>
-  <body>
+  <body class="yui-skin-sam">
     <xforms:model id="loan_model">
         <xforms:instance id="loan">
         	<LoanRecord xmlns="">
@@ -68,7 +68,9 @@
         <xforms:submission id="makeLoan" 
                            method="post" 
                            includenamespaceprefixes=""
-                           action="http://xformstest.org/cgi-bin/echo.sh"></xforms:submission>
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit</xforms:message>
+        </xforms:submission>
                      
     </xforms:model>
  
