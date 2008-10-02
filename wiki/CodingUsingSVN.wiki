@@ -33,14 +33,12 @@ At the end of this page, there are also some instructions on setting up Subversi
       * Choose the child Subversive SVN Connectors and SVN Kit 1.1.7
         (the latter is marked optional, but it isn't)
     # Click Install...
-
   # *Environment set up*
     # Window | Preferences
     # General | Editors | Text Editors
       * Set "Displayed Tab width: 4" and check "Insert spaces for tabs"
     # General | Team | SVN | Properties Configuration
     # On Automatic Properties tab, click Add button to add each of the following
-
 {{{
 	    Filename template   Properties
 	    *.pdf               svn:mime-type=application/pdf for Properties
@@ -51,7 +49,6 @@ At the end of this page, there are also some instructions on setting up Subversi
 	    *.html              svn:eol-style=native
 	    *.xhtml             svn:eol-style=native
 }}}
-
   # *Obtain a local copy of the project trunk*
     # Right-click Package Explorer
     # New | Project
@@ -62,19 +59,15 @@ At the end of this page, there are also some instructions on setting up Subversi
       * Log in to the Google Code Project
       * Under source tab, there is a link to get your Google code password
     # Click Save Password and then Click Next
- 	
     # Next View is "Select Resource".  Choose trunk and click Finish 
       * (a branch could be selected here instead)
- 
     # Next View is "Check out as".  Click Finish
       * This accepts "Check out... Using New Project Wizard", recursive checkout, no ignore
- 	    
     # The "Select a wizard" dialog comes up
       # Choose General | Project and hit next
       # Project Name *ubiquity-xforms*
       # Use default location
       # Click Finish
-    
   # *Make a "changes" directory for yourself*
     # Open the SVN Repositories perspective 
       * Window | Open Perspectives | Other... 
