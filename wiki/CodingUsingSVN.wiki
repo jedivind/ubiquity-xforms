@@ -1,0 +1,84 @@
+#summary Development Contribution Process with SVN and Eclipse Subversive Instructions.
+
+= Developing the Code =
+
+Contributors have the option of working on the trunk code, but *do not commit* without code reviews, as described below.  The code review process is similar when a branch is used. 
+
+For the first draft of this page, the instructions include the specifics for using Eclipse with subversive.  In the future of this page, the specific SVN command-line instructions will be added, which can be harvested from an older development process description [http://code.google.com/p/ubiquity/wiki/CodingUsingSvn here].
+
+At the end of this page, there are also some instructions on setting up Subversive in Eclipse.
+
+= Contribution Process (without branching) =
+
+
+
+= Setting up Subversive for use in Ubiquity XForms =
+
+  # *Install Subversive plugin* 
+    # Visit http://www.eclipse.org/subversive
+    # Click "Downloads" and follow the instructions (particulars in the following steps)
+    # Help | Software Updates
+    # Click Available Software tab
+    # Must install Subversive plugin
+      * It's under the Ganymede Update Site, but that can be slow to update
+      * Click "Add Site..." to add the specific site of the "Latest Release"
+        (http://download.eclipse.org/technology/subversive/0.7/update-site/) 
+      * Choose the Subversive SVN Team Provider checkbox
+    # Must install Subversive Connectors as follows
+      * Click "Add Site..."
+      * Add the site indicated on the downloads site 
+        * Click external site link (http://www.polarion.com/products/svn/subversive.php?src=eclipseproject)
+        * Use update site http://www.polarion.org/projects/subversive/download/eclipse/2.0/update-site/
+      * Open the Subversive SVN Connectors subtree
+      * Choose the child Subversive SVN Connectors and SVN Kit 1.1.7
+        (the latter is marked optional, but it isn't)
+    # Click Install...
+
+  # *Environment set up*
+    # Window | Preferences
+    # General | Editors | Text Editors
+      * Set "Displayed Tab width: 4" and check "Insert spaces for tabs"
+    # General | Team | SVN | Properties Configuration
+    # On Automatic Properties tab, click Add button to add each of the following
+
+{{{
+	    Filename template   Properties
+	    *.pdf               svn:mime-type=application/pdf for Properties
+	    *.png               svn:mime-type=application/pdf
+	    *.gif               svn:mime-type=application/pdf
+	    *.jpeg              svn:mime-type=application/pdf
+	    *.js                svn:eol-style=native
+	    *.html              svn:eol-style=native
+	    *.xhtml             svn:eol-style=native
+}}}
+
+  # *Obtain a local copy of the project trunk*
+    # Right-click Package Explorer
+    # New | Project
+    # SVN | Projects from SVN | Next >>
+    # URL: https://ubiquity-xforms.googlecode.com/svn/
+    # User: same as gmail login (boyerj@ca.ibm.com)
+    # Password: Google code password (Nu8RG8gg9fd9), not gmail login password
+      * Log in to the Google Code Project
+      * Under source tab, there is a link to get your Google code password
+    # Click Save Password and then Click Next
+ 	
+    # Next View is "Select Resource".  Choose trunk and click Finish 
+      * (a branch could be selected here instead)
+ 
+    # Next View is "Check out as".  Click Finish
+      * This accepts "Check out... Using New Project Wizard", recursive checkout, no ignore
+ 	    
+    # The "Select a wizard" dialog comes up
+      # Choose General | Project and hit next
+      # Project Name *ubiquity-xforms*
+      # Use default location
+      # Click Finish
+    
+  # *Make a "changes" directory for yourself*
+    # Open the SVN Repositories perspective 
+      * Window | Open Perspectives | Other... 
+      * SVN Repository Exploring
+    # Now make a code review directory for yourself in changes branch
+      * Choose changes branch, then Right click and choose New | Folder
+      * Use your gmail address for the folder name
