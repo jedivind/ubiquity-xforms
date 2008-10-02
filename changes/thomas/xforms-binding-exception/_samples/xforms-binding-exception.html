@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xf="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance">
+<head>
+    <title>Lazy Authoring</title>
+    <script src="../ubiquity-loader.js">/**/</script>
+    <style type="text/css">
+    .code {background-color:#eeeeee;padding:10px;display:block;font-family:monospace;border:solid navy;}
+     td {vertical-align:top;}
+    </style>
+    </head>
+<body class="yui-skin-sam">
+   <!-- model m1, empty model -->
+   <xf:model></xf:model>
+
+   <!-- model m2 -->   
+   <xf:model id="m2">
+       <xf:instance>
+           <data xmlns="">
+               <name>thomas</name>
+               <tel>784-6173</tel>
+           </data>
+       </xf:instance>
+   </xf:model>   
+   
+   <h3>XForms event xforms-bind-exception should be dispatched when a binding is invalid</h3> 
+   <font color="blue">
+   <h4>The following xf:input(s) have invalid bind</h4>
+   </font>
+   
+   <table>
+   <tr><td>
+
+      <br/>
+            
+      <div class="code">
+      &lt;xf:input id="i3" bind="b1" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;invalid bind:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+
+      <div class="spacer">
+      <xf:input id="i3" bind="b1">
+         <xf:label>invalid bind:</xf:label>
+      </xf:input>
+      </div>
+
+      <br/>      
+
+      <div class="code">
+      &lt;xf:input model="m5" id="i4" ref="name" &gt;<br>
+      &nbsp;&nbsp;&lt;xf:label&gt;invalid model:&lt;/xf:label&gt;<br>
+      &lt;/xf:input&gt;
+      </div>
+      
+      <div class="spacer">         
+      <xf:input model="m5" id="i4" ref="test">
+         <xf:label>invalid model:</xf:label>         
+      </xf:input>
+      </div>        
+   </td></tr>
+   </table>
+
+
+</body>
+</html>
