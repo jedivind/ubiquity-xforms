@@ -49,7 +49,7 @@ At the end of this page, there are also some instructions on setting up Subversi
       * Go to ubiquity project and click the [http://code.google.com/p/ubiquity-xforms/source/checkout sources tab]
       * Click the changes link, and at or near the top should be your revision (http://code.google.com/p/ubiquity-xforms/source/detail?r=NNNN)
       * The modifications can be viewed by expanding the trees OR to get a side-by-side diff comparison, don't click "Diff"! Instead, click the file link, then click "Diff" at the top right corner
-    # Send email to ubiquity-xforms-eng@googlegroups.com with subject that begins *[REVIEW NEEDED] and contains rNNNN*
+    # Send email to ubiquity-xforms-eng@googlegroups.com with subject that begins *REVIEW NEEDED* and contains *rNNNN*
       * The typical review period is 48 hours. Put *URGENT* in the subject line to request a shorter review period
     # Two +1 reviews and a minimum of 48 hours are needed before committing to trunk
       * A review can be +1 and can still request minor editorial changes needing no further review or identify issues that should be raised in the issue system once the code is committed.
