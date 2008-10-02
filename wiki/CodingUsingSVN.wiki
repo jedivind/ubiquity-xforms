@@ -47,7 +47,7 @@ At the end of this page, there are also some instructions on setting up Subversi
     # Add a comment that begins [REVIEW NEEDED] and explain feature
     # After commit, you will be able to see a page for your revision
       * Go to ubiquity project and click the [http://code.google.com/p/ubiquity-xforms/source/checkout sources tab]
-      * Click the changes link, and at or near the top should be your revision (http://code.google.com/p/ubiquity-xforms/source/detail?r=NNNN)
+      * Click the changes link, and at or near the top should be your revision ({{{http://code.google.com/p/ubiquity-xforms/source/detail?r=NNNN}}})
       * The modifications can be viewed by expanding the trees OR to get a side-by-side diff comparison, don't click "Diff"! Instead, click the file link, then click "Diff" at the top right corner
     # Send email to ubiquity-xforms-eng@googlegroups.com with subject that begins *REVIEW NEEDED* and contains *rNNNN*
       * The typical review period is 48 hours. Put *URGENT* in the subject line to request a shorter review period
@@ -74,8 +74,8 @@ At the end of this page, there are also some instructions on setting up Subversi
     # Click Available Software tab
     # Must install Subversive plugin
       * It's under the Ganymede Update Site, but that can be slow to update
-      * Click "Add Site..." to add the specific site of the "Latest Release"
-        (http://download.eclipse.org/technology/subversive/0.7/update-site/) 
+      * Click "Add Site..." to add the specific site of the Latest Release
+        * (http://download.eclipse.org/technology/subversive/0.7/update-site/) 
       * Choose the Subversive SVN Team Provider checkbox
     # Must install Subversive Connectors as follows
       * Click "Add Site..."
@@ -83,8 +83,7 @@ At the end of this page, there are also some instructions on setting up Subversi
         * Click external site link (http://www.polarion.com/products/svn/subversive.php?src=eclipseproject)
         * Use update site http://www.polarion.org/projects/subversive/download/eclipse/2.0/update-site/
       * Open the Subversive SVN Connectors subtree
-      * Choose the child Subversive SVN Connectors and SVN Kit 1.1.7
-        (the latter is marked optional, but it isn't)
+      * Choose the child Subversive SVN Connectors and SVN Kit 1.1.7 (the latter is marked optional, but it isn't)
     # Click Install...
   # *Environment set up*
     # Window | Preferences
