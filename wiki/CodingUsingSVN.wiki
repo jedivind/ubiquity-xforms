@@ -93,10 +93,10 @@ At the end of this page, there are also some instructions on setting up Subversi
     # On Automatic Properties tab, click Add button to add each of the following
 {{{
 	    Filename template   Properties
-	    *.pdf               svn:mime-type=application/pdf for Properties
-	    *.png               svn:mime-type=application/pdf
-	    *.gif               svn:mime-type=application/pdf
-	    *.jpeg              svn:mime-type=application/pdf
+	    *.pdf               svn:mime-type=application/pdf
+	    *.png               svn:mime-type=image/png
+	    *.gif               svn:mime-type=image/gif
+	    *.jpg               svn:mime-type=image/jpeg
 	    *.js                svn:eol-style=native
 	    *.html              svn:eol-style=native
 	    *.xhtml             svn:eol-style=native
