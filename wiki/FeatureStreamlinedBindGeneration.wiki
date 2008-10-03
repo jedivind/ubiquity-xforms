@@ -3,9 +3,8 @@
 = Introduction =
 In our current implementation, xforms's bind elements are processed 
 during rebuild of the model. The only option to dynamic generate a bind
-element is to:
+element is:
 
-1. create a bind element in xforms namespace with bind's attributes
-2. insert the created bind node to the xforms model
-3. call rebuild which in result will process *all* the binds.
-
+# create a bind element in xforms namespace with bind's attributes
+# insert the created bind node to the xforms model
+# call rebuild which in result will process *all* the binds.
