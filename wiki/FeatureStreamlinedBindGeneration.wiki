@@ -7,4 +7,4 @@ element is:
 
   # create a bind element in xforms namespace with bind's attributes
   # insert the created bind node to the xforms model
-  # call rebuild which in result will process *all* the binds again.
+  # call rebuild which in result will process *all* the binds *again*.
