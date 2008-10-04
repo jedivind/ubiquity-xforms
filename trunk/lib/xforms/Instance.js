@@ -30,8 +30,8 @@ Instance.prototype.xlinkEmbed = function (s) {
 };
 
 Instance.prototype.initialisedom = function () {
-	if ( ! this.m_oDOM) {
-		if ( ! this.getAttribute("src")) {
+	if (!this.m_oDOM) {
+		if (!this.getAttribute("src")) {
 			this.parseInstance();
 		}
 		else {
@@ -121,7 +121,7 @@ Instance.prototype.replaceDocument = function (oDom) {
 	this.m_oDOM = oDom;
 	//in the case that this is being manually initialised, so that the DOM has not been
 	//  initialised through "initialiseDOM", there will be no originalDOM
-	if ( ! this.m_oOriginalDOM) {
+	if (!this.m_oOriginalDOM) {
 		this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
 	}
 	return;
