@@ -254,6 +254,24 @@ DECORATOR.addDecorationRules({
         }
         ],
 
+        "insert" : [
+        {
+            "name" : "insert-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Context", "Insert"]);
+            }
+        }
+        ],
+
+        "delete" : [
+        {
+            "name" : "delete-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(["Listener", "Context", "Delete"]);
+            }
+        }
+        ],
+
         "send" : [
         {
             "name" : "send-element",
@@ -742,6 +760,16 @@ DECORATOR.setupDecorator(
 			selector:"xf|setvalue",
 			objects:[]
 		},
+
+        {
+            selector:"xf|insert",
+            objects:[]
+        },
+
+        {
+            selector:"xf|delete",
+            objects:[]
+        },
 
 		{
 			selector:"xf|send",
