@@ -98,6 +98,11 @@ xf|trigger xf|label
   background-color: #D3D3D3;
   padding: 3px;
 }
+ 
+xforms|dispatch,
+xf|dispatch {
+  display: none;
+}
 
 *[class~="invalid"] xf|alert, *[class~="invalid"] xforms|alert {
   display: inline;
@@ -109,13 +114,11 @@ xf|trigger xf|label
   display: none;
 }
 
-
 xforms|alert pe-value,
 xf|alert pe-value {
   border: none;
   background-color: transparent;
 }
-
 
 xforms|alert xforms|input pe-value,
 xf|alert xf|input pe-value {
