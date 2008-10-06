@@ -2,7 +2,7 @@
 
 = Overview =
 
-Please see the [http://code.google.com/p/ubiquity/wiki/CodingUsingSvn development process for the Ubiquity project as a whole], which contains both an overview and detailed explanation of the development process as well as SVN command-line instructions.
+Please see the [http://code.google.com/p/ubiquity-xforms/wiki/CodingGuidelines Coding Guidelines] and in particular the [http://code.google.com/p/ubiquity/wiki/CodingUsingSvn development process for the Ubiquity project as a whole], which contains both an overview and detailed explanation of the development process as well as SVN command-line instructions.
 
 This page provides the corresponding mechanics for using Eclipse and the Subversive plugin, rather than the command-line, to achieve the development process above.
 
