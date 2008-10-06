@@ -57,11 +57,13 @@ Finally, at the end of this page, there are some instructions on setting up Subv
       * The modifications can be viewed by expanding the trees OR to get a side-by-side diff comparison, don't click "Diff"! Instead, click the file link, then click "Diff" at the top right corner
     # Send email to ubiquity-xforms-eng@googlegroups.com with subject that begins *CODE REVIEW NEEDED* and contains *rNNNN*
       * The typical review period is 48 hours. Put *URGENT* in the subject line to request a shorter review period
-    # Two +1 reviews and a minimum of 48 hours are needed before committing to trunk
+    # At least one +1 review is needed before committing to trunk
       * A review can be +1 and can still request minor editorial changes needing no further review or identify issues that should be raised in the issue system once the code is committed.
-      * A -1 review halts the commit until the reason for the -1 is resolved
+      * A -1 review halts the commit until the reason for the -1 is resolved.  A -1 review requires a detailed technical justification, including what if anything can be done to mitigate or eliminate the concerns raised in the review.
       * A neutral review can be used to raise issues without advancing or impeding a trunk commit.
-      * Ping list again if there are not enough reviews within 48 hours
+      * Ping list again if no +1 or -1 reviews within 48 hours
+      * A +1, no -1's, and 48 hours are sufficient for a trunk commit
+      * For URGENT requests, if a +1 is received, then ping the list to ask for a same day response to whether anyone else is planning a review.  If no response that day, then assume no further reviews are coming, and proceed with commit to trunk due to +1 received. 
       * Except for addressing minor editorial changes, a substantive change should spawn a new review copy by repeating the above process, in which case the current review copy should be deleted without committing to trunk.
   # *Committing changes to the trunk and deleting the review copy*
     # Ensure you have the favorable review(s) needed 
