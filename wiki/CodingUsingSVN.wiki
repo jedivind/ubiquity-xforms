@@ -1,12 +1,18 @@
-#summary Development Contribution Process with SVN and Eclipse Subversive Instructions.
+#summary The mechanics of the development/code contribution with Eclipse and Subversive.
 
-= Developing the Code =
+= Overview =
 
-Contributors have the option of working on the trunk code, but *do not commit* without code reviews, as described below.  The code review process is similar when a branch is used. 
+Please see the [http://code.google.com/p/ubiquity/wiki/CodingUsingSvn development process for the Ubiquity project as a whole], which contains both an overview and detailed explanation of the development process as well as SVN command-line instructions.
 
-For the first draft of this page, the instructions include the specifics for using Eclipse with subversive.  In the future of this page, the specific SVN command-line instructions will be added, which can be harvested from an older development process description [http://code.google.com/p/ubiquity/wiki/CodingUsingSvn here].
+This page provides the corresponding mechanics for using Eclipse and the Subversive plugin, rather than the command-line, to achieve the development process above.
 
-At the end of this page, there are also some instructions on setting up Subversive in Eclipse for use in the Ubiquity XForms project (this could go to another page and just be linked from here).
+Contributors have the option of working on the trunk code, but as mentioned all over the place *do not commit* without a code review.
+
+The mechanics below assume you have SVN commit access.  The instructions are similar if you don't have commit access.  You can get the trunk using an http request, rather than https.  Then, once you use "Create Patch", you can email that to the contributor mailing list for a code review.
+
+The mechanics below describe how to work without using a branch.  The process is similar when you do have a branch.  The main difference is that you have to update your branch with the trunk before asking for a code review (rather than updating your local trunk copy before asking for a code review).
+
+Finally, at the end of this page, there are some instructions on setting up Subversive in Eclipse for use in the Ubiquity XForms project.
 
 = Contribution Process (without branching) =
 
@@ -44,12 +50,12 @@ At the end of this page, there are also some instructions on setting up Subversi
     # Hit Finish (pulls from clipboard)
     # Right click the ux-FEATURE-X project
     # Team | Commit
-    # Add a comment that begins *REVIEW NEEDED* and explain feature
+    # Add a comment that begins *CODE REVIEW NEEDED* and explain feature
     # After commit, you will be able to see a page for your revision
       * Go to ubiquity project and click the [http://code.google.com/p/ubiquity-xforms/source/checkout sources tab]
       * Click the changes link, and at or near the top should be your revision ({{{http://code.google.com/p/ubiquity-xforms/source/detail?r=NNNN}}})
       * The modifications can be viewed by expanding the trees OR to get a side-by-side diff comparison, don't click "Diff"! Instead, click the file link, then click "Diff" at the top right corner
-    # Send email to ubiquity-xforms-eng@googlegroups.com with subject that begins *REVIEW NEEDED* and contains *rNNNN*
+    # Send email to ubiquity-xforms-eng@googlegroups.com with subject that begins *CODE REVIEW NEEDED* and contains *rNNNN*
       * The typical review period is 48 hours. Put *URGENT* in the subject line to request a shorter review period
     # Two +1 reviews and a minimum of 48 hours are needed before committing to trunk
       * A review can be +1 and can still request minor editorial changes needing no further review or identify issues that should be raised in the issue system once the code is committed.
@@ -97,9 +103,12 @@ At the end of this page, there are also some instructions on setting up Subversi
 	    *.png               svn:mime-type=image/png
 	    *.gif               svn:mime-type=image/gif
 	    *.jpg               svn:mime-type=image/jpeg
+            *.html              svn:mime-type=text/html
+            *.xhtml             svn:mime-type=application/xhtml+xml
 	    *.js                svn:eol-style=native
 	    *.html              svn:eol-style=native
 	    *.xhtml             svn:eol-style=native
+            *.css               svn:eol-style=native
 }}}
   # *Obtain a local copy of the project trunk*
     # Right-click Package Explorer
@@ -107,7 +116,7 @@ At the end of this page, there are also some instructions on setting up Subversi
     # SVN | Projects from SVN | Next >>
     # URL: https://ubiquity-xforms.googlecode.com/svn/
     # User: same as gmail login (boyerj@ca.ibm.com)
-    # Password: Google code password (Nu8RG8gg9fd9), not gmail login password
+    # Password: Google code password, not gmail login password
       * Log in to the Google Code Project
       * Under source tab, there is a link to get your Google code password
     # Click Save Password and then Click Next
