@@ -14,7 +14,7 @@ The mechanics below describe how to work without using a branch.  The process is
 
 Finally, at the end of this page, there are some instructions on setting up Subversive in Eclipse for use in the Ubiquity XForms project.
 
-= Contribution Process (without branching) =
+= Contribution Mechanics (without branching) =
 
   # *When you want to make changes, work on trunk but DO NOT COMMIT*
     * To add a file, use Team | Add to Version Control... to add the file LOCALLY
