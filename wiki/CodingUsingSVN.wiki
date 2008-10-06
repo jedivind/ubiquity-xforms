@@ -37,14 +37,14 @@ At the end of this page, there are also some instructions on setting up Subversi
     # Right click the ubiquity-xforms trunk project
     # Team | Create Patch ...
     # Hit Finish (accepts putting patch on the clipboard)
-      * Note that changes to binary files must be handled *manually* because the patch system only handles text
-      * Note that .xhtml files are of type application/xhtml+xml, which is being treated as binary by SVN
+      * Note that changes to true binary files must be handled *manually* because the patch system only handles text
+      * Note that .xhtml files are of type application/xhtml+xml, which is being treated as binary by SVN.  However, if the only binary files that were modified are really text files, it may be possible to patch them automatically by hitting Next instead of Finish in this step, and then selecting the "Process Binary Resources" checkbox
     # Right click the ux-FEATURE-X project
     # Team | Apply Patch ...
     # Hit Finish (pulls from clipboard)
     # Right click the ux-FEATURE-X project
     # Team | Commit
-    # Add a comment that begins [REVIEW NEEDED] and explain feature
+    # Add a comment that begins *REVIEW NEEDED* and explain feature
     # After commit, you will be able to see a page for your revision
       * Go to ubiquity project and click the [http://code.google.com/p/ubiquity-xforms/source/checkout sources tab]
       * Click the changes link, and at or near the top should be your revision ({{{http://code.google.com/p/ubiquity-xforms/source/detail?r=NNNN}}})
