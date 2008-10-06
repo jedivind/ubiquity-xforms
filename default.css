@@ -99,6 +99,11 @@ xf:\trigger xf:\label
   padding: 3px;
 }
 
+xforms\:dispatch,
+xf\:dispatch  {
+  display: none;
+}
+
 .invalid xf\:alert, .invalid xforms\:alert {
   display: inline;
   background-color: transparent;
