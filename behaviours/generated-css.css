@@ -163,6 +163,10 @@ xf\:setvalue, xforms\:setvalue,
 xf\:hint, xforms\:hint {
   -moz-binding: url("decorator.xml#decorator");
 }
+xf\:insert, xforms\:insert,
+xf\:delete, xforms\:delete {
+  -moz-binding: url("decorator.xml#decorator");
+}
 xf\:send, xforms\:send {
   -moz-binding: url("decorator.xml#decorator");
 }
