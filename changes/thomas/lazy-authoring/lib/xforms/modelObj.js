@@ -84,26 +84,30 @@ Model.prototype.getInstanceDocument = function(sID) {
     var oRet = null;
     var oInstance = null;
     var i, l;
+    var oElement = this.element;
 
     if (sID && sID !== "") {
         oInstance = document.getElementById(sID);
+        
         // it may be an external instance.
-        if (oInstance && oInstance.parentNode != this.element) {
-            throw "instance '" + sID + "' is not part of model '"
-                    + this.element.id + "'";
+        if (oInstance && oInstance.parentNode !== oElement) {
+            throw "instance '" + sID + "' is not part of model '" + 
+                oElement.id + "'";
         } else {
             l = this.externalInstances.length;
+            
             for (i = 0; i < l; ++i) {
-                if (this.externalInstances[i].element.id === sID) {
+                oElement = this.externalInstances[i].element;
+                
+                if (oElement.id === sID) {
                     oInstance = this.externalInstances[i];
                     isExternal = true;
                     break;
                 }
             }
         }
-
     } else {
-        oInstance = NamespaceManager.getElementsByTagNameNS(this.element,
+        oInstance = NamespaceManager.getElementsByTagNameNS(oElement,
                 "http://www.w3.org/2002/xforms", "instance")[0];
         // There may be no real instances, only external ones.
         if (!oInstance) {
@@ -122,15 +126,6 @@ Model.prototype.getInstanceDocument = function(sID) {
 };
 
 
-function getElementsByTagNameNS(el, prefix, tn) {
-    if (document.all) {
-        return el.getElementsByTagName(tn);
-    } else {
-        return el.getElementsByTagName(prefix + ":" + tn);
-    }
-}
-
-
 Model.prototype.getEvaluationContext = function() {
     var oRet = {
         model :this,
@@ -146,10 +141,8 @@ Model.prototype.getEvaluationContext = function() {
         if (oDom) {
             oRet.node = getFirstNode(this.EvaluateXPath("/*", oDom));
         }
-    } else {
-        throw "Model ... has no instances";
     }
-
+    
     return oRet;
 };
 
