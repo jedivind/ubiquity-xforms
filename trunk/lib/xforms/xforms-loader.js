@@ -117,7 +117,12 @@ var g_sBehaviourDirectory  = "";
   		requires:["xforms-actions","xforms-processor"]});  
 
   	loader.addModule({ name: "xforms-setvalue",             type: "js",  fullpath: moduleBase + "setvalue.js",
-  	    	requires:["xforms-actions"]});
+  	    	requires:["xforms-instance","xforms-actions"]});
+    loader.addModule({ name: "xforms-insert",               type: "js",  fullpath: moduleBase + "insert.js",
+            requires:["xforms-instance","xforms-actions"]});
+    loader.addModule({ name: "xforms-delete",               type: "js",  fullpath: moduleBase + "delete.js",
+            requires:["xforms-instance","xforms-actions"]});
+            
   	loader.addModule({ name: "xforms-toggle",             type: "js",  fullpath: moduleBase + "toggle.js",
   	    	requires:["xforms-actions"]});
 
@@ -175,7 +180,9 @@ var g_sBehaviourDirectory  = "";
         "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-item",
-        "xforms-actions","xforms-setvalue","xforms-toggle", "xforms-model-actions",
+        "xforms-actions","xforms-model-actions",
+        "xforms-setvalue","xforms-insert","xforms-delete",
+        "xforms-toggle", 
         "xforms-submit",
         "xforms-hint",
         "yui-input-calendar","yui-input-color"

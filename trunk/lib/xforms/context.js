@@ -33,6 +33,10 @@ Context.prototype.unwire = function() {
 // Originally written to remove an amount of stuff from the .htc
 // so just calls equivalent friend function with pThis.
 // This is no longer needed or desired, with the advent of the decorator stuff.
+
+/*
+ * Return the evaluation context of the element.
+ */
 Context.prototype.getEvaluationContext = function(nOrdinal) {
     return _getEvaluationContext(this, nOrdinal);
 };
