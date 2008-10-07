@@ -17,7 +17,7 @@ Just overwrite your entry each day so we keep a table with one row per team memb
  
 = Details =
 
-||Charlie||Working with Rahul and Thomas to evolve the stories around styling -- both for CSS and for layout of container elements (group, repeat, switch).  Starting simple to make the loan form look better (issue 32).  Starting to think about the Simplified XForms syntax Story and reviewing the WG discussion with Thomas...||
+||Charlie||Pulling together demos for the W3C Tech Plenary using Ubiquity.  Have an urgent need for notification events to work -- at least DOMFocusIn...||
 ||Rahul||In a !WebKit support spike. Looking at getting model data type information and using that for UI control style and sizing (see issue 45). Fleshing out details around [StoryStyling styling] for controls.||
 ||Thomas|| Fleshing out stories around [StoryStyling styling] starting with group style (horiontal & vertical & controls flow). Looking at Simplified XForms for ubiquity. ||
 ||Mark_Mc|| I'm finishing up my xf:dispatch work. I will probably work on xf:help next or maybe xf:message or maybe some of the Issues on the Offline form. ||
