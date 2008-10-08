@@ -64,9 +64,9 @@ return YAHOO.util.Connect.asyncRequest(
 *Please be extra careful in your testing with this security instruction!*
 
 === Local Configuration Setting in Firefox 3 for accessing local files (especially with .xhtml extensions) ===
-Some developers may need to alter their Firefox 3 configuration to allow them to test from their local environment, perhaps when testing with .xhtml extensions.  If you are seeing something not quite right in your Firefox 3 browser, you may want to check your error console: Tools > Error Console.  If you have a security error like the following information message, you should change a configuration property: *Security Error: Content at file:///C:/Documents and Settings/workspace/xforms-trunk2/trunk/_samples/xforms-message.xhtml may not load data from file:///C:/Documents and Settings/workspace/xforms-trunk2/trunk/behaviours/decorator.xml#decorator.*.
+Some developers may need to alter their Firefox 3 configuration to allow them to test from their local environment, perhaps when testing with .xhtml extensions.  If you are seeing something not quite right in your Firefox 3 browser, you may want to check your error console: Tools > Error Console.  If you have a security error like the following information message, you should change a local configuration property: *Security Error: Content at file:///C:/Documents and Settings/workspace/xforms-trunk2/trunk/_samples/xforms-message.xhtml may not load data from file:///C:/Documents and Settings/workspace/xforms-trunk2/trunk/behaviours/decorator.xml#decorator.*.
 
-To work with local web content files, you may need to change the "security.fileuri.strict_origin_policy" property to allow you to access local web content files.  To do this,
+Here's how you can change the "security.fileuri.strict_origin_policy" property to allow you to access local web content files.  To do this,
   * In the location bar, type "about.config".  This lists the configuration properties for your Firefox 3 browser.  *BE CAREFUL*
   * Search for the "security.fileuri.strict_origin_policy" property
   * Set to false
