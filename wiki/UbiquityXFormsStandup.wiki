@@ -22,3 +22,4 @@ Just overwrite your entry each day so we keep a table with one row per team memb
 ||Thomas|| Fleshing out stories around [StoryStyling styling] starting with group style (horiontal & vertical & controls flow). Looking at Simplified XForms for ubiquity. ||
 ||Mark_Mc|| I'm working on xf:message right now. I will soon be working on the Testsuite when those test files go into the google code. ||
 ||Keith|| My primary concern is to qualify the compliance to the W3C 1.1 test suite.  Over the next few days, I intend to determine the issues for the purchase order sample from John, continue to focus on issues such as XHMTL (FF/XML parser), the instance @resource (issue 75), submission@resource (issue 80), and output @mediatype (issue 81)  ||
+||John|| Project administration, system verification samples, development on remaining aspects of insert/delete actions ||
