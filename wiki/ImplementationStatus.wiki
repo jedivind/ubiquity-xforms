@@ -31,15 +31,15 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#ui-range range] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#ui-trigger trigger] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#ui-submit submit] || yes || || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#ui-select select] || *no* || || || || || || || || || || || || ||
-|| [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-select1 select1] || *in-progress* || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-label label] ||  || || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-select select] || yes || || || || || || || || || || || || ||
+|| [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-select1 select1] || yes || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-label label] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#ui-commonelems-help help] || || || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-hint hint] || basically yes || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#ui-commonelems-hint hint] || yes || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#ui-commonelems-alert alert] || yes || || || || || || || || || || || || ||
 || [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-choices choices] || *in-progress* || || || || || || || || || || || || ||
-|| [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-item item] || *in-progress* || || || || || || || || || || || || ||
-|| [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-value value] || *in-progress* || || || || || || || || || || || || ||
+|| [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-item item] || yes || || || || || || || || || || || || ||
+|| [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-value value] || yes || || || || || || || || || || || || ||
 || [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-itemset itemset] || *in-progress* || || || || || || || || || || || || ||
 || [FeatureSelect1] || [http://www.w3.org/TR/xforms11/#ui-selection-commonelems-copy copy] || *in-progress* || || || || || || || || || || || || ||
 
@@ -52,16 +52,16 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 
 = Actions =
 ||*wiki* || *Action* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
-|| || [http://www.w3.org/TR/xforms11/#action-conditional conditional] || || || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-conditional conditional] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-iteration iteration] || || || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#action-action action] || || || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-action action] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-setvalue setvalue] || || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-setindex setindex] || *no*  || || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#action-insert insert] || *no* || || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#action-delete delete] || *no* || || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-insert insert] || yes || || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-delete delete] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-toggle toggle] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-setfocus setfocus] || || || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#action-dispatch dispatch] || || || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-dispatch dispatch] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-rebuild rebuild] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-recalculate recalculate] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-refresh refresh] || yes || || || || || || || || || || || || ||
@@ -108,23 +108,23 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 
 == Initialization Events ==
 || *wiki* || *Event* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
-|| || [http://www.w3.org/TR/xforms11/#evt-modelConstruct xforms-model-construct] || || * || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-modelConstructDone xforms-model-construct-done] || || * || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-ready xforms-ready] || || * || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-modelConstruct xforms-model-construct] || yes || * || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-modelConstructDone xforms-model-construct-done] || yes || * || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-ready xforms-ready] || yes || * || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-modelDestruct xforms-model-destruct] || || * || || || || || || ||
 
 
 == Interaction Events ==
 || *wiki* || *Event* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
-|| || [http://www.w3.org/TR/xforms11/#evt-rebuild xforms-rebuild] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-recalculate xforms-recalculate] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-revalidate xforms-revalidate] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-refresh xforms-refresh] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-reset xforms-reset] || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-rebuild xforms-rebuild] || yes || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-recalculate xforms-recalculate] || yes || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-revalidate xforms-revalidate] || yes || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-refresh xforms-refresh] || yes || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-reset xforms-reset] || yes || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-next xforms-next and xforms-previous] || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-focus xforms-focus] || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-help xforms-help and xforms-hint] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-submit xforms-submit] || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-submit xforms-submit] || yes || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-submit-serialize xforms-submit-serialize] || || || || || || || || ||
 
 == Notification Events ==
