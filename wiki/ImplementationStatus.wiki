@@ -123,7 +123,8 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#evt-reset xforms-reset] || yes || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-next xforms-next and xforms-previous] || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-focus xforms-focus] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-help xforms-help and xforms-hint] || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-help xforms-help] || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-help xforms-hint] || yes || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-submit xforms-submit] || yes || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-submit-serialize xforms-submit-serialize] || || || || || || || || ||
 
@@ -160,6 +161,14 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#evt-versionException xforms-version-exception] || || || || || || ||
 
 
+= Priority for Missing Features for XForms 1.1 =
+  *  FeatureValidation
+  *  Current()
+  *  Event()
+  *  Setindex 
+  *  Upload Control
+  *  Help Element
+  
 = Blocking Issues =
   *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=61&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-61: Itemset problem with Select1]
   *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=65&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-65: Trigger with ref/bind does not work]
