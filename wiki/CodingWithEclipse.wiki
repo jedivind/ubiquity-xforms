@@ -16,10 +16,10 @@ Finally, at the end of this page, there are some instructions on setting up Subv
 
 = Contribution Mechanics (without branching) =
 
-  # *When you want to make changes, work on trunk but DO NOT COMMIT*
+  # When you want to make changes, work on trunk but DO NOT COMMIT
     * To add a file, use Team | Add to Version Control... to add the file LOCALLY
     * To undo local changes to a file and go back to the server copy, use Team | Revert...
-  # *When you want a code review, you need to make a copy of your changes onto a copy of the trunk.*
+  # When you want a code review, you need to make a copy of your changes onto a copy of the trunk.
     # Copy the trunk to a directory in your changes location
       # Go to SVN Repositories perspective
       # Right Click on the trunk, choose Refactor | Copy To...
