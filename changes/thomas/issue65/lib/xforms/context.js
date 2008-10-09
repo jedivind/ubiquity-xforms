@@ -246,9 +246,15 @@ function _getBoundNode(pThis, nOrdinal) {
             }            
             pThis.m_model    = oBind["ownerModel"];
             pThis.m_arrNodes = oBind["boundNodeSet"];
-        }         
-        return { model : pThis.m_model, 
-                 node  : pThis.m_arrNodes[nOrdinal - 1] };
+        }
+        oRet.model = pThis.m_model;        
+        
+        var i = nOrdinal - 1;        
+        if (pThis.m_arrNodes && 
+            pThis.m_arrNodes.length > i) {
+            oRet.node = pThis.m_arrNodes[i]
+        }        
+        return oRet;
     }
 
     var sRef = oElement.getAttribute("ref");
