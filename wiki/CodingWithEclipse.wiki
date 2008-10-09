@@ -78,14 +78,13 @@ Finally, at the end of this page, there are some instructions on setting up Subv
   # *Install Subversive plugin* 
     # Visit http://www.eclipse.org/subversive
     # Click "Downloads" and follow the instructions (particulars in the following steps)
-    # Help | Software Updates
+    # In Eclipse, choose menu Help | Software Updates
     # Click Available Software tab
     # Must install Subversive plugin
-      * It's under the Ganymede Update Site, but that can be slow to update
-      * Click "Add Site..." to add the specific site of the Latest Release
-        * (http://download.eclipse.org/technology/subversive/0.7/update-site/) 
-      * Choose the Subversive SVN Team Provider checkbox
-    # Must install Subversive Connectors as follows
+      * It's under the Ganymede Update Site (http://download.eclipse.org/release/ganymede)
+      * Then, open up the Collaboration Tools
+      * Choose the checkbox for Subversive SVN Team Provider (choose the incubation 0.7.3 release)
+    # Must install checkbox for Subversive Connectors (incubation) as follows
       * Click "Add Site..."
       * Add the site indicated on the downloads site 
         * Click external site link (http://www.polarion.com/products/svn/subversive.php?src=eclipseproject)
