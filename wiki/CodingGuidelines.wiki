@@ -7,4 +7,4 @@ Once you have permission to contribute, you should then look at the [http://code
 
 Afterward, please read about the [http://code.google.com/p/ubiquity/wiki/CodingUsingSvn development/code contribution process for the Ubiquity project as a whole].  This contains an overview of the development process, a detailed description of the development process and the thinking behind it, and SVN command-line instructions that correspond to the various steps.
 
-Finally, here are some additional notes on [http://code.google.com/p/ubiquity-xforms/wiki/CodingWithEclipse the mechanics of code contribution Eclipse with Subversive].
+Finally, here are some additional notes on [http://code.google.com/p/ubiquity-xforms/wiki/CodingWithEclipse the mechanics of code contribution using Eclipse with Subversive].
