@@ -88,7 +88,7 @@ Model.prototype.getInstanceDocument = function(sID) {
     if (sID && sID !== "") {
         oInstance = document.getElementById(sID);
         // it may be an external instance.
-        if (oInstance && oInstance.parentNode != this.element) {
+        if (oInstance && oInstance.parentNode !== this.element) {
             throw "instance '" + sID + "' is not part of model '"
                     + this.element.id + "'";
         } else {
@@ -122,15 +122,6 @@ Model.prototype.getInstanceDocument = function(sID) {
 };
 
 
-function getElementsByTagNameNS(el, prefix, tn) {
-    if (document.all) {
-        return el.getElementsByTagName(tn);
-    } else {
-        return el.getElementsByTagName(prefix + ":" + tn);
-    }
-}
-
-
 Model.prototype.getEvaluationContext = function() {
     var oRet = {
         model :this,
@@ -146,10 +137,8 @@ Model.prototype.getEvaluationContext = function() {
         if (oDom) {
             oRet.node = getFirstNode(this.EvaluateXPath("/*", oDom));
         }
-    } else {
-        throw "Model ... has no instances";
     }
-
+    
     return oRet;
 };
 
