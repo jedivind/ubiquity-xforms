@@ -106,6 +106,7 @@ Finally, at the end of this page, there are some instructions on setting up Subv
 	    *.jpg               svn:mime-type=image/jpeg
             *.html              svn:mime-type=text/html
             *.xhtml             svn:mime-type=application/xhtml+xml
+            *.css               svn:mime-type=text/css
 	    *.js                svn:eol-style=native
 	    *.html              svn:eol-style=native
 	    *.xhtml             svn:eol-style=native
