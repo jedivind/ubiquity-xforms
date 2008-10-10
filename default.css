@@ -186,3 +186,8 @@ xf\:select1 xf\:label pe-value, xforms\:select1 xforms\:label pe-value {
   height:200px;
 }
 
+xforms\:output pe-value,
+xf\:output pe-value {
+  border: none;
+  background-color: transparent;
+}
