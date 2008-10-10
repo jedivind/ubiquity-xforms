@@ -58,12 +58,6 @@ Wrap ubiquity xforms's model into different Ajax toolkit (ex. dojo, YUI)
 
 Completing support for {{{select}}} and {{{select1}}}.
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/issue-44 issue-44] ==
-
-Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
-
-Provide support for *.xhtml (application/xhtml+xml) content. 
-
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-tests-and-examples xforms-tests-and-examples] ==
 
 Owner: [http://code.google.com/u/wellsk0705/ wellsk0705] 
@@ -105,7 +99,6 @@ Completing support for message.
 ||implement-alert||-||-||r680||-||
 ||implement-message||r479||-||-||-||
 ||implement-select||r693|| - || r702 || - ||
-||issue-44||r1014|| r1014 || - || - ||
 ||loan-form||r925||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
