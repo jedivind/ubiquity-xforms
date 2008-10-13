@@ -76,28 +76,11 @@ Refactoring vertextargets.js.
 
 Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/hint-work hint-work] ==
-
-Owner: [http://code.google.com/u/mdmcente/ mdmcente]
-
-Completing support for hint.
-
-== [http://code.google.com/p/ubiquity-xforms/source/browse/branches/implement-message implement-message] ==
-
-Owner: [http://code.google.com/u/mdmcente/ mdmcente]
-
-Completing support for message.
-
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
 ||stream-lined ||r866||-||-||-||
 ||ajax-xforms-model||r485||-||-||-||
-||fixing-alerts-on-FF3||-||-||r920||-||
-||fixing-alerts-on-IE||-||-||r875||-||
-||hint-work||r436||needs a code review||-||-||
-||implement-alert||-||-||r680||-||
-||implement-message||r479||-||-||-||
 ||implement-select||r693|| - || r702 || - ||
 ||loan-form||r925||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
