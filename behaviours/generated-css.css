@@ -1,14 +1,22 @@
-xf\:repeat > * , xforms\:repeat > * {
+xf\:repeat > * , xforms\:repeat > *, xf\:itemset > * , xforms\:itemset > * {
   -moz-binding:url();
 }
 xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready > xforms\:group {
   -moz-binding: url("decorator.xml#decorator");
 }
+xf\:itemset.repeat-ready > xf\:item, xforms\:itemset.repeat-ready > xforms\:item {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:itemset, xforms\:itemset {
+  -moz-binding: url("decorator.xml#decorator");
+}
 
-xf\:select1 > xf\:item , xforms\:select1 > xforms\:item {
+xf\:select1 > xf\:item , xforms\:select1 > xforms\:item, 
+xf\:select1 > xf\:itemset , xforms\:select1 >  xforms\:itemset {
   -moz-binding:url();
 }
-xf\:select1 > xf\:item *, xforms\:select1 >  xforms\:item *{
+xf\:select1 > xf\:item *, xforms\:select1 >  xforms\:item *, 
+xf\:select1 > xf\:itemset *, xforms\:select1 >  xforms\:itemset *{
   -moz-binding:url();
 }
 
@@ -155,6 +163,10 @@ xf\:setvalue, xforms\:setvalue,
 xf\:hint, xforms\:hint {
   -moz-binding: url("decorator.xml#decorator");
 }
+xf\:insert, xforms\:insert,
+xf\:delete, xforms\:delete {
+  -moz-binding: url("decorator.xml#decorator");
+}
 xf\:send, xforms\:send {
   -moz-binding: url("decorator.xml#decorator");
 }
@@ -182,10 +194,12 @@ xf\:reset, xforms\:reset {
 xf\:label >  pe-value, xforms\:label >  pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
-xf\:repeat *, xforms\:repeat * {
+
+xf\:repeat *, xforms\:repeat *, xf\:itemset *, xforms\:itemset*{
   -binding-ignore:true;
 }
-xf\:repeat.repeat-ready *, xforms\:repeat.repeat-ready * {
+
+xf\:repeat.repeat-ready *, xforms\:repeat.repeat-ready *, xf\:itemset.repeat-ready *, xforms\:itemset.repeat-ready * {
   -binding-ignore:false;
 }
 

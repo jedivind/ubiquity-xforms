@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
   * Copyright (C) 2008 Backplane Ltd.
   *
@@ -13,8 +15,6 @@
   * See the License for the specific language governing permissions and
   * limitations under the License.
 -->
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html 
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fp="urn:formsplayer.com" 
@@ -22,7 +22,32 @@
 	xmlns:xf="http://www.w3.org/2002/xforms">
 	<head>
 		<title>Using switch and case to create composite controls</title>
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
 		
+		<style type="text/css">
+			body {
+				font-family			:	"Trebuchet MS", Verdana, Helvetica, sans-serif;
+			}
+			
+			h2 {
+				background-color	:	lightblue;
+				font-size			:	80%;
+			}
+			
+			.the-demo {
+				background-color	:	lightyellow;
+				border				:	1px thin solid darkyellow;
+				padding				:	5px;
+			}
+			
+			/* an xf:repeat 'row' */
+			.repeat-item
+			{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
 		<xf:model>
 			<xf:instance id="iData">
 				<printerSettings xmlns="">
@@ -76,33 +101,8 @@
 				</resources>
 			</xf:instance>
 
-			<xf:bind id="printerSettings" nodeset="*"/>
+			<xf:bind id="printerSettings" nodeset="*"></xf:bind>
 		</xf:model>
-		
-		<style type="text/css">
-			body {
-				font-family			:	"Trebuchet MS", Verdana, Helvetica, sans-serif;
-			}
-			
-			h2 {
-				background-color	:	lightblue;
-				font-size			:	80%;
-			}
-			
-			.the-demo {
-				background-color	:	lightyellow;
-				border				:	1px thin solid darkyellow;
-				padding				:	5px;
-			}
-			
-			/* an xf:repeat 'row' */
-			.repeat-item
-			{
-				display: block;
-			}
-		</style>
-	</head>
-	<body>
 		<h1>
 			Using switch and case to create composite controls
 		</h1>
@@ -118,28 +118,28 @@
      		</p>
 
      		<xf:repeat bind="printerSettings">
-     			<xf:output style="display: inline-block;" ref="instance('iDefs')/resource[@id=local-name(current())]/prompt"/>:
+     			<xf:output style="display: inline-block;" ref="instance('iDefs')/resource[@id=local-name(current())]/prompt"></xf:output>:
      			<xf:switch style="display: inline-block;">
      				<xf:case id="casePrompt">
      					<xf:trigger id="tr" appearance="minimal" style="text-decoration: underline;">
-     						<xf:label ref="instance('iDefs')/resource[@id=local-name(current())]/choices/choice[@value=current()]"/>
-     						<xf:toggle case="caseEnter" ev:event="DOMActivate"/>
+     						<xf:label ref="instance('iDefs')/resource[@id=local-name(current())]/choices/choice[@value=current()]"></xf:label>
+     						<xf:toggle case="caseEnter" ev:event="DOMActivate"></xf:toggle>
      					</xf:trigger>
-     					<xf:setfocus control="tr" ev:event="xforms-select"/>
+     					<xf:setfocus control="tr" ev:event="xforms-select"></xf:setfocus>
      				</xf:case>
      				<xf:case id="caseEnter">
      					<xf:select1 id="sel" ref=".">
-     						<xf:label/>
+     						<xf:label></xf:label>
      						<xf:itemset nodeset="instance('iDefs')/resource[@id=local-name(current())]/choices/choice">
-     							<xf:label ref="."/>
-     							<xf:value ref="@value"/>
+     							<xf:label ref="."></xf:label>
+     							<xf:value ref="@value"></xf:value>
      						</xf:itemset>
      						<xf:action ev:event="DOMFocusOut">
-     							<xf:rebuild/>
-     							<xf:toggle case="casePrompt"/>
+     							<xf:rebuild></xf:rebuild>
+     							<xf:toggle case="casePrompt"></xf:toggle>
      						</xf:action>
      					</xf:select1>
-     					<xf:setfocus control="sel" ev:event="xforms-select"/>
+     					<xf:setfocus control="sel" ev:event="xforms-select"></xf:setfocus>
      				</xf:case>
      			</xf:switch>
      		</xf:repeat>

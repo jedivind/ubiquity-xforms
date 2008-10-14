@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
   * Copyright (C) 2008 Backplane Ltd.
   *
@@ -13,26 +15,13 @@
   * See the License for the specific language governing permissions and
   * limitations under the License.
 -->
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xf="http://www.w3.org/2002/xforms"
 >
 	<head>
 		<title>Appearance</title>
-
-		<xf:model id="mdlPersonalDetails">
-			<xf:instance>
-				<instanceData>
-					<theCountry />
-				</instanceData>
-			</xf:instance>
-		</xf:model>
-
-		<xf:model id="mdlISO3166en">
-			<xf:instance src="iso3166en.xml" />
-		</xf:model>
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
 		
 		<style type="text/css">
 			body {
@@ -46,6 +35,16 @@
 		</style>
 	</head>
 	<body>
+		<xf:model id="mdlPersonalDetails">
+			<xf:instance>
+				<instanceData>
+					<theCountry ></theCountry>
+				</instanceData>
+			</xf:instance>
+		</xf:model>
+		<xf:model id="mdlISO3166en">
+			<xf:instance src="iso3166en.xml" ></xf:instance>
+		</xf:model>
 		<h1>
 			Expanded Country List
 		</h1>
@@ -63,8 +62,8 @@
 			<xf:label style="width:200px;">Select your country</xf:label>
 			<xf:hint>Choose a country</xf:hint>
 			<xf:itemset model="mdlISO3166en" nodeset="country">
-				<xf:label ref="name" />
-				<xf:value ref="code" />
+				<xf:label ref="name" ></xf:label>
+				<xf:value ref="code" ></xf:value>
 			</xf:itemset>
 		</xf:select1>
 		<h4>
@@ -74,8 +73,8 @@
 			<xf:label style="width:200px;">Select your country</xf:label>
 			<xf:hint>Choose a country</xf:hint>
 			<xf:itemset model="mdlISO3166en" nodeset="country">
-				<xf:label ref="name" />
-				<xf:value ref="code" />
+				<xf:label ref="name" ></xf:label>
+				<xf:value ref="code" ></xf:value>
 			</xf:itemset>
 		</xf:select1>
 		<h4>
@@ -85,8 +84,8 @@
 			<xf:label style="width:200px;">Select your country</xf:label>
 			<xf:hint>Choose a country</xf:hint>
 			<xf:itemset model="mdlISO3166en" nodeset="country">
-				<xf:label ref="name" />
-				<xf:value ref="code" />
+				<xf:label ref="name" ></xf:label>
+				<xf:value ref="code" ></xf:value>
 			</xf:itemset>
 		</xf:select1>
 	</body>

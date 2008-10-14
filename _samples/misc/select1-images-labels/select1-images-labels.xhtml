@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
   * Copyright (C) 2008 Backplane Ltd.
   *
@@ -13,16 +15,13 @@
   * See the License for the specific language governing permissions and
   * limitations under the License.
 -->
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html 
 	xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:fp="urn:formsplayer.com" 
 	xmlns:xf="http://www.w3.org/2002/xforms"> 
 	<head>
 		<title>select1 With Images in labels</title>
-
-		<xf:model />
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
 		
 		<style type="text/css">
 			body {
@@ -37,6 +36,13 @@
 		</style>
 	</head>
 	<body>
+		<xf:model>
+			<xf:instance id="iConfig">
+				<instanceData>
+					<selectedvalue></selectedvalue>
+				</instanceData>
+			</xf:instance>
+		</xf:model>
 		<h1>
 			&lt;select1&gt; With Images in Labels
 		</h1>
@@ -47,23 +53,23 @@
 		</div>
 		<div class="the-demo">		
 		
-     		<xf:select1 ref="selectedValue" appearance="full">
+     		<xf:select1 ref="selectedvalue" appearance="full">
      			<xf:label>Select a country:</xf:label>
      			<xf:item>
      				<xf:label>
-     					<img src="../../images/fr_flag.gif"/>
+     					<img src="../../images/fr_flag.gif"></img>
      				</xf:label>
      				<xf:value>fr</xf:value>
      			</xf:item>
      			<xf:item>
      				<xf:label>
-     					<img src="../../images/uk_flag.gif"/>
+     					<img src="../../images/uk_flag.gif"></img>
      				</xf:label>
      				<xf:value>uk</xf:value>
      			</xf:item>
      		</xf:select1>
-     		<br/>
-     		<xf:output ref="selectedValue">
+     		<br></br>
+     		<xf:output ref="selectedvalue">
      			<xf:label>Currently selected:</xf:label>
      		</xf:output>
         </div>

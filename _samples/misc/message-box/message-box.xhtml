@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
   * Copyright (C) 2008 Backplane Ltd.
   *
@@ -13,42 +15,14 @@
   * See the License for the specific language governing permissions and
   * limitations under the License.
 -->
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html
+<html 
 	xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:fp="urn:formsplayer.com" 
 	xmlns:ev="http://www.w3.org/2001/xml-events" 
 	xmlns:xf="http://www.w3.org/2002/xforms">
 	<head>
 		<title>A message box for configuration</title>
-		
-		<xf:model id="mConfig">
-			<xf:instance id="iConfig">
-				<config>
-					<lang>en</lang>
-				</config>
-			</xf:instance>
-
-			<xf:bind id="config-lang" nodeset="lang"/>
-
-			<xf:message level="modal" ev:event="my-configure">
-				<xf:select1 bind="config-lang" appearance="full">
-					<xf:label>Select Language<br/></xf:label>
-					<xf:item>
-						<xf:value>en</xf:value>
-						<xf:label>English<br/></xf:label>
-					</xf:item>
-					<xf:item>
-						<xf:value>fr</xf:value>
-						<xf:label>French<br/></xf:label>
-					</xf:item>
-				</xf:select1>
-				<div style="color: red;">
-					Note that when you change your selection the data back on the form changes.
-				</div>
-			</xf:message>
-		</xf:model>
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
 		
 		<style type="text/css">
 			body {
@@ -73,7 +47,35 @@
 		</style>
 	</head>
 	<body>
-		<h1>A message box for configuration</h1>
+		<xf:model id="mConfig">
+			<xf:instance id="iConfig">
+				<config>
+					<lang>en</lang>
+				</config>
+			</xf:instance>
+
+			<xf:bind id="config-lang" nodeset="lang"></xf:bind>
+
+			<xf:message level="modal" ev:event="my-configure">
+				<xf:select1 bind="config-lang" appearance="full">
+					<xf:label>Select Language<br/></xf:label>
+					<xf:item>
+						<xf:value>en</xf:value>
+						<xf:label>English<br/></xf:label>
+					</xf:item>
+					<xf:item>
+						<xf:value>fr</xf:value>
+						<xf:label>French<br/></xf:label>
+					</xf:item>
+				</xf:select1>
+				<div style="color: red;">
+					Note that when you change your selection the data back on the form changes.
+				</div>
+			</xf:message>
+		</xf:model>
+		<h1>
+			A message box for configuration
+		</h1>
 		<div>
 		    A &lt;message&gt; is used to provide the form user with configuration options.
 		</div>
@@ -87,7 +89,7 @@
 		<div class="the-demo">				
      		<xf:trigger>
      			<xf:label>Config ...</xf:label>
-     			<xf:dispatch name="my-configure" target="mConfig" ev:event="DOMActivate"/>
+     			<xf:dispatch name="my-configure" target="mConfig" ev:event="DOMActivate"></xf:dispatch>
      		</xf:trigger>
      		<xf:output bind="config-lang">
      			<xf:label>Current Language:</xf:label>
