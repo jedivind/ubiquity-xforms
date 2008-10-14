@@ -14,12 +14,12 @@ xforms|select1 pe-value {width: 48%; background-color: white; border: 1px inset 
 xforms|select1 xforms|label {width: 205px;  float:left;  }
 xforms|select1 xforms|item xforms|label pe-value  { float:none;  }
 
-xforms|output[class~="regular"] {display: block; background-color: rgb(220,220,220);}
+xforms|output[class~="regular"] {background-color: rgb(220,220,220);}
 xforms|output[class~="regular"]  xforms|label pe-value { width: 205px; float:left;}
 
 xforms|input[class~="red"] pe-value {color: red;}
 xforms|input[class~="block"] {display: block;}
 
-xforms|*[class~="disabled"] { display: none; }
-xforms|*[class~="invalid"] { border-style: solid; border-width: 2px; border-color: red; }
-xforms|*[class~="required"]::after {content: "*"; color: red;}            
+*[class~="disabled"] { display: none; }
+*[class~="invalid"] { border-style: solid; border-width: 2px; border-color: red; }
+*[class~="required"]::after {content: "*"; color: red;}            

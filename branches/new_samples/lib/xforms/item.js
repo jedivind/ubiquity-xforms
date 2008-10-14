@@ -25,12 +25,12 @@ Value.prototype.onContentReady = function(){
 	if(this.element.parentNode.m_ancestorEventTarget){
         this.element.parentNode.m_ancestorEventTarget.addItem(this.element.parentNode);
 	}
-}
+};
 
 Value.prototype.getValue = function()
 {
   if(this.m_sValue === undefined) {
-    if(DOM_TEXT_NODE === this.element.firstChild.nodeType) {
+    if(this.element.firstChild && DOM_TEXT_NODE === this.element.firstChild.nodeType) {
   	  this.m_sValue = this.element.firstChild.nodeValue;
   	}
   	else {
@@ -46,6 +46,9 @@ function Itemset(elmnt)
 	this.element = elmnt;
 	this.element.iterationTagName = "item";
 }
+
+Itemset.prototype = new Repeat();
+
 //TODO: The  functions here have just been pasted from the .htc, and have not been checked for 
 //	compatibility with the new .js object mechanism.  Certainly, functions towards the end are not 
 //	expected to work.
@@ -65,7 +68,7 @@ Item.prototype.getAncestorEventTarget = function() {
     //seek through ancestors until the select is found.
 		while(el) {
       var s = NamespaceManager.getLowerCaseLocalName(el);
-      if(s.indexOf("select") == 0) {
+	    if(s.indexOf("select") === 0) {
 				this.m_ancestorEventTarget = el;
 				break;
 			}
@@ -79,13 +82,18 @@ Item.prototype.getLabel = function() {
   
   var s;
   if(this.m_label) {
-    s = this.m_label.getValue();
+    if(this.m_label.getValue) {
+      s = this.m_label.getValue();
+    }
+    else {
+      s = this.m_label.innerHTML;
+    }
   }
   else {
     s = this.m_value.getValue();
   }
   return s;
-}
+};
 
 
 
@@ -123,7 +131,7 @@ Item.prototype.onContentReady = function()
 	this.findLabelElement();
 	this.addVisualRepresentation();
 
-	var ownerSelect = this.getAncestorEventTarget()
+	var ownerSelect = this.getAncestorEventTarget();
 	if(ownerSelect) {
   	var pThis = this;
   	ownerSelect.addEventListener("selection-changed", function(e){pThis.handleEvent(e);}, false);
@@ -156,7 +164,7 @@ Item.prototype.handleEvent = function(oEvt)
 {
 	if(oEvt.type == "selection-changed" && oEvt.target == this.getAncestorEventTarget())
 	{
-		if(typeof(oEvt.newValue) == "object")
+		if(typeof oEvt.newValue == "object")
 		{
 			oEvt.newValue = this.array_tryDataselect(oEvt.newValue);
 		}
@@ -180,7 +188,7 @@ Item.prototype.getValue = function()
 Item.prototype.string_tryDataselect = function(s)
 {
 
-	if(s != "" && s == this.getValue())
+	if(s !== "" && s == this.getValue())
 	{
 		this.onDataSelect();
 		return true;
@@ -198,7 +206,7 @@ Item.prototype.array_tryDataselect = function(arr)
 	//	if present, 
 	var s = this.getValue();
 //	debugger;
-	if(s != "")
+	if(s !== "")
 	{
 		for(var i = 0;i < arr.length;++i)
 		{

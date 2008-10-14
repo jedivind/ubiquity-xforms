@@ -29,6 +29,7 @@ function runTheTests() {
 
   // Add references to unit test scripts here.
   //
+  
   loader.addModule({ name: "ux-ut-xforms-library-loaded", type: "js",  fullpath: moduleBase + "ut-xforms-library-loaded.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
   loader.addModule({ name: "ux-ut-xpath-core-functions", type: "js",  fullpath: moduleBase + "ut-xpath-core-functions.js",
@@ -54,11 +55,27 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-finite-control", type: "js",  fullpath: moduleBase + "ut-finite-control.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
-  
-  
-  loader.require( "ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-NamespaceManager", "ux-ut-path-to-module", "ux-ut-reset",
-     "ux-ut-model-standalone","ux-ut-instance-standalone", "ux-ut-select1", "ux-ut-finite-control");
-  
+  loader.addModule({ name: "ux-ut-delete-nodes", type: "js",  fullpath: moduleBase + "ut-delete-nodes.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.addModule({ name: "ux-ut-insert-nodes", type: "js",  fullpath: moduleBase + "ut-insert-nodes.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.require(
+
+    "ux-ut-xforms-library-loaded", 
+    "ux-ut-xpath-core-functions", 
+    "ux-ut-NamespaceManager", 
+    "ux-ut-path-to-module", 
+    "ux-ut-reset",
+    "ux-ut-model-standalone",
+    "ux-ut-instance-standalone", 
+    "ux-ut-select1", 
+    "ux-ut-finite-control",  
+    "ux-ut-delete-nodes", 
+    "ux-ut-insert-nodes"
+    );
+
   var sBars = "";
   loader.onProgress = function(o) {
     sBars += ("|");
@@ -70,7 +87,9 @@ function runTheTests() {
     var logger = new YAHOO.tool.TestLogger();
     window.status = "testing"; 
 
-    //add the test suite to the runner's queue
+    // Add the test suite to the runner's queue.
+    //
+    
     YAHOO.tool.TestRunner.add(oSuitePathToModule);
     YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
     YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
@@ -81,11 +100,14 @@ function runTheTests() {
 
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
-    //run the tests
+
+    // Run the tests.
+    //
+
     YAHOO.tool.TestRunner.run();
     window.status = "tested"; 
-
-  };
+		return;
+  };// onSucess()
   
   loader.insert();
   return;

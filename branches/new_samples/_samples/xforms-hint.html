@@ -86,10 +86,10 @@
     <p>
       A simple example is to add a hint that uses inline text, like this:
       <pre>
-        &lt;xf:trigger>
-          &lt;xf:label>Delete all records&lt;/xf:label>
-          &lt;xf:hint>This will remove all of your records!&lt;/xf:hint>
-        &lt;/xf:trigger>
+&lt;xf:trigger>
+  &lt;xf:label>Delete all records&lt;/xf:label>
+  &lt;xf:hint>This will remove all of your records!&lt;/xf:hint>
+&lt;/xf:trigger>
       </pre>
       <div class="sample">
         <xf:trigger>
@@ -102,10 +102,10 @@
     <p>
       The text in a hint can be any HTML markup, such as text formatting:
       <pre>
-        &lt;xf:trigger>
-          &lt;xf:label>Delete all records&lt;/xf:label>
-          &lt;xf:hint>This will remove &lt;em>all&lt;/em> of your records!&lt;/xf:hint>
-        &lt;/xf:trigger>
+&lt;xf:trigger>
+  &lt;xf:label>Delete all records&lt;/xf:label>
+  &lt;xf:hint>This will remove &lt;em>all&lt;/em> of your records!&lt;/xf:hint>
+&lt;/xf:trigger>
       </pre>
       <div class="sample">
         <xf:trigger>
@@ -115,13 +115,13 @@
       </div>
       or images:
       <pre>
-        &lt;xf:trigger>
-          &lt;xf:label>Delete all records&lt;/xf:label>
-          &lt;xf:hint>
-            This will remove &lt;em>all&lt;/em> of your records!
-            &lt;img src="images/exclamation.png" />
-        &lt;/xf:hint>
-        &lt;/xf:trigger>
+&lt;xf:trigger>
+  &lt;xf:label>Delete all records&lt;/xf:label>
+  &lt;xf:hint>
+    This will remove &lt;em>all&lt;/em> of your records!
+    &lt;img src="images/exclamation.png" />
+	&lt;/xf:hint>
+&lt;/xf:trigger>
       </pre>
       <div class="sample">
         <xf:trigger>
@@ -139,13 +139,13 @@
       Since the hint itself is simply an inline element, it can be styled like any other.
       For example, to set the width and background of the hint, we might do this:
       <pre>
-        &lt;xf:trigger>
-          &lt;xf:label>Delete all records&lt;/xf:label>
-          &lt;xf:hint style="background-color: red; width: 300px;">
-            This will remove &lt;em>all&lt;/em> of your records!
-            &lt;img src="images/exclamation.png" />
-          &lt;/xf:hint>
-        &lt;/xf:trigger>
+&lt;xf:trigger>
+  &lt;xf:label>Delete all records&lt;/xf:label>
+  &lt;xf:hint style="background-color: red; width: 300px;">
+    This will remove &lt;em>all&lt;/em> of your records!
+    &lt;img src="images/exclamation.png" />
+  &lt;/xf:hint>
+&lt;/xf:trigger>
       </pre>
       <div class="sample">
         <xf:trigger>
@@ -163,23 +163,23 @@
       we just saw could be used on all hints with a class of 'danger', by setting up rules
       for the CSS class:
       <pre>
-        &lt;style type="text/css">
-          .danger {
-            background: red url(images/exclamation.png) no-repeat 5px;
-            padding-left: 48px;
-            height: 2em;
-            width: 300px;
-          }
-        &lt;/style>
+&lt;style type="text/css">
+  .danger {
+    background: red url(images/exclamation.png) no-repeat 5px;
+    padding-left: 48px;
+    height: 2em;
+    width: 300px;
+  }
+&lt;/style>
       </pre>
       and then using the class name on the <code>hint</code>:
       <pre>
-        &lt;xf:trigger>
-          &lt;xf:label>Delete all records&lt;/xf:label>
-            &lt;xf:hint class="danger">
-              This will remove &lt;em>all&lt;/em> of your records!
-            &lt;/xf:hint>
-        &lt;/xf:trigger>
+&lt;xf:trigger>
+  &lt;xf:label>Delete all records&lt;/xf:label>
+  &lt;xf:hint class="danger">
+    This will remove &lt;em>all&lt;/em> of your records!
+  &lt;/xf:hint>
+&lt;/xf:trigger>
       </pre>
       <div class="sample">
         <xf:trigger>
@@ -195,10 +195,10 @@
       ways for different controls. For example, a hint on an input control is normally shown
       just below the control's label:
       <pre>
-        &lt;xf:input ref="firstname">
-          &lt;xf:label>Forename:&lt;/xf:label>
-          &lt;xf:hint>Please enter your first name&lt;/xf:hint>
-        &lt;/xf:input>
+&lt;xf:input ref="firstname">
+  &lt;xf:label>Forename:&lt;/xf:label>
+  &lt;xf:hint>Please enter your first name&lt;/xf:hint>
+&lt;/xf:input>
       </pre>
       <div class="sample">
         <xf:input ref="firstname">
@@ -212,16 +212,16 @@
       can offset the position of the hint by the same amount as the label, so that it lines up
       with the data entry area:
       <pre>
-        &lt;style type="text/css">
-          xf\:input xf\:hint {
-            margin-left: 200px;
-          }
-        &lt;/style>
+&lt;style type="text/css">
+  xf\:input xf\:hint {
+    margin-left: 200px;
+  }
+&lt;/style>
 
-        &lt;xf:input ref="surname">
-          &lt;xf:label>Surname:&lt;/xf:label>
-          &lt;xf:hint>Please enter your surname&lt;/xf:hint>
-        &lt;/xf:input>
+&lt;xf:input ref="surname">
+  &lt;xf:label>Surname:&lt;/xf:label>
+  &lt;xf:hint>Please enter your surname&lt;/xf:hint>
+&lt;/xf:input>
       </pre>
       <div class="sample">
         <xf:input ref="surname" class="indent">
@@ -234,15 +234,15 @@
     <p>
       Finally, just as we can add HTML markup to the hint, we can also add XForms markup:
       <pre>
-        &lt;xf:input ref="age">
-          &lt;xf:label>Age:&lt;/xf:label>
-          &lt;xf:hint>
-            Please enter &lt;xf:output value="concat(../firstname, ' ', ../surname)">&lt;/xf:output>'s age
-          &lt;/xf:hint>
-        &lt;/xf:input>
+&lt;xf:input ref="age">
+  &lt;xf:label>Age:&lt;/xf:label>
+  &lt;xf:hint>
+    Please enter &lt;xf:output value="concat(../firstname, ' ', ../surname)">&lt;/xf:output>'s age
+  &lt;/xf:hint>
+&lt;/xf:input>
       </pre>
-      Please note in the display of this example that there is a bug in the library that
-      is causing output controls inside of hints to behave like input controls:
+      Note how the text in the hint comes from the values in the two controls, above. Changing the values
+      above will also change the text of the hint.
       <div class="sample">
         <xf:input ref="age" class="indent">
           <xf:label>Age:</xf:label>

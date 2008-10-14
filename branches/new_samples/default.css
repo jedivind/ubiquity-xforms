@@ -99,6 +99,11 @@ xf:\trigger xf:\label
   padding: 3px;
 }
 
+xforms\:dispatch,
+xf\:dispatch  {
+  display: none;
+}
+
 .invalid xf\:alert, .invalid xforms\:alert {
   display: inline;
   background-color: transparent;
@@ -142,6 +147,11 @@ xf\:alert xf\:label pe-value {
 xforms\:item, xf\:item {
   display:block;
 }
+
+xforms\:message, xf\:message {
+  display: none;
+}
+
 xforms\:select1 pe-value,
 xf\:select1 pe-value {
   border: 2px inset #f0f0f0;
@@ -176,3 +186,8 @@ xf\:select1 xf\:label pe-value, xforms\:select1 xforms\:label pe-value {
   height:200px;
 }
 
+xforms\:output pe-value,
+xf\:output pe-value {
+  border: none;
+  background-color: transparent;
+}

@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
   * Copyright (C) 2008 Backplane Ltd.
   *
@@ -13,31 +15,13 @@
   * See the License for the specific language governing permissions and
   * limitations under the License.
 -->
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xf="http://www.w3.org/2002/xforms"
 >
 	<head>
 		<title>IPTC Codes</title>
-
-		<xf:model id="mdlArticleDetails">
-			<xf:instance>
-				<instanceData>
-					<theGenre />
-					<theSubject />
-				</instanceData>
-			</xf:instance>
-		</xf:model>
-
-		<xf:model id="mdlGenres">
-			<xf:instance src="iptc-genre.xml" />
-		</xf:model>
-
-		<xf:model id="mdlSubjects">
-			<xf:instance src="iptc-subjectcode.xml" />
-		</xf:model>
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
 		
 		<style type="text/css">
 			body {
@@ -69,6 +53,22 @@
 		</style>
 	</head>
 	<body>
+		<xf:model id="mdlArticleDetails">
+			<xf:instance>
+				<instanceData>
+					<theGenre ></theGenre>
+					<theSubject ></theSubject>
+				</instanceData>
+			</xf:instance>
+		</xf:model>
+
+		<xf:model id="mdlGenres">
+			<xf:instance src="iptc-genre.xml" ></xf:instance>
+		</xf:model>
+
+		<xf:model id="mdlSubjects">
+			<xf:instance src="iptc-subjectcode.xml" ></xf:instance>
+		</xf:model>
 		<h1>
 			IPTC Codes
 		</h1>
@@ -87,8 +87,8 @@
 			<xf:label>Please select the genre:</xf:label>
 			<xf:hint>Choose the genre of the article</xf:hint>
 			<xf:itemset model="mdlGenres" nodeset="Topic">
-				<xf:label ref="FormalName" />
-				<xf:value ref="@Duid" />
+				<xf:label ref="FormalName" ></xf:label>
+				<xf:value ref="@Duid" ></xf:value>
 			</xf:itemset>
 		</xf:select1>
 		<xf:output model="mdlArticleDetails" ref="theGenre" class="boldText">
@@ -99,11 +99,11 @@
 			appearance="full") it is preferable to show some of them, so we use appearance="compact":
 		</p>
 		<xf:select model="mdlArticleDetails" ref="theSubject" appearance="compact">
-			<xf:label>Please select the subjects:<br/></xf:label>
+			<xf:label>Please select the subjects:<br></br></xf:label>
 			<xf:hint>Choose the subject of the article</xf:hint>
 			<xf:itemset model="mdlSubjects" nodeset="Topic">
-				<xf:label ref="substring(Description[@Variant='Name'], 0, 50)" />
-				<xf:value ref="@Duid" />
+				<xf:label ref="substring(Description[@Variant='Name'], 0, 50)" ></xf:label>
+				<xf:value ref="@Duid" ></xf:value>
 			</xf:itemset>
 		</xf:select>
 		<xf:output model="mdlArticleDetails" ref="theSubject" class="boldText">

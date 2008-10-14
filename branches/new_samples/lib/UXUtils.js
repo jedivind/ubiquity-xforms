@@ -21,27 +21,25 @@
  */
 
 /**
-	XML Parsing in FIrefox does not support getELementById by default (except on XHTML and XUL elements_
+	XML Parsing in Firefox does not support getElementById by default (except on XHTML and XUL elements_
 	To work around this problem, the xpath evaluation is done to returnh the element with the specified id.
  */
-
-    function _getElementById(sID) {
-       /* try to get the element by the default getElementById */
-       var oElement = document.nativeGetElementById(sID);
-       /* if it doesn't work, try to find by different route */
-       if (oElement === null) {
-          var oRes = xpathDomEval( '//*[@id="'+sID+'"]' , document.documentElement);
-          if (oRes && oRes.nodeSetValue()) {
-            oElement = oRes.nodeSetValue()[0];
-          }
-  	   }
-  	   return oElement;	   
+if (UX.isXHTML) {
+    /* override the getElementById on the document object */
+    document.nativeGetElementById = document.getElementById;
+    document.getElementById = function(sID) {
+        /* try to get the element by the default getElementById */
+        var oElement = document.nativeGetElementById(sID);
+        /* if it doesn't work, try to find by different route */
+        if (oElement === null) {
+            var oRes = xpathDomEval( '//*[@id="'+sID+'"]' , document.documentElement);
+            oElement  = (oRes && oRes.nodeSetValue()) ? oRes.nodeSetValue()[0] : null;          
+        }
+        return oElement;	   
     }
-
-/* override the getElementById on the document object */
-document.nativeGetElementById = document.getElementById;
-document.getElementById = _getElementById;
-
+}
+(
+  function(){
 /**
 	Inserts an element into the DOM at a given location.  This is an addon applied to Elements
 		in the target environment.  Nodes must be of compatible types in the target DOM, i.e.
@@ -107,24 +105,47 @@ document.getElementById = _getElementById;
 		var parsedText = document.createTextNode(txtStr);
 		this.insertAdjacentElement(where,parsedText);
 	}
-
-
-//Add the functions to the HTMLElement prototype, if absent
-if(typeof HTMLElement!="undefined" && !HTMLElement.prototype.insertAdjacentElement)
-{
-	HTMLElement.prototype.insertAdjacentElement = insertAdjacentElement;
-	HTMLElement.prototype.insertAdjacentText = insertAdjacentText;
-	HTMLElement.prototype.insertAdjacentHTML =insertAdjacentHTML;
-}
-
-//Add the functions to the Element prototype, if absent
-if(typeof Element!="undefined" && !Element.prototype.insertAdjacentElement)
-{
-	Element.prototype.insertAdjacentElement = insertAdjacentElement;
-	Element.prototype.insertAdjacentText = insertAdjacentText;
-	Element.prototype.insertAdjacentHTML =insertAdjacentHTML;
-}
-
+	
+ /**
+    Checks whether o is a descendent of the current element
+    @param {Node} o The candidate descendent node to investigate
+    @returns true if o is within "this", otherwise false.
+  */
+    function contains(o) {
+      
+      var parent = o;
+      var retval = false;
+      while(parent) {
+        if(parent === this) {
+          retval = true;
+          break;
+        }
+        else {
+          parent = parent.parentNode;
+        }
+      }
+      return retval;
+    }
+    
+  //Add the functions to the HTMLElement prototype, if absent
+  if(typeof HTMLElement!="undefined") {
+    HTMLElement.prototype.insertAdjacentElement = HTMLElement.prototype.insertAdjacentElement || insertAdjacentElement;
+    HTMLElement.prototype.insertAdjacentText = HTMLElement.prototype.insertAdjacentText || insertAdjacentText;
+    HTMLElement.prototype.insertAdjacentHTML = HTMLElement.prototype.insertAdjacentHTML || insertAdjacentHTML;
+    HTMLElement.prototype.contains = HTMLElement.prototype.contains || contains;
+  }
+  
+  
+  //Add the functions to the Element prototype, if absent
+  if(typeof Element!="undefined" && !Element.prototype.insertAdjacentElement)
+  {
+    Element.prototype.insertAdjacentElement = Element.prototype.insertAdjacentElement || insertAdjacentElement;
+    Element.prototype.insertAdjacentText = Element.prototype.insertAdjacentText || insertAdjacentText;
+    Element.prototype.insertAdjacentHTML = Element.prototype.insertAdjacentHTML || insertAdjacentHTML;
+    Element.prototype.contains = Element.prototype.contains || contains;
+  } 
+ }
+)();
 /**
 	Utility to append to the class attribute. 
 	With the XML Parser in Firefox, the className property is not supported, instead the class attribute is used.
@@ -203,4 +224,58 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
  	         }
  	      }
 	   }
-    }	
+    }	    
+/**
+	Utility to get a style for an element.   
+	With the XML Parser in Firefox, the style property is not supported, instead styles are set with the stylesheet
+	objects. This utility centralizes getting the style on an Element to one location.
+*/
+	UX.getStyle = function(oElement, styleName) {
+		if (oElement.style) {
+			return oElement.style[styleName];
+		} else if (UX.isXHTML) {
+			// At this point, you are not IE or Firefox with HTML parsing
+			// There is not a .style property for the XML Parser on Firefox
+			// Instead, the computed style can be returned
+			// get the computed style and see if it is already set to the value
+			return document.defaultView.getComputedStyle(oElement, null)[styleName]; 
+		}
+	}
+/**
+    Utility to get a property for an element.   
+    If an element has a special property attribute, that value will be used.  If an element has a child element
+    with that tagname, then that value will be used.  The child element value has precedence over the attribute
+    value.  If that child element has a value attribute on it, then that value will be used.  That attribute value
+    has precedence over the child element's inline text.
+*/
+    UX.getPropertyValue = function(pThis, type) {
+        var sType = pThis.element.getAttribute(type);
+        var aChildNode = NamespaceManager.getElementsByTagNameNS(pThis.element,"http://www.w3.org/2002/xforms",type)[0];
+        var oContext = null;
+        var node = null;
+        
+        if (aChildNode) {
+            sType = (UX.isIE) ? aChildNode.innerText : aChildNode.textContent;
+            if (aChildNode.getAttribute("value")) {
+                oContext = _getEvaluationContext(pThis);
+                node = getFirstNode(
+                    oContext.model.EvaluateXPath(aChildNode.getAttribute("value"), oContext.node)
+                );
+                sType = (node) ? node.firstChild.nodeValue : "";
+            }
+        }
+        return sType;
+	}
+/**
+ *  Utility method to create a event and dispatch it on the target
+ */
+    UX.dispatchEvent = function(oTarget, sEventName, bBubble, bCancel, bSpawn) {
+       var oEvent = oTarget.ownerDocument.createEvent("Events");
+       oEvent.initEvent(sEventName, bBubble, bCancel);   
+        
+       if (bSpawn) {
+          spawn( function() { FormsProcessor.dispatchEvent(oTarget, oEvent); } );
+       } else {
+          FormsProcessor.dispatchEvent(oTarget, oEvent);
+       }
+    }

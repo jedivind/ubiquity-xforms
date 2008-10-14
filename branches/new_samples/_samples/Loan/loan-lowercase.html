@@ -10,7 +10,7 @@
     <script src="../../ubiquity-loader.js" type="text/javascript">/**/</script>	
 	<link href="style/gen_default.css" rel="stylesheet"/>
   </head>
-  <body>
+  <body class="yui-skin-sam">
     <xforms:model id="loan_model">
         <xforms:instance id="loan">
         	<loanrecord xmlns="">
@@ -63,10 +63,12 @@
         <xforms:setvalue ev:event="xforms-ready" 
                          ref="startdate" 
                          value="choose(.='',substring(local-date(),1,10),.)"></xforms:setvalue>                                    
-		<xforms:submission id="makeloan" 
+		    <xforms:submission id="makeloan" 
                            method="post" 
                            includenamespaceprefixes=""
-                           action="http://xformstest.org/cgi-bin/echo.sh"></xforms:submission>
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit</xforms:message>
+        </xforms:submission>
     </xforms:model>
  
     <xforms:output class="company_name"> 
@@ -140,7 +142,8 @@
              <xforms:alert>Choose an interest rate between 5 and 60 percent.</xforms:alert>
          </xforms:input>
 
-     <hr size="6" class="rule"/>
+     <br></br>
+     <hr size="6" class="rule"></hr>
      
      <xforms:output class="regular" ref="monthly-payment">
              <xforms:label>Monthly Payment: </xforms:label>
@@ -156,8 +159,8 @@
            
     <!-- This submit button connects to a submission -->
       <xforms:submit submission="makeloan">
-          <xforms:hint>Sends the loan transaction to Big Red</xforms:hint>
           <xforms:label>Submit Loan</xforms:label>
+          <xforms:hint>Sends the loan transaction to Big Red</xforms:hint>
       </xforms:submit>
 
    </body>

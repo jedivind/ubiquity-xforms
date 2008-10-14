@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
   * Copyright (C) 2008 Backplane Ltd.
   *
@@ -13,8 +15,6 @@
   * See the License for the specific language governing permissions and
   * limitations under the License.
 -->
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html 
 	xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:fp="urn:formsplayer.com" 
@@ -22,15 +22,7 @@
 	xmlns:xf="http://www.w3.org/2002/xforms">
 	<head>
 		<title>Using &lt;choices&gt; in &lt;select&gt; and &lt;select1&gt;</title>
-		
-		<xf:model>
-			<xf:instance id="iConfig">
-				<food>
-					<dish/>
-					<toppings/>
-				</food>
-			</xf:instance>
-		</xf:model>
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
 		
 		<style type="text/css">
 			body {
@@ -55,6 +47,14 @@
 		</style>
 	</head>
 	<body>
+		<xf:model>
+			<xf:instance id="iConfig">
+				<food>
+					<dish></dish>
+					<toppings></toppings>
+				</food>
+			</xf:instance>
+		</xf:model>
 		<h1>
 			Using &lt;choices&gt; in &lt;select&gt; and &lt;select1&gt;
 		</h1>

@@ -446,8 +446,25 @@ Control.prototype.RetrieveValuePseudoElement = function()
 		    return this.m_sValue;
 		  }
 		}
-		
-Control.prototype.onDocumentReady = Control.prototype.addcontroltomodel;
+
+			
+Control.prototype.onDocumentReady = function() {
+    this.addcontroltomodel();
+    
+    // Add default handler for xforms-binding-exception
+    var oControl = this; 
+    FormsProcessor.addDefaultEventListener(oControl,
+            "xforms-binding-exception", {
+                handleEvent : function(evt) {
+                    // Fatal error: xforms-binding-exception
+                    // throw error 
+                    throw "Fatal Error: XForms Binding Exception on " + 
+                          oControl.element.nodeName + "!";
+                }
+            }, false);    
+}
+
+
 Control.prototype.onContentReady  = Control.prototype.AddValuePseudoElement;
 Control.prototype.ctor = function()
 {

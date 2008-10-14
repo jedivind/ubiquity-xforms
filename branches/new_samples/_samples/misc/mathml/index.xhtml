@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
   * Copyright (C) 2008 Backplane Ltd.
   *
@@ -13,23 +15,40 @@
   * See the License for the specific language governing permissions and
   * limitations under the License.
 -->
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:m="http://www.w3.org/1998/Math/MathML"
 	xmlns:xf="http://www.w3.org/2002/xforms"
-	xmlns:ev="http://www.w3.org/2001/xml-events"
 >
 	<head>
-		<title>MathML Quiz</title>		
+		<title>MathML Quiz</title>
+		<script type="text/javascript" src="../../../ubiquity-loader.js" >/**/</script>
 		
+		<style>
+			body {
+				font-family			:	"Trebuchet MS", Verdana, Helvetica, sans-serif;
+			}
+			
+			xf\:select1,
+			xf\:input,
+			xf\:group
+			{
+				display			:	block;
+				margin-bottom	:	5px;
+			}
+			
+			.boldText {
+				font-weight		:	bold;
+			}
+		</style>
+	</head>
+	<body>
 		<xf:model id="mdlQuiz">
 			<xf:instance id="instAnswers">
 				<quiz>
-					<answer correct="256" result="0" help="Try using a calculator" />
-					<answer correct="a" result="0" help="Cheat ... I would" />
-					<score />
+					<answer correct="256" result="0" help="Try using a calculator" ></answer>
+					<answer correct="a" result="0" help="Cheat ... I would" ></answer>
+					<score ></score>
 				</quiz>
 			</xf:instance>
 
@@ -52,26 +71,6 @@
 				calculate="sum(instance('instAnswers')/answer/@result)"
 			/>
 		</xf:model>
-		
-		<style>
-			body {
-				font-family			:	"Trebuchet MS", Verdana, Helvetica, sans-serif;
-			}
-			
-			xf\:select1,
-			xf\:input,
-			xf\:group
-			{
-				display			:	block;
-				margin-bottom	:	5px;
-			}
-			
-			.boldText {
-				font-weight		:	bold;
-			}
-		</style>
-	</head>
-	<body>
 		<h1>
 			MathML Quiz
 		</h1>
@@ -86,6 +85,7 @@
 			so if you don't have this you'll need to download it by clicking on this link:
 			<a href="http://www.dessci.com/mathplayer"><img src="MathPlayer.gif" align="middle" border="0" WIDTH="88" HEIGHT="31" /></a>
 		</p>
+		<p>
 		<code>
 			<pre>
 
@@ -98,6 +98,7 @@
 
 			</pre>
 		</code>
+		</p>
 			Next we create the model that will hold the user's answers, and also help us to
 			mark their answers. The first set of instance data holds an entry for each question:
 			<ul>
@@ -105,6 +106,7 @@
 				<li>the users answer</li>
 				<li>some help text</li>
 			</ul>
+			<p>
 			<code>
 				<pre>
 
@@ -121,6 +123,7 @@
 
 				</pre>
 			</code>
+		</p>
 		<p>
 			The second set of instance data holds comments that will be used to mark
 			the user. There is one comment for each score:
@@ -230,14 +233,14 @@
 					  <m:mn>3</m:mn>
 					</m:math>
 				</xf:label>
-				<xf:help ref="@help" />
+				<xf:help ref="@help" ></xf:help>
 			</xf:input>
 
 			<xf:select1 appearance="full" ref="answer[2]">
 				<xf:label style="display:block;">
 					B. Which expression has an approximate value of 1.55?
 				</xf:label>
-				<xf:help ref="@help" />
+				<xf:help ref="@help" ></xf:help>
 				<xf:item>
 					<xf:label>
 						<m:math>
