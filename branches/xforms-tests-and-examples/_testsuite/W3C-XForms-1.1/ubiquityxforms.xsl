@@ -31,7 +31,7 @@
 	</xsl:template>
 	
 	<xsl:template match="xhtml:link">
-		<xhtml:script type="text/javascript" src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js"/>			
+		<xhtml:script type="text/javascript" src="http://ubiquity-xforms.googlecode.com/trunk/ubiquity-loader.js"/>			
 		<xsl:copy>
 			<xsl:copy-of select="@*" />
 			<xsl:apply-templates />

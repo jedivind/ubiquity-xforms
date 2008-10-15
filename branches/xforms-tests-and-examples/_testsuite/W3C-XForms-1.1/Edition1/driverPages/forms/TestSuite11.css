@@ -1,13 +1,24 @@
 @namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
 
 .docTitle {font-weight: bold; font-size: 20pt;}
 
-xforms|*:invalid
+*[class~="invalid"]
 {
   background-color: red;
 }
 
-xforms|*:disabled
+*.invalid
+{
+  background-color: red;
+}
+
+*[class~="disabled"]
+{
+  visibility: hidden
+}
+
+*.disabled
 {
   visibility: hidden
 }
@@ -21,7 +32,8 @@ body {
   background: white;
 }
 
-xf\:label.title, xforms|label.title 
+
+xf\:label.title, xforms\:label.title
 {
     font-size: 15pt; 
     font-weight: bold;
@@ -29,27 +41,53 @@ xf\:label.title, xforms|label.title
     margin-bottom: 2em;
 }
 
-xf\:label.subtitle, xforms|label.subtitle
+xf|label[class~="title"], xforms|label[class~="title"]
+{
+    font-size: 15pt; 
+    font-weight: bold;
+    color: #000099;
+    margin-bottom: 2em;
+}
+
+xf\:label.subtitle, xforms\:label.subtitle
 {
 	font-size: 12pt;
 	font-weight: bold;
 	margin-bottom: 2em;
 }
 
-xf\:label, xforms|label
+xf|label[class~="subtitle"], xforms|label[class~="subtitle"]
+{
+	font-size: 12pt;
+	font-weight: bold;
+	margin-bottom: 2em;
+}
+
+xf\:label, xf|label, xforms\:label, xforms|label
 {
 	font-size: 9pt;
 	color: black;
 	margin-bottom: 1em;
 }
 
-xf\:group, xforms|group
+/* keith -- IE chokes on anything with a vertical bar */
+/*xf\:group, xf|group, xforms\:group, xforms|group*/
+xforms\:group, xf\:group
 {
-    PADDING-RIGHT: 0.5em;
-    DISPLAY: block;
-    PADDING-LEFT: 0.5em;
-    PADDING-BOTTOM: 1em;
-    PADDING-TOP: 1em;
+    padding-right: 0.5em;
+    display: block;
+    padding-left: 0.5em;
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+xf|group, xforms|group 
+{
+    padding-right: 0.5em;
+    display: block;
+    padding-left: 0.5em;
+    padding-bottom: 1em;
+    padding-top: 1em;
 }
 
 
@@ -91,13 +129,23 @@ h2 {color: black;}
 .bG{background-color:#708090; width:400px;}
 .white {color:white;font-weight:900;}
 
-xforms|repeat xforms|contextcontainer {display: table-row; width: 100%}
-xforms|trigger[appearance="minimal"].testCaseName span {display: table-cell; width: 100px; color: blue;}
-xforms|output.testCaseDescription span.xf-value{ display: table-cell; width: 410px;}
-xforms|trigger[appearance="minimal"].testCaseSpecLink span {display: table-cell; width: 105px; color: blue;}
-xforms|output.testCaseBasic span.xf-value {display: table-cell; width: 55px;}
-xforms|output.testCaseNormative span.xf-value {display: table-cell; width: 80px;}
-xforms|input.testCaseNote {width:150px;}
+xforms\:repeat xforms\:contextcontainer
+{display: table-row; width: 100%}
+xforms|repeat xforms|contextcontainer 
+{display: table-row; width: 100%}
+
+xforms|trigger[appearance="minimal"][class~="testCaseName"] {display: table-cell; width: 100px; color: blue;}
+xforms\:trigger[appearance="minimal"].testCaseName {display: table-cell; width: 100px; color: blue;}
+xforms|output[class~="testCaseDescription"] pe-value {display: table-cell; width: 410px;}
+xforms\:output.testCaseDescription pe-value {display: table-cell; width: 410px;}
+xforms|trigger[appearance="minimal"][class~="testCaseSpecLink"] {display: table-cell; width: 105px; color: blue;}
+xforms\:trigger[appearance="minimal"].testCaseSpecLink {display: table-cell; width: 105px; color: blue;}
+xforms|output[class~="testCaseBasic"] pe-value {display: table-cell; width: 55px;}
+xforms\:output.testCaseBasic pe-value {display: table-cell; width: 55px;}
+xforms|output[class~="testCaseNormative"] pe-value {display: table-cell; width: 80px;}
+xforms\:output.testCaseNormative pe-value {display: table-cell; width: 80px;}
+xforms|input[class~="testCaseNote"] {width:150px;}
+xforms\:input.testCaseNote {width:150px;}
 /*xforms|select1.testCaseStatus span.-moz-select1-container {display: table-cell; width: 100px;} Firefox only. */
 /*xforms|input.testCaseDate {display: table-cell; width: 100px;}*/
 

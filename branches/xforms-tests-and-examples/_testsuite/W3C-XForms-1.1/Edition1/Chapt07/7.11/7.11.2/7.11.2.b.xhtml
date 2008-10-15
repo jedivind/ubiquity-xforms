@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
-    <xhtml:head>
-        <xhtml:title>7.11.2.b event() function with resource-uri property</xhtml:title>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+    <head>
+        <title>7.11.2.b event() function with resource-uri property</title>
         
         
-        <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
-    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
-    </xhtml:head>
-    <xhtml:body>
+        <script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    </head>
+    <body>
     <xforms:model>
             <xforms:instance resource="invalid.xml"/>
             <xforms:setvalue ev:event="xforms-link-exception" model="link_excp_catcher" ref="/excp_info" value="event('resource-uri')"/>
@@ -30,5 +30,5 @@
         <xforms:output model="link_excp_catcher" ref="/excp_info">
             <xforms:label>Event Information : </xforms:label>
         </xforms:output>
-    </xhtml:body>
-</xhtml:html>
+    </body>
+</html>
