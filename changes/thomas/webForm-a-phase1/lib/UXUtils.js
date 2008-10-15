@@ -279,3 +279,20 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
           FormsProcessor.dispatchEvent(oTarget, oEvent);
        }
     }
+
+/**
+ * Utility method to create an element in a namespace
+ */    
+    UX.createElementNS = function(oNode, sQName, sNS) {
+        var oElement = null;
+        var sPrefix  = null;
+        var oDocument = oNode.ownerDocument;
+        
+        if (UX.isXHTML) {
+            oElement = oDocument.createElementNS(sQName, sNS);
+        } else {
+            sPrefix = NamespaceManager.getOutputPrefixesFromURI(sNS)[0];
+            oElement = oDocument.createElement(sPrefix + ":" + sQName);
+        }
+        return oElement;
+    }
