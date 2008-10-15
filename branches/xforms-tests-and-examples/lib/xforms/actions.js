@@ -66,51 +66,48 @@ Recalculate.prototype.performAction = function(evt)
 	oModel.recalculate();
 };
 
-function Dispatch(elmnt)
-{
-	this.element = elmnt;
+function Dispatch(elmnt) {
+    this.element = elmnt;
 }
 
 Dispatch.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-Dispatch.prototype.performAction = function (evt)
-{	
-	var sTargetID = this.element.getAttribute("target");
+Dispatch.prototype.performAction = function (evt) {
+    var sTargetID = UX.getPropertyValue(this, "target");
+    var oTarget, sName, oEvt, delay_time;
 
-	if (sTargetID)
-	{
-		var oTarget = this.element.ownerDocument.all[sTargetID];
+    if (sTargetID) {
+        oTarget = this.element.ownerDocument.getElementById(sTargetID);
 
-		if (oTarget)
-		{
-			var sName = this.element.getAttribute("name");
+        if (oTarget) {
+            sName = UX.getPropertyValue(this, "name");
 
-			if (sName)
-			{
-				var oEvt = this.element.ownerDocument.createEvent("Events");
+            if (sName) {
+                oEvt = this.element.ownerDocument.createEvent("Events");
 
-				oEvt.initEvent(sName, false, false);
+                oEvt.initEvent(sName, false, false);
 
-				/*
-					* Copy through the current event depth.
-					*/
+                // Copy through the current event depth.
 
-				oEvt._actionDepth = evt._actionDepth;
-				FormsProcessor.dispatchEvent(oTarget,oEvt);
+                oEvt._actionDepth = evt._actionDepth;
 
-				/*
-					* I'm assuming that there is no point in copying the
-					* 'new' depth, since it should be the same as the
-					* old one...but that might not be true, hence the
-					* debugger statement (now changed to throw).
-					*/
+                delay_time = UX.getPropertyValue(this, "delay");
+                if (!delay_time || isNaN(parseInt(delay_time, 10)) || delay_time < 0) {
+                    delay_time = 0;
+                }
+                setTimeout(function() { FormsProcessor.dispatchEvent(oTarget,oEvt); }, delay_time);
 
-				if (evt._actionDepth != oEvt._actionDepth) {
-					throw "Unexpected Discord between action depths."
-				}
-			}
-		}
-	}
+                // I'm assuming that there is no point in copying the
+                // 'new' depth, since it should be the same as the
+                // old one...but that might not be true, hence the
+                // debugger statement (now changed to throw).
+
+                if (evt._actionDepth != oEvt._actionDepth) {
+                    throw "Unexpected Discord between action depths.";
+                }
+            }
+        }
+    }
 };
 
 function Send(elmnt)
@@ -246,8 +243,8 @@ Message.prototype.performAction = function(evt)
     	            constraintoviewport: true,
     	            modal: true,
     	            visible: false,
-    	            width: (this.element.style.width) ? this.element.style.width : "300px",
-    	            height: (this.element.style.height) ? this.element.style.height : "200px"
+    	            width: (UX.getStyle(this.element, "width")) ? UX.getStyle(this.element, "width") : "300px",
+    	            height: (UX.getStyle(this.element, "height")) ? UX.getStyle(this.element, "height") : "200px"
     	        }
     	    );
     	    //this.yahooPanel.setHeader("Modal dialog");
@@ -278,8 +275,8 @@ Message.prototype.performAction = function(evt)
           		    this.element,
           		    {
           		        //visible: false,
-          		        width: (this.element.style.width) ? this.element.style.width : "300px",
-          		        height: (this.element.style.height) ? this.element.style.height : "200px",
+          		        width:  (UX.getStyle(this.element, "width")) ? UX.getStyle(this.element, "width") : "300px",
+          		        height: (UX.getStyle(this.element, "height")) ? UX.getStyle(this.element, "height") : "200px",
           		        context: [ evt.targetElement, "tl", "bl" ]
           		    }
           		);

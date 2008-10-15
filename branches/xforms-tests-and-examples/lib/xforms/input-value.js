@@ -30,7 +30,7 @@ function valueChangedIE(pThis,evt)
 
 	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
 	
-	oEvt.initEvent("control-value-changed", true, true,
+	oEvt.initMutationEvent("control-value-changed", true, true,
 		null, pThis.currValue, evt.srcElement.value, null, null);
 
 	spawn(function(){FormsProcessor.dispatchEvent(pThis.element,oEvt);});
@@ -66,8 +66,7 @@ function valueChangedFF(pThis,evt)
 
 XFormsInputValue.prototype.getOwnerNodeName  = function()
 {
-	var sNodeName = this.element.parentNode.nodeName;
-	return sNodeName.slice(sNodeName.indexOf(":")+1,sNodeName.length).toLowerCase();
+	return NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
 };
 
 XFormsInputValue.prototype.onDocumentReady = function()
@@ -78,10 +77,10 @@ XFormsInputValue.prototype.onDocumentReady = function()
 		var sElementToCreate = (sTagNameLC == "textarea")?"textarea":"input"; 
 		var oInput = document.createElement(sElementToCreate);
 	
-		oInput.style.backgroundColor = "transparent";
-		oInput.style.padding = "0";
-		oInput.style.margin = "0";
-		oInput.style.border = "0";
+		UX.addStyle(oInput, "backgroundColor", "transparent");
+		UX.addStyle(oInput, "padding", "0");
+		UX.addStyle(oInput, "margin", "0");
+		UX.addStyle(oInput, "border", "0");
 
 		var pThis = this;
 		if(document.all)
@@ -119,18 +118,16 @@ XFormsInputValue.prototype.onDocumentReady = function()
 XFormsInputValue.prototype.setValue = function(sValue)
 {
 	var bRet = false;
-
 	if (this.m_value.value != sValue)
 	{
 		this.m_value.value = sValue;
 		this.currValue = sValue;
 		bRet = true;
 	}
-	else if(m_bFirstSetValue)
+	else if(this.m_bFirstSetValue)
 	{
 		bRet = true;
-		m_bFirstSetValue = false;
+		this.m_bFirstSetValue = false;
 	}
-	
 	return bRet;
 };

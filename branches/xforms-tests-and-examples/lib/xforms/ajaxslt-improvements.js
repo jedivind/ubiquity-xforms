@@ -20,6 +20,32 @@
         This file contains the methods required by ajaxfp in order to work
 */
 
+var g_currentModel = null;
+var g_bSaveDependencies = false;
+
+/**
+    The entry point for the library: match an expression against a DOM
+    node. Returns an XPath value.
+    @addon
+*/
+function xpathDomEval(expr, node) {
+    var expr1 = xpathParse(expr);
+    var ctx = new ExprContext(node); 
+    ctx["currentModel"] = g_currentModel;
+    ctx["outermostContextNode"] = node;
+    var ret = expr1.evaluate(ctx);
+    return ret;
+}
+
+ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
+  var oRet = new ExprContext(
+      opt_node || this.node,
+      typeof opt_position != 'undefined' ? opt_position : this.position,
+      opt_nodelist || this.nodelist, this, this.caseInsensitive,
+      this.ignoreAttributesWithoutValue);
+  oRet.outermostContextNode = this.outermostContextNode;
+  return oRet;
+};
 
 /** 
     The AJAXSLT XNode does not support cloneNode
@@ -30,13 +56,14 @@
 
 XNode.prototype.cloneNode = function(bDeep)
 {
+    var s, oDoc;
     if(bDeep)
     {
         //TODO: revisit and revise this method to use the DOM.
         //    Serializing and deserializing the candidate node is obviously the quick way to write this function, but somewhat inefficient.
         //     Also, this can only work for nodes of type document or element.  
-        var s = xmlText(this);
-        var oDoc = xmlParse(s);
+        s = xmlText(this);
+        oDoc = xmlParse(s);
         if(this.nodeType == DOM_DOCUMENT_NODE)
         {
             return oDoc;
@@ -64,22 +91,20 @@ XNode.prototype.cloneNode = function(bDeep)
 FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
 {
     assert(this.args.length === 1 || this.args.length === 0);
-    var n;
+    var n, ix;
+    var name = "";
     if (this.args.length === 0) {
       n = [ ctx.node ];
     } else {
       n = this.args[0].evaluate(ctx).nodeSetValue();
     }
     
-    var name = "";
-
     if (n.length === 0) {
     } else {
           name = n[0].nodeName;
     }
     
-
-    var ix = name.indexOf(":");
+    ix = name.indexOf(":");
     if(ix > -1)
     {
         name = name.substr(ix+1);
@@ -90,16 +115,40 @@ FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
 
 /**@addon
 */  
-var g_currentModel = null;
-var g_bSaveDependencies = false;
 
 FunctionCallExpr.prototype.xpathfunctions["namespace-uri"] = function(ctx)
 {
     alert('not IMPLEMENTED yet: XPath function namespace-uri()');
 };
 
+/**@addon
+*/  
+
+FunctionCallExpr.prototype.evaluate = function(ctx) {
+  var fn = String(this.name.value);
+  var f = this.xpathfunctions[fn];
+  var i, nodes, retval;
+  if (f) {
+    retval = f.call(this, ctx);
+    if (g_bSaveDependencies && retval.type == 'node-set') {
+        nodes = retval.nodeSetValue();
+        for (i = 0; i < nodes.length; ++i) {
+            g_arrSavedDependencies.push(nodes[i]);
+        }
+    }
+  } else {
+    xpathLog('XPath NO SUCH FUNCTION ' + fn);
+    retval = new BooleanValue(false);
+  }
+  return retval;
+};
+
+/**@addon
+*/  
+
 LocationExpr.prototype.evaluate = function(ctx) {
-  var start;
+  var start, i, retval;
+  var nodes = [];
   if (this.absolute) {
     start = ctx.root;
 
@@ -107,15 +156,13 @@ LocationExpr.prototype.evaluate = function(ctx) {
     start = ctx.node;
   }
 
-  var nodes = [];
   xPathStep(nodes, this.steps, 0, start, ctx);
-  var retval = new NodeSetValue(nodes);
+  retval = new NodeSetValue(nodes);
   if(g_bSaveDependencies)
   {
-	for(var i = 0;i < nodes.length;++i)
+	for(i = 0; i < nodes.length; ++i)
 	{
 		g_arrSavedDependencies.push(nodes[i]);
-		//ctx.currentModel.AddDependentVertex(nodes[i]/*,this.parseTree(" ")*/);
 	}
   }
   return retval;

@@ -27,8 +27,7 @@ var NamespaceManager  = function(){
 	/**
 		returns the lists of namespaces to an uninitialised state.
 	*/
-	function clean()
-	{
+	function clean() { 
 		m_selectionNamespaces = {};
 		m_outputNamespaces = {};
 	}
@@ -60,9 +59,8 @@ var NamespaceManager  = function(){
 		@param {String} prefix The prefix to be output for the given URI
 		@param {String} uri  The URI for prefix
   	*/
-	function addOutputNamespace(prefix,uri)
-	{
-		if(m_outputNamespaces[uri] === undefined) {
+	function addOutputNamespace(prefix,uri)	{
+		if (m_outputNamespaces[uri] === undefined) {
 			m_outputNamespaces[uri] = [];
 		}
 		m_outputNamespaces[uri].push(prefix);
@@ -102,8 +100,7 @@ var NamespaceManager  = function(){
 		@param {String} uri  The URI to look up.
 		@returns {Array} An array of prefixes that represent the given URI in the current output context.
   	*/
-	function getOutputPrefixesFromURI(uri)
-	{
+	function getOutputPrefixesFromURI(uri) {
 		return m_outputNamespaces[uri];
 	}
 	
@@ -159,6 +156,20 @@ var NamespaceManager  = function(){
 		}
 		return newSelector;
 	}
+		/**
+		Searches searchNode for descendents
+		that have a tagName that matches elementName, and
+		that are in the namespace namespaceURI
+		@param searchNode {Node} topmost node (document or element) to look in to find the desired nodes.
+		@param namespaceURI {String} namespace URI to match
+		@param elementName {String}  element name to match
+		@returns an array of nodes that match the given criteria
+	*/	
+	function getElementsByTagNameNS(searchNode,namespaceURI,elementName) {
+		return searchNode.getElementsByTagNameNS(namespaceURI,elementName);		
+	}
+	
+	
 	/**
 		Searches searchNode for descendents
 		that have a tagName that matches elementName, and
@@ -172,6 +183,7 @@ var NamespaceManager  = function(){
 		var retVal = [];
 		//A namespace aware document understands that the bit to the left of the colon is not part of the name.
 		var allTagNameMatches = searchNode.getElementsByTagName(elementName);
+		var i;
 
 		for ( i = 0 ;i < allTagNameMatches.length;++i) {
 			if(allTagNameMatches[i].scopeName !== "HTML") {
@@ -254,13 +266,65 @@ var NamespaceManager  = function(){
 		YAHOO.util.Dom.getElementsBy(fnCheckNamespace,null, searchNode);
 		return;
 	}
-	
+  /**
+    Some parsers believe that ":" is just a character in a simple node name, rather than a separator between the local name, 
+    and a prefix corresponding to a node's namespace.  Using this function to get the local name will return the proper local name. 
+  */
+	function getLowerCaseLocalName(node) {
+  	var sNodeName = node.nodeName;
+  	return sNodeName.slice(sNodeName.indexOf(":")+1,sNodeName.length).toLowerCase();
+	}
+
+  /**
+    Compares a node's name against a localname and namespaceURI
+    @param node {Node} The node whose name is in question
+    @param localName {String} A non-namespace-qualified local name, to match against the name of node
+    @param nsURI {String} The namespace URI in which node must reside, in order to match.
+    @returns true iff the local name and namespace uri of node, match those parameters given, false otehrwise.
+   */
+   
+  function compareFullName(node, localName, nsURI) {
+    var retval = false;
+    var sNodeFullName = node.nodeName.toLowerCase();
+    var arrSegments = sNodeFullName.split(":");
+    var nodeLocalName = arrSegments.length === 1?arrSegments[0]:arrSegments[1]
+    if(nodeLocalName === localName) {
+      var nodePrefix = arrSegments.length === 1? node.scopeName :arrSegments[0];
+      if((!nodePrefix || nodePrefix === "HTML")&& !nsURI) {
+        //prefix is empty, null, or undefined, and so is nsURI
+        retval = true;
+      }
+      else if(m_outputNamespaceURIs[nodePrefix] === nsURI) {
+        //otherwise, look up prefix, and match to uri.
+        retval = true;
+      }
+    }
+    return retval;
+  }
+  
+  function getNamespaceURI(node) {
+    var nsURI = node.namespaceURI,
+        arrSegments,
+        nodePrefix;
+    // Look up URI the tedious way if not available or known to be buggy
+    if (!nsURI || (UX.isWebKit && !UX.isXHTML)) {
+        arrSegments = node.nodeName.toLowerCase().split(":"),
+        nodePrefix = arrSegments.length === 1? node.scopeName :arrSegments[0];
+        if (nodePrefix) {
+            nsURI = m_outputNamespaceURIs[nodePrefix];
+        }
+    }
+    return nsURI;
+  }
+  
 	var itself = function () {};
 	itself.translateCSSSelector = translateCSSSelector;
 	itself.getOutputPrefixesFromURI = getOutputPrefixesFromURI;
 	itself.addSelectionNamespace = addSelectionNamespace;
 	itself.addOutputNamespace = addOutputNamespace;
-
+    itself.getLowerCaseLocalName = getLowerCaseLocalName;
+    itself.compareFullName = compareFullName;
+    itself.getNamespaceURI = getNamespaceURI;
 	itself.clean = clean;
 	if(document.namespaces) {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;
@@ -268,10 +332,11 @@ var NamespaceManager  = function(){
 	else {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromDocumentElementAtrributeList;
 	}
-	if(document.namespaces) {
+	if (UX.isXHTML){
+	    itself.getElementsByTagNameNS = getElementsByTagNameNS;
+	} else if(document.namespaces) {
 		itself.getElementsByTagNameNS = getElementsByTagNameNS_Aware;
-	}
-	else {
+	} else {
 		itself.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
 	}
 	return itself;

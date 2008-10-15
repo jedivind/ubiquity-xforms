@@ -73,7 +73,7 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 		if (isFailure)
 		{
 			alert("Transaction failed.  The error is: " + sData);
-			oEvt.initEvent("xforms-submit-error", false, false);
+			oEvt.initEvent("xforms-submit-error", true, false);
 			FormsProcessor.dispatchEvent(oObserver,oEvt);
 		}
 		else
@@ -90,7 +90,22 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 			{
 				case "all":
 					oObserver.ownerDocument.logger.log("@replace = 'all'", "submission");				
-					document.write(sData);
+				
+					if (document.all) {
+					   document.write(sData);
+					}
+					else  {
+					   if (UX.isFF2) {
+					   // on FF2, it chokes on <?xml version="1.0"?> 
+					      if (sData.indexOf('<?',0) === 0) {
+						     var len = sData.indexOf('?>');
+						     ( len > 0 )? len += 2 : len = 0;						  
+						     sData = sData.substr(len);
+					      }
+					   } 					  
+ 					   document.documentElement.innerHTML=sData;
+ 					}				
+	
 					break;
 
 				case "instance":
@@ -129,7 +144,7 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 			}
 
 
-        	oEvt.initEvent("xforms-submit-done", false, false);		
+        	oEvt.initEvent("xforms-submit-done", true, false);		
 			FormsProcessor.dispatchEvent(oObserver,oEvt);
 		}
 	}
@@ -143,13 +158,11 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 
 submission.prototype.submit = function(oSubmission)
 {
+    var oEvt = null;
 	var ns = oSubmission.getElementsByTagName("extension");
-	var oExtDom = null;
-
-	if (ns && ns.length > 0)
-	{
+	var oExtDom = null;    
+	if (ns && ns.length > 0) {
 		var oExt = ns[0];
-
 		oExtDom = oExt.getDocument();
 	}
 
@@ -182,6 +195,7 @@ submission.prototype.submit = function(oSubmission)
 	   nTimeout = 5000;
 	}
 	var sAction = oSubmission.getAttribute("action");
+    var sMethod = "";
 	var sSerialisation;
 	var sBody;
 	var oContext = oSubmission.getBoundNode();	
@@ -229,8 +243,6 @@ submission.prototype.submit = function(oSubmission)
 	 * protocol.
 	 */
 
-	var sMethod = "";
-
 	switch (oSubmission.getAttribute("method"))
 	{
 		case "get":
@@ -268,42 +280,36 @@ submission.prototype.submit = function(oSubmission)
 	 * Notify any listeners that we are about to begin the
 	 * submission.
 	 */
-try
-{
-	var oEvt =  oSubmission.ownerDocument.createEvent("Events"); 
-    oEvt.initEvent("needs-clarifying-xforms-submit-starting", false, false, sMethod, sAction);
-		
-	FormsProcessor.dispatchEvent(oSubmission,oEvt);
-}
-catch(e)
-{
-	oSubmission.ownerDocument.logger.log("Error: " + e.description, "error");
-}
+	 
+    try {
+	   oEvt = oSubmission.ownerDocument.createEvent("Events"); 
+       oEvt.initEvent("needs-clarifying-xforms-submit-starting", false, false, sMethod, sAction);
+	   FormsProcessor.dispatchEvent(oSubmission,oEvt);
+    } catch(e) {
+	   oSubmission.ownerDocument.logger.log("Error: " + e.description, "error");
+    }
 
-	/*
-	 * Callback.
-	 */
+	//
+	// Callback for asynchronous submission
+	// [ISSUE] synchronous submissions need to do the request here without a callback 
 
 	var oCallback = new callback(this, oSubmission, oContext);
 
-	/*
-	 * [ISSUE] Should this be a listener on "xforms-submit"?
-	 */
-	if(sAction != "")
-	{
-		this.setHeaders(oContext.model,this.getConnection(),oExtDom);
-		return this.request(
-			sMethod,
-			sAction,
-			sBody,
-			nTimeout,
-			oCallback
-		);
-	}
-	else
-	{
-		//debugger;
-	}
+	this.setHeaders(oContext.model,this.getConnection(),oExtDom);		
+	
+    try {    
+	    return this.request(
+		    sMethod,
+		    sAction,
+		    sBody,
+		    nTimeout,
+		    oCallback
+	    );
+    } catch(e) {
+	    oEvt = oSubmission.ownerDocument.createEvent("Events");
+	    oEvt.initEvent("xforms-submit-error", true, false);
+	    FormsProcessor.dispatchEvent(oSubmission,oEvt);
+    }
 }
 
 /*
