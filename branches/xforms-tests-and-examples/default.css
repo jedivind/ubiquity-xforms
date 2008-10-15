@@ -19,16 +19,27 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
  */
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
 
 body {
   font-family: "Lucida Grande",verdana,arial,helvetica,sans-serif;
   font-size: 14px;
 }
 
+/*
+ * These rules concern the default appearance of a hint. For the rules that
+ * govern its behaviour, see lib/xforms/style/hint.css.
+ */
 
 xforms\:hint,
 xf\:hint {
-  display: none;
+  padding: 5px;
+  background-color: #323232;
+  color: #fff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 xforms\:output,
@@ -43,6 +54,7 @@ xforms\:input xforms\:label,
 xf\:input xf\:label {
   display: inline-block;
   width: 200px; 
+  color: black;
 }
 
 xforms\:input pe-value,
@@ -65,7 +77,8 @@ xf\:trigger {
   border-width: 2px;
   border-style: outset;
   border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
-  padding: 3px;  
+  color: black;
+  padding: 3px;
 }
 
 xforms\:submit:hover,
@@ -86,6 +99,39 @@ xf:\trigger xf:\label
   padding: 3px;
 }
 
+xforms\:dispatch,
+xf\:dispatch  {
+  display: none;
+}
+
+.invalid xf\:alert, .invalid xforms\:alert {
+  display: inline;
+  background-color: transparent;
+  color: #D00;
+}
+
+.valid xf\:alert, .valid xforms\:alert  {
+  display: none;
+}
+
+xforms\:alert pe-value,
+xf\:alert pe-value {
+  border: none;
+  background-color: transparent;
+}
+
+xforms\:alert xforms\:input pe-value,
+xf\:alert xf\:input pe-value {
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+
+xforms\:alert xforms\:label pe-value,
+xf\:alert xf\:label pe-value {
+  border: none;
+  background-color: transparent;
+}
+
 .slider-bg {
     position: relative; 
     background:url(bg-fader.gif) 5px 0 no-repeat; 
@@ -96,4 +142,52 @@ xf:\trigger xf:\label
 .slider-thumb { 
   position: absolute; 
   top: 4px; 
+}
+
+xforms\:item, xf\:item {
+  display:block;
+}
+
+xforms\:message, xf\:message {
+  display: none;
+}
+
+xforms\:select1 pe-value,
+xf\:select1 pe-value {
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+
+ xf\:item pe-value,
+ xforms\:item pe-value {
+  border: none;
+  background-color:transparent;
+}
+
+xf\:select1 xf\:label pe-value, xforms\:select1 xforms\:label pe-value {
+  border: none;
+  background-color: transparent;
+}
+.xforms-out-of-range {
+  border:#ffcc00 1px solid;
+}
+
+.ux-input-compact-calendar {
+  background: #ffffff;
+  color:#000000;
+  vertical-align:top;
+  max-width:75px;
+}
+
+.ux-color-bg {
+  position:relative;
+  background-color:#eeeeee;
+  width:360px;
+  height:200px;
+}
+
+xforms\:output pe-value,
+xf\:output pe-value {
+  border: none;
+  background-color: transparent;
 }

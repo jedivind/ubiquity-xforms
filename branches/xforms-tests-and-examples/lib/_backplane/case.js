@@ -21,8 +21,8 @@ function Case(elmnt)
 
 Case.prototype.deselect = function()
 {
-	this.element.sDisplay = this.element.style.display;
-	this.element.style.display = "none";
+	this.element.sDisplay = UX.getStyle(this.element, "display");
+	UX.addStyle(this.element, "display", "none");
 	return;
 };
 
@@ -32,11 +32,11 @@ Case.prototype.select = function()
 	if(typeof this.element.sDisplay === "undefined")
 	{
 		//This must be the default case, and it has not been deselected.
-		this.element.sDisplay = this.element.style.display;
+		this.element.sDisplay = UX.getStyle(this.element, "display");
 	}
 	else
 	{	
-		this.element.style.display = this.element.sDisplay;
+		UX.addStyle(this.element, "display", this.element.sDisplay);
 	}
 	return;
 };

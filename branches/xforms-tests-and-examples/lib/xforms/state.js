@@ -20,8 +20,7 @@
 	 * from any library (YUI, prototype, etc.).
 	 */
 
-function setState(pThis,oProxy, sMIPName, sOn, sOff)
-{
+function setState(pThis,oProxy, sMIPName, sOn, sOff){
 	//ONLY PERFORM THIS TIME-CONSUMING OPERATION IF IT IS NEEDED!!!!!
 	//	We have already established, in formsPlayer, that the switching in-and-out of classNames
 	//	 is one of the more time-consuming actions in IE.  So doing it (6 * 4) times  ( == calls in this function * calls to this function)
@@ -29,24 +28,20 @@ function setState(pThis,oProxy, sMIPName, sOn, sOff)
 	//To Reiterate - If we want more performant software, then we must optimise out pointless calls such as this.
 	if(pThis.m_MIPSCurrentlyShowing[sMIPName] === undefined || (oProxy.getMIPState !== undefined && pThis.m_MIPSCurrentlyShowing[sMIPName] != oProxy.getMIPState(sMIPName)))
 	{
-		YAHOO.util.Dom.removeClass(pThis.element, sOn);
-	//	YAHOO.util.Dom.removeClass(pThis.element, "pc-" + sOn);
-		YAHOO.util.Dom.removeClass(pThis.element, sOff);
-	//	YAHOO.util.Dom.removeClass(pThis.element, "pc-" + sOff);
+		UX.removeClassName(pThis.element, sOn);
+		UX.removeClassName(pThis.element,sOff);
 
 		if (typeof oProxy.getMIPState  == "function")
 		{
 			if (oProxy.getMIPState(sMIPName))
 			{
 				pThis.m_MIPSCurrentlyShowing[sMIPName] = true;
-				YAHOO.util.Dom.addClass(pThis.element, sOn);
-			//	YAHOO.util.Dom.addClass(pThis.element, "pc-" + sOn);
+				UX.addClassName(pThis.element, sOn);
 			}
 			else
 			{
 				pThis.m_MIPSCurrentlyShowing[sMIPName] = false;
-				YAHOO.util.Dom.addClass(pThis.element, sOff);
-			//	YAHOO.util.Dom.addClass(pThis.element, "pc-" + sOff);
+				UX.addClassName(pThis.element, sOff);
 			}
 		}
 	}
@@ -54,11 +49,10 @@ function setState(pThis,oProxy, sMIPName, sOn, sOff)
 	return;
 }
 
-function setInitialState(pThis)
-{
+function setInitialState(pThis) {
 	pThis.m_MIPSCurrentlyShowing.readonly = false;
 	pThis.m_MIPSCurrentlyShowing.required = false;
 	pThis.m_MIPSCurrentlyShowing.valid = true;
 	pThis.m_MIPSCurrentlyShowing.enabled = true;
-	pThis.element.className += " read-write enabled valid optional";//" pc-read-write pc-enabled pc-valid pc-optional";
+    UX.addClassName(pThis.element, " read-write enabled valid optional");
 }
