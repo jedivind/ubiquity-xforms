@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">
-	<xhtml:head>
-		<xhtml:title>11.9.7.a serialization as multipart/form-data</xhtml:title>
-		<xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
-    <xhtml:link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">
+	<head>
+		<title>11.9.7.a serialization as multipart/form-data</title>
+		<script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
 		
-	</xhtml:head>
-	<xhtml:body>
+	</head>
+	<body>
     <xforms:model id="form1">
 			<xforms:submission id="submit01" method="form-data-post" action="http://xformstest.org/cgi-bin/echo.sh"/>
 			<xforms:instance id="instance1">
@@ -26,13 +26,13 @@
 			  data. 
 			  The data must contain the values "Henry", "Acura", and "white". 
 			  The form data must be in multipart/form-data format according to the W3C specification at this link: 
-			  <xhtml:a href="http://www.w3.org/TR/xforms11/#serialize-form-data" target="_blank">XForms 1.1 
-			  specification</xhtml:a>
+			  <a href="http://www.w3.org/TR/xforms11/#serialize-form-data" target="_blank">XForms 1.1 
+			  specification</a>
 			</xforms:label>
 		</xforms:group>
 		<xforms:submit submission="submit01">
 			<xforms:label>Submit Data</xforms:label>
 		</xforms:submit>
 		
-	</xhtml:body>
-</xhtml:html>
+	</body>
+</html>

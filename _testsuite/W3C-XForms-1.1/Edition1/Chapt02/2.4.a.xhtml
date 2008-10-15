@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:my="http://commerce.example.com/payment" xmlns:hlp="http://commerce.example.com/help">
-    <xhtml:head>
-        <xhtml:title>2.4.a Example: Multiple Forms</xhtml:title>
-        <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
-    <xhtml:link rel="stylesheet" href="../driverPages/forms/TestSuite11.css" type="text/css"/>
-        
-        
-    </xhtml:head>
-    <xhtml:body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:my="http://commerce.example.com/payment" xmlns:hlp="http://commerce.example.com/help">
+    <head>
+        <title>2.4.a Example: Multiple Forms</title>
+        <script src="../../../../ubiquity-loader.js" type="text/javascript"/>
+        <link rel="stylesheet" href="../driverPages/forms/TestSuite11.css" type="text/css"/>             
+    </head>
+    <body>
     <xforms:model id="pay">
             <xforms:instance>
                 <payment xmlns="http://commerce.example.com/payment" method="cc">
@@ -128,5 +126,5 @@
         		Form 2' must only submit the data for the page survey.
         	</xforms:lable>
         </xforms:group>
-    </xhtml:body>
-</xhtml:html>
+    </body>
+</html>

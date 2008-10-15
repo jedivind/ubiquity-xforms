@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xhtml:html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xhtml:head>
-        <xhtml:title>4.5.1.a4 xforms-binding-exception, invalid instance attribute of submission attribute</xhtml:title>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <head>
+        <title>4.5.1.a4 xforms-binding-exception, invalid instance attribute of submission attribute</title>
         
-        <xhtml:script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
-    <xhtml:link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
+        <script src="http://ubiquity-xforms.googlecode.com/svn/tags/0.5.1/ubiquity-loader.js" type="text/javascript"/>
+    <link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
         <xforms:action ev:event="xforms-binding-exception">
           <xforms:message level="modal">xforms-binding-exception</xforms:message>
         </xforms:action>
-    </xhtml:head>
-    <xhtml:body>
+    </head>
+    <body>
     <xforms:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="form1">
             <xforms:submission action="response.xml" id="submit" method="get" replace="instance" instance="INVALID"/>
             <xforms:instance id="instance1">
@@ -35,5 +35,5 @@
             <xforms:label>Submit Now</xforms:label>
         </xforms:submit>
         
-    </xhtml:body>
-</xhtml:html>
+    </body>
+</html>
