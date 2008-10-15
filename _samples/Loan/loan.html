@@ -7,11 +7,10 @@
  <head>
     <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"></meta>
     <title>XForms Loan Application Form</title>   
-    <script>g_sBehaviourDirectory = "../../behaviours/"</script>
     <script src="../../ubiquity-loader.js" type="text/javascript">/**/</script>
     <link type="text/css" href="style/gen_default.css" rel="stylesheet"></link>
   </head>
-  <body>
+  <body class="yui-skin-sam">
     <xforms:model id="loan_model">
         <xforms:instance id="loan">
         	<LoanRecord xmlns="">
@@ -69,7 +68,9 @@
         <xforms:submission id="makeLoan" 
                            method="post" 
                            includenamespaceprefixes=""
-                           action="http://xformstest.org/cgi-bin/echo.sh"></xforms:submission>
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit</xforms:message>
+        </xforms:submission>
                      
     </xforms:model>
  
@@ -139,7 +140,7 @@
              <xforms:hint>We're only loan dogfish, so no more than sixty percent.</xforms:hint>
              <xforms:alert>Choose an interest rate between 5 and 60 percent.</xforms:alert>
          </xforms:input>
-
+     <br></br>
      <hr size="6" class="rule"></hr>
      
      <xforms:output class="regular" ref="Monthly-Payment">
