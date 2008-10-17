@@ -43,170 +43,153 @@ function processBinds(oModel, oElement, oContextNode) {
 
     var nsBinds = oElement.childNodes;
     var len = nsBinds.length;
+    var sExpe = null;
+    var oParentBind = null;
     var i;
+    
+
     /*
      * [ISSUE] Should check tagUrn.
      */
-
     for ( i = 0; i < len; i++) {
         var oBind = nsBinds[i];
-        if (!NamespaceManager.compareFullName(
-                oBind, "bind", "http://www.w3.org/2002/xforms")) {
-            continue;
-        }
         
-        oBind["ownerModel"] = oModel;
-
-        /*
-         * If the bind statement has a nodeset attribute then get the list of
-         * nodes.
-         */
-        var sExpr = oBind.getAttribute("nodeset");
-
-        if (sExpr) {
-            var oRes = oModel.EvaluateXPath(sExpr, oContextNode);
-
-            /*
-             * If there are any nodes...
-             */
-
-            if (oRes) {
-                switch (oRes.type) {
-                case "node-set":
-                    var ns = oRes.nodeSetValue();
-
-                    /*
-                     * ...loop through them.
-                     */
-
-                    if (ns) {
-                        for ( var j = 0; j < ns.length; j++) {
-                            var oNode = ns[j];
-
-                            if (oNode) {
-                                /*
-                                 * Either create or locate the proxy node for
-                                 * the current node.
-                                 */
-
-                                var oPN = oNode.m_proxy;
-
-                                if (!oPN) {
-                                    oPN = new ProxyNode(oNode);
-                                    oNode.m_proxy = oPN;
-                                }
-
-                                /*
-                                 * If we have an ID then save a bound node.
-                                 * 
-                                 * [TODO] We only need the nodeset, but we're
-                                 * keeping 'boundNode' for now, so that it
-                                 * doesn't break anything.
-                                 */
-
-                                if (!j) {
-                                    if (oBind.id) {
-                                        oBind["boundNode"] = oPN;
-                                        oBind["boundNodeSet"] = ns;
-                                    } else {
-                                        oBind["boundNode"] = null;
-                                        oBind["boundNodeSet"] = null;
-                                    }
-                                }
-
-                                /*
-                                 * Create a vertex for the MDDG. Note that when
-                                 * first creating the MDDG we also create the
-                                 * PDS.
-                                 */
-
-                                var oVertex;
-
-                                if (oPN.m_vertex) {
-                                    oVertex = oPN.m_vertex;
-                                } else {
-                                    var oSE = new SubExpression(oPN);
-
-                                    oVertex = oModel.m_oDE.createVertex(oSE);
-
-                                    /*
-                                     * The proxy node needs to store the vertex
-                                     * so that when its data changes it can add
-                                     * the vertex to the PDS.
-                                     */
-
-                                    oPN.m_vertex = oVertex;
-                                    oModel.changeList.addChange(oVertex);
-                                }
-
-                                /*
-                                 * We can now process the attributes on the bind
-                                 * statement. [TODO] Maintain a list somewhere
-                                 * of possible attributes and then loop through.
-                                 */
-
-                                var sExpr = oBind.getAttribute("calculate");
-
-                                if (sExpr) {
-                                    oModel.createMIP(oVertex, "calculate",
-                                            sExpr, oPN, oNode);
-                                }
-
-                                sExpr = oBind.getAttribute("constraint");
-                                
-                                if (sExpr) {
-                                    oModel.createMIP(null, "valid", sExpr, oPN,
-                                            oNode);
-                                }
-
-                                sExpr = oBind.getAttribute("readonly");
-                                
-                                if (sExpr) {
-                                    oModel.createMIP(null, "readonly", sExpr,
-                                            oPN, oNode);
-                                }
-
-                                sExpr = oBind.getAttribute("relevant");
-                                
-                                if (sExpr) {                                    
-                                    oModel.createMIP(null, "enabled", sExpr,
-                                            oPN, oNode);
-                                }
-
-                                sExpr = oBind.getAttribute("required");
-                                
-                                if (sExpr) {
-                                    oModel.createMIP(null, "required", sExpr,
-                                            oPN, oNode);
-                                }
-
-                                /*
-                                 * Finally, process any nested bind statements
-                                 * in the context of this node.
-                                 */
-
-                                processBinds(oModel, oBind, oNode);
-                            }
-                        } // for ( each of the nodes in the node-list )
-                    }
-                    break;
-
-                case "boolean": 
-                    break;
-                case "number":  
-                    break;
-                case "string":  
-                    break;
-                default:
-                    throw "Binding exception.";
-                    break;
+        if (NamespaceManager.compareFullName(
+                oBind, "bind", "http://www.w3.org/2002/xforms")) {            
+            oBind["ownerModel"] = oModel;
+            
+            // If the bind statement has a nodeset attribute 
+            // then get the list of nodes.
+            sExpr = oBind.getAttribute("nodeset");
+            if (sExpr) {
+                processBind(oBind, sExpr, oModel, oContextNode);
+                
+            } else if (NamespaceManager.compareFullName(
+                  oBind.parentNode, "bind", "http://www.w3.org/2002/xforms")) {
+                // if we are in a nested bind, check for in-line context.
+                sExpr = oBind.getAttribute("context");
+                
+                if (sExpr) {
+                    processBind(oBind, sExpr, oModel, oContextNode);
                 }
             }
-        } // if ( there is a nodeset attribute )
+        }
     } // for ( each bind element )
-    return;
 } // processBinds()
 
+function processBind(oBind, sExpr, oModel, oContextNode) {
+    var oNodeset, oNode, oPN, oVertex;
+    var i, j;
+    var sMIPName, sMIPVal, sMIPName;
+    var modelItemProps = ["readonly", "required", "relevant", "calculate", 
+                          "constraint" /*,  "type", "p3ptype" */ ];
+    var oRes = oModel.EvaluateXPath(sExpr, oContextNode);
+    var oBinder = null;
+    var oParnetBind = null;
+    
+    if (oRes) {
+        // The bind has an inline-context attribute
+        // we need to get the last parent with nodeset attribute
+        if  (oBind.getAttribute("context")) {
+            
+            oBinder = oBind.parentNode;
+            while (oBinder) {
+                if (oBinder.getAttribute("nodeset")) {
+                    oParnetBind = oBinder;
+                    oBinder = null;
+                } else {
+                    oBinder = oBinder.parentNode;
+                }
+            }
+        }
+        
+        switch(oRes.type) {
+        case "node-set": {
+            oNodeset = oRes.nodeSetValue();
+            
+            if (oNodeset) {
+                // loop through all the nodes
+                for(j = 0; j < oNodeset.length; j++) {
+                    oNode = oNodeset[j];
+
+                    if (oNode) {
+                        // Either create or locate the proxy node for
+                        // the current node.
+                        if (!oNode.m_proxy) {
+                            oNode.m_proxy = new ProxyNode(oNode);
+                        }
+                        oPN = oNode.m_proxy;
+
+                        // If we have an ID then save a bound node.
+                        // 
+                        // [TODO] We only need the nodeset, but we're
+                        // keeping 'boundNode' for now, so that it
+                        // doesn't break anything.
+                        if (j === 0) {
+                            oBind["boundNode"] = oPN;
+                            oBind["boundNodeSet"] = oNodeset;
+                        }
+
+                        // Create a vertex for the MDDG. Note that when
+                        // first creating the MDDG we also create the
+                        // PDS.
+                        if (!oPN.m_vertex) {
+                            var oSE = new SubExpression(oPN);
+                            oPN.m_vertex = oModel.m_oDE.createVertex(oSE);
+                            
+                            // The proxy node needs to store the vertex
+                            // so that when its data changes it can add
+                            // the vertex to the PDS.
+                            oModel.changeList.addChange(oPN.m_vertex);
+                        }
+                        
+                        // We can now process the attributes on the bind statement.
+                        for (i = 0; i < modelItemProps.length; i++) {
+                            var oMIPVertex = null;
+                            sMIPName = modelItemProps[i];
+                            sMIPVal = oBind.getAttribute(sMIPName);
+                            
+                            if (sMIPVal) {
+                                if (sMIPName === "calculate") {
+                                    oMIPVertex = oPN.m_vertex;
+                                } else if (sMIPName === "relevant") {
+                                    sMIPName = "enabled";
+                                } else if (sMIPName === "constraint") {
+                                    sMIPName = "valid"
+                                }
+                                
+                                if (oParnetBind) {
+                                    oPN = oParnetBind["boundNode"];
+                                }
+                                oModel.createMIP(
+                                        oMIPVertex, sMIPName, sMIPVal, oPN, oNode);
+                            }
+                        }
+                        // Finally, process any nested bind statements
+                        // in the context of this node.
+                        processBinds(oModel, oBind, oNode);
+                    }
+                } // for ( each of the nodes in the node-list )
+            }            
+        }
+        break;
+        
+        case "boolean": 
+        break;
+        
+        case "number":  
+        break;
+        
+        case "string":  
+        break;
+        
+        default: {        
+            throw "Binding exception.";
+        }
+        break;
+        }
+    }
+}
 
 // [ISSUE] This function is erroneously named
 // Ideally, a function called something like testfor... should test for a given
