@@ -679,6 +679,7 @@ var DECORATOR = function()
 	itself.extend = extend;
 	itself.setupDecorator = setupDecorator;
 	itself.attachDecoration = attachDecoration;
+	itself.addObjectBehaviour = addObjectBehaviour;
 	itself.decorate = decorate;
 	itself.callDocumentReadyHandlers = callDocumentReadyHandlers;
 	itself.addDecorationRules = addDecorationRules;

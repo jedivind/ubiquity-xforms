@@ -108,7 +108,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
     // then subject to further checks, the evaluation context
     // may be retrieved from the model itself.
     var sModelId = oElement.getAttribute("model");
-    
+        
     if (sModelId) {
         var oModel = oDocument.getElementById(sModelId);
         
@@ -137,7 +137,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
         }
     } else {
         //Otherwise use the parent's evaluation context.
-        oRet = _getParentEvaluationContext(pThis);     
+        oRet = _getParentEvaluationContext(pThis);
     }
     
     pThis.m_context = {
@@ -194,7 +194,7 @@ function _getParentEvaluationContext(pThis, nOrdinal) {
                 oRer.node  = null;
                 return oRet;
             }
-        }        
+        }
         oRet = document.defaultModel.getEvaluationContext();
     }  
     return oRet;
@@ -210,11 +210,13 @@ function _getBoundNode(pThis, nOrdinal) {
             node  : null
         };
     var i = 0;
+    var oRefNode = null;
+    var oInstDoc = null;
     
     if (!nOrdinal || isNaN(nOrdinal)) {
         nOrdinal = 1;
     }
-
+    
     /*
      * If we have a proxy node (and not a proxy expression) then use that.
      */
@@ -260,13 +262,13 @@ function _getBoundNode(pThis, nOrdinal) {
 
     var sRef = oElement.getAttribute("ref");
     var sNodeset = oElement.getAttribute("nodeset");
-    var sName = oElement.getAttribute("name");
+    var sName = WebFormsAProcessor.getAttribute(oElement, "name");
 
     if (!sRef && !sNodeset && !sName) {
         // Return if no ref | nodeset | name to evaluate
         return oRet;
     }
-    
+
     // Get the evaluation context, and save the model value.
     oRet = _getEvaluationContext(pThis);
     
@@ -277,7 +279,7 @@ function _getBoundNode(pThis, nOrdinal) {
         return oRet;
     }
     
-    pThis.m_model = oRet.model;        
+    pThis.m_model = oRet.model;
     
     if (sRef && nOrdinal == 1) {        
         var oRefNode = 
@@ -286,7 +288,7 @@ function _getBoundNode(pThis, nOrdinal) {
         if (!oRefNode) {
             // Lazy authoring, 
             // get the default instance
-            var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
+            oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
             
             if (oInstDoc) {
                 // Actually we need to check for the QName is valid  but
@@ -315,13 +317,18 @@ function _getBoundNode(pThis, nOrdinal) {
                 pThis.m_model.EvaluateXPath(sNodeset, oRet.node).value;
         }
         oRet.node = pThis.m_arrNodes[nOrdinal - 1];
-    }    
+    } else if (sName) {
+        // WebForms-A
+        oRet.node = WebFormsAProcessor.processElement(
+                pThis.m_model, oRet.node, oElement, sName);
+    }
     return oRet;
 }
 
 
-function _getDefaultInstanceDocument(oModel) {    
+function _getDefaultInstanceDocument(oModel) {
     var oInstDoc = null;
+    var instanceNode = null;
     
     try {
         // try to get the default instance document,
@@ -341,7 +348,202 @@ function _getDefaultInstanceDocument(oModel) {
         instanceNode = document.createElement(sPrefix + ":" + "instance");
         instanceNode.innerHTML = "<instanceData xmlns='' ></instanceData>";
      }
-    
+
     oModel.appendChild(instanceNode);
     return oModel.getInstanceDocument();
 }
+
+
+/*
+ *  WebFormsAProcessor
+ */
+
+WebFormsAProcessor = {    
+    /**
+     @description namespacceURI for WebForms-A
+     @type String
+     */
+    nsURI : "http://www.w3.org/TR/webforms-a",
+    
+    /**
+    @description default prefix for WebForms-A
+    @type String
+    */
+    defaultPrefix : "wfa:",
+        
+    /**
+    Get the attribute value for an WebForms-A's attribute.
+    Since WebForms-A can be part of a HTML document without any namespace declaration,
+    We need to try to get the attribute with the "wfa:" prefix if failed to retrieve the
+    attribute vale via getAttributeNS     
+    @param {Object} Element to get attribute from   
+    @param {String} Attribute name
+    @returns String, Attribute Value 
+    @throws 
+    */    
+    getAttribute : function(oElement, sAttributeName) { 
+        // First try to get the name with WebForms-A namespaceURI
+        var sAttrValue = 
+            NamespaceManager.getAttributeNS(oElement, sAttributeName, this.nsURI);
+        
+        if (!sAttrValue) {
+            // if no namespaceURI.. in HTML just use prefix wfa: + attributeName         
+            sAttrValue = oElement.getAttribute(this.defaultPrefix + sAttributeName);
+        }    
+       
+        return sAttrValue;
+    },
+
+    /**
+    Process WebForms-A element, create reference node and node value in an instance
+    and create bind for the control.
+    @param {Object} Model node of the evaluation context
+    @param {Object} Context node of the evaluation context
+    @param {Object} Control's DOM Node 
+    @param {String} Name atrribute of the control
+    @returns Object Reference node of the binded control   
+    @throws n/a
+    */    
+    processElement : function(oModel, oContextNode, oElement, sName) {
+        var sValue, oValueNode, oParent;
+        var oRefNode = null;
+        
+        var oEvalResult = oModel.EvaluateXPath(sName, oContextNode);
+        if (oEvalResult) {
+            oRefNode = getFirstNode(oEvalResult);
+        }
+        var oInstDoc = _getDefaultInstanceDocument(oModel);        
+
+        if (!oRefNode && oInstDoc) {
+            oRefNode = oInstDoc.createElement(sName);
+            sValue = this.getAttribute(oElement, "value");
+                
+            if (sValue && sValue.length !== 0) {
+                oValueNode = oInstDoc.createTextNode(sValue);
+                if (oValueNode) {
+                    oRefNode.appendChild(oValueNode);
+                }
+            } 
+            oParent = oContextNode ? oContextNode : oInstDoc.documentElement;
+            oParent.appendChild(oRefNode);
+        }
+        
+        if (oElement["bindCreated"] === undefined) {
+            this._createBind(oModel, oElement, oRefNode);
+            oElement["bindCreated"] = true;
+        }
+        
+        return oRefNode;
+    },
+    
+    /**
+    Create corresponding bind from WebForms-A control's constraint attributes
+    (datatype, calculate, constraint, relevant, readonly, required)    
+    @param {Object} Model node of the evaluation context
+    @param {Object} Context node of the evaluation context
+    @param {Object} Control's DOM Node 
+    @returns n/a 
+    @throws n/a
+    */    
+    _createBind : function(oModel, oElement, oRefNode) {
+        var sDatatype, sCalculate, sConstraint;        
+        var sRelevant, sReadonly, sRequired, sNodeset;
+        var oBind = null;
+        var oContextBind = null;
+        
+        if (!oModel || !oElement || !oRefNode) {       
+            return;
+        }
+        
+        sDatatype   = this.getAttribute(oElement, "datatype");         
+        sCalculate  = this.getAttribute(oElement, "calculate");
+        sConstraint = this.getAttribute(oElement, "constraint");
+        sRelevant   = this.getAttribute(oElement, "relevant");
+        sReadonly   = this.getAttribute(oElement, "readonly");
+        sRequired   = this.getAttribute(oElement, "required");
+        
+        if (!sDatatype && !sCalculate && !sConstraint && 
+            !sRelevant && !sReadonly && !sRequired) {
+            return;
+        }
+        
+        oBind = UX.createElementNS(oElement,
+                "bind", "http://www.w3.org/2002/xforms");        
+
+        sNodeset = this._getNodeset(oRefNode, 
+                oRefNode.ownerDocument.documentElement);
+
+        if (!oBind || !sNodeset) {
+            return;
+        }        
+        oBind.setAttribute("nodeset", sNodeset);
+        
+        oContextBind = UX.createElementNS(oElement,
+                "bind", "http://www.w3.org/2002/xforms");
+        oContextBind.setAttribute("context", "..");
+        oBind.appendChild(oContextBind);
+        
+        if (sDatatype &&  !oElement["yuiDate"]) {
+            // TODO: check for vaild data type
+            // Need to recreate? special control such as date.
+            var sType = "xsd:" +  sDatatype;
+            oBind.setAttribute("type", sType);
+            
+            if (sType === "xsd:date") {
+                var oClonedNode = oElement.cloneNode(true);
+                oClonedNode.setAttribute("datatype", "xf:date");
+                oElement.parentNode.replaceChild(oClonedNode, oElement);
+                oElement = oClonedNode;
+                oElement["yuiDate"] = true;
+            }
+        }
+
+        if (sCalculate) {
+            oContextBind.setAttribute("calculate", sCalculate);
+        }
+
+        if (sConstraint) {
+            // TODO: resolve context
+            oBind.setAttribute("constraint", sConstraint);
+        }
+
+        if (sRelevant) {
+            // TODO: resolve context
+            oContextBind.setAttribute("relevant", sRelevant);
+        }
+
+        if (sReadonly) {
+            oContextBind.setAttribute("readonly", 
+                    ((sReadonly != "false") ? "true" : "false"));
+        }
+
+        if (sRequired) {
+            oContextBind.setAttribute("required", 
+                    ((sRequired != "false") ? "true()" : "false()"));
+        }
+        oModel.appendChild(oBind);
+     },
+
+    /**
+    Determine the XPath expression of the nodeset by traversing the instance,
+    this method is called recusively. 
+    @param {Object} prefix The prefix used to select the given URI
+    @param {Object} uri  The URI to which the prefix is to be bound
+    @returns String, XPath expression of current refernce 
+    @throws 
+    */
+    _getNodeset : function(oElem, oDocRoot) {       
+        
+        if (!oElem || oElem === oDocRoot) {
+            return null;
+        } else {
+            var sParentRef = this._getNodeset(oElem.parentNode, oDocRoot);
+            if (sParentRef) {
+                sParentRef += "/";          
+            } else {
+                sParentRef = "";
+            }                   
+            return  sParentRef + oElem.nodeName;
+        }
+    }
+};

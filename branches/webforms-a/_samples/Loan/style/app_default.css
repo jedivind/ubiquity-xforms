@@ -1,0 +1,176 @@
+xf\:form { 
+  display: block; 
+  width: 700px;
+  font-family: verdana;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+}
+
+xf\:group { 
+  display: table; 
+  width: 700px;
+  font-family: verdana;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+}
+
+xf\:group > xf\:input { 
+  display: table-row;
+  background-color: #ffffff;
+  line-height: 15px;
+}
+
+xf\:group > xf\:input pe-value { 
+  display: table-cell;
+  font-family: verdana, arial;
+  font-size: 12px;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
+  border: thin black solid; 
+  width: 250px;
+  min-height: 10em;
+  vertical-align: middle;
+  padding-bottom: 2px;
+  padding-top: 2px; 
+  margin-bottom: 10px;     
+}
+
+xf\:group > xf\:input > xf\:label {
+  display: table-cell; 
+  padding: 0 10px 0px 0;
+  border: none; 
+  text-align: right; 
+  width: 200px;
+  vertical-align: middle; 
+  margin-bottom: 10px;     
+}
+
+xf\:group > xf\:input > xf\:label pe-value {  
+  display: table-cell; 
+  border: none; 
+  font-weight: bold; 
+}
+
+xf\:group > xf\:output { 
+  display: table-row;
+  line-height: 15px;
+}
+
+xf\:group > xf\:output pe-value { 
+  display: block;
+  font-family: verdana, arial;
+  font-size: 12px;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  width: 500px;
+}
+
+xf\:group > xf\:output > xf\:label {
+  display: table-cell; 
+  padding: 0 10px 0px 0;
+  border: none; 
+  text-align: right; 
+  width: 200px;
+  vertical-align: middle; 
+       
+}
+
+xf\:group > xf\:output > xf\:label pe-value {  
+  display: table-cell; 
+  border: none; 
+  font-weight: bold; 
+}
+
+xf\:group > xf\:select1 { 
+  display: table-row;
+  background-color: #ffffff;
+  line-height: 15px;
+}
+
+xf\:group > xf\:select1 pe-value { 
+  display: table-cell;
+  font-family: verdana, arial;
+  font-size: 12px;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
+  border: thin black solid; 
+  width: 250px;
+  min-height: 10em;
+  vertical-align: middle;
+  padding-bottom: 2px;
+  padding-top: 2px; 
+  margin-bottom: 10px;     
+}
+
+xf\:group > xf\:select1 > xf\:label {
+  display: table-cell; 
+  padding: 0 10px 0px 0;
+  border: none; 
+  text-align: right; 
+  width: 200px;
+  vertical-align: middle; 
+  margin-bottom: 10px;     
+}
+
+xf\:group > xf\:select1 > xf\:label pe-value {  
+  display: table-cell; 
+  border: none; 
+  font-weight: bold; 
+}
+
+xf\:submit {
+    background-color: #99cccc !important;
+    border-color: #d8dfea rgb(14, 31, 91) rgb(14, 31, 91) rgb(216, 223, 234) !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif !important;    
+    font-size: 12px !important;
+    margin: 0 2px !important;
+    padding: 2px 18px !important;
+    float: right;
+}
+
+xf\:submit:hover {
+   cursor: pointer !important;
+   border: 1px solid #ffc !important;
+}
+
+.valid xf\:alert {
+  display: none;
+}
+
+.invalid xf\:alert {
+  display: table-cell;
+  float: right;
+  text-align: left;
+  background-color: transparent;
+  color: #D00;
+  width: 300px;
+  padding: 5px 10px 5px 0;
+}
+
+.yui-button{display:-moz-inline-box;display:inline-block;vertical-align:text-bottom;}
+.yui-button .first-child{display:block;*display:inline-block;}
+.yui-button button,.yui-button a{display:block;*display:inline-block;border:none;margin:0;}
+.yui-button button{background-color:transparent;*overflow:visible;cursor:pointer;}
+.yui-skin-sam .yui-button{border-width:1px 0;border-style:solid;border-color:#808080;background:url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/../../../../assets/skins/sam/sprite.png) repeat-x 0 0;margin:auto .25em;}
+.yui-skin-sam .yui-button .first-child{border-width:0 1px;border-style:solid;border-color:#808080;margin:0 -1px;*position:relative;*left:-1px;}
+.yui-skin-sam .yui-button button,.yui-skin-sam .yui-button a{padding:0 10px;font-size:93%;line-height:2;*line-height:1.7;min-height:1.75em;*min-height:auto;color:#000;}
+.yui-skin-sam .yui-split-button button,.yui-skin-sam .yui-menu-button button{background-position:right center;background-repeat:no-repeat;}
+.yui-skin-sam .yui-menu-button button{background-image:url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);}
