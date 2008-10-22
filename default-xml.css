@@ -185,3 +185,11 @@ xf|select1 xf|label pe-value, xforms|select1 xforms|label pe-value {
   width:360px;
   height:200px;
 }
+
+/* The YAHOO libraries are pretty much HTML specific, so there will be exceptions for
+ * XML Parsing for *.xhtml file
+ */
+*[class~="pe-choices"] {      
+  background-color: #ffffff;
+  border: 1px solid #808080;
+}

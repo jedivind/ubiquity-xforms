@@ -125,21 +125,20 @@
       </thead>
       <tbody>
 -->      
-          <xforms:repeat nodeset="order/item" id="orderTable" startindex="1">
-          	    <!--
+          <xforms:repeat nodeset="order/item" id="orderTable" startindex="1">          	    
                 <xforms:select1 ref="product" appearance="minimal">
                     <xforms:label>Choose product</xforms:label>
                     <xforms:itemset nodeset="instance('products')/product">
-                        <xforms:label ref="."></xforms:label>
+                        <xforms:label ref="@name"></xforms:label>
                         <xforms:value ref="@code"></xforms:value>
                     </xforms:itemset>
                     <xforms:action ev:event="xforms-value-changed">
                     	 <xforms:setvalue ref="../unitcost"
-                    	 	                value="instance('products')/product[@code=current()/../product]/@unitcost">
+                    	 	              value="instance('products')/product[@code=current()/../product]/@unitcost">
                     	 </xforms:setvalue>
                     </xforms:action>
                 </xforms:select1>
-                -->
+                
                 <!--
                 <xforms:select1 ref="product" appearance="minimal">
                     <xforms:label>Choose product</xforms:label>
@@ -165,10 +164,11 @@
                     	 </xforms:setvalue>
                     </xforms:action>
                 </xforms:select1>
-                -->
+                
                 <xforms:input ref="product">
                 	  <xforms:label>Product:</xforms:label>
                 </xforms:input>
+                -->
                  
                 <xforms:input ref="unitcost">
                     <xforms:label>Unit Cost</xforms:label>
@@ -189,15 +189,15 @@
  
     <hr size="6" class="rule"/>
     
-    <xforms:output ref="subtotal" class="table_summary">
+    <xforms:output ref="subtotal" class="table_summary regular">
          <xforms:label>Subtotal: </xforms:label>
     </xforms:output>
 
-    <xforms:output ref="tax" class="table_summary">
+    <xforms:output ref="tax" class="table_summary regular">
          <xforms:label>Tax: </xforms:label>
     </xforms:output>
 	
-    <xforms:output ref="total" class="table_summary">
+    <xforms:output ref="total" class="table_summary regular">
          <xforms:label>Total: </xforms:label>
          <xforms:alert>The maximum purchase order is 200 dollars.</xforms:alert>
     </xforms:output>
