@@ -506,7 +506,13 @@ UX.selectors = {
             value : "xf|input.minimal-date > pe-value",
             labelvalue : "xf|input.minimal-date > xf|label > pe-value"
         }
-    }
+    },
+     itemset : {
+        repeatReady : "xf|itemset.repeat-ready > xf|item"     
+    },
+    repeat : {
+        repeatReady : "xf|repeat.repeat-ready > xf|group"     
+    }   
 };
 
 // Attribute selectors are added if the user agent supports them
@@ -517,6 +523,8 @@ if (!UX.isIE6) {
     UX.selectors.input.date.labelvalue += ", xf|input[datatype='xsd:date'] > xf|label > pe-value, xf|input[datatype='xf:date'] > xf|label > pe-value";
     UX.selectors.input.dateminimal.value += ", xf|input[datatype='xsd:date'][appearance='minimal'] > pe-value, xf|input[datatype='xf:date'][appearance='minimal'] > pe-value";
     UX.selectors.input.dateminimal.labelvalue += ", xf|input[datatype='xsd:date'][appearance='minimal'] > xf|label > pe-value, xf|input[datatype='xf:date'][appearance='minimal'] > xf|label > pe-value";
+    UX.selectors.repeat.repeatReady += ", xf|repeat[class~='repeat-ready'] > xf|group";
+    UX.selectors.itemset.repeatReady += ", xf|itemset[class~='repeat-ready'] > xf|item";
 }
 // else, we delegate selection to ie6-css-selectors-fixer.js
 
@@ -531,21 +539,8 @@ NamespaceManager.addSelectionNamespace("xf","http://www.w3.org/2002/xforms");
 
 DECORATOR.setupDecorator(
 	[
-	  
-	//Switch off bindings within repeat, during load-time (FF )
-		{
-			selector:"xf|repeat > *,  xf|itemset > *",
-			cssText:"-moz-binding:url();"
-		},
-		
-	//Switch bindings repeat back on within repeat.  (FF )
 
-		{
-			selector:"xf|repeat.repeat-ready > xf|group",
-			objects:[]
-		},
-
-  /* Model */
+    /* Model */
 
 		{
 			selector:"xf|instance",
@@ -812,18 +807,48 @@ DECORATOR.setupDecorator(
 			selector:"xf|label >  pe-value",
 			objects:[],
 			important:true
-		},
-	//Switch off bindings within repeat, during load-time (IE )
+		},       
+        {
+            selector:"xf|select1 > xf|item, xf|select1 > xf|itemset",
+            cssText:"-moz-binding:url();"
+        },        
+        {
+            selector:"xf|select1 > xf|item *, xf|select1 > xf|itemset *",
+            cssText:"-moz-binding:url();"
+        },
+        
+    //Switch off bindings within repeat, during load-time (FF )
+        {
+            selector:"xf|repeat > *,  xf|itemset > *",
+            cssText:"-moz-binding:url();"
+        },
+        {
+            selector: UX.selectors.itemset.repeatReady,
+            objects:[]
+        }, 
+        
+    //Switch bindings repeat back on within repeat.  (FF )
+        {
+            selector: UX.selectors.repeat.repeatReady,
+            objects:[]
+        }, 
+            
+	//Switch off bindings within repeat,itemset during load-time (IE )
 		{
 			selector:"xf|repeat *, xf|itemset *", 
 			cssText:"-binding-ignore:true;"
 		},
-	//Switch bindings repeat back on within repeat.  (IE )
-		{
-			selector:"xf|repeat.repeat-ready *, xf|itemset.repeat-ready *",
-			cssText:"-binding-ignore:false;"
-		}
-
+        
+   	//Switch bindings repeat back on within repeat.  (IE )
+         {
+            selector:"xf|repeat.repeat-ready *",
+            cssText:"-binding-ignore:false;"
+        },
+    //Switch bindings itemset back on within itemset.  (IE )        
+        {
+            selector:"xf|itemset.repeat-ready *",
+            cssText:"-binding-ignore:false;"
+        }
 	],
 	"http://www.w3.org/2002/xforms"); //to tell the decorator so that it doesn't need to write these definitions again
 
