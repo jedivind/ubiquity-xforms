@@ -42,6 +42,14 @@ xf\:hint {
   -webkit-border-radius: 5px;
 }
 
+xforms\:select1,
+xf\:select1,
+xforms\:select,
+xf\:select {
+  display: block;
+  padding: 0.2em; 
+}
+
 xforms\:output,
 xf\:output,
 xforms\:input,
@@ -93,7 +101,7 @@ xf\:trigger:hover {
 xforms\:submit  xforms\:label,
 xf\:submit xf\:label,
 xforms\:trigger xforms\:label,
-xf:\trigger xf:\label
+xf\:trigger xf\:label
  {  	
   background-color: #D3D3D3;
   padding: 3px;

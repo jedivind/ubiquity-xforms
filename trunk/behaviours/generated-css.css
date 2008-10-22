@@ -1,25 +1,3 @@
-xf\:repeat > * , xforms\:repeat > *, xf\:itemset > * , xforms\:itemset > * {
-  -moz-binding:url();
-}
-xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready > xforms\:group {
-  -moz-binding: url("decorator.xml#decorator");
-}
-xf\:itemset.repeat-ready > xf\:item, xforms\:itemset.repeat-ready > xforms\:item {
-  -moz-binding: url("decorator.xml#decorator");
-}
-xf\:itemset, xforms\:itemset {
-  -moz-binding: url("decorator.xml#decorator");
-}
-
-xf\:select1 > xf\:item , xforms\:select1 > xforms\:item, 
-xf\:select1 > xf\:itemset , xforms\:select1 >  xforms\:itemset {
-  -moz-binding:url();
-}
-xf\:select1 > xf\:item *, xforms\:select1 >  xforms\:item *, 
-xf\:select1 > xf\:itemset *, xforms\:select1 >  xforms\:itemset *{
-  -moz-binding:url();
-}
-
 xf\:instance, xforms\:instance {
   -moz-binding: url("decorator.xml#decorator");
 }
@@ -203,6 +181,30 @@ xf\:repeat.repeat-ready *, xforms\:repeat.repeat-ready *, xf\:itemset.repeat-rea
   -binding-ignore:false;
 }
 
+xf\:itemset.repeat-ready > xf\:item, xforms\:itemset.repeat-ready > xforms\:item {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:itemset, xforms\:itemset {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:select1 > xf\:item , xforms\:select1 > xforms\:item, 
+xf\:select1 > xf\:itemset , xforms\:select1 >  xforms\:itemset {
+  -moz-binding:url();
+}
+xf\:select1 > xf\:item *, xforms\:select1 >  xforms\:item *, 
+xf\:select1 > xf\:itemset *, xforms\:select1 >  xforms\:itemset *{
+  -moz-binding:url();
+}
+
+xf\:repeat > *, xforms\:repeat > *, xf\:itemset > *, xforms\:itemset > * {
+  -moz-binding:url();
+}
+
+xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready >  xforms\:group {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
 smil\:animate {
   -moz-binding: url("decorator.xml?Listener&SmilAnimate#decorator");
 }
@@ -212,4 +214,3 @@ smil\:animateColor {
 smil\:set {
   -moz-binding: url("decorator.xml?Listener&SmilSet#decorator");
 }
-
