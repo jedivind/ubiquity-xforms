@@ -39,7 +39,7 @@ var baseDefaultPath = pathToModule("ubiquity-loader");
 (
   function() {
     var arrScripts = [
-      "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js",
+      "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-debug.js",
       baseDefaultPath + "lib/sniffer.js",
       baseDefaultPath + "lib/xforms/ie-instance-fixer.js",
       baseDefaultPath + "lib/xforms/ie6-css-selectors-fixer.js",
@@ -53,14 +53,8 @@ var baseDefaultPath = pathToModule("ubiquity-loader");
     var i, l = arrScripts.length;
 
     var head = document.getElementsByTagName("head")[0];
-    var scriptElement;
-    
-    scriptElement = document.createElement('script');
-    head.appendChild(scriptElement);
-    scriptElement.setAttribute("type","text/javascript");
-    scriptElement.setAttribute("src", arrScripts[0]); 
-        
-    for (i = 1 ; i < l ; i++) {
+    var scriptElement;    
+    for (i = 0 ; i < l ; i++) {
        scriptElement = document.createElement('script');
        head.appendChild(scriptElement);
        scriptElement.setAttribute("type","text/javascript");
