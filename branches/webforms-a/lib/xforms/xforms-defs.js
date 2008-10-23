@@ -520,6 +520,11 @@ if (!UX.isIE6) {
 }
 // else, we delegate selection to ie6-css-selectors-fixer.js
 
+
+DECORATOR.addDecorationRules(UX.webformsa.html.rules);
+NamespaceManager.addSelectionNamespace("wfa", "http://www.w3.org/TR/webforms-a");
+
+
 //[ISSUE 8] IE does not natively support child selectors, but will ignore ">"
 //	if found in css, making a selector such as "x > y", behave as a descendent
 //	selector "x y".  This means that the order of occurrence of some of these
@@ -826,3 +831,6 @@ DECORATOR.setupDecorator(
 	],
 	"http://www.w3.org/2002/xforms"); //to tell the decorator so that it doesn't need to write these definitions again
 
+DECORATOR.setupDecorator(
+        UX.webformsa.html.decorators, 
+        "http://www.w3.org/1999/xhtml");

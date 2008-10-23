@@ -213,3 +213,15 @@ smil\:set {
   -moz-binding: url("decorator.xml?Listener&SmilSet#decorator");
 }
 
+
+fieldset[wfa\:name] {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+input[wfa\:name] {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+output[wfa\:name] {
+  -moz-binding: url("decorator.xml#decorator");
+}

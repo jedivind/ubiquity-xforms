@@ -286,12 +286,19 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
     UX.createElementNS = function(oNode, sQName, sNS) {
         var oElement = null;
         var sPrefix  = null;
-        var oDocument = oNode.ownerDocument;
+        var oDocument = oNode  ? oNode.ownerDocument : document;
+        var oPrefixes = null;
         
         if (UX.isXHTML) {
             oElement = oDocument.createElementNS(sQName, sNS);
         } else {
-            sPrefix = NamespaceManager.getOutputPrefixesFromURI(sNS)[0];
+            oPrefixes = NamespaceManager.getOutputPrefixesFromURI(sNS);
+            if (oPrefixes && oPrefixes.length > 0) {
+                sPrefix = oPrefixes[0];
+            } else if ( sNS === "http://www.w3.org/2002/xforms") {
+                sPrefix = "xf";
+            }
+            console.log(sPrefix + " " + sQName);
             oElement = oDocument.createElement(sPrefix + ":" + sQName);
         }
         return oElement;

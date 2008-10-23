@@ -50,6 +50,7 @@ var DECORATOR = function()
     function addDecorationRules(decorationRules)
     {
         if (decorationRules.namespaceURI && decorationRules.rules) {
+            console.log("Added " +  decorationRules.namespaceURI);
             addDecorationRulesForNamespace(decorationRules.namespaceURI,decorationRules.rules);
         } else if (decorationRules.rules) {
             addDecorationRulesForNamespace("*",decorationRules.rules);
@@ -286,7 +287,9 @@ var DECORATOR = function()
 	{
 	  //HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and 
 	  //  unexpected namepsace prefixes are ignored.
-      if(ns === "http://www.w3.org/2002/xforms" && isFirefox3()) {
+      if((ns === "http://www.w3.org/2002/xforms" || 
+          ns === "http://www.w3.org/1999/xhtml")
+          && isFirefox3()) {
         try{
           var cssNode = document.createElement('link');
           cssNode.type = 'text/css';
@@ -317,7 +320,7 @@ var DECORATOR = function()
         }
      */ }
       else {
-	
+          
     		var oHead = document.getElementsByTagName("head")[0];
     		var oStyle = document.createElement('style');
     		var s = "";
@@ -345,7 +348,7 @@ var DECORATOR = function()
     		    s += "@namespace" + " " + xformsPrefix + " " + "url(" + xformsNamespaceURI +");";
       		    s += "@namespace" + " " + htmlPrefix  + " " + "url(" + htmlNamespaceURI + ");";
     		}
-    		
+    		s += "@namespace" + " " + "wfa"  + " " + "url(" + "http://www.w3.org/TR/webforms-a" + ");";
     		for (var i = 0; defs.length > i; ++i)
     		{
     			if (UX.isXHTML) {
@@ -356,6 +359,7 @@ var DECORATOR = function()
     			//oStyle.sheet.insertRule(sRule, oStyle.sheet.length);
     			s += sRule;
     		}
+            console.log(s);
     		var styleTextNode = document.createTextNode(s);
 			oStyle.appendChild(styleTextNode);
     		oHead.insertBefore(oStyle, null);
@@ -367,6 +371,7 @@ var DECORATOR = function()
 	
 	function ffXHTMLSetupDecorator(defs)
 	{
+
 		var oHead = document.getElementsByTagName("head")[0];
 
         var htmlPrefix = "h";
@@ -398,7 +403,8 @@ var DECORATOR = function()
 				defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
 			}
 			var sRule = defs[i].selector + "{"+generateMozBindingStyle(defs[i].objects)+ (defs[i].cssText || "") +"}";
-			s += sRule;			
+			s += sRule;
+			console.log(s);
 			//oStyle.sheet.insertRule(sRule,oStyle.sheet.length);
 		}
 		oStyle.innerHTML = s;
@@ -514,8 +520,10 @@ var DECORATOR = function()
 		//add capability to 
 		element.attachSingleBehaviour = attachSingleBehaviour;
 
-		var arrBehaviours = getDecorationObjectNames(element);				
+		var arrBehaviours = getDecorationObjectNames(element);
 		arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
+		console.log(element.nodeName + ", " +arrBehaviours.toString());
+
 		if(arrBehaviours.length  > 0){
 			for(var i = 0;i < arrBehaviours.length;++i){
 				addObjectBehaviour(element,arrBehaviours[i],false);
@@ -548,6 +556,10 @@ var DECORATOR = function()
             rules,
             rulecount;
 
+        if (!elementNSURI) {
+            elementNSURI = "http://www.w3.org/1999/xhtml";
+        }
+        console.log("ns = " + elementNSURI);
         // Rules are a concatenation of the element name rules and
         // wildcard rules (if any) for the given element namespace ...
         if (g_DecorationRules[elementNSURI]) {
