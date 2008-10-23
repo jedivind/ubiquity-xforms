@@ -29,13 +29,13 @@ UX.formsa = {
             NamespaceManager.addOutputNamespace("xf", xformsNS);
         }
         
-        console.log("==============formsA-def=================");
+        // console.log("==============formsA-def=================");
         if (UX.isFF || UX.isOpera ) {
             var models = NamespaceManager.getElementsByTagNameNS(document,
                     "http://www.w3.org/2002/xforms", "model");
             
             if (!models || models.length === 0) {
-                console.log("create default");
+                // console.log("create default");
                 var modelNode = UX.createElementNS(null, "model", xformsNS);
                 modelNode.setAttribute("id", "_fa_gen_default_model");
                 document.body.appendChild(modelNode);

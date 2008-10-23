@@ -122,7 +122,7 @@ var NamespaceManager  = function(){
             var matchGivenPrefix =  new RegExp(sMatchThisPrefix,"g");
             var outputprefixes = m_outputNamespaces[selectionURI];
 
-            console.log(selector);
+            // console.log(selector);
             if(!outputprefixes || outputprefixes.length === 0) {
              //   debugger;
              // throw ("No output prefixes found for selection namespace prefix '" + prefix + "'");

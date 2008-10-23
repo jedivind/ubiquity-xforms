@@ -211,7 +211,7 @@ function doUpdate() {
         try {
             m.deferredUpdate();
         } catch (e) {
-            console.log(e);
+            // console.log(e);
         }
     }
 }

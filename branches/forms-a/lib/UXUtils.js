@@ -298,7 +298,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
             } else if ( sNS === "http://www.w3.org/2002/xforms") {
                 sPrefix = "xf";
             }
-            console.log(sPrefix + " " + sQName);
+            // console.log(sPrefix + " " + sQName);
             oElement = oDocument.createElement(sPrefix + ":" + sQName);
         }
         return oElement;

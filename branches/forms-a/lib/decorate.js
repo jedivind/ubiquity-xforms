@@ -50,7 +50,7 @@ var DECORATOR = function()
     function addDecorationRules(decorationRules)
     {
         if (decorationRules.namespaceURI && decorationRules.rules) {
-            console.log("Added " +  decorationRules.namespaceURI);
+            // console.log("Added " +  decorationRules.namespaceURI);
             addDecorationRulesForNamespace(decorationRules.namespaceURI,decorationRules.rules);
         } else if (decorationRules.rules) {
             addDecorationRulesForNamespace("*",decorationRules.rules);
@@ -359,7 +359,7 @@ var DECORATOR = function()
     			//oStyle.sheet.insertRule(sRule, oStyle.sheet.length);
     			s += sRule;
     		}
-            console.log(s);
+            // console.log(s);
     		var styleTextNode = document.createTextNode(s);
 			oStyle.appendChild(styleTextNode);
     		oHead.insertBefore(oStyle, null);
@@ -404,7 +404,7 @@ var DECORATOR = function()
 			}
 			var sRule = defs[i].selector + "{"+generateMozBindingStyle(defs[i].objects)+ (defs[i].cssText || "") +"}";
 			s += sRule;
-			console.log(s);
+			// console.log(s);
 			//oStyle.sheet.insertRule(sRule,oStyle.sheet.length);
 		}
 		oStyle.innerHTML = s;
@@ -522,7 +522,7 @@ var DECORATOR = function()
 
 		var arrBehaviours = getDecorationObjectNames(element);
 		arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
-		console.log(element.nodeName + ", " +arrBehaviours.toString());
+		// console.log(element.nodeName + ", " +arrBehaviours.toString());
 
 		if(arrBehaviours.length  > 0){
 			for(var i = 0;i < arrBehaviours.length;++i){
@@ -559,7 +559,7 @@ var DECORATOR = function()
         if (!elementNSURI) {
             elementNSURI = "http://www.w3.org/1999/xhtml";
         }
-        console.log("ns = " + elementNSURI);
+        // console.log("ns = " + elementNSURI);
         // Rules are a concatenation of the element name rules and
         // wildcard rules (if any) for the given element namespace ...
         if (g_DecorationRules[elementNSURI]) {
