@@ -169,7 +169,7 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "hint.js",
       requires: [ "xforms-hint-css", "xforms-notify" ] });
     
-    loader.addModule({ name: "webforms-a-defs",                type: "js",  fullpath: moduleBase + "webforms-a-defs.js"}); 
+    loader.addModule({ name: "webforms-a-defs",                type: "js",  fullpath: moduleBase + "webformsa-defs.js"}); 
 
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
       requires: [
