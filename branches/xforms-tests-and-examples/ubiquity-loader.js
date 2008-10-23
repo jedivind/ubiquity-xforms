@@ -38,7 +38,10 @@ var baseDefaultPath = pathToModule("ubiquity-loader");
 
 (
   function() {
-    YAHOO=null;
+    YAHOO_config = {
+       load: true,
+       injecting: true
+    };
     var arrScripts = [
       "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js",
       baseDefaultPath + "lib/sniffer.js",
