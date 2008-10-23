@@ -2,12 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
 xmlns="http://www.w3.org/1999/xhtml"
-xmlns:wfa="http://www.w3.org/TR/webforms-a" 
+xmlns:fa="http://www.w3.org/TR/forms-a" 
 xmlns:xf="http://www.w3.org/2002/xforms">
 <head>
 <script src="../../ubiquity-loader.js" type="text/javascript">/**/</script>
 
-<link href="style/wfa-loan.css" rel="stylesheet"></link>
+<link href="style/fa-loan.css" rel="stylesheet"></link>
 <style type="text/css">
   .code {background-color:#eeeeee;padding:10px;display:block;font-family:monospace;border:solid navy;}
    td {vertical-align:top;}
@@ -23,64 +23,64 @@ xmlns:xf="http://www.w3.org/2002/xforms">
 <form id="form" action="http://xformstest.org/cgi-bin/echo.sh" method="post">   
    <br />
 
-   <fieldset id="borrowerFS" wfa:name="borrower">
+   <fieldset id="borrowerFS" fa:name="borrower">
      <label for="start_date">Agreement Date:</label>
-     <input id="start_date" wfa:name="startdate" wfa:datatype="date" 
-              wfa:value="08/08/2008" />
+     <input id="start_date" fa:name="startdate" fa:datatype="date" 
+              fa:value="08/08/2008" />
      <br />
            
      <label for="name">Name:</label>
-     <input id="name" wfa:name="name" wfa:datatype="string"
-            wfa:value="Joe Q. Public" wfa:constraint="string-length(.) > 0" />
+     <input id="name" fa:name="name" fa:datatype="string"
+            fa:value="Joe Q. Public" fa:constraint="string-length(.) > 0" />
      <br />
            
      <label for="addr">Address:</label>
-     <input id="addr" wfa:name="address" wfa:datatype="string"
-         wfa:value="123 Main St. Tinyville"
-         wfa:constraint="string-length(.) > 0" />
+     <input id="addr" fa:name="address" fa:datatype="string"
+         fa:value="123 Main St. Tinyville"
+         fa:constraint="string-length(.) > 0" />
      <br />
      
      <label for="principal">Principal:</label>
-     <input id="principal" wfa:name="principal" wfa:datatype="double"
-            wfa:value="10000" 
-            wfa:constraint=". &gt;= 1000 and . &lt;= 100000" />
+     <input id="principal" fa:name="principal" fa:datatype="double"
+            fa:value="10000" 
+            fa:constraint=". &gt;= 1000 and . &lt;= 100000" />
       <br />
    </fieldset>
  
-   <fieldset id="termFS" wfa:name="terms">
+   <fieldset id="termFS" fa:name="terms">
      <label for="duration">Duration of Loan in Months:</label>
-     <input id="duration" wfa:name="duration" wfa:datatype="integer"
-         wfa:value="12" wfa:constraint=". &gt; 0 and . &lt;= 84" />
+     <input id="duration" fa:name="duration" fa:datatype="integer"
+         fa:value="12" fa:constraint=". &gt; 0 and . &lt;= 84" />
       <br />
       
      <label for="interestrate">Yearly Interest Rate:</label>
-     <input id="interestrate" wfa:name="interestrate" wfa:datatype="double"
-         wfa:value="5" wfa:constraint=". &gt;= 5 and . &lt;= 60" />
+     <input id="interestrate" fa:name="interestrate" fa:datatype="double"
+         fa:value="5" fa:constraint=". &gt;= 5 and . &lt;= 60" />
    </fieldset>
 </form>		
 		
 
 <hr size="6" class="rule"></hr>
 
-   <xf:output id="o1" wfa:name="rates"
-      wfa:calculate="terms/interestrate div 1200.0">
+   <xf:output id="o1" fa:name="rates"
+      fa:calculate="terms/interestrate div 1200.0">
       <xf:label>Yearly Interest Rate:</xf:label>
    </xf:output>
    
-   <xf:output id="o3" wfa:name="monthly-payment"
-      wfa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1))) div terms/duration">
+   <xf:output id="o3" fa:name="monthly-payment"
+      fa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1))) div terms/duration">
       <xf:label>Monthly Payment:</xf:label>
    </xf:output>
    
-   <xf:output id="o2" wfa:name="totalpayout"
-      wfa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1)))">
+   <xf:output id="o2" fa:name="totalpayout"
+      fa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1)))">
       <xf:label>Total Payout:</xf:label>
    </xf:output>
 	
 <hr size="6" class="rule"></hr>
 <script>
     function showSLModel() {
-        var model = document.getElementById("_wfa_gen_default_model");
+        var model = document.getElementById("_fa_gen_default_model");
         var instDoc = model.getInstanceDocument();
         var str = xmlText(instDoc.documentElement);
         

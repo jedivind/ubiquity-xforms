@@ -84,22 +84,21 @@ Control.prototype.RetrieveValuePseudoElement = function() {
     var sNs = NamespaceManager.getNamespaceURI(oElement);
     
     if (sNs === "http://www.w3.org/2002/xforms") {        
-        // Control's namespace is xforms.. find child pe-value        
-        var oChild = oElement.firstChild;
-        
-        while (oChild && !this.m_value) {
-            if (oChild.tagName === "pe-value") {
-                this.m_value = oChild;
-            } else {
-                oChild = oChild.nextSilling;
+        var coll = this.element.getElementsByTagName("pe-value");
+        var len = coll.length;
+        for(var i = 0;i < len;++i)
+        {
+            if(coll[i].parentNode == this.element)
+            {
+                this.m_value = coll[i];
+                break;
             }
         }
     } else {
-        var wfaName = NamespaceManager.getAttributeNS(
-                oElement, "name", "http://www.w3.org/TR/webforms-a");
-        if (wfaName) {
-            console.log("webforms-a control");
-            this.m_isWebFormA = true;
+        var faName = NamespaceManager.getAttributeNS(
+                oElement, "name", "http://www.w3.org/TR/forms-a");
+        if (faName) {
+            this.m_isFormsA = true;
             
             if (UX.isIE) {
                 oElement.attachEvent("onchange", function(e){valueChangedIE(oElement,e);});
@@ -413,7 +412,7 @@ Control.prototype.refresh = function() {
 
         // Get node value and pass that to the control, too.
         var sValue = oProxy.getValue();
-        if (this.m_isWebFormA) {
+        if (this.m_isFormsA) {
             this.element.value = sValue;
         } else {
             this.element.setValue(sValue);

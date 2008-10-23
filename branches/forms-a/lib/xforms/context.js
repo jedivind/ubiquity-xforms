@@ -262,7 +262,7 @@ function _getBoundNode(pThis, nOrdinal) {
 
     var sRef = oElement.getAttribute("ref");
     var sNodeset = oElement.getAttribute("nodeset");
-    var sName = WebFormsAProcessor.getAttribute(oElement, "name");
+    var sName = FormsAProcessor.getAttribute(oElement, "name");
 
     if (!sRef && !sNodeset && !sName) {
         // Return if no ref | nodeset | name to evaluate
@@ -318,8 +318,8 @@ function _getBoundNode(pThis, nOrdinal) {
         }
         oRet.node = pThis.m_arrNodes[nOrdinal - 1];
     } else if (sName) {
-        // WebForms-A
-        oRet.node = WebFormsAProcessor.processElement(
+        // Forms-A
+        oRet.node = FormsAProcessor.processElement(
                 pThis.m_model, oRet.node, oElement, sName);
     }
     return oRet;
@@ -355,26 +355,26 @@ function _getDefaultInstanceDocument(oModel) {
 
 
 /*
- *  WebFormsAProcessor
+ *  FormsAProcessor
  */
 
-WebFormsAProcessor = {    
+FormsAProcessor = {    
     /**
-     @description namespacceURI for WebForms-A
+     @description namespacceURI for Forms-a
      @type String
      */
-    nsURI : "http://www.w3.org/TR/webforms-a",
+    nsURI : "http://www.w3.org/TR/forms-a",
     
     /**
-    @description default prefix for WebForms-A
+    @description default prefix for Forms-A
     @type String
     */
-    defaultPrefix : "wfa:",
+    defaultPrefix : "fa:",
         
     /**
-    Get the attribute value for an WebForms-A's attribute.
-    Since WebForms-A can be part of a HTML document without any namespace declaration,
-    We need to try to get the attribute with the "wfa:" prefix if failed to retrieve the
+    Get the attribute value for an Forms-a's attribute.
+    Since Forms-a can be part of a HTML document without any namespace declaration,
+    We need to try to get the attribute with the "fa:" prefix if failed to retrieve the
     attribute vale via getAttributeNS     
     @param {Object} Element to get attribute from   
     @param {String} Attribute name
@@ -382,12 +382,12 @@ WebFormsAProcessor = {
     @throws 
     */    
     getAttribute : function(oElement, sAttributeName) { 
-        // First try to get the name with WebForms-A namespaceURI
+        // First try to get the name with Forms-a namespaceURI
         var sAttrValue = 
             NamespaceManager.getAttributeNS(oElement, sAttributeName, this.nsURI);
         
         if (!sAttrValue) {
-            // if no namespaceURI.. in HTML just use prefix wfa: + attributeName         
+            // if no namespaceURI.. in HTML just use prefix fa: + attributeName         
             sAttrValue = oElement.getAttribute(this.defaultPrefix + sAttributeName);
         }    
        
@@ -395,7 +395,7 @@ WebFormsAProcessor = {
     },
 
     /**
-    Process WebForms-A element, create reference node and node value in an instance
+    Process Forms-a element, create reference node and node value in an instance
     and create bind for the control.
     @param {Object} Model node of the evaluation context
     @param {Object} Context node of the evaluation context
@@ -437,7 +437,7 @@ WebFormsAProcessor = {
     },
     
     /**
-    Create corresponding bind from WebForms-A control's constraint attributes
+    Create corresponding bind from Forms-a control's constraint attributes
     (datatype, calculate, constraint, relevant, readonly, required)    
     @param {Object} Model node of the evaluation context
     @param {Object} Context node of the evaluation context

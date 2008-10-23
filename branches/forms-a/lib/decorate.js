@@ -348,7 +348,7 @@ var DECORATOR = function()
     		    s += "@namespace" + " " + xformsPrefix + " " + "url(" + xformsNamespaceURI +");";
       		    s += "@namespace" + " " + htmlPrefix  + " " + "url(" + htmlNamespaceURI + ");";
     		}
-    		s += "@namespace" + " " + "wfa"  + " " + "url(" + "http://www.w3.org/TR/webforms-a" + ");";
+    		s += "@namespace" + " " + "fa"  + " " + "url(" + "http://www.w3.org/TR/forms-a" + ");";
     		for (var i = 0; defs.length > i; ++i)
     		{
     			if (UX.isXHTML) {

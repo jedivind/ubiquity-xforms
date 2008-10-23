@@ -214,14 +214,14 @@ smil\:set {
 }
 
 
-fieldset[wfa\:name] {
+fieldset[fa\:name] {
   -moz-binding: url("decorator.xml#decorator");
 }
 
-input[wfa\:name] {
+input[fa\:name] {
   -moz-binding: url("decorator.xml#decorator");
 }
 
-output[wfa\:name] {
+output[fa\:name] {
   -moz-binding: url("decorator.xml#decorator");
 }

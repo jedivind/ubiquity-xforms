@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-if (!UX.webformsa) {
+if (!UX.formsa) {
 
-UX.webformsa = {
+UX.formsa = {
     bInitialized: false,
     init : function() {
         if (this.bInitialized) {
             return;
         }
         
-        console.log("==============webforms-def=================");
+        console.log("==============formsA-def=================");
         if (UX.isFF || UX.isOpera ) {
             var models = NamespaceManager.getElementsByTagNameNS(document,
                     "http://www.w3.org/2002/xforms", "model");
@@ -30,7 +30,7 @@ UX.webformsa = {
             if (!models || models.length === 0) {
                 console.log("create default");
                 var modelNode = UX.createElementNS(null, "model", "http://www.w3.org/2002/xforms");
-                modelNode.setAttribute("id", "_wfa_gen_default_model");
+                modelNode.setAttribute("id", "_fa_gen_default_model");
                 document.body.appendChild(modelNode);
                 document.defaultModel = modelNode;
             }
@@ -40,16 +40,16 @@ UX.webformsa = {
 
 }
 
-if (!UX.webformsa.html) {
-UX.webformsa.html = {};    
+if (!UX.formsa.html) {
+UX.formsa.html = {};    
 }
 
-UX.webformsa.html.rules = {
+UX.formsa.html.rules = {
     "namespaceURI" : "http://www.w3.org/1999/xhtml",
     "rules" : {
         "form" : [
         {
-            name: "wfa-form-element",
+            name: "fa-form-element",
             apply: function(arrBehaviours) {
                 return arrBehaviours;
             }
@@ -58,9 +58,9 @@ UX.webformsa.html.rules = {
                   
         "fieldset" : [
         {
-            "name" : "wfa-fieldset-element",
+            "name" : "fa-fieldset-element",
             "apply" : function(arrBehaviours) {
-                UX.webformsa.init();
+                UX.formsa.init();
                 return arrBehaviours.concat(["EventTarget", "Context", "Group"]);
             }
         }
@@ -68,9 +68,9 @@ UX.webformsa.html.rules = {
                   
         "input" : [
         {
-            "name" : "wfa-input-element",
+            "name" : "fa-input-element",
             "apply" : function(arrBehaviours) {                
-                UX.webformsa.init();
+                UX.formsa.init();
                 return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
             }
         }
@@ -78,9 +78,9 @@ UX.webformsa.html.rules = {
                   
        "output" : [
        {
-           "name" : "wfa-output-element",
+           "name" : "fa-output-element",
            "apply" : function(arrBehaviours) {
-               UX.webformsa.init();
+               UX.formsa.init();
                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
            }
        }
@@ -89,17 +89,17 @@ UX.webformsa.html.rules = {
 };
 
 
-UX.webformsa.html.decorators = [
+UX.formsa.html.decorators = [
     {
-        selector:"form[wfa|name]",
+        selector:"form[fa|name]",
         objects:[]
     },
     {
-        selector:"fieldset[wfa|name]",
+        selector:"fieldset[fa|name]",
         objects:[]
     },
     {
-        selector:"input[wfa|name]",
+        selector:"input[fa|name]",
         objects:[]
     },
     {
