@@ -413,7 +413,11 @@ Control.prototype.refresh = function() {
         // Get node value and pass that to the control, too.
         var sValue = oProxy.getValue();
         if (this.m_isFormsA) {
-            this.element.value = sValue;
+            if (this.element.tagName === "OUTPUT") {
+                this.element.textContent = sValue;
+            } else {
+                this.element.value = sValue;
+            }
         } else {
             this.element.setValue(sValue);
         }

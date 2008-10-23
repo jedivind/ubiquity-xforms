@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
 xmlns="http://www.w3.org/1999/xhtml"
-xmlns:fa="http://www.w3.org/TR/forms-a" 
-xmlns:xf="http://www.w3.org/2002/xforms">
+xmlns:fa="http://www.w3.org/TR/forms-a">
 <head>
 <script src="../../ubiquity-loader.js" type="text/javascript">/**/</script>
 
@@ -62,20 +61,22 @@ xmlns:xf="http://www.w3.org/2002/xforms">
 
 <hr size="6" class="rule"></hr>
 
-   <xf:output id="o1" fa:name="rates"
+   <label for="rate-output">Yearly Interest Rate:</label>    
+   <output id="rate-output" fa:name="rates"
       fa:calculate="terms/interestrate div 1200.0">
-      <xf:label>Yearly Interest Rate:</xf:label>
-   </xf:output>
-   
-   <xf:output id="o3" fa:name="monthly-payment"
+   </output>   
+   <br/>
+   <label for="mpayment-output">Monthly Payment:</label> 
+   <output id="mpayment-output" fa:name="monthly-payment"
       fa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1))) div terms/duration">
-      <xf:label>Monthly Payment:</xf:label>
-   </xf:output>
-   
-   <xf:output id="o2" fa:name="totalpayout"
+   </output>
+   <br/>
+
+   <label for="total-output">Total Payout:</label>   
+   <output id="total-output" fa:name="totalpayout"
       fa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1)))">
-      <xf:label>Total Payout:</xf:label>
-   </xf:output>
+   </output>
+   <br/>
 	
 <hr size="6" class="rule"></hr>
 <script>

@@ -21,6 +21,13 @@ UX.formsa = {
         if (this.bInitialized) {
             return;
         }
+        var xformsNS = "http://www.w3.org/2002/xforms";
+        
+        var oPrefix = NamespaceManager.getOutputPrefixesFromURI(xformsNS);
+        if (!oPrefix) {
+            // Name space is not declared
+            NamespaceManager.addOutputNamespace("xf", xformsNS);
+        }
         
         console.log("==============formsA-def=================");
         if (UX.isFF || UX.isOpera ) {
@@ -29,12 +36,14 @@ UX.formsa = {
             
             if (!models || models.length === 0) {
                 console.log("create default");
-                var modelNode = UX.createElementNS(null, "model", "http://www.w3.org/2002/xforms");
+                var modelNode = UX.createElementNS(null, "model", xformsNS);
                 modelNode.setAttribute("id", "_fa_gen_default_model");
                 document.body.appendChild(modelNode);
                 document.defaultModel = modelNode;
             }
         }
+        
+        
     }
 };
 
@@ -103,7 +112,7 @@ UX.formsa.html.decorators = [
         objects:[]
     },
     {
-        selector:"output",
+        selector:"output[fa|name]",
         objects:[]
     }
 ];
