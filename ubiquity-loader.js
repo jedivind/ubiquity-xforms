@@ -15,7 +15,7 @@ function pathToModule(module) {
   for (i = 0; i < l; ++i) {
     el = childNodes[i];
     if (el.nodeType === 1 && (el.nodeName.slice(el.nodeName.indexOf(":")+1,el.nodeName.length).toLowerCase() === "script")) { 
-      src = el.src;
+      src = el.getAttribute("src");
       if (src) {
         pos = src.lastIndexOf(module + ".js");
         
