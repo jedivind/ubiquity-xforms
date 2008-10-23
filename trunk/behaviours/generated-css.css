@@ -173,7 +173,7 @@ xf\:label >  pe-value, xforms\:label >  pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
 
-xf\:repeat *, xforms\:repeat *, xf\:itemset *, xforms\:itemset*{
+xf\:repeat *, xforms\:repeat *, xf\:itemset *, xforms\:itemset * {
   -binding-ignore:true;
 }
 
@@ -188,12 +188,12 @@ xf\:itemset, xforms\:itemset {
   -moz-binding: url("decorator.xml#decorator");
 }
 
-xf\:select1 > xf\:item , xforms\:select1 > xforms\:item, 
+xf\:select1 > xf\:item , xforms\:select1 > xforms\:item,
 xf\:select1 > xf\:itemset , xforms\:select1 >  xforms\:itemset {
   -moz-binding:url();
 }
-xf\:select1 > xf\:item *, xforms\:select1 >  xforms\:item *, 
-xf\:select1 > xf\:itemset *, xforms\:select1 >  xforms\:itemset *{
+xf\:select1 > xf\:item *, xforms\:select1 >  xforms\:item *,
+xf\:select1 > xf\:itemset *, xforms\:select1 >  xforms\:itemset * {
   -moz-binding:url();
 }
 
