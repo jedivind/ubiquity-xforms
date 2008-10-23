@@ -15,7 +15,7 @@ function pathToModule(module) {
   for (i = 0; i < l; ++i) {
     el = childNodes[i];
     if (el.nodeType === 1 && (el.nodeName.slice(el.nodeName.indexOf(":")+1,el.nodeName.length).toLowerCase() === "script")) { 
-      src = el.src;
+      src = el.getAttribute("src");
       if (src) {
         pos = src.lastIndexOf(module + ".js");
         
@@ -53,8 +53,14 @@ var baseDefaultPath = pathToModule("ubiquity-loader");
     var i, l = arrScripts.length;
 
     var head = document.getElementsByTagName("head")[0];
-    var scriptElement;    
-    for (i = 0 ; i < l ; i++) {
+    var scriptElement;
+    
+    scriptElement = document.createElement('script');
+    head.appendChild(scriptElement);
+    scriptElement.setAttribute("type","text/javascript");
+    scriptElement.setAttribute("src", arrScripts[0]); 
+        
+    for (i = 1 ; i < l ; i++) {
        scriptElement = document.createElement('script');
        head.appendChild(scriptElement);
        scriptElement.setAttribute("type","text/javascript");
