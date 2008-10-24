@@ -598,14 +598,12 @@ var DECORATOR = function()
 		@param {Object} elmnt element to decorate with the members of sBehaviour
 		@param {String} sBehaviour name of the objecy to create in order ot decorate elmnt
 	*/
-	function addObjectBehaviour(elmnt,sBehaviour,bExecuteConstructorsImmediately)
+	function addObjectBehaviour(elmnt,Behaviour,bExecuteConstructorsImmediately)
 	{
-		try{
-		//TODO: eval is evil, use a factory instead.
-			eval("var o = new "+sBehaviour+"(elmnt);DECORATOR.extend(elmnt,o," +bExecuteConstructorsImmediately+ ");");
-		}
-		catch(e)
-		{
+		try {
+			var behaviourInstance = new Behaviour(elmnt);
+			DECORATOR.extend(elmnt, behaviourInstance, bExecuteConstructorsImmediately);
+		} catch(e) {
 			debugger;
 		}
 

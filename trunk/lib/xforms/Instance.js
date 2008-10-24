@@ -69,7 +69,7 @@ Instance.prototype.load = function ( domURL ) {
         //Prevent XLink resolving the base URL.
         //
         this.element.setAttribute("base", " ");
-        this.element.attachSingleBehaviour("XLinkElement");
+        this.element.attachSingleBehaviour(XLinkElement);
         
         //
         // When the document has been loaded by our XLink handler

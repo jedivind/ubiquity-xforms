@@ -23,7 +23,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "model-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Model"]);
+                return arrBehaviours.concat([EventTarget, Model]);
             }
         }
         ],
@@ -32,7 +32,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "instance-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Instance"]);
+                return arrBehaviours.concat([EventTarget, Instance]);
             }
         }
         ],
@@ -41,7 +41,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "submission-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Submission"]);
+                return arrBehaviours.concat([EventTarget, Context, Submission]);
             }
         }
         ],
@@ -52,7 +52,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "group-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Group"]);
+                return arrBehaviours.concat([EventTarget, Context, Group]);
             }
         }
         ],
@@ -61,7 +61,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "switch-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Switch"]);
+                return arrBehaviours.concat([EventTarget, Context, Switch]);
             }
         }
         ],
@@ -70,7 +70,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "case-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "XFormsCase"]);
+                return arrBehaviours.concat([EventTarget, Context, XFormsCase]);
             }
         }
         ],
@@ -79,7 +79,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "repeat-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Repeat"]);
+                return arrBehaviours.concat([EventTarget, Context, Repeat]);
             }
         }
         ],
@@ -90,7 +90,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "submit-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control", "Submit"]);
+                return arrBehaviours.concat([EventTarget, Context, Control, Submit]);
             }
         }
         ],
@@ -99,7 +99,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "trigger-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+                return arrBehaviours.concat([EventTarget, Context, Control]);
             }
         }
         ],
@@ -108,7 +108,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "input-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+                return arrBehaviours.concat([EventTarget, Context, Control]);
             }
         }
         ],
@@ -117,7 +117,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "output-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+                return arrBehaviours.concat([EventTarget, Context, Control]);
             }
         }
         ],
@@ -126,7 +126,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "range-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+                return arrBehaviours.concat([EventTarget, Context, Control]);
             }
         }
         ],
@@ -135,7 +135,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "textarea-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+                return arrBehaviours.concat([EventTarget, Context, Control]);
             }
         }
         ],
@@ -144,7 +144,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "secret-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+                return arrBehaviours.concat([EventTarget, Context, Control]);
             }
         }
         ],
@@ -153,7 +153,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "select-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control", "Select"]);
+                return arrBehaviours.concat([EventTarget, Context, Control, Select]);
             }
         }
         ],
@@ -162,7 +162,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "select1-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control", "XFormsSelect1", "FiniteControl"]);
+                return arrBehaviours.concat([EventTarget, Context, Control, XFormsSelect1, FiniteControl]);
             }
         }
         ],
@@ -173,7 +173,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "label-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+                return arrBehaviours.concat([EventTarget, Context, Control]);
             }
         }
         ],
@@ -182,7 +182,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "alert-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control"]);
+                return arrBehaviours.concat([EventTarget, Context, Control]);
             }
         }
         ],
@@ -191,7 +191,7 @@ DECORATOR.addDecorationRules({
           {
               "name" : "hint",
               "apply" : function(arrBehaviours) {
-                  return arrBehaviours.concat(["Hint"]);
+                  return arrBehaviours.concat([Hint]);
               }
           }
         ],
@@ -202,7 +202,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "item-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Item"]);
+                return arrBehaviours.concat([EventTarget, Context, Item]);
             }
         }
         ],
@@ -211,7 +211,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "item-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Itemset"]);
+                return arrBehaviours.concat([EventTarget, Context, Itemset]);
             }
         }
         ],
@@ -220,7 +220,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "value-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "Context", "Control", "Value"]);
+                return arrBehaviours.concat([EventTarget, Context, Control, Value]);
             }
         }
         ],
@@ -231,7 +231,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "action-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "XFAction"]);
+                return arrBehaviours.concat([Listener, XFAction]);
             }
         }
         ],
@@ -240,7 +240,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "message-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Message"]);
+                return arrBehaviours.concat([Listener, Message]);
             }
         }
         ],
@@ -249,7 +249,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "setvalue-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Context", "SetValue"]);
+                return arrBehaviours.concat([Listener, Context, SetValue]);
             }
         }
         ],
@@ -258,7 +258,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "insert-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Context", "Insert"]);
+                return arrBehaviours.concat([Listener, Context, Insert]);
             }
         }
         ],
@@ -267,7 +267,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "delete-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Context", "Delete"]);
+                return arrBehaviours.concat([Listener, Context, Delete]);
             }
         }
         ],
@@ -276,7 +276,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "send-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Send"]);
+                return arrBehaviours.concat([Listener, Send]);
             }
         }
         ],
@@ -285,7 +285,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "dispatch-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Dispatch"]);
+                return arrBehaviours.concat([Listener, Dispatch]);
             }
         }
         ],
@@ -294,7 +294,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "toggle-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Toggle"]);
+                return arrBehaviours.concat([Listener, Toggle]);
             }
         }
         ],
@@ -303,7 +303,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "rebuild-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Rebuild"]);
+                return arrBehaviours.concat([Listener, Rebuild]);
             }
         }
         ],
@@ -312,7 +312,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "recalculate-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Recalculate"]);
+                return arrBehaviours.concat([Listener, Recalculate]);
             }
         }
         ],
@@ -321,7 +321,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "revalidate-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Revalidate"]);
+                return arrBehaviours.concat([Listener, Revalidate]);
             }
         }
         ],
@@ -330,7 +330,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "refresh-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Refresh"]);
+                return arrBehaviours.concat([Listener, Refresh]);
             }
         }
         ],
@@ -339,7 +339,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "reset-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["Listener", "Reset"]);
+                return arrBehaviours.concat([Listener, Reset]);
             }
         }
         ],
@@ -353,7 +353,7 @@ DECORATOR.addDecorationRules({
                 return NamespaceManager.compareFullName(element.parentNode,"value","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget"]);
+                return arrBehaviours.concat([EventTarget]);
             }
         },
         {
@@ -366,7 +366,7 @@ DECORATOR.addDecorationRules({
                        NamespaceManager.compareFullName(element.parentNode,"textarea","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "XFormsOutputValue"]);
+                return arrBehaviours.concat([EventTarget, XFormsOutputValue]);
             }
         },
         {
@@ -375,7 +375,7 @@ DECORATOR.addDecorationRules({
                 return NamespaceManager.compareFullName(element.parentNode,"input","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "XFormsInputValue"]);
+                return arrBehaviours.concat([EventTarget, XFormsInputValue]);
             }
         },
         {
@@ -384,7 +384,7 @@ DECORATOR.addDecorationRules({
                 return NamespaceManager.compareFullName(element.parentNode,"select","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "XFormsSelectValue"]);
+                return arrBehaviours.concat([EventTarget, XFormsSelectValue]);
             }
         },
         {
@@ -393,7 +393,7 @@ DECORATOR.addDecorationRules({
                 return NamespaceManager.compareFullName(element.parentNode,"select1","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "XFormsSelect1Value"]);
+                return arrBehaviours.concat([EventTarget, XFormsSelect1Value]);
             }
         },
         {
@@ -402,7 +402,7 @@ DECORATOR.addDecorationRules({
                 return NamespaceManager.compareFullName(element.parentNode,"range","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat(["EventTarget", "RangeValue"]);
+                return arrBehaviours.concat([EventTarget, RangeValue]);
             }
         },
         // custom control pe-values below
@@ -427,7 +427,7 @@ DECORATOR.addDecorationRules({
                 return match;
             },
             "apply" : function(arrBehaviours) {
-                UX.replaceArrayElement(arrBehaviours,"XFormsInputValue","InputValueCalendar");
+                UX.replaceArrayElement(arrBehaviours,XFormsInputValue,InputValueCalendar);
                 return arrBehaviours;
             }
         },
@@ -445,7 +445,7 @@ DECORATOR.addDecorationRules({
                 return match;
             },
             "apply" : function(arrBehaviours) {
-                UX.replaceArrayElement(arrBehaviours,"XFormsInputValue","InputValueColor");
+                UX.replaceArrayElement(arrBehaviours,XFormsInputValue,InputValueColor);
                 return arrBehaviours;
             }
         },
@@ -462,7 +462,7 @@ DECORATOR.addDecorationRules({
                 return match;
             },
             "apply" : function(arrBehaviours) {
-                UX.replaceArrayElement(arrBehaviours,"RangeValue","RangeValueGMAP");
+                UX.replaceArrayElement(arrBehaviours,RangeValue,RangeValueGMAP);
                 return arrBehaviours;
             }
         }
@@ -597,7 +597,7 @@ DECORATOR.setupDecorator(
 /*
 		{
 			selector:"pe-value",
-			objects:["EventTarget"]
+			objects:[EventTarget]
 		},
     */
 		{
