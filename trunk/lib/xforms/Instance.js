@@ -17,7 +17,7 @@
 function Instance(elmnt) {
 	this.element = elmnt;
 	this.m_oDOM = null;
-	this.elementState = 1;
+	this.element["elementState"] = 1;
 	
 	UX.addStyle(this.element, "display", "none"); 
 }
@@ -29,7 +29,7 @@ Instance.prototype.finishLoad = function () {
         this.element.parentNode.flagRebuild();
         this.m_oDOM.XFormsInstance = this;
         this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
-    } else if (!this.elementState) {
+    } else if (!this.element["elementState"]) {
         // if we do not have a valid instance from @src, inline or @resource
         // and the elementState has been set to 0, then 
         // let's throw an xforms-link-exception;   
@@ -44,14 +44,14 @@ Instance.prototype.dispatchException = function (sEx) {
     // indicate a problem with the instance state and
     // throw an exception;   
     //
-    this.elementState = -1;
+    this.element["elementState"] = -1;
     UX.dispatchEvent(this.element, sEx, false, true, true);  
 }
 
 
 Instance.prototype.xlinkEmbed = function (s) {
 	this.m_oDOM = xmlParse(s);
-    this.elementState = 0;
+    this.element["elementState"] = 0;
     this.finishLoad();
 	return true;
 }
@@ -147,11 +147,11 @@ Instance.prototype.parseInstance = function () {
 	if (sXML !== "") {
 		this.m_oDOM = xmlParse(sXML);
         if (this.m_oDOM && this.m_oDOM.documentElement) {
-            this.elementState = 0;        
+            this.element["elementState"] = 0;        
         }
 	}
 	else {
-		this.elementState = - 1;
+		this.element["elementState"] = -1;
 		this.setAttribute("elementStateDescription", "Cannot have an empty instance.");
 	}
 	return;
