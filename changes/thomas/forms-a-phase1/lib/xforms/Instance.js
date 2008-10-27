@@ -158,7 +158,9 @@ Instance.prototype.parseInstance = function () {
 };
 
 Instance.prototype.getDocument = function () {
-	this.m_oDOM.XFormsInstance = this;
+    if (this.m_oDOM) {
+	    this.m_oDOM.XFormsInstance = this;
+    }
 	return this.m_oDOM;
 };
 

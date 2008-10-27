@@ -301,7 +301,35 @@ var NamespaceManager  = function(){
     }
     return retval;
   }
+
+  /**
+  Retrieve an attribute reside in an specific namespace.
+  @param node {Node} The node to retrieve attribute from
+  @param attributeName {String} the namae of attribute 
+  @param nsURI {String} The namespace URI in which the attribute reside
+  @returns 
+ */
+
+  function getAttributeNS(node, attributeName, nsURI) {
+      var retval = null;
+      var prefixes = null;
+      var prefiix = null;
+      
+      if (UX.isXHTML) {
+          retval = node.getAttributeNS(attributeName, nsURI);
+      } else {
+          prefixes = this.getOutputPrefixesFromURI(nsURI);
+          if (prefixes) {
+              prefix = prefixes[0];
+              retval = node.getAttribute(prefix + ":" + attributeName);
+          }          
+      }
+      return retval;
+  }
   
+  /**
+   Retrieve Namespace URI of a node
+   */
   function getNamespaceURI(node) {
     var nsURI = node.namespaceURI,
         arrSegments,
@@ -324,7 +352,9 @@ var NamespaceManager  = function(){
 	itself.addOutputNamespace = addOutputNamespace;
     itself.getLowerCaseLocalName = getLowerCaseLocalName;
     itself.compareFullName = compareFullName;
+    itself.getAttributeNS = getAttributeNS;
     itself.getNamespaceURI = getNamespaceURI;
+    
 	itself.clean = clean;
 	if(document.namespaces) {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;

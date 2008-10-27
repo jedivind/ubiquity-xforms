@@ -269,6 +269,9 @@ Control.prototype.xrewire = function() {
     }
 
     var ctxBoundNode = this.getBoundNode(1);
+    if (!ctxBoundNode.node) {
+        return bRet;
+    }
     var oPN = null;
 
     // [ISSUE] In theory even if the model attribute had changed by now, this

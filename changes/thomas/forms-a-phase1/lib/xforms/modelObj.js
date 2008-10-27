@@ -127,15 +127,29 @@ Model.prototype.getEvaluationContext = function() {
         model :this,
         node :null
     };
-
+    var oFirstInstance = null;
+    var oDom = null;
     var instances = this.instances();
+    var sType = null;
 
     if (instances && instances.length > 0) {
-        var oFirstInstance = instances[0];
-        var oDom = oFirstInstance.getDocument();
-
-        if (oDom) {
-            oRet.node = getFirstNode(this.EvaluateXPath("/*", oDom));
+        oFirstInstance = instances[0];        
+        
+        // We need to check and make sure that the instance
+        // has it's behaviour attached, in a Form-a scenario on IE 
+        // (might happen in lazy-authoring too)
+        // the instance is created dynamically but DOES NOT has the Instance object 
+        // properly installed on the DOM element which cause an exception
+        // we will need a future fix to resolve the problem which an
+        // element is created but behavior not installed for platform does not
+        // properly support CSS selector (ex. IE, Webkit).
+        sType = typeof(oFirstInstance.getDocument);
+        
+        if (sType === "function") {        
+            oDom = oFirstInstance.getDocument();        
+            if (oDom) {
+                oRet.node = getFirstNode(this.EvaluateXPath("/*", oDom));
+            }
         }
     }
     
