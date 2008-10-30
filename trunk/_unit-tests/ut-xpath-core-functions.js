@@ -324,11 +324,13 @@ suiteXPathCoreFunctions.add(
     },
 
     testChooseParameters : function () {
-       // Choose requires 3 parameters.
-       Assert.isNull(evalXPath('choose()'), "choose() with zero parameters should return null");
-       Assert.isNull(evalXPath('choose(1)'), "choose() with one parameter should return null");
-       Assert.isNull(evalXPath('choose(1, 0)'), "choose() with two parameters should return null");
-       Assert.isNull(evalXPath('choose(1, 0, "x", "y")'), "choose() with four parameters should return null");
+      var Assert = YAHOO.util.Assert;
+
+      // Choose requires 3 parameters.
+      Assert.isNull(evalXPath('choose()'), "choose() with zero parameters should return null");
+      Assert.isNull(evalXPath('choose(1)'), "choose() with one parameter should return null");
+      Assert.isNull(evalXPath('choose(1, 0)'), "choose() with two parameters should return null");
+      Assert.isNull(evalXPath('choose(1, 0, "x", "y")'), "choose() with four parameters should return null");
     },
 
     testChooseReturnsString : function () {
@@ -374,9 +376,11 @@ suiteXPathCoreFunctions.add(
     },
 
     testAvgParameters : function () {
-         // Avg requires 1 parameter
-         Assert.isNaN(evalXPath('avg()').numberValue(), "avg() with zero parameters should return NaN");
-         Assert.isNaN(evalXPath('avg(empty)').numberValue(), "avg() with an empty nodeset parameter should return NaN");
+      var Assert = YAHOO.util.Assert;
+
+      // Avg requires 1 parameter
+      Assert.isNaN(evalXPath('avg()').numberValue(), "avg() with zero parameters should return NaN");
+      Assert.isNaN(evalXPath('avg(empty)').numberValue(), "avg() with an empty nodeset parameter should return NaN");
     },
 
     testAvg : function () {
@@ -402,9 +406,11 @@ suiteXPathCoreFunctions.add(
     },
 
     testMinParameters : function () {
-         // Min requires 1 parameter
-         Assert.isNaN(evalXPath('min()').numberValue(), "min() with zero parameters should return NaN");
-         Assert.isNaN(evalXPath('min(empty)').numberValue(), "min() with an empty nodeset parameter should return NaN");
+      var Assert = YAHOO.util.Assert;
+
+      // Min requires 1 parameter
+      Assert.isNaN(evalXPath('min()').numberValue(), "min() with zero parameters should return NaN");
+      Assert.isNaN(evalXPath('min(empty)').numberValue(), "min() with an empty nodeset parameter should return NaN");
     },
 
     testMin : function () {
@@ -430,9 +436,11 @@ suiteXPathCoreFunctions.add(
     },
 
     testMaxParameters : function () {
-         // Max requires 1 parameter
-         Assert.isNaN(evalXPath('max()').numberValue(), "max() with zero parameters should return NaN");
-         Assert.isNaN(evalXPath('max(empty)').numberValue(), "max() with an empty nodeset parameter should return NaN");
+      var Assert = YAHOO.util.Assert;
+
+      // Max requires 1 parameter
+      Assert.isNaN(evalXPath('max()').numberValue(), "max() with zero parameters should return NaN");
+      Assert.isNaN(evalXPath('max(empty)').numberValue(), "max() with an empty nodeset parameter should return NaN");
     },
 
     testMax : function () {
