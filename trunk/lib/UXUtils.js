@@ -36,7 +36,7 @@ if (UX.isXHTML) {
             oElement  = (oRes && oRes.nodeSetValue()) ? oRes.nodeSetValue()[0] : null;          
         }
         return oElement;	   
-    }
+    };
 }
 (
   function(){
@@ -163,7 +163,7 @@ if (UX.isXHTML) {
 		if (UX.isXHTML && oElement.setAttribute) {		   
 		   oElement.setAttribute("class", oElement.className);
 		}	    
-	}
+	};
 
 /**
 	Utility to remove a class attribute. 
@@ -177,7 +177,7 @@ if (UX.isXHTML) {
         if (UX.isXHTML && oElement.setAttribute) {
 		   oElement.setAttribute("class", oElement.className);
 		}
-	}
+	};
 
 /**
 	Utility to replace a className attribute. 
@@ -191,7 +191,7 @@ if (UX.isXHTML) {
         if (UX.isXHTML && oElement.setAttribute) {
 		   oElement.setAttribute("class", oElement.className);
 		}
-	}
+	};
 
 
 /**
@@ -224,7 +224,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
  	         }
  	      }
 	   }
-    }	    
+    };	    
 /**
 	Utility to get a style for an element.   
 	With the XML Parser in Firefox, the style property is not supported, instead styles are set with the stylesheet
@@ -240,7 +240,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
 			// get the computed style and see if it is already set to the value
 			return document.defaultView.getComputedStyle(oElement, null)[styleName]; 
 		}
-	}
+	};
 /**
     Utility to get a property for an element.   
     If an element has a special property attribute, that value will be used.  If an element has a child element
@@ -255,7 +255,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
         var node = null;
         
         if (aChildNode) {
-            sType = (UX.isIE) ? aChildNode.innerText : aChildNode.textContent;
+            sType = UX.isIE ? aChildNode.innerText : aChildNode.textContent;
             if (aChildNode.getAttribute("value")) {
                 oContext = _getEvaluationContext(pThis);
                 node = getFirstNode(
@@ -265,7 +265,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
             }
         }
         return sType;
-	}
+	};
 /**
  *  Utility method to create a event and dispatch it on the target
  */
@@ -278,4 +278,4 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
        } else {
           FormsProcessor.dispatchEvent(oTarget, oEvent);
        }
-    }
+    };
