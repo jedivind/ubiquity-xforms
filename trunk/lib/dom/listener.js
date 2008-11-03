@@ -14,91 +14,76 @@
  * limitations under the License.
  */
 
-		/*
-		 * The key to the whole thing is @ev:event, so there's
-		 * no point in proceeding if we don't have that.
-		 */
-
-function Listener(elmnt)
-{
-	this.element = elmnt;
+/*
+ * The key to the whole thing is @ev:event, so there's
+ * no point in proceeding if we don't have that.
+ */
+function Listener(elmnt) {
+    this.element = elmnt;
 }
 
-		//attachListeners();
+// attachListeners();
 
-		Listener.prototype.attachListeners = function()
-		{
-			var oAttr = this.element.getAttribute("ev:event");
-			var sType = oAttr ? String(oAttr) : "";
+Listener.prototype.attachListeners = function() {
+    var oAttr = this.element.getAttribute("ev:event");
+    var sType = oAttr ? String(oAttr) : "";
 
-			if (sType != "")
-			{
+    if (sType !== "") {
+        try {
+            var sID = this.element.getAttribute("ev:observer");
+            var oObserver = null;
 
-				try
-				{
-					var sID = this.element.getAttribute("ev:observer");
-					var oObserver = null;
+            // [TODO] What if the element doesn't exist yet?
+            if (!sID) {
+                oObserver = this.element.parentNode;
+            } else {
+                oObserver = this.element.ownerDocument.getElementById(sID);
+            }
 
-					/*
-					* [TODO] What if the element doesn't exist yet?
-					*/
+            // Get the "phase" value, which can 
+            // either be "capture" or "default".
+            var sPhase = this.element.getAttribute("ev:phase");
+            var bUseCapture;
 
-					if (!sID)
-						oObserver = this.element.parentNode;
-					else
-						oObserver = this.element.ownerDocument.getElementById(sID);
+            switch (sPhase) {
+                case "capture":
+                    bUseCapture = true;
+                break;
 
-					/*
-					* Get the "phase" value, which can either be "capture"
-					* or "default".
-					*/
+                case "default":
+                default:
+                    bUseCapture = false;
+                break;
+            }
 
-					var sPhase = this.element.getAttribute("ev:phase");
-					var bUseCapture;
+            if (oObserver && sType !== "") {
+                // Firefox EventTarget::addEventListener will not take an
+                // element as a listener
+                // even if it exposes a handleEvent method.
+                // In order to work around this, a proxy function is required.                
+                var thisAsListener = null;
+                
+                if (document.all) {
+                    thisAsListener = this;
+                } else {
+                    var o = this.element;
+                    thisAsListener = function(evt) {
+                        o.handleEvent(evt);
+                    }
+                }
 
-					switch (sPhase)
-					{
-						case "capture":
-							bUseCapture = true;
-							break;
+                oObserver.addEventListener(sType, thisAsListener, bUseCapture);
+            }
+        } catch (e) {
+            debugger;
+        }
+    }
+} // attach()
 
-						case "default":
-						default:
-							bUseCapture = false;
-							break;
-					}
+Listener.prototype.detach = function() {
+    /*
+     * [TODO] Detach the registered listener.
+     */
+}
 
-					if (oObserver && sType != "")
-					{
-						//Firefox EventTarget::addEventListener will not take an element as a listener
-						//	even if it exposes a handleEvent method.
-						//In order to work around this, a proxy function is required.
-
-						var thisAsListener;
-						if(document.all)
-							thisAsListener = this;
-						else
-						{
-		   					var o = this.element;
-   							thisAsListener = function(evt){o.handleEvent(evt);}
-   						}
-
-   						oObserver.addEventListener(sType, thisAsListener, bUseCapture);
-
-					}
-				}
-				catch(e)
-				{
-					debugger;
-				}
-			}
-		}//attach()
-
-		 Listener.prototype.detach = function()
-		{
-			/*
-			 * [TODO] Detach the registered listener.
-			 */
-		}
-		
-		Listener.prototype.onDocumentReady = Listener.prototype.attachListeners;
+Listener.prototype.onDocumentReady = Listener.prototype.attachListeners;
