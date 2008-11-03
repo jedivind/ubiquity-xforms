@@ -47,6 +47,16 @@ var ctx = new ExprContext(
          <number>6</number> \
          <number>12</number> \
       </numbers3> \
+      <numbers4> \
+         <number>-1</number> \
+         <number>-2</number> \
+         <number>-3</number> \
+      </numbers4> \
+      <numbers5> \
+         <number>3</number> \
+         <number>6</number> \
+         <number>12</number> \
+      </numbers5> \
     </test>"
   )
 );
@@ -419,6 +429,8 @@ suiteXPathCoreFunctions.add(
       Assert.areEqual(0, evalXPath('min(/test/numbers/number)').numberValue());
       Assert.isNaN(evalXPath('min(/test/numbers2/number)').numberValue(), "min() failed to return NaN when nodeset contains a non-number");
       Assert.areEqual(-3, evalXPath('min(/test/numbers3/number)').numberValue());
+      Assert.areEqual(-3, evalXPath('min(/test/numbers4/number)').numberValue());
+      Assert.areEqual(3, evalXPath('min(/test/numbers5/number)').numberValue());
     }
   })//new TestCase
 );
@@ -449,6 +461,8 @@ suiteXPathCoreFunctions.add(
       Assert.areEqual(4, evalXPath('max(/test/numbers/number)').numberValue());
       Assert.isNaN(evalXPath('max(/test/numbers2/number)').numberValue(), "max() failed to return NaN when nodeset contains a non-number");
       Assert.areEqual(12, evalXPath('max(/test/numbers3/number)').numberValue());
+      Assert.areEqual(-1, evalXPath('max(/test/numbers4/number)').numberValue());
+      Assert.areEqual(12, evalXPath('max(/test/numbers5/number)').numberValue());
     }
   })//new TestCase
 );
