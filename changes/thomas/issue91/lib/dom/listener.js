@@ -25,58 +25,52 @@ function Listener(elmnt) {
 // attachListeners();
 
 Listener.prototype.attachListeners = function() {
-    var oAttr = this.element.getAttribute("ev:event");
-    var sType = oAttr ? String(oAttr) : "";
+    var oElement = this.element;
+    var sEvent = NamespaceManager.getAttributeNS(oElement, "event", 
+            "http://www.w3.org/2001/xml-events");
+    var sObserverRef = NamespaceManager.getAttributeNS(oElement, "observer", 
+            "http://www.w3.org/2001/xml-events");
+    var sPhase = NamespaceManager.getAttributeNS(oElement, "phase", 
+            "http://www.w3.org/2001/xml-events");
+    var bUseCapture = (sPhase === "capture") ? true : false;
+    var oObserver = null;
+    
+    if (!sEvent) {
+        return;
+    }
+    
+    // [TODO] What if the element doesn't exist yet?
+    if (sObserverRef) {
+        oObserver = oElement.ownerDocument.getElementById(sObserverRef);
+    } else {
+        oObserver = oElement.parentNode;        
+    }
+    
+    try {
+        if (oObserver && sEvent) {
+            var thisAsListener = this;
 
-    if (sType !== "") {
-        try {
-            var sID = this.element.getAttribute("ev:observer");
-            var oObserver = null;
-
-            // [TODO] What if the element doesn't exist yet?
-            if (!sID) {
-                oObserver = this.element.parentNode;
-            } else {
-                oObserver = this.element.ownerDocument.getElementById(sID);
-            }
-
-            // Get the "phase" value, which can 
-            // either be "capture" or "default".
-            var sPhase = this.element.getAttribute("ev:phase");
-            var bUseCapture;
-
-            switch (sPhase) {
-                case "capture":
-                    bUseCapture = true;
-                break;
-
-                case "default":
-                default:
-                    bUseCapture = false;
-                break;
-            }
-
-            if (oObserver && sType !== "") {
-                // Firefox EventTarget::addEventListener will not take an
-                // element as a listener
-                // even if it exposes a handleEvent method.
-                // In order to work around this, a proxy function is required.                
-                var thisAsListener = null;
-                
-                if (document.all) {
-                    thisAsListener = this;
-                } else {
-                    var o = this.element;
-                    thisAsListener = function(evt) {
-                        o.handleEvent(evt);
-                    }
+            if (UX.isIE) {
+                if (!oObserver.addEventListener) {
+                    // Extend element from EventTarget if it does not
+                    // has addEventListener method.
+                    var oTarget = new EventTarget(oElement);
+                    DECORATOR.extend(oObserver, oTarget, false);
                 }
-
-                oObserver.addEventListener(sType, thisAsListener, bUseCapture);
+            } else {
+                // Firefox EventTarget::addEventListener will not take an 
+                // element as a listener even if it exposes a handleEvent 
+                // method. 
+                // In order to work around this, a proxy function is required.
+                thisAsListener = function(evt) {
+                    oElement.handleEvent(evt);
+                }                
             }
-        } catch (e) {
-            debugger;
+                
+            oObserver.addEventListener(sEvent, thisAsListener, bUseCapture);
         }
+    } catch (e) {
+        debugger;
     }
 } // attach()
 
