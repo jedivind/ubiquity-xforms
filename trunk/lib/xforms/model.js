@@ -411,7 +411,7 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContextNode) {
 } // createMIP()
 
 
-function _EvaluateXPath(pThis, sXPath, pContextResolver) {
+function _EvaluateXPath(pThis, sXPath, pContextResolver, oResolverElement) {
     var oRet = null
     var oContext = null;
     
@@ -440,7 +440,7 @@ function _EvaluateXPath(pThis, sXPath, pContextResolver) {
     if (oContext) {
         try {
             g_currentModel = pThis;
-            oRet = xpathDomEval(sXPath, oContext);
+            oRet = xpathDomEval(sXPath, oContext, oResolverElement);
             g_currentModel = null;
         } catch (e) {
             //	this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
