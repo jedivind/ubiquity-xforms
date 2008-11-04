@@ -25,10 +25,8 @@ var g_sBehaviourDirectory  = "";
     g_sBehaviourDirectory = moduleBase + "../../behaviours/";
     
   	window.status = "configuring module loader";  	
-  	var defaultCSS = UX.isXHTML ? "../../default-xml.css" : "../../default.css";
-	var hintCSS = UX.isXHTML ? "style/hint-xml.css" : "style/hint.css";
   	
-  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + defaultCSS});
+  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../default.css"});
   
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
   		requires: [ "connection" ] });
@@ -164,7 +162,7 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/button.css" });
 
     loader.addModule({ name: "xforms-notify",       type: "js",  fullpath: moduleBase + "../_backplane/notify.js" });
-	loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + hintCSS });
+	loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + "style/hint.css" });
 
     loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "hint.js",
       requires: [ "xforms-hint-css", "xforms-notify" ] });
