@@ -15,26 +15,10 @@ FormsProcessor.dispatchEvent(oTarget, oEvt);
 @name is the name of the event being dispatched.
 @delay is the time to wait before the event can be dispatched.
 
-These attributes could be elements.  Should they be xf: elements or not?
+These attributes could be elements.  Should they be xf: elements or not?  Right now, they are xf: elements.
 
 If target or name are not defined (by attribute or element), nothing is dispatched.
 
-For now, the @delay support is coded like this:
-
-                                if (UX.isIE) {
-					var date = new Date();
-					var curDate = null;
-
-					do { curDate = new Date(); }
-					while(curDate-date < delay_time);
-					
-					FormsProcessor.dispatchEvent(oTarget, oEvt);
-				}
-
-				else {
-					setTimeout(function(a,b) { FormsProcessor.dispatchEvent(a,b); }, delay_time, oTarget, oEvt);
-				}
-
-This isn't that good for IE, but it is the only way I can find.  Also, setTimeout doesn't work with extra parameters on IE.
+The @delay was not supported before, now it is supported.
 
 == Stories ==
