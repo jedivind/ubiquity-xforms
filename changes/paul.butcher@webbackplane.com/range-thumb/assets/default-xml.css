@@ -1,0 +1,199 @@
+/*
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+  // library.
+  //
+  // Copyright (C) 2008 Backplane Ltd.
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+ */
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
+
+body {
+  font-family: "Lucida Grande",verdana,arial,helvetica,sans-serif;
+  font-size: 14px;
+}
+
+/*
+ * These rules concern the default appearance of a hint. For the rules that
+ * govern its behaviour, see lib/xforms/style/hint.css.
+ */
+
+xforms|hint,
+xf|hint {
+  padding: 5px;
+  background-color: #323232;
+  color: #fff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+xforms|output,
+xf|output,
+xforms|input,
+xf|input {
+  display: block;
+  padding: 0.2em; 
+}
+
+xforms|input xforms|label,
+xf|input xf|label {
+  width: 200px; 
+  color: black;
+  white-space: -moz-pre-wrap;
+}
+
+xforms|input pe-value,
+xf|input pe-value {
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+
+xforms|input xforms|label pe-value,
+xf|input xf|label pe-value {
+  border: none;
+  background-color: transparent;
+}
+
+xforms|submit,
+xf|submit,
+xforms|trigger,
+xf|trigger {
+  background-color: #D3D3D3;
+  border-width: 2px;
+  border-style: outset;
+  border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+  color: black;
+  padding: 3px;
+}
+
+xforms|submit:hover,
+xf|submit:hover,
+xforms|trigger:hover,
+xf|trigger:hover {
+  border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+  border-style: inset;
+  cursor: pointer;
+}
+
+xforms|submit  xforms|label,
+xf|submit xf|label,
+xforms|trigger xforms|label,
+xf|trigger xf|label
+ {  	
+  background-color: #D3D3D3;
+  padding: 3px;
+}
+ 
+xforms|dispatch,
+xf|dispatch {
+  display: none;
+}
+
+*[class~="invalid"] xf|alert, *[class~="invalid"] xforms|alert {
+  display: inline;
+  background-color: transparent;
+  color: #D00;
+}
+
+*[class~="valid"] xf|alert, *[class~="valid"] xforms|alert  { 
+  display: none;
+}
+
+xforms|alert pe-value,
+xf|alert pe-value {
+  border: none;
+  background-color: transparent;
+}
+
+xforms|alert xforms|input pe-value,
+xf|alert xf|input pe-value {
+  border: 2px inset #f0f0f0;
+  background-color: white; 
+}
+
+xforms|alert xforms|label pe-value,
+xf|alert xf|label pe-value {
+  border: none;
+  background-color: transparent;
+}
+
+*[class~="slider-bg"] {
+    position: relative; 
+    background:url(bg-fader.gif) 5px 0 no-repeat; 
+    height:28px; 
+    width:228px;  
+}
+
+*[class~="slider-thumb"] { 
+  position: absolute; 
+  top: 4px; 
+  height:21px;
+  width: 17px;
+  background-image:url(thumb-n.gif)
+
+}
+
+xforms|item, xf|item {
+  display:block;
+}
+
+xforms|message, xf|message {
+  display: none;
+}
+
+xforms|select1 pe-value,
+xf|select1 pe-value {
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+
+ xf|item pe-value,
+ xforms|item pe-value {
+  border: none;
+  background-color:transparent;
+}
+
+xf|select1 xf|label pe-value, xforms|select1 xforms|label pe-value {
+  border: none;
+  background-color: transparent;
+}
+*[class~="xforms-out-of-range"] {
+  border:#ffcc00 1px solid;
+}
+
+*[class~="ux-input-compact-calendar"] {
+  background: #ffffff;
+  color:#000000;
+  vertical-align:top;
+  max-width:75px;
+}
+
+*[class~="ux-color-bg"] {
+  position:relative;
+  background-color:#eeeeee;
+  width:360px;
+  height:200px;
+}
+
+/* The YAHOO libraries are pretty much HTML specific, so there will be exceptions for
+ * XML Parsing for *.xhtml file
+ */
+*[class~="pe-choices"] {      
+  background-color: #ffffff;
+  border: 1px solid #808080;
+}
