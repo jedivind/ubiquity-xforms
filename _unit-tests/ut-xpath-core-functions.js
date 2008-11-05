@@ -1096,3 +1096,74 @@ suiteXPathCoreFunctions.add(
 
   })//new TestCase
 );
+
+// Test event()
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test event()",
+
+    testEventExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["event"], "event() is not defined.");
+    },
+    
+    testEvent : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // Create context info properties of type node-set, string, number, and
+      // boolean. These are the values we expect to get back from the event() function.
+      var nodesetPropExpected = evalXPath('/test/numbers').nodeSetValue();
+      var stringPropExpected = evalXPath('/test/numbers2/number[3]').stringValue();
+      var numberPropExpected = evalXPath('/test/numbers/number[1]').numberValue();
+      var booleanPropExpected = evalXPath('/test/numbers/number[1]').booleanValue();
+      // The actual properties we get back from the event() function.
+      var nodesetPropActual, stringPropActual, numberPropActual, booleanPropActual;
+      // The element that will be the target of the event.
+      var oElement;
+      // The event listener that will invoke the event() function.
+      var oListener = {
+          handleEvent: function(evt) {
+            nodesetPropActual = evalXPath("event('nodeset-property')").nodeSetValue();
+            stringPropActual = evalXPath("event('string-property')").stringValue();
+            numberPropActual = evalXPath("event('number-property')").numberValue();
+            booleanPropActual = evalXPath("event('boolean-property')").booleanValue();
+          }
+      };
+
+      // Add an event listener to the event target.
+      if (UX.isIE) {
+          // For IE, we use an arbitrary JS object, decorate it as an EventTarget, and add
+          // an object with a handleEvent method as a listener.
+          oElement = {};
+          oElement.document = document;
+          oElement.document.logger = { log: function(sText, sContext) { } };
+          DECORATOR.extend(oElement, new EventTarget(oElement), false);
+          oElement.addEventListener("test-event", oListener, false);
+      } else {
+          // Create an actual DOM element and attach a function as a listener.
+          oElement = document.createElement('div');
+          oElement.addEventListener("test-event", function(evt) {oListener.handleEvent(evt)}, false);
+      }
+
+      // Fire an event with attached context info.
+      var evt = document.createEvent("Events");
+      evt.initEvent("test-event", true, false);
+      evt.context = {
+          "nodeset-property" : nodesetPropExpected,
+          "string-property" : stringPropExpected,
+          "number-property" : numberPropExpected,
+          "boolean-property" : booleanPropExpected
+      };
+      FormsProcessor.dispatchEvent(oElement, evt);
+
+      // Verify that the actual properties returned by the event() function
+      // match the expected properties.
+      Assert.areEqual(nodesetPropExpected, nodesetPropActual);
+      Assert.areEqual(stringPropExpected, stringPropActual);
+      Assert.areEqual(numberPropExpected, numberPropActual);
+      Assert.isTrue(booleanPropExpected, booleanPropActual);
+    }
+  })//new TestCase
+);
+
