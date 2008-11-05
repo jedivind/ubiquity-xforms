@@ -110,6 +110,7 @@ function getModelFor(oNode) {
 
 function XFormsProcessor() {
     this.defaultHandlers = new Object();
+    this.eventStack = [];
 }
 
 
@@ -152,8 +153,10 @@ XFormsProcessor.prototype.removeDefaultEventListener =
 XFormsProcessor.prototype.dispatchEvent = function(oTarget, oEvent) {    
     try {
         IncrementDeferredUpdate();
+        this.eventStack.push(oEvent);
         if (oTarget.dispatchEvent(oEvent)) {
             this.invokeDefault(oTarget, oEvent);
+            this.eventStack.pop();
         }
     } catch (e) {
         // TODO: Need to do something to notify user fatal 
@@ -179,6 +182,13 @@ XFormsProcessor.prototype.invokeDefault = function(oTarget, e) {
     }
 }
 
+XFormsProcessor.prototype.getCurrentEvent = function() {
+    var ret = null;
+    if (this.eventStack) {
+        ret = this.eventStack[this.eventStack.length - 1];
+    }
+    return ret;
+}
 
 var FormsProcessor = new XFormsProcessor();
 

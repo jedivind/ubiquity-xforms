@@ -1036,7 +1036,51 @@ FunctionCallExpr.prototype.xpathfunctions["choose"] = function(ctx) {
   return ret;
 };
 
-FunctionCallExpr.prototype.xpathfunctions["event"] = ThrowNotImpl;
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-event
+*/
+FunctionCallExpr.prototype.xpathfunctions["event"] = function(ctx) {
+    var sProperty = this.args[0].evaluate(ctx).stringValue();
+    var oEvent = FormsProcessor.getCurrentEvent();
+    var contextInfo, ret;
+
+    if (oEvent && oEvent.context) {
+        contextInfo = oEvent.context[sProperty];
+
+        switch (typeof contextInfo) {
+          case "string":
+            ret =  new StringValue(contextInfo);
+            break;
+
+          case "number":
+            ret =  new NumberValue(contextInfo);
+            break;
+
+          case "boolean":
+            ret =  new BooleanValue(contextInfo);
+            break;
+
+          // Array
+          case "object": 
+            ret =  new NodeSetValue(contextInfo);
+            break;
+
+          case "undefined":
+            ret =  new NodeSetValue([]);
+            break;
+
+          default:
+            throw "Unrecognised type in event()";
+            break;
+        }
+    } else {
+        // If we don't have a current event or the event does not have context info,
+        // the result is an empty string. The current event could be null if event()
+        // was invoked outside of an xf:action.
+        ret = new StringValue("");
+    }
+    return ret;
+}
 
 /**
 	This is a formsPlayer specific function to return any instance, regardless of the in-scope model,
