@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ev="http://www.w3.org/2001/xml-events" 
       xmlns:xforms="http://www.w3.org/2002/xforms" 
@@ -14,7 +15,7 @@
     <xforms:model id="loan_model">
         <xforms:instance id="loan">
         	<loanrecord xmlns="">
-        		<startdate>2008-07-30</startdate>
+        		<startdate>2008-08-08</startdate>
         		<borrower>
         			<name>John Q. Public</name>
         			<addr>123 Main St. Tinyville</addr>
@@ -81,13 +82,13 @@
       
     <hr size="6" class="rule"/>
       
-    <xforms:input ref="/loanrecord/startdate"> 
+    <xforms:input ref="/loanrecord/startdate" datatype="xforms:date"> 
            <xforms:label>Agreement Date: </xforms:label>
     </xforms:input> 
     
     <br />
 
-      <xforms:input class="red" ref="borrower/name">
+      <xforms:input ref="borrower/name">
          	<xforms:label>Borrower Name:</xforms:label>
          	<xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
       </xforms:input>
@@ -110,7 +111,7 @@
     <br />
   
       <xforms:select1 ref="principal/@currency" appearance="minimal" incremental="true">
-            <xforms:label>Choose currency</xforms:label> 
+            <xforms:label>Choose currency:</xforms:label> 
             <xforms:item>
                 <xforms:label>US Dollars</xforms:label>
                 <xforms:value>USD</xforms:value>
@@ -142,7 +143,7 @@
              <xforms:alert>Choose an interest rate between 5 and 60 percent.</xforms:alert>
          </xforms:input>
 
-     <br></br>
+     <br />
      <hr size="6" class="rule"></hr>
      
      <xforms:output class="regular" ref="monthly-payment">
@@ -155,7 +156,7 @@
              <xforms:label>Total Payout: </xforms:label>
          </xforms:output>
 
-      <hr size="6" class="rule"/>
+      <div class="spacer"></div><hr size="6" class="rule"/>
            
     <!-- This submit button connects to a submission -->
       <xforms:submit submission="makeloan">

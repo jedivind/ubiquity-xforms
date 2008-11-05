@@ -383,6 +383,14 @@ xf|select1 xf|label pe-value, xforms|select1 xforms|label pe-value {
     border:#ffcc00 1px solid;
 }
 
+.ux-calendar-bg {
+    display: inline;
+}
+
+*[class~="ux-calendar-bg"] {
+    display: inline;
+}
+
 .ux-input-compact-calendar {
     background: #ffffff;
     color:#000000;

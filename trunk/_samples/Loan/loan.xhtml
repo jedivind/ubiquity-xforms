@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
       xmlns:ev="http://www.w3.org/2001/xml-events" 
       xmlns:xforms="http://www.w3.org/2002/xforms" 
       xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -17,7 +17,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
     <xforms:model id="loan_model">
         <xforms:instance id="loan">
         	<LoanRecord xmlns="">
-        		<StartDate>2008-07-30</StartDate>
+        		<StartDate>2008-08-08</StartDate>
         		<Borrower>
         			<Name>John Q. Public</Name>
         			<Addr>123 Main St. Tinyville</Addr>
@@ -88,7 +88,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
       
     <hr size="6" class="rule"/>
       
-    <xforms:input ref="/LoanRecord/StartDate"> 
+    <xforms:input ref="/LoanRecord/StartDate" datatype="xforms:date">
            <xforms:label>Agreement Date: </xforms:label>
     </xforms:input> 
     
@@ -162,7 +162,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
              <xforms:label>Total Payout: </xforms:label>
          </xforms:output>
 
-      <hr size="6" class="rule"/>
+      <div class="spacer"></div><hr size="6" class="rule"/>
            
     <!-- This submit button connects to a submission -->
       <xforms:submit submission="makeLoan">
