@@ -98,9 +98,9 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#fn-seconds seconds] || yes  ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-months months] || yes  ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-instance instance] || yes ||  ||
-|| || [http://www.w3.org/TR/xforms11/#fn-current current] || *no*  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-current current] || yes  ||
 || || [http://www.w3.org/TR/xforms11/#fn-id id] ||  ||  ||
-|| || [http://www.w3.org/TR/xforms11/#fn-context context] || *no*  ||
+|| || [http://www.w3.org/TR/xforms11/#fn-context context] || yes  ||
 || || [http://www.w3.org/TR/xforms11/#fn-choose choose] || yes ||  ||
 || || [http://www.w3.org/TR/xforms11/#fn-event event] || *no* ||
 
