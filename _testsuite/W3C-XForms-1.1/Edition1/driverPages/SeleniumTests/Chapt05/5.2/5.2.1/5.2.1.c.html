@@ -1,0 +1,229 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>5.2.1.c built-in data types which allow empty content for basic processors</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">5.2.1.c built-in data types which allow empty content for basic processors<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../W3C-XForms-1.1/Edition1/Chapt05/5.2/5.2.1/5.2.1.c.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>2000</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>5.2.1.c built-in data types which allow empty content for basic processors</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger</td>
+					<td></td>
+					<td>Checks that trigger is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>500</td>
+					<td></td>
+					<td>Waits for the values to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[1]</td>
+					<td>xforms-valid (dateTime)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[2]</td>
+					<td>xforms-valid (time)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[3]</td>
+					<td>xforms-valid (date)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[4]</td>
+					<td>xforms-valid (gYearMonth)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[5]</td>
+					<td>xforms-valid (gYear)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[6]</td>
+					<td>xforms-valid (gMonthDay)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[7]</td>
+					<td>xforms-valid (gDay)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[8]</td>
+					<td>xforms-valid (gMonth)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[9]</td>
+					<td>xforms-valid (string)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[10]</td>
+					<td>xforms-valid (boolean)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[11]</td>
+					<td>xforms-valid (base64Binary)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[12]</td>
+					<td>xforms-valid (decimal)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[13]</td>
+					<td>xforms-valid (anyURI)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[14]</td>
+					<td>xforms-valid (integer)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[15]</td>
+					<td>xforms-valid (nonPositiveInteger)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[16]</td>
+					<td>xforms-valid (negativeInteger)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[17]</td>
+					<td>xforms-valid (long)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[18]</td>
+					<td>xforms-valid (int)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[19]</td>
+					<td>xforms-valid (short)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[20]</td>
+					<td>xforms-valid (byte)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[21]</td>
+					<td>xforms-valid (nonNegativeInteger)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[22]</td>
+					<td>xforms-valid (unsignedLong)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[23]</td>
+					<td>xforms-valid (unsignedInt)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[24]</td>
+					<td>xforms-valid (unsignedShort)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[25]</td>
+					<td>xforms-valid (unsignedByte)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[26]</td>
+					<td>xforms-valid (positiveInteger)</td>
+					<td>Checks that the instance has the right value</td>
+				</tr>
+				<tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
