@@ -20,32 +20,56 @@
   // limitations under the License.
  */
 
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
+
 /*
  * This stylesheet contains CSS rules that assist in the way that hint behaves.
  * For the rules for formatting hints see default.css.
  */
 
 .xf-hint-container {
-  position: relative;
+    position: relative;
+}
+
+*[class~="xf-hint-container"] {
+    position: relative;
 }
 
 xforms\:hint,
 xf\:hint {
-  display: none;
+    display: none;
+    z-index: 100;
+    position: absolute;
+    top: 1.5em;
+    left: 15px;
+}
 
-  z-index: 100;
-
-  position: absolute;
-  top: 1.5em;
-  left: 15px;
+xforms|hint,
+xf|hint {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    top: 1.5em;
+    left: 15px;
 }
 
 xforms\:hint.active,
 xf\:hint.active {
-  display: inline;
+    display: inline;
 }
 
+xforms|hint[class~="active"],
+xf|hint[class~="active"] {
+    display: inline;
+}
 xforms\:hint.inactive,
 xf\:hint.inactive {
-  display: none;
+    display: none;
+}
+
+xforms|hint[class~="inactive"],
+xf|hint[class~="inactive"] {
+    display: none;
 }

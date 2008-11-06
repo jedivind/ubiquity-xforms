@@ -47,6 +47,16 @@ var ctx = new ExprContext(
          <number>6</number> \
          <number>12</number> \
       </numbers3> \
+      <numbers4> \
+         <number>-1</number> \
+         <number>-2</number> \
+         <number>-3</number> \
+      </numbers4> \
+      <numbers5> \
+         <number>3</number> \
+         <number>6</number> \
+         <number>12</number> \
+      </numbers5> \
     </test>"
   )
 );
@@ -324,11 +334,13 @@ suiteXPathCoreFunctions.add(
     },
 
     testChooseParameters : function () {
-       // Choose requires 3 parameters.
-       Assert.isNull(evalXPath('choose()'), "choose() with zero parameters should return null");
-       Assert.isNull(evalXPath('choose(1)'), "choose() with one parameter should return null");
-       Assert.isNull(evalXPath('choose(1, 0)'), "choose() with two parameters should return null");
-       Assert.isNull(evalXPath('choose(1, 0, "x", "y")'), "choose() with four parameters should return null");
+      var Assert = YAHOO.util.Assert;
+
+      // Choose requires 3 parameters.
+      Assert.isNull(evalXPath('choose()'), "choose() with zero parameters should return null");
+      Assert.isNull(evalXPath('choose(1)'), "choose() with one parameter should return null");
+      Assert.isNull(evalXPath('choose(1, 0)'), "choose() with two parameters should return null");
+      Assert.isNull(evalXPath('choose(1, 0, "x", "y")'), "choose() with four parameters should return null");
     },
 
     testChooseReturnsString : function () {
@@ -374,9 +386,11 @@ suiteXPathCoreFunctions.add(
     },
 
     testAvgParameters : function () {
-         // Avg requires 1 parameter
-         Assert.isNaN(evalXPath('avg()').numberValue(), "avg() with zero parameters should return NaN");
-         Assert.isNaN(evalXPath('avg(empty)').numberValue(), "avg() with an empty nodeset parameter should return NaN");
+      var Assert = YAHOO.util.Assert;
+
+      // Avg requires 1 parameter
+      Assert.isNaN(evalXPath('avg()').numberValue(), "avg() with zero parameters should return NaN");
+      Assert.isNaN(evalXPath('avg(empty)').numberValue(), "avg() with an empty nodeset parameter should return NaN");
     },
 
     testAvg : function () {
@@ -402,9 +416,11 @@ suiteXPathCoreFunctions.add(
     },
 
     testMinParameters : function () {
-         // Min requires 1 parameter
-         Assert.isNaN(evalXPath('min()').numberValue(), "min() with zero parameters should return NaN");
-         Assert.isNaN(evalXPath('min(empty)').numberValue(), "min() with an empty nodeset parameter should return NaN");
+      var Assert = YAHOO.util.Assert;
+
+      // Min requires 1 parameter
+      Assert.isNaN(evalXPath('min()').numberValue(), "min() with zero parameters should return NaN");
+      Assert.isNaN(evalXPath('min(empty)').numberValue(), "min() with an empty nodeset parameter should return NaN");
     },
 
     testMin : function () {
@@ -413,6 +429,8 @@ suiteXPathCoreFunctions.add(
       Assert.areEqual(0, evalXPath('min(/test/numbers/number)').numberValue());
       Assert.isNaN(evalXPath('min(/test/numbers2/number)').numberValue(), "min() failed to return NaN when nodeset contains a non-number");
       Assert.areEqual(-3, evalXPath('min(/test/numbers3/number)').numberValue());
+      Assert.areEqual(-3, evalXPath('min(/test/numbers4/number)').numberValue());
+      Assert.areEqual(3, evalXPath('min(/test/numbers5/number)').numberValue());
     }
   })//new TestCase
 );
@@ -430,9 +448,11 @@ suiteXPathCoreFunctions.add(
     },
 
     testMaxParameters : function () {
-         // Max requires 1 parameter
-         Assert.isNaN(evalXPath('max()').numberValue(), "max() with zero parameters should return NaN");
-         Assert.isNaN(evalXPath('max(empty)').numberValue(), "max() with an empty nodeset parameter should return NaN");
+      var Assert = YAHOO.util.Assert;
+
+      // Max requires 1 parameter
+      Assert.isNaN(evalXPath('max()').numberValue(), "max() with zero parameters should return NaN");
+      Assert.isNaN(evalXPath('max(empty)').numberValue(), "max() with an empty nodeset parameter should return NaN");
     },
 
     testMax : function () {
@@ -441,6 +461,8 @@ suiteXPathCoreFunctions.add(
       Assert.areEqual(4, evalXPath('max(/test/numbers/number)').numberValue());
       Assert.isNaN(evalXPath('max(/test/numbers2/number)').numberValue(), "max() failed to return NaN when nodeset contains a non-number");
       Assert.areEqual(12, evalXPath('max(/test/numbers3/number)').numberValue());
+      Assert.areEqual(-1, evalXPath('max(/test/numbers4/number)').numberValue());
+      Assert.areEqual(12, evalXPath('max(/test/numbers5/number)').numberValue());
     }
   })//new TestCase
 );
@@ -1074,3 +1096,74 @@ suiteXPathCoreFunctions.add(
 
   })//new TestCase
 );
+
+// Test event()
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+    name: "Test event()",
+
+    testEventExists : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["event"], "event() is not defined.");
+    },
+    
+    testEvent : function () {
+      var Assert = YAHOO.util.Assert;
+
+      // Create context info properties of type node-set, string, number, and
+      // boolean. These are the values we expect to get back from the event() function.
+      var nodesetPropExpected = evalXPath('/test/numbers').nodeSetValue();
+      var stringPropExpected = evalXPath('/test/numbers2/number[3]').stringValue();
+      var numberPropExpected = evalXPath('/test/numbers/number[1]').numberValue();
+      var booleanPropExpected = evalXPath('/test/numbers/number[1]').booleanValue();
+      // The actual properties we get back from the event() function.
+      var nodesetPropActual, stringPropActual, numberPropActual, booleanPropActual;
+      // The element that will be the target of the event.
+      var oElement;
+      // The event listener that will invoke the event() function.
+      var oListener = {
+          handleEvent: function(evt) {
+            nodesetPropActual = evalXPath("event('nodeset-property')").nodeSetValue();
+            stringPropActual = evalXPath("event('string-property')").stringValue();
+            numberPropActual = evalXPath("event('number-property')").numberValue();
+            booleanPropActual = evalXPath("event('boolean-property')").booleanValue();
+          }
+      };
+
+      // Add an event listener to the event target.
+      if (UX.isIE) {
+          // For IE, we use an arbitrary JS object, decorate it as an EventTarget, and add
+          // an object with a handleEvent method as a listener.
+          oElement = {};
+          oElement.document = document;
+          oElement.document.logger = { log: function(sText, sContext) { } };
+          DECORATOR.extend(oElement, new EventTarget(oElement), false);
+          oElement.addEventListener("test-event", oListener, false);
+      } else {
+          // Create an actual DOM element and attach a function as a listener.
+          oElement = document.createElement('div');
+          oElement.addEventListener("test-event", function(evt) {oListener.handleEvent(evt)}, false);
+      }
+
+      // Fire an event with attached context info.
+      var evt = document.createEvent("Events");
+      evt.initEvent("test-event", true, false);
+      evt.context = {
+          "nodeset-property" : nodesetPropExpected,
+          "string-property" : stringPropExpected,
+          "number-property" : numberPropExpected,
+          "boolean-property" : booleanPropExpected
+      };
+      FormsProcessor.dispatchEvent(oElement, evt);
+
+      // Verify that the actual properties returned by the event() function
+      // match the expected properties.
+      Assert.areEqual(nodesetPropExpected, nodesetPropActual);
+      Assert.areEqual(stringPropExpected, stringPropActual);
+      Assert.areEqual(numberPropExpected, numberPropActual);
+      Assert.isTrue(booleanPropExpected, booleanPropActual);
+    }
+  })//new TestCase
+);
+
