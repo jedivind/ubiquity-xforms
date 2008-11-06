@@ -171,6 +171,9 @@ function Repeat(elmnt) {
                         //See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731 
                     }
                 }
+                if (!UX.hasDecorationSupport) {
+                    DECORATOR.applyDecorationRules(this.element);
+                }
                 this.m_nLastStartIndex = nStartIndex;
             }
             this.m_CurrentIterationCount = desiredIterationCount;

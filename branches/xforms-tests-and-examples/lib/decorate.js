@@ -123,6 +123,11 @@ var DECORATOR = function()
                 }
                 for (count = 0; count < elements.length; count++) {
                     DECORATOR.attachDecoration(elements[count],true,true);
+                    // depth-first decoration for container form controls
+                    if (nsURI === "http://www.w3.org/2002/xforms" &&
+                        (localName === "repeat" || localName === "case" || localName === "group")) {
+                            DECORATOR.applyDecorationRules(elements[count]);
+                    }
                 }
             }
         }
@@ -131,7 +136,9 @@ var DECORATOR = function()
         for (count = 0; count < elements.length; count++) {
             DECORATOR.attachDecoration(elements[count],true,true);
         }
-        this.callDocumentReadyHandlers();
+        if (!doc) {
+            this.callDocumentReadyHandlers();
+        }
     }
 
 	/**
@@ -504,10 +511,15 @@ var DECORATOR = function()
 		//window.status = "decorating: " + element.nodeName; 
 		var bReturn = false;
 		var tIndex = element.getAttribute("tabindex");
+		//quit if already manually decorated
+		if (!UX.hasDecorationSupport && element.decorated) {
+			return bReturn;
+		}
 		if(tIndex === 0){
 			element.tabIndex = 1;
 		}
-		
+
+		element.decorated = true;
 		element.constructors = [];
 		element.contentReadyHandlers = [];
 		element.documentReadyHandlers = [];
@@ -586,14 +598,12 @@ var DECORATOR = function()
 		@param {Object} elmnt element to decorate with the members of sBehaviour
 		@param {String} sBehaviour name of the objecy to create in order ot decorate elmnt
 	*/
-	function addObjectBehaviour(elmnt,sBehaviour,bExecuteConstructorsImmediately)
+	function addObjectBehaviour(elmnt,Behaviour,bExecuteConstructorsImmediately)
 	{
-		try{
-		//TODO: eval is evil, use a factory instead.
-			eval("var o = new "+sBehaviour+"(elmnt);DECORATOR.extend(elmnt,o," +bExecuteConstructorsImmediately+ ");");
-		}
-		catch(e)
-		{
+		try {
+			var behaviourInstance = new Behaviour(elmnt);
+			DECORATOR.extend(elmnt, behaviourInstance, bExecuteConstructorsImmediately);
+		} catch(e) {
 			debugger;
 		}
 

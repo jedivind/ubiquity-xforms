@@ -24,28 +24,64 @@
 @namespace xforms url(http://www.w3.org/2002/xforms);
 @namespace xf url(http://www.w3.org/2002/xforms);
 /*
- * This stylesheet contains CSS rules that assist in the way that hint behaves.
- * For the rules for formatting hints see default.css.
+ * This stylesheet contains CSS rules that assist in the way that message behaves.
+ * For the rules for formatting messages see default.css.
  */
-*[class~="xf-hint-container"] {
-  position: relative;
+
+.xf-message-container {
+    position: relative;
 }
 
-xforms|hint,
-xf|hint {
-  display: none;
-  z-index: 100;
-  position: absolute;
-  top: 1.5em;
-  left: 15px;
+*[class~="xf-message-container"] {
+    position: relative;
 }
 
-xforms|hint[class~="active"],
-xf|hint[class~="active"] {
-  display: inline;
+xforms\:message,
+xf\:message {
+    z-index: 100;
+    position: absolute;
+    top: 1.5em;
+    left: 15px;
 }
 
-xforms|hint[class~="inactive"],
-xf|hint[class~="inactive"] {
-  display: none;
+xforms|message,
+xf|message {
+    z-index: 100;
+    position: absolute;
+    top: 1.5em;
+    left: 15px;
+}
+
+xforms\:message pe-value,
+xf\:message pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms|message pe-value,
+xf|message pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms\:message.active,
+xf\:message.active {
+    display: inline;
+    white-space: pre;
+}
+
+xforms|message[class~="active"],
+xf|message[class~="active"] {
+    display: inline;
+    white-space: pre;
+}
+
+xforms\:message.inactive,
+xf\:message.inactive {
+    display: none;
+}
+
+xforms|message[class~="inactive"],
+xf|message[class~="inactive"] {
+    display: none;
 }

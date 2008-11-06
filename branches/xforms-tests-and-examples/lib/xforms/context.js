@@ -281,7 +281,7 @@ function _getBoundNode(pThis, nOrdinal) {
     
     if (sRef && nOrdinal == 1) {        
         var oRefNode = 
-            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node));
+            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, pThis.element));
 
         if (!oRefNode) {
             // Lazy authoring, 
@@ -299,7 +299,7 @@ function _getBoundNode(pThis, nOrdinal) {
                 // If we created the node from lazy authoring, we need to verify 
                 // that it it is actually created properly
                 oRefNode = 
-                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node));
+                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, pThis.element));
                 
                 // Form controls are considered to be non-relevant if any of the 
                 // following apply:
@@ -312,7 +312,7 @@ function _getBoundNode(pThis, nOrdinal) {
         
         if (!pThis.m_arrNodes) {            
             pThis.m_arrNodes = 
-                pThis.m_model.EvaluateXPath(sNodeset, oRet.node).value;
+                pThis.m_model.EvaluateXPath(sNodeset, oRet.node, pThis.element).value;
         }
         oRet.node = pThis.m_arrNodes[nOrdinal - 1];
     }    

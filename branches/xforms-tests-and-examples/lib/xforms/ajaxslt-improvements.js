@@ -28,11 +28,17 @@ var g_bSaveDependencies = false;
     node. Returns an XPath value.
     @addon
 */
-function xpathDomEval(expr, node) {
+function xpathDomEval(expr, node, resolverElement) {
     var expr1 = xpathParse(expr);
     var ctx = new ExprContext(node); 
     ctx["currentModel"] = g_currentModel;
     ctx["outermostContextNode"] = node;
+    // resolverElement is the node that contained the XPath function.
+    ctx["resolverElement"] = resolverElement;
+    // If the browser doesn't preserve the case of node names,
+    // tell the XPath evaluator to do node name tests in a
+    // case-insensitive manner.
+    ctx.setCaseInsensitive(!UX.isXHTML && (UX.isFF || UX.isChrome || UX.isSafari));
     var ret = expr1.evaluate(ctx);
     return ret;
 }
@@ -44,6 +50,7 @@ ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
       opt_nodelist || this.nodelist, this, this.caseInsensitive,
       this.ignoreAttributesWithoutValue);
   oRet.outermostContextNode = this.outermostContextNode;
+  oRet.resolverElement = this.resolverElement;
   return oRet;
 };
 

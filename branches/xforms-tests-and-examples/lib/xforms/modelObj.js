@@ -206,8 +206,8 @@ Model.prototype.getValue = function(sXPath) {
 /*
  * Evaluates an XPath expression, returning a
  */
-Model.prototype.EvaluateXPath = function(sXPath, pContextResolver) {
-    return _EvaluateXPath(this, sXPath, pContextResolver);
+Model.prototype.EvaluateXPath = function(sXPath, pContextResolver, oResolverElement) {
+    return _EvaluateXPath(this, sXPath, pContextResolver, oResolverElement);
 };
 
 
