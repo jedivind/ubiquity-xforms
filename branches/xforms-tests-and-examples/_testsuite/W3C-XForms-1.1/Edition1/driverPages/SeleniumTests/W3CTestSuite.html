@@ -1,0 +1,335 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Suite</title>
+		<link rel="stylesheet" type="text/css" href="../../../../selenium/core/selenium.css" />
+		<script language="JavaScript" type="text/javascript" src="../../../../selenium/core/scripts/selenium-browserdetect.js"></script>
+		<script language="JavaScript" type="text/javascript">//<![CDATA[
+    var DISABLED = true; // used to flag failing tests
+
+    function filterTestsForBrowser() {
+        var suiteTable = document.getElementById("suiteTable");
+        var skippedTests = document.getElementById("skippedTests");
+
+        for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+        {
+            var row = suiteTable.rows[rowNum];
+            var filterString = row.getAttribute("unless");
+            if (filterString && eval(filterString))
+            {
+              var cellHTML = row.cells[0].innerHTML;
+              suiteTable.deleteRow(rowNum);
+
+              var newRow = skippedTests.insertRow(1);
+              var newCell = newRow.insertCell(0)
+              newCell.innerHTML = cellHTML;
+            }
+        }
+    }
+//]]>
+		</script>
+	</head>
+	<body onload="filterTestsForBrowser()">
+		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Test Suite</b></td>
+				</tr>
+				<!-- Chapter 2 -->
+				<tr><td><a href="./Chapt02/2.1.a.html">2.1.a Introductory Example No. 1</a></td></tr>
+				<tr><td><a href="./Chapt02/2.2.a.html">2.2.a Example: Encapsulation of Instance Data</a></td></tr>
+				<tr><td><a href="./Chapt02/2.3.a.html">2.3.a Example: Value Constraints</a></td></tr>
+				<tr><td><a href="./Chapt02/2.4.a.html">2.4.a Example: Multiple Forms</a></td></tr>
+				
+				<!-- Chapter 3 -->
+				<tr><td><a href="./Chapt03/3.1/3.1.a.html">3.1.a XForms namespace</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.1/3.2.1.a.html">3.2.1.a id attribute</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.1/3.2.1.b.html">3.2.1.b foreign attributes</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.2/3.2.2.a.html">3.2.2.a src Attribute (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.3/3.2.3.a.html">3.2.3.a single-node binding - ref attribute</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.3/3.2.3.b.html">3.2.3.b single-node binding - model attribute</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.3/3.2.3.c.html">3.2.3.c single-node binding - bind attribute</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.3/3.2.3.d.html">3.2.3.d single-node binding - bind attribute overrides ref and model</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.3/3.2.3.e.html">3.2.3.e single-node binding - invalid bind IDREF</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.3/3.2.3.f.html">3.2.3.f single-node binding - invalid model IDREF</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.3/3.2.3.g.html">3.2.3.g first node rule</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.4/3.2.4.a.html">3.2.4.a node-set binding - nodeset attribute and bind attribute override</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.4/3.2.4.b.html">3.2.4.b node-set binding - model attribute of itemset element</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.4/3.2.4.c.html">3.2.4.c node-set binding - bind attribute of itemset element</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.4/3.2.4.d.html">3.2.4.d node-set binding - bind attribute overrides model attribute</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.4/3.2.4.e.html">3.2.4.e node-set binding - invalid model IDREF</a></td></tr>
+				<tr><td><a href="./Chapt03/3.2/3.2.4/3.2.4.f.html">3.2.4.f node-set binding - invalid bind IDREF</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.a.html">3.3.a processor must ignore unrecognized foreign-namespaced attributes</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.1/3.3.1.a1.html">3.3.1.a1 50 models created</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.1/3.3.1.a2.html">3.3.1.a2 no models in document</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.1/3.3.1.b.html">3.3.1.b invalid function</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.1/3.3.1.c1.html">3.3.1.c1 valid schema</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.1/3.3.1.c2.html">3.3.1.c2 invalid schema</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt03/3.3/3.3.1/3.3.1.c3.html">3.3.1.c3 multiple schemas in a single namespace</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.1/3.3.1.d1.html">3.3.1.d1 version attribute</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.1/3.3.1.d2.html">3.3.1.d2 version attribute negative test 1</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.1/3.3.1.d3.html">3.3.1.d3 version attribute negative test 2</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.2/3.3.2.a.html">3.3.2.a model with no instance</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.2/3.3.2.b.html">3.3.2.b instance with inline data</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.2/3.3.2.c.html">3.3.2.c instance with resource attribute</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.2/3.3.2.d.html">3.3.2.d instance with invalid resource link</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.2/3.3.2.e.html">3.3.2.e instance with inline data and resource attribute</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.2/3.3.2.f.html">3.3.2.f instance with inline data, resource attribute, and src attribute (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.2/3.3.2.g.html">3.3.2.g inline content has two top-level nodes in instance element</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.2/3.3.2.h.html">3.3.2.h invalid instance causes exception with resource-uri</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.4/3.3.4.a.html">3.3.4.a nodeset attribute of bind element</a></td></tr>
+				<tr><td><a href="./Chapt03/3.3/3.3.4/3.3.4.b.html">3.3.4.b more bind element examples</a></td></tr>
+				<tr><td><a href="./Chapt03/3.4/3.4.1/3.4.1.a.html">3.4.1.a extension element (non-normative)</a></td></tr>
+				
+				<!-- Chapter 4 -->
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.a.html">4.2.1.a xforms-model-construct event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.b1.html">4.2.1.b1 schemas loaded sucessfully</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.b2.html">4.2.1.b2 schemas loaded with an xforms-link-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.c1.html">4.2.1.c1 initial instance defined in external source</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.c2.html">4.2.1.c2 inline source takes precedence over external source for initial instance data</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.c3.html">4.2.1.c3 initial instance defined in invalid external source</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.d.html">4.2.1.d xforms-model-construct-done event is dispatched for each model</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.2/4.2.2.a.html">4.2.2.a xforms-model-construct and xforms-model-construct-done events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.2/4.2.2.b.html">4.2.2.b xforms-model-construct-done</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.2/4.2.2.c1.html">4.2.2.c1 form control referenced instance that did not exist yet</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.2/4.2.2.c2.html">4.2.2.c2 invalid QNAME causes xforms-binding-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.3/4.2.3.a.html">4.2.3.a xforms-model-construct-done and xforms-ready events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.4/4.2.4.a.html">4.2.4.a xforms-model-destruct dispatched after form submission</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.1/4.3.1.a.html">4.3.1.a xforms-rebuild event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.2/4.3.2.a.html">4.3.2.a xforms-recalculate event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.3/4.3.3.a.html">4.3.3.a xforms-revalidate event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.4/4.3.4.a.html">4.3.4.a xforms-refresh event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.5/4.3.5.a.html">4.3.5.a xforms-reset event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.6/4.3.6.a.html">4.3.6.a xforms-previous and xforms-next</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt04/4.3/4.3.6/4.3.6.b.html">4.3.6.b navigation sequence with navindex (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.7/4.3.7.a.html">4.3.7.a xforms-focus event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.8/4.3.8.a.html">4.3.8.a xforms-help and xforms-hint events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.1/4.4.1.a.html">4.4.1.a xforms-insert event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.2/4.4.2.a.html">4.4.2.a xforms-delete action</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.3/4.4.3.a.html">4.4.3.a xforms-value-changed event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.4/4.4.4.a.html">4.4.4.a xforms-valid event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.5/4.4.5.a.html">4.4.5.a xforms-invalid event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.6/4.4.6.a.html">4.4.6.a xforms-readonly event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.7/4.4.7.a.html">4.4.7.a xforms-readwrite event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.8/4.4.8.a.html">4.4.8.a xforms-required event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.9/4.4.9.a.html">4.4.9.a xforms-optional event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.10/4.4.10.a.html">4.4.10.a xforms-enabled event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.11/4.4.11.a.html">4.4.11.a xforms-disabled event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.12/4.4.12.a.html">4.4.12.a DOMActivate event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.13/4.4.13.a.html">4.4.13.a DOMFocusIn event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.14/4.4.14.a.html">4.4.14.a DOMFocusOut event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.15/4.4.15.a.html">4.4.15.a xforms-select and xforms-deselect events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.16/4.4.16.a.html">4.4.16.a xforms-in-range event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.17/4.4.17.a.html">4.4.17.a xforms-out-of-range event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.18/4.4.18.a.html">4.4.18.a xforms-scroll-first and xforms-scroll-last events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.21/4.4.21.a.html">4.4.21.a xforms-output-error event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a1.html">4.5.1.a1 xforms-binding-exception, invalid model attribute</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a2.html">4.5.1.a2 xforms-binding-exception, invalid bind attribute</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a3.html">4.5.1.a3 xforms-binding-exception, invalid submission attribute</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a4.html">4.5.1.a4 xforms-binding-exception, invalid instance attribute of submission attribute</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a5.html">4.5.1.a5 xforms-binding-exception, illegal binding expression</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.2/4.5.2.a.html">4.5.2.a xforms-compute-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.3/4.5.3.a.html">4.5.3.a xforms-link-error</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.4/4.5.4.a.html">4.5.4.a xforms-link-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.5/4.5.5.a.html">4.5.5.a xforms-output-error event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.7/4.5.7.a.html">4.5.7.a xforms-version-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.1/4.6.1.a1.html">4.6.1.a1 event Sequencing for input, secret, textarea controls</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt04/4.6/4.6.1/4.6.1.a2.html">4.6.1.a2 event sequencing for range and upload controls</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.1/4.6.1.b1.html">4.6.1.b1 event sequencing for input, secret, textarea controls - focus change with value change</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.1/4.6.1.b2.html">4.6.1.b2 event sequenceing for range and upload controls - focus change with value change</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.3/4.6.3.a.html">4.6.3.a event sequencing for select/select1 controls with incremental="true"</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.3/4.6.3.b.html">4.6.3.b event sequencing for select/select1 controls without incremental="true"</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.3/4.6.3.c.html">4.6.3.c event sequencing for select/select1 controls (focus changes)</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.4/4.6.4.a.html">4.6.4.a event sequencing for trigger controls</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.5/4.6.5.a.html">4.6.5.a event sequencing for submit controls</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.a.html">4.7.a invalid ID references that terminate with no effect</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.b.html">4.7.b xforms-submit event not dispatched</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.c.html">4.7.c null result of IDREF search by index() function</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.d.html">4.7.d null result of IDREF search by instance() function</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.e1.html">4.7.e1 null search for bind causes exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.e2.html">4.7.e2 null search for bind causes exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.e3.html">4.7.e3 null search for instance causes exception</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt04/4.8/4.8.1/4.8.1.a.html">4.8.1.a getInstanceDocument() method (non-normative)</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt04/4.8/4.8.1/4.8.1.b.html">4.8.1.b getInstanceDocument() throws a DOMException (non-normative)</a></td></tr>
+				
+				<!-- Chapter 5 -->
+				<tr><td><a href="./Chapt05/5.1/5.1.a.html">5.1.a built-in primitive types</a></td></tr>
+				<tr><td><a href="./Chapt05/5.1/5.1.b.html">5.1.b built-in derived types</a></td></tr>
+				<tr><td><a href="./Chapt05/5.1/5.1.c.html">5.1.c supported primitive XML schema types in basic processors</a></td></tr>
+				<tr><td><a href="./Chapt05/5.1/5.1.d.html">5.1.d supported derived XML schema types in basic processors</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.1/5.2.1.a.html">5.2.1.a built-in primitive types which allow empty content</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.1/5.2.1.b.html">5.2.1.b built-in derived types which allow empty content</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.1/5.2.1.c.html">5.2.1.c built-in data types which allow empty content for basic processors</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.2/5.2.2.a.html">5.2.2.a listItem datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.3/5.2.3.a.html">5.2.3.a listItems datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.4/5.2.4.a.html">5.2.4.a dayTimeDuration datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.5/5.2.5.a.html">5.2.5.a yearMonthDuration datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.6/5.2.6.a.html">5.2.6.a email datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.7/5.2.7.a.html">5.2.7.a card-number datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.7/5.2.7.b.html">5.2.7.b card-number datatype - credit card example</a></td></tr>
+				
+				<!-- Chapter 6 -->
+				<tr><td><a href="./Chapt06/6.1/6.1.1/6.1.1.a.html">6.1.1.a type property</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.2/6.1.2.a.html">6.1.2.a readonly property</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.2/6.1.2.b.html">6.1.2.b inheritance rules of readonly property</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.3/6.1.3.a.html">6.1.3.a required property</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.3/6.1.3.b.html">6.1.3.b required property with xsi:nil</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.4/6.1.4.a.html">6.1.4.a inheritance rules for relevant property</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.4/6.1.4.b.html">6.1.4.b relevant property</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.4/6.1.4.c.html">6.1.4.c relevant property inheritance to attributes</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.5/6.1.5.a.html">6.1.5.a calculate property</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.6/6.1.6.a.html">6.1.6.a constraint property</a></td></tr>
+				<tr><td><a href="./Chapt06/6.1/6.1.7/6.1.7.a.html">6.1.7.a p3ptype property (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt06/6.2/6.2.1/6.2.1.a.html">6.2.1.a atomic datatype</a></td></tr>
+				
+				<!-- Chapter 7 -->
+				<tr><td><a href="./Chapt07/7.2/7.2.a.html">7.2.a evaluation context for the outermost binding elements</a></td></tr>
+				<tr><td><a href="./Chapt07/7.2/7.2.b.html">7.2.b evaluation context for the non-outermost binding elements</a></td></tr>
+				<tr><td><a href="./Chapt07/7.2/7.2.c.html">7.2.c context node always resides within the context model</a></td></tr>
+				<tr><td><a href="./Chapt07/7.2/7.2.d.html">7.2.d context node for the computed expression is the node currently being processed</a></td></tr>
+				<tr><td><a href="./Chapt07/7.2/7.2.e.html">7.2.e context size and position</a></td></tr>
+				<tr><td><a href="./Chapt07/7.2/7.2.f.html">7.2.f namespace declarations in scope for the attribute are applied to the expression</a></td></tr>
+				<tr><td><a href="./Chapt07/7.4/7.4.6/7.4.6.a.html">7.4.6.a binding examples</a></td></tr>
+				<tr><td><a href="./Chapt07/7.5/7.5.a.html">7.5.a error in modal item property causes an xforms-compute-exception</a></td></tr>
+				<tr><td><a href="./Chapt07/7.5/7.5.b.html">7.5.b error not in modal item property causes an xforms-binding-exception</a></td></tr>
+				<tr><td><a href="./Chapt07/7.6/7.6.1/7.6.1.a.html">7.6.1.a boolean-from-string() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.6/7.6.2/7.6.2.a.html">7.6.2.a is-card-number() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.1/7.7.1.a.html">7.7.1.a avg() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.1/7.7.1.b.html">7.7.1.b avg() function negative test</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.2/7.7.2.a.html">7.7.2.a min() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.2/7.7.2.b.html">7.7.2.b min() function negative test</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.3/7.7.3.a.html">7.7.3.a max() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.3/7.7.3.b.html">7.7.3.b max() function negative test</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.4/7.7.4.a.html">7.7.4.a count-non-empty() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.5/7.7.5.a.html">7.7.5.a index() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.5/7.7.5.b.html">7.7.5.b index() function negative test</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.6/7.7.6.a.html">7.7.6.a power() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.7/7.7.7.a.html">7.7.7.a random() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.7/7.7.8/7.7.8.a.html">7.7.8.a compare() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.1/7.8.1.a.html">7.8.1.a if() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.2/7.8.2.a.html">7.8.2.a property() function with version property</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.2/7.8.2.b.html">7.8.2.b property() function with conformance-level property</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.2/7.8.2.c.html">7.8.2.c property() function with invalid NCNAME property</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.2/7.8.2.d.html">7.8.2.d property() function with invalid QNamebutnotNCNAME property</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.3/7.8.3.a.html">7.8.3.a digest() function using sha1, md5, and sha256</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.3/7.8.3.b.html">7.8.3.b digest() function using sha384 and sha512 (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.3/7.8.3.c.html">7.8.3.c digest() function negative test with invalid NCNAME property</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.3/7.8.3.d.html">7.8.3.d digest() function negative test with an invalid QNameButNotNCNAME</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.3/7.8.3.e.html">7.8.3.e digest() function with invalid encoding method</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.4/7.8.4.a.html">7.8.4.a hmac() function using sha1, md5, and sha256</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.4/7.8.4.b.html">7.8.4.b hmac() function using sha384 and sha512 (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.4/7.8.4.c.html">7.8.4.c hmac() function with invalid NCNAME property</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.4/7.8.4.d.html">7.8.4.d hmac() function with invalid QNameButNotNCNAME</a></td></tr>
+				<tr><td><a href="./Chapt07/7.8/7.8.4/7.8.4.e.html">7.8.4.e hmac() function with invalid encoding method</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.1/7.9.1.a.html">7.9.1.a local-date() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.2/7.9.2.a.html">7.9.2.a local-dateTime() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.3/7.9.3.a.html">7.9.3.a now() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.4/7.9.4.a.html">7.9.4.a days-from-date() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.4/7.9.4.b.html">7.9.4.b days-from-date() function ignores hours, minutes, and seconds components</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.4/7.9.4.c.html">7.9.4.c days-from-date() function negative test</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.5/7.9.5.a.html">7.9.5.a days-to-date() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.6/7.9.6.a.html">7.9.6.a seconds-from-dateTime() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.7/7.9.7.a.html">7.9.7.a seconds-to-dateTime() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.8/7.9.8.a.html">7.9.8.a adjust-dateTime-to-timezone() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.9/7.9.9.a.html">7.9.9.a seconds() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.9/7.9.10/7.9.10.a.html">7.9.10.a months() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.10/7.10.1/7.10.1.a.html">7.10.1.a instance() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.10/7.10.2/7.10.2.a.html">7.10.2.a current() function example 1</a></td></tr>
+				<tr><td><a href="./Chapt07/7.10/7.10.2/7.10.2.b.html">7.10.2.b current() function example 2</a></td></tr>
+				<tr><td><a href="./Chapt07/7.10/7.10.3/7.10.3.a.html">7.10.3.a id() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.10/7.10.3/7.10.3.b.html">7.10.3.b id() function with xml:id</a></td></tr>
+				<tr><td><a href="./Chapt07/7.10/7.10.3/7.10.3.c.html">7.10.3.c id() function with xsi:type</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt07/7.10/7.10.4/7.10.4.a.html">7.10.4.a context() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.11/7.11.1/7.11.1.a.html">7.11.1.a choose() function</a></td></tr>
+				<tr><td><a href="./Chapt07/7.11/7.11.2/7.11.2.a.html">7.11.2.a event() function with binding property</a></td></tr>
+				<tr><td><a href="./Chapt07/7.11/7.11.2/7.11.2.b.html">7.11.2.b event() function with resource-uri property</a></td></tr>
+				<tr><td><a href="./Chapt07/7.12/7.12.a.html">7.12.a invalid functions attribute in model element</a></td></tr>
+				
+				<!-- Chapter 8 -->
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.a.html">8.1.a navindex and accesskey (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.1/8.1.1.a.html">8.1.1.a form control violates data binding restriction</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.1/8.1.1.b.html">8.1.1.b non-relevant form control becoming relevant</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.1/8.1.1.c.html">8.1.1.c relevant form control becoming non-relevant</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.2/8.1.2.a.html">8.1.2.a incremental attribute for input element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.2/8.1.2.b.html">8.1.2.b data binding restrictions for input element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.2/8.1.2.c.html">8.1.2.c datatype bound to input element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.3/8.1.3.a.html">8.1.3.a incremental attribute of secret element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.3/8.1.3.b.html">8.1.3.b data binding restrictions for secret element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.4/8.1.4.a.html">8.1.4.a incremental attribute of textarea element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.4/8.1.4.b.html">8.1.4.b data binding restrictions for textarea element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.5/8.1.5.a.html">8.1.5.a appearance attribute of output element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.5/8.1.5.b.html">8.1.5.b value attribute of output element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.5/8.1.5.c.html">8.1.5.c UI Common added to output element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.5/8.1.5.d.html">8.1.5.d mediatype attribute</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.5/8.1.5.1/8.1.5.1.a.html">8.1.5.1.a mediatype element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.6/8.1.6.a.html">8.1.6.a mediatype attribute for upload element (non-normative)</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.6/8.1.6.b.html">8.1.6.b incremental attribute for upload element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.6/8.1.6.c.html">8.1.6.c filename and mediatype elements for upload element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.6/8.1.6.d.html">8.1.6.d data binding restrictions for upload element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.6/8.1.6.e.html">8.1.6.e upload element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.6/8.1.6.1/8.1.6.1.a.html">8.1.6.1.a filename element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.6/8.1.6.2/8.1.6.2.a.html">8.1.6.2.a mediatype element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.7/8.1.7.a.html">8.1.7.a start attribute of range element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.7/8.1.7.b.html">8.1.7.b end attribute of range element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.7/8.1.7.c.html">8.1.7.c step attribute of range element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.7/8.1.7.d.html">8.1.7.d incremental attribute of range element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.7/8.1.7.e.html">8.1.7.e example of range element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.7/8.1.7.f.html">8.1.7.f data binding restrictions on range element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt08/8.1/8.1.7/8.1.7.g.html">8.1.7.g data binding restrictions on range element for basic processors</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.8/8.1.8.a.html">8.1.8.a trigger element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.8/8.1.8.b.html">8.1.8.b trigger element with appearance attribute</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.9/8.1.9.a.html">8.1.9.a submit element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.9/8.1.9.b.html">8.1.9.b submit element with appearance attribute</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.10/8.1.10.a.html">8.1.10.a selection attribute of select element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.10/8.1.10.b.html">8.1.10.b incremental attribute of select element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.10/8.1.10.c.html">8.1.10.c appearance attribute of select element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.10/8.1.10.d.html">8.1.10.d value out of range of a select element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.11/8.1.11.a.html">8.1.11.a selection attribute of select1 element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.11/8.1.11.b.html">8.1.11.b incremental attribute of select1 element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.11/8.1.11.c.html">8.1.11.c appearance attribute of select1 element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.1/8.1.11/8.1.11.d.html">8.1.11.d value out of range of a select1 element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.1/8.2.1.a.html">8.2.1.a label element references instance data</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.1/8.2.1.b.html">8.2.1.b label element uses inline text</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.1/8.2.1.c.html">8.2.1.c label element has binding precedence</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.2/8.2.2.a.html">8.2.2.a help element references instance data</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.2/8.2.2.b.html">8.2.2.b help element uses inline text</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.2/8.2.2.c.html">8.2.2.c bind precedence for help element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.3/8.2.3.a.html">8.2.3.a hint element references instance data</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.3/8.2.3.b.html">8.2.3.b hint element uses inline text</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.3/8.2.3.c.html">8.2.3.c bind precedence for hint element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.4/8.2.4.a.html">8.2.4.a alert element references instance data</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.4/8.2.4.b.html">8.2.4.b alert element uses inline text</a></td></tr>
+				<tr><td><a href="./Chapt08/8.2/8.2.4/8.2.4.c.html">8.2.4.c bind precedence for alert element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.3/8.3.1/8.3.1.a.html">8.3.1.a choices element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.3/8.3.2/8.3.2.a.html">8.3.2.a item element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.3/8.3.3/8.3.3.a.html">8.3.3.a data binding restrictions on value element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.3/8.3.3/8.3.3.b.html">8.3.3.b precedence for value element</a></td></tr>
+				<tr><td><a href="./Chapt08/8.3/8.3.3/8.3.3.c.html">8.3.3.c value element with inline content</a></td></tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Skipped Tests</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
