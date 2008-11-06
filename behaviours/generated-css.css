@@ -24,6 +24,10 @@ xf\:value  > pe-value,  xforms\:value  > pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
 
+xf\:message >  pe-value, xforms\:message >  pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
 xf\:alert >  pe-value, xforms\:alert >  pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
