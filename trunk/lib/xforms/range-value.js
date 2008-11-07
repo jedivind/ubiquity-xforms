@@ -43,7 +43,7 @@ RangeValue.prototype.onDocumentReady = function()
 {
 	if (this.element.ownerDocument.media != "print")
 	{
-		this.element.innerHTML = "<div id='slider-bg" + rangecount + "' class='slider-bg'><div class='slider-thumb' id='slider-thumb" + rangecount + "'><img src='thumb-n.gif' /></div></div>";
+		this.element.innerHTML = "<div id='slider-bg" + rangecount + "' class='slider-bg'><div class='slider-thumb' id='slider-thumb" + rangecount + "'> </div></div>";
 		this.m_value = YAHOO.widget.Slider.getHorizSlider("slider-bg" + rangecount, "slider-thumb" + rangecount, 0, 200, 20);
 		rangecount++;
 		
