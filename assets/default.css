@@ -337,8 +337,11 @@ xf|alert xf|label pe-value {
 }
 
 .slider-thumb { 
-    position: absolute; 
-    top: 4px; 
+  position: absolute; 
+   top: 4px;
+   height:21px;
+   width: 17px;
+   background-image:url(thumb-n.gif)
 }
 
 *[class~="slider-thumb"] { 
