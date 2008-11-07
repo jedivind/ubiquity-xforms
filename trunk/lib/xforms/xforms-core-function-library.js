@@ -758,8 +758,8 @@ FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = funct
   //
   var dDate = new Date(res[1], res[2] - 1, res[3], res[4], res[5], res[6]);
 
-  // Get the local timezone offset from a local date.
-  var localDate = new Date();
+  // Get the local timezone offset from the passed in dateTime.
+  var localDate = new Date(res[1], res[2] - 1, res[3], res[4], res[5], res[6]);
   var tzOffset;
 
   // If no timezone information was provided, then use the local timezone.
