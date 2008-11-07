@@ -16,13 +16,13 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>8.1.1.a form control violates data binding restriction</title>
+		<title>8.3.3.a data binding restrictions on value element</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">8.1.1.a form control violates data binding restriction<br>
+				  <td rowspan="1" colspan="3">8.3.3.a data binding restrictions on value element<br>
 					</td>
 				</tr>
 				<tr>
@@ -39,37 +39,133 @@
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>8.1.1.a form control violates data binding restriction</td>
+					<td>8.3.3.a data binding restrictions on value element</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/person-info/age</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']</td>
 					<td></td>
-					<td>Checks that the instance is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/person-info/age</td>
-					<td>8</td>
-					<td>Checks that the instance is in violation</td>
+					<td>Checks that the select1 is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-info/age' and @type='xsd:string']</td>
-					<td></td>
-					<td>Checks that the bind is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:message[@ev:event='xforms-binding-exception']</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']/xforms:action[@ev:event='xforms-valid']/xforms:message</td>
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
 				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']/xforms:action[@ev:event='xforms-invalid']/xforms:message</td>
+					<td></td>
+					<td>Checks that the message is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']//div[@class='pe-choices']/xforms:item[1]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "One"</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']/pe-value/input</td>
+					<td>One</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				<tr>
 					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-binding-exception*OK</td>
+					<td>[XForms]*xforms-invalid*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../W3C-XForms-1.1/Edition1/Chapt08/8.3/8.3.3/8.3.3.a.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>2000</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>8.3.3.a data binding restrictions on value element</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "Two"</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']/pe-value/input</td>
+					<td>Two</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*xforms-invalid*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../W3C-XForms-1.1/Edition1/Chapt08/8.3/8.3.3/8.3.3.a.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>2000</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>8.3.3.a data binding restrictions on value element</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']//div[@class='pe-choices']/xforms:item[3]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "Three"</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/scoops']/pe-value/input</td>
+					<td>Three</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*xforms-valid*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
 				</tr>
