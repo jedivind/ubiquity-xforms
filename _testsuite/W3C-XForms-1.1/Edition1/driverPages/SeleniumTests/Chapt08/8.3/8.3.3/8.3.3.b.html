@@ -16,13 +16,13 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>8.1.1.b non-relevant form control becoming relevant</title>
+		<title>8.3.3.b precedence for value element</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">8.1.1.b non-relevant form control becoming relevant<br>
+				  <td rowspan="1" colspan="3">8.3.3.b precedence for value element<br>
 					</td>
 				</tr>
 				<tr>
@@ -39,57 +39,93 @@
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>8.1.1.b non-relevant form control becoming relevant</td>
+					<td>8.3.3.b precedence for value element</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/first-name' and @relevant='/person-name/switch &gt; 1']</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/flavor']</td>
 					<td></td>
-					<td>Checks that the bind has a relevant attribute</td>
+					<td>Checks that the select1 is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:setvalue[@ev:event='xforms-ready' and @ref='/person-name/switch']</td>
+					<td>xpath=/html/body/xforms:output[@ref='/icecream/flavor']</td>
 					<td></td>
-					<td>Checks that the setvalue in the form</td>
+					<td>Checks that the output is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:input[@ref='/person-name/first-name/name']</td>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/flavor']//div[@class='pe-choices']/xforms:item[1]/xforms:label</td>
 					<td></td>
-					<td>Checks that the input is in the form</td>
+					<td>Clicks on "Vanilla"</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-enabled*OK</td>
+					<td>pause</td>
+					<td>100</td>
 					<td></td>
-					<td>Checks to see if the message showed up</td>
+					<td>Waits for the form to load</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-value-changed*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/flavor']/pe-value/input</td>
+					<td>Vanilla</td>
+					<td>Checks that the select1 is bound correctly</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-valid*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@ref='/icecream/flavor']</td>
+					<td>*Neapolitan*</td>
+					<td>Checks that the output has the right value</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-readwrite*OK</td>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/flavor']//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
 					<td></td>
-					<td>Checks to see if the message showed up</td>
+					<td>Clicks on "Strawberry"</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-optional*OK</td>
+					<td>pause</td>
+					<td>100</td>
 					<td></td>
-					<td>Checks to see if the message showed up</td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/flavor']/pe-value/input</td>
+					<td>Strawberry</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@ref='/icecream/flavor']</td>
+					<td>*Neapolitan*</td>
+					<td>Checks that the output has the right value</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/flavor']//div[@class='pe-choices']/xforms:item[3]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "Chocolate"</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='/icecream/flavor']/pe-value/input</td>
+					<td>Chocolate</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@ref='/icecream/flavor']</td>
+					<td>*Neapolitan*</td>
+					<td>Checks that the output has the right value</td>
 				</tr>
 				<tr>
 					<td>close</td>
