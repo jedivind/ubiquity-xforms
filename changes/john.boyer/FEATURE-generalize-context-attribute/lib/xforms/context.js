@@ -63,7 +63,8 @@ function _getEvaluationContext(pThis, nOrdinal) {
 
     var oRet = {
             model :null,
-            node :null
+            node :null,
+            beforeContext :null
         };
 
     if (!nOrdinal || isNaN(nOrdinal)) {
@@ -73,14 +74,16 @@ function _getEvaluationContext(pThis, nOrdinal) {
     if (pThis.m_context && nOrdinal === 1) {
         return { 
             model : pThis.m_context.model,
-            node  : pThis.m_context.node 
+            node  : pThis.m_context.node,
+            beforeContext : pThis.m_context.beforeContext
         };
     } 
     
     if (pThis.m_arrNodes) {
         return { 
             model : pThis.m_model,                 
-            node  : pThis.m_arrNodes[nOrdinal - 1] 
+            node  : pThis.m_arrNodes[nOrdinal - 1],
+            beforeContext : pThis.m_arrNodes[nOrdinal - 1]
         };
     }
 
@@ -96,6 +99,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
         if (oBind && oBind.ownerModel && oBind.boundNodeSet) {
             oRet.model = oBind.ownerModel;
             oRet.node  = oBind.boundNodeSet;
+            oRet.beforeContext = oBind.boundNodeSet;
         } else {
             // Dispatch xforms-binding-exception if bind is not resolved 
             UX.dispatchEvent(oElement, "xforms-binding-exception", 
@@ -140,10 +144,21 @@ function _getEvaluationContext(pThis, nOrdinal) {
         oRet = _getParentEvaluationContext(pThis);     
     }
     
+    // If pThis has a context attribute, then we save the context node obtained so far
+    // then evaluate the context attribute to determine the new value for node.
+    oRet.beforeContext = oRet.node;
+    var sContext = oElement.getAttribute("context");
+    if (sContext) {
+        oRet.node = getFirstNode(pThis.m_model.EvaluateXPath(sContext, oRet.beforeContext, pThis.element));
+    }
+
+    // Store the context in pThis    
     pThis.m_context = {
         model :oRet.model,
-        node : oRet.node
+        node : oRet.node,
+        beforeContext : oRet.beforeContext
     };
+    
     return oRet;
 }
 

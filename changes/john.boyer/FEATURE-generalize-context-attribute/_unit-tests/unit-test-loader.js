@@ -72,7 +72,8 @@ function runTheTests() {
     "ux-ut-model-standalone",
     "ux-ut-instance-standalone", 
     "ux-ut-select1", 
-    "ux-ut-finite-control",  
+    "ux-ut-finite-control",
+      
     "ux-ut-delete-nodes", 
     "ux-ut-insert-nodes");
 
