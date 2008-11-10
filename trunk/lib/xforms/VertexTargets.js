@@ -56,16 +56,16 @@ function getProxyNode(oNode)
 
 
 function getElementValueOrContent(oContext, oElement) {
-  var sExprValue = oElement.getAttribute("value");
-  var sRet = "";
-  
-  if (sExprValue === undefined || sExprValue === null || sExprValue === "") {
-    sRet = oElement.innerHTML;
-  }
-  else {
-    sRet = getStringValue(oContext.model.EvaluateXPath(sExprValue, oContext.node, oElement));
-  }
-  return sRet;
+    var sExprValue = oElement.getAttribute("value");
+    var sRet = "";
+    
+    if (sExprValue === undefined || sExprValue === null || sExprValue === "") {
+      sRet = UX.isXHTML ? oElement.textContent : oElement.innerHTML;  
+    } else {
+      sRet = getStringValue(oContext.model.EvaluateXPath(sExprValue, oContext.node, oElement));
+    }
+    
+    return sRet;
 }
 
 /**
