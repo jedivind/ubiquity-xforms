@@ -316,7 +316,7 @@ var NamespaceManager  = function(){
       var prefiix = null;
       
       if (UX.isXHTML) {
-          retval = node.getAttributeNS(attributeName, nsURI);
+          retval = node.getAttributeNS(nsURI, attributeName);
       } else {
           prefixes = this.getOutputPrefixesFromURI(nsURI);
           if (prefixes) {

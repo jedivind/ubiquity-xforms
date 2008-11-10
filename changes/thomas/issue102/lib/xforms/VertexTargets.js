@@ -60,11 +60,11 @@ function getElementValueOrContent(oContext, oElement) {
   var sRet = "";
   
   if (sExprValue === undefined || sExprValue === null || sExprValue === "") {
-    sRet = oElement.innerHTML;
-  }
-  else {
+    sRet = (UX.isXHTML) ? oElement.textContent : oElement.innerHTML;  
+  } else {
     sRet = getStringValue(oContext.model.EvaluateXPath(sExprValue, oContext.node, oElement));
   }
+  
   return sRet;
 }
 
