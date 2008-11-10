@@ -18,6 +18,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
 function runTheTests() {
   var moduleBase = pathToModule("unit-test-loader");
   var loader = new YAHOO.util.YUILoader();
@@ -73,8 +74,7 @@ function runTheTests() {
     "ux-ut-select1", 
     "ux-ut-finite-control",  
     "ux-ut-delete-nodes", 
-    "ux-ut-insert-nodes"
-    );
+    "ux-ut-insert-nodes");
 
   var sBars = "";
   loader.onProgress = function(o) {
@@ -112,3 +112,32 @@ function runTheTests() {
   loader.insert();
   return;
 }
+
+(
+  //Don't assume that the YUILoader is present
+  function () {
+    var head, scriptElement, onSuccessAlready;
+    if (typeof YAHOO === 'undefined' || typeof YAHOO.util.YUILoader === 'undefined') {
+
+        head = document.getElementsByTagName("head")[0];
+        scriptElement  = document.createElement('script');
+        head.appendChild(scriptElement);
+        scriptElement.setAttribute("type", "text/javascript");
+        scriptElement.setAttribute("src",   "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js"); 
+        window.onload=runTheTests;
+        
+    } else if (typeof loader !== 'undefined') {
+ 
+      //Where a loader is defined (and probably running).  Set the testrunner to kick off once it has finished.
+      onSuccessAlready =  loader.onSuccess || function(o){};
+      loader.onSuccess = function(o) {
+        onSuccessAlready(o);
+        runTheTests();
+      };
+      
+    }
+
+  }()
+);
+
+
