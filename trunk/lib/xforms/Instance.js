@@ -246,9 +246,8 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
     var contextNode = (contextExpr) ?  this.evalXPath(contextExpr, inscopeContext).nodeSetValue()[0] : inscopeContext,
         ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, contextNode).nodeSetValue() : null,
         nsOrigin = (originExpr) ? this.evalXPath(originExpr, contextNode).nodeSetValue() 
-                                : ((ns) ? ns[ns.length-1] : null),
-        at, after, i, node, insertLocationNode, insertBeforeNode, nsInserted = [ ], evt;
-        
+                                : ((ns) ? new Array(ns[ns.length-1]) : null),
+        at, after, i, node, insertLocationNode, insertBeforeNode, cloneNode, nsLocationNode = [ ], nsInserted = [ ], evt;    
     // If there's no context node, then insertion is not possible, so
     // we'll just no-op in that case.
     //
@@ -266,7 +265,8 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
             at = at < 1 ? 1 : (at <= ns.length ? at : ns.length);
                     
             insertLocationNode = ns[at-1];
-            
+            nsLocationNode.push(insertLocationNode);
+
             after = (position) ? (position !== 'before') : true;
             
             if (after) {
@@ -280,12 +280,9 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
             // if insertBeforeNode is null, then insertBefore() apppends the nodes
             //
             for (i=0; i < nsOrigin.length; i++) {
-                nsInserted.push(
-                    insertLocationNode.parentNode.insertBefore(
-                        nsOrigin[i].cloneNode(true), 
-                        insertBeforeNode
-                    )
-                );
+                cloneNode = nsOrigin[i].cloneNode(true);
+                insertLocationNode.parentNode.insertBefore(cloneNode, insertBeforeNode);
+                nsInserted.push(cloneNode);
             }        
         } // end if (non-empty nodeset) 
         
@@ -294,14 +291,12 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
         //
         else if (nsOrigin && nsOrigin.length > 0) {
             insertLocationNode = contextNode;
+            nsLocationNode.push(insertLocationNode);
             insertBeforeNode = (insertLocationNode.firstChild) ? insertLocationNode.firstChild : null;
             for (i=0; i < nsOrigin.length; i++) {
-                nsInserted.push(
-                    insertLocationNode.insertBefore(
-                        nsOrigin[i].cloneNode(true), 
-                        insertBeforeNode
-                    )
-                );
+                cloneNode = nsOrigin[i].cloneNode(true);
+                insertLocationNode.insertBefore(cloneNode, insertBeforeNode);
+                nsInserted.push(cloneNode);
             }                
         }
     } // end if (contextNode)
@@ -311,11 +306,11 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
     if (nsInserted.length) {
         evt = document.createEvent("Events");
         evt.initEvent("xforms-insert", true, false);
-        
+
         evt.context = {
             "inserted-nodes" : nsInserted,
             "origin-nodes" : nsOrigin,
-            "insert-location-node" : insertLocationNode,
+            "insert-location-node" : nsLocationNode,
             "position" : (after ? "after" : "before")
         };
         FormsProcessor.dispatchEvent(this, evt);
