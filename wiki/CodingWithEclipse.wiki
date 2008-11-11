@@ -1,4 +1,5 @@
 #summary The mechanics of the development/code contribution with Eclipse and Subversive.
+#labels HowTo
 
 = Overview =
 
