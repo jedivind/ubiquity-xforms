@@ -1,5 +1,5 @@
 #summary Instructions on building Ubiquity XForms rollups for distribution.
-#labels Phase-Deploy
+#labels Phase-Deploy,HowTo
 
 = Introduction =
 
