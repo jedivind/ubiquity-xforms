@@ -50,13 +50,14 @@ Finally, at the end of this page, there are some instructions on setting up Subv
     # Hit Finish (pulls from clipboard)
     # Right click the ux-FEATURE-X project
     # Team | Commit
-    # Add a comment that begins *CODE REVIEW NEEDED* and explain feature
+    # Add a comment that begins *FOR REVIEW* and explain feature
     # After commit, you will be able to see a page for your revision
       * Go to ubiquity project and click the [http://code.google.com/p/ubiquity-xforms/source/checkout sources tab]
       * Click the changes link, and at or near the top should be your revision ({{{http://code.google.com/p/ubiquity-xforms/source/detail?r=NNNN}}})
       * The modifications can be viewed by expanding the trees OR to get a side-by-side diff comparison, don't click "Diff"! Instead, click the file link, then click "Diff" at the top right corner
-    # Send email to ubiquity-xforms-eng@googlegroups.com with subject that begins *CODE REVIEW NEEDED* and contains *rNNNN*
-      * The typical review period is 48 hours. Put *URGENT* in the subject line to request a shorter review period
+    # Do a non-rated review of your code.  In the general comments, put *CODE REVIEW NEEDED* and add any line-by-line comments that may be needed to help reviewers understand your code.
+      * This will send an email to the ubiquity-xforms-eng@googlegroups.com with a subject that includes your *rNNNN* and a body that includes CODE REVIEW NEEDED, which can be used to filter emails.
+      * The typical review period is 48 hours. If you need a shorter review period, send an email to ubiquity-xforms-eng@googlegroups.com with *URGENT* in the subject line and ask for quick reviews and also ask people to indicate if they don't intend to review (since you can't get a -1 from someone who doesn't review) 
     # At least one +1 review is needed before committing to trunk
       * A review can be +1 and can still request minor editorial changes needing no further review or identify issues that should be raised in the issue system once the code is committed.
       * A -1 review halts the commit until the reason for the -1 is resolved.  A -1 review requires a detailed technical justification, including what if anything can be done to mitigate or eliminate the concerns raised in the review.
