@@ -67,10 +67,10 @@ RangeValue.prototype.setValue = function(sValue)
 		this.currValue = sValue;
 		bRet = true;
 	}
-	else if(m_bFirstSetValue)
+	else if (this.m_bFirstSetValue)
 	{
 		bRet = true;
-		m_bFirstSetValue = false;
+		this.m_bFirstSetValue = false;
 	}
 	
 	return bRet;
