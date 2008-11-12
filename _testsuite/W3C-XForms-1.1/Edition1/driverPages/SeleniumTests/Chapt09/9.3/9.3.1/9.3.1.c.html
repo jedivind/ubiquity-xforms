@@ -16,18 +16,18 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>4.2.2.a xforms-model-construct and xforms-model-construct-done events</title>
+		<title>9.3.1.c number attribute of repeat element (non-normative)</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">4.2.2.a xforms-model-construct and xforms-model-construct-done events<br>
+				  <td rowspan="1" colspan="3">9.3.1.c number attribute of repeat element (non-normative)<br>
 					</td>
 				</tr>
 				<tr>
 					<td>open</td>
-					<td>../../W3C-XForms-1.1/Edition1/Chapt04/4.2/4.2.2/4.2.2.a.xhtml</td>
+					<td>../../W3C-XForms-1.1/Edition1/Chapt09/9.3/9.3.1/9.3.1.c.xhtml</td>
 					<td>&nsp;</td>
 					<td>Opens the form</td>
 				</tr>
@@ -39,33 +39,21 @@
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>4.2.2.a xforms-model-construct and xforms-model-construct-done events</td>
+					<td>9.3.1.c number attribute of repeat element (non-normative)</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:message[@ev:event='xforms-model-construct']</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@nodeset='/cart/items/item' and @number='1']</td>
 					<td></td>
-					<td>Checks that message1 is in the form</td>
+					<td>Checks that the repeat is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:message[@ev:event='xforms-model-construct-done']</td>
-					<td></td>
-					<td>Checks that message2 is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-model-construct dispatched*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-model-construct-done dispatched*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@nodeset='/cart/items/item' and @number='1']</td>
+					<td>windshield wipers</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
 				<tr>
 					<td>close</td>
