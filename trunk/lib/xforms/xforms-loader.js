@@ -107,10 +107,10 @@ var g_sBehaviourDirectory  = "";
   		requires: [ "xforms-dom2events" ] });
   
   	//actions
-  	loader.addModule({ name: "xforms-action",              type: "js",  fullpath: moduleBase + "xf-action.js",
-  		requires: [ "xforms-listener", "xforms-threads" ] });
   	loader.addModule({ name: "xforms-actions",              type: "js",  fullpath: moduleBase + "actions.js",
   		requires:["container", "xforms-message-css", "yui-style-css", "xforms-notify", "message-yui"]});  
+  	loader.addModule({ name: "xforms-action",              type: "js",  fullpath: moduleBase + "xf-action.js",
+  		requires: [ "xforms-listener", "xforms-threads", "xforms-actions" ] });
   	loader.addModule({ name: "xforms-model-actions",        type: "js",  fullpath: moduleBase + "modelactions.js",
   		requires:["xforms-actions","xforms-processor"]});  
 
