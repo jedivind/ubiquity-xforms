@@ -165,46 +165,46 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
   *  FeatureValidation
   *  Implement missing features
 
-= Missing Features for XForms 1.1 =
-  *  Setindex 
-  *  Upload Control
-     *  @mediatype
-     *  @incremental
-     *  @appearance
-     *  &lt;filename/&gt;
-     *  &lt;mediatype/&gt;
-  *  Help Element
-  *  Input/secret/textarea Control
+== Missing Features for XForms 1.1 ==
+  * Setindex 
+  * Upload 
+     * @mediatype
+     * @incremental
+     * @appearance
+     * {{{<filename/>}}}
+     * {{{<mediatype/>}}}
+  * Help Element
+  * Input/secret/textarea Control
     * @incremental
     * @inputmode
     * type-based rendering
-      *  type=xsd:date
-  *  Secret/Textarea do not work
-  *  Output
+      * type=xsd:date
+  * Secret/Textarea do not work
+  * Output
      * @appearance
      * ?currency format/decimal format?
-  *  Range Control
+  * Range
      * @start
      * @end
      * @step
      * @incremental
-  *  Trigger/Submit
+  * Trigger/Submit
      * @appearance(full:compact:minimal)
-  *  Select
+  * Select 
      * Not successful in testing
      * @incremental
      * @appearance(full[checkbox]:compact[list]:minimal[checks])
-  *  Select1
+  * Select1
      * @incremental
      * @appearance(full[radiobox]:compact[list])
-  *  Relevant MIP does not work on controls
-  *  Repeat
+  * Relevant MIP does not work on controls
+  * Repeat
      * @startindex not working
-  *  Copy 
+  * Copy 
      * unsuccessful testing
-  *  Load
-     * &lt;resource/&gt;
-  *  Submission
+  * Load
+     * {{{<resource/>}}}
+  * Submission
      * @resource
      * @mode 
      * @validate
@@ -220,15 +220,15 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
      * @target 
      * @separator 
      * @includenamespaceprefixes 
-     * &lt;method/&gt;
+     * {{{<method/>}}}
        * support "delete" 
        * support "multipart-post" 
        * support "form-data-post" 
        * support "urlencoded-post" 
-     * &lt;resource/gt;
-     * &lt;header/&gt;
-       * &lt;name/&gt;
-       * &lt;value/&gt;
+     * {{{<resource/>}}}
+     * {{{<header/>}}}
+       * {{{<name/>}}}
+       * {{{<value/>}}}
   
 = Blocking Issues =
   *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=78&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-78: Purchase Order: event() xpath function implementation]
