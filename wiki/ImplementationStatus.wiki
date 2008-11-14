@@ -198,6 +198,7 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
     * @incremental
     * @appearance(full[radiobox]:compact[list])
   * Relevant MIP does not work on controls
+  * Constraint MIP does not work
   * Repeat
     * @startindex not working
   * Copy 
