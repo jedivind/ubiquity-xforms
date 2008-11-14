@@ -73,7 +73,7 @@
     	<xf:label>Delete a number</xf:label>
     	<xf:action ev:event="DOMActivate">
     	  <xf:delete context="numbers" nodeset="number" at="index('R')"></xf:delete>
-    	  <xf:insert context="numbers" origin="../prototype/number" if="count(/data/numbers/number)=0"></xf:insert>
+    	  <xf:insert context="numbers" origin="../prototype/number" if="count(number)=0"></xf:insert>
     	</xf:action>
     </xf:trigger>
 

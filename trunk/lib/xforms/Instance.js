@@ -185,9 +185,8 @@ Instance.prototype.onContentReady = Instance.prototype.initialisedom;
 // position in that list. If no position is specified then the entire
 // list is deleted.
 //
-Instance.prototype.deleteNodes = function (inscopeContext, contextExpr, nodesetExpr, atExpr) {
-    var contextNode = (contextExpr) ?  this.evalXPath(contextExpr, inscopeContext).nodeSetValue()[0] : inscopeContext,
-	    ns = this.evalXPath(nodesetExpr, contextNode).nodeSetValue(),
+Instance.prototype.deleteNodes = function (contextNode, nodesetExpr, atExpr) {
+    var ns = this.evalXPath(nodesetExpr, contextNode).nodeSetValue(),
 		at = (atExpr) ? Math.round(this.evalXPath(atExpr, contextNode).numberValue()) : undefined,
 		i, node, nsDeleted = [ ], evt;
 
@@ -244,9 +243,8 @@ Instance.prototype.deleteNodes = function (inscopeContext, contextExpr, nodesetE
 	}
 };// deleteNodes()
 
-Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetExpr, atExpr, position, originExpr) {
-    var contextNode = (contextExpr) ?  this.evalXPath(contextExpr, inscopeContext).nodeSetValue()[0] : inscopeContext,
-        ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, contextNode).nodeSetValue() : null,
+Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr, atExpr, position, originExpr) {
+    var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, contextNode).nodeSetValue() : null,
         nsOrigin = (originExpr) ? this.evalXPath(originExpr, contextNode).nodeSetValue() 
                                 : ((ns) ? new Array(ns[ns.length-1]) : null),
         at, after, i, node, insertLocationNode, insertBeforeNode, cloneNode, nsLocationNode = [ ], nsInserted = [ ], evt;    
@@ -288,10 +286,11 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
             }        
         } // end if (non-empty nodeset) 
         
-        // If there is no nodeset but there is a context node into which an insertion can occur, 
-        // and if there are one or more origin nodes, then we can proceed with insertion
+        // If there is no nodeset but there is a context attribute that indicates a node into 
+        // which an insertion can occur, and if there are one or more origin nodes, then 
+        // we can proceed with insertion
         //
-        else if (nsOrigin && nsOrigin.length > 0) {
+        else if (contextExpr && nsOrigin && nsOrigin.length > 0) {
             insertLocationNode = contextNode;
             nsLocationNode.push(insertLocationNode);
             insertBeforeNode = (insertLocationNode.firstChild) ? insertLocationNode.firstChild : null;

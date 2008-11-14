@@ -72,7 +72,8 @@
             //
             testInsertElementPrototypeIntoList: function() {
             
-                Assert.isTrue(suite.testInstance.insertNodes(null,  
+                Assert.isTrue(suite.testInstance.insertNodes(
+                    suite.testInstance.evalXPath('order').nodeSetValue()[0],  
                     "order", "item", "1", "after", "/po/prototype/item"), 
                     "Insert did not insert any nodes");
 
@@ -95,7 +96,7 @@
                 // to adjust the testInstance, relative to the setUp(), so that it has
                 // the desired property of having an empty list for us to insert within
                 // 
-                Assert.isTrue(suite.testInstance.deleteNodes(null, null, "order/item", "1"));
+                Assert.isTrue(suite.testInstance.deleteNodes(null, "order/item", "1"));
                 
                 // Ensure we have the correct starting property of an empty list, 
                 // i.e. ensure the P1 product item is in fact gone now  
@@ -105,7 +106,8 @@
 
                 // Insert into the empty list
                 //
-                Assert.isTrue(suite.testInstance.insertNodes(null,  
+                Assert.isTrue(suite.testInstance.insertNodes(
+                    suite.testInstance.evalXPath('order').nodeSetValue()[0],  
                     "order", null, null, null, "/po/prototype/item"), 
                     "Insert did not insert any nodes");
 
@@ -129,7 +131,7 @@
                 // This deletion initializes the testInstance, relative to the setUp(), so that it 
                 // has the desired property of being empty
                 // 
-                Assert.isTrue(suite.testInstance.deleteNodes(null, null, "order/item", "1"));
+                Assert.isTrue(suite.testInstance.deleteNodes(null, "order/item", "1"));
                 
                 // Ensure we have the correct starting property of an empty list, 
                 // i.e. ensure the P1 product item is in fact gone now  
@@ -139,7 +141,8 @@
 
                 // Insert into a list which happens to be empty
                 //
-                Assert.isTrue(suite.testInstance.insertNodes(null,  
+                Assert.isTrue(suite.testInstance.insertNodes(
+                    suite.testInstance.evalXPath('order').nodeSetValue()[0],  
                     "order", "item", "1", "after", "/po/prototype/item"), 
                     "Insert did not insert any nodes");
 
