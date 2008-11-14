@@ -163,11 +163,49 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 
 = Priority for Missing Features for XForms 1.1 =
   *  FeatureValidation
-  *  Current()
-  *  Event()
+  *  Implement missing features
+
+= Missing Features for XForms 1.1 =
   *  Setindex 
   *  Upload Control
+     *  @mediatype
+     *  @incremental
+     *  @appearance
+     *  &lt;filename/&gt;
+     *  &lt;mediatype/&gt;
   *  Help Element
+  *  Input/secret/textarea Control
+    * @incremental
+    * @inputmode
+    * type-based rendering
+      *  type=xsd:date
+  *  Secret/Textarea do not work
+  *  Output
+     * @appearance
+     * ?currency format/decimal format?
+  *  Range Control
+     * @start
+     * @end
+     * @step
+     * @incremental
+  *  Trigger/Submit
+     * @appearance(full:compact:minimal)
+  *  Select
+     * Not successful in testing
+     * @incremental
+     * @appearance(full[checkbox]:compact[list]:minimal[checks])
+  *  Select1
+     * @incremental
+     * @appearance(full[radiobox]:compact[list])
+  *  Relevant MIP does not work on controls
+  *  Repeat
+     * @startindex not working
+  *  Copy 
+     * unsuccessful testing
+  *  Load
+     * &lt;resource/&gt;
+  *  Submission     
+
   
 = Blocking Issues =
   *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=78&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-78: Purchase Order: event() xpath function implementation]
