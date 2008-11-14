@@ -64,7 +64,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
     var oRet = {
             model :null,
             node :null,
-            beforeContext :null
+            initialContext :null
         };
 
     if (!nOrdinal || isNaN(nOrdinal)) {
@@ -75,7 +75,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
         return { 
             model : pThis.m_context.model,
             node  : pThis.m_context.node,
-            beforeContext : pThis.m_context.beforeContext
+            initialContext : pThis.m_context.initialContext
         };
     } 
     
@@ -83,7 +83,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
         return { 
             model : pThis.m_model,                 
             node  : pThis.m_arrNodes[nOrdinal - 1],
-            beforeContext : pThis.m_arrNodes[nOrdinal - 1]
+            initialContext : pThis.m_arrNodes[nOrdinal - 1]
         };
     }
 
@@ -99,7 +99,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
         if (oBind && oBind.ownerModel && oBind.boundNodeSet) {
             oRet.model = oBind.ownerModel;
             oRet.node  = oBind.boundNodeSet;
-            oRet.beforeContext = oBind.boundNodeSet;
+            oRet.initialContext = oBind.boundNodeSet;
         } else {
             // Dispatch xforms-binding-exception if bind is not resolved 
             UX.dispatchEvent(oElement, "xforms-binding-exception", 
@@ -146,17 +146,17 @@ function _getEvaluationContext(pThis, nOrdinal) {
     
     // If pThis has a context attribute, then we save the context node obtained so far
     // then evaluate the context attribute to determine the new value for node.
-    oRet.beforeContext = oRet.node;
+    oRet.initialContext = oRet.node;
     var sContext = oElement.getAttribute("context");
     if (sContext) {
-        oRet.node = getFirstNode(oRet.model.EvaluateXPath(sContext, oRet.beforeContext, pThis.element));
+        oRet.node = getFirstNode(oRet.model.EvaluateXPath(sContext, oRet.initialContext, pThis.element));
     }
 
     // Store the context in pThis    
     pThis.m_context = {
         model :oRet.model,
         node : oRet.node,
-        beforeContext : oRet.beforeContext
+        initialContext : oRet.initialContext
     };
     
     return oRet;
@@ -236,7 +236,7 @@ function _getBoundNode(pThis, nOrdinal) {
     if (oProxy && !oProxy.m_xpath) {
         
         if (!pThis.m_model) {
-            pThis.m_model = _getEvaluationContext(pThis).m_model;
+            pThis.m_model = _getEvaluationContext(pThis).model;
         }
         return { model : pThis.m_model, 
                  node  : oProxy };
