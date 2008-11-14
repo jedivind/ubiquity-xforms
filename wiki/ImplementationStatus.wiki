@@ -204,8 +204,31 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
      * unsuccessful testing
   *  Load
      * &lt;resource/&gt;
-  *  Submission     
-
+  *  Submission
+     * @resource
+     * @mode 
+     * @validate
+     * @relevant
+     * @version
+     * @indent 
+     * @mediatype 
+     * @encoding 
+     * @omit-xml-declarations 
+     * @standalone 
+     * @cdata-section-elements 
+     * @replace=text (all, instance, none are supported) 
+     * @target 
+     * @separator 
+     * @includenamespaceprefixes 
+     * &lt;method/&gt;
+       * support "delete" 
+       * support "multipart-post" 
+       * support "form-data-post" 
+       * support "urlencoded-post" 
+     * &lt;resource/gt;
+     * &lt;header/&gt;
+       * &lt;name/&gt;
+       * &lt;value/&gt;
   
 = Blocking Issues =
   *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=78&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-78: Purchase Order: event() xpath function implementation]
