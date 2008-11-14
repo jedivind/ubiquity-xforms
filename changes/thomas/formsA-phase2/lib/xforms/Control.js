@@ -18,13 +18,26 @@ function Control(elmnt) {
     this.element = elmnt;
     this.m_MIPSCurrentlyShowing = {};
     this.addedTVCListener = false;
-}
+};
 
 Control.prototype.focusOnValuePseudoElement = function() {
     if (this.m_value && event.srcElement !== this.m_value) {
         if (!this.m_value.contains(event.srcElement)) {
             this.m_value.focus();
         }
+    }
+};
+
+Control.prototype.recreatePseudoElement = function() {
+    var oElem = this.element;
+    var oValueElem = this.m_value;
+    
+    if (oValueElem && oValueElem.parentNode === oElem) {
+        oElem.removeChild(oValueElem);
+        this.m_value = null;
+        this.addedTVCListener = false;
+        this.AddTVCListener();
+        this.refresh();
     }
 };
 
@@ -354,7 +367,7 @@ Control.prototype.getValue = function() {
     } else {
         return this.m_sValue;
     }
-}
+};
 
 Control.prototype.onDocumentReady = function() {
     this.addcontroltomodel();
@@ -370,7 +383,7 @@ Control.prototype.onDocumentReady = function() {
                     + oControl.element.nodeName + "!";
         }
     }, false);
-}
+};
 
 Control.prototype.onContentReady = Control.prototype.AddValuePseudoElement;
 
