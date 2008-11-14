@@ -168,11 +168,11 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 == Missing Features for XForms 1.1 ==
   * Setindex 
   * Upload 
-     * @mediatype
-     * @incremental
-     * @appearance
-     * {{{<filename/>}}}
-     * {{{<mediatype/>}}}
+    * @mediatype
+    * @incremental
+    * @appearance
+    * {{{<filename/>}}}
+    * {{{<mediatype/>}}}
   * Help Element
   * Input/secret/textarea Control
     * @incremental
@@ -181,54 +181,54 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
       * type=xsd:date
   * Secret/Textarea do not work
   * Output
-     * @appearance
-     * ?currency format/decimal format?
+    * @appearance
+    * ?currency format/decimal format?
   * Range
-     * @start
-     * @end
-     * @step
-     * @incremental
+    * @start
+    * @end
+    * @step
+    * @incremental
   * Trigger/Submit
-     * @appearance(full:compact:minimal)
+    * @appearance(full:compact:minimal)
   * Select 
-     * Not successful in testing
-     * @incremental
-     * @appearance(full[checkbox]:compact[list]:minimal[checks])
+    * Not successful in testing
+    * @incremental
+    * @appearance(full[checkbox]:compact[list]:minimal[checks])
   * Select1
-     * @incremental
-     * @appearance(full[radiobox]:compact[list])
+    * @incremental
+    * @appearance(full[radiobox]:compact[list])
   * Relevant MIP does not work on controls
   * Repeat
-     * @startindex not working
+    * @startindex not working
   * Copy 
-     * unsuccessful testing
+    * unsuccessful testing
   * Load
-     * {{{<resource/>}}}
+    * {{{<resource/>}}}
   * Submission
-     * @resource
-     * @mode 
-     * @validate
-     * @relevant
-     * @version
-     * @indent 
-     * @mediatype 
-     * @encoding 
-     * @omit-xml-declarations 
-     * @standalone 
-     * @cdata-section-elements 
-     * @replace=text (all, instance, none are supported) 
-     * @target 
-     * @separator 
-     * @includenamespaceprefixes 
-     * {{{<method/>}}}
-       * support "delete" 
-       * support "multipart-post" 
-       * support "form-data-post" 
-       * support "urlencoded-post" 
-     * {{{<resource/>}}}
-     * {{{<header/>}}}
-       * {{{<name/>}}}
-       * {{{<value/>}}}
+    * @resource
+    * @mode 
+    * @validate
+    * @relevant
+    * @version
+    * @indent 
+    * @mediatype 
+    * @encoding 
+    * @omit-xml-declarations 
+    * @standalone 
+    * @cdata-section-elements 
+    * @replace=text (all, instance, none are supported) 
+    * @target 
+    * @separator 
+    * @includenamespaceprefixes 
+    * {{{<method/>}}}
+      * support "delete" 
+      * support "multipart-post" 
+      * support "form-data-post" 
+      * support "urlencoded-post" 
+    * {{{<resource/>}}}
+    * {{{<header/>}}}
+      * {{{<name/>}}}
+      * {{{<value/>}}}
   
 = Blocking Issues =
   *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=78&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-78: Purchase Order: event() xpath function implementation]
