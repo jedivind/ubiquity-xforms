@@ -113,31 +113,20 @@ function runTheTests() {
   return;
 }
 
-(
-  //Don't assume that the YUILoader is present
-  function () {
-    var head, scriptElement, onSuccessAlready;
-    if (typeof YAHOO === 'undefined' || typeof YAHOO.util.YUILoader === 'undefined') {
+UX.preloader.put_onFinish(function () {
+  var head, scriptElement, onSuccessAlready;
+  if (UX.useRollup()) {
+    UX.preloader.addScript("http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js", runTheTests);     
+  } else if (typeof loader === "object" && loader instanceof YAHOO.util.YUILoader) {
 
-        head = document.getElementsByTagName("head")[0];
-        scriptElement  = document.createElement('script');
-        head.appendChild(scriptElement);
-        scriptElement.setAttribute("type", "text/javascript");
-        scriptElement.setAttribute("src",   "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js"); 
-        window.onload=runTheTests;
-        
-    } else if (typeof loader !== 'undefined') {
- 
-      //Where a loader is defined (and probably running).  Set the testrunner to kick off once it has finished.
-      onSuccessAlready =  loader.onSuccess || function(o){};
-      loader.onSuccess = function(o) {
-        onSuccessAlready(o);
-        runTheTests();
-      };
-      
-    }
+    //Where a loader is defined (and probably running).  Set the testrunner to kick off once it has finished.
+    onSuccessAlready =  loader.onSuccess || function (o) {};
+    loader.onSuccess = function (o) {
+      onSuccessAlready(o);
+      runTheTests();
+    };
+    
+  }
 
-  }()
-);
-
+});
 
