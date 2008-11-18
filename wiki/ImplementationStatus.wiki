@@ -202,6 +202,7 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
   * Switch/Case do not work on FF3, they work on IE
   * Insert still needs some work
   * Delete still needs some work
+  * Reset causes the script to run forever causing an error
   * Repeat
     * @startindex not working
   * Copy 
