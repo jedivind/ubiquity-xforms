@@ -111,15 +111,15 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#evt-modelConstruct xforms-model-construct] || yes || * || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-modelConstructDone xforms-model-construct-done] || yes || * || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-ready xforms-ready] || yes || * || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-modelDestruct xforms-model-destruct] || || * || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-modelDestruct xforms-model-destruct] || *no* || * || || || || || || ||
 
 
 == Interaction Events ==
 || *wiki* || *Event* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
-|| || [http://www.w3.org/TR/xforms11/#evt-rebuild xforms-rebuild] || yes || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-recalculate xforms-recalculate] || yes || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-revalidate xforms-revalidate] || yes || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-refresh xforms-refresh] || yes || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-rebuild xforms-rebuild] || *Partially, because issue 103* || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-recalculate xforms-recalculate] || *Partially, because issue 103* || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-revalidate xforms-revalidate] || *Partially, because issue 103* || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-refresh xforms-refresh] || *Partially, because issue 103* || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-reset xforms-reset] || yes || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-next xforms-next and xforms-previous] || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-focus xforms-focus] || || || || || || || || ||
@@ -132,23 +132,23 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || *wiki* || *Event* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
 || || [http://www.w3.org/TR/xforms11/#evt-insert xforms-insert] || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-delete xforms-delete] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-valueChanged xforms-value-changed] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-valid xforms-valid] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-invalid xforms-invalid] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-readonly xforms-readonly] || || || || || || || 
-|| || [http://www.w3.org/TR/xforms11/#evt-readwrite xforms-readwrite] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-required xforms-required] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-optional xforms-optional] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-enabled xforms-enabled] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-disabled xforms-disabled] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-activate DOMActivate] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-DOMFocusIn DOMFocusIn] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-DOMFocusOut DOMFocusOut] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-select xforms-select and xforms-deselect] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-in-range xforms-in-range] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-out-of-range xforms-out-of-range] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-scroll xforms-scroll-first and xforms-scroll-last] || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-submit-done xforms-submit-done] || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-valueChanged xforms-value-changed] || yes || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-valid xforms-valid] || *no* || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-invalid xforms-invalid] || *Partially, because issue 103* || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-readonly xforms-readonly] || *no* || || || || || || 
+|| || [http://www.w3.org/TR/xforms11/#evt-readwrite xforms-readwrite] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-required xforms-required] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-optional xforms-optional] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-enabled xforms-enabled] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-disabled xforms-disabled] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-activate DOMActivate] || yes || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-DOMFocusIn DOMFocusIn] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-DOMFocusOut DOMFocusOut] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-select xforms-select and xforms-deselect] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-in-range xforms-in-range] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-out-of-range xforms-out-of-range] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-scroll xforms-scroll-first and xforms-scroll-last] || *no* || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-submit-done xforms-submit-done] || yes || || || || || ||
 
 == Error Indication Events ==
 || *wiki* || *Event* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
