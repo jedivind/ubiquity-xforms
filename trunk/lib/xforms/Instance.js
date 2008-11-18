@@ -20,13 +20,22 @@ function Instance(elmnt) {
 	this.element["elementState"] = 1;
 	
 	UX.addStyle(this.element, "display", "none"); 
+
+    // If the parent node duck types to a model, then invoke its XPath evaluator 
+    // in preference to the prototype default XPath eval function
+    if (this.element.parentNode && typeof this.element.parentNode.EvaluateXPath === "function") {
+        this.evalXPath = function (expr, contextNode) { 
+           return this.element.parentNode.EvaluateXPath(expr, contextNode || this.m_oDOM.documentElement); 
+        };     
+    }
 }
 
 Instance.prototype.finishLoad = function () {
     var ret = false;
     if (this.m_oDOM && this.m_oDOM.documentElement) {
         ret = true;
-        this.element.parentNode.flagRebuild();
+        if (typeof this.element.parentNode.flagRebuild === "function")
+            this.element.parentNode.flagRebuild();
         this.m_oDOM.XFormsInstance = this;
         this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
     } else if (!this.element["elementState"]) {
@@ -244,10 +253,11 @@ Instance.prototype.deleteNodes = function (contextNode, nodesetExpr, atExpr) {
 };// deleteNodes()
 
 Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr, atExpr, position, originExpr) {
-    var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, contextNode).nodeSetValue() : null,
-        nsOrigin = (originExpr) ? this.evalXPath(originExpr, contextNode).nodeSetValue() 
-                                : ((ns) ? new Array(ns[ns.length-1]) : null),
-        at, after, i, node, insertLocationNode, insertBeforeNode, cloneNode, nsLocationNode = [ ], nsInserted = [ ], evt;    
+    var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, contextNode).nodeSetValue() : null;
+    var nsOrigin = (originExpr) ? this.evalXPath(originExpr, contextNode).nodeSetValue() 
+                                : ((ns) ? new Array(ns[ns.length-1]) : null);
+    var at, after, i, node, insertLocationNode, insertBeforeNode, cloneNode, nsLocationNode = [ ], nsInserted = [ ], evt;    
+    
     // If there's no context node, then insertion is not possible, so
     // we'll just no-op in that case.
     //
@@ -325,7 +335,8 @@ Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr
 
 // Evaluate an XPath expression against this instance.
 // If no context is given, the default is the document element of the instance 
-//
+// NOTE: This is a default evaluator, but instances that are part of a model
+//       use the model's evaluator instead.
 Instance.prototype.evalXPath = function (expr, contextNode) {
 	return xpathDomEval(expr, contextNode || this.m_oDOM.documentElement);
 };
