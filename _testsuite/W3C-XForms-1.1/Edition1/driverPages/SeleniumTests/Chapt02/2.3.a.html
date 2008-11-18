@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -112,7 +112,7 @@ Choose an option
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:submit[@submission='submit01']</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submit01']/xforms:label</td>
 					<td></td>
 					<td>Clicks on submit button</td>
 				</tr>
@@ -124,27 +124,21 @@ Choose an option
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/pre</td>
-					<td>*&lt;payment method="cc" xmlns="http://commerce.example.com/payment" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:my="http://commerce.example.com/payment"&gt;*</td>
+					<td>xpath=//html/body/pre</td>
+					<td>*method="cc"*</td>
 					<td>Checks that the form data is shown</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/pre</td>
-					<td>*&lt;number&gt;1234567890123456&lt;/number&gt;*</td>
+					<td>xpath=//html/body/pre</td>
+					<td>*1234567890123456*</td>
 					<td>Checks that the form data is shown</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/pre</td>
-					<td>*&lt;expiry&gt;2008-12&lt;/expiry&gt;*</td>
+					<td>xpath=//html/body/pre</td>
+					<td>*2008-12*</td>
 					<td>Checks that the form data is shown</td>
-				</tr>
-				<tr>
-					<td>close</td>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 			</tbody>
 		</table>

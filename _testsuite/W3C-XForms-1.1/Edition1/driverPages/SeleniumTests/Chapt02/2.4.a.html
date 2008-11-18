@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -173,7 +173,7 @@ Choose an option
 				
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:submit[@submission='pollsubmit']</td>
+					<td>xpath=/html/body/xforms:submit[@submission='pollsubmit']/xforms:label</td>
 					<td></td>
 					<td>Clicks on submit button</td>
 				</tr>
@@ -185,15 +185,9 @@ Choose an option
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/pre</td>
+					<td>xpath=//html/body/pre</td>
 					<td>*&lt;helpful&gt;0&lt;/helpful&gt;*</td>
 					<td>Checks that the form data is shown</td>
-				</tr>
-				<tr>
-					<td>close</td>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 			</tbody>
 		</table>
