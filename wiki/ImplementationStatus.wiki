@@ -130,8 +130,8 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 
 == Notification Events ==
 || *wiki* || *Event* || *Implemented* || *IE 6* || *IE 7* || *IE 8* || *Firefox 2* || *Firefox 3* || *FF 2(XML)* || *FF 3(XML)* || *Chrome* || *Chrome(XML)* || *Safari* || *Safari(XML)* || *Opera* ||
-|| || [http://www.w3.org/TR/xforms11/#evt-insert xforms-insert] || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#evt-delete xforms-delete] || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-insert xforms-insert] || *Partially* || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#evt-delete xforms-delete] || *Partially* || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-valueChanged xforms-value-changed] || yes || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-valid xforms-valid] || *no* || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#evt-invalid xforms-invalid] || *Partially, because issue 103* || || || || || || || ||
@@ -200,6 +200,8 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
   * Relevant MIP does not work on controls
   * Constraint MIP does not work
   * Switch/Case do not work on FF3, they work on IE
+  * Insert still needs some work
+  * Delete still needs some work
   * Repeat
     * @startindex not working
   * Copy 
