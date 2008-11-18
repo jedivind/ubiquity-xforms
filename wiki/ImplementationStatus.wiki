@@ -68,7 +68,7 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
 || || [http://www.w3.org/TR/xforms11/#action-reset reset] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-load load] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-send send] || yes || || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#action-message message] || *in-progress* || || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-message message] || yes || || || || || || || || || || || || ||
 
 = XPath Functions =
 
@@ -199,6 +199,7 @@ All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_te
     * @appearance(full[radiobox]:compact[list])
   * Relevant MIP does not work on controls
   * Constraint MIP does not work
+  * Switch/Case do not work on FF3, they work on IE
   * Repeat
     * @startindex not working
   * Copy 
