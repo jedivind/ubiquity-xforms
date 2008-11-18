@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -56,12 +56,6 @@
 					<td>Checks that the select's itemset is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:select[@ref='/carOrder' and @model='order']/xforms:itemset[@nodeset='/carsAvailable/car' and @model='invalidModel']/xforms:action[@ev:event='xforms-binding-exception']/xforms:message</td>
-					<td></td>
-					<td>Checks that the message is in the form</td>
-				</tr>
-				<tr>
 					<td>verifyElementNotPresent</td>
 					<td>xpath=/html/body/xforms:model[@id='invalidModel']</td>
 					<td></td>
@@ -72,12 +66,6 @@
 					<td>[XForms]*xforms-binding-exception*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
-					<td>close</td>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 			</tbody>
 		</table>

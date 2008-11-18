@@ -1,4 +1,5 @@
 <?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:xforms="http://www.w3.org/2002/xforms" 
       xmlns:my="http://commerce.example.com/payment">
@@ -10,10 +11,10 @@
     <body>
         <xforms:model>
             <xforms:instance>
-                <payment method="cc" xmlns="http://commerce.example.com/payment">
-                    <number />
-                    <expiry />
-                </payment>
+                <my:payment method="cc" xmlns="http://commerce.example.com/payment">
+                    <my:number />
+                    <my:expiry />
+                </my:payment>
             </xforms:instance>
             <xforms:submission id="submit" method="post" action="http://xformstest.org/cgi-bin/echo.sh" />
         </xforms:model>
