@@ -3,12 +3,12 @@
     <specChapter chapterName="10. " productId="" chapterTitle="XForms Actions">
         <statusSummary>
             <numNormTotal>70</numNormTotal>
-            <numNormPass>19</numNormPass>
-            <numNormFail>51</numNormFail>
+            <numNormPass>21</numNormPass>
+            <numNormFail>49</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>70</numBasicTotal>
-            <numBasicPass>19</numBasicPass>
-            <numBasicFail>51</numBasicFail>
+            <numBasicPass>21</numBasicPass>
+            <numBasicFail>49</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -193,7 +193,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-insert</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -221,7 +221,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-insert</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -305,7 +305,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-insert</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -361,7 +361,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-delete</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
