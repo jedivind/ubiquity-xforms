@@ -204,7 +204,7 @@ Note: Appendix G and H tests not included
     * @appearance(full[radiobox]:compact[list])
   * Relevant MIP does not work on controls
   * Constraint MIP does not work
-  * Switch/Case do not work on FF3, they work on IE
+  * Switch/Case do not work on XHTML, they work on IE and FF(HTML)
   * Insert still needs some work
   * Delete still needs some work
   * Reset causes the script to run forever causing an error
