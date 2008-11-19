@@ -206,7 +206,14 @@ Note: Appendix G and H tests not included
   * Constraint MIP does not work
   * Switch/Case do not work on XHTML, they work on IE and FF(HTML)
   * Insert still needs some work
+    * @bind
+    * @model
+    * @at
+    * @position
   * Delete still needs some work
+    * @context
+    * @bind
+    * @at
   * Reset causes the script to run forever causing an error
   * Repeat
     * @startindex not working
