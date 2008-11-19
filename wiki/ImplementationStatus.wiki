@@ -3,6 +3,9 @@
 
 All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_testsuite/selenium/core/TestRunner.html?test=..%2F..%2Fxforms%2FTestSuite.html Selenium TestRunner]
 
+= W3C XForms 1.1 Test Suite Compliance Results Table =
+[http://ubiquity-xforms.googlecode.com/svn/branches/xforms-tests-and-examples/_testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/ResultsTable.html  Test Results for IE7]
+
 = *Legend* =
 *wiki:* _Wiki Feature Page_
 
