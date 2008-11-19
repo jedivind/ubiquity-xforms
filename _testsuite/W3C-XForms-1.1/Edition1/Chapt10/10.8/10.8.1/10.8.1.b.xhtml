@@ -27,8 +27,9 @@
 		<xforms:trigger>
 	        <xforms:label>Rebuild</xforms:label>
 	        <xforms:action ev:event="DOMActivate">
-				<xforms:dispatch name="custom-event" target="mymodel"/>
+				<xforms:dispatch name="custom-event" target="mymodel">
 					<xforms:name>xforms-rebuild</xforms:name>
+				</xforms:dispatch>
 			</xforms:action>
 		</xforms:trigger>
 
