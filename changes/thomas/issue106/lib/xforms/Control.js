@@ -269,14 +269,6 @@ Control.prototype.xrewire = function() {
     }
 
     var ctxBoundNode = this.getBoundNode(1);
-    
-    // This is added for thr FormsA processing but I think it 
-    // also prevent further processing if the node is empty although
-    // I don't have a use case when this might happen.
-    if (!ctxBoundNode.node) {
-        return bRet;
-    }
-
     var oPN = null;
 
     // [ISSUE] In theory even if the model attribute had changed by now, this
@@ -293,8 +285,10 @@ Control.prototype.xrewire = function() {
 
     if (sValueExpr) {
         var ctx = ctxBoundNode;
-        if (ctxBoundNode.model == null && ctxBoundNode.node == null)
+        if (ctxBoundNode.model === null && 
+            ctxBoundNode.node  === null) {
             ctx = this.getEvaluationContext();
+        }
         oPN = ctx.model.addControlExpression(this, ctx.node, sValueExpr);
         bRet = true;
     } else if (ctxBoundNode.node) {
