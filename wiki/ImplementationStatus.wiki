@@ -60,7 +60,7 @@ Note: Appendix G and H tests not included
 || || [http://www.w3.org/TR/xforms11/#action-conditional conditional] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-iteration iteration] || || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-action action] || yes || || || || || || || || || || || || ||
-|| || [http://www.w3.org/TR/xforms11/#action-setvalue setvalue] || || || || || || || || || || || || || ||
+|| || [http://www.w3.org/TR/xforms11/#action-setvalue setvalue] || *Partially* || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-setindex setindex] || *no*  || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-insert insert] || yes || || || || || || || || || || || || ||
 || || [http://www.w3.org/TR/xforms11/#action-delete delete] || yes || || || || || || || || || || || || ||
@@ -171,6 +171,7 @@ Note: Appendix G and H tests not included
   *  Implement missing features
 
 == Missing Features for XForms 1.1 ==
+  * Setvalue basically works, but display should be none
   * Setindex 
   * Upload 
     * @mediatype
