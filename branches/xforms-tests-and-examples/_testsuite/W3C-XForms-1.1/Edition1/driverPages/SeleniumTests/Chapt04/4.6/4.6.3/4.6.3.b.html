@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -66,21 +66,15 @@ Choose an option
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>100</td>
+					<td>200</td>
 					<td></td>
 					<td>Waits for the select to get the right value</td>
 				</tr>
 				<tr>
 					<td>verifyValue</td>
 					<td>xpath=/html/body/xforms:select/pe-value/input</td>
-					<td>Honda</td>
+					<td>hon</td>
 					<td>Checks that the select is bound correctly</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_tracker']/xforms:instance[@id='tracker_instance']/et:events/et:event[2]/@name</td>
-					<td>xforms-select (select)</td>
-					<td>Checks that the instance has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
@@ -118,7 +112,7 @@ Choose an option
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>100</td>
+					<td>200</td>
 					<td></td>
 					<td>Waits for the select1 to get the right value</td>
 				</tr>
@@ -127,12 +121,6 @@ Choose an option
 					<td>xpath=/html/body/xforms:select1/pe-value/input</td>
 					<td>Honda</td>
 					<td>Checks that the select1 is bound correctly</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_tracker']/xforms:instance[@id='tracker_instance']/et:events/et:event[3]/@name</td>
-					<td>xforms-select (select1)</td>
-					<td>Checks that the instance has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
@@ -160,11 +148,11 @@ Choose an option
 					<td>click</td>
 					<td>xpath=/html/body/xforms:select1//div[@class='pe-choices']/xforms:item[4]/xforms:label</td>
 					<td></td>
-					<td>Clicks on "Honda"</td>
+					<td>Clicks on "Toyota"</td>
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>100</td>
+					<td>200</td>
 					<td></td>
 					<td>Waits for the select1 to get the right value</td>
 				</tr>
@@ -173,18 +161,6 @@ Choose an option
 					<td>xpath=/html/body/xforms:select1/pe-value/input</td>
 					<td>Toyota</td>
 					<td>Checks that the select1 is bound correctly</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_tracker']/xforms:instance[@id='tracker_instance']/et:events/et:event[4]/@name</td>
-					<td>xforms-deselect (select1)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_tracker']/xforms:instance[@id='tracker_instance']/et:events/et:event[5]/@name</td>
-					<td>xforms-select (select1)</td>
-					<td>Checks that the instance has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
