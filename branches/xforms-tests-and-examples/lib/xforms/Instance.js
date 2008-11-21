@@ -20,13 +20,22 @@ function Instance(elmnt) {
 	this.element["elementState"] = 1;
 	
 	UX.addStyle(this.element, "display", "none"); 
+
+    // If the parent node duck types to a model, then invoke its XPath evaluator 
+    // in preference to the prototype default XPath eval function
+    if (this.element.parentNode && typeof this.element.parentNode.EvaluateXPath === "function") {
+        this.evalXPath = function (expr, contextNode) { 
+           return this.element.parentNode.EvaluateXPath(expr, contextNode || this.m_oDOM.documentElement); 
+        };     
+    }
 }
 
 Instance.prototype.finishLoad = function () {
     var ret = false;
     if (this.m_oDOM && this.m_oDOM.documentElement) {
         ret = true;
-        this.element.parentNode.flagRebuild();
+        if (typeof this.element.parentNode.flagRebuild === "function")
+            this.element.parentNode.flagRebuild();
         this.m_oDOM.XFormsInstance = this;
         this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
     } else if (!this.element["elementState"]) {
@@ -158,7 +167,9 @@ Instance.prototype.parseInstance = function () {
 };
 
 Instance.prototype.getDocument = function () {
-	this.m_oDOM.XFormsInstance = this;
+    if (this.m_oDOM) { // guard
+	    this.m_oDOM.XFormsInstance = this;
+    }
 	return this.m_oDOM;
 };
 
@@ -183,9 +194,8 @@ Instance.prototype.onContentReady = Instance.prototype.initialisedom;
 // position in that list. If no position is specified then the entire
 // list is deleted.
 //
-Instance.prototype.deleteNodes = function (inscopeContext, contextExpr, nodesetExpr, atExpr) {
-    var contextNode = (contextExpr) ?  this.evalXPath(contextExpr, inscopeContext).nodeSetValue()[0] : inscopeContext,
-	    ns = this.evalXPath(nodesetExpr, contextNode).nodeSetValue(),
+Instance.prototype.deleteNodes = function (contextNode, nodesetExpr, atExpr) {
+    var ns = this.evalXPath(nodesetExpr, contextNode).nodeSetValue(),
 		at = (atExpr) ? Math.round(this.evalXPath(atExpr, contextNode).numberValue()) : undefined,
 		i, node, nsDeleted = [ ], evt;
 
@@ -242,13 +252,12 @@ Instance.prototype.deleteNodes = function (inscopeContext, contextExpr, nodesetE
 	}
 };// deleteNodes()
 
-Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetExpr, atExpr, position, originExpr) {
-    var contextNode = (contextExpr) ?  this.evalXPath(contextExpr, inscopeContext).nodeSetValue()[0] : inscopeContext,
-        ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, contextNode).nodeSetValue() : null,
-        nsOrigin = (originExpr) ? this.evalXPath(originExpr, contextNode).nodeSetValue() 
-                                : ((ns) ? ns[ns.length-1] : null),
-        at, after, i, node, insertLocationNode, insertBeforeNode, nsInserted = [ ], evt;
-        
+Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr, atExpr, position, originExpr) {
+    var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, contextNode).nodeSetValue() : null;
+    var nsOrigin = (originExpr) ? this.evalXPath(originExpr, contextNode).nodeSetValue() 
+                                : ((ns) ? new Array(ns[ns.length-1]) : null);
+    var at, after, i, node, insertLocationNode, insertBeforeNode, cloneNode, nsLocationNode = [ ], nsInserted = [ ], evt;    
+    
     // If there's no context node, then insertion is not possible, so
     // we'll just no-op in that case.
     //
@@ -266,7 +275,8 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
             at = at < 1 ? 1 : (at <= ns.length ? at : ns.length);
                     
             insertLocationNode = ns[at-1];
-            
+            nsLocationNode.push(insertLocationNode);
+
             after = (position) ? (position !== 'before') : true;
             
             if (after) {
@@ -280,28 +290,24 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
             // if insertBeforeNode is null, then insertBefore() apppends the nodes
             //
             for (i=0; i < nsOrigin.length; i++) {
-                nsInserted.push(
-                    insertLocationNode.parentNode.insertBefore(
-                        nsOrigin[i].cloneNode(true), 
-                        insertBeforeNode
-                    )
-                );
+                cloneNode = nsOrigin[i].cloneNode(true);
+                insertLocationNode.parentNode.insertBefore(cloneNode, insertBeforeNode);
+                nsInserted.push(cloneNode);
             }        
         } // end if (non-empty nodeset) 
         
-        // If there is no nodeset but there is a context node into which an insertion can occur, 
-        // and if there are one or more origin nodes, then we can proceed with insertion
+        // If there is no nodeset but there is a context attribute that indicates a node into 
+        // which an insertion can occur, and if there are one or more origin nodes, then 
+        // we can proceed with insertion
         //
-        else if (nsOrigin && nsOrigin.length > 0) {
+        else if (contextExpr && nsOrigin && nsOrigin.length > 0) {
             insertLocationNode = contextNode;
+            nsLocationNode.push(insertLocationNode);
             insertBeforeNode = (insertLocationNode.firstChild) ? insertLocationNode.firstChild : null;
             for (i=0; i < nsOrigin.length; i++) {
-                nsInserted.push(
-                    insertLocationNode.insertBefore(
-                        nsOrigin[i].cloneNode(true), 
-                        insertBeforeNode
-                    )
-                );
+                cloneNode = nsOrigin[i].cloneNode(true);
+                insertLocationNode.insertBefore(cloneNode, insertBeforeNode);
+                nsInserted.push(cloneNode);
             }                
         }
     } // end if (contextNode)
@@ -311,11 +317,11 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
     if (nsInserted.length) {
         evt = document.createEvent("Events");
         evt.initEvent("xforms-insert", true, false);
-        
+
         evt.context = {
             "inserted-nodes" : nsInserted,
             "origin-nodes" : nsOrigin,
-            "insert-location-node" : insertLocationNode,
+            "insert-location-node" : nsLocationNode,
             "position" : (after ? "after" : "before")
         };
         FormsProcessor.dispatchEvent(this, evt);
@@ -329,7 +335,8 @@ Instance.prototype.insertNodes = function (inscopeContext, contextExpr, nodesetE
 
 // Evaluate an XPath expression against this instance.
 // If no context is given, the default is the document element of the instance 
-//
+// NOTE: This is a default evaluator, but instances that are part of a model
+//       use the model's evaluator instead.
 Instance.prototype.evalXPath = function (expr, contextNode) {
 	return xpathDomEval(expr, contextNode || this.m_oDOM.documentElement);
 };

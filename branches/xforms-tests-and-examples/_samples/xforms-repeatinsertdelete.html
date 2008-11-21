@@ -30,19 +30,24 @@
 	</head>
   <body class="yui-skin-sam">
 		<xf:model>
-			<xf:instance>
+			<xf:instance id="data">
 				<data xmlns="">
-					<numbers>
+				  <numbers>
 				    <number>7</number>
 				    <number>3</number>
 				    <number>1</number>
 				  </numbers>
-				  <prototype>
-				  	<number>0</number>
-				  </prototype>
 				  <sum></sum>
 				</data>
 			</xf:instance>
+            <xf:instance id="proto">
+                <data xmlns="">
+                  <numbers>
+                    <number>0</number>
+                  </numbers>
+                  <sum></sum>
+                </data>
+            </xf:instance>
 			<xf:bind nodeset="sum" calculate="sum(../numbers/number)"></xf:bind>
 		  <xf:submission id="sendData" 
                          method="post" 
@@ -65,7 +70,8 @@
     <xf:trigger>
     	<xf:label>Add a number</xf:label>
     	<xf:action ev:event="DOMActivate">
-    	  <xf:insert context="numbers" nodeset="number" at="index('R')" origin="../prototype/number"></xf:insert>
+    	  <xf:insert context="numbers" nodeset="number" at="index('R')" 
+    	             origin="instance('proto')/numbers/number"></xf:insert>
     	</xf:action>
     </xf:trigger>
     
@@ -73,7 +79,9 @@
     	<xf:label>Delete a number</xf:label>
     	<xf:action ev:event="DOMActivate">
     	  <xf:delete context="numbers" nodeset="number" at="index('R')"></xf:delete>
-    	  <xf:insert context="numbers" origin="../prototype/number" if="count(/data/numbers/number)=0"></xf:insert>
+    	  <xf:insert context="numbers" 
+    	             origin="instance('proto')/numbers/number" 
+    	             if="count(number)=0"></xf:insert>
     	</xf:action>
     </xf:trigger>
 

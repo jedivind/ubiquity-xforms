@@ -63,7 +63,8 @@ function _getEvaluationContext(pThis, nOrdinal) {
 
     var oRet = {
             model :null,
-            node :null
+            node :null,
+            initialContext :null
         };
 
     if (!nOrdinal || isNaN(nOrdinal)) {
@@ -73,14 +74,16 @@ function _getEvaluationContext(pThis, nOrdinal) {
     if (pThis.m_context && nOrdinal === 1) {
         return { 
             model : pThis.m_context.model,
-            node  : pThis.m_context.node 
+            node  : pThis.m_context.node,
+            initialContext : pThis.m_context.initialContext
         };
     } 
     
     if (pThis.m_arrNodes) {
         return { 
             model : pThis.m_model,                 
-            node  : pThis.m_arrNodes[nOrdinal - 1] 
+            node  : pThis.m_arrNodes[nOrdinal - 1],
+            initialContext : pThis.m_arrNodes[nOrdinal - 1]
         };
     }
 
@@ -96,6 +99,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
         if (oBind && oBind.ownerModel && oBind.boundNodeSet) {
             oRet.model = oBind.ownerModel;
             oRet.node  = oBind.boundNodeSet;
+            oRet.initialContext = oBind.boundNodeSet;
         } else {
             // Dispatch xforms-binding-exception if bind is not resolved 
             UX.dispatchEvent(oElement, "xforms-binding-exception", 
@@ -140,10 +144,21 @@ function _getEvaluationContext(pThis, nOrdinal) {
         oRet = _getParentEvaluationContext(pThis);     
     }
     
+    // If pThis has a context attribute, then we save the context node obtained so far
+    // then evaluate the context attribute to determine the new value for node.
+    oRet.initialContext = oRet.node;
+    var sContext = oElement.getAttribute("context");
+    if (sContext) {
+        oRet.node = getFirstNode(oRet.model.EvaluateXPath(sContext, oRet.initialContext, pThis.element));
+    }
+
+    // Store the context in pThis    
     pThis.m_context = {
         model :oRet.model,
-        node : oRet.node
+        node : oRet.node,
+        initialContext : oRet.initialContext
     };
+    
     return oRet;
 }
 
@@ -221,7 +236,7 @@ function _getBoundNode(pThis, nOrdinal) {
     if (oProxy && !oProxy.m_xpath) {
         
         if (!pThis.m_model) {
-            pThis.m_model = _getEvaluationContext(pThis).m_model;
+            pThis.m_model = _getEvaluationContext(pThis).model;
         }
         return { model : pThis.m_model, 
                  node  : oProxy };
@@ -260,7 +275,7 @@ function _getBoundNode(pThis, nOrdinal) {
 
     var sRef = oElement.getAttribute("ref");
     var sNodeset = oElement.getAttribute("nodeset");
-    var sName = oElement.getAttribute("name");
+    var sName = FormsAProcessor.getAttribute(oElement, "name");
 
     if (!sRef && !sNodeset && !sName) {
         // Return if no ref | nodeset | name to evaluate
@@ -281,7 +296,7 @@ function _getBoundNode(pThis, nOrdinal) {
     
     if (sRef && nOrdinal == 1) {        
         var oRefNode = 
-            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, pThis.element));
+            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, oElement));
 
         if (!oRefNode) {
             // Lazy authoring, 
@@ -299,7 +314,7 @@ function _getBoundNode(pThis, nOrdinal) {
                 // If we created the node from lazy authoring, we need to verify 
                 // that it it is actually created properly
                 oRefNode = 
-                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, pThis.element));
+                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, oElement));
                 
                 // Form controls are considered to be non-relevant if any of the 
                 // following apply:
@@ -312,16 +327,22 @@ function _getBoundNode(pThis, nOrdinal) {
         
         if (!pThis.m_arrNodes) {            
             pThis.m_arrNodes = 
-                pThis.m_model.EvaluateXPath(sNodeset, oRet.node, pThis.element).value;
+                pThis.m_model.EvaluateXPath(sNodeset, oRet.node, oElement).value;
         }
         oRet.node = pThis.m_arrNodes[nOrdinal - 1];
-    }    
+    } else if (sName) {
+        // Forms-A
+        oRet.node = FormsAProcessor.processElement(
+                pThis.m_model, oRet.node, oElement, sName);
+    }
+    
     return oRet;
 }
 
 
 function _getDefaultInstanceDocument(oModel) {    
     var oInstDoc = null;
+    var instanceNode = null;
     
     try {
         // try to get the default instance document,
@@ -333,8 +354,8 @@ function _getDefaultInstanceDocument(oModel) {
     var namespaceURI = "http://www.w3.org/2002/xforms";
     // Create a default instance 
     if (UX.isXHTML) {
-        var instanceRoot = document.createElementNS("instanceData", "");
-        instanceNode = document.createElementNS("instance", namespaceURI);
+        var instanceRoot = document.createElementNS("", "instanceData");
+        instanceNode = document.createElementNS(namespaceURI, "instance");
         instanceNode.appendChild(instanceRoot);
      } else {
         var sPrefix = NamespaceManager.getOutputPrefixesFromURI(namespaceURI)[0];
@@ -343,5 +364,11 @@ function _getDefaultInstanceDocument(oModel) {
      }
     
     oModel.appendChild(instanceNode);
+    
+    if (UX.isIE || !UX.hasDecorationSupport) {
+        // Force immediate decoration of instance element for IE and
+        // browser that doesn't support decoration
+        DECORATOR.attachDecoration(instanceNode, true, true);
+    }
     return oModel.getInstanceDocument();
 }

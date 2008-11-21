@@ -26,7 +26,7 @@ var g_sBehaviourDirectory  = "";
     
   	window.status = "configuring module loader";  	
   	
-  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../default.css"});
+  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../assets/style/default.css"});
   
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
   		requires: [ "connection" ] });
@@ -107,10 +107,10 @@ var g_sBehaviourDirectory  = "";
   		requires: [ "xforms-dom2events" ] });
   
   	//actions
-  	loader.addModule({ name: "xforms-action",              type: "js",  fullpath: moduleBase + "xf-action.js",
-  		requires: [ "xforms-listener", "xforms-threads" ] });
   	loader.addModule({ name: "xforms-actions",              type: "js",  fullpath: moduleBase + "actions.js",
   		requires:["container", "xforms-message-css", "yui-style-css", "xforms-notify", "message-yui"]});  
+  	loader.addModule({ name: "xforms-action",              type: "js",  fullpath: moduleBase + "xf-action.js",
+  		requires: [ "xforms-listener", "xforms-threads", "xforms-actions" ] });
   	loader.addModule({ name: "xforms-model-actions",        type: "js",  fullpath: moduleBase + "modelactions.js",
   		requires:["xforms-actions","xforms-processor"]});  
 
@@ -142,6 +142,9 @@ var g_sBehaviourDirectory  = "";
 
     //     -- YUI --
 
+  	loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: moduleBase + "../_platform/yui/xforms-submission-yui.js",
+  		requires: [ "connection" ] });
+
     // ColorPicker widget
   	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: moduleBase + "../extensions/input-color.js",
   		requires: ["yui-color","yui-colorpicker-css"]});
@@ -165,11 +168,14 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "yui-style-css",       type: "css", fullpath: moduleBase + "../_platform/yui/message-panel.css" });
     loader.addModule({ name: "xforms-notify",       type: "js",  fullpath: moduleBase + "../_backplane/notify.js" });
     loader.addModule({ name: "message-yui",         type: "js",  fullpath: moduleBase + "../_platform/yui/message.js" });
-	loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + "style/hint.css" });
-	loader.addModule({ name: "xforms-message-css",  type: "css", fullpath: moduleBase + "style/message.css" });
+	loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + "../../assets/style/hint.css" });
+	loader.addModule({ name: "xforms-message-css",  type: "css", fullpath: moduleBase + "../../assets/style/message.css" });
 
     loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "hint.js",
       requires: [ "xforms-hint-css", "xforms-notify" ] });
+
+    // FormsA Processor
+    loader.addModule( { name: "formsA",  type: "js",  fullpath: moduleBase + "formsA.js"});
 
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
       requires: [
@@ -187,7 +193,8 @@ var g_sBehaviourDirectory  = "";
         "xforms-toggle", 
         "xforms-submit",
         "xforms-hint",
-        "yui-input-calendar","yui-input-color"
+        "yui-input-calendar","yui-input-color",
+        "formsA","xforms-submission-core-yui"
       ]
     });
     loader.require( "xforms-defs" );

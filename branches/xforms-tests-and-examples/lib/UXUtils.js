@@ -294,3 +294,30 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
           FormsProcessor.dispatchEvent(oTarget, oEvent);
        }
     };
+
+    /**
+     * Utility method to create an element in a namespace
+     */    
+
+    UX.createElementNS = function(oNode, sNamespaceURI , sQualifiedName) {
+        var oElement = null;
+        var sPrefix  = null;
+        var oDocument = oNode  ? oNode.ownerDocument : document;
+        var oPrefixes = null;
+                
+        if (UX.isXHTML) {
+            oElement = oDocument.createElementNS(sNamespaceURI, sQualifiedName);
+        } else {
+            oPrefixes = NamespaceManager.getOutputPrefixesFromURI(sNamespaceURI);
+        
+            if (oPrefixes && oPrefixes.length > 0) {
+                sPrefix = oPrefixes[0];
+            } else if (sNamespaceURI === "http://www.w3.org/2002/xforms") {
+                // If xforms's namespace is not defined in document header
+                // assume prefix to be xf (This is needed for the html forms-a)
+                sPrefix = "xf";
+            }            
+            oElement = oDocument.createElement(sPrefix + ":" + sQualifiedName);
+        }
+        return oElement;
+    }
