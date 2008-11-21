@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -56,6 +56,12 @@
 					<td>Checks to see if the message showed up</td>
 				</tr>
 				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
+					<td></td>
+					<td>Clicks on OK button</td>
+				</tr>
+				<tr>
 					<td>verifyElementPresent</td>
 					<td>xpath=/html/body/xforms:input</td>
 					<td></td>
@@ -66,12 +72,6 @@
 					<td>xpath=/html/body/xforms:input/pe-value/input</td>
 					<td>Toyota</td>
 					<td>Checks that the input has the right value</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>dom=document.body.getElementsByTagName("message")[0].yahooPanel.firstButton</td>
-					<td></td>
-					<td>Clicks on the button</td>
 				</tr>
 			</tbody>
 		</table>
