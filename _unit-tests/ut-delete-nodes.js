@@ -62,7 +62,7 @@
 			// then deleting the first one in that list.
 			//
 			testDeleteNodeNodsetOfOneIndexOfOneItemFromPurchaseOrder: function() {
-				Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item[2]", "1"));
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item[2]", "1"));
 
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue());
@@ -73,7 +73,7 @@
 			// deleting the second one.
 			//
 			testDeleteNodeNodsetOfManyIndexOfTwoItemFromPurchaseOrder: function() {
-				Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item", "2"));
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "2"));
 
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue());
@@ -84,7 +84,7 @@
 			// the last one.
 			//
 			testDeleteNodeNodsetOfManyIndexOfCountItemFromPurchaseOrder: function() {
-				Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item", "count(item)"));
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "count(item)"));
 
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue());
@@ -95,7 +95,7 @@
 			// deleting the entire list.
 			//
 			testDeleteNodeNodsetOfOneNoAtItemFromPurchaseOrder: function() {
-				Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item[2]"));
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item[2]"));
 
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue());
@@ -105,7 +105,7 @@
 			// Delete the entire list, and check that no items remain.
 			//
 			testDeleteNodeNodsetOfTwoNoAtItemFromPurchaseOrder: function() {
-				Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item"));
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item"));
 
 				Assert.areEqual(0, suite.testInstance.evalXPath('count(item)').numberValue());
 				return;
@@ -114,8 +114,8 @@
             // Delete with 'at' out of range
             //
             testDeleteNodeWithOutOfRangeAtValue: function() {
-                Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item", "0"));
-                Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item", "100"));
+                Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "0"));
+                Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "100"));
 
                 Assert.areEqual(0, suite.testInstance.evalXPath('count(item)').numberValue());
                 return;
@@ -124,7 +124,7 @@
             // Delete with non-numeric 'at'
             //
             testDeleteNodeWithNanAtValue: function() {
-                Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item", "'NaN'"));
+                Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "'NaN'"));
 
                 Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
                 Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue(),
@@ -135,7 +135,7 @@
             // Delete with 'at' value rounding down
             //
             testDeleteNodeWithAtValueRoundingDown: function() {
-                Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item", "1.2"));
+                Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "1.2"));
                 
                 // Should still have the second one (SKU-4711)
                 Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-4711"])').numberValue());
@@ -145,7 +145,7 @@
             // Delete with 'at' value rounding up
             //
             testDeleteNodeWithAtValueRoundingUp: function() {
-                Assert.isTrue(suite.testInstance.deleteNodes(null, null, "item", "1.7"));
+                Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "1.7"));
                 
                 // Should still have the first one (SKU-0815)
                 Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue());
@@ -155,8 +155,8 @@
 			// Try to delete the non-existent third item in various ways.
 			//
 			testDeleteNodeFailToDeleteItemFromPurchaseOrder: function() {
-				Assert.isFalse(suite.testInstance.deleteNodes(null, null, "item[3]", "1"));
-				Assert.isFalse(suite.testInstance.deleteNodes(null, null, "item[3]"));
+				Assert.isFalse(suite.testInstance.deleteNodes(null, "item[3]", "1"));
+				Assert.isFalse(suite.testInstance.deleteNodes(null, "item[3]"));
 
 				Assert.areEqual(2, suite.testInstance.evalXPath('count(item)').numberValue());
 				return;
