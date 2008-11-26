@@ -72,21 +72,24 @@
 
 <hr size="6" class="rule"></hr>
 
-<!--  It's a hack to use .. for reference of a value, Forms-A  
-      should generate the proper bind which will be part of the second phase impl.  
--->
-<xf:output id="o1" fa:name="rates"
-   fa:calculate="terms/interestrate div 1200.0">
-   <xf:label>Yearly Interest Rate:</xf:label>
-</xf:output>
-<xf:output id="o2" fa:name="totalpayout"
-   fa:calculate="ceiling(principal + (125 * terms/interestrate * (terms/duration * 0.1)))">
-   <xf:label>Total Payout:</xf:label>
-</xf:output>
-<xf:output id="o3" fa:name="monthly-payment"
-   fa:calculate="ceiling(totalpayout div terms/duration)">
-   <xf:label>Monthly Payment:</xf:label>
-</xf:output>
+<xf:group>
+
+    <xf:output id="o1" fa:name="rates"
+        fa:calculate="terms/interestrate div 1200.0">
+        <xf:label>Yearly Interest Rate:</xf:label>
+    </xf:output>
+    
+    <xf:output id="o3" fa:name="monthly-payment"
+        fa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1))) div terms/duration">
+        <xf:label>Monthly Payment:</xf:label>
+    </xf:output>
+    
+    <xf:output id="o2" fa:name="totalpayout"
+        fa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1)))">
+        <xf:label>Total Payout:</xf:label>
+    </xf:output>
+    
+</xf:group>
 
 <hr size="6" class="rule"></hr>
 <script>
