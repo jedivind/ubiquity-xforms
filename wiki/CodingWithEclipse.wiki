@@ -98,10 +98,10 @@ Finally, at the end of this page, there are some instructions on setting up Subv
     # Click Install...
   # *Environment set up*
     # Window | Preferences
-    # General | Editors | Text Editors
+    # Go to General | Editors | Text Editors
       * Set "Displayed Tab width: 4" and check "Insert spaces for tabs"
-    # General | Team | SVN | Properties Configuration
-    # On Automatic Properties tab, click Add button to add each of the following
+    # Go to Team | SVN | Properties Configuration
+    # On the Automatic Properties tab, click Add button to add each of the following
 {{{
 	    Filename template   Properties
 	    *.pdf               svn:mime-type=application/pdf
