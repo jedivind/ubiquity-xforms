@@ -78,21 +78,23 @@ Finally, at the end of this page, there are some instructions on setting up Subv
 = Setting up Subversive for use in Ubiquity XForms =
 
   # *Install Subversive plugin* 
-    # Visit http://www.eclipse.org/subversive
-    # Click "Downloads" and follow the instructions (particulars in the following steps)
+    # Either navigate to http://www.eclipse.org/subversive, click "Downloads" on left panel, click link to install instructions,
+    # Or follow instructions below.
     # In Eclipse, choose menu Help | Software Updates
     # Click Available Software tab
     # Must install Subversive plugin
       * It's under the Ganymede Update Site (http://download.eclipse.org/release/ganymede)
       * Then, open up the Collaboration Tools
       * Choose the checkbox for Subversive SVN Team Provider (choose the incubation 0.7.3 release)
-    # Must install checkbox for Subversive Connectors (incubation) as follows
+    # Before proceeding to install, must also install Subversive Connectors (incubation) as follows
       * Click "Add Site..."
-      * Add the site indicated on the downloads site 
-        * Click external site link (http://www.polarion.com/products/svn/subversive.php?src=eclipseproject)
-        * Use update site http://www.polarion.org/projects/subversive/download/eclipse/2.0/update-site/
-      * Open the Subversive SVN Connectors subtree
-      * Choose the child Subversive SVN Connectors and SVN Kit 1.1.7 (the latter is marked optional, but it isn't)
+      * Add the external update site indicated on the Downloads site 
+        * To find out the update site, click external site link (http://www.polarion.com/products/svn/subversive.php?src=eclipseproject)
+        * Or, just use the following update site (the current one) http://www.polarion.org/projects/subversive/download/eclipse/2.0/update-site/
+        * Click OK to add the site
+      * Back on the Available Software tab, 
+        * Open the Subversive SVN Connectors subtree
+        * Choose the child Subversive SVN Connectors and SVN Kit 1.1.7 (the latter is marked optional, but it isn't)
     # Click Install...
   # *Environment set up*
     # Window | Preferences
