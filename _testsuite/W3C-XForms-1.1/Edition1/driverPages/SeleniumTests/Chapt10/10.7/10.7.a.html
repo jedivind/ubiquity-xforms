@@ -16,86 +16,116 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>10.3.a insert action using context attribute</title>
+		<title>10.7.a setfocus element</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">10.3.a insert action using context attribute<br>
+				  <td rowspan="1" colspan="3">10.7.a setfocus element<br>
 					</td>
 				</tr>
 				<tr>
 					<td>open</td>
-					<td>../../W3C-XForms-1.1/Edition1/Chapt10/10.3/10.3.a.xhtml</td>
+					<td>../../W3C-XForms-1.1/Edition1/Chapt10/10.7/10.7.a.xhtml</td>
 					<td>&nsp;</td>
 					<td>Opens the form</td>
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>10.3.a insert action using context attribute</td>
+					<td>10.7.a setfocus element</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:action[@ev:observer='mod1' and @ev:event='xforms-ready']/xforms:insert[@context="instance('second')" and @nodeset="number_list/number"]</td>
+					<td>xpath=/html/body/xforms:input</td>
 					<td></td>
-					<td>Checks that insert is in the form</td>
+					<td>Checks that input is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:action[@ev:observer='mod1' and @ev:event='xforms-ready']/xforms:insert[@context='number_list[3]' and @nodeset='number']</td>
+					<td>xpath=/html/body/xforms:repeat</td>
 					<td></td>
-					<td>Checks that insert is in the form</td>
+					<td>Checks that input is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:action[@ev:observer='mod1' and @ev:event='xforms-ready']/xforms:insert[7]</td>
+					<td>xpath=/html/body/xforms:trigger[1]</td>
 					<td></td>
-					<td>Checks that insert is in the form</td>
+					<td>Checks that trigger is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
-					<td>1*2*3*3</td>
-					<td>Checks that repeat has the right values</td>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[1]/xforms:action/xforms:setfocus</td>
+					<td></td>
+					<td>Checks that setfocus is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:repeat</td>
-					<td>4*5*6*6*6*6</td>
-					<td>Checks that repeat has the right values</td>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[2]</td>
+					<td></td>
+					<td>Checks that trigger is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[5]/xforms:repeat</td>
-					<td>0*0</td>
-					<td>Checks that repeat has the right values</td>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[2]/xforms:action/xforms:setfocus</td>
+					<td></td>
+					<td>Checks that setfocus is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[6]/xforms:repeat</td>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[3]</td>
 					<td></td>
-					<td>Checks that repeat has the right values</td>
+					<td>Checks that trigger is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[7]/xforms:repeat</td>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[3]/xforms:action/xforms:setfocus</td>
 					<td></td>
-					<td>Checks that repeat has the right values</td>
+					<td>Checks that setfocus is in the form</td>
 				</tr>
 				<tr>
-					<td>close</td>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[1]</td>
 					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>verifyCursorPosition</td>
+					<td>xpath=/html/body/xforms:input</td>
+					<td>1</td>
+					<td>Checks that the cursor is at the right position</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[2]</td>
 					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>verifyCursorPosition</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td>1</td>
+					<td>Checks that the cursor is at the right position</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[3]</td>
 					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>verifyCursorPosition</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td>1</td>
+					<td>Checks that the cursor is at the right position</td>
 				</tr>
 			</tbody>
 		</table>

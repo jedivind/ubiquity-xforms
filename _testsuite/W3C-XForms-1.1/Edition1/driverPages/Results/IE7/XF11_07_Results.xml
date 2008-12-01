@@ -95,7 +95,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#expr-eval</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -109,7 +109,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#ui-binding-examples</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -137,7 +137,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#expr-lib</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -151,7 +151,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-boolean-from-string</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -165,7 +165,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-is-card-number</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
