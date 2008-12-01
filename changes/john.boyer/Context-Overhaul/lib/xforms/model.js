@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-function processBinds(oModel, oElement, oContextNode) {
+function processBinds(oModel, oElement, oContext) {
 
     // getElementsByTagName Returns all descendent nodes with that tagName, not
     // just the children.
@@ -60,7 +60,7 @@ function processBinds(oModel, oElement, oContextNode) {
             sExpr = oBind.getAttribute("nodeset");
             
             if (sExpr) {
-                processBind(oBind, sExpr, oModel, oContextNode);
+                processBind(oBind, sExpr, oModel, oContext);
                 
             } else if (NamespaceManager.compareFullName(
                   oBind.parentNode, "bind", "http://www.w3.org/2002/xforms")) {
@@ -68,7 +68,7 @@ function processBinds(oModel, oElement, oContextNode) {
                 sExpr = oBind.getAttribute("context");
                 
                 if (sExpr) {
-                    processBind(oBind, sExpr, oModel, oContextNode);
+                    processBind(oBind, sExpr, oModel, oContext);
                 }
             }
         }
@@ -76,19 +76,19 @@ function processBinds(oModel, oElement, oContextNode) {
 } // processBinds()
 
 
-function processBind(oBind, sExpr, oModel, oContextNode) {
+function processBind(oBind, sExpr, oModel, oContext) {
     var oNodeset, oNode, oPN;
     var i, j;
     var sMIPName, sMIPVal;
     var modelItemProps = ["readonly", "required", "relevant", "calculate", 
                           "constraint" /*,  "type", "p3ptype" */ ];
-    var oRes = oModel.EvaluateXPath(sExpr, oContextNode);
+    var oRes = oModel.EvaluateXPath(sExpr, oContext);
     var oBinder = null;
     var oParentBind = null;
     
     if (oRes) {
         // The bind has an inline-context attribute
-        // we need to get the last parent with nodeset attribute
+        // we need to get the nearest ancestor with nodeset attribute
         if  (oBind.getAttribute("context")) {            
             oBinder = oBind.parentNode;
             
@@ -165,7 +165,15 @@ function processBind(oBind, sExpr, oModel, oContextNode) {
                         }
                         // Finally, process any nested bind statements
                         // in the context of this node.
-                        processBinds(oModel, oBind, oNode);
+                        processBinds(oModel, oBind, 
+                            {
+                                node: oNode,
+                                model: oModel,
+                                position: i,
+                                size: oNodeset.length,
+                                resolverElement: oBind
+                            }
+                        );
                     }
                 } // for ( each of the nodes in the node-list )
             }            
@@ -364,9 +372,9 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContextNode) {
     /*
      * Create an expression.
      */
-    var oCPE = (oVertex) ? new ComputedXPathExpression(oPN, sExpr,
-            oContextNode, pThis) : new MIPExpression(oPN, sExpr, oContextNode,
-            pThis);
+    var oCPE = (oVertex) 
+               ? new ComputedXPathExpression(oPN, sExpr, {node:oContextNode}, pThis) 
+               : new MIPExpression(oPN, sExpr, {node:oContextNode}, pThis);
     oPN[sMIPName] = oCPE;
 
     /*
@@ -391,37 +399,43 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContextNode) {
 } // createMIP()
 
 
-function _EvaluateXPath(pThis, sXPath, pContextResolver, oResolverElement) {
+function _EvaluateXPath(pThis, sXPath, oContext) {
     var oRet = null
-    var oContext = null;
-    
-    if (!pContextResolver) {
-        pContextResolver = pThis;
-    } else if (pContextResolver["m_oNode"]) {
-        pContextResolver = pContextResolver["m_oNode"];
-    }
 
-    var sType = typeof (pContextResolver.getEvaluationContext);
-    if (sType === "function" || sType === "unknown") {
-        oContext = pContextResolver.getEvaluationContext();
-        
-        // for an empty model getEvaluationContext 
-        // can return a context without a node, so check for it first!
-        if (oContext.node) {
-            // Shouldn't it be oContext.node["m_oNode"] ?? 
-            oContext = oContext.node["m_oNode"] ? 
-                 ["m_oNode"] : oContext.node;
+    if (!oContext) {
+        // If no context is given, get the default for the model
+        oContext = pThis.getEvaluationContext();
+/* weird: the code here replicates inexplicable behavior from a 
+          prior version of this method.  No tests reveal it to be
+          necessary, though, so it is commented out and should be
+          removed if noone can explain it in the code review.
+    } else if (oContext["m_oNode"]) {
+        var oNode = oContext["m_oNode"];
+        var sType = typeof (oNode.getEvaluationContext);
+        if (sType === "function" || sType === "unknown") {
+            oNode = oNode.getEvaluationContext();
+            if (oNode.node) {
+                oNode = oNode.node["m_oNode"] ? ["m_oNode"] : oNode.node;
+            }
         }
-    } else {
-        oContext = pContextResolver.node ? 
-                pContextResolver.node : pContextResolver;
+        oContext = { node: oNode };
+weird */
+    } else if (!oContext.node) {
+        // If only a context node is given, turn it into a context object
+        oContext = { node: oContext };
+    } 
+    
+    // If the context object doesn't contain a model or resolver element, add them
+    if (!oContext.model) {
+        oContext.model = pThis;
+    }
+    if (!oContext.resolverElement) {
+        oContext.resolverElement = pThis;
     }
 
     if (oContext) {
         try {
-            g_currentModel = pThis;
-            oRet = xpathDomEval(sXPath, oContext, oResolverElement);
-            g_currentModel = null;
+            oRet = xpathDomEval(sXPath, oContext);
         } catch (e) {
             //	this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
         }

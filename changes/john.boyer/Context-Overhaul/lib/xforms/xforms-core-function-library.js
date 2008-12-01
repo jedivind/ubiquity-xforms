@@ -989,7 +989,7 @@ FunctionCallExpr.prototype.xpathfunctions["context"] = function(ctx) {
     // nearest ancestor element of the node containing the XPath expression
     // that invokes this function.
     var ctxNode = ctx.resolverElement ?
-        ctx.resolverElement.getParentEvaluationContext().node : ctx.node;
+        ctx.resolverElement.getEvaluationContext().node : ctx.node;
 
     return new NodeSetValue([ctxNode.m_oNode]);
 };

@@ -37,16 +37,17 @@ Context.prototype.unwire = function() {
 /*
  * Return the evaluation context of the element.
  */
-Context.prototype.getEvaluationContext = function(nOrdinal) {
-    return _getEvaluationContext(this, nOrdinal);
+Context.prototype.getEvaluationContext = function() {
+    return _getEvaluationContext(this);
 };
 
 
 /*
- * If an element doesn't have an evaluation context then we use the parent's.
+ * If an element doesn't have an evaluation context, then we get it
+ * from the parent.
  */
-Context.prototype.getParentEvaluationContext = function(nOrdinal) {
-    return _getParentEvaluationContext(this, nOrdinal);
+Context.prototype.getEvaluationContextFromParent = function() {
+    return _getEvaluationContextFromParent(this);
 };
 
 
@@ -59,55 +60,26 @@ Context.prototype.getBoundNode = function(nOrdinal) {
 
 
 // Friend functions:
-function _getEvaluationContext(pThis, nOrdinal) {    
 
-    var oRet = {
-            model :null,
-            node :null,
-            initialContext :null
-        };
+/* 
+ * The object returned contains the context "node", the "model" that contains it,
+ * the "initialContext" node before evaluating the context attribute (or undefined
+ * if there is no context attribute), the "position" of the context node in a nodeset
+ * and the "size" of that nodeset if pThis is repeated (and undefined otherwise).
+ * Finally, the "resolverElement" is pThis, the element whose inscope evaluation
+ * context is being determined. 
+ */
+ 
+function _getEvaluationContext(pThis) {    
 
-    if (!nOrdinal || isNaN(nOrdinal)) {
-        nOrdinal = 1;
+    if (pThis.m_context) {
+        return pThis.m_context;
     }
-
-    if (pThis.m_context && nOrdinal === 1) {
-        return { 
-            model : pThis.m_context.model,
-            node  : pThis.m_context.node,
-            initialContext : pThis.m_context.initialContext
-        };
-    } 
-    
-    if (pThis.m_arrNodes) {
-        return { 
-            model : pThis.m_model,                 
-            node  : pThis.m_arrNodes[nOrdinal - 1],
-            initialContext : pThis.m_arrNodes[nOrdinal - 1]
-        };
-    }
-
+     
+    var oRet = null;
     var oElement = pThis.element;
     var oDocument = oElement.ownerDocument;
 
-    // If we have a bind attribute then use it to find the model 
-    // and evaluation context.
-    var sBindID = oElement.getAttribute("bind");
-    var oBind = oDocument.getElementById(sBindID);
-
-    if (sBindID) {
-        if (oBind && oBind.ownerModel && oBind.boundNodeSet) {
-            oRet.model = oBind.ownerModel;
-            oRet.node  = oBind.boundNodeSet;
-            oRet.initialContext = oBind.boundNodeSet;
-        } else {
-            // Dispatch xforms-binding-exception if bind is not resolved 
-            UX.dispatchEvent(oElement, "xforms-binding-exception", 
-                    false, true, true);
-        }
-        return oRet;
-    }
-        
     // If there is a model attribute, or the element *is* a model
     // then subject to further checks, the evaluation context
     // may be retrieved from the model itself.
@@ -126,7 +98,7 @@ function _getEvaluationContext(pThis, nOrdinal) {
                 // are identical, the evaluation context for pThis node is the context gleaned
                 // from its position within the document, to wit, the same context as though it 
                 // had no model attribute at all.
-                oRet = _getParentEvaluationContext(pThis);
+                oRet = _getEvaluationContextFromParent(pThis);
             } else {
                 // Where the above clause is false, i.e. a disparity exists between the model to which 
                 // the parent node is bound, and the model to which pThis node is bound, then pThis node is
@@ -141,29 +113,52 @@ function _getEvaluationContext(pThis, nOrdinal) {
         }
     } else {
         //Otherwise use the parent's evaluation context.
-        oRet = _getParentEvaluationContext(pThis);     
+        oRet = _getEvaluationContextFromParent(pThis);     
     }
     
-    // If pThis has a context attribute, then we save the context node obtained so far
+    // If pThis has a context attribute, then save the initial context node obtained so far
+    // and store the context into the element (in case @context invokes context()),
     // then evaluate the context attribute to determine the new value for node.
     oRet.initialContext = oRet.node;
+    oRet.resolverElement = pThis;
+    pThis.m_context = oRet;
     var sContext = oElement.getAttribute("context");
     if (sContext) {
-        oRet.node = getFirstNode(oRet.model.EvaluateXPath(sContext, oRet.initialContext, pThis.element));
+        oRet.node = getFirstNode(oRet.model.EvaluateXPath(sContext, pThis.m_context));
+        // If the context attribute changes the context node, then the
+        // initial context position and size are no longer usable
+        if (oRet.node !== oRet.initialContext) {
+            oRet.position = undefined;
+            oRet.size = undefined;
+        }
+    } else {
+        // With no context attribute, there is no need for initialContext,
+        // and in fact by making this assignment, the consumer of the context
+        // object can detect that there was no context attribute.
+        oRet.initialContext = undefined;
     }
 
     // Store the context in pThis    
     pThis.m_context = {
-        model :oRet.model,
+        model : oRet.model,
         node : oRet.node,
-        initialContext : oRet.initialContext
+        initialContext : oRet.initialContext,
+        position : oRet.position,
+        size : oRet.size,
+        resolverElement : pThis
     };
     
     return oRet;
 }
 
-
-function _getParentEvaluationContext(pThis, nOrdinal) {
+/* This method searches for the nearest ancestor of pThis that
+ * expresses a binding, and it selects the node that provides
+ * the initial inscope evaluation context for pThis.
+ * The object returned has the context node, the model
+ * containing it, and possibly a position and size.
+ */
+ 
+function _getEvaluationContextFromParent(pThis) {
     var oRet = {
         model :null,
         node :null
@@ -171,19 +166,28 @@ function _getParentEvaluationContext(pThis, nOrdinal) {
     var oElement = pThis.element
     var oParent  = oElement.parentNode;
     var oRoot    = oElement.ownerDocument.documentElement;
+    var oBoundNode = null;
     
+    // An ordinal attribute is attached to repeated elements to
+    // indicate the position in the nodeset of the node for which
+    // the repeated element was generated.
+    var nOrdinal = Number(oElement.getAttribute("ordinal"));
     if (!nOrdinal || isNaN(nOrdinal)) {
-        var nOrdinal = Number(oElement.getAttribute("ordinal"));
-        if (!nOrdinal || isNaN(nOrdinal)) {
-            nOrdinal = 1;
-        }
+        nOrdinal = 1;
+    } else {
+        oRet.position = nOrdinal;
     }
     
     while (oParent && oParent !== oRoot) {
         if (oParent.getBoundNode) {            
-            oRet = oParent.getBoundNode(nOrdinal);
-            if (oRet && (oRet.model || oRet.node)) {
+            oBoundNode = oParent.getBoundNode(nOrdinal);
+            if (oBoundNode && (oBoundNode.model || oBoundNode.node)) {
              // Now that a real context has been found, leave the loop
+                if (oRet.position) {
+                    oBoundNode.position = oRet.position;
+                    oBoundNode.size = oParent.m_arrNodes.length;
+                }
+                oRet = oBoundNode;
                 break;
             }
         }
@@ -222,7 +226,8 @@ function _getBoundNode(pThis, nOrdinal) {
     var sBindId  = oElement.getAttribute("bind");
     var oRet = {
             model : null,
-            node  : null
+            node  : null,
+            resolverElement : pThis
         };
     var i = 0;
     
@@ -238,8 +243,11 @@ function _getBoundNode(pThis, nOrdinal) {
         if (!pThis.m_model) {
             pThis.m_model = _getEvaluationContext(pThis).model;
         }
-        return { model : pThis.m_model, 
-                 node  : oProxy };
+        return { 
+            model : pThis.m_model, 
+            node  : oProxy,
+            resolverElement : pThis
+        };
     }
     
     if (NamespaceManager.getLowerCaseLocalName(pThis) === "model") {
@@ -296,7 +304,7 @@ function _getBoundNode(pThis, nOrdinal) {
     
     if (sRef && nOrdinal == 1) {        
         var oRefNode = 
-            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, oElement));
+            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
 
         if (!oRefNode) {
             // Lazy authoring, 
@@ -314,7 +322,7 @@ function _getBoundNode(pThis, nOrdinal) {
                 // If we created the node from lazy authoring, we need to verify 
                 // that it it is actually created properly
                 oRefNode = 
-                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, oElement));
+                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
                 
                 // Form controls are considered to be non-relevant if any of the 
                 // following apply:
@@ -327,7 +335,7 @@ function _getBoundNode(pThis, nOrdinal) {
         
         if (!pThis.m_arrNodes) {            
             pThis.m_arrNodes = 
-                pThis.m_model.EvaluateXPath(sNodeset, oRet.node, oElement).value;
+                pThis.m_model.EvaluateXPath(sNodeset, oRet).value;
         }
         oRet.node = pThis.m_arrNodes[nOrdinal - 1];
     } else if (sName) {
