@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -48,12 +48,6 @@
 					<td>xpath=/html/body/xforms:input[@bind='yearMonth_bind']</td>
 					<td></td>
 					<td>Checks that the input is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:bind[@id='yearMonth_bind' and @nodeset='/car/leaseLength' and @type='xforms:yearMonthDuration']</td>
-					<td></td>
-					<td>Checks that the bind has the listItem datatype</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
@@ -72,6 +66,12 @@
 					<td>[XForms]*You entered a valid yearMonthDuration*OK</td>
 					<td></td>
 					<td>Checks to see if any error messages showed up</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
+					<td></td>
+					<td>Clicks on OK button</td>
 				</tr>
 			</tbody>
 		</table>

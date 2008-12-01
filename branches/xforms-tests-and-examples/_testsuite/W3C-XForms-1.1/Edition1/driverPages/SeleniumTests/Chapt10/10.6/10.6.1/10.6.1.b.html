@@ -16,110 +16,122 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>10.2.b setvalue element with expression and literal, element with neither</title>
+		<title>10.6.1.b case element child of the toggle element precedence testing</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">10.2.b setvalue element with expression and literal, element with neither<br>
+				  <td rowspan="1" colspan="3">10.6.1.b case element child of the toggle element precedence testing<br>
 					</td>
 				</tr>
 				<tr>
 					<td>open</td>
-					<td>../../W3C-XForms-1.1/Edition1/Chapt10/10.2/10.2.b.xhtml</td>
+					<td>../../W3C-XForms-1.1/Edition1/Chapt10/10.6/10.6.1/10.6.1.b.xhtml</td>
 					<td>&nsp;</td>
 					<td>Opens the form</td>
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>10.2.b setvalue element with expression and literal, element with neither</td>
+					<td>10.6.1.b case element child of the toggle element precedence testing</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output[@ref='/car/originalColor']</td>
-					<td></td>
-					<td>Checks that output is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in' and @selected='true']/xforms:group/xforms:trigger</td>
 					<td></td>
 					<td>Checks that trigger is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:trigger/xforms:action[@ev:event='DOMActivate']/xforms:setvalue[@ref='/car/originalColor' and @value='/car/currentColor']</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in' and @selected='true']/xforms:group/xforms:trigger/xforms:toggle</td>
 					<td></td>
-					<td>Checks that setvalue is in the form</td>
+					<td>Checks that toggle is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:output[@ref='/car/originalCondition']</td>
-					<td></td>
-					<td>Checks that output is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:group/xforms:trigger</td>
 					<td></td>
 					<td>Checks that trigger is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:trigger/xforms:action[@ev:event='DOMActivate']/xforms:setvalue[@ref='/car/originalCondition']</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:group/xforms:trigger/xforms:toggle/xforms:case</td>
 					<td></td>
-					<td>Checks that setvalue is in the form</td>
+					<td>Checks that toggle is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output[@ref='/car/originalColor']</td>
-					<td>Color : white</td>
-					<td>Checks that output has the right value</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in' and @selected='true']/xforms:group/xforms:trigger/xforms:label/pe-value</td>
+					<td></td>
+					<td>Checks that the In Case is visible</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:group/xforms:trigger/xforms:label/pe-value</td>
+					<td></td>
+					<td>Checks that the Out Case is not visible</td>
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in' and @selected='true']/xforms:group/xforms:trigger</td>
 					<td></td>
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output[@ref='/car/originalColor']</td>
-					<td>Color : blue</td>
-					<td>Checks that output has the right value</td>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in' and @selected='true']/xforms:group/xforms:trigger/xforms:label/pe-value</td>
+					<td></td>
+					<td>Checks that the In Case is not visible</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:output[@ref='/car/originalCondition']</td>
-					<td>Condition : excellent</td>
-					<td>Checks that output has the right value</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:group/xforms:trigger/xforms:label/pe-value</td>
+					<td></td>
+					<td>Checks that the Out Case is visible</td>
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:group/xforms:trigger[@id='exit_btn']</td>
 					<td></td>
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:output[@ref='/car/originalCondition']</td>
-					<td>Condition : </td>
-					<td>Checks that output has the right value</td>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in' and @selected='true']/xforms:group/xforms:trigger/xforms:label/pe-value</td>
+					<td></td>
+					<td>Checks that the In Case is not visible</td>
 				</tr>
 				<tr>
-					<td>close</td>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:group/xforms:trigger/xforms:label/pe-value</td>
 					<td></td>
+					<td>Checks that the Out Case is not visible</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='exit' and @selected='true']/xforms:group/xforms:trigger</td>
 					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in' and @selected='true']/xforms:group/xforms:trigger/xforms:label/pe-value</td>
 					<td></td>
+					<td>Checks that the In Case is visible</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:group/xforms:trigger/xforms:label/pe-value</td>
+					<td></td>
+					<td>Checks that the Out Case is not visible</td>
 				</tr>
 			</tbody>
 		</table>

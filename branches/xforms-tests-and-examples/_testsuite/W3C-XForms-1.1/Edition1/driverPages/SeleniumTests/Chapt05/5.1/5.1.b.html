@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -45,6 +45,12 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td></td>
+					<td>Clecks that repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
 					<td>xpath=/html/body/xforms:trigger[1]</td>
 					<td></td>
 					<td>Checks that trigger is in the form</td>
@@ -63,143 +69,16 @@
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[1]</td>
-					<td>xforms-valid (normalizedString)</td>
-					<td>Checks that the instance has the right value</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td>*xforms-valid*xforms-valid*</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[2]</td>
-					<td>xforms-valid (token)</td>
-					<td>Checks that the instance has the right value</td>
+					<td>verifyNotText</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td>XFORMS-INVALID</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[3]</td>
-					<td>xforms-valid (language)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[4]</td>
-					<td>xforms-valid (Name)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[5]</td>
-					<td>xforms-valid (NCName)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[6]</td>
-					<td>xforms-valid (ID)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[7]</td>
-					<td>xforms-valid (IDREF)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[8]</td>
-					<td>xforms-valid (IDREFS)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[9]</td>
-					<td>xforms-valid (NMTOKEN)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[10]</td>
-					<td>xforms-valid (NMTOKENS)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[11]</td>
-					<td>xforms-valid (integer)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[12]</td>
-					<td>xforms-valid (nonPositiveInteger)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[13]</td>
-					<td>xforms-valid (negativeInteger)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[14]</td>
-					<td>xforms-valid (long)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[15]</td>
-					<td>xforms-valid (int)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[16]</td>
-					<td>xforms-valid (short)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[17]</td>
-					<td>xforms-valid (byte)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[18]</td>
-					<td>xforms-valid (nonNegativeInteger)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[19]</td>
-					<td>xforms-valid (unsignedLong)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[20]</td>
-					<td>xforms-valid (unsignedInt)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[21]</td>
-					<td>xforms-valid (unsignedShort)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[22]</td>
-					<td>xforms-valid (unsignedByte)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[23]</td>
-					<td>xforms-valid (positiveInteger)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				
 				<tr>
 					<td>verifyElementPresent</td>
 					<td>xpath=/html/body/xforms:trigger[2]</td>
@@ -219,142 +98,16 @@
 					<td>Waits for the values to be set</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[1]</td>
-					<td>XFORMS-INVALID (normalizedString)</td>
-					<td>Checks that the instance has the right value</td>
+					<td>verifyNotText</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td>xforms-valid</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[2]</td>
-					<td>XFORMS-INVALID (token)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[3]</td>
-					<td>XFORMS-INVALID (language)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[4]</td>
-					<td>XFORMS-INVALID (Name)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[5]</td>
-					<td>XFORMS-INVALID (NCName)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[6]</td>
-					<td>XFORMS-INVALID (ID)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[7]</td>
-					<td>XFORMS-INVALID (IDREF)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[8]</td>
-					<td>XFORMS-INVALID (IDREFS)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[9]</td>
-					<td>XFORMS-INVALID (NMTOKEN)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[10]</td>
-					<td>XFORMS-INVALID (NMTOKENS)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[11]</td>
-					<td>XFORMS-INVALID (integer)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[12]</td>
-					<td>XFORMS-INVALID (nonPositiveInteger)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[13]</td>
-					<td>XFORMS-INVALID (negativeInteger)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[14]</td>
-					<td>XFORMS-INVALID (long)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[15]</td>
-					<td>XFORMS-INVALID (int)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[16]</td>
-					<td>XFORMS-INVALID (short)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[17]</td>
-					<td>XFORMS-INVALID (byte)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[18]</td>
-					<td>XFORMS-INVALID (nonNegativeInteger)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[19]</td>
-					<td>XFORMS-INVALID (unsignedLong)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[20]</td>
-					<td>XFORMS-INVALID (unsignedInt)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[21]</td>
-					<td>XFORMS-INVALID (unsignedShort)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[22]</td>
-					<td>XFORMS-INVALID (unsignedByte)</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model[@id='event_model']/xforms:instance/events/event[23]</td>
-					<td>XFORMS-INVALID (positiveInteger)</td>
-					<td>Checks that the instance has the right value</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td>*XFORMS-INVALID*</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
 			</tbody>
 		</table>
