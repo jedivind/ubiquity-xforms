@@ -14,8 +14,7 @@
 
 UX.calendarcount = 0;
 
-function InputValueCalendar    (elmnt)
-{
+function InputValueCalendar (elmnt) {
     this.element = elmnt;
     this.currValue = "";
     this.m_bFirstSetValue = true;
@@ -23,9 +22,7 @@ function InputValueCalendar    (elmnt)
     this.m_sInputId = '';
 }
 
-
-function calendarValueChanged(pThis, sNewValue)
-{
+function calendarValueChanged(pThis, sNewValue) {
     var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
     if(oEvt.initMutationEvent === undefined) {
         oEvt.initMutationEvent = oEvt.initEvent;
@@ -39,8 +36,7 @@ function calendarValueChanged(pThis, sNewValue)
     });
 }
 
-InputValueCalendar.prototype.currentCalendarValue = function()
-{
+InputValueCalendar.prototype.currentCalendarValue = function() {
     var date = this.m_value.getSelectedDates()[0];
     var yr = date.getYear();
     var mn = date.getMonth() + 1;
@@ -57,10 +53,8 @@ InputValueCalendar.prototype.currentCalendarValue = function()
     return xsdDate;
 }
 
-InputValueCalendar.prototype.onDocumentReady = function()
-{
-    if (this.element.ownerDocument.media != "print")
-    {
+InputValueCalendar.prototype.onDocumentReady = function() {
+    if (this.element.ownerDocument.media != "print") {
         var pThis = this,
             appearance = this.element.parentNode.getAttribute("appearance"),
             datatype = this.element.parentNode.getAttribute("datatype");
@@ -136,8 +130,7 @@ InputValueCalendar.prototype.onDocumentReady = function()
     }
 };
 
-InputValueCalendar.prototype.setValue = function(sValue)
-{
+InputValueCalendar.prototype.setValue = function(sValue) {
     var bRet = false;
     var yr;
     var mn;
@@ -170,6 +163,4 @@ InputValueCalendar.prototype.setValue = function(sValue)
     }
 
     return bRet;
-
 };
-
