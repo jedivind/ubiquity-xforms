@@ -45,42 +45,6 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:trigger[@id='prevtrigger']</td>
-					<td></td>
-					<td>Checks that the trigger is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:input[@id='input1']/xforms:action[@ev:event='xforms-previous']/xforms:message</td>
-					<td></td>
-					<td>Checks that the message is in the form</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/xforms:trigger[@id='prevtrigger']</td>
-					<td></td>
-					<td>Clicks on the button</td>
-				</tr>
-				<tr>
-					<td>pause</td>
-					<td>100</td>
-					<td></td>
-					<td>Waits for the form to load</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-previous*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
-					<td></td>
-					<td>Clicks on OK button</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
 					<td>xpath=/html/body/xforms:trigger[@id='nexttrigger']</td>
 					<td></td>
 					<td>Checks that the trigger is in the form</td>
@@ -99,7 +63,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>100</td>
+					<td>200</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -114,6 +78,78 @@
 					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
 					<td></td>
 					<td>Clicks on OK button</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[@id='nexttrigger']</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*xforms-next*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
+					<td></td>
+					<td>Clicks on OK button</td>
+				</tr>
+				<tr>
+					<td>verifyCursorPosition</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/car' and @id='input2']</td>
+					<td>1</td>
+					<td>Checks that the cursor is at the right position</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[@id='prevtrigger']</td>
+					<td></td>
+					<td>Checks that the trigger is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:input[@id='input1']/xforms:action[@ev:event='xforms-previous']/xforms:message</td>
+					<td></td>
+					<td>Checks that the message is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[@id='prevtrigger']</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*xforms-previous*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
+					<td></td>
+					<td>Clicks on OK button</td>
+				</tr>
+				<tr>
+					<td>verifyCursorPosition</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/car' and @id='input1']</td>
+					<td>1</td>
+					<td>Checks that the cursor is at the right position</td>
 				</tr>
 			</tbody>
 		</table>
