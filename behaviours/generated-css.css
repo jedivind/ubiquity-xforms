@@ -20,6 +20,10 @@ xf\:output >  pe-value, xforms\:output >  pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
 
+xf\:mediatype >  pe-value, xforms\:mediatype >  pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
 xf\:value  > pe-value,  xforms\:value  > pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
@@ -53,6 +57,9 @@ xf\:secret, xforms\:secret {
   -moz-binding: url("decorator.xml#decorator");
 }
 xf\:label, xforms\:label {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:mediatype, xforms\:mediatype {
   -moz-binding: url("decorator.xml#decorator");
 }
 xf\:value, xforms\:value {
