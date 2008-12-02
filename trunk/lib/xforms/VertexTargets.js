@@ -114,7 +114,7 @@ function getFirstTextNode(oNode) {
 			oRet = oNode.firstChild;
 
       //If the first child is either absent, or not text, create a new text node, and insert it. 
-			if (!oRet || oRet.nodeType != DOM_TEXT_NODE) {
+			if (!oRet || ((oRet.nodeType != DOM_TEXT_NODE) && (oRet.nodeType != DOM_CDATA_SECTION_NODE))) {
 				var newNode = oNode.ownerDocument.createTextNode("");
 	
 				/*
@@ -286,13 +286,10 @@ function ProxyNode(oNode)
 	this.enabled = { value: true };
 	this.outofrange = { value: false };
 	this.valid = { value: true };
-	this.datatype = "xsd:string";
-
-	/*
-	 * [TEMP]
-	 */
-
-	this.datatype = "string";
+    
+    // get the type form the node
+    //
+    this.datatype =  oNode.getAttribute("xsi:type") || "xsd:string";    
 }
 
 ProxyNode.prototype.getMIP = function(sMIPName)

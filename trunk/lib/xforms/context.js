@@ -288,54 +288,51 @@ function _getBoundNode(pThis, nOrdinal) {
     // if no model found - this is possible if user reference to a non-existing model
     // not possible after we added the code to create a lazy model by default
     // but we will check for it anyway.
-    if (!oRet.model) {
-        return oRet;
-    }
-    
-    pThis.m_model = oRet.model;        
-    
-    if (sRef && nOrdinal == 1) {        
-        var oRefNode = 
-            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, oElement));
-
-        if (!oRefNode) {
-            // Lazy authoring, 
-            // get the default instance
-            var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
-            
-            if (oInstDoc) {
-                // Actually we need to check for the QName is valid  but
-                // it seems that createElement will accept any QName (valid or not)                
-                oRefNode = oInstDoc.createElement(sRef);
-                
-                if (oRefNode) {
-                    oInstDoc.documentElement.appendChild(oRefNode);
-                } 
-                // If we created the node from lazy authoring, we need to verify 
-                // that it it is actually created properly
-                oRefNode = 
-                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, oElement));
-                
-                // Form controls are considered to be non-relevant if any of the 
-                // following apply:
-                // the Single Node Binding is expressed and resolves to empty nodeset
-                // so oRefNode is null if EvaluateXPath is unresolved.
-            }
-        }
-        oRet.node = oRefNode;
-    } else if (sNodeset) {
+    if (oRet.model !== null) {    
+        pThis.m_model = oRet.model;        
         
-        if (!pThis.m_arrNodes) {            
-            pThis.m_arrNodes = 
-                pThis.m_model.EvaluateXPath(sNodeset, oRet.node, oElement).value;
-        }
-        oRet.node = pThis.m_arrNodes[nOrdinal - 1];
-    } else if (sName) {
-        // Forms-A
-        oRet.node = FormsAProcessor.processElement(
-                pThis.m_model, oRet.node, oElement, sName);
-    }
+        if (sRef && nOrdinal == 1) {        
+            var oRefNode = 
+                getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, oElement));
     
+            if (!oRefNode) {
+                // Lazy authoring, 
+                // get the default instance
+                var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
+                
+                if (oInstDoc) {
+                    // Actually we need to check for the QName is valid  but
+                    // it seems that createElement will accept any QName (valid or not)                
+                    oRefNode = oInstDoc.createElement(sRef);
+                    
+                    if (oRefNode) {
+                        oInstDoc.documentElement.appendChild(oRefNode);
+                    } 
+                    // If we created the node from lazy authoring, we need to verify 
+                    // that it it is actually created properly
+                    oRefNode = 
+                        getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet.node, oElement));
+                    
+                    // Form controls are considered to be non-relevant if any of the 
+                    // following apply:
+                    // the Single Node Binding is expressed and resolves to empty nodeset
+                    // so oRefNode is null if EvaluateXPath is unresolved.
+                }
+            }
+            oRet.node = oRefNode;
+        } else if (sNodeset) {
+            
+            if (!pThis.m_arrNodes) {            
+                pThis.m_arrNodes = 
+                    pThis.m_model.EvaluateXPath(sNodeset, oRet.node, oElement).value;
+            }
+            oRet.node = pThis.m_arrNodes[nOrdinal - 1];
+        } else if (sName) {
+            // Forms-A
+            oRet.node = FormsAProcessor.processElement(
+                    pThis.m_model, oRet.node, oElement, sName);
+        }
+    }       
     return oRet;
 }
 

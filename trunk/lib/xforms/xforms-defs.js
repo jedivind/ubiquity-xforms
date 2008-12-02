@@ -166,6 +166,15 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
+        
+        "mediatype" : [
+        {
+            "name" : "mediatype-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([EventTarget, Context, Control]);
+            }
+        }
+        ],
         // end core form control decorations
 
         // begin common support decorations
@@ -364,7 +373,8 @@ DECORATOR.addDecorationRules({
                        NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"message","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"secret","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"textarea","http://www.w3.org/2002/xforms");
+                       NamespaceManager.compareFullName(element.parentNode,"textarea","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"mediatype","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, XFormsOutputValue]);
@@ -677,6 +687,11 @@ DECORATOR.setupDecorator(
 			objects:[]
 		},
 		{
+            selector:"xf|mediatype",
+            objects:[]
+        },
+        
+		{
 			selector:"xf|value > pe-value",
 			objects:[]
 		},
@@ -813,6 +828,10 @@ DECORATOR.setupDecorator(
 			objects:[],
 			important:true
 		},       
+        {
+            selector:"xf|mediatype >  pe-value",
+            objects:[]
+        },       
         {
             selector:"xf|select1 > xf|item, xf|select1 > xf|itemset",
             cssText:"-moz-binding:url();"
