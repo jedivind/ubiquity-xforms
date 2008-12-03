@@ -51,7 +51,7 @@
         <xforms:trigger xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <xforms:label>Insert New Item After The Current One</xforms:label>
             <xforms:action ev:event="DOMActivate">
-                <xforms:insert at="index('lineset')" nodeset="/lines/line" position="after"/>
+                <xforms:insert at="index('lineset')" nodeset="/lines/line" position="after"></xforms:insert>
                 <xforms:setvalue ref="/lines/line[index('lineset')]/@name"/>
                 <xforms:setvalue ref="/lines/line[index('lineset')]/price">0.00</xforms:setvalue>
             </xforms:action>

@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>2000</td>
+					<td>3000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -68,22 +68,16 @@
 					<td>Checks that the output is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[1]/price</td>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']//xforms:input[@ref='price']/pe-value/input</td>
 					<td>3.00</td>
-					<td>Checks that the instance has the right value</td>
+					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[2]/price</td>
-					<td>32.25</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[3]/price</td>
-					<td>132.99</td>
-					<td>Checks that the instance has the right value</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']</td>
+					<td>Line Item:*Name:*Line Item:*Name:*Line Item:*Name:*</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
@@ -98,28 +92,22 @@
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[1]/price</td>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']//xforms:input[@ref='price']/pe-value/input</td>
 					<td>3.00</td>
-					<td>Checks that the instance has the right value</td>
+					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[2]/price</td>
-					<td>0.00</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[3]/price</td>
-					<td>32.25</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[4]/price</td>
-					<td>132.99</td>
-					<td>Checks that the instance has the right value</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']</td>
+					<td>Line Item:*Name:*Line Item:*Name:*Line Item:*Name:*Line Item:*Name:*</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
@@ -134,34 +122,22 @@
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[1]/price</td>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']//xforms:input[@ref='price']/pe-value/input</td>
 					<td>3.00</td>
-					<td>Checks that the instance has the right value</td>
+					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[2]/price</td>
-					<td>0.00</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[3]/price</td>
-					<td>0.00</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[4]/price</td>
-					<td>32.25</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[5]/price</td>
-					<td>132.99</td>
-					<td>Checks that the instance has the right value</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']</td>
+					<td>Line Item:*Name:*Line Item:*Name:*Line Item:*Name:*Line Item:*Name:*Line Item:*Name:*</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
@@ -176,28 +152,22 @@
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[1]/price</td>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']//xforms:input[@ref='price']/pe-value/input</td>
 					<td>3.00</td>
-					<td>Checks that the instance has the right value</td>
+					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[2]/price</td>
-					<td>0.00</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[3]/price</td>
-					<td>32.25</td>
-					<td>Checks that the instance has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:model/xforms:instance/lines/line[4]/price</td>
-					<td>132.99</td>
-					<td>Checks that the instance has the right value</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']</td>
+					<td>Line Item:*Name:*Line Item:*Name:*Line Item:*Name:*Line Item:*Name:*</td>
+					<td>Checks that the repeat has the right values</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
