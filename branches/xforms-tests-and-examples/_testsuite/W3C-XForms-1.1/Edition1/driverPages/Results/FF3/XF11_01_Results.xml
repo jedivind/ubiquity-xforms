@@ -3,12 +3,12 @@
     <specChapter chapterName="1. " productId="" chapterTitle="Differences between XForms 1.1 and XForms 1.0">
         <statusSummary>
             <numNormTotal>42</numNormTotal>
-            <numNormPass>0</numNormPass>
-            <numNormFail>0</numNormFail>
+            <numNormPass>18</numNormPass>
+            <numNormFail>24</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>39</numBasicTotal>
-            <numBasicPass>0</numBasicPass>
-            <numBasicFail>0</numBasicFail>
+            <numBasicPass>18</numBasicPass>
+            <numBasicFail>21</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -25,8 +25,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#structure-model</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -39,8 +39,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#structure-model-instance</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -53,8 +53,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-submission-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -67,8 +67,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-resource-elem</testCaseSpecLink>
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>false</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -81,8 +81,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-delete</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -95,8 +95,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-method-elem</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -109,8 +109,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-header</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -123,8 +123,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-HTTP-Binding</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 
@@ -137,8 +137,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-submission-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -151,8 +151,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-submission-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -165,8 +165,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-submission-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -179,8 +179,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-data-replacement</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -193,8 +193,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-evt-submit-serialize</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -207,8 +207,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-submission-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -221,8 +221,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-evt-submit-done</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -235,8 +235,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-evt-submit-error</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -249,8 +249,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#dt-email</testCaseSpecLink>
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -263,8 +263,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#dt-card-number</testCaseSpecLink>
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -277,8 +277,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#empty-content-types</testCaseSpecLink>
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -291,8 +291,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-local-date</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -305,8 +305,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-local-dateTime</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 
@@ -319,8 +319,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-days-to-date</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -333,8 +333,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-seconds-to-dateTime</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -347,8 +347,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-adjust-dateTime-to-timezone</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -361,8 +361,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-current</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -375,8 +375,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-choose</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -389,8 +389,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-context</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -403,8 +403,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-digest</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -417,8 +417,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-hmac</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -431,8 +431,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-random</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -445,8 +445,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-power</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -459,8 +459,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-is-card-number</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -473,8 +473,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-compare</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>                                                                                                                                                                                                                                                                  
@@ -487,8 +487,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-id</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -501,8 +501,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-event</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -515,8 +515,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#ui-output-mediatype</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -529,8 +529,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-conditional</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -543,8 +543,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-iterated</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -557,8 +557,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-dispatch</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -571,8 +571,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-dispatch</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -585,8 +585,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-setfocus-control</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -599,8 +599,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-toggle-case</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>                
@@ -613,8 +613,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-context</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 
