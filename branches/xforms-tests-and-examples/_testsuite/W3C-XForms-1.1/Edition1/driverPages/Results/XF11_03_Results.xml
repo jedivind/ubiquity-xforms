@@ -521,6 +521,20 @@
             <testCaseNote/>
         </testCase>
         <testCase>
+            <testCaseSection>3.3.4</testCaseSection>
+            <testCaseName>3.3.4.b</testCaseName>
+            <testCaseLink>../../Chapt03/3.3/3.3.4/3.3.4.b.xhtml</testCaseLink>
+            <testCaseDescription>more bind element examples</testCaseDescription>
+            <testCaseSpecLinkName>3.3.4</testCaseSpecLinkName>
+            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#structure-bind-element</testCaseSpecLink>
+            <testCaseBasic>true</testCaseBasic>
+            <testCaseNormative>true</testCaseNormative>
+            <testCaseStatus>Unknown</testCaseStatus>
+            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseRequired>true</testCaseRequired>
+            <testCaseNote />
+        </testCase>
+        <testCase>
             <testCaseSection>3.4.1</testCaseSection>
             <testCaseName>3.4.1.a</testCaseName>
             <testCaseLink>../../Chapt03/3.4/3.4.1/3.4.1.a.xhtml</testCaseLink>
