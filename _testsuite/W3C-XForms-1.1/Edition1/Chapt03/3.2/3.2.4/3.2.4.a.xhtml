@@ -4,8 +4,7 @@
   <head>
     <title>3.2.4.a node-set binding - nodeset attribute and bind attribute override</title>
     <script  src="../../../../../../ubiquity-loader.js" type="text/javascript">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
-    
+    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>    
   </head>
   <body>
     <xforms:model id="carsForSale">
@@ -19,32 +18,24 @@
           <carOrder/>
         </carsAvailable>
       </xforms:instance>
-      <xforms:bind id="bind_carOrder" nodeset="/carsAvailable/carOrder"/>
-      <xforms:submission id="submit_carOrder" method="post" action="http://xformstest.org/cgi-bin/echo.sh" bind="bind_carOrder"/>
+      <xforms:bind id="bind_cars" nodeset="/carsAvailable/car"/>
     </xforms:model>
   	<xforms:group>
   		<xforms:label class="title">3.2.4.a node-set binding - nodeset attribute and bind attribute override</xforms:label>
   	</xforms:group>
     <xforms:group>
     	<xforms:label>
-      	You must be able to select any or all of the items in the select control. After activating the Submit Cars 
-      	trigger you must be able to see all the values you selected displayed on the screen in the form data.
+      	You must be able to select any or all of the items in the select control.
 	    </xforms:label>
     </xforms:group>
-    
-  	
-    <xforms:select nodeset="/fakeCars/invalid" bind="bind_carOrder">
+
+    <xforms:select ref="/carsAvailable/carOrder">
       	<xforms:label>Cars</xforms:label>
-        <xforms:itemset nodeset="/carsAvailable/car">
-        	<xforms:label ref="."/>
-          	<xforms:value ref="."/>
+        <xforms:itemset nodeset="/fakeCars/invalid" bind="bind_cars">
+        	<xforms:label ref="."></xforms:label>
+          	<xforms:value ref="."></xforms:value>
         </xforms:itemset>
     </xforms:select>
 
-    <xforms:submit submission="submit_carOrder">
-        <xforms:label>Submit Cars</xforms:label>
-    </xforms:submit>
-
-	
   </body>
 </html>

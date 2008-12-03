@@ -45,48 +45,24 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:select[@nodeset='/fakeCars/invalid' and @bind='bind_carOrder']</td>
+					<td>xpath=/html/body/xforms:select[@ref='/carsAvailable/carOrder']</td>
 					<td></td>
 					<td>Checks that the select is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:submit[@submission='submit_carOrder']</td>
-					<td></td>
-					<td>Checks that the submit is in the form</td>
 				</tr>
 <!--
 Choose an option
 -->
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:select[@nodeset='/fakeCars/invalid' and @bind='bind_carOrder']</td>
+					<td>xpath=/html/body/xforms:select[@ref='/carsAvailable/carOrder']</td>
 					<td></td>
 					<td>Clicks on "Audi"</td>
 				</tr>
 				<tr>
 					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:select[@nodeset='/fakeCars/invalid' and @bind='bind_carOrder']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:select[@ref='/carsAvailable/carOrder']/pe-value/input</td>
 					<td>Audi</td>
 					<td>Checks that the select is bound correctly</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/xforms:submit[@submission='submit_carOrder']/xforms:label</td>
-					<td></td>
-					<td>Clicks on submit button</td>
-				</tr>
-				<tr>
-					<td>pause</td>
-					<td>2000</td>
-					<td></td>
-					<td>Waits for the form data page to load</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=//html/body/pre</td>
-					<td>*Audi*</td>
-					<td>Checks that the form data is shown</td>
 				</tr>
 			</tbody>
 		</table>
