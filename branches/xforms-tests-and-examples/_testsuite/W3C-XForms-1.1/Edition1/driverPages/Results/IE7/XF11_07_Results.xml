@@ -3,12 +3,12 @@
     <specChapter chapterName="7. " productId="" chapterTitle="XPath Expressions in XForms">
         <statusSummary>
             <numNormTotal>60</numNormTotal>
-            <numNormPass>34</numNormPass>
-            <numNormFail>26</numNormFail>
+            <numNormPass>36</numNormPass>
+            <numNormFail>24</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>60</numBasicTotal>
-            <numBasicPass>34</numBasicPass>
-            <numBasicFail>26</numBasicFail>
+            <numBasicPass>36</numBasicPass>
+            <numBasicFail>24</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -165,8 +165,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-is-card-number</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-18</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 
@@ -825,6 +825,20 @@
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
+            <testCaseRequired>true</testCaseRequired>
+            <testCaseNote/>
+        </testCase>
+        <testCase>
+            <testCaseSection>7.11.2</testCaseSection>
+            <testCaseName>7.11.2.a</testCaseName>
+            <testCaseLink>../../Chapt07/7.11/7.11.2/7.11.2.a.xhtml</testCaseLink>
+            <testCaseDescription>event() function with inserted-nodes property</testCaseDescription>
+            <testCaseSpecLinkName>7.11.2</testCaseSpecLinkName>
+            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-event</testCaseSpecLink>
+            <testCaseBasic>true</testCaseBasic>
+            <testCaseNormative>true</testCaseNormative>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>

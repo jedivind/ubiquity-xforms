@@ -16,13 +16,13 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>7.11.2.a event() function with binding property</title>
+		<title>7.11.2.a event() function with inserted-nodes property</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">7.11.2.a event() function with binding property<br>
+				  <td rowspan="1" colspan="3">7.11.2.a event() function with inserted-nodes property<br>
 					</td>
 				</tr>
 				<tr>
@@ -39,13 +39,13 @@
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>7.11.2.a event() function with binding property</td>
+					<td>7.11.2.a event() function with inserted-nodes property</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:action/xforms:setvalue[@value="event('binding')"]</td>
+					<td>xpath=/html/body/xforms:model/xforms:action/xforms:setvalue[@value="event('inserted-nodes')"]</td>
 					<td></td>
 					<td>Checks that the setvalue has event() in it</td>
 				</tr>
@@ -76,7 +76,7 @@
 				<tr>
 					<td>verifyText</td>
 					<td>xpath=/html/body/xforms:group[4]/xforms:output</td>
-					<td>/Dates/date</td>
+					<td>2006-01-01</td>
 					<td>Checks that the output has the right value</td>
 				</tr>
 			</tbody>

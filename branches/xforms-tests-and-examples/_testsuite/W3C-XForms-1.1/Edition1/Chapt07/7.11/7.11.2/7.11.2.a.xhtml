@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events">			
 	<head>
-	  <title>7.11.2.a event() function with binding property</title>
+	  <title>7.11.2.a event() function with inserted-nodes property</title>
 					 
 		
     <script  src="../../../../../../ubiquity-loader.js" type="text/javascript">/**/</script>
@@ -17,7 +17,7 @@
 			</Dates>
 		  </xforms:instance>
 		  <xforms:action ev:event="xforms-insert">
-			<xforms:setvalue model="description_catcher" ref="insert_description" value="event('binding')"/>
+			<xforms:setvalue model="description_catcher" ref="insert_description" value="event('inserted-nodes')"/>
 		  </xforms:action>
 		</xforms:model>
     <xforms:model id="description_catcher">
@@ -28,7 +28,7 @@
 		  </xforms:instance>
 		</xforms:model>
 		<xforms:group>
-			<xforms:label class="title">7.11.2.a event() function with binding property</xforms:label>
+			<xforms:label class="title">7.11.2.a event() function with inserted-nodes property</xforms:label>
 		</xforms:group>
 		<xforms:group>
 			<xforms:label>
@@ -44,7 +44,7 @@
 			</xforms:trigger>
 		</xforms:group>
 		<xforms:group>
-            <xforms:label>You must see the XPath expression "/Dates/date" or its equivalent : </xforms:label>
+            <xforms:label>You must see "2006-01-01": </xforms:label>
 			<xforms:output model="description_catcher" ref="insert_description">
 				<xforms:label/>
 			</xforms:output>
