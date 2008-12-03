@@ -3,12 +3,12 @@
     <specChapter chapterName="10. " productId="" chapterTitle="XForms Actions">
         <statusSummary>
             <numNormTotal>70</numNormTotal>
-            <numNormPass>21</numNormPass>
-            <numNormFail>49</numNormFail>
+            <numNormPass>22</numNormPass>
+            <numNormFail>48</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>70</numBasicTotal>
-            <numBasicPass>21</numBasicPass>
-            <numBasicFail>49</numBasicFail>
+            <numBasicPass>22</numBasicPass>
+            <numBasicFail>48</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -417,8 +417,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-delete</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-18</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 

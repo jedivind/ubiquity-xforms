@@ -2,11 +2,11 @@
 <testSuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3c.org/MarkUp/Forms/XForms/Test/11 XF11TestSuite.xsd" specVersion="1.1" xmlns="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
     <specChapter chapterName="3. " productId="" chapterTitle="Document Structure">
         <statusSummary>
-            <numNormTotal>37</numNormTotal>
+            <numNormTotal>38</numNormTotal>
             <numNormPass>23</numNormPass>
-            <numNormFail>14</numNormFail>
+            <numNormFail>15</numNormFail>
             <numNormUnknown>0</numNormUnknown>
-            <numBasicTotal>37</numBasicTotal>
+            <numBasicTotal>38</numBasicTotal>
             <numBasicPass>0</numBasicPass>
             <numBasicFail>0</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
@@ -529,8 +529,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#structure-bind-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-03</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote />
         </testCase>        
