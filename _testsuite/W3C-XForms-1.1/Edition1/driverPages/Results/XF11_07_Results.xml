@@ -830,20 +830,6 @@
         </testCase>
         <testCase>
             <testCaseSection>7.11.2</testCaseSection>
-            <testCaseName>7.11.2.a</testCaseName>
-            <testCaseLink>../../Chapt07/7.11/7.11.2/7.11.2.a.xhtml</testCaseLink>
-            <testCaseDescription>event() function with binding property</testCaseDescription>
-            <testCaseSpecLinkName>7.11.2</testCaseSpecLinkName>
-            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-event</testCaseSpecLink>
-            <testCaseBasic>true</testCaseBasic>
-            <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
-            <testCaseRequired>true</testCaseRequired>
-            <testCaseNote/>
-        </testCase>
-        <testCase>
-            <testCaseSection>7.11.2</testCaseSection>
             <testCaseName>7.11.2.b</testCaseName>
             <testCaseLink>../../Chapt07/7.11/7.11.2/7.11.2.b.xhtml</testCaseLink>
             <testCaseDescription>event() function with resource-uri property</testCaseDescription>
