@@ -4,10 +4,12 @@
 All tests run in the [http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_testsuite/selenium/core/TestRunner.html?test=..%2F..%2Fxforms%2FTestSuite.html Selenium TestRunner]
 
 = W3C XForms 1.1 Test Suite Compliance Results Table =
-[http://ubiquity-xforms.googlecode.com/svn/branches/xforms-tests-and-examples/_testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/ResultsTable.html  Test Results for IE7] 
+[http://ubiquity-xforms.googlecode.com/svn/branches/xforms-tests-and-examples/_testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/IE7/ResultsTable.html  Test Results for IE7] 
 *162 Passed out of 457 test cases*
 Note: Appendix G and H tests not included
-
+[http://ubiquity-xforms.googlecode.com/svn/branches/xforms-tests-and-examples/_testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/FF3/ResultsTable.html  Test Results for Firefox 3] 
+*xxx Passed out of yyy test cases*
+Note: Appendix G and H tests not included
 = *Legend* =
 *wiki:* _Wiki Feature Page_
 
