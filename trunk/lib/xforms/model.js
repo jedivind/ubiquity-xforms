@@ -407,25 +407,6 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
     if (!oContext) {
         // If no context is given, get the default for the model
         oContext = pThis.getEvaluationContext();
-        
-/****** The code here replicates inexplicable behavior from a 
-        prior version of this method.  No tests reveal it to be
-        necessary, though, so it is commented out and should be
-        removed if nobody finds a reason to keep it.
-        
-    } else if (oContext["m_oNode"]) {
-        var oNode = oContext["m_oNode"];
-        var sType = typeof (oNode.getEvaluationContext);
-        if (sType === "function" || sType === "unknown") {
-            oNode = oNode.getEvaluationContext();
-            if (oNode.node) {
-                oNode = oNode.node["m_oNode"] ? ["m_oNode"] : oNode.node;
-            }
-        }
-        oContext = { node: oNode };
-        
- ******/
- 
     } else if (!oContext.node) {
         // If only a context node is given, turn it into a context object
         oContext = { node: oContext };
