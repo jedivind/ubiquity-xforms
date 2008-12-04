@@ -172,6 +172,7 @@ Note: Chapter 1, Appendix G and H tests not included
 = Priority for Missing Features for XForms 1.1 =
   *  FeatureValidation
   *  Implement missing features
+  *  xforms-model-destruct event
 
 == Missing Features for XForms 1.1 ==
   * Setvalue basically works, but display should be none
