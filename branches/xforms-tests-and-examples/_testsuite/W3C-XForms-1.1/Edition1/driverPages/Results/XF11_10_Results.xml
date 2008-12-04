@@ -496,7 +496,7 @@
             <testCaseSection>10.7.1</testCaseSection>
             <testCaseName>10.7.1.a</testCaseName>
             <testCaseLink>../../Chapt10/10.7/10.7.1/10.7.1.a.xhtml</testCaseLink>
-            <testCaseDescription>setfocus element with value child element</testCaseDescription>
+            <testCaseDescription>setfocus element with control child element</testCaseDescription>
             <testCaseSpecLinkName>10.7.1</testCaseSpecLinkName>
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-setfocus-control</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>

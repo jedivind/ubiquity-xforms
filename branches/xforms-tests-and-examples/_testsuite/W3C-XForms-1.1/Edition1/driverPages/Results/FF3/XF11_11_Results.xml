@@ -2,11 +2,11 @@
 <testSuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3c.org/MarkUp/Forms/XForms/Test/11 XF11TestSuite.xsd" specVersion="1.1" xmlns="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
     <specChapter chapterName="11. " productId="" chapterTitle="The XForms Submission Module">
         <statusSummary>
-            <numNormTotal>64</numNormTotal>
+            <numNormTotal>67</numNormTotal>
             <numNormPass>15</numNormPass>
             <numNormFail>49</numNormFail>
             <numNormUnknown>0</numNormUnknown>
-            <numBasicTotal>64</numBasicTotal>
+            <numBasicTotal>67</numBasicTotal>
             <numBasicPass>15</numBasicPass>
             <numBasicFail>49</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
@@ -1147,6 +1147,34 @@
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseRequired>true</testCaseRequired>
+            <testCaseNote/>
+        </testCase>
+        <testCase>
+            <testCaseSection>11.11.3</testCaseSection>
+            <testCaseName>11.11.3.d</testCaseName>
+            <testCaseLink>../../Chapt11/11.11/11.11.3/11.11.3.d.xhtml</testCaseLink>
+            <testCaseDescription>SOAP HTTP binding with get method and encoding attribute</testCaseDescription>
+            <testCaseSpecLinkName>11.11.3</testCaseSpecLinkName>
+            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-HTTP-Binding</testCaseSpecLink>
+            <testCaseBasic>true</testCaseBasic>
+            <testCaseNormative>true</testCaseNormative>
+            <testCaseStatus>Unknown</testCaseStatus>
+            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseRequired>true</testCaseRequired>
+            <testCaseNote/>
+        </testCase>
+        <testCase>
+            <testCaseSection>11.11.3</testCaseSection>
+            <testCaseName>11.11.3.e</testCaseName>
+            <testCaseLink>../../Chapt11/11.11/11.11.3/11.11.3.e.xhtml</testCaseLink>
+            <testCaseDescription>SOAP HTTP binding with post method and encoding attribute</testCaseDescription>
+            <testCaseSpecLinkName>11.11.3</testCaseSpecLinkName>
+            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-HTTP-Binding</testCaseSpecLink>
+            <testCaseBasic>true</testCaseBasic>
+            <testCaseNormative>true</testCaseNormative>
+            <testCaseStatus>Unknown</testCaseStatus>
+            <testCaseDate>2005-09-10</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
