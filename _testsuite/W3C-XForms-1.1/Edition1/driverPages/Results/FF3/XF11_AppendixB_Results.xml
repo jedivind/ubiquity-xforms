@@ -3,12 +3,12 @@
     <specChapter chapterName="B. " productId="" chapterTitle="Insert and Delete Action Patterns for Data Mutations">
         <statusSummary>
             <numNormTotal>15</numNormTotal>
-            <numNormPass>0</numNormPass>
-            <numNormFail>15</numNormFail>
+            <numNormPass>4</numNormPass>
+            <numNormFail>11</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>15</numBasicTotal>
-            <numBasicPass>0</numBasicPass>
-            <numBasicFail>15</numBasicFail>
+            <numBasicPass>4</numBasicPass>
+            <numBasicFail>11</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -26,7 +26,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -40,7 +40,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -54,7 +54,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -68,7 +68,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>        
@@ -82,7 +82,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -96,7 +96,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -109,8 +109,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-remove-nodeset</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -124,7 +124,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -138,7 +138,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -151,8 +151,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-replace-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -166,7 +166,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>   
@@ -179,8 +179,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-replace-instance</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>   
@@ -194,7 +194,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>   
@@ -208,7 +208,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>   
@@ -221,8 +221,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-insert-arbitrary</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>  
