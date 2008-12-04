@@ -74,7 +74,9 @@ function runTheTests() {
     "ux-ut-select1", 
     "ux-ut-finite-control",  
     "ux-ut-delete-nodes", 
-    "ux-ut-insert-nodes");
+    "ux-ut-insert-nodes"
+    
+  );
 
   var sBars = "";
   loader.onProgress = function(o) {
@@ -97,7 +99,6 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteInstanceStandalone);
     YAHOO.tool.TestRunner.add(suiteModelStandalone);
     YAHOO.tool.TestRunner.add(suiteReset);
-
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
 

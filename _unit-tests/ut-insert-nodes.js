@@ -74,7 +74,7 @@
             
                 Assert.isTrue(suite.testInstance.insertNodes(
                     suite.testInstance.evalXPath('order').nodeSetValue()[0],  
-                    "order", "item", "1", "after", "/po/prototype/item"), 
+                    "item", "1", "after", "/po/prototype/item"), 
                     "Insert did not insert any nodes");
 
                 Assert.areEqual(2, suite.testInstance.evalXPath('count(order/item)').numberValue());
@@ -107,15 +107,18 @@
                 // Insert into the empty list
                 //
                 Assert.isTrue(suite.testInstance.insertNodes(
-                    suite.testInstance.evalXPath('order').nodeSetValue()[0],  
-                    "order", null, null, null, "/po/prototype/item"), 
+                    { 
+                       node: suite.testInstance.evalXPath('order').nodeSetValue()[0],
+                       initialContext : suite.testInstance.evalXPath('.').nodeSetValue()[0]
+                    },  
+                    null, null, null, "/po/prototype/item"), 
                     "Insert did not insert any nodes");
 
                 // Ensure we got from zero elements above to one element
                 //
                 Assert.areEqual(1, suite.testInstance.evalXPath('count(order/item)').numberValue());
                 
-                // Now ensure that the one element is in fct the *empty* prototype, not the original P1 product
+                // Now ensure that the one element is in fact the *empty* prototype, not the original P1 product
                 //
                 Assert.isTrue(suite.testInstance.evalXPath('order/item[1]/product = ""').booleanValue());
 
@@ -142,8 +145,11 @@
                 // Insert into a list which happens to be empty
                 //
                 Assert.isTrue(suite.testInstance.insertNodes(
-                    suite.testInstance.evalXPath('order').nodeSetValue()[0],  
-                    "order", "item", "1", "after", "/po/prototype/item"), 
+                    { 
+                       node: suite.testInstance.evalXPath('order').nodeSetValue()[0],
+                       initialContext : suite.testInstance.evalXPath('.').nodeSetValue()[0]
+                    },  
+                    "item", "1", "after", "/po/prototype/item"), 
                     "Insert did not insert any nodes");
 
                 // Ensure we got from zero elements above to one element
@@ -155,7 +161,38 @@
                 Assert.isTrue(suite.testInstance.evalXPath('order/item[1]/product = ""').booleanValue());
 
                 return;
+            },
+
+            // Test that last() can be used in atExpr in insertion.
+            //
+            testInsertAtLast: function() {
+                // Insert an extra copy of item P1 so that last() will be 2 when we test it
+                Assert.isTrue(suite.testInstance.insertNodes(
+                    suite.testInstance.evalXPath('order').nodeSetValue()[0],  
+                    "item", "1", "after"), 
+                    "Insert did not insert any nodes");
+
+                // Ensure we got from one element above to two elements
+                //
+                Assert.areEqual(2, suite.testInstance.evalXPath('count(order/item)').numberValue(), "Expected 2 item elements");
+                
+                // Now insert a prototypical product after the last element
+                Assert.isTrue(suite.testInstance.insertNodes(
+                    { 
+                       node: suite.testInstance.evalXPath('order').nodeSetValue()[0],
+                       size: 2
+                    },  
+                    "item", "last()", "after", "/po/prototype/item"), 
+                    "Insert did not insert any nodes");
+                    
+                // Ensure that we got a copy of the prototypical product after the last element.
+                //
+                Assert.areEqual(3, suite.testInstance.evalXPath('count(order/item)').numberValue(), "Expected 3 item elements");
+                Assert.isTrue(suite.testInstance.evalXPath('order/item[3]/product = ""').booleanValue(), "Wrong product name");
+
+                return;
             }
+
 		})//new TestCase
 	); //suite.add( ... )
 

@@ -24,6 +24,11 @@
            <!-- This instance contains the product list, which is externally defined.  -->
            <xforms:instance id='products' src="productList/productList.xml"></xforms:instance>
            
+           <!-- The instance data and type needed to attach the logo -->
+           <xforms:instance id="logo">
+           	   <logo xmlns="" xsi:type="xsd:anyURI">KnowledgeTreeLogo.jpg</logo>
+           </xforms:instance>
+           
            <!-- The total is just the sum of the subtotal and the tax; any time
                   those change, the total is automatically updated -->
            <xforms:bind nodeset="total" calculate="../subtotal + ../tax"></xforms:bind>
@@ -52,7 +57,7 @@
            <xforms:bind nodeset="order/item/itemtotal" calculate="../unitcost * ../qty"></xforms:bind>
 
            <!-- Once a purchase item is created, the user must specify a quantity. -->
-           <xforms:bind nodeset="order/item/qty" type="xsd:positiveInteger"></xforms:bind>
+          <xforms:bind nodeset="order/item/qty" type="xsd:positiveInteger"></xforms:bind>
            	
            <!-- Once a purchase item is created, the user must choose a product name. -->
            <xforms:bind nodeset="order/item/product" required="true()"></xforms:bind>
@@ -64,14 +69,14 @@
            <xforms:submission id="makePurchase" 
                               method="post" 
                               includenamespaceprefixes=""
-                              resource="http://xformstest.org/cgi-bin/echo.sh">
-                <xforms:message ev:event="xforms-submit-error" level="modal"
-                	   >Unable to submit. Please try again later.</xforms:message>
+                              action="http://xformstest.org/cgi-bin/echo.sh">
+                <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit. Please try again later.</xforms:message>
            </xforms:submission>           
        </xforms:model>
 
-  <img src="./KnowledgeTreeLogo.jpg">The Knowledge Tree</img>
-   
+  <xforms:output class="company_name" ref="instance('logo')" mediatype="image/*"></xforms:output>
+
+    
   <p>Superior School Supplies</p>
       
   <hr size="6" class="rule"></hr>
@@ -128,8 +133,11 @@
           <xforms:repeat nodeset="order/item" id="orderTable" startindex="1">          	    
                 <xforms:select1 ref="product" appearance="minimal">
                     <xforms:label>Choose product</xforms:label>
-                    <xforms:itemset nodeset="instance('products')/product">
-                        <xforms:label ref="@name"></xforms:label>
+                    <xforms:itemset nodeset="instance('products')/product">                     
+                        <xforms:label>
+						    <xforms:output ref="@name"></xforms:output>
+							<xforms:output ref="." mediatype="image/*"></xforms:output>
+						</xforms:label>
                         <xforms:value ref="@code"></xforms:value>
                     </xforms:itemset>
                     <xforms:action ev:event="xforms-value-changed">
@@ -138,37 +146,6 @@
                     	 </xforms:setvalue>
                     </xforms:action>
                 </xforms:select1>
-                
-                <!--
-                <xforms:select1 ref="product" appearance="minimal">
-                    <xforms:label>Choose product</xforms:label>
-                    <xforms:item>
-                    	<xforms:label ref="instance('products')/product[1]"></xforms:label>
-                    	<xforms:value ref="instance('products')/product[1]/@code"></xforms:value>
-                    </xforms:item>
-                    <xforms:item>
-                    	<xforms:label ref="instance('products')/product[2]"></xforms:label>
-                    	<xforms:value ref="instance('products')/product[2]/@code"></xforms:value>
-                    </xforms:item>
-                    <xforms:item>
-                    	<xforms:label ref="instance('products')/product[3]"></xforms:label>
-                    	<xforms:value ref="instance('products')/product[3]/@code"></xforms:value>
-                    </xforms:item>
-                    <xforms:item>
-                    	<xforms:label ref="instance('products')/product[4]"></xforms:label>
-                    	<xforms:value ref="instance('products')/product[4]/@code"></xforms:value>
-                    </xforms:item>
-                    <xforms:action ev:event="xforms-value-changed">
-                    	 <xforms:setvalue ref="../unitcost"
-                    	 	                value="instance('products')/product[@code=current()/../product]/@unitcost">
-                    	 </xforms:setvalue>
-                    </xforms:action>
-                </xforms:select1>
-                
-                <xforms:input ref="product">
-                	  <xforms:label>Product:</xforms:label>
-                </xforms:input>
-                -->
                  
                 <xforms:input ref="unitcost">
                     <xforms:label>Unit Cost</xforms:label>
