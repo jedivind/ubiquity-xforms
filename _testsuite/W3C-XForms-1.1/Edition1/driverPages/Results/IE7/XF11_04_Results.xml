@@ -277,7 +277,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-next</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-11-19</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
