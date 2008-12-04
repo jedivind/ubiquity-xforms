@@ -2,11 +2,11 @@
 <testSuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3c.org/MarkUp/Forms/XForms/Test/11 XF11TestSuite.xsd" specVersion="1.1" xmlns="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
     <specChapter chapterName="11. " productId="" chapterTitle="The XForms Submission Module">
         <statusSummary>
-            <numNormTotal>64</numNormTotal>
+            <numNormTotal>67</numNormTotal>
             <numNormPass>0</numNormPass>
             <numNormFail>0</numNormFail>
             <numNormUnknown>0</numNormUnknown>
-            <numBasicTotal>64</numBasicTotal>
+            <numBasicTotal>67</numBasicTotal>
             <numBasicPass>0</numBasicPass>
             <numBasicFail>0</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
