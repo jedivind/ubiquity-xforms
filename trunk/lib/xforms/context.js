@@ -210,7 +210,7 @@ function _getEvaluationContextFromParent(pThis) {
             } else {
                 // TODO: Streamlined syntax - No model in document, generate a default model
                 oRet.model = null;
-                oRer.node  = null;
+                oRet.node  = null;
                 return oRet;
             }
         }        
