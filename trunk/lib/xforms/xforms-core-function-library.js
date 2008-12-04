@@ -678,7 +678,7 @@ FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"] = function(ct
   // If no timezone information was provided, then there is no further adjustment
   // necessary.
   //
-  if (!res[7] || (res[7] === "Z")) {
+  if (!res[8] || (res[8] === "Z")) {
     tzOffset = 0;
   } else {
     // Any other offset gives us a number of hours and minutes by which the time
@@ -734,7 +734,7 @@ FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"] = function(ctx)
 */
 FunctionCallExpr.prototype.xpathfunctions["expr"] = {
   xsdDate: /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})(((([+-])([0-9]{2})\:([0-9]{2}))|(\Z))?)$/,
-  xsdDateTime: /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})(((([+-])([0-9]{2})\:([0-9]{2}))|(\Z))?)$/
+  xsdDateTime: /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2}(\.[0-9]*)?)((([+-])([0-9]{2})\:([0-9]{2}))|(\Z)?)$/
 };
 
 FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = function(ctx) {
@@ -764,7 +764,7 @@ FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = funct
 
   // If no timezone information was provided, then use the local timezone.
   //
-  if (!res[7]) {
+  if (!res[8]) {
     tzOffset = 0;
   } else {
     // Remove the effect of the local timezone, before adding on whatever
@@ -774,7 +774,7 @@ FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = funct
 
     // If the provided timezone was 'Z', then it's UTC, which has an offset of zero.
     //
-    if (res[7] === "Z") {
+    if (res[8] === "Z") {
       tzOffset += 0;
     } else {
 
