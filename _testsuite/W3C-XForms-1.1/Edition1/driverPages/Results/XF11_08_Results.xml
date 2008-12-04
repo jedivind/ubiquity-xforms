@@ -2,11 +2,11 @@
 <testSuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3c.org/MarkUp/Forms/XForms/Test/11 XF11TestSuite.xsd" specVersion="1.1" xmlns="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
     <specChapter chapterName="8. " productId="" chapterTitle="Core Form Controls">
         <statusSummary>
-            <numNormTotal>55</numNormTotal>
+            <numNormTotal>57</numNormTotal>
             <numNormPass>0</numNormPass>
             <numNormFail>0</numNormFail>
             <numNormUnknown>0</numNormUnknown>
-            <numBasicTotal>51</numBasicTotal>
+            <numBasicTotal>53</numBasicTotal>
             <numBasicPass>0</numBasicPass>
             <numBasicFail>0</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
@@ -205,6 +205,34 @@
             <testCaseDescription>UI Common added to output element</testCaseDescription>
             <testCaseSpecLinkName>8.1.5</testCaseSpecLinkName>
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#ui-output</testCaseSpecLink>
+            <testCaseBasic>true</testCaseBasic>
+            <testCaseNormative>true</testCaseNormative>
+            <testCaseStatus>Unknown</testCaseStatus>
+            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseRequired>true</testCaseRequired>
+            <testCaseNote/>
+        </testCase>
+        <testCase>
+            <testCaseSection>8.1.5</testCaseSection>
+            <testCaseName>8.1.5.d</testCaseName>
+            <testCaseLink>../../Chapt08/8.1/8.1.5/8.1.5.d.xhtml</testCaseLink>
+            <testCaseDescription>mediatype attribute of output element</testCaseDescription>
+            <testCaseSpecLinkName>8.1.5</testCaseSpecLinkName>
+            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#ui-output</testCaseSpecLink>
+            <testCaseBasic>true</testCaseBasic>
+            <testCaseNormative>true</testCaseNormative>
+            <testCaseStatus>Unknown</testCaseStatus>
+            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseRequired>true</testCaseRequired>
+            <testCaseNote/>
+        </testCase>
+        <testCase>
+            <testCaseSection>8.1.5.1</testCaseSection>
+            <testCaseName>8.1.5.1.a</testCaseName>
+            <testCaseLink>../../Chapt08/8.1/8.1.5/8.1.5.1/8.1.5.1.a.xhtml</testCaseLink>
+            <testCaseDescription>mediatype element</testCaseDescription>
+            <testCaseSpecLinkName>8.1.5.1</testCaseSpecLinkName>
+            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#ui-output-mediatype</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Unknown</testCaseStatus>
