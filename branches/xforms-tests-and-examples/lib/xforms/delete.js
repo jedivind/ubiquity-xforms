@@ -23,12 +23,12 @@ Delete.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Delete.prototype.performAction = function (evt)
 {
-    var oContext = this.getEvaluationContext(1);
+    var oContext = this.getEvaluationContext();
     var nodesetExpr = this.element.getAttribute("nodeset"),
         atExpr = this.element.getAttribute("at");
     var oInstance = oContext.model.instances()[0];
     
-    if (oInstance.deleteNodes(oContext.node, nodesetExpr, atExpr)) {
+    if (oInstance.deleteNodes(oContext, nodesetExpr, atExpr)) {
         oContext.model.flagRebuild();
     }
 };

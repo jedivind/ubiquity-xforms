@@ -20,14 +20,6 @@ function Instance(elmnt) {
 	this.element["elementState"] = 1;
 	
 	UX.addStyle(this.element, "display", "none"); 
-
-    // If the parent node duck types to a model, then invoke its XPath evaluator 
-    // in preference to the prototype default XPath eval function
-    if (this.element.parentNode && typeof this.element.parentNode.EvaluateXPath === "function") {
-        this.evalXPath = function (expr, contextNode) { 
-           return this.element.parentNode.EvaluateXPath(expr, contextNode || this.m_oDOM.documentElement); 
-        };     
-    }
 }
 
 Instance.prototype.finishLoad = function () {
@@ -194,9 +186,9 @@ Instance.prototype.onContentReady = Instance.prototype.initialisedom;
 // position in that list. If no position is specified then the entire
 // list is deleted.
 //
-Instance.prototype.deleteNodes = function (contextNode, nodesetExpr, atExpr) {
-    var ns = this.evalXPath(nodesetExpr, contextNode).nodeSetValue(),
-		at = (atExpr) ? Math.round(this.evalXPath(atExpr, contextNode).numberValue()) : undefined,
+Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
+    var ns = this.evalXPath(nodesetExpr, oContext).nodeSetValue(),
+		at = (atExpr) ? Math.round(this.evalXPath(atExpr, oContext).numberValue()) : undefined,
 		i, node, nsDeleted = [ ], evt;
 
 	// If no nodes are found then there is nothing to do.
@@ -252,16 +244,16 @@ Instance.prototype.deleteNodes = function (contextNode, nodesetExpr, atExpr) {
 	}
 };// deleteNodes()
 
-Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr, atExpr, position, originExpr) {
-    var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, contextNode).nodeSetValue() : null;
-    var nsOrigin = (originExpr) ? this.evalXPath(originExpr, contextNode).nodeSetValue() 
+Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, position, originExpr) {
+    var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
+    var nsOrigin = (originExpr) ? this.evalXPath(originExpr, oContext).nodeSetValue() 
                                 : ((ns) ? new Array(ns[ns.length-1]) : null);
     var at, after, i, node, insertLocationNode, insertBeforeNode, cloneNode, nsLocationNode = [ ], nsInserted = [ ], evt;    
     
     // If there's no context node, then insertion is not possible, so
     // we'll just no-op in that case.
     //
-    if (contextNode) {        
+    if (oContext) {        
         // If, in addition to a context, there is a nodeset, then the insertion will occur within the nodeset
         //
         if (ns && ns.length > 0) {
@@ -271,7 +263,7 @@ Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr
             // If it is in range, it is used.  Otherwise, if it 
             // is too big or isNaN, then it is set to the nodeset size
             //
-            at = (atExpr) ? Math.round(this.evalXPath(atExpr, contextNode).numberValue()) : ns.length; 
+            at = (atExpr) ? Math.round(this.evalXPath(atExpr, oContext).numberValue()) : ns.length; 
             at = at < 1 ? 1 : (at <= ns.length ? at : ns.length);
                     
             insertLocationNode = ns[at-1];
@@ -296,12 +288,12 @@ Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr
             }        
         } // end if (non-empty nodeset) 
         
-        // If there is no nodeset but there is a context attribute that indicates a node into 
-        // which an insertion can occur, and if there are one or more origin nodes, then 
-        // we can proceed with insertion
+        // If there is no nodeset but there was a context attribute which indicated a node into 
+        // which an insertion should occur, and if there are one or more origin nodes, then we 
+        // can proceed with insertion
         //
-        else if (contextExpr && nsOrigin && nsOrigin.length > 0) {
-            insertLocationNode = contextNode;
+        else if (oContext.initialContext && nsOrigin && nsOrigin.length > 0) {
+            insertLocationNode = oContext.node ? oContext.node : oContext;
             nsLocationNode.push(insertLocationNode);
             insertBeforeNode = (insertLocationNode.firstChild) ? insertLocationNode.firstChild : null;
             for (i=0; i < nsOrigin.length; i++) {
@@ -310,7 +302,7 @@ Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr
                 nsInserted.push(cloneNode);
             }                
         }
-    } // end if (contextNode)
+    } // end if (oContext)
      
     // If we have inserted any nodes then dispatch an event and return true; otherwise just return false
     //
@@ -337,6 +329,6 @@ Instance.prototype.insertNodes = function (contextNode, contextExpr, nodesetExpr
 // If no context is given, the default is the document element of the instance 
 // NOTE: This is a default evaluator, but instances that are part of a model
 //       use the model's evaluator instead.
-Instance.prototype.evalXPath = function (expr, contextNode) {
-	return xpathDomEval(expr, contextNode || this.m_oDOM.documentElement);
+Instance.prototype.evalXPath = function (expr, oContext) {
+	return xpathDomEval(expr, oContext || { node : this.m_oDOM.documentElement});
 };

@@ -456,3 +456,20 @@ xf|output pe-value {
     background-color: #ffffff;
     border: 1px solid #808080;
 }
+xforms\:mediatype, xf\:mediatype {
+  display: none;
+}
+
+xforms|mediatype, xf|mediatype {
+  display: none;
+}
+
+xforms\:output .calnavleft, xf\:output .calnavleft,
+xforms\:output .calnavright, xf\:output .calnavright {
+  display: none;
+}
+
+xforms|output *[class~="calnavleft"], xf|output *[class~="calnavleft"],
+xforms|output *[class~="calnavright"], xf|output *[class~="calnavright"] {
+  display: none;
+}

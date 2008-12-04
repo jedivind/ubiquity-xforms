@@ -4,11 +4,11 @@
         <statusSummary>
             <numNormTotal>67</numNormTotal>
             <numNormPass>21</numNormPass>
-            <numNormFail>44</numNormFail>
+            <numNormFail>46</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>67</numBasicTotal>
             <numBasicPass>21</numBasicPass>
-            <numBasicFail>44</numBasicFail>
+            <numBasicFail>46</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -1159,8 +1159,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-HTTP-Binding</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -1173,8 +1173,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-HTTP-Binding</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Unknown</testCaseStatus>
-            <testCaseDate>2005-09-10</testCaseDate>
+            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseDate>2008-12-04</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>

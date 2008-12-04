@@ -154,6 +154,8 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/skins/sam/colorpicker.css" });
 
     // Calendar widget
+    loader.addModule({ name: "yui-output-calendar",  type: "js",  fullpath: moduleBase + "../extensions/output-calendar.js",
+            requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
     loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: moduleBase + "../extensions/input-calendar.js",
             requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
     loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/calendar-min.js" });
@@ -192,7 +194,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-setvalue","xforms-insert","xforms-delete",
         "xforms-toggle", 
         "xforms-submit",
-        "xforms-hint",
+        "xforms-hint", "yui-output-calendar",
         "yui-input-calendar","yui-input-color",
         "formsA","xforms-submission-core-yui"
       ]

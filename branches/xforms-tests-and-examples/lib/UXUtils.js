@@ -274,7 +274,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
             if (aChildNode.getAttribute("value")) {
                 oContext = _getEvaluationContext(pThis);
                 node = getFirstNode(
-                    oContext.model.EvaluateXPath(aChildNode.getAttribute("value"), oContext.node)
+                    oContext.model.EvaluateXPath(aChildNode.getAttribute("value"), oContext)
                 );
                 sType = (node) ? node.firstChild.nodeValue : "";
             }

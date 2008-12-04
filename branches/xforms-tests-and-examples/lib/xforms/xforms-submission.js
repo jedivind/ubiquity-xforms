@@ -208,7 +208,13 @@ submission.prototype.submit = function(oSubmission)
 		 * See if there are any nodes for an action.
 		 */
 
-		var oRes = oContext.model.EvaluateXPath("/sub/action/part", oExtDom);
+		var oRes = oContext.model.EvaluateXPath("/sub/action/part", 
+		    {
+		        node: oExtDom,
+		        model: oContext.model,
+		        resolverElement: oExt
+		    }
+		);
 
 		if (oRes && oRes.type == "node-set")
 		{
@@ -326,7 +332,7 @@ submission.prototype.serialiseForAction = function(oContext)
 		 * [ISSUE] This returns every text node.
 		 */
 	
-		var r = oContext.model.EvaluateXPath(".//*", oContext.node);
+		var r = oContext.model.EvaluateXPath(".//*", oContext);
 		var sep = "?";
 	
 		for (var i = 0; i < r.value.length; ++i)
@@ -359,9 +365,7 @@ submission.prototype.setHeaders = function(oModel, connection,oExtdom)
 	        var sPath = r.value[i].getAttribute("value");
 	        if(sPath)
 	        {   
-	            g_currentModel = oModel;
 	            var rHeader= oModel.EvaluateXPath(sPath,null);
-	            g_currentModel = null;
 	            if(rHeader)
 	            {
 	                var sHeaderValue = ""

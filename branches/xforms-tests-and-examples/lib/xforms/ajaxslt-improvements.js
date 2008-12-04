@@ -20,21 +20,27 @@
         This file contains the methods required by ajaxfp in order to work
 */
 
-var g_currentModel = null;
 var g_bSaveDependencies = false;
 
 /**
-    The entry point for the library: match an expression against a DOM
-    node. Returns an XPath value.
+    The entry point for the library: match an expression against a DOM node.
+    An expression and a full context object are received.  The context object
+    contains "node", "model", "position" and "size" (when "node" comes from
+    a nodeset a.k.a. nodelist), and "resolverElement" (the node containing
+    the XPath expression).
+    For backwards compatibility with the xpathDomEval in ajaxslt, the code
+    tests if oContext.node exists, and if not it uses oContext as the node.   
+    Returns then XPath expression result.
+    
     @addon
 */
-function xpathDomEval(expr, node, resolverElement) {
+function xpathDomEval(expr, oContext) {
     var expr1 = xpathParse(expr);
-    var ctx = new ExprContext(node); 
-    ctx["currentModel"] = g_currentModel;
-    ctx["outermostContextNode"] = node;
-    // resolverElement is the node that contained the XPath function.
-    ctx["resolverElement"] = resolverElement;
+    var ctx = new ExprContext(oContext.node ? oContext.node : oContext, oContext.position);
+    ctx["size"] = oContext.size ? oContext.size : (ctx.node ? 1 : 0);
+    ctx["currentModel"] = oContext.model;
+    ctx["outermostContextNode"] = ctx.node;
+    ctx["resolverElement"] = oContext.resolverElement;
     // If the browser doesn't preserve the case of node names,
     // tell the XPath evaluator to do node name tests in a
     // case-insensitive manner.
@@ -43,12 +49,21 @@ function xpathDomEval(expr, node, resolverElement) {
     return ret;
 }
 
+FunctionCallExpr.prototype.xpathfunctions["last"] = function(ctx) {
+    if (ctx.size && ctx.nodelist && ctx.nodelist.length === 1 && ctx.nodelist[0] === ctx.outermostContextNode) {
+        return new NumberValue(ctx.size);
+    }
+    return new NumberValue(ctx.contextSize());
+};
+
 ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
   var oRet = new ExprContext(
       opt_node || this.node,
       typeof opt_position != 'undefined' ? opt_position : this.position,
       opt_nodelist || this.nodelist, this, this.caseInsensitive,
       this.ignoreAttributesWithoutValue);
+  oRet.size = this.size;
+  oRet.currentModel = this.currentModel;
   oRet.outermostContextNode = this.outermostContextNode;
   oRet.resolverElement = this.resolverElement;
   return oRet;
