@@ -28,7 +28,7 @@ ActionExecutor = function()
 		var bIf = false;
 		if (oContext)
 		{
-			var oRes = oContext.model.EvaluateXPath(sCondition, oContext.node);
+			var oRes = oContext.model.EvaluateXPath(sCondition, oContext);
 	
 			if (oRes)
 			{
@@ -71,7 +71,7 @@ ActionExecutor = function()
 			var oContext = oRealListener.getEvaluationContext();
 			if(oRealListener.getAttribute("iterate"))
 			{
-				var oRes = oContext.model.EvaluateXPath(oRealListener.getAttribute("iterate"), oContext.node);
+				var oRes = oContext.model.EvaluateXPath(oRealListener.getAttribute("iterate"), oContext);
 				if(oRes && oRes.value)
 				{
 					for(var i = 0; i < oRes.value.length; ++i)
@@ -97,17 +97,13 @@ ActionExecutor = function()
 					
 			}
 			else if (evaluateIfCondition(oRealListener,oContext))
-			{
-	
+			{	
 				if(oRealListener.getAttribute("while"))
 				{
-					//TODO: I'm not sure this is correct.  it needs to get  new context each time for insert/delete
-					//	but that shouldn't be @ref, as this is, I think. 
-					oContext = oRealListener.getBoundNode(1);
-	
 					while(evaluateCondition(oRealListener.getAttribute("while"),oContext))
 					{
 						oListener.handleEvent(oEvt);
+						oContext = oRealListener.getEvaluationContext();
 					}
 				}
 				else

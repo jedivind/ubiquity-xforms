@@ -65,7 +65,13 @@ FormsAProcessor = {
         var sValue, oValueNode, oParent;
         var oRefNode = null;
         
-        var oEvalResult = oModel.EvaluateXPath(sName, oContextNode);
+        var oEvalResult = oModel.EvaluateXPath(sName, 
+             {
+                 node: oContextNode,
+                 model: oModel,
+                 resolverElement: oElement
+             }
+        );
         if (oEvalResult) {
             oRefNode = getFirstNode(oEvalResult);
         }

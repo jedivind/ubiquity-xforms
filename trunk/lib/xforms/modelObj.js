@@ -124,8 +124,9 @@ Model.prototype.getInstanceDocument = function(sID) {
 
 Model.prototype.getEvaluationContext = function() {
     var oRet = {
-        model :this,
-        node :null
+        model :this.element,
+        node :null,
+        resolverElement : this.element
     };
     var oFirstInstance = null;
     var oDom = null;
@@ -148,7 +149,8 @@ Model.prototype.getEvaluationContext = function() {
         if (sType === "function") {        
             oDom = oFirstInstance.getDocument();        
             if (oDom) {
-                oRet.node = getFirstNode(this.EvaluateXPath("/*", oDom));
+                oRet.node = oDom;
+                oRet.node = getFirstNode(this.EvaluateXPath("/*", oRet));
             }
         }
     }
@@ -177,7 +179,14 @@ Model.prototype.setValue = function(oContext, sXPath, sExprValue) {
          * do in fP where we evaluate an expression and also say what 'type' we
          * want from DOM 3 XPath.
          */
-        var sValue = getStringValue(this.EvaluateXPath(sExprValue, oNode));
+        var sValue = getStringValue(this.EvaluateXPath(sExprValue, 
+                                                       {
+                                                          node: oNode,
+                                                          model: oContext.model,
+                                                          resolverElement: oContext.resolverElement
+                                                       }
+                                                      )
+                     );
 
         /*
          * If there is no proxy node then create one. [Q] Should we now store
@@ -212,7 +221,7 @@ Model.prototype.setValue = function(oContext, sXPath, sExprValue) {
 Model.prototype.getValue = function(sXPath) {
     // this.element.ownerDocument.xformslog.log("Getting '" + sXPath + "'",
     // "mdl");
-    var oRet = this.EvaluateXPath(sXPath, this);
+    var oRet = this.EvaluateXPath(sXPath, this.getEvaluationContext());
     return oRet;
 };
 
@@ -220,8 +229,8 @@ Model.prototype.getValue = function(sXPath) {
 /*
  * Evaluates an XPath expression, returning a
  */
-Model.prototype.EvaluateXPath = function(sXPath, pContextResolver, oResolverElement) {
-    return _EvaluateXPath(this, sXPath, pContextResolver, oResolverElement);
+Model.prototype.EvaluateXPath = function(sXPath, oContext) {
+    return _EvaluateXPath(this, sXPath, oContext);
 };
 
 
@@ -298,7 +307,7 @@ Model.prototype.addControlExpression = function(oTarget, oContext, sXPath) {
  */
 Model.prototype.AddSingleNodeBinding = function(oTarget, oContext, sXPath) {
     if (!oContext) {
-        oContext = this;
+        oContext = this.getEvaluationContext();
     }
     var oSNE = new SingleNodeExpression(oTarget, sXPath, oContext, this, true);
 
@@ -308,7 +317,7 @@ Model.prototype.AddSingleNodeBinding = function(oTarget, oContext, sXPath) {
 
 Model.prototype.AddNodesetBinding = function(oTarget, oContext, sXPath) {
     if (!oContext) {
-        oContext = this;
+        oContext = this.getEvaluationContext();
     }
 
     var oNE = new NodesetExpression(oTarget, sXPath, oContext, this, false);
@@ -379,7 +388,7 @@ Model.prototype.rebuild = function() {
      * Process the bind statements.
      */
     var oContext = this.getEvaluationContext();
-    processBinds(this, this.element, oContext.node);
+    processBinds(this, this.element, oContext);
     this.m_bNeedRebuild = false;
     this.m_bNeedRecalculate = true;
 };
