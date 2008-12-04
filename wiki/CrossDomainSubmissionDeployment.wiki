@@ -29,6 +29,15 @@ To solve this,
  # Counter-intuitively, unselect this option
  # Restart IE, and you should be able to access instances with @src and @resource.
 
+===How to Get IE 7 to Recognize XHTML Extensions===
+For Windows, paste the following into a file (e.g. xhtml_mime.reg), navigate to Start > Run and run the xhtml_mime.reg to update the Windows registry. (or you could manually update the registry with this information.)
+{{{
+[HKEY_CLASSES_ROOT\MIME\Database\Content Type\application/xhtml+xml]
+"CLSID"="{25336920-03F9-11cf-8FD0-00AA00686F13}"
+"Encoding"=hex:08,00,00,00
+"Extension"=".xhtml"
+}}}
+
 ==Mozilla Firefox 2==
 
 For Mozilla Firefox 2, a user can modify security permissions to allow XMLHttpRequests from his browser.  To do this, follow these steps:
