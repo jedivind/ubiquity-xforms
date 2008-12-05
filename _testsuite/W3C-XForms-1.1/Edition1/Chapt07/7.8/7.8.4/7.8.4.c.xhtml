@@ -12,7 +12,7 @@
             <xforms:instance>
                 <root/>
             </xforms:instance>
-            <xforms:bind ref="/" calculate="hmac('key', 'abc', 'invalid', 'hex')"/>
+            <xforms:bind nodeset="/" calculate="hmac('key', 'abc', 'invalid', 'hex')"/>
             <xforms:message ev:event="xforms-compute-exception" level="modal">xforms-compute-exception</xforms:message>
         </xforms:model>
         <xforms:group>
