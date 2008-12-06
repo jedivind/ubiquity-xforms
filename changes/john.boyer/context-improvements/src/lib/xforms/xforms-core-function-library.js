@@ -1000,7 +1000,7 @@ FunctionCallExpr.prototype.xpathfunctions["context"] = function(ctx) {
     var ctxNode = ctx.resolverElement ?
         ctx.resolverElement.getEvaluationContext().node : ctx.node;
 
-    return new NodeSetValue([ctxNode.m_oNode]);
+    return new NodeSetValue([ctxNode]);
 };
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-object

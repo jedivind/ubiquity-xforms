@@ -72,8 +72,17 @@ Context.prototype.getBoundNode = function(nOrdinal) {
  
 function _getEvaluationContext(pThis) {    
 
+    // Return a copy of the cached context if we have it
     if (pThis.m_context) {
-        return pThis.m_context;
+        // Make a copy because the caller (e.g. getBoundNode()) may alter the result returned
+        return {
+            model: pThis.m_context.model,
+            node: pThis.m_context.node,
+            initialContext : pThis.m_context.initialContext,
+            position: pThis.m_context.position,
+            size: pThis.m_context.size,
+            resolverElement: pThis.m_context.resolverElement
+        }     
     }
      
     var oRet = null;
@@ -161,9 +170,10 @@ function _getEvaluationContext(pThis) {
 function _getEvaluationContextFromParent(pThis) {
     var oRet = {
         model :null,
-        node :null
+        node :null,
+        resolverElement : pThis.element
     };
-    var oElement = pThis.element
+    var oElement = pThis.element;
     var oParent  = oElement.parentNode;
     var oRoot    = oElement.ownerDocument.documentElement;
     var oBoundNode = null;
@@ -184,10 +194,10 @@ function _getEvaluationContextFromParent(pThis) {
             if (oBoundNode && (oBoundNode.model || oBoundNode.node)) {
              // Now that a real context has been found, leave the loop
                 if (oRet.position) {
-                    oBoundNode.position = oRet.position;
-                    oBoundNode.size = oParent.m_arrNodes.length;
+                    oRet.size = oParent.m_arrNodes.length;
                 }
-                oRet = oBoundNode;
+                oRet.model = oBoundNode.model;
+                oRet.node = oBoundNode.node;
                 break;
             }
         }
@@ -215,6 +225,7 @@ function _getEvaluationContextFromParent(pThis) {
             }
         }        
         oRet = document.defaultModel.getEvaluationContext();
+        oRet.resolverElement = pThis.element;
     }  
     return oRet;
 }
@@ -245,7 +256,8 @@ function _getBoundNode(pThis, nOrdinal) {
         }
         return { 
             model : pThis.m_model, 
-            node  : oProxy,
+            // CHANGE oProxy to oProxy.getNode() 
+            node  : oProxy.getNode(),
             resolverElement : pThis.element
         };
     }

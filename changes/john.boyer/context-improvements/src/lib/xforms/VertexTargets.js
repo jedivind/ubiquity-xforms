@@ -62,7 +62,7 @@ function getElementValueOrContent(oContext, oElement) {
     if (sExprValue === undefined || sExprValue === null || sExprValue === "") {
       sRet = UX.isXHTML ? oElement.textContent : oElement.innerHTML;  
     } else {
-      sRet = getStringValue(oContext.model.EvaluateXPath(sExprValue, { node: oContext.node, resolverElement: oElement }));
+      sRet = getStringValue(oContext.model.EvaluateXPath(sExprValue, oContext));
     }
     
     return sRet;

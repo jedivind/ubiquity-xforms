@@ -274,7 +274,9 @@ Control.prototype.xrewire = function() {
     // [ISSUE] In theory even if the model attribute had changed by now, this
     // would still work. This means that the addControl*() methods could perhaps
     // be some kind of global thing.
-    this.m_model = ctxBoundNode.model;
+    if (ctxBoundNode.model) {
+        this.m_model = ctxBoundNode.model;
+    }
 
     // If we have a @value then the 'bound node' will actually be a context
     // node.
@@ -285,11 +287,13 @@ Control.prototype.xrewire = function() {
 
     if (sValueExpr) {
         var ctx = ctxBoundNode;
-        if (ctxBoundNode.model === null && 
-            ctxBoundNode.node  === null) {
+        if (!ctxBoundNode.model && !ctxBoundNode.node) {
             ctx = this.getEvaluationContext();
+            if (ctx.model) {
+                this.m_model = ctx.model;
+            }
         }
-        oPN = ctx.model.addControlExpression(this, ctx.node, sValueExpr);
+        oPN = ctx.model.addControlExpression(this, ctx, sValueExpr);
         bRet = true;
     } else if (ctxBoundNode.node) {
         // If we have a node then we should bind our control to it.
