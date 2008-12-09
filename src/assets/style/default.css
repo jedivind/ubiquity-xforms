@@ -80,7 +80,7 @@ xforms\:select1,
 xf\:select1,
 xforms\:select,
 xf\:select {
-    display: block;
+    display: inline-block;
     padding: 0.2em; 
 }
 
@@ -88,7 +88,7 @@ xforms|select1,
 xf|select1,
 xforms|select,
 xf|select {
-    display: block;
+    display: inline-block;
     padding: 0.2em; 
 }
 
@@ -357,6 +357,16 @@ xforms|item, xf|item {
     display:block;
 }
 
+xf\:choices, xforms\:choices {
+  display:block;
+  margin-left: 1em;
+}
+
+xf|choices {
+  display:block;
+  margin-left: 1em;
+}
+
 xforms\:select1 pe-value,
 xf\:select1 pe-value {
     border: 2px inset #f0f0f0;
@@ -389,14 +399,6 @@ xf\:select1 xf\:label pe-value, xforms\:select1 xforms\:label pe-value {
 xf|select1 xf|label pe-value, xforms|select1 xforms|label pe-value {
     border: none;
     background-color: transparent;
-}
-
-.xforms-out-of-range {
-    border:#ffcc00 1px solid;
-}
-
-*[class~="xforms-out-of-range"] {
-    border:#ffcc00 1px solid;
 }
 
 .ux-calendar-bg {
@@ -472,4 +474,31 @@ xforms\:output .calnavright, xf\:output .calnavright {
 xforms|output *[class~="calnavleft"], xf|output *[class~="calnavleft"],
 xforms|output *[class~="calnavright"], xf|output *[class~="calnavright"] {
   display: none;
+}
+
+
+.ux-drop-button {
+    font-size:1pt;
+    display:inline-block;
+    margin:0px;
+    padding:0px;
+    position:relative;
+}
+.ux-drop-button .first-child {
+    background-image: url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-color:transparent;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+
+.focus {
+  border: 1px lightgray dashed;
+}
+
+.pe-choices
+{
+  cursor:pointer
 }

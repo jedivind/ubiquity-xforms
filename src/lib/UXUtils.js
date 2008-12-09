@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+ /*global Element, FormsProcessor, HTMLElement, NamespaceManager, UX, YAHOO, _getEvaluationContext , getFirstNode , spawn , xpathDomEval */
  /**
 	@fileoverview
 	For browsers such as Firefox, that do not support IE's rather handy bonus functions
@@ -274,7 +274,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
             if (aChildNode.getAttribute("value")) {
                 oContext = _getEvaluationContext(pThis);
                 node = getFirstNode(
-                    oContext.model.EvaluateXPath(aChildNode.getAttribute("value"), oContext)
+                    oContext.model.EvaluateXPath(aChildNode.getAttribute("value"), oContext.node)
                 );
                 sType = (node) ? node.firstChild.nodeValue : "";
             }
@@ -321,3 +321,93 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
         }
         return oElement;
     }
+    
+/*
+  Extended DOM Navigation.
+*/
+(
+  function(){
+  
+    var forwards = function(o){
+      return o.nextSibling;
+    },
+  
+    backwards = function(o){
+      return o.previousSibling;
+    },
+      
+    getEndNodeByName = function(searchWithin, name, namespace,direction) {
+      var newCandidateNode = null,
+      candidateNode;
+      
+      if(direction === forwards) {
+        candidateNode = searchWithin.firstChild;
+      } else {
+        candidateNode = searchWithin.lastChild;
+      }
+      
+      while(candidateNode && !NamespaceManager.compareFullName(candidateNode,name,namespace)) {
+        if(candidateNode.hasChildNodes) {
+          newCandidateNode = getEndNodeByName(candidateNode, name, namespace, direction);
+          if(newCandidateNode) {
+            candidateNode = newCandidateNode;
+            break;
+          }
+        }
+    
+        candidateNode = direction(candidateNode);
+      }
+      return candidateNode;
+    },
+
+    getNearestAncestralSibling = function(referenceNode, directionFunction, commonAncestor) {
+      var candidateAncestralSibling = null,
+      candidateAncestor = referenceNode.parentNode; 
+      while(!candidateAncestralSibling && candidateAncestor && candidateAncestor !== commonAncestor) {
+        candidateAncestralSibling = directionFunction(candidateAncestor);
+        candidateAncestor = candidateAncestor.parentNode;
+      }
+      return candidateAncestralSibling;
+    },
+  
+    getNearestNodeByName = function(referenceNode, name, namespace, searchWithin, directionFunction) {
+      var newCandidateNode = null,
+      candidateNode = directionFunction(referenceNode);
+      
+      //No siblings, the next node might be an aunt or cousin.
+      if(!candidateNode) {
+        candidateNode = getNearestAncestralSibling(referenceNode,directionFunction,searchWithin);
+      }
+      
+      while(candidateNode && !NamespaceManager.compareFullName(candidateNode,name,namespace)) {
+        if(candidateNode.hasChildNodes) {
+           newCandidateNode = getEndNodeByName(candidateNode,name,namespace,directionFunction);
+          
+          if(newCandidateNode) {
+            candidateNode = newCandidateNode;
+            break;
+          }
+        }
+        newCandidateNode = directionFunction(candidateNode);
+        if(newCandidateNode) {
+          candidateNode = newCandidateNode;
+        } else {
+          candidateNode = getNearestAncestralSibling(candidateNode,directionFunction,searchWithin);
+        }
+      }
+      return candidateNode;
+    };
+    
+    UX.getNextNodeByName = function(referenceNode, name,namespace,constrainingAncestor) {
+      return getNearestNodeByName(referenceNode, name,namespace,constrainingAncestor,forwards);
+    };
+    
+    UX.getPreviousNodeByName = function(referenceNode, name,namespace, constrainingAncestor) {
+      return getNearestNodeByName(referenceNode, name,namespace,constrainingAncestor,backwards);
+    };
+    
+    UX.getFirstNodeByName = function(searchWithin, name,namespace) {
+      return getEndNodeByName(searchWithin, name, namespace,forwards);
+    };
+  }()
+);    

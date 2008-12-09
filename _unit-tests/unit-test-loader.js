@@ -62,8 +62,10 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-insert-nodes", type: "js",  fullpath: moduleBase + "ut-insert-nodes.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
-  loader.require(
+  loader.addModule({ name: "ux-ut-extended-dom-navigation", type: "js",  fullpath: moduleBase + "ut-extended-dom-navigation.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
     "ux-ut-NamespaceManager", 

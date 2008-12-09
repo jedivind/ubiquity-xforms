@@ -21,7 +21,98 @@ function XFormsSelect1(elmnt)
 	this.element.addEventListener("xforms-select",this,false);
 	this.element.addEventListener("xforms-deselect",this,false);
 	this.element.addEventListener("xforms-value-changed",this,false);
+	this.m_currentItem = null;
+			
+	var keypressHandler = {
+	  handleEvent: function (o) {
+      switch (o.keyCode) {
+	      case 38 : //up
+  	      elmnt.selectPreviousItem();
+	        break;
+	      case 40 : //down
+	     // debugger;
+	        elmnt.selectNextItem();
+  	  }
+	  }
+	},
+	
+	wheelHandler = {
+    handleEvent: function(o) {
+      switch (o.type) {
+	      case "focus":
+	        this.trapMouseWheel();
+	        break;
+	      case "blur":
+	        this.untrapMouseWheel();
+	        break;
+	      case "mousewheel":
+	      case "DOMMouseScroll":
+	        this.handleScroll(o);
+	    }
+	  },
+	  
+	  trapMouseWheel: 
+	    function() {
+  	    if(UX.isFF) {
+  	      document.addEventListener("DOMMouseScroll",this,true);
+  	    } else if(UX.isIE) {
+  	      document.attachEvent("onmousewheel",wheelHandler.handleScroll);
+  	    } else {
+  	      document.addEventListener("mousewheel",this,true);  	    
+  	    }
+  	    
+	    }, 	  
+	  untrapMouseWheel: function() {
+  	    if(UX.isFF) {
+    	    document.removeEventListener("DOMMouseScroll",this,true);
+  	    } else if(UX.isIE) {
+  	      document.detachEvent("onmousewheel",wheelHandler.handleScroll);
+  	    } else {
+  	      document.removeEventListener("mousewheel",this,true);  	    
+  	    }
+	  },
+	  
+	  handleScroll: function (o) {
+	    var wheelDelta = o.wheelDelta;
+	    if(typeof wheelDelta === "undefined") {
+	      wheelDelta = o.detail;
+	    }
+	    
+	    //Firefox mousewheel movement is reported in the
+	    //  opposite direction to everyone else
+	    if(UX.isFF) {
+	      wheelDelta *= -1;
+	    }
+	    
+	    if(wheelDelta > 0) {
+	      elmnt.selectPreviousItem();
+	    } else {
+	      elmnt.selectNextItem();
+	    }
+	    
+	    if(o.preventDefault) {
+	      o.preventDefault();
+	    }
+	    return false;
+	    
+	  }
+	};
+
+  if(UX.isIE) {
+    this.element.attachEvent("onkeyup",keypressHandler.handleEvent);
+    this.element.attachEvent("onfocusin",wheelHandler.trapMouseWheel);
+    this.element.attachEvent("onfocusout",wheelHandler.untrapMouseWheel);
+    
+  } else {
+    this.element.addEventListener("keyup",keypressHandler,false);
+    this.element.addEventListener("focus",wheelHandler,true);
+    this.element.addEventListener("blur",wheelHandler,true);
+  }
+  
+  
+  
 }
+
 XFormsSelect1.prototype = new CommonSelect();
 
 		XFormsSelect1.prototype.handleEvent = function(oEvt)
@@ -29,6 +120,7 @@ XFormsSelect1.prototype = new CommonSelect();
 			switch(oEvt.type)
 			{
 				case "fp-select":
+				  this.element.m_currentItem = oEvt.target;
 				  this.onValueSelected(oEvt.target.getValue());
 					break;
 				case "xforms-select":
@@ -43,6 +135,40 @@ XFormsSelect1.prototype = new CommonSelect();
 			}			
 		};
 		
+
+  XFormsSelect1.prototype.getFirstItem = function() {
+    return UX.getFirstNodeByName(this.m_choices,"item","http://www.w3.org/2002/xforms");
+  };
+  
+  XFormsSelect1.prototype.selectFirstItem = function() {
+    var firstItem = this.getFirstItem();
+    if(firstItem !== null) {
+      firstItem.onUserSelect();
+    }
+  };
+  
+  XFormsSelect1.prototype.selectPreviousItem = function(){
+  if(this.m_currentItem === null) {
+      this.selectFirstItem();
+    } else {
+      previousItem = UX.getPreviousNodeByName(this.m_currentItem, "item", "http://www.w3.org/2002/xforms",this.m_choices);
+      if(previousItem !== null) {
+        previousItem.onUserSelect();
+      }
+    }
+  };
+  
+  XFormsSelect1.prototype.selectNextItem = function(){
+    if(this.m_currentItem === null) {
+      this.selectFirstItem();
+    } else {
+      nextItem = UX.getNextNodeByName( this.m_currentItem, "item", "http://www.w3.org/2002/xforms",this.m_choices);
+      if(nextItem !== null) {
+        nextItem.onUserSelect();
+      }
+    }
+  };
+
 XFormsSelect1.prototype.onValueSelected = function(value) {
   this.element.hideChoices();
   var oEvt1 = document.createEvent("MutationEvents");
@@ -59,6 +185,7 @@ XFormsSelect1.prototype.itemChanged = function(oEvt) {
   }
 };
 	
+
 	
 	
 XFormsSelect1.prototype.focusOnValuePseudoElement = function()
@@ -79,19 +206,14 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 				UX.addClassName(this, "appearance-" + s);
 			}
 		};
-		
-		XFormsSelect1.prototype.onDocumentReady = function()
+
+    XFormsSelect1.prototype.onDocumentReady = function()
 		{
 				if(!this.m_choices)
 				{
-				  //YUI menus only work with divs
-				    UX.addClassName(this.element, "yui-skin-sam");
-					var oPeChoicesWrapper = this.element.ownerDocument.createElement("div");
- 				    UX.addClassName(oPeChoicesWrapper, "pe-choices-wrapper yuimenu");					
+
 					var oPeChoices = this.element.ownerDocument.createElement("div");
-					UX.addClassName(oPeChoices, "pe-choices bd");
-					this.element.appendChild(oPeChoicesWrapper);
-					oPeChoicesWrapper.appendChild(oPeChoices);
+					UX.addClassName(oPeChoices, "pe-choices");
 
 					var nl = this.childNodes;
 					for(var i = 0;i < nl.length; ++i) {
@@ -103,31 +225,23 @@ XFormsSelect1.prototype.focusOnValuePseudoElement = function()
 							case "choices":
 								//shift to pc-choices.
 								oPeChoices.appendChild(n);
-								UX.addClassName(n, " yuimenuitem");
 								--i;
-							break;
+								break;
 							default:
 							//leave in situ
 						}
 					}
-
+					this.choicesBox = new DropBox(this.element,this.element.m_value,oPeChoices);
           this.m_choices = oPeChoices;
-          var oMenu = new YAHOO.widget.Menu(oPeChoicesWrapper);
-          this.choicesMenu = oMenu;
-          this.choicesMenu.render();
-          this.choicesMenu.cfg.setProperty("context", [this.element.m_value, "tl", "bl"]); 
-          //this.showChoices();
-
       }
     };
 
     XFormsSelect1.prototype.showChoices = function() {
-      this.choicesMenu.align("tl", "bl");
-      this.choicesMenu.show();
+      this.choicesBox.show();
     };
 
     XFormsSelect1.prototype.hideChoices = function() {
-      this.choicesMenu.hide();
+      this.choicesBox.hide();
     };
 
 		XFormsSelect1.prototype.getDisplayValue = function(sValue) {
@@ -244,15 +358,35 @@ XFormsSelect1Value.prototype.onDocumentReady = function()
 		var sTagNameLC = this.getOwnerNodeName();
 		var sElementToCreate = "input";
 		var oInput = document.createElement(sElementToCreate);
+		
     var pSelect = this.parentNode;
     var pThis = this;
     if(oInput.addEventListener) {
       oInput.addEventListener("change",function(e){pThis.trySetManuallyEnteredValue(oInput.value);},false);
-      oInput.addEventListener("focus",function(){pSelect.showChoices();}, false);
+      oInput.addEventListener("click",function(){pSelect.showChoices();}, false);
+      if(!this.parentNode.isOpen()) {
+        //ignore the typing of any alphanumeric characters, other than tab, 
+        //  which should cause focus to move. 
+        oInput.addEventListener("keypress",function(e){
+          if(e.keyCode != 9) {
+            e.preventDefault();
+          }
+        },true);
+      }
     }
     else {
       oInput.attachEvent("onchange", function(e){pThis.trySetManuallyEnteredValue(oInput.value);});
-      oInput.attachEvent("onfocus",function(){pSelect.showChoices();});
+      oInput.attachEvent("onclick",function(){pSelect.showChoices();});
+      if(!this.parentNode.isOpen()) {
+        //ignore the typing of any alphanumeric characters, other than tab, 
+        //  which should cause focus to move. 
+        oInput.attachEvent("onkeypress",function(e) {
+          if(e.keyCode != 9) {
+            return false;
+          }
+          return true;
+        });
+      }
     }
   
 		UX.addStyle(oInput, "backgroundColor", "transparent");
@@ -317,4 +451,3 @@ XFormsSelect1Value.prototype.setDisplayValue = function(sDisplayValue, bForceRed
 	return bRet;
 };
 
-		
