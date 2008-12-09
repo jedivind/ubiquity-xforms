@@ -353,10 +353,13 @@ FunctionCallExpr.prototype.xpathfunctions["count-non-empty"] = function(ctx) {
 	http://www.w3.org/TR/xforms11/#fn-index
 */
 FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx) {
-	var s =  this.args[0].evaluate(ctx).stringValue();
-	var oRpt = document.getElementById(s);
+    var s =  this.args[0].evaluate(ctx).stringValue();
+    var oRpt = document.getElementById(s);
+    if (oRpt) {
+        return new NumberValue(oRpt.getIndex());
+    }
 
-    return new NumberValue(oRpt.getIndex());
+    return new NumberValue(NaN);
 };
 
 /**@addon
@@ -447,9 +450,12 @@ FunctionCallExpr.prototype.xpathfunctions["property"] = function(ctx) {
         var match = property.match(/^[_a-z][\w\.\-]*/i);
         if (match && match[0] == property && document.defaultModel) {
             // Matched the whole property string so it is a valid NCName.
-            var evt = document.createEvent("Events");
-            evt.initEvent("xforms-compute-exception", true, false);
-            FormsProcessor.dispatchEvent(document.defaultModel,evt);
+            if (NamespaceManager.compareFullName(
+                    ctx.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
+                UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
+            } else {
+                UX.dispatchEvent(document.defaultModel, "xforms-binding-exception", true, false, false);
+            }
         }
     }
 
@@ -468,18 +474,38 @@ FunctionCallExpr.prototype.xpathfunctions["digest"] = function(ctx) {
 	var algorithm = this.args[1].evaluate(ctx).stringValue();
 	var encoding = (this.args.length === 3) ? this.args[2].evaluate(ctx).stringValue() : "base64";
 
-    var digest = "";
-    if (algorithm == "MD5") {
-        if (encoding == "base64") {
+    var bException = false, digest = "";
+
+    if (algorithm === "MD5") {
+        if (encoding === "base64") {
             digest = MD5.b64_md5(data);
-        } else if (encoding == "hex") {
+        } else if (encoding === "hex") {
             digest = MD5.hex_md5(data);
+        } else {
+            bException = true;
         }
-    } else if (algorithm == "SHA-1") {
-        if (encoding == "base64") {
+    } else if (algorithm === "SHA-1") {
+        if (encoding === "base64") {
             digest = SHA1.b64_sha1(data);
-        } else if (encoding == "hex") {
+        } else if (encoding === "hex") {
             digest = SHA1.hex_sha1(data);
+        } else {
+            bException = true;
+        }
+    } else if (!(algorithm === "SHA-256" || 
+                 algorithm === "SHA-384" || 
+                 algorithm === "SHA-512")) {
+        // SHA-256/384/512 are not currently supported but should return
+        // an empty digest string rather than throw an exception.
+        bException = true;
+    }
+
+    if (bException) {
+        if (NamespaceManager.compareFullName(
+                ctx.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
+            UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
+        } else {
+            UX.dispatchEvent(document.defaultModel, "xforms-binding-exception", true, false, false);
         }
     }
 
@@ -499,18 +525,38 @@ FunctionCallExpr.prototype.xpathfunctions["hmac"] = function(ctx) {
 	var algorithm = this.args[2].evaluate(ctx).stringValue();
 	var encoding = (this.args.length === 4) ? this.args[3].evaluate(ctx).stringValue() : "base64";
 
-    var hmac = "";
-    if (algorithm == "MD5") {
-        if (encoding == "base64") {
+    var bException = false, hmac = "";
+
+    if (algorithm === "MD5") {
+        if (encoding === "base64") {
             hmac = MD5.b64_hmac_md5(key, data);
-        } else if (encoding == "hex") {
+        } else if (encoding === "hex") {
             hmac = MD5.hex_hmac_md5(key, data);
+        } else {
+            bException = true;
         }
-    } else if (algorithm == "SHA-1") {
+    } else if (algorithm === "SHA-1") {
         if (encoding == "base64") {
             hmac = SHA1.b64_hmac_sha1(key, data);
-        } else if (encoding == "hex") {
+        } else if (encoding === "hex") {
             hmac = SHA1.hex_hmac_sha1(key, data);
+        } else {
+            bException = true;
+        }
+    } else if (!(algorithm === "SHA-256" || 
+                 algorithm === "SHA-384" || 
+                 algorithm === "SHA-512")) {
+        // SHA-256/384/512 are not currently supported but should return
+        // an empty hmac string rather than throw an exception.
+        bException = true;
+    }
+
+    if (bException) {
+        if (NamespaceManager.compareFullName(
+                ctx.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
+            UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
+        } else {
+            UX.dispatchEvent(document.defaultModel, "xforms-binding-exception", true, false, false);
         }
     }
 
