@@ -320,7 +320,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
             oElement = oDocument.createElement(sPrefix + ":" + sQualifiedName);
         }
         return oElement;
-    }
+    };
     
 /*
   Extended DOM Navigation.

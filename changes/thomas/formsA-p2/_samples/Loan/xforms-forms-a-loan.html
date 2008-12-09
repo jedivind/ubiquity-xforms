@@ -9,82 +9,87 @@
 <head>
 <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
 <link type="text/css" href="style/gen_default.css" rel="stylesheet"></link>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css"></link>
 </head>
-<body>
-
+<body class="yui-skin-sam">
 <xf:model id="m1">
 </xf:model>
 
+<xf:output class="company_name"> 
+   <xf:label>Big Red Loan and Mortgage Co.</xf:label>
+</xf:output>
+      
+<xf:output class="company_motto"> 
+    <xf:label>The name to trust when you're... in the red.</xf:label>
+</xf:output>
+
 <xf:form id="f" fa:name="datarecord"
-	action="http://xformstest.org/cgi-bin/echo.sh" method="post">
-
-	<xf:input id="d" fa:name="startdate" fa:datatype="date"
-		fa:value="08/08/2008">
-		<xf:label>Agreement Date:</xf:label>
-	</xf:input>
-	<br />
-	<xf:group id="b" fa:name="borrower">
-		<xf:input id="name" fa:name="name" fa:datatype="string"
-			fa:value="Joe Q. Public" fa:constraint="string-length(.) > 0">
-			<xf:label for="name">Name:</xf:label>
-		</xf:input>
-		<br />
-		<xf:input id="addr" fa:name="addr" fa:datatype="string"
-			fa:value="123 Main St. Tinyville"
-			fa:constraint="string-length(.) > 0">
-			<xf:label for="addr">Address:</xf:label>
-		</xf:input>
-		<br />
-	</xf:group>
-	<xf:input id="p" fa:name="principal" fa:datatype="double" fa:value="10000"
-		fa:constraint=". &gt;= 1000 and . &lt;= 100000">
-		<xf:label for="addr">Principal:</xf:label>
-	</xf:input>
-
-	<br />
-	<!-- 
-   <xf:label for="currency">Choose currency</xf:label>
-   <xf:select name="currency" >
-     <xf:option value="USD">US Dollars</xf:option>
-     <xf:option value="CDN">Canadian Dollars</xf:option>
-     <xf:option value="EUR">Euros</xf:option>
-   </xf:select>
+    action="http://xformstest.org/cgi-bin/echo.sh" method="post">
+   
    <br />
-   -->
+   
+    <xf:group id="b" fa:name="borrower">
+        <xf:input id="d" fa:name="startdate" fa:datatype="date"
+            fa:value="2008-08-08">
+            <xf:label>Agreement Date:</xf:label>
+        </xf:input>     
+        <br />      
+        
+        <xf:input id="name" fa:name="name" fa:datatype="string"
+            fa:value="Joe Q. Public" fa:constraint="string-length(.) > 0">
+            <xf:label for="name">Name:</xf:label>
+        </xf:input>     
+        <br />
+        
+        <xf:input id="addr" fa:name="addr" fa:datatype="string"
+            fa:value="123 Main St. Tinyville"
+            fa:constraint="string-length(.) > 0">
+            <xf:label for="addr">Address:</xf:label>
+        </xf:input>
+        <br />
+        
+        <xf:input id="p" fa:name="principal" fa:datatype="double"
+            fa:value="10000" fa:constraint=". &gt;= 1000 and . &lt;= 100000">
+            <xf:label for="addr">Principal:</xf:label>
+        </xf:input>
+        <br />      
+    </xf:group>
 
-	<xf:group id="t" fa:name="terms">
-		<xf:input id="d" fa:name="duration" fa:datatype="integer" fa:value="12"
-			fa:constraint=". &gt; 0 and . &lt;= 84">
-			<xf:label>Duration of Loan in Months:</xf:label>
-		</xf:input>
-     <br></br>
-		<xf:input id="in" fa:name="interestrate" fa:datatype="double" fa:value="5"
-			fa:constraint=". &gt;= 5 and . &lt;= 60">
-			<xf:label>Yearly Interest Rate:</xf:label>
-		</xf:input>
-	</xf:group>
-	<br></br>
-	<xf:submit id="S">
-		<xf:label for="submit">Apply Loan</xf:label>
-	</xf:submit>
+    <xf:group id="t" fa:name="terms">
+        <xf:input id="d" fa:name="duration" fa:datatype="integer"
+            fa:value="12" fa:constraint=". &gt; 0 and . &lt;= 84">
+            <xf:label>Duration of Loan in Months:</xf:label>
+        </xf:input>     
+      <br />
+        
+        <xf:input id="in" fa:name="interestrate" fa:datatype="double"
+            fa:value="5" fa:constraint=". &gt;= 5 and . &lt;= 60">
+            <xf:label>Yearly Interest Rate:</xf:label>
+        </xf:input>
+      <br />            
+    </xf:group>
 </xf:form>
+
 <hr size="6" class="rule"></hr>
 
-<!--  It's a hack to use .. for reference of a value, Forms-A  
-      should generate the proper bind which will be part of the second phase impl.  
--->
-<xf:output id="o1" fa:name="rates"
-   fa:calculate="../terms/interestrate div 1200.0">
-   <xf:label>Yearly Interest Rate:</xf:label>
-</xf:output>
-<xf:output id="o2" fa:name="totalpayout"
-   fa:calculate="ceiling(../principal + (125 * ../terms/interestrate * (../terms/duration * 0.1)))">
-   <xf:label>Total Payout:</xf:label>
-</xf:output>
-<xf:output id="o3" fa:name="monthly-payment"
-   fa:calculate="ceiling(../totalpayout div ../terms/duration)">
-   <xf:label>Monthly Payment:</xf:label>
-</xf:output>
+<xf:group>
+
+    <xf:output id="o1" fa:name="rates"
+        fa:calculate="terms/interestrate div 1200.0">
+        <xf:label>Yearly Interest Rate:</xf:label>
+    </xf:output>
+    
+    <xf:output id="o3" fa:name="monthly-payment"
+        fa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1))) div terms/duration">
+        <xf:label>Monthly Payment:</xf:label>
+    </xf:output>
+    
+    <xf:output id="o2" fa:name="totalpayout"
+        fa:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1)))">
+        <xf:label>Total Payout:</xf:label>
+    </xf:output>
+    
+</xf:group>
 
 <hr size="6" class="rule"></hr>
 <script>

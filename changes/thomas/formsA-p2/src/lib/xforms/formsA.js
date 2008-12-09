@@ -112,6 +112,7 @@ FormsAProcessor = {
         var sDatatype, sCalculate, sConstraint;        
         var sRelevant, sReadonly, sRequired, sNodeset;
         var oBind = null;
+        var oContextBind = null;
         
         if (!oModel || !oElement || !oRefNode) {       
             return;
@@ -139,17 +140,26 @@ FormsAProcessor = {
             return;
         }        
         oBind.setAttribute("nodeset", sNodeset);
+        oContextBind = UX.createElementNS(oElement,
+                "http://www.w3.org/2002/xforms", "bind");
+        oContextBind.setAttribute("context", "..");
+        oBind.appendChild(oContextBind);
         
         if (sDatatype) {
             // TODO: check for vaild data type
             // Need to recreate? special control such as date.
             var sType = "xsd:" +  sDatatype;
-            oBind.setAttribute("type", sType);
+            oContextBind.setAttribute("type", sType);
+            
+            if (sType === "xsd:date") {
+                oElement.setAttribute("datatype", sType);
+                oElement.recreatePseudoElement();
+            }
         }
 
         if (sCalculate) {
             // TODO: resolve context
-            oBind.setAttribute("calculate", sCalculate);
+            oContextBind.setAttribute("calculate", sCalculate);
         }
 
         if (sConstraint) {
@@ -159,16 +169,16 @@ FormsAProcessor = {
 
         if (sRelevant) {
             // TODO: resolve context
-            oBind.setAttribute("relevant", sRelevant);
+            oContextBind.setAttribute("relevant", sRelevant);
         }
 
         if (sReadonly) {
-            oBind.setAttribute("readonly", 
+            oContextBind.setAttribute("readonly", 
                     ((sReadonly != "false") ? "true" : "false"));
         }
 
         if (sRequired) {
-            oBind.setAttribute("required", 
+            oContextBind.setAttribute("required", 
                     ((sRequired !== "false") ? "true()" : "false()"));
         }
         oModel.appendChild(oBind);
