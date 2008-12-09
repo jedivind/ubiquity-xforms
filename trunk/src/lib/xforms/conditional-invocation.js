@@ -77,7 +77,13 @@ ActionExecutor = function()
 					for(var i = 0; i < oRes.value.length; ++i)
 					{
 						oRealListener.unwire();
-						oRealListener.m_context = {model:oContext.model,node:oRes.value[i]};
+						oRealListener.m_context = {
+						    model:oContext.model,
+						    node:oRes.value[i],
+						    resolverElement: oRealListener.element,
+						    position: i,
+						    size: oRes.value.length
+						};
 						if (evaluateIfCondition(oRealListener,oRealListener.m_context))
 						{
 							if(oRealListener.getAttribute("while"))
