@@ -8,6 +8,6 @@ mkdir %~dp0\dist
 
 REM svn mkdir -m "Creating directory to contain distribution %DIST_NUMBER%" https://ubiquity-xforms.googlecode.com/svn/dist/%DIST_NUMBER%
 svn checkout https://ubiquity-xforms.googlecode.com/svn/dist/%DIST_NUMBER% %~dp0\dist
-svn copy %~dp0\..\_samples %~dp0\dist\_samples\
-svn copy %~dp0\..\_testsuite %~dp0\dist\_testsuite\
-svn copy %~dp0\..\_unit-tests %~dp0\dist\_unit-tests\
+svn copy %~dp0\..\samples %~dp0\dist\samples\
+svn copy %~dp0\..\testsuite %~dp0\dist\testsuite\
+svn copy %~dp0\..\unit-tests %~dp0\dist\unit-tests\
