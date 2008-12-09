@@ -57,10 +57,13 @@ InputValueCalendar.prototype.onDocumentReady = function() {
     if (this.element.ownerDocument.media != "print") {
         var pThis = this,
             appearance = this.element.parentNode.getAttribute("appearance"),
-            datatype = this.element.parentNode.getAttribute("datatype");
+            datatype = this.element.parentNode.getAttribute("datatype"),
+            xf4hdatatype = 
+                FormsAProcessor.getAttribute(this.element.parentNode, "datatype");
 
         if (appearance === 'yui:popup-calendar' ||
-            ((datatype === 'xsd:date' || datatype === 'xf:date' || datatype === 'xforms:date') &&
+            ((datatype === 'xsd:date' || datatype === 'xf:date' || 
+              datatype === 'xforms:date' || xf4hdatatype === 'date') &&
              (appearance === null || appearance === 'compact'))) { // popup
 
             this.m_bPopup = true;
