@@ -73,7 +73,7 @@ Here is a sample form that illustrates the two methods.  It also contains markup
  # The following changes must be made to the instance objects, so that binding xf:model/@script to the same objects as xf:model/@instance can work.
    * Instance currently looks for element.innerHTML in _parseInstance_, this needs to be made conditional (as has already been done for XHTML mode).
    * Model looks for child instances by tag name (in the methods _getInstanceDocument_, and _instances_)  This will need to be changed to accommodate child scripts.
- # instance[@src] binds to an XLink behaviour which uses XMLHTTP to fetch the target document (The object is defined here: http://ubiquity-xforms.googlecode.com/svn/trunk/lib/_backplane/xlink.js).  In this situation, the XLink behaviour should fetch the content using _getElementById_, instead of refetching the whole document.
+ # instance[@src] binds to an XLink behaviour which uses XMLHTTP to fetch the target document (The object is defined here: http://ubiquity-xforms.googlecode.com/svn/trunk/src/lib/_backplane/xlink.js).  In this situation, the XLink behaviour should fetch the content using _getElementById_, instead of refetching the whole document.
  # In both cases, The loading of the instance data string into a DOM object should be handled by instance as it is right now.  
 
 Also note that the instance: {{{<xf:instance id="i0" src="#externalPerson"></xf:instance>}}} has both a start and end tag.  This technique can only protect the instance data from markup mangling, and not the form.
