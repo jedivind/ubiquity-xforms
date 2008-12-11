@@ -74,12 +74,14 @@
            </xforms:submission>           
        </xforms:model>
 
-  <xforms:output class="company_name" ref="instance('logo')" mediatype="image/*"></xforms:output>
+  <xforms:output class="company_motto" ref="instance('logo')" mediatype="image/*"></xforms:output>
 
     
-  <p>Superior School Supplies</p>
+  <xforms:output class="company_name">
+      <xforms:label>Superior School Supplies</xforms:label>
+  </xforms:output>
       
-  <hr size="6" class="rule"></hr>
+  <hr class="rule"></hr>
       
     <xforms:trigger>
         <xforms:label>Add to Order</xforms:label>
@@ -117,7 +119,7 @@
         <xforms:label>Submit Order</xforms:label>
     </xforms:submit>
                           
-    <hr size="6" class="rule"/>
+    <hr class="rule"/>
 <!--
     <table summary="List of items to purchase">
     	<thead>
