@@ -1,4 +1,5 @@
 #summary W3C Selenium testing and results instructions.
+#labels HowTo
 
 = Introduction =
 
