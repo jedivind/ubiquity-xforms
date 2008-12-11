@@ -26,7 +26,7 @@ function isFirefox3()
 */
 function FFInsertElementForOnloadXBL() {
   var oBody = document.getElementsByTagName("body")[0];
-  oBody.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element' style='width:0px;style:display:inline-block;'>Loading...</p>");
+  oBody.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
 
   if(isFirefox3() || UX.isIE) {
     var cssNode = document.createElement('link');
