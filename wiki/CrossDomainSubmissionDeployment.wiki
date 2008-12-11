@@ -9,6 +9,11 @@ On some Browsers, cross domain submissions are not a problem (i.e. Internet Expl
 
 ==Internet Explorer 7 (IE 7)==
 
+===How to Turn on the IE 7 Default Debugger===
+IE 7 comes standard with a (primitive) default debugger which is useful in finding exception points and JavaScript problems.  To turn it on, select *Tools*, select *Internet Options*, select the *Advanced Tab*, and unselect the *Disable Script Debugging* option.  When you next start up your IE 7 browser, you should see on your *View* menu the *Script Debugger* options.  
+
+Another useful tool for development is the [http://www.microsoft.com/downloads/details.aspx?familyid=E59C3964-672D-4511-BB3E-2D5E1DB91038&displaylang=en IE Developer Toolbar].
+
 ===Submission Setting for Cross Domain Access===
 The following setting will allow IE 7 to reference the echo service site "http://xformstest.org/cgi-bin/echo.sh" from an xforms:submission when the xforms document is served from the ubiquity-xforms google code site.
 
