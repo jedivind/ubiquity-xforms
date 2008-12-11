@@ -423,6 +423,7 @@ DECORATOR.addDecorationRules({
                 var parent = element.parentNode,
                     datatype = parent.getAttribute("datatype"),
                     appearance = parent.getAttribute("appearance"),
+                    xf4hdatatype = FormsAProcessor.getAttribute(parent, "datatype"),
                     prefixes = [],
                     prefix = "",
                     isDate = false,
@@ -430,7 +431,7 @@ DECORATOR.addDecorationRules({
                 if (NamespaceManager.compareFullName(parent,"input","http://www.w3.org/2002/xforms")) {
                     prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms");
                     prefix = prefixes[prefixes.length-1];
-                    isDate = (datatype === "xsd:date" || datatype === (prefix + ":date"));
+                    isDate = (datatype === "xsd:date" || datatype === (prefix + ":date") || xf4hdatatype === "date");
                     if (isDate && appearance !== "minimal") {
                         match = true;
                     }
