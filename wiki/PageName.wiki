@@ -8,19 +8,10 @@ The W3C XForms 1.1 Test Suite has been incorporated into the Ubiquity-xforms pro
 
 You can quickly see the results of the Selenium testing by observing the background colors of the listed tests.  Red indicates the test or selenium cmd failed, and green indicates the test or selenium cmd passed.  There are some tests which are highlighted in red text to indicate the test is not enabled for Selenium.
 
-The [http://ubiquity-xforms.googlecode.com/svn/trunk/testsuite/W3C-XForms-1.1/Edition1/driverPages/html/index.html W3C XForms 1.1 Test Suite] has a driver to run the individual tests by chapters in the XForms 1.1 specification.  Further, the W3C XForms 1.1 test suite has an [http://ubiquity-xforms.googlecode.com/svn/trunk/testsuite/W3C-XForms-1.1/Edition1/driverPages/forms/index.xhtml XForms mode] (not yet working with Ubiquity-XForms) which allows a user to mark individual tests as passed or failed and the date of the observed state.  These results can be saved to a local file system (e.g. if you were testing Chapter 2, select *2. Introduction to XForms*, select test 2.1.a _Introductory Example No. 1_ and depending on the success of the test case return back to the chapter 2 page and select 'Passed', 'Failed', or unknown status and select a date with the calendar control).  You can select the *Save* button to save the results to the folder ../Results/XF11_02_Results.xml. 
+The [http://ubiquity-xforms.googlecode.com/svn/trunk/testsuite/W3C-XForms-1.1/Edition1/driverPages/html/index.html W3C XForms 1.1 Test Suite] has a driver to run the individual tests by chapters in the XForms 1.1 specification.  Further, the W3C XForms 1.1 test suite has an [http://ubiquity-xforms.googlecode.com/svn/trunk/testsuite/W3C-XForms-1.1/Edition1/driverPages/forms/index.xhtml XForms mode] (not yet working with Ubiquity-XForms) which allows a user to mark individual tests as passed or failed and the date of the observed state.  These results can be saved to a local file system (e.g. if you were testing Chapter 2, select *2. Introduction to XForms*, select test 2.1.a _Introductory Example No. 1_ and depending on the success of the test case return back to the chapter 2 page and select 'Passed', 'Failed', or unknown status and select a date with the calendar control).  You can select the *Save* button to save the results to the folder ../Results/XF11_02_Results.xml.  We manually moved these files, respectively, to Results/FF3 for Firefox 3 results, and IE7 for Internet Explorer results.
 
-There is a ResultsTable document written with XForms which can display the results of these Results from the manual testing of the W3C XForms 1.1 Test Suite. But because of various reasons, we had to go to amore X/HTML oriented approach.  So to view the Results from above, you will need to transform the XML files above to X/HTML.  To do this
-SHow results of tests
-Illustrate the XForms way and the xslt transform way of seeing the files
+There is a ResultsTable document written with XForms which can display the results of these Results from the manual testing of the W3C XForms 1.1 Test Suite. But due to various reasons, we had to use an X/HTML oriented approach.  So to view the Results from above, you will need to transform the XML files above to X/HTML.  To do this, inspect the testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/build.xml and ubiquityxforms.xsl files.  You may need to edit these files depending on whether you are working with IE or Firefox results.  If you are an Eclipse user, select the build.xml file and right click on the "Run As > Ant Build" to transform the IE7 or FF3 results to html files under IE7/html and FF3/html. 
 
+At this point you can render testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/IE7/ResultsTable.html or testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/FF3/ResultsTable.html to see a view-at-a-glance results of the test runs. 
 
-Next Stage, to update the results automatically as the Selenium tests run...
-
-
-Manually update the count on wiki -- you can run the counter.xhtml
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+The next stage we have been working on is to find an automated way to run the Selenium tests, collect the passed/failed status, and automatically update the Results xml files to quickly present the current state of the product.
