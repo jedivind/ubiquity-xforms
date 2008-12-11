@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xmlns:xforms="http://www.w3.org/2002/xforms"
+      xmlns:ts="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
+	<head>
+		<title>Write results to Results xml</title>
+        <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+	</head>
+	<body>        
+	    <xforms:model id="form1">
+			<xforms:instance id="instance1" src="../Results/XF11_02_Results.xml"></xforms:instance>
+            <xforms:instance id="chap02" src="../Results/XF11_02_Results.xml"></xforms:instance>
+            <xforms:instance id="chap03" src="../Results/XF11_03_Results.xml"></xforms:instance>
+            <xforms:instance id="chap04" src="../Results/XF11_04_Results.xml"></xforms:instance>
+            <xforms:instance id="chap05" src="../Results/XF11_05_Results.xml"></xforms:instance>
+            <xforms:instance id="chap06" src="../Results/XF11_06_Results.xml"></xforms:instance>
+            <xforms:instance id="chap07" src="../Results/XF11_07_Results.xml"></xforms:instance>
+            <xforms:instance id="chap08" src="../Results/XF11_08_Results.xml"></xforms:instance>
+            <xforms:instance id="chap09" src="../Results/XF11_09_Results.xml"></xforms:instance>
+            <xforms:instance id="chap10" src="../Results/XF11_10_Results.xml"></xforms:instance>
+            <xforms:instance id="chap11" src="../Results/XF11_11_Results.xml"></xforms:instance>
+            <xforms:instance id="chapB" src="../Results/XF11_AppendixB_Results.xml"></xforms:instance>
+            <xforms:instance id="chapG" src="../Results/XF11_AppendixG_Results.xml"></xforms:instance>
+            <xforms:instance id="chapH" src="../Results/XF11_AppendixH_Results.xml"></xforms:instance>
+            
+            <xforms:instance id="urlvars">
+               <root xmlns="">
+                  <chapter></chapter>
+                  <testcase></testcase>
+                  <status></status>                  
+               </root>
+            </xforms:instance>
+            <xforms:submission id="submit01" method="put" instance="instance1">
+                 <xforms:resource value="concat('file:',instance('urlvars')/chapter,'.xml')"></xforms:resource>
+            </xforms:submission>
+		</xforms:model>	
+        
+        <xforms:action ev:event="xforms-model-construct-done">        
+            <xforms:dispatch name="setURLInfo" target="urlvars"/>       
+            <xforms:rebuild model="form1"/>     
+            <xforms:recalculate model="form1"/>  
+        </xforms:action>
+        <script>
+<![CDATA[
+       
+        setURLInfo();
+        // var instx = document.getElementById('urlvars'); 
+        // instx.addEventListener("setURLInfo", setURLInfo, false);
+        
+        function getURL(parm) {   
+            var str = window.location.search.substr(1);
+            var clauses = str.split('&');
+            for (var i = 0; i < clauses.length; i++) {
+                var keyValuePair = clauses[i].split('=', 2);
+                var key = unescape(keyValuePair[0]);
+                if (key == parm) {
+                    return unescape(keyValuePair[1]);
+                }
+            }
+            return null;
+        }
+        
+        function setURLInfo() { 
+          var chapter = getURL("chapter");
+          var testcase = getURL("testcase");
+          var status = getURL("status");
+          // var model = document.getElementById('form1');
+          var model = document.getElementsByTagNameNS('http://www.w3.org/2002/xforms','model')[0];
+          // var inst = model.getInstanceDocument('urlvars');   //document.getElementById('urlvars');
+          var inst = document.getElementsByTagNameNS('http://www.w3.org/2002/xforms','instance')[14];
+          if (model && inst) {
+              var chapter_node = inst.getElementsByTagName("chapter")[0];
+              if (chapter_node) {
+                  chapter_node.appendChild(document.createTextNode(chapter));                
+              }
+              var testcase_node = inst.getElementsByTagName("testcase")[0];
+              if (testcase_node) {
+                  testcase_node.appendChild(document.createTextNode(testcase));                  
+              }
+              var status_node = inst.getElementsByTagName("status")[0];
+              if (status_node) {
+                  status_node.appendChild(document.createTextNode(status));                      
+              } 
+              // I don't think we need to call these functions.
+              //model.rebuild();
+              //model.recalculate();
+              //model.revalidate();
+              //model.refresh();             
+          }  
+          
+        //  alert((new XMLSerializer()).serializeToString(inst));    
+        }       
+  
+ ]]>
+    </script> 
+
+		<xforms:submit submission="submit01">
+			<xforms:label>Put Data</xforms:label>
+            <xforms:action ev:event="DOMActivate">
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_02_Results'" nodeset="instance('instance1')" origin="instance('chap02')"/> 
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_03_Results'" nodeset="instance('instance1')" origin="instance('chap03')"/>          
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_04_Results'" nodeset="instance('instance1')" origin="instance('chap04')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_05_Results'" nodeset="instance('instance1')" origin="instance('chap05')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_06_Results'" nodeset="instance('instance1')" origin="instance('chap06')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_07_Results'" nodeset="instance('instance1')" origin="instance('chap07')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_08_Results'" nodeset="instance('instance1')" origin="instance('chap08')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_09_Results'" nodeset="instance('instance1')" origin="instance('chap09')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_10_Results'" nodeset="instance('instance1')" origin="instance('chap10')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_11_Results'" nodeset="instance('instance1')" origin="instance('chap11')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_AppendixB_Results'" nodeset="instance('instance1')" origin="instance('chapB')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_AppendixG_Results'" nodeset="instance('instance1')" origin="instance('chapG')"/>
+                <xforms:insert if="instance('urlvars')/chapter = 'XF11_AppendixH_Results'" nodeset="instance('instance1')" origin="instance('chapH')"/>
+                
+                <xforms:setvalue ref="instance('instance1')/ts:specChapter/ts:testCase[ts:testCaseName = instance('urlvars')/testcase]/ts:testCaseStatus" value="instance('urlvars')/status"></xforms:setvalue>
+<!-- 
+                <xforms:message level="modal" ref="instance('instance1')/ts:specChapter/ts:testCase[ts:testCaseName = '2.2.a']/ts:testCaseStatus"></xforms:message>
+-->   
+            </xforms:action> 
+        </xforms:submit>
+  	    <xforms:output ref="instance('urlvars')/chapter">
+  	        <xforms:label>File:</xforms:label>
+  	    </xforms:output>
+  	    <xforms:output ref="instance('urlvars')/testcase">
+  	        <xforms:label>Testcase:</xforms:label>
+  	    </xforms:output>
+  	    <xforms:output ref="instance('urlvars')/status">
+  	        <xforms:label>Status:</xforms:label>
+  	    </xforms:output>
+                
+                
+	</body>
+</html>

@@ -792,6 +792,7 @@ PageBot.prototype.getTitle = function() {
     if (typeof(t) == "string") {
         t = t.trim();
     }
+    saveTitleInfo(t);
     return t;
 }
 

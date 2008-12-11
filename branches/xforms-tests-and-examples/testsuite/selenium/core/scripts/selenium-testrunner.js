@@ -18,6 +18,53 @@
 // An object representing the current test, used external
 var currentTest = null; // TODO: get rid of this global, which mirrors the htmlTestRunner.currentTest
 var selenium = null;
+// The boolean that will be used to tell if a test case failed or not.
+var testCaseFailed = false;
+// The flag that will be toggled if the last test should be run next.
+// If the flag is set to false, then the last test will be run next.
+var testSuiteFlag = true;
+// The saved current row.  It needs to be saved, because Selenium needs
+// to know where to go back to when the last test is done running.
+var savedCurrentRow = -1;
+var testCaseChapter = "";
+var testCaseNumber = "";
+
+// This function is called when the title of a w3c test case is checked in selenium-browserbot.js.
+// Since the title of a w3c test case has the test case number in it,
+// this number is gotten from the title and saved for processing the Results.
+function saveTitleInfo(titleSTR) {
+    testCaseChapter = titleSTR.substr(0,2);
+    testCaseNumber = titleSTR.split(" ",1)[0];
+    if (testCaseChapter.charAt(1) === ".") {
+        testCaseChapter = "0" + testCaseChapter.substr(0,1);
+    }
+    if (testCaseChapter === "0b") {
+        testCaseChapter = "AppendixB";
+    }
+    if (testCaseChapter === "0g") {
+        testCaseChapter = "AppendixG";
+    }
+    if (testCaseChapter === "0h") {
+        testCaseChapter = "AppendixH";
+    }
+};
+
+// Setters and Getters for the global variables.
+function setTestCaseFailed() {
+    testCaseFailed = true;
+};
+
+function getTestCaseFailed() {
+    return testCaseFailed;
+};
+
+function getChapter() {
+    return testCaseChapter;
+};
+
+function getTestCaseNumber() {
+    return testCaseNumber;
+};
 
 var htmlTestRunner;
 var HtmlTestRunner = Class.create();
@@ -30,6 +77,7 @@ Object.extend(HtmlTestRunner.prototype, {
         this.currentTest = null;
         this.runAllTests = false;
         this.appWindow = null;
+        this.saveResults = false;
         // we use a timeout here to make sure the LOG has loaded first, so we can see _every_ error
         setTimeout(function() {
             this.loadSuiteFrame();
@@ -103,10 +151,58 @@ Object.extend(HtmlTestRunner.prototype, {
     },
 
     runNextTest: function () {
+        // If only one test was selected to run, then...
         if (!this.runAllTests) {
+            // If a w3c test was run (before this function was called),
+            // then saveResults would be true and the testSuiteFlag is switched.
+            // The testSuiteFlag is switched to false first to runLastTestInSuite,
+            // and then the testSuiteFlag is switched to true second to reset
+            // testCaseFailed and Selenium will not run any more tests.
+            if (this.saveResults) {
+                testSuiteFlag = !testSuiteFlag;
+            }
+            if (testSuiteFlag || this.htmlTestSuite.currentRowInSuite === this.htmlTestSuite.suiteRows.length - 1) {
+                testCaseFailed = false;
+            }
+            else {
+                this.htmlTestSuite.runLastTestInSuite();
+            }
             return;
         }
-        this.htmlTestSuite.runNextTestInSuite();
+        
+        // If ALL was selected to run, then...
+        // Reset the currentRowInSuite.
+        this.htmlTestSuite.currentRowInSuite = savedCurrentRow;
+        
+        // All testSuites will reset testCaseFailed and runNextTestInSuite first.
+        // If the testSuite is the w3c testSuite,
+        // then saveResults would be true and the testSuiteFlag is switched.
+        // The w3c testSuite will reset testCaseFailed, runNextTestInSuite, runLastTestInSuite,
+        //                        reset testCaseFailed, runNextTestInSuite, runLastTestInSuite,
+        //                        reset testCaseFailed, runNextTestInSuite, runLastTestInSuite, and so on...  
+        // If the testSuite is not the w3c testSuite,
+        // then saveResults would be false and the testSuiteFlag is always true.
+        // These testSuites will reset testCaseFailed, runNextTestInSuite,
+        //                       reset testCaseFailed, runNextTestInSuite,
+        //                       reset testCaseFailed, runNextTestInSuite, and so on...
+        if (testSuiteFlag) {
+            testCaseFailed = false;
+            this.htmlTestSuite.runNextTestInSuite();
+        }
+        else {
+            this.htmlTestSuite.runLastTestInSuite();
+        }
+        if (this.saveResults) {
+            testSuiteFlag = !testSuiteFlag;
+        }
+    },
+    
+    turnSaveResultsOn: function () {
+        this.saveResults = true;
+    },
+    
+    turnSaveResultsOff: function () {
+        this.saveResults = false;
     },
 
     startTest: function () {
@@ -397,6 +493,7 @@ Object.extend(HtmlTestCaseRow.prototype, {
     markFailed: function(errorMsg) {
         this.trElement.bgColor = FeedbackColors.failColor;
         this.setMessage(errorMsg);
+        setTestCaseFailed();
     },
 
     setMessage: function(message) {
@@ -578,6 +675,11 @@ Object.extend(HtmlTestSuite.prototype, {
     runNextTestInSuite: function() {
         this._updateSuiteWithResultOfPreviousTest();
         this.currentRowInSuite++;
+        savedCurrentRow = this.currentRowInSuite;
+        
+        if (htmlTestRunner.saveResults && this.currentRowInSuite >= this.suiteRows.length - 1) {
+            this.currentRowInSuite++;
+        }
 
         // If we are done with all of the tests, set the title bar as pass or fail
         if (this.currentRowInSuite >= this.suiteRows.length) {
@@ -585,6 +687,16 @@ Object.extend(HtmlTestSuite.prototype, {
         } else {
             this._startCurrentTestCase();
         }
+    },
+
+    runLastTestInSuite: function() {
+        this._updateSuiteWithResultOfPreviousTest();
+        // Save the currentRowInSuite.
+        savedCurrentRow = this.currentRowInSuite;
+        // currentRowInSuite is set to the last row in the suite.
+        this.currentRowInSuite = this.suiteRows.length - 1;
+        // The last test in the suite will be run.
+        this._startCurrentTestCase();
     }
 
 

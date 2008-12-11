@@ -114,3 +114,42 @@ Selenium.prototype.assertXFormsProperty = function(locator,propObjString)
 	}
 }
 
+Selenium.prototype.getOneResult = function() {
+    var thisTestCaseFailed = getTestCaseFailed();
+    if (thisTestCaseFailed) {
+        return "Failed";
+    }
+    else {
+        return "Passed";
+    }
+}
+
+Selenium.prototype.getTestCaseName = function() {
+    var testCaseName = getTestCaseNumber();
+    return testCaseName;
+}
+
+Selenium.prototype.getFile = function() {
+    var testCaseChapter = getChapter();
+    return "XF11_" + testCaseChapter + "_Results";
+}
+
+Selenium.prototype.getBrowser = function() {
+    var browser = "badBrowser";
+    var browserVersion = new BrowserVersion();
+    if (browserVersion.browser === "Firefox") {
+        return "FF3";
+    }
+    if (browserVersion.browser === "IE") {
+        return "IE7";
+    }
+}
+
+Selenium.prototype.getColor = function(locator) {
+    var element = this.page().findElement(locator);
+    if (element) {
+       return element.m_value.style.backgroundColor;
+    }
+    return "";
+}
+
