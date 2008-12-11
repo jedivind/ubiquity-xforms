@@ -229,3 +229,7 @@ smil\:animateColor {
 smil\:set {
   -moz-binding: url("decorator.xml?Listener&SmilSet#decorator");
 }
+
+form[name], fieldset[name], input[name], output[name], span[name] {
+  -moz-binding: url("decorator.xml#decorator");
+}

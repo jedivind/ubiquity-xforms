@@ -294,7 +294,7 @@ function _getBoundNode(pThis, nOrdinal) {
 
     var sRef = oElement.getAttribute("ref");
     var sNodeset = oElement.getAttribute("nodeset");
-    var sName = FormsAProcessor.getAttribute(oElement, "name");
+    var sName = XF4HProcessor.getAttribute(oElement, "name");
 
     if (!sRef && !sNodeset && !sName) {
         // Return if no ref | nodeset | name to evaluate
@@ -348,7 +348,7 @@ function _getBoundNode(pThis, nOrdinal) {
             oRet.node = pThis.m_arrNodes[nOrdinal - 1];
         } else if (sName) {
             // Forms-A
-            oRet.node = FormsAProcessor.processElement(
+            oRet.node = XF4HProcessor.processElement(
                     pThis.m_model, oRet.node, oElement, sName);
         }
     }

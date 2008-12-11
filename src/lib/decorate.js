@@ -127,6 +127,8 @@ var DECORATOR = function()
                     if (nsURI === "http://www.w3.org/2002/xforms" &&
                         (localName === "repeat" || localName === "case" || localName === "group")) {
                             DECORATOR.applyDecorationRules(elements[count]);
+                    } else if (nsURI === "http://www.w3.org/1999/xhtml") {                        
+                        DECORATOR.applyDecorationRules(elements[count]);
                     }
                 }
             }
@@ -252,7 +254,6 @@ var DECORATOR = function()
 		//htc method
 		//var sBehaviourRule = ";\n behavior: url("+g_sBehaviourDirectory+"applicator.htc);";
 		
-
 		for(var i = 0;defs.length > i;++i)
 		{
 			var sRule = "";
@@ -261,7 +262,6 @@ var DECORATOR = function()
 				sRule += generateMozBindingStyle(defs[i].objects) + sBehaviourRule;
 			}
 			sRule += (defs[i].cssText || "");
-			
 			//strip out child selectors, (replacing with the inferior descendent selectors)
 			//	These do not work in IE and even sometimes cause IE to close without warning
 			defs[i].selector = defs[i].selector.replace(/>/g,'');
@@ -509,6 +509,7 @@ var DECORATOR = function()
 
 	function attachDecoration(element,handleContentReady, handleDocumentReady) {
 		//window.status = "decorating: " + element.nodeName; 
+
 		var bReturn = false;
 		var tIndex = element.getAttribute("tabindex");
 		//quit if already manually decorated
@@ -526,9 +527,10 @@ var DECORATOR = function()
 		//add capability to 
 		element.attachSingleBehaviour = attachSingleBehaviour;
 
-		var arrBehaviours = getDecorationObjectNames(element);				
+		var arrBehaviours = getDecorationObjectNames(element);
 		arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
-		if(arrBehaviours.length  > 0){
+
+        if(arrBehaviours.length  > 0){
 			for(var i = 0;i < arrBehaviours.length;++i){
 				addObjectBehaviour(element,arrBehaviours[i],false);
 			}
@@ -559,7 +561,7 @@ var DECORATOR = function()
             wildcardRules,
             rules,
             rulecount;
-
+        
         // Rules are a concatenation of the element name rules and
         // wildcard rules (if any) for the given element namespace ...
         if (g_DecorationRules[elementNSURI]) {
