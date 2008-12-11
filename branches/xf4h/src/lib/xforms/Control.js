@@ -18,9 +18,20 @@ function Control(elmnt) {
     this.element = elmnt;
     this.m_MIPSCurrentlyShowing = {};
     this.addedTVCListener = false;
-}
+    this.m_value = null;
+    this.m_isXF4H = true;
+        NamespaceManager.getNamespaceURI(elmnt) === "http://www.w3.org/1999/xhtml";
+};
+
+Control.prototype.isXF4H = function() {
+    return this.m_isXF4H;
+};
 
 Control.prototype.focusOnValuePseudoElement = function() {
+    if (this.m_isXF4H) {
+        return;
+    }
+    
     if (this.m_value && event.srcElement !== this.m_value) {
         if (!this.m_value.contains(event.srcElement)) {
             this.m_value.focus();
@@ -29,16 +40,27 @@ Control.prototype.focusOnValuePseudoElement = function() {
 };
 
 Control.prototype.RetrieveValuePseudoElement = function() {
-    if (!this.m_value) {
-        var coll = this.element.getElementsByTagName("pe-value");
-        var len = coll.length;
-        for ( var i = 0; i < len; ++i) {
-            if (coll[i].parentNode == this.element) {
-                this.m_value = coll[i];
-                break;
+    var oElement = this.element;
+    
+    if (this.m_value) {
+        // The value is defined, just return
+        return this.m_value;
+    }
+    
+    if (this.m_isXF4H) { 
+        this.m_value = XF4HProcessor.createPseudoValue(oElement);
+    } else {
+        // Control's namespace is xforms.. find child pe-value        
+        var oChild = oElement.firstChild;
+        
+        while (oChild && !this.m_value) {
+            if (oChild.tagName === "pe-value") {
+                this.m_value = oChild;
+            } else {
+                oChild = oChild.nextSilling;
             }
         }
-    }
+    }    
     return this.m_value;
 };
 
@@ -139,7 +161,9 @@ Control.prototype.addcontroltomodel = function() {
 
 Control.prototype.rewire = function() {
     // [ISSUE] Would rather define this using mark-up.
-    this.AddTVCListener();
+    if (!this.m_isXF4H){
+        this.AddTVCListener();
+    }
 
     // [ISSUE] This is essentially registering for the rewire and refresh
     // events.
@@ -285,7 +309,7 @@ Control.prototype.xrewire = function() {
     // function, which should really return 'null' if there is no bound node.
     var sValueExpr = this.element.getAttribute("value");
 
-    if (sValueExpr) {
+    if (!this.m_isXF4H && sValueExpr) {
         var ctx = ctxBoundNode;
         if (!ctxBoundNode.model && !ctxBoundNode.node) {
             ctx = this.getEvaluationContext();

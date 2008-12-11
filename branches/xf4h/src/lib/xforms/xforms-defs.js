@@ -423,7 +423,7 @@ DECORATOR.addDecorationRules({
                 var parent = element.parentNode,
                     datatype = parent.getAttribute("datatype"),
                     appearance = parent.getAttribute("appearance"),
-                    xf4hdatatype = FormsAProcessor.getAttribute(parent, "datatype"),
+                    xf4hdatatype = XF4HProcessor.getAttribute(parent, "datatype"),
                     prefixes = [],
                     prefix = "",
                     isDate = false,
@@ -539,6 +539,23 @@ if (!UX.isIE6) {
     UX.selectors.itemset.repeatReady += ", xf|itemset[class~='repeat-ready'] > xf|item";
 }
 // else, we delegate selection to ie6-css-selectors-fixer.js
+
+
+if (UX.formsA.html) {
+
+    DECORATOR.addDecorationRules(UX.formsA.html.rules);
+    
+    // Name space is not declared for xforms, declare it    
+    if (!NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")) {
+        NamespaceManager.addOutputNamespace("xf", "http://www.w3.org/2002/xforms");
+        
+        if (UX.isIE) {
+            document.namespaces.add("xf", "http://www.w3.org/2002/xforms");
+        }
+    }
+    NamespaceManager.addSelectionNamespace("fa", "http://www.w3.org/TR/forms-a");
+    DECORATOR.setupDecorator(UX.formsA.html.decorators, "http://www.w3.org/1999/xhtml");
+}
 
 //[ISSUE 8] IE does not natively support child selectors, but will ignore ">"
 //	if found in css, making a selector such as "x > y", behave as a descendent

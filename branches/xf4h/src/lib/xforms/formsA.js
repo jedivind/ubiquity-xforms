@@ -13,9 +13,9 @@
  */
 
 /*
- *  FormsAProcessor
+ *  XF4HProcessor
  */
-FormsAProcessor = {    
+XF4HProcessor = {    
     /**
      @description namespacceURI for Forms-A
      @type String

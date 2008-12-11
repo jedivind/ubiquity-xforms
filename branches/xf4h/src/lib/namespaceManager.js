@@ -338,7 +338,21 @@ var NamespaceManager  = function(){
         if (nodePrefix) {
             nsURI = m_outputNamespaceURIs[nodePrefix];
         }
+
+        if (!nsURI) {
+            // No prefix, get the default namespace
+            nsURI = document.documentElement.getAttribute("xmlns");
+            
+            if (!nsURI) {
+                // xmlns is not defined and the document root is HTML
+                if (document.documentElement.tagName === "HTML") {
+                    nsURI = "http://www.w3.org/1999/xhtml";
+                }
+            }
+        }        
     }
+    
+    
     return nsURI;
   }
   
