@@ -1,0 +1,112 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:atom="http://www.w3.org/2005/Atom"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+ xmlns:fp="urn:formsplayer.com"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <script type="text/javascript" src="../../../../src/ubiquity-loader.js" >/**/</script>
+    <title>XForms 1.0 Select1: Evaluation Context</title>
+    <style type="text/css">
+      xf\:output { display: block; }
+    </style>
+  </head>
+  <body>
+    <xf:model id="mdl">
+      <xf:instance id="inst-results">
+        <instanceData xmlns="" status="not started">
+          <t1>t1 not set</t1>
+          <t2>t2 not set</t2>
+          <t3>t3 not set</t3>
+          <t4>t4 not set</t4>
+          <choice>A</choice>
+          <choice>B</choice>
+          <choice>C</choice>
+        </instanceData>
+      </xf:instance>
+
+      <!--
+        Chain the tests together. We do this because we might at
+        some point want to allow each test to be run from a trigger,
+        or one test might use the results of a prior test.
+      -->
+      <xf:dispatch target="mdl" name="my-complete" ev:event="xforms-ready" ></xf:dispatch>
+
+      <!--
+        Indicate that we're done.
+      -->
+      <xf:action ev:event="my-complete">
+        <xf:setvalue ref="@status">complete</xf:setvalue>
+      </xf:action>
+    </xf:model>
+    <!--
+      Use an ordinary binding on the itemset labels
+    -->
+    <xf:select1 id="t1" ref="t1" appearance="full">
+      <xf:label>Test 1:</xf:label>
+      <xf:itemset nodeset="../choice">
+        <xf:label ref="." ></xf:label>
+        <xf:value value="." ></xf:value>
+      </xf:itemset>
+    </xf:select1>
+    <xf:output ref="t1" ></xf:output>
+    <!--
+      Use an embedded output on the itemset labels
+    -->
+    <xf:select1 id="t2" ref="t2" appearance="full">
+      <xf:label>Test 2:</xf:label>
+      <xf:itemset nodeset="../choice">
+        <xf:label>
+          <xf:output ref="." ></xf:output>
+        </xf:label>
+        <xf:value value="." ></xf:value>
+      </xf:itemset>
+    </xf:select1>
+    <xf:output ref="t2" ></xf:output>
+    <!--
+      Use an ordinary binding on the itemset labels
+    -->
+    <xf:select1 id="t3" ref="t3" appearance="minimal">
+      <xf:label>Test 3:</xf:label>
+      <xf:itemset nodeset="../choice">
+        <xf:label ref="." ></xf:label>
+        <xf:value value="." ></xf:value>
+      </xf:itemset>
+    </xf:select1>
+    <xf:output ref="t3" ></xf:output>
+    <!--
+      Use an embedded output on the itemset labels
+    -->
+    <xf:select1 id="t4" ref="t4" appearance="minimal">
+      <xf:label>Test 4:</xf:label>
+      <xf:itemset nodeset="../choice">
+        <xf:label>
+          <xf:output ref="." ></xf:output>
+        </xf:label>
+        <xf:value value="." ></xf:value>
+      </xf:itemset>
+    </xf:select1>
+    <xf:output ref="t4" ></xf:output>
+    
+    <xf:output id="status" ref="@status">
+      <xf:label>Status:</xf:label>
+    </xf:output>    
+  </body>
+</html>
