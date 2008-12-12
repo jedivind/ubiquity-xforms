@@ -44,10 +44,30 @@ UX.formsA.html.rules = {
         "input" : [
         {
             "name" : "fa-input-element",
+            "match" : function(element) {
+                var sName = element.getAttribute("name");
+                if (sName) {  
+                    return true; 
+                }
+                return false;
+            },
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Control]);
             }
-        }        
+        },       
+        {
+            "name" : "fa-input-submit-element",
+            "match" : function(element) {
+                var sType = element.getAttribute("type"); 
+                if (sType === "submit") {
+                    return true;
+                }
+                return false;
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([EventTarget, Context, Control, Submit]);                
+            }
+        }      
         ],
                   
        "output" : [
@@ -84,6 +104,10 @@ UX.formsA.html.decorators = [
         selector :"input[name]",
         objects : []
     }, 
+    {
+        selector :"input[type='submit']",
+        objects : []
+    },     
     {
         selector :"output[name]",
         objects : []

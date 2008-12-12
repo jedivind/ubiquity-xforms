@@ -16,7 +16,9 @@
 <h2 class="company_name">Big Red Loan and Mortgage Co.</h2>
 <h3 class="company_motto">The name to trust when you're ... in the red.</h3>
 
-<form id="loanform" name="loanrecord" action="http://xformstest.org/cgi-bin/echo.sh" method="post">   
+<form id="loanform" name="loanrecord" 
+      action="http://xformstest.org/cgi-bin/echo.sh" 
+      method="post" includenamespaceprefixes="" >   
    <br />
    <fieldset id="borrowerFS" name="borrower">
      <label for="start_date">Agreement Date:</label>
@@ -53,6 +55,7 @@
    </fieldset>
    <hr size="6" class="rule"></hr>
 
+   <!--  Output Element doesn't work in IE since it is not part of the HTML tagname -->
    <label for="rate-output">Yearly Interest Rate:</label>    
    <output id="rate-output" name="rates"
       calculate="term/interestrate div 1200.0">
@@ -72,21 +75,8 @@
    <br/>
    
    <hr size="6" class="rule"></hr>
+   <input type="submit" value="submit" />
 </form>		
 		
-
-<script>
-    function showSLModel() {
-        var form =  document.getElementById('loanform');
-        var models = form.getElementsByTagName('xf:model');
-        if (models.length > 0) {
-            var model = models[0];
-            var instDoc = model.getInstanceDocument();
-            var str = xmlText(instDoc.documentElement);
-            alert(str);
-        }
-    }
-    </script>
-<input type="button" value="show model" onclick="showSLModel()" />
 </body>
 </html>

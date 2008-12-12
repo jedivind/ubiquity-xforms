@@ -74,21 +74,7 @@
    <br/>
    
    <hr size="6" class="rule"></hr>
+   <input type="submit" value="submit" />
 </form>		
-		
-
-<script>
-function showSLModel() {
-    var form =  document.getElementById('loanform');
-    var models = form.getElementsByTagName('model');
-    if (models.length > 0) {
-        var model = models[0];
-        var instDoc = model.getInstanceDocument();
-        var str = xmlText(instDoc.documentElement);
-        alert(str);
-    }
-}
-    </script>
-<input type="button" value="show model" onclick="showSLModel()" />
 </body>
 </html>
