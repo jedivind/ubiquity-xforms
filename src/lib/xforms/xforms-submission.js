@@ -300,6 +300,14 @@ submission.prototype.submit = function(oSubmission)
 	var oCallback = new callback(this, oSubmission, oContext);
 
 	this.setHeaders(oContext.model,this.getConnection(),oExtDom);		
+
+	try {
+	    if (UX.isFF) {
+	        netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+	    }
+	} catch (e) {
+	    alert("Permission UniversalBrowserRead denied.");
+	}
 	
     try {    
 	    return this.request(

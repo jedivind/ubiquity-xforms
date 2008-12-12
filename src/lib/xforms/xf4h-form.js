@@ -14,13 +14,15 @@
 
 function Form(elmnt) {
     this.element = elmnt;
-    this.ownerModel = null;    
+    this.ownerModel = null;
+    this.submission = null;
 };
 
 Form.prototype.onContentReady = function() {
     var xformsNS = "http://www.w3.org/2002/xforms";
     var oModelNode = null;
     var oInstanceNode = null;
+    var oSubmissionNode = null;
     var oElement = this.element;
     var models = 
         NamespaceManager.getElementsByTagNameNS(oElement, xformsNS, "model");
@@ -33,20 +35,37 @@ Form.prototype.onContentReady = function() {
     oInstanceNode = UX.createElementNS(oElement, xformsNS, "instance");
     var oRootNode = document.createElement(sFormName);
     oInstanceNode.appendChild(oRootNode);
+    
+    var sAction = oElement.attributes['action'].value;
+    var sMethod = oElement.attributes['method'].value;
+    oSubmissionNode = UX.createElementNS(oElement, xformsNS, "submission");
+    oSubmissionNode.setAttribute("method", sMethod);
+    oSubmissionNode.setAttribute("action", sAction);
+        
     oModelNode = UX.createElementNS(oElement, xformsNS, "model");
     oModelNode.appendChild(oInstanceNode);
+    oModelNode.appendChild(oSubmissionNode);
+    
     oElement.insertBefore(oModelNode, oElement.firstChild);    
     
     if (UX.isIE || !UX.hasDecorationSupport) {
         // Force immediate decoration of instance element for IE and
-        // browser that doesn't support decoration
+        // browser that doesn't support decoration       
         DECORATOR.attachDecoration(oModelNode, true, true);
     }
     this.ownerModel = oModelNode;
+    this.submission = oSubmissionNode;
+    
+    // override the default submit action
+    oElement.onsubmit = function() {return false;};
 };
 
 Form.prototype.getBoundNode = function() {
     return this.ownerModel.getEvaluationContext();
+};
+
+Form.prototype.getSubmission = function() {
+    return this.submission;
 };
 
 Form.prototype.onDocumentReady = function() {

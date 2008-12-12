@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 function Submit(elmnt) {
+
 	this.element = elmnt;
+	// Use bubble not capture!!
     this.element.addEventListener(
    		"DOMActivate",
        	this,			
-		true
+		false
 		);
 }
 
@@ -26,15 +28,16 @@ Submit.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Submit.prototype.performAction = function(oEvt) {
    var control = this;
-   
+
    if (oEvt.type === "DOMActivate") { 
      var sID = control.element.getAttribute("submission");
     
      var oSubmission = null;
 	 if (sID){
 		oSubmission = control.element.ownerDocument.getElementById(sID);
-     }
-     else {
+     } else if (control.element.isXF4H()) {
+         oSubmission = control.element.parentNode.getSubmission();
+     } else {
        // if there is not a declared submssion id,  get the first submission element of the default model 
        var oModel = getModelFor(control.element.ownerDocument);
        if (oModel) {
