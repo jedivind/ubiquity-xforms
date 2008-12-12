@@ -1,0 +1,13 @@
+<po xmlns="">
+   <order>
+     <item>
+        <product></product>
+        <unitcost>0</unitcost>
+        <qty>0</qty>
+        <itemtotal>0</itemtotal>
+     </item>
+   </order>
+   <subtotal>0</subtotal>
+   <tax>0</tax>
+   <total>0</total>    
+</po>
