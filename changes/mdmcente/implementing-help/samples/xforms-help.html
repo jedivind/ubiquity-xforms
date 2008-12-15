@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+  // library.
+  //
+  // Copyright (C) 2008 Backplane Ltd.
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+	<head>
+	  <title>Using XForms help</title>
+	  <script type="text/javascript" src="../src/ubiquity-loader.js" >/**/</script>
+	  <style type="text/css">
+	    .sample {
+  	    border: 1px solid silver;
+  	    background-color: lightyellow;
+  	    padding: 30px;
+  	    margin-left: 30px;
+  	    width: 85%;
+	    }
+	    pre {
+  	    background-color: black;
+  	    color: green;
+  	    padding: 5px;
+  	    overflow: auto;
+  	    padding: 30px;
+  	    margin-left: 30px;
+  	    width: 85%;
+  	  }
+     .danger {
+	      background: red url(images/exclamation.png) no-repeat 5px;
+	      padding-left: 48px;
+	      height: 2em;
+	      width: 300px;
+     }
+     xf\:input.indent xf\:help {
+       margin-left: 200px;
+     }
+	  </style>
+	</head>
+  <body>
+    <xf:model>
+      <xf:instance>
+        <data>
+          <status>ready</status>
+          <firstname>Mickey</firstname>
+          <surname>Mouse</surname>
+          <age>80</age>
+          <message>Please enter your surname</message>
+        </data>
+      </xf:instance>
+    </xf:model>
+
+    <h1>Using XForms help</h1>
+    <p>
+      The XForms <code>help</code> element is used by form authors to provide some
+      extra text that will be used to help people complete their forms. The text
+      is displayed when the user clicks on a control, and disappears when they click
+      on the OK button.
+    </p>
+    <p>
+      For each of the examples we have below, there is both the markup and a live
+      version of the code; so click on the various controls to see how the markup behaves.
+    </p>
+    <xf:output ref="status">
+        <xf:label>Status:</xf:label>
+    </xf:output>
+    <h2>The basic format</h2>
+    <p>
+      A simple example is to add a help that uses inline text, like this:
+      <pre>
+&lt;xf:trigger>
+  &lt;xf:label>Delete all records&lt;/xf:label>
+  &lt;xf:help>This will remove all of your records!&lt;/xf:help>
+&lt;/xf:trigger>
+      </pre>
+      <div class="sample">
+        <xf:trigger>
+          <xf:label>Delete all records</xf:label>
+          <xf:help>This will remove all of your records!</xf:help>
+        </xf:trigger>
+      </div>
+    </p>
+    <p>
+      This technique is useful for using helps in different ways for different
+      controls. For example, a help on an input control shown like this:
+      <pre>
+&lt;xf:input ref="firstname">
+  &lt;xf:label>Forename:&lt;/xf:label>
+  &lt;xf:help>Please enter your first name&lt;/xf:help>
+&lt;/xf:input>
+      </pre>
+      <div class="sample">
+        <xf:input ref="firstname">
+          <xf:label>Forename:</xf:label>
+          <xf:help>Please enter your first name</xf:help>
+        </xf:input>
+      </div>
+    </p>
+    <p>
+      Another simple example is to add a help that uses instance text, like this:
+      <pre>
+&lt;xf:input ref="surname">
+  &lt;xf:label>Surname:&lt;/xf:label>
+  &lt;xf:help ref="/data/message">&lt;/xf:help>
+&lt;/xf:input>
+      </pre>
+      <div class="sample">
+        <xf:input ref="surname" class="indent">
+          <xf:label>Surname:</xf:label>
+          <xf:help ref="/data/message"></xf:help>
+        </xf:input>
+      </div>
+    </p>
+    <h2>Adding XForms markup and Style Attribute</h2>
+    <p>
+      Finally, just as we can add HTML markup to the help, we can also add XForms markup and the style
+      attribute to make the width and height of the help message better:
+      <pre>
+&lt;xf:input ref="age">
+  &lt;xf:label>Age:&lt;/xf:label>
+  &lt;xf:help>
+    Please enter &lt;xf:output value="concat(../firstname, ' ', ../surname)">&lt;/xf:output>'s age
+  &lt;/xf:help>
+&lt;/xf:input>
+      </pre>
+      Note how the text in the help comes from the values in the two controls, above. Changing the values
+      above will also change the text of the help.
+      <div class="sample">
+        <xf:input ref="age" class="indent">
+          <xf:label>Age:</xf:label>
+          <xf:help style="width: 400px; height: 200px;">
+            Please enter <xf:output value="concat(../firstname, ' ', ../surname)"></xf:output>'s age
+          </xf:help>
+        </xf:input>
+      </div>
+    </p>
+    <h2>Further reading</h2>
+    <p>
+      For more information see the <a href="http://www.w3.org/TR/xforms11/#ui-commonelems-help">definition of help
+        in the XForms 1.1 specification</a>.
+    </p>
+  </body>
+</html>
