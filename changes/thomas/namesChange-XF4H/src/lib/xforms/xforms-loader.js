@@ -178,8 +178,8 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "hint.js",
       requires: [ "xforms-hint-css", "xforms-notify" ] });
 
-    // FormsA Processor
-    loader.addModule( { name: "formsA",  type: "js",  fullpath: moduleBase + "formsA.js"});
+    // XF4H Processor
+    loader.addModule( { name: "XF4H",  type: "js",  fullpath: moduleBase + "XF4H.js"});
 
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
       requires: [
@@ -198,7 +198,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-submit",
         "xforms-hint",
         "yui-input-calendar","yui-input-color",
-        "formsA","xforms-submission-core-yui"
+        "XF4H","xforms-submission-core-yui"
       ]
     });
     loader.require( "xforms-defs" );
