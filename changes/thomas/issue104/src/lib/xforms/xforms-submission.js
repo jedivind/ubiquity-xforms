@@ -63,26 +63,19 @@ submission.prototype.getConnection = function()
 	throw "submission::getConnection() has not been implemented";
 }
 
-submission.prototype.processResult = function(sData, isFailure, oObserver, oContext)
-{
-	if (oObserver)
-	{
+submission.prototype.processResult = function(sData, isFailure, oObserver, oContext) {
+
+	if (oObserver) {
 		var oEvt = oObserver.ownerDocument.createEvent("Events");
 		var oNewDom = xmlParse(sData);
 
-		if (isFailure)
-		{
+		if (isFailure) {
 			alert("Transaction failed.  The error is: " + sData);
 			oEvt.initEvent("xforms-submit-error", true, false);
 			FormsProcessor.dispatchEvent(oObserver,oEvt);
-		}
-		else
-		{
-			/*
-			 * We now need to store the returned data. First find out
-			 * what the @replace value was set to.
-			 */
-
+		} else {
+			// We now need to store the returned data. First find out
+			// what the @replace value was set to.
             var sReplace = oObserver.getAttribute("replace");
 			sReplace = (sReplace) ? sReplace : "all";
 
@@ -93,40 +86,34 @@ submission.prototype.processResult = function(sData, isFailure, oObserver, oCont
 				
 					if (document.all) {
 					   document.write(sData);
-					}
-					else  {
+					} else {
 					   if (UX.isFF) {
 					       // on FF,  <?xml version="1.0"?> needs to be factored out
                            if (sData.indexOf("<?", 0) === 0) {
                                sData = sData.substr(sData.indexOf("?>")+2);
                            }                       
-					   } 					  
- 					   document.documentElement.innerHTML=sData;
- 					}				
+					   }					  
+ 					   document.documentElement.innerHTML =sData;
+ 					}				 
 	
 					break;
 
 				case "instance":
-					oObserver.ownerDocument.logger.log("@replace = 'instance'", "submission");
+                    var sInstance = oObserver.getAttribute("instance");
+	                oObserver.ownerDocument.logger.log("@replace = 'instance'", "submission");
 
-					/*
-					 * @replace="instance" causes the returned data to overwrite
-					 * an instance. If no instance is specified then the instance
-					 * to overwrite is the one submitted.
-					 */
-
-					if (oObserver["instance"])
-					{
-						if (!oContext.model.replaceInstanceDocument(oObserver["instance"], oNewDom))
-							throw "Instance '" + oObserver["instance"] + "' not found.";
-					}
-					else if(oObserver.srcInstance)
-					{
-						if (!__replaceInstanceDocument(oContext.model,oObserver.srcInstance, oNewDom))
+                    // @replace="instance" causes the returned data to overwrite
+                    // an instance. If no instance is specified then the instance
+	                // to overwrite is the one submitted.
+                    if (sInstance) {
+                        if (!oContext.model.replaceInstanceDocument(sInstance, oNewDom)) {
+	                        throw "Instance '" + sInstance + "' not found.";
+	                    }
+                    } else if(oObserver.srcInstance) {
+						if (!__replaceInstanceDocument(oContext.model,oObserver.srcInstance, oNewDom)) {
 							throw "Failed to replace source instance";
-					}
-					else
-					{
+						}
+					} else {
 						debugger;
 						//don't know where to put it - first instance of first model?
 					}
@@ -197,13 +184,16 @@ submission.prototype.submit = function(oSubmission)
 	var sSerialisation;
 	var sBody;
 	var oContext = oSubmission.getBoundNode();	
-	if(oContext.node && !oSubmission.getAttribute("instance"))
+	
+	if(oContext.node && !oSubmission.getAttribute("instance")) {
 		oSubmission.srcInstance = oContext.node.ownerDocument.XFormsInstance;
-	if(oContext.model == null)	
+	}
+	
+	if(oContext.model == null) {	
 		oContext = oSubmission.getEvaluationContext();
-	if (oExtDom)
-	{
-
+	}
+	
+	if (oExtDom) {
 		/*
 		 * See if there are any nodes for an action.
 		 */
@@ -300,7 +290,7 @@ submission.prototype.submit = function(oSubmission)
 	var oCallback = new callback(this, oSubmission, oContext);
 
 	this.setHeaders(oContext.model,this.getConnection(),oExtDom);		
-	
+
     try {    
 	    return this.request(
 		    sMethod,

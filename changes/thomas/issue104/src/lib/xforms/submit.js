@@ -18,7 +18,7 @@ function Submit(elmnt) {
     this.element.addEventListener(
    		"DOMActivate",
        	this,			
-		true
+		false
 		);
 }
 
@@ -28,13 +28,12 @@ Submit.prototype.performAction = function(oEvt) {
    var control = this;
    
    if (oEvt.type === "DOMActivate") { 
-     var sID = control.element.getAttribute("submission");
-    
+     var sID = control.element.getAttribute("submission");    
      var oSubmission = null;
+     
 	 if (sID){
 		oSubmission = control.element.ownerDocument.getElementById(sID);
-     }
-     else {
+     } else {
        // if there is not a declared submssion id,  get the first submission element of the default model 
        var oModel = getModelFor(control.element.ownerDocument);
        if (oModel) {
@@ -51,16 +50,12 @@ Submit.prototype.performAction = function(oEvt) {
 
 	 if (oSubmission) {
 		var oEvt1 =  oSubmission.ownerDocument.createEvent("Events"); 
-
-        oEvt1.initEvent("xforms-submit", false, false, null, null);
-			
+        oEvt1.initEvent("xforms-submit", true, true, null, null);			
 		spawn(function(){FormsProcessor.dispatchEvent(oSubmission,oEvt1)});
- 	 }
-	 else {
+ 	 } else {
 	    if (sID) {
 		  throw "There is no submission element with an ID of '" + sID + "'";
-		}
-		else {
+		} else {
 		  throw "There is no submission element associated with the default model.";
 		}
 	 }	 
