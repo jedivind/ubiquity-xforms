@@ -86,7 +86,7 @@ Finally, at the end of this page, there are some instructions on setting up Subv
       * It's under the Ganymede Update Site (http://download.eclipse.org/release/ganymede)
       * Then, open up the Collaboration Tools
       * Choose the checkbox for Subversive SVN Team Provider (choose the incubation 0.7.3 release)
-    # Before proceeding to install, must also install Subversive Connectors (incubation) as follows
+    # Before proceeding to install, must also install Subversive Connectors (incubation) as follows (all three do seem to need to be installed at the same time)
       * Click "Add Site..."
       * Add the external update site indicated on the Downloads site 
         * To find out the update site, click external site link (http://www.polarion.com/products/svn/subversive.php?src=eclipseproject)
@@ -94,7 +94,7 @@ Finally, at the end of this page, there are some instructions on setting up Subv
         * Click OK to add the site
       * Back on the Available Software tab, 
         * Open the Subversive SVN Connectors subtree
-        * Choose the child Subversive SVN Connectors and SVN Kit 1.1.7 (the latter is marked optional, but it isn't)
+        * Choose the child Subversive SVN Connectors and SVNKit 1.1.7 (the latter is marked optional, but it isn't)
     # Click Install...
   # *Environment set up*
     # Window | Preferences
@@ -117,6 +117,26 @@ Finally, at the end of this page, there are some instructions on setting up Subv
             *.css               svn:eol-style=native
 }}}
   # *Obtain a local copy of the project trunk*
+    # You may need to validate the server certificate for *https://ubiquity-xforms.googlecode.com:443 *. This can be done from the command line by entering an *svn* command; _svn --username <gmail login> ls https://ubiquity-xforms.googlecode.com/svn/trunk/ _ works well. You will be prompted to reject or accept the certificate; select "accept (p)ermanently". You will then be prompted to enter your Google Code password (see below). You should then see a listing like this:
+{{{
+    > svn --username <gmail login> ls https://ubiquity-xforms.googlecode.com/svn/trunk/
+    Error validating server certificate for 'https://ubiquity-xforms.googlecode.com:443':
+     - The certificate is not issued by a trusted authority. Use the
+    fingerprint to validate the certificate manually!
+    Certificate information:
+     - Hostname: googlecode.com
+     - Valid: from May 28 15:48:13 2008 GMT until Jun 21 13:09:43 2010 GMT
+     - Issuer: Certification Services Division, Thawte Consulting cc, Cape Town, Western Cape, ZA
+     - Fingerprint: b1:3a:d5:38:56:27:52:9f:ba:6c:70:1e:a9:ab:4a:1a:8b:da:ff:ec
+    (R)eject, accept (t)emporarily or accept (p)ermanently? p
+    Authentication realm: <https://ubiquity-xforms.googlecode.com:443> Google Code Subversion Repository
+    Password for '<gmail login>': ************
+    build/
+    samples/
+    src/
+    testsuite/
+    unit-tests/
+}}}
     # Right-click Package Explorer
     # New | Project
     # SVN | Projects from SVN | Next >>
