@@ -111,6 +111,7 @@ function getModelFor(oNode) {
 function XFormsProcessor() {
     this.defaultHandlers = new Object();
     this.eventStack = [];
+    this.hintOffCounter = 0;
 }
 
 

@@ -43,7 +43,7 @@ document.notify.ephemeral = function(message, activate) {
         document.notify.deactivate( message );
         return;
       },
-     10000
+     6000
     );
   } else {
     document.notify.deactivate( message );
