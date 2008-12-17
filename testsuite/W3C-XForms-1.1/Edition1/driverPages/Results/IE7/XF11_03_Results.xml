@@ -3,12 +3,12 @@
     <specChapter chapterName="3. " productId="" chapterTitle="Document Structure">
         <statusSummary>
             <numNormTotal>35</numNormTotal>
-            <numNormPass>23</numNormPass>
-            <numNormFail>15</numNormFail>
+            <numNormPass>21</numNormPass>
+            <numNormFail>14</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>35</numBasicTotal>
-            <numBasicPass>0</numBasicPass>
-            <numBasicFail>0</numBasicFail>
+            <numBasicPass>21</numBasicPass>
+            <numBasicFail>14</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>

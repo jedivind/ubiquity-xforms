@@ -3,12 +3,12 @@
     <specChapter chapterName="7. " productId="" chapterTitle="XPath Expressions in XForms">
         <statusSummary>
             <numNormTotal>60</numNormTotal>
-            <numNormPass>34</numNormPass>
-            <numNormFail>26</numNormFail>
+            <numNormPass>39</numNormPass>
+            <numNormFail>21</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>60</numBasicTotal>
-            <numBasicPass>34</numBasicPass>
-            <numBasicFail>26</numBasicFail>
+            <numBasicPass>39</numBasicPass>
+            <numBasicFail>21</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -389,7 +389,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-property</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2008-12-02</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -473,8 +473,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-digest</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -753,8 +753,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-current</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-11</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -823,8 +823,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-choose</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-11</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>

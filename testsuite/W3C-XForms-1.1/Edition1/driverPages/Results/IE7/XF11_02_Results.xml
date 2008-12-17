@@ -7,7 +7,7 @@
             <numNormFail>2</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>2</numBasicTotal>
-            <numBasicPass>0</numBasicPass>
+            <numBasicPass>2</numBasicPass>
             <numBasicFail>0</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>

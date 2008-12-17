@@ -3,12 +3,12 @@
     <specChapter chapterName="1. " productId="" chapterTitle="Differences between XForms 1.1 and XForms 1.0">
         <statusSummary>
             <numNormTotal>42</numNormTotal>
-            <numNormPass>15</numNormPass>
-            <numNormFail>27</numNormFail>
+            <numNormPass>20</numNormPass>
+            <numNormFail>22</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>39</numBasicTotal>
-            <numBasicPass>15</numBasicPass>
-            <numBasicFail>24</numBasicFail>
+            <numBasicPass>20</numBasicPass>
+            <numBasicFail>19</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -25,8 +25,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#structure-model</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -40,7 +40,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -54,7 +54,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -68,7 +68,7 @@
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>false</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -82,7 +82,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -96,7 +96,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -110,7 +110,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -124,7 +124,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 
@@ -138,7 +138,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -152,7 +152,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -166,7 +166,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -180,7 +180,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -194,7 +194,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -208,7 +208,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -222,7 +222,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -236,7 +236,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -250,7 +250,7 @@
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -264,7 +264,7 @@
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -278,7 +278,7 @@
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -292,7 +292,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -306,7 +306,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 
@@ -320,7 +320,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -333,8 +333,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-seconds-to-dateTime</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -348,7 +348,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -362,7 +362,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -376,7 +376,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -390,7 +390,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -404,7 +404,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -418,7 +418,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -432,7 +432,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -446,7 +446,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -459,8 +459,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-is-card-number</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -474,7 +474,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>                                                                                                                                                                                                                                                                  
@@ -488,7 +488,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -501,8 +501,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-event</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -515,8 +515,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#ui-output-mediatype</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -530,7 +530,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -544,7 +544,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -558,7 +558,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -572,7 +572,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -586,7 +586,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -600,7 +600,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>                
@@ -614,7 +614,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseDate>2008-12-16</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 
