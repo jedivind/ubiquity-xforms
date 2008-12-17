@@ -3,13 +3,15 @@
       xmlns:ev="http://www.w3.org/2001/xml-events" 
       xmlns:xforms="http://www.w3.org/2002/xforms" 
       xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance">
-      
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
+	  xmlns:javascript="http://www.w3.org/2002/xforms#inline">
  <head>
     <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
     <meta name="AUTHOR" content="John M. Boyer" />
     <title>Purchase Order Application XForm</title>    
     <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>	
+	<script src="format.js"></script>
+	</script>
 	<link href="style/gen_default.css" rel="stylesheet"></link>
   </head>
   <body>
@@ -160,7 +162,7 @@
                     <xforms:alert>This must be a positive whole number value.</xforms:alert>
                 </xforms:input>
 
-                <xforms:output ref="itemtotal">
+                <xforms:output ref="itemtotal" value="javascript:currency(number())">
                 	 <xforms:label>Product Total</xforms:label>
                    <xforms:hint>The cost for all units of this product</xforms:hint>
                 </xforms:output>
@@ -168,15 +170,15 @@
  
     <hr size="6" class="rule"/>
     
-    <xforms:output ref="subtotal" class="table_summary regular">
+    <xforms:output ref="subtotal" class="table_summary regular" value="javascript:currency(number())">
          <xforms:label>Subtotal: </xforms:label>
     </xforms:output>
 
-    <xforms:output ref="tax" class="table_summary regular">
+    <xforms:output ref="tax" class="table_summary regular" value="javascript:currency(number())">
          <xforms:label>Tax: </xforms:label>
     </xforms:output>
 	
-    <xforms:output ref="total" class="table_summary regular">
+    <xforms:output ref="total" class="table_summary regular" value="javascript:currency(number())">
          <xforms:label>Total: </xforms:label>
          <xforms:alert>The maximum purchase order is 200 dollars.</xforms:alert>
     </xforms:output>
