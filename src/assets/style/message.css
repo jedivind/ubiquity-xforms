@@ -40,7 +40,7 @@ xforms\:message,
 xf\:message {
     z-index: 100;
     position: absolute;
-    top: 1.5em;
+    top: 90%;
     left: 15px;
 }
 
@@ -48,7 +48,7 @@ xforms|message,
 xf|message {
     z-index: 100;
     position: absolute;
-    top: 1.5em;
+    top: 90%;
     left: 15px;
 }
 

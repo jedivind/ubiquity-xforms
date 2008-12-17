@@ -18,12 +18,23 @@ var EventTarget = null;
 
 		function dispatchXformsHint(elmnt, e) {
 			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+			var savedHintOffCounter = FormsProcessor.hintOffCounter;
+			
+			setTimeout(
+			  function() {
+			    if (savedHintOffCounter === FormsProcessor.hintOffCounter) {
+			      oEvt.initUIEvent("xforms-hint", true, true, null, 1);
+			      FormsProcessor.dispatchEvent(elmnt,oEvt);
+			    }
+			  },
+			 200
+			);
 
-			oEvt.initUIEvent("xforms-hint", true, true, null, 1);
+			//oEvt.initUIEvent("xforms-hint", true, true, null, 1);
 			//There is no need to run this event in line, and doing so may cause a stack overflow,
 			//	if it invokes other actions. 
 			//oEvt._actionDepth = -1;
-			FormsProcessor.dispatchEvent(elmnt,oEvt);
+			//FormsProcessor.dispatchEvent(elmnt,oEvt);
 			//spawn(function(){elmnt.dispatchEvent(oEvt)});
 			if (document.all) {
 				elmnt.document.parentWindow.event.cancelBubble = true;
@@ -37,6 +48,7 @@ var EventTarget = null;
 
 		function dispatchXformsHintOff(elmnt, e) {
 			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+			FormsProcessor.hintOffCounter++;
 
 			oEvt.initUIEvent("xforms-hint-off", true, true, null, 1);
 			//There is no need to run this event in line, and doing so may cause a stack overflow,
@@ -577,6 +589,10 @@ if(document.all)
   	  StyleUnhoverishly(elmnt);
   	  dispatchXformsHintOff(elmnt, evt);
   	};
+  	
+  	this.element.onkeyup = function( evt ) {
+  	  dispatchXformsHintOff(elmnt, evt);
+  	};
 
     this.element.onfocusin = function(evt){StyleFocussedly(elmnt);};
   	this.element.onfocusout = function(evt){StyleUnfocussedly(elmnt);};
@@ -623,6 +639,7 @@ else
 		this.element.addEventListener("mouseover", function( evt ){ dispatchXformsHint(elmnt, evt); },false);
 		this.element.addEventListener("mouseout",  function( evt ){ dispatchXformsHintOff(elmnt, evt); },false);
 		this.element.addEventListener("click",     function( evt ){ dispatchXformsHintOff(elmnt, evt); },false);
+		this.element.addEventListener("keyup",     function( evt ){ dispatchXformsHintOff(elmnt, evt); },false);
 
 		this.element.addEventListener("focus",function(evt){StyleFocussedly(elmnt);},false);
 		this.element.addEventListener("blur",function(evt){StyleUnfocussedly(elmnt);},false);

@@ -13,13 +13,13 @@
 .spacer {display: block; margin-bottom:10px; padding-bottom:5px;}
 *[class~="spacer"] {display: block; margin-bottom:10px; padding-bottom:5px;}
 
-xforms\:input {display: block; width: 98%; background-color: rgb(220,220,220);}
+xforms\:input {display: block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
 xforms\:input  pe-value {width: 48%; background-color: white; border: 1px inset black;}
 xforms\:input  xforms\:label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
 xforms\:input.yui-widget-calendar pe-value {background-color: transparent; border: none;}
 xforms\:input.block {display: block;}
 
-xforms|input {display: block; width: 98%; background-color: rgb(220,220,220);}
+xforms|input {display: block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
 xforms|input pe-value {width: 48%; background-color: white; border: 1px inset black;}
 xforms|input > xforms|label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
 xforms|input[class~="yui-widget-calendar"] pe-value {background-color: transparent; border: none;}
