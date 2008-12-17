@@ -3,12 +3,12 @@
     <specChapter chapterName="8. " productId="" chapterTitle="Core Form Controls">
         <statusSummary>
             <numNormTotal>57</numNormTotal>
-            <numNormPass>24</numNormPass>
-            <numNormFail>33</numNormFail>
+            <numNormPass>22</numNormPass>
+            <numNormFail>35</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>53</numBasicTotal>
-            <numBasicPass>24</numBasicPass>
-            <numBasicFail>29</numBasicFail>
+            <numBasicPass>22</numBasicPass>
+            <numBasicFail>31</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>

@@ -3,12 +3,12 @@
     <specChapter chapterName="10. " productId="" chapterTitle="XForms Actions">
         <statusSummary>
             <numNormTotal>70</numNormTotal>
-            <numNormPass>27</numNormPass>
-            <numNormFail>43</numNormFail>
+            <numNormPass>26</numNormPass>
+            <numNormFail>44</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>70</numBasicTotal>
-            <numBasicPass>27</numBasicPass>
-            <numBasicFail>43</numBasicFail>
+            <numBasicPass>26</numBasicPass>
+            <numBasicFail>44</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
