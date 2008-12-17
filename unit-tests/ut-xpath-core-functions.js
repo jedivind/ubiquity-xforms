@@ -1167,3 +1167,104 @@ suiteXPathCoreFunctions.add(
   })//new TestCase
 );
 
+// Test javascript functions
+suiteXPathCoreFunctions.add(
+	new YAHOO.tool.TestCase(
+		{
+			name: "Test XPath/JS Bridge",
+			
+			setUp: function() {
+				NamespaceManager.readOutputNamespacesFromDocument();
+			},
+			
+			tearDown: function() {
+				NamespaceManager.clean();
+			},
+			
+			testMarshallingOfSupportedTypes: function() {
+				var Assert = YAHOO.util.Assert;
+				UX.global.type = function(value) { return typeof(value); };
+				try {
+					Assert.areEqual('string', evalXPath("javascript:type('hello')").stringValue());
+					Assert.areEqual('number', evalXPath("javascript:type(1)").stringValue());
+					Assert.areEqual('boolean', evalXPath("javascript:type(true())").stringValue());
+				} finally {
+					delete UX.global.type;
+				}
+			},
+			
+			testUnmarshallingOfSupportedTypes: function() {
+				var Assert = YAHOO.util.Assert;
+				UX.global.bounce = function(x) { return x; };
+				try {
+					Assert.areEqual('hello', evalXPath("javascript:bounce('hello')").stringValue());
+					Assert.areEqual(1, evalXPath("javascript:bounce(1)").numberValue());
+					Assert.areEqual(true, evalXPath("javascript:bounce(true())").booleanValue());
+					Assert.areEqual(false, evalXPath("javascript:bounce(false())").booleanValue());
+					Assert.areEqual('1', evalXPath("javascript:bounce(/test/numbers/number[1])").stringValue());
+				} finally {
+					delete UX.global.bounce;
+				}
+			},
+			
+			testMultipleParameters: function() {
+				var Assert = YAHOO.util.Assert;
+				UX.global.add = function(a, b) { return a + b; };
+				try {
+					Assert.areEqual(3, evalXPath("javascript:add(1, 2)").numberValue());
+					Assert.areEqual('12', evalXPath("javascript:add('1', '2')").stringValue());
+				} finally {
+					delete UX.global.add;
+				}
+			},
+			
+			testMarshallingOfUnsupportedTypes: function() {
+				var Assert = YAHOO.util.Assert;
+				UX.global.object = function() { return {}; };
+				try {
+					Assert.isFalse(evalXPath("javascript:object(/test/numbers/number)").booleanValue());
+				} finally {
+					delete UX.global.object;
+				}
+			},
+			
+			testUnmarshallingOfUnsupportedTypes: function() {
+				var Assert = YAHOO.util.Assert;
+				UX.global.returnUndefined = function() {};
+				UX.global.returnNull = function() { return null; };
+				UX.global.returnObject = function() { return {}; };
+				UX.global.returnArray = function() { return []; };
+				try {
+					Assert.isFalse(evalXPath("javascript:returnUndefined()").booleanValue());
+					Assert.isFalse(evalXPath("javascript:returnNull()").booleanValue());
+					Assert.isFalse(evalXPath("javascript:returnObject()").booleanValue());
+					Assert.isFalse(evalXPath("javascript:returnArray()").booleanValue());
+				} finally {
+					delete UX.global.returnUndefined;
+					delete UX.global.returnNull;
+					delete UX.global.returnObject;
+					delete UX.global.returnArray;
+				}
+			},
+
+			testInteroperabilityWithXPathEngine: function() {
+				var Assert = YAHOO.util.Assert;
+				UX.global.number = function(x) { return Number(x); };
+				try {
+					Assert.areEqual(2, evalXPath("javascript:number(1) + 1").numberValue());
+					Assert.areEqual(2, evalXPath("javascript:number('1') + 1").numberValue());
+				} finally {
+					delete UX.global.number;
+				}
+			},
+			
+			testCallingUndefinedFunction: function() {
+				var Assert = YAHOO.util.Assert;
+				Assert.areEqual(false, evalXPath("javascript:undefinedFunction()").booleanValue());
+				Assert.areEqual(false, evalXPath("undefinedNamespace:undefinedFunction()").booleanValue());
+			}
+			
+			
+		}) //new TestCase
+
+);

@@ -147,24 +147,123 @@ FunctionCallExpr.prototype.xpathfunctions["namespace-uri"] = function(ctx)
 */  
 
 FunctionCallExpr.prototype.evaluate = function(ctx) {
-  var fn = String(this.name.value);
-  var f = this.xpathfunctions[fn];
-  var i, nodes, retval;
-  if (f) {
-    retval = f.call(this, ctx);
-    if (g_bSaveDependencies && retval.type == 'node-set') {
-        nodes = retval.nodeSetValue();
-        for (i = 0; i < nodes.length; ++i) {
-            g_arrSavedDependencies.push(nodes[i]);
-        }
-    }
-  } else {
-    xpathLog('XPath NO SUCH FUNCTION ' + fn);
-    retval = new BooleanValue(false);
-  }
-  return retval;
+	var f = this.getFunction();
+	var i, nodes, retval;
+	
+	if (f) {
+		retval = f.call(this, ctx);
+		if (g_bSaveDependencies && retval.type == 'node-set') {
+			nodes = retval.nodeSetValue();
+			for (i = 0; i < nodes.length; ++i) {
+				g_arrSavedDependencies.push(nodes[i]);
+			}
+		}
+	} else {
+		xpathLog('XPath NO SUCH FUNCTION ' + this.name.value);
+		retval = new BooleanValue(false);		
+	}
+	
+	return retval;
 };
 
+FunctionCallExpr.prototype.getFunction = function() {
+
+	var segments, prefix, localName;
+	var prefixes;
+	var i;
+	var allowBridge = false;
+	var retval;
+	
+	segments = this.name.value.split(':');
+	if (segments.length == 1) {
+		localName = segments[0];
+	} else {
+		prefix = segments[0];
+		localName = segments[1];
+	}
+
+	if (!prefix) {
+		retval = this.xpathfunctions[localName];
+	} else {
+		prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms#inline");
+		
+		if (prefixes === undefined || prefixes === null)
+			return null;
+		
+		for ( i = 0; i < prefixes.length; i++ ) {
+			if (prefix === prefixes[i] && UX.global[localName] != null) {
+				retval = function(ctx) {
+					var f;
+					var marshalledArgs = [];
+					var i, c;
+					var arg;
+					var retval;
+
+					f = UX.global[localName];
+					if (!f) {
+						return null;
+					}
+					
+					c = this.args.length;
+					for ( i = 0; i < c; i++ ) {
+						arg = this.args[i];
+						// Keep evaluating the XPath node until it yields a terminal.
+						while (arg && typeof(arg.evaluate) === 'function')
+							arg = arg.evaluate(ctx);
+
+						if (arg.type === 'boolean') {
+							marshalledArgs.push(arg.booleanValue());
+						} else if (arg.type === 'string') {
+							marshalledArgs.push(arg.stringValue());
+						} else if (arg.type === 'number') {
+							marshalledArgs.push(arg.numberValue());
+						} else if (arg.type === 'node-set' && arg.nodeSetValue().length <= 1) {
+							// Only single-valued nodesets are permitted.
+							marshalledArgs.push(arg.stringValue());
+						} else {
+							// Currently extension functions only support booleans, strings, and numbers
+							// this is for two reasons:  The XNode interface is not compliant with the DOM
+							// spec so it extension functions would have to be aware of this, and mutations
+							// of the DOM are not a particularly good idea.
+							xpathLog('Non-primitive passed to bridged function "' + localName + '".');
+							return new BooleanValue(false);
+						}
+
+					}
+					
+					// Note, we do not use the context node as an implicit argument in the event that no arguments
+					// are given to prevent issues with backwards compatibility for later when passing nodesets are
+					// considered.  If no support is ever planned for nodesets, taking the context node as a string 
+					// might be a good default.
+					
+					retval = f.apply(null, marshalledArgs);
+
+					if (retval == null)
+						return new BooleanValue(false);
+					
+					switch (UX.type(retval)) {
+					case 'boolean':
+						return new BooleanValue(retval);
+					case 'string':
+						return new StringValue(retval);
+					case 'number':
+						return new NumberValue(retval);
+					default:
+						// To be consistent with pre-call setup, an exception is thrown if a function returns
+						// anything other than a primitive.  A special case is made for null and undefined as
+						// javascript treats these as false values in a boolean context.
+						xpathLog('Bridged function "' + localName + '" returned non-primitive value.');
+						return new BooleanValue(false);
+					}
+				};
+				break;
+			}
+		}
+	}
+	
+	return retval;
+};
+	
 /**@addon
 */  
 

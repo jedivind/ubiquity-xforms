@@ -321,6 +321,17 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
         }
         return oElement;
     };
+
+// Reference to the global object.
+UX.global = this;
+
+UX.isArrayLike = function(o) {
+	return (typeof(o.push) === 'function' && typeof(o.shift) === 'function' && typeof(o.length) === 'number');
+};
+
+UX.type = function(o) {
+	return (o && UX.isArrayLike(o)) ? 'array' : typeof(o);
+};
     
 /*
   Extended DOM Navigation.
