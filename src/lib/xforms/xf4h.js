@@ -13,25 +13,25 @@
  */
 
 /*
- *  FormsAProcessor
+ *  XF4HProcessor
  */
-FormsAProcessor = {    
+XF4HProcessor = {    
     /**
-     @description namespacceURI for Forms-A
+     @description namespacceURI for XF4H
      @type String
      */
-    nsURI : "http://www.w3.org/TR/forms-a",
+    nsURI : "http://www.w3.org/TR/xf4h",
     
     /**
-    @description default prefix for Forms-A
+    @description default prefix for XF4H
     @type String
     */
-    defaultPrefix : "fa:",
+    defaultPrefix : "x4h:",
         
     /**
-    Get the attribute value for an Forms-A's attribute.
-    Since Forms-A can be part of a HTML document without any namespace declaration,
-    We need to try to get the attribute with the "wfa:" prefix if failed to retrieve the
+    Get the attribute value for an XF4H's attribute.
+    Since XF4H can be part of a HTML document without any namespace declaration,
+    We need to try to get the attribute with the "x4h:" prefix if failed to retrieve the
     attribute vale via getAttributeNS     
     @param {Object} Element to get attribute from   
     @param {String} Attribute name
@@ -39,12 +39,12 @@ FormsAProcessor = {
     @throws 
     */    
     getAttribute : function(oElement, sAttributeName) { 
-        // First try to get the name with Forms-A namespaceURI
+        // First try to get the name with XF4H namespaceURI
         var sAttrValue = 
             NamespaceManager.getAttributeNS(oElement, this.nsURI, sAttributeName);
         
         if (!sAttrValue) {
-            // if no namespaceURI.. in HTML just use prefix fa: + attributeName         
+            // if no namespaceURI.. in HTML just use prefix x4h: + attributeName         
             sAttrValue = oElement.getAttribute(this.defaultPrefix + sAttributeName);
         }    
        
@@ -52,7 +52,7 @@ FormsAProcessor = {
     },
 
     /**
-    Process Forms-A element, create reference node and node value in an instance
+    Process XF4H element, create reference node and node value in an instance
     and create bind for the control.
     @param {Object} Model node of the evaluation context
     @param {Object} Context node of the evaluation context
@@ -100,7 +100,7 @@ FormsAProcessor = {
     },
     
     /**
-    Create corresponding bind from Forms-A control's constraint attributes
+    Create corresponding bind from XF4H control's constraint attributes
     (datatype, calculate, constraint, relevant, readonly, required)    
     @param {Object} Model node of the evaluation context
     @param {Object} Context node of the evaluation context

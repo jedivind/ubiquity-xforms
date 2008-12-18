@@ -423,7 +423,7 @@ DECORATOR.addDecorationRules({
                 var parent = element.parentNode,
                     datatype = parent.getAttribute("datatype"),
                     appearance = parent.getAttribute("appearance"),
-                    xf4hdatatype = FormsAProcessor.getAttribute(parent, "datatype"),
+                    xf4hdatatype = XF4HProcessor.getAttribute(parent, "datatype"),
                     prefixes = [],
                     prefix = "",
                     isDate = false,

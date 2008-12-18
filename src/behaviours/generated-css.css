@@ -105,7 +105,7 @@ xf\:input[datatype='xhd:color'] > xf\:label > pe-value, xforms\:input[datatype='
 xf\:input.yui-widget-calendar > pe-value, xforms\:input.yui-widget-calendar > pe-value,
 xf\:input[datatype='xsd\:date'] > pe-value, xforms\:input[datatype='xsd\:date'] > pe-value,
 xf\:input[datatype='xf\:date'] > pe-value, xforms\:input[datatype='xforms\:date'] > pe-value,
-xf\:input[fa\:datatype='date'] > pe-value  {
+xf\:input[x4h\:datatype='date'] > pe-value  {
   -moz-binding: url("decorator.xml#decorator");
   border: none;
   background-color: transparent;
@@ -113,19 +113,19 @@ xf\:input[fa\:datatype='date'] > pe-value  {
 xf\:input.yui-widget-calendar > xf\:label > pe-value, xforms\:input.yui-widget-calendar > xforms\:label > pe-value,
 xf\:input[datatype='xsd\:date'] > xf\:label > pe-value, xforms\:input[datatype='xsd\:date'] > xforms\:label > pe-value,
 xf\:input[datatype='xf\:date'] > xf\:label > pe-value, xforms\:input[datatype='xforms\:date'] > xforms\:label > pe-value,
-xf\:input[fa\:datatype='date'] > xf\:label > pe-value {
+xf\:input[x4h\:datatype='date'] > xf\:label > pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
 xf\:input[datatype='xf\:date'][appearance='minimal'] > pe-value, xforms\:input[datatype='xforms\:date'][appearance='minimal'] > pe-value,
 xf\:input[datatype='xsd\:date'][appearance='minimal'] > pe-value, xforms\:input[datatype='xsd\:date'][appearance='minimal'] > pe-value,
-xf\:input[fa\:datatype='date'][appearance='minimal'] > pe-value {
+xf\:input[x4h\:datatype='date'][appearance='minimal'] > pe-value {
   -moz-binding: url("decorator.xml#decorator");
   border: 2px inset #f0f0f0;
   background-color: white;
 }
 xf\:input[datatype='xf\:date'][appearance='minimal'] > xf\:label > pe-value, xforms\:input[datatype='xforms\:date'][appearance='minimal'] > xforms\:label > pe-value,
 xf\:input[datatype='xsd\:date'][appearance='minimal'] > xf\:label > pe-value, xforms\:input[datatype='xsd\:date'][appearance='minimal'] > xforms\:label > pe-value,
-xf\:input[fa\:datatype='date'][appearance='minimal'] > xf\:label > pe-value {
+xf\:input[x4h\:datatype='date'][appearance='minimal'] > xf\:label > pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
 xf\:select, xforms\:select {
