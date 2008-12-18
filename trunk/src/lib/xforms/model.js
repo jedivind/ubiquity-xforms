@@ -300,14 +300,13 @@ function __replaceInstanceDocument(pThis, oInstance, oDom) {
 
 function _replaceInstanceDocument(pThis, sID, oDom) {
     var bRet = false;
+    var oInstance = null;
 
     if (sID) {
-        /*
-         * [TODO] Should be getElementById().
-         */
-        var oInstance = pThis.element.getElementById(sID);
+        oInstance = pThis.element.ownerDocument.getElementById(sID);
         bRet = __replaceInstanceDocument(pThis, oInstance, oDom);
     }
+
     return bRet;
 }
 

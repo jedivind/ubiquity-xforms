@@ -14,55 +14,51 @@
  * limitations under the License.
  */
 function Submit(elmnt) {
-	this.element = elmnt;
-    this.element.addEventListener(
-   		"DOMActivate",
-       	this,			
-		true
-		);
+    this.element = elmnt;
+    this.element.addEventListener("DOMActivate", this, false);
 }
 
 Submit.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Submit.prototype.performAction = function(oEvt) {
-   var control = this;
-   
-   if (oEvt.type === "DOMActivate") { 
-     var sID = control.element.getAttribute("submission");
-    
-     var oSubmission = null;
-	 if (sID){
-		oSubmission = control.element.ownerDocument.getElementById(sID);
-     }
-     else {
-       // if there is not a declared submssion id,  get the first submission element of the default model 
-       var oModel = getModelFor(control.element.ownerDocument);
-       if (oModel) {
-         // halt on the first submission in model
-          var nsChildNodes = oModel.element.childNodes;
-          for (var i = 0; i < nsChildNodes.length; i++) {
-			 if (NamespaceManager.compareFullName(nsChildNodes[i],"submission","http://www.w3.org/2002/xforms")) {
-			    var oSubmission = nsChildNodes[i];
-			    break;
-			 }   
-		  }
-       }
-     }
+    var control = this;
+    var oSubmission = null;
+    var oDocument = control.element.ownerDocument;
 
-	 if (oSubmission) {
-		var oEvt1 =  oSubmission.ownerDocument.createEvent("Events"); 
+    if (oEvt.type === "DOMActivate") {
+        var sID = control.element.getAttribute("submission");
 
-        oEvt1.initEvent("xforms-submit", false, false, null, null);
-			
-		spawn(function(){FormsProcessor.dispatchEvent(oSubmission,oEvt1)});
- 	 }
-	 else {
-	    if (sID) {
-		  throw "There is no submission element with an ID of '" + sID + "'";
-		}
-		else {
-		  throw "There is no submission element associated with the default model.";
-		}
-	 }	 
-  }
+        if (sID) {
+            oSubmission = oDocument.getElementById(sID);
+        } else {
+            // if there is not a declared submssion id, get the first submission
+            // element of the default model
+            var oModel = getModelFor(oDocument);
+            
+            if (oModel) {
+                // halt on the first submission in model
+                var nsChildNodes = oModel.element.childNodes;
+                for ( var i = 0; i < nsChildNodes.length; i++) {
+                    if (NamespaceManager.compareFullName(nsChildNodes[i],
+                            "submission", "http://www.w3.org/2002/xforms")) {
+                        oSubmission = nsChildNodes[i];
+                        break;
+                    }
+                }
+            }
+        } 
+        
+        if (oSubmission) {
+            var oSubmitEvt = oDocument.createEvent("Events");
+            oSubmitEvt.initEvent("xforms-submit", true, true, null, null);
+            spawn( function() {
+                FormsProcessor.dispatchEvent(oSubmission, oSubmitEvt)
+            });
+        } else {
+            var sErrMsg = sID ?
+             "There is no submission element with an ID of '" + sID + "'" :
+             "There is no submission element associated with the default model."; 
+            throw sErrMsg;
+        }
+    }
 };
