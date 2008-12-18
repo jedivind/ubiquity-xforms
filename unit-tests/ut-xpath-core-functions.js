@@ -1189,7 +1189,7 @@ suiteXPathCoreFunctions.add(
 					Assert.areEqual('number', evalXPath("javascript:type(1)").stringValue());
 					Assert.areEqual('boolean', evalXPath("javascript:type(true())").stringValue());
 				} finally {
-					delete UX.global.type;
+					UX.global.type = undefined;
 				}
 			},
 			
@@ -1203,7 +1203,7 @@ suiteXPathCoreFunctions.add(
 					Assert.areEqual(false, evalXPath("javascript:bounce(false())").booleanValue());
 					Assert.areEqual('1', evalXPath("javascript:bounce(/test/numbers/number[1])").stringValue());
 				} finally {
-					delete UX.global.bounce;
+					UX.global.bounce = undefined;
 				}
 			},
 			
@@ -1214,7 +1214,7 @@ suiteXPathCoreFunctions.add(
 					Assert.areEqual(3, evalXPath("javascript:add(1, 2)").numberValue());
 					Assert.areEqual('12', evalXPath("javascript:add('1', '2')").stringValue());
 				} finally {
-					delete UX.global.add;
+					UX.global.add = undefined;
 				}
 			},
 			
@@ -1224,7 +1224,7 @@ suiteXPathCoreFunctions.add(
 				try {
 					Assert.isFalse(evalXPath("javascript:object(/test/numbers/number)").booleanValue());
 				} finally {
-					delete UX.global.object;
+					UX.global.object = undefined;
 				}
 			},
 			
@@ -1240,10 +1240,10 @@ suiteXPathCoreFunctions.add(
 					Assert.isFalse(evalXPath("javascript:returnObject()").booleanValue());
 					Assert.isFalse(evalXPath("javascript:returnArray()").booleanValue());
 				} finally {
-					delete UX.global.returnUndefined;
-					delete UX.global.returnNull;
-					delete UX.global.returnObject;
-					delete UX.global.returnArray;
+					UX.global.returnUndefined = undefined;
+					UX.global.returnNull = undefined;
+					UX.global.returnObject = undefined;
+					UX.global.returnArray = undefined;
 				}
 			},
 
@@ -1254,7 +1254,7 @@ suiteXPathCoreFunctions.add(
 					Assert.areEqual(2, evalXPath("javascript:number(1) + 1").numberValue());
 					Assert.areEqual(2, evalXPath("javascript:number('1') + 1").numberValue());
 				} finally {
-					delete UX.global.number;
+					UX.global.number = undefined;
 				}
 			},
 			
