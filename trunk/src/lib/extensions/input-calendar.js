@@ -59,7 +59,7 @@ InputValueCalendar.prototype.onDocumentReady = function() {
             appearance = this.element.parentNode.getAttribute("appearance"),
             datatype = this.element.parentNode.getAttribute("datatype"),
             xf4hdatatype = 
-                FormsAProcessor.getAttribute(this.element.parentNode, "datatype");
+                XF4HProcessor.getAttribute(this.element.parentNode, "datatype");
 
         if (appearance === 'yui:popup-calendar' ||
             ((datatype === 'xsd:date' || datatype === 'xf:date' || 

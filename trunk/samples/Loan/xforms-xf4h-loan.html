@@ -3,13 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ev="http://www.w3.org/2001/xml-events"
     xmlns:xf="http://www.w3.org/2002/xforms"
-    xmlns:fa="http://www.w3.org/TR/forms-a"
+    xmlns:x4h="http://www.w3.org/TR/xf4h"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
-    xmlns:javascript="http://www.w3.org/2002/xforms#inline">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance">
 <head>
 <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
-<script src="format.js" type="text/javascript">/**/</script>
 <link type="text/css" href="style/gen_default.css" rel="stylesheet"></link>
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css"></link>
 </head>
@@ -25,47 +23,47 @@
     <xf:label>The name to trust when you're... in the red.</xf:label>
 </xf:output>
 
-<xf:form id="f" fa:name="datarecord"
+<xf:form id="f" x4h:name="datarecord"
     action="http://xformstest.org/cgi-bin/echo.sh" method="post">
    
    <br />
    
-    <xf:group id="b" fa:name="borrower">
-        <xf:input id="d" fa:name="startdate" fa:datatype="date"
-            fa:value="2008-08-08">
+    <xf:group id="b" x4h:name="borrower">
+        <xf:input id="d" x4h:name="startdate" x4h:datatype="date"
+            x4h:value="2008-08-08">
             <xf:label>Agreement Date:</xf:label>
         </xf:input>     
         <br />      
         
-        <xf:input id="name" fa:name="name" fa:datatype="string"
-            fa:value="Joe Q. Public" fa:constraint="string-length(.) > 0">
+        <xf:input id="name" x4h:name="name" x4h:datatype="string"
+            x4h:value="Joe Q. Public" x4h:constraint="string-length(.) > 0">
             <xf:label for="name">Name:</xf:label>
         </xf:input>     
         <br />
         
-        <xf:input id="addr" fa:name="addr" fa:datatype="string"
-            fa:value="123 Main St. Tinyville"
-            fa:constraint="string-length(.) > 0">
+        <xf:input id="addr" x4h:name="addr" x4h:datatype="string"
+            x4h:value="123 Main St. Tinyville"
+            x4h:constraint="string-length(.) > 0">
             <xf:label for="addr">Address:</xf:label>
         </xf:input>
         <br />
         
-        <xf:input id="p" fa:name="principal" fa:datatype="double"
-            fa:value="10000" fa:constraint=". &gt;= 1000 and . &lt;= 100000">
+        <xf:input id="p" x4h:name="principal" x4h:datatype="double"
+            x4h:value="10000" x4h:constraint=". &gt;= 1000 and . &lt;= 100000">
             <xf:label for="addr">Principal:</xf:label>
         </xf:input>
         <br />      
     </xf:group>
 
-    <xf:group id="t" fa:name="terms">
-        <xf:input id="d" fa:name="duration" fa:datatype="integer"
-            fa:value="12" fa:constraint=". &gt; 0 and . &lt;= 84">
+    <xf:group id="t" x4h:name="terms">
+        <xf:input id="d" x4h:name="duration" x4h:datatype="integer"
+            x4h:value="12" x4h:constraint=". &gt; 0 and . &lt;= 84">
             <xf:label>Duration of Loan in Months:</xf:label>
         </xf:input>     
       <br />
         
-        <xf:input id="in" fa:name="interestrate" fa:datatype="double"
-            fa:value="5" fa:constraint=". &gt;= 5 and . &lt;= 60">
+        <xf:input id="in" x4h:name="interestrate" x4h:datatype="double"
+            x4h:value="5" x4h:constraint=". &gt;= 5 and . &lt;= 60">
             <xf:label>Yearly Interest Rate:</xf:label>
         </xf:input>
       <br />            
@@ -76,18 +74,18 @@
 
 <xf:group>
 
-    <xf:output id="o1" fa:name="rates"
-        fa:calculate="javascript:currency(terms/interestrate div 1200.0, 4)">
+    <xf:output id="o1" x4h:name="rates"
+        x4h:calculate="terms/interestrate div 1200.0">
         <xf:label>Yearly Interest Rate:</xf:label>
     </xf:output>
     
-    <xf:output id="o3" fa:name="monthly-payment"
-        fa:calculate="javascript:currency(ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1))) div terms/duration)">
+    <xf:output id="o3" x4h:name="monthly-payment"
+        x4h:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1))) div terms/duration">
         <xf:label>Monthly Payment:</xf:label>
     </xf:output>
     
-    <xf:output id="o2" fa:name="totalpayout"
-        fa:calculate="javascript:currency(ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1))))">
+    <xf:output id="o2" x4h:name="totalpayout"
+        x4h:calculate="ceiling(borrower/principal + (125 * terms/interestrate * (terms/duration * 0.1)))">
         <xf:label>Total Payout:</xf:label>
     </xf:output>
     
