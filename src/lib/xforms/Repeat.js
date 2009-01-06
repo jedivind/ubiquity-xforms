@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global DECORATOR, NamespaceManager, UX, document, window, getModelFor*/
 
 function Repeat(elmnt) {
   this.element = elmnt;
-  this.m_nLastStartIndex = -1;
-  this.m_nIndex = 1;
+  var sStartIndex;
   if (this.element) {
     this.element.iterationTagName = "group";
+
+    sStartIndex = elmnt.getAttribute("startindex");
+    
+    this.m_nIndex = (sStartIndex === null || isNaN(sStartIndex))?1:this.m_nIndex = Number(sStartIndex);
   }
+  
   this.m_CurrentIterationCount = 0;
+  this.m_offset = 0;
+  this.m_iterationNodesetLength = 0;
 }    
     
 Repeat.prototype.onDocumentReady = function () {
@@ -40,9 +47,10 @@ Repeat.prototype.onDocumentReady = function () {
 };
 
 Repeat.prototype.Activate  = function (o) {
-  var coll = this.element.childNodes;
-  var len = coll.length;
-  for (var i = 0;i < len;++i) {
+  var coll = this.element.childNodes,
+  len = coll.length,
+  i;
+  for (i = 0; i < len; ++i) {
     if (coll[i].contains(o)) {
       this.m_nIndex = i + 1;
       break;
@@ -50,8 +58,8 @@ Repeat.prototype.Activate  = function (o) {
   }
 };
 
-Repeat.prototype.storeTemplate = function () {                         
-  this.sTemplate = this.element.cloneNode(true);                                            
+Repeat.prototype.storeTemplate = function () {
+  this.sTemplate = this.element.cloneNode(true);
   while (this.element.childNodes.length) {
     this.element.removeChild(this.element.firstChild); 
   }
@@ -77,109 +85,142 @@ Repeat.prototype.refresh = function () {
 
 };
 
+Repeat.prototype.getRequestedIterationCount = function () {
+  //Alter the number of iterations, if appropriate
+  var sNumber = this.getAttribute("number"),
+  desiredIterationCount = 0;
+  
+  if (sNumber === null || isNaN(sNumber)) {
+      //without a number attribute, vary the repeat with the size of the nodeset.
+    desiredIterationCount = this.m_iterationNodesetLength;
+  } else {
+    desiredIterationCount =  Number(sNumber);
+  }
+  return desiredIterationCount;
+};
+
+Repeat.prototype.putIterations = function (desiredIterationCount) {
+
+  var formerOffset, i, currentOrdinal, sDefaultPrefix, iterations, oIterationElement, templateClone;
+  if (desiredIterationCount < this.m_CurrentIterationCount) {
+    //Trim any superfluous iterations if desired.
+    while (this.element.childNodes.length > desiredIterationCount) {
+      this.element.removeChild(this.element.lastChild);
+    }
+    this.m_CurrentIterationCount = this.element.childNodes.length;
+  }
+  //hold the current offset, to determine whether it is necessary to change
+  //  the ordinals of the various iterations.
+  formerOffset = this.m_offset;
+  
+  //Fix the viewport so that the desired index will be visible.
+  if (this.m_nIndex < this.m_offset) {
+    //If offset is later than index, move the viewport such that index is the last visible iteration
+    this.m_offset = 1 + this.m_nIndex - desiredIterationCount;
+  } else if (this.m_nIndex > (desiredIterationCount + this.m_offset)) {
+    //If there are fewer iterations than would allow the current index to be visible
+    //Set the offset and index to match.
+    this.m_offset = this.m_nIndex - 1;
+  }
+  
+  //Offset has changed, iterate through extant iterations, altering their ordinals accordingly.
+  if (formerOffset !== this.m_offset) {
+    iterations = this.element.childNodes;
+    
+    for (i = 0; i < this.m_CurrentIterationCount; ++i) {
+      currentOrdinal = i + this.m_offset;
+      if (iterations[i]) {
+        iterations[i].setAttribute("ordinal", currentOrdinal);
+      } 
+    }
+  }
+  
+  sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
+  while (desiredIterationCount > this.m_CurrentIterationCount) {
+    //In the absence of an iteration corresponding to this index, insert one.
+    oIterationElement = (UX.isXHTML) ? 
+      document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.iterationTagName) :
+      document.createElement(sDefaultPrefix + this.element.iterationTagName);
+    oIterationElement.setAttribute("ref", ".");
+    oIterationElement.setAttribute("ordinal", this.m_offset + this.m_CurrentIterationCount + 1);
+    UX.addClassName(oIterationElement, "repeat-iteration");
+    
+    templateClone = this.element.sTemplate.cloneNode(true);
+
+    //Move each child of templateClone to oIterationElement, maintaining order.
+    while (templateClone.hasChildNodes()) {
+      oIterationElement.appendChild(templateClone.firstChild);
+    }
+    this.element.appendChild(oIterationElement);
+    window.status = "";
+    //set the status bar, to fix the progress bar.
+    //See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731 
+    
+    this.m_CurrentIterationCount++;
+  }
+  
+  
+};
+
+Repeat.prototype.normaliseIndex  = function () {
+    
+  if (this.m_nIndex < 1) {
+    this.m_nIndex = 1;
+  }
+  
+  if (this.m_nIndex > this.m_iterationNodesetLength) {
+    this.m_nIndex = this.m_iterationNodesetLength;
+  }
+
+};
+
 Repeat.prototype.rewire = function () {
-  var arrNodes = null;
-  var sExpr = this.element.getAttribute("nodeset");
-  var sDefaultPrefix = null;
-  var oIterationTagName = null;
-  var templateClone = null;
+  var arrNodes = null,
+      sExpr = this.element.getAttribute("nodeset"),
+      sBind,
+      oBind,
+      oContext,
+      r,
+      desiredIterationCount;
   
   if (!sExpr) {
-    var sBind = this.element.getAttribute("bind");
+    sBind = this.element.getAttribute("bind");
     
     if (!sBind) {
         //debugger; /* the repeat has neither a @nodeset or a @bind */
     } else {
-      var oBind = this.element.ownerDocument.getElementById(sBind);
+      oBind = this.element.ownerDocument.getElementById(sBind);
   
       if (!oBind) {
         debugger; /* bind not found with this ID */
       } else {
-        arrNodes = oBind["boundNodeSet"];
-        this.m_model = oBind["ownerModel"];
+        arrNodes = oBind.boundNodeSet;
+        this.m_model = oBind.ownerModel;
       }
     }
   } else {        
-    this.element.ownerDocument.logger.log(
-      "Rewiring: " + this.element.tagName + ":" + this.element.uniqueID + 
-      ":" + sExpr, "info");
+    document.logger.log("Rewiring: " + this.element.tagName + ":" + this.element.uniqueID + ":" + sExpr, "info");
     
-    var oContext = this.element.getEvaluationContext();
+    oContext = this.element.getEvaluationContext();
     this.m_model = oContext.model;
-    var r = this.m_model.EvaluateXPath(sExpr, oContext);
+    r = this.m_model.EvaluateXPath(sExpr, oContext);
     
     arrNodes = r.value;
   }
   
   if (arrNodes) {
-    //Alter the number of iterations, if appropriate
-    var sNumber = this.getAttribute("number");
-    var desiredIterationCount = 0;
-    
-    if (sNumber === null || isNaN(sNumber)) {
-        //without a number attribute, vary the repeat with the size of the nodeset.
-      desiredIterationCount = arrNodes.length;
-    } else {
-      desiredIterationCount =  Number(sNumber);
-    }
+    this.m_iterationNodesetLength = arrNodes.length;
+    this.normaliseIndex();
+    this.putIterations(this.getRequestedIterationCount());
 
-    var sStartIndex = this.element.getAttribute("startindex");
-    var nStartIndex;
-    if (sStartIndex === null || isNaN(sStartIndex)) {
-      nStartIndex = 1;
-    } else {
-      nStartIndex = Number(sStartIndex);
+    if (!UX.hasDecorationSupport) {
+      DECORATOR.applyDecorationRules(this.element);
     }
-    
-    var lastIndex = desiredIterationCount + nStartIndex - 1;
-    if (desiredIterationCount <= this.m_CurrentIterationCount) {
-      //trim any superfluous iterations if desired.
-      while (this.element.childNodes.length > desiredIterationCount) {
-        this.element.removeChild(this.element.lastChild);
-      }
-      this.m_CurrentIterationCount = this.element.childNodes.length;
-    }
-    
-    if (desiredIterationCount <= this.m_CurrentIterationCount && nStartIndex == this.m_nLastStartIndex) {
-        //do nothing
-    } else {
-      var coll = this.element.childNodes;                
-      var arrExtraIterations = [];
-      sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
-      for (var i = 0; i < desiredIterationCount; ++i) {
-        var iCurrentIndex = i + nStartIndex;
-        if (coll[i]) {
-          if (nStartIndex != this.m_nLastStartIndex) {
-            coll[i].setAttribute("ordinal", iCurrentIndex);
-          }
-        } else {
-          //In the absence of an iteration corresponding to this index, insert one.
-          oIterationTagName = (UX.isXHTML) ? document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.iterationTagName) :
-          document.createElement(sDefaultPrefix + this.element.iterationTagName);
-          oIterationTagName.setAttribute("ref", ".");
-          oIterationTagName.setAttribute("ordinal", iCurrentIndex);
-          UX.addClassName(oIterationTagName, "repeat-iteration");
-          templateClone = this.element.sTemplate.cloneNode(true);
-          while (templateClone.childNodes.length) {
-            oIterationTagName.appendChild(templateClone.firstChild);
-          }
-          this.element.appendChild(oIterationTagName);
-          window.status = "";
-          //set the status bar, to fix the progress bar.
-          //See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731 
-        }
-      }
-      if (!UX.hasDecorationSupport) {
-        DECORATOR.applyDecorationRules(this.element);
-      }
-      this.m_nLastStartIndex = nStartIndex;
-    }
-    this.m_CurrentIterationCount = desiredIterationCount;
-    //this.element.ownerDocument.logger.log("Rewiring complete: " + this.element.tagName + ":" + this.element.uniqueID
-    //	+ ":" + sExpr + " iterations added:" , "info");
   }
+
   return false;
 };
+
 
 Repeat.prototype.getIndex = function () {
   return this.m_nIndex;
