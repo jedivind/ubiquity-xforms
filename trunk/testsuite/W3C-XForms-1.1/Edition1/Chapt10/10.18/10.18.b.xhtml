@@ -26,7 +26,7 @@
         <xforms:group>
           <xforms:trigger>
             <xforms:label>Run Test</xforms:label>
-            <xforms:action ev:event="DOMActivate" while="count('number') &lt; 11)">
+            <xforms:action ev:event="DOMActivate" while="count(number) &lt; 10">
               <xforms:insert ev:event="xforms-ready" nodeset="number" at="1" position="after"/>
             </xforms:action>
           </xforms:trigger>

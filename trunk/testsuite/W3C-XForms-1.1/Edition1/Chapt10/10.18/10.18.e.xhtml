@@ -14,9 +14,9 @@
             	<counter/>
             	<accumulator/>
             	<some>
-            	  <nodes>1</nodes>
-            	  <nodes>2</nodes>
-            	  <nodes>3</nodes>
+            	  <nodes selected="true">1</nodes>
+            	  <nodes selected="true">2</nodes>
+            	  <nodes selected="true">3</nodes>
             	</some>
               </root>
             </xforms:instance>
@@ -26,7 +26,7 @@
         </xforms:group>
         <xforms:group>
             <xforms:label>
-              You must see a value of "6" for the Total Sum output and a value of "3" for 
+              You must see a value of &quot;6&quot; for the Total Sum output and a value of &quot;4&quot; for 
               the Counter output. 
             </xforms:label>
         </xforms:group>
@@ -46,8 +46,10 @@
 				<xforms:action ev:event="DOMActivate">
 					<xforms:setvalue ref="instance('temps')/counter" value="1"/>
 					<xforms:setvalue ref="instance('temps')/accumulator" value="0"/>
-					<xforms:action while="instance('temps')/counter &lt;= count(/some/nodes)">
-						<xforms:setvalue ref="instance('temps')/accumulator" value=". + /some/nodes[instance('temps')/counter]" if="boolean-from-string(/some/nodes[instance('temps')/counter]/@selected)"/>
+					<xforms:action while="instance('temps')/counter &lt;= count(instance('temps')/some/nodes)">
+						<xforms:setvalue ref="instance('temps')/accumulator" 
+							value=". + instance('temps')/some/nodes[number(instance('temps')/counter)]"
+							if="boolean-from-string(instance('temps')/some/nodes[number(instance('temps')/counter)]/@selected)"/>
 						<xforms:setvalue ref="instance('temps')/counter" value=". + 1"/>
 					</xforms:action>
 				</xforms:action>
