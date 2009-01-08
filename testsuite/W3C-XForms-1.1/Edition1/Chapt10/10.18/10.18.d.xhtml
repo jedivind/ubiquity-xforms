@@ -14,7 +14,8 @@
                   <number/>
                 </numbers>
             </xforms:instance>
-            <xforms:insert ev:event="xforms-ready" nodeset="number" at="1" position="after" if="count('number') &lt; 6" while="count('number') &lt; 11"/>
+            <xforms:insert ev:event="xforms-ready" nodeset="number" at="1" position="after" 
+            if="count(number) &lt; 5" while="count(number) &lt; 10" />
         </xforms:model>
         <xforms:group>
             <xforms:label class="title">10.18.d XForms actions with if and while attributes</xforms:label>
