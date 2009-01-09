@@ -1,7 +1,7 @@
 #summary An overview of plans for the Ubiquity XForms library.
 #labels Featured,Phase-Requirements,Status
 
-Currently our attention is focused on completing XForms 1.1 support. The status of stories relating to XForms 1.1 is available [http://code.google.com/p/ubiquity-xforms/issues/list?q=Milestone:XForms1.1+Type:Story&can=1&colspec=Milestone+Status+ID+Summary&sort=Status here].
+Currently our attention is focused on completing XForms 1.1 support. The status of stories relating to XForms 1.1 is available [http://code.google.com/p/ubiquity-xforms/issues/list?q=Milestone:XForms1.1+Type:Story&can=1&colspec=Milestone+Status+Owner+ID+Summary&sort=Status here].
 
 = Releases =
 
