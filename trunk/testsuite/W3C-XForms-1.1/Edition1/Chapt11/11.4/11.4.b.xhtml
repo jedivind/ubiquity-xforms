@@ -33,15 +33,16 @@
                     <xforms:action ev:event="xforms-submit-done">
                          <xforms:setvalue ref="instance('event_catcher')/return_code" value="event('response-status-code')"/>
                          <!--  xforms 1.1 will return header[] from event('response-headers') -->
-                         <xforms:insert nodeset="instance('event_catcher')/response_headers" origin="event('response-headers')"/>
+                         <xforms:insert context="instance('error_catcher')/response_headers" nodeset="*" origin="event('response-headers')"/>
                     </xforms:action>
                </xforms:submission>
                <xforms:submission id="sub_2" method="post" ref="instance('data')" replace="none">
                     <xforms:resource value="instance('resource')/resource"/>
                     <xforms:action ev:event="xforms-submit-done">
                          <xforms:setvalue ref="instance('event_catcher')/return_code" value="event('response-status-code')"/>
+                         <xforms:insert nodeset="instance('error_catcher')/response_headers" origin="event('response-headers')"/><!--
                          <xforms:setvalue ref="instance('event_catcher')/response_headers" value="event('response-headers')"/>
-                    </xforms:action>
+                    --></xforms:action>
                </xforms:submission>
           </xforms:model>
           <xforms:group>
@@ -69,7 +70,7 @@
           </xforms:group>
           <xforms:group>
                <xforms:label>Response Headers : </xforms:label>
-               <xforms:repeat nodeset="instance('event_catcher')/header">
+               <xforms:repeat nodeset="instance('event_catcher')/response_headers/header">
                     <xforms:group>
                          <xforms:label/>
                          <xforms:output ref="./name">
