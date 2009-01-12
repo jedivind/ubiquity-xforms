@@ -248,7 +248,8 @@ Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, positi
     var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
     var nsOrigin = (originExpr) ? this.evalXPath(originExpr, oContext).nodeSetValue() 
                                 : ((ns) ? new Array(ns[ns.length-1]) : null);
-    var at, after, i, node, insertLocationNode, insertBeforeNode, cloneNode, nsLocationNode = [ ], nsInserted = [ ], evt;    
+    var at, after, i, insertLocationNode, insertTarget, insertBeforeNode, cloneNode,
+    	nsLocationNode = [ ], nsInserted = [ ], evt, atRoot;    
     
     // If there's no context node, then insertion is not possible, so
     // we'll just no-op in that case.
@@ -277,15 +278,11 @@ Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, positi
                 insertBeforeNode = insertLocationNode;
             }
             
-            // Each inserted node is added to the nsInserted list
-            // The nodes are inserted before a particular child node, or 
-            // if insertBeforeNode is null, then insertBefore() apppends the nodes
+            // The insert target from DOM's perspective is the parent of the
+            // node calculated so far.
             //
-            for (i=0; i < nsOrigin.length; i++) {
-                cloneNode = nsOrigin[i].cloneNode(true);
-                insertLocationNode.parentNode.insertBefore(cloneNode, insertBeforeNode);
-                nsInserted.push(cloneNode);
-            }        
+            insertTarget = insertLocationNode.parentNode;
+            
         } // end if (non-empty nodeset) 
         
         // If there is no nodeset but there was a context attribute which indicated a node into 
@@ -293,14 +290,66 @@ Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, positi
         // can proceed with insertion
         //
         else if (oContext.initialContext && nsOrigin && nsOrigin.length > 0) {
-            insertLocationNode = oContext.node ? oContext.node : oContext;
-            nsLocationNode.push(insertLocationNode);
-            insertBeforeNode = (insertLocationNode.firstChild) ? insertLocationNode.firstChild : null;
-            for (i=0; i < nsOrigin.length; i++) {
+            insertTarget = oContext.node ? oContext.node : oContext;            
+            nsLocationNode.push(insertTarget);
+            insertBeforeNode = (insertTarget.firstChild) ? insertTarget.firstChild : null;
+        }
+        
+    	// otherwise insertTarget intentionally left undefined, thus
+        // insertion cannot be substantiated which results in the NO-OP
+       
+        if (insertTarget) {
+            // Insert target found.            
+       	
+            // Clone nodes to be inserted first and add them to nsInserted array.
+            // Conceivably, origin nodes could be removed, if inserting at the root (see below).
+            // At the same time determine if the insertion is 'at root' and, 
+            // if so, is it legal (no more the one element can be inserted).
+            // Note, that if it is NOT legal the second and the following
+            // element nodes are not inserted (ignored). 
+        	
+            atRoot = false;
+            for (i = 0; i < nsOrigin.length; i++) {
                 cloneNode = nsOrigin[i].cloneNode(true);
-                insertLocationNode.insertBefore(cloneNode, insertBeforeNode);
+                if ((insertTarget.nodeType === DOM_DOCUMENT_NODE) && (cloneNode.nodeType === DOM_ELEMENT_NODE)) {
+                    if (atRoot) {
+                        continue;
+                    }
+                    else {
+                        atRoot = true;
+                    }
+                }
                 nsInserted.push(cloneNode);
-            }                
+            }
+        	
+            // Treat the special case of insertion at the root of the instance here.
+            // Namely, before the element could be inserted into document node
+            // remove the existing document element.
+        	
+            if (atRoot) {       		
+                insertLocationNode = insertTarget.firstChild;
+                while (insertLocationNode && (insertLocationNode.nodeType !== DOM_ELEMENT_NODE)) {
+                    insertLocationNode = insertLocationNode.nextSibling;
+                }
+        		
+                if (insertLocationNode) {
+                    insertTarget.removeChild(insertLocationNode);
+                }
+            }
+        	
+            // Finally, the actual insertion.
+            // The nodes are inserted before a particular child node, or 
+            // if insertBeforeNode is null, then I use appendChild()
+            // because insertBefore() implementation does not currently support this!
+	        
+            for (i = 0; i < nsOrigin.length; i++) {           	
+                if (insertBeforeNode) {
+                    insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
+                }
+                else {
+                    insertTarget.appendChild(nsInserted[i]);
+                }
+            }
         }
     } // end if (oContext)
      
