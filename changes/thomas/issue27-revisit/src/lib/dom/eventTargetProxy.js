@@ -124,6 +124,19 @@ function StyleUnfocussedly(elmnt)
   UX.removeClassName(elmnt, "pc-focus");
 }
 
+function findEventListenerIdx(oArray, oListener) {
+    var len = oArray.length;
+    var i;
+    
+    for (i = 0; i < len; i++) {
+        if (oArray[i] === oListener) {
+            break;
+        }
+    }
+    
+    return ((len === i) ? -1 : i);
+}
+
 //There is no need for this in firefox.
 if(document.all)
 {
@@ -135,78 +148,60 @@ if(document.all)
 * =============
 */
 
-		function _addEventListener(sType, oListener, iPhase)
-		{
-			/*
-			 * If this is the first listener of this type then create
-			 * an empty list
-			 */
-			if(typeof(iPhase) == "boolean") {
-				iPhase = (iPhase) ? this.PHASE_CAPTURE : this.PHASE_BUBBLE;
+		function _addEventListener(sType, oListener, bPhase) {
+		    var iPhase = this.PHASE_BUBBLE;
+		    
+		    if (typeof(sType) !== "string" || typeof(bPhase) !== "boolean" || 
+		        !oListener ) {
+		        this.element.document.logger.log("addEventListener: invalid arguments");
+		        return;
+		    }
+
+			if (bPhase) {
+				iPhase = this.PHASE_CAPTURE;
 			}
 			
-			if (this.arrListener[sType] == null) {
-				this.arrListener[sType] =  [];
-			}
-
-			/*
-			 * Each type can have listeners for different phases
-			 */
-
-			if (this.arrListener[sType][iPhase] == null) {
-				this.arrListener[sType][iPhase] =  [];
-			}
-
-			/*
-			 * Check to see if we already have this listener, and if not,
-			 * add it to the end
-			 */
-
-			var arr = this.arrListener[sType][iPhase];
-			var iNext = arr.length;
-
-			for (var i = 0; i < iNext; i++)
-			{
-				if (arr[i] == oListener) {
-					break;
-				}
-			}
-
-			if (i == iNext)
-			{
-				arr[iNext] = oListener;
-			}
+			// If this is the first listener of this type then create an empty list
+            this.arrListener[sType] = this.arrListener[sType] || [];
+            this.arrListener[sType][iPhase] = this.arrListener[sType][iPhase] || [];
+            
+            // Check whether listener already in array
+            if (findEventListenerIdx(
+                    this.arrListener[sType][iPhase], oListener) < 0) {
+                this.arrListener[sType][iPhase].push(oListener);
+            }
 		} //_addEventListener
 
-		function _removeEventListener(sType, oListener, iPhase)
-		{
-			if(typeof(iPhase) == "boolean")
-			{
-				iPhase = (iPhase) ? this.PHASE_CAPTURE : this.PHASE_BUBBLE;
+		function _removeEventListener(sType, oListener, bPhase) {
+		    var oList = null;
+		    var idx = 0;
+		    var iPhase = this.PHASE_BUBBLE;
+		    
+		    if (typeof(sType) !== "string" || typeof(bPhase) !== "boolean" ||
+		        !oListener || !this.arrListener[sType]) {
+		        this.element.document.logger.log(
+		                "removeEventListener: invalid arguments");
+		        return;
+		    }
+		    
+			if(bPhase) {
+				iPhase = this.PHASE_CAPTURE;
 			}
-			/*
-			 * First see if we have a list of listeners for this type
-			 */
-
-			var arr = this.arrListener[sType][iPhase];
-
-			if (arr)
-			{
-
-				/*
-				 * Now find the specific listener, and if successful, remove it
-				 */
-
-				for (var i = 0; i < arr.length; i++)
-				{
-					if (arr[i] == oListener)
-					{
-						arr[i] = null;
-						this.element.document.logger.log("Removed listener for " + sType + ", phase " + iPhase, "evnt");
-						break;
-					}// if ( we have found the listener we are looking for )
-				}// for ( each listener in the list )
-			}// if ( some listeners exist for this type and phase )
+			
+			oList = this.arrListener[sType][iPhase];
+			
+			// First see if we have a list of listeners for this type
+			if (oList) {			    
+			    // Find event listener
+			    idx = findEventListenerIdx(oList, oListener);
+			    
+			    if (idx !== -1) {
+			        // Event listener found, remove the one listener at the index
+	                this.element.document.logger.log("Removed listener for " + 
+	                    sType + ", phase " + iPhase, "evnt");
+	                oList.splice(idx, 1);            
+			    }
+			} // if ( some listeners exist for this type and phase )
 		}//_removeEventListener
 
 		function __notifyListeners(oEvt)
