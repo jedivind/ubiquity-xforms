@@ -16,632 +16,600 @@
 
 var EventTarget = null;
 
-		function dispatchXformsHint(elmnt, e) {
-			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
-			var savedHintOffCounter = FormsProcessor.hintOffCounter;
-			
-			setTimeout(
-			  function() {
-			    if (savedHintOffCounter === FormsProcessor.hintOffCounter) {
-			      oEvt.initUIEvent("xforms-hint", true, true, null, 1);
-			      FormsProcessor.dispatchEvent(elmnt,oEvt);
-			    }
-			  },
-			 200
-			);
+function dispatchXformsHint(elmnt, e) {
+    var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+    var savedHintOffCounter = FormsProcessor.hintOffCounter;
 
-			//oEvt.initUIEvent("xforms-hint", true, true, null, 1);
-			//There is no need to run this event in line, and doing so may cause a stack overflow,
-			//	if it invokes other actions. 
-			//oEvt._actionDepth = -1;
-			//FormsProcessor.dispatchEvent(elmnt,oEvt);
-			//spawn(function(){elmnt.dispatchEvent(oEvt)});
-			if (document.all) {
-				elmnt.document.parentWindow.event.cancelBubble = true;
-				elmnt.document.parentWindow.event.returnValue = false;
-			}
-			else
-			{
-				e.stopPropagation();
-			}
-		}
+    setTimeout( function() {
+        if (savedHintOffCounter === FormsProcessor.hintOffCounter) {
+            oEvt.initUIEvent("xforms-hint", true, true, null, 1);
+            FormsProcessor.dispatchEvent(elmnt, oEvt);
+        }
+    }, 200);
 
-		function dispatchXformsHintOff(elmnt, e) {
-			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
-			FormsProcessor.hintOffCounter++;
+    //oEvt.initUIEvent("xforms-hint", true, true, null, 1);
+    //There is no need to run this event in line, and doing so may cause a stack overflow,
+    //  if it invokes other actions. 
+    //oEvt._actionDepth = -1;
+    //FormsProcessor.dispatchEvent(elmnt,oEvt);
+    //spawn(function(){elmnt.dispatchEvent(oEvt)});
+    if (document.all) {
+        elmnt.document.parentWindow.event.cancelBubble = true;
+        elmnt.document.parentWindow.event.returnValue = false;
+    } else {
+        e.stopPropagation();
+    }
+}
 
-			oEvt.initUIEvent("xforms-hint-off", true, true, null, 1);
-			//There is no need to run this event in line, and doing so may cause a stack overflow,
-			//	if it invokes other actions. 
-			//oEvt._actionDepth = -1;
-			FormsProcessor.dispatchEvent(elmnt,oEvt);
-			//spawn(function(){elmnt.dispatchEvent(oEvt)});
-			if (document.all) {
-				elmnt.document.parentWindow.event.cancelBubble = true;
-				elmnt.document.parentWindow.event.returnValue = false;
-			}
-			else
-			{
-				e.stopPropagation();
-			}
-		}
+function dispatchXformsHintOff(elmnt, e) {
+    var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+    FormsProcessor.hintOffCounter++;
 
-		function mapclick2domactivate(elmnt,e)
-		{
+    oEvt.initUIEvent("xforms-hint-off", true, true, null, 1);
+    // There is no need to run this event in line, and doing so may cause a stack overflow,
+    // if it invokes other actions. 
+    // oEvt._actionDepth = -1;
+    FormsProcessor.dispatchEvent(elmnt, oEvt);
+    //spawn(function(){elmnt.dispatchEvent(oEvt)});
+    if (document.all) {
+        elmnt.document.parentWindow.event.cancelBubble = true;
+        elmnt.document.parentWindow.event.returnValue = false;
+    } else {
+        e.stopPropagation();
+    }
+}
 
-			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+function mapclick2domactivate(elmnt, e) {
 
-			oEvt.initUIEvent("DOMActivate", true, true, null, 1);
-			//There is no need to run this event in line, and doing so may cause a stack overflow,
-			//	if it invokes other actions. 
-			//oEvt._actionDepth = -1;
-			FormsProcessor.dispatchEvent(elmnt,oEvt);
-			//spawn(function(){elmnt.dispatchEvent(oEvt)});
-			if(document.all)
-			{
-				elmnt.document.parentWindow.event.cancelBubble = true;
-				elmnt.document.parentWindow.event.returnValue = false;
-			}
-			else
-			{
-				e.stopPropagation();
-			}
-		}
+    var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
 
-		function mapdblclick2domactivate(elmnt,e)
-		{
-			var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+    oEvt.initUIEvent("DOMActivate", true, true, null, 1);
+    // There is no need to run this event in line, and doing so may cause a stack overflow,
+    // if it invokes other actions. 
+    // oEvt._actionDepth = -1;
+    FormsProcessor.dispatchEvent(elmnt, oEvt);
+    //spawn(function(){elmnt.dispatchEvent(oEvt)});
+    if (document.all) {
+        elmnt.document.parentWindow.event.cancelBubble = true;
+        elmnt.document.parentWindow.event.returnValue = false;
+    } else {
+        e.stopPropagation();
+    }
+}
 
-			oEvt.initUIEvent("DOMActivate", true, true, null, 2);
-			//There is no need to run this event in line, and doing so may cause a stack overflow,
-			//	if it invokes other actions. 
-		//	oEvt._actionDepth = -1;
-			FormsProcessor.dispatchEvent(elmnt,oEvt);
-			if(document.all) {
-				elmnt.document.parentWindow.event.cancelBubble = true;
-				elmnt.document.parentWindow.event.returnValue = false;
-			}
-			else {
-				e.stopPropagation();
-			}
-		}
+function mapdblclick2domactivate(elmnt, e) {
+    var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+
+    oEvt.initUIEvent("DOMActivate", true, true, null, 2);
+    // There is no need to run this event in line, and doing so may cause a stack overflow,
+    // if it invokes other actions. 
+    // oEvt._actionDepth = -1;
+    FormsProcessor.dispatchEvent(elmnt, oEvt);
+    if (document.all) {
+        elmnt.document.parentWindow.event.cancelBubble = true;
+        elmnt.document.parentWindow.event.returnValue = false;
+    } else {
+        e.stopPropagation();
+    }
+}
 
 function StyleHoverishly(elmnt) {
     UX.addClassName(elmnt, " pc-hover");
 }
 
 function StyleUnhoverishly(elmnt) {
-   UX.removeClassName(elmnt, "pc-hover");
+    UX.removeClassName(elmnt, "pc-hover");
 }
 
-function StyleFocussedly(elmnt)
-{
-  UX.addClassName(elmnt, " pc-focus");
+function StyleFocussedly(elmnt) {
+    UX.addClassName(elmnt, " pc-focus");
 }
 
-function StyleUnfocussedly(elmnt)
-{
-  UX.removeClassName(elmnt, "pc-focus");
+function StyleUnfocussedly(elmnt) {
+    UX.removeClassName(elmnt, "pc-focus");
+}
+
+function findEventListenerIdx(oArray, oListener) {
+    var len = oArray.length;
+    var i;
+
+    for (i = 0; i < len; i++) {
+        if (oArray[i] === oListener) {
+            break;
+        }
+    }
+
+    return ((len === i) ? -1 : i);
 }
 
 //There is no need for this in firefox.
-if(document.all)
-{
+if (document.all) {
 
-	EventTarget = EventTargetProxy;
+    EventTarget = EventTargetProxy;
 
-/*
-* P R I V A T E
-* =============
-*/
+    /*
+     * P R I V A T E
+     * =============
+     */
 
-		function _addEventListener(sType, oListener, iPhase)
-		{
-			/*
-			 * If this is the first listener of this type then create
-			 * an empty list
-			 */
-			if(typeof(iPhase) == "boolean") {
-				iPhase = (iPhase) ? this.PHASE_CAPTURE : this.PHASE_BUBBLE;
-			}
-			
-			if (this.arrListener[sType] == null) {
-				this.arrListener[sType] =  [];
-			}
+    function _addEventListener(sType, oListener, bPhase) {
+        var iPhase = this.PHASE_BUBBLE;
 
-			/*
-			 * Each type can have listeners for different phases
-			 */
+        if (typeof (sType) !== "string" || typeof (bPhase) !== "boolean"
+                || !oListener) {
+            this.element.document.logger
+                    .log("addEventListener: invalid arguments");
+            return;
+        }
 
-			if (this.arrListener[sType][iPhase] == null) {
-				this.arrListener[sType][iPhase] =  [];
-			}
+        if (bPhase) {
+            iPhase = this.PHASE_CAPTURE;
+        }
 
-			/*
-			 * Check to see if we already have this listener, and if not,
-			 * add it to the end
-			 */
+        // If this is the first listener of this type then create an empty list
+        this.arrListener[sType] = this.arrListener[sType] || [];
+        this.arrListener[sType][iPhase] = this.arrListener[sType][iPhase] || [];
 
-			var arr = this.arrListener[sType][iPhase];
-			var iNext = arr.length;
+        // Check whether listener already in array
+        if (findEventListenerIdx(this.arrListener[sType][iPhase], oListener) < 0) {
+            this.arrListener[sType][iPhase].push(oListener);
+        }
+    } //_addEventListener
 
-			for (var i = 0; i < iNext; i++)
-			{
-				if (arr[i] == oListener) {
-					break;
-				}
-			}
+    function _removeEventListener(sType, oListener, bPhase) {
+        var oList = null;
+        var idx = 0;
+        var iPhase = this.PHASE_BUBBLE;
 
-			if (i == iNext)
-			{
-				arr[iNext] = oListener;
-			}
-		} //_addEventListener
+        if (typeof (sType) !== "string" || typeof (bPhase) !== "boolean"
+                || !oListener || !this.arrListener[sType]) {
+            this.element.document.logger
+                    .log("removeEventListener: invalid arguments");
+            return;
+        }
 
-		function _removeEventListener(sType, oListener, iPhase)
-		{
-			if(typeof(iPhase) == "boolean")
-			{
-				iPhase = (iPhase) ? this.PHASE_CAPTURE : this.PHASE_BUBBLE;
-			}
-			/*
-			 * First see if we have a list of listeners for this type
-			 */
+        if (bPhase) {
+            iPhase = this.PHASE_CAPTURE;
+        }
 
-			var arr = this.arrListener[sType][iPhase];
+        oList = this.arrListener[sType][iPhase];
 
-			if (arr)
-			{
+        // First see if we have a list of listeners for this type
+        if (oList) {
+            // Find event listener
+            idx = findEventListenerIdx(oList, oListener);
 
-				/*
-				 * Now find the specific listener, and if successful, remove it
-				 */
+            if (idx !== -1) {
+                // Event listener found, remove the one listener at the index
+                this.element.document.logger.log("Removed listener for "
+                        + sType + ", phase " + iPhase, "evnt");
+                oList.splice(idx, 1);
+            }
+        } // if ( some listeners exist for this type and phase )
+    }//_removeEventListener
 
-				for (var i = 0; i < arr.length; i++)
-				{
-					if (arr[i] == oListener)
-					{
-						arr[i] = null;
-						this.element.document.logger.log("Removed listener for " + sType + ", phase " + iPhase, "evnt");
-						break;
-					}// if ( we have found the listener we are looking for )
-				}// for ( each listener in the list )
-			}// if ( some listeners exist for this type and phase )
-		}//_removeEventListener
+    function __notifyListeners(oEvt) {
+        /*
+         * First get the list of listeners for this type
+         */
+        var arr = this.arrListener[oEvt.type];
 
-		function __notifyListeners(oEvt)
-		{
+        if (arr) {
+            /*
+             * Next, narrow it down to just those listeners
+             * for the correct phase
+             */
+            var iPhase;
 
-			/*
-			 * First get the list of listeners for this type
-			 */
-			var arr = this.arrListener[oEvt.type];
+            switch (oEvt.eventPhase) {
+            case oEvt.AT_TARGET:
+                iPhase = this.PHASE_BUBBLE;
+                break;
 
-			if (arr)
-			{
-				/*
-				 * Next, narrow it down to just those listeners
-				 * for the correct phase
-				 */
-		
-				var iPhase;
-		
-				switch (oEvt.eventPhase)
-				{
-					case oEvt.AT_TARGET:
-						iPhase = this.PHASE_BUBBLE;
-						break;
-		
-					case oEvt.BUBBLING_PHASE:
-						iPhase = this.PHASE_BUBBLE;
-						break;
-		
-					case oEvt.CAPTURING_PHASE:
-						iPhase = this.PHASE_CAPTURE;
-						break;
-		
-					case oEvt.DEFAULT_PHASE:
-						iPhase = this.PHASE_DEFAULT;
-						break;
-		
-					default:
-						throw "[CEventTarget._notifyListeners] Invalid phase: " + oEvt.eventPhase;
-						break;
-				}// switch ( on the event phase )
+            case oEvt.BUBBLING_PHASE:
+                iPhase = this.PHASE_BUBBLE;
+                break;
 
-				/*
-				 * For each phase there will be one or more groups
-				 */
+            case oEvt.CAPTURING_PHASE:
+                iPhase = this.PHASE_CAPTURE;
+                break;
 
-				arr = arr[iPhase];
-				if (arr && arr.length)
-				{
-		
-					//theApp.message("   Notifying " + arr.length + " groups");
-					//for (var iGroup = 0; i < arr.length; i++)
-					//{
-					//	arr = arr[iGroup];
-					//	if (arr && arr.length)
-					//	{
-		
-							/*
-							* If we have a list of listeners then invoke their
-							* handlers
-							*/
-		
-							this.element.document.logger.log(oEvt.type + ": Notifying " + arr.length + " handlers", "evnt");
+            case oEvt.DEFAULT_PHASE:
+                iPhase = this.PHASE_DEFAULT;
+                break;
 
-							for (var i = 0; i < arr.length; i++)
-							{
-								//flush any events that have been added prior to this loop
-								//	either in the previous iteration, or before the first iteration.
-								FlushEventQueue();
-								var oListener = arr[i];
-								var bInvoke = true;
+            default:
+                throw "[CEventTarget._notifyListeners] Invalid phase: "
+                        + oEvt.eventPhase;
+                break;
+            }// switch ( on the event phase )
 
-								/*
-								 * If @ev:target is present then the listener is only
-								 * invoked if event target has the same ID.
-								 */
+            /*
+             * For each phase there will be one or more groups
+             */
+            arr = arr[iPhase];
+            
+            if (arr && arr.length) {
+                //theApp.message("   Notifying " + arr.length + " groups");
+                //for (var iGroup = 0; i < arr.length; i++)
+                //{
+                //  arr = arr[iGroup];
+                //  if (arr && arr.length)
+                //  {
 
-								if (oListener["ev:target"])
-								{
-									if (oEvt.target.id != oListener["ev:target"])
-										bInvoke = false;
-								}
-								
-								if(typeof(oListener.handleEvent) == "undefined")
-								{
-									//prevents ghost listeners being invoked.
-									bInvoke = false;
-									//remove ghost listener from the list.
-									//(enable later, too pressing to test now)
-									//arr.splice(i,1);
-									//debugger;
-								}
-									
-								if (bInvoke)
-								{
-									oListener.handleEvent(oEvt);
-								}
+                /*
+                 * If we have a list of listeners then invoke their
+                 * handlers
+                 */
+                this.element.document.logger.log(oEvt.type + ": Notifying "
+                        + arr.length + " handlers", "evnt");
 
-								/*
-								 * If @ev:preventDefault is set then the default
-								 * handler is to be cancelled.
-								 */
+                for ( var i = 0; i < arr.length; i++) {
+                    // flush any events that have been added prior to this loop
+                    // either in the previous iteration, or before the first iteration.
+                    FlushEventQueue();
+                    var oListener = arr[i];
+                    var bInvoke = true;
 
-								var sDefaultAction = this.element["ev:defaultAction"];
-								var bPreventDefault;
+                    /*
+                     * If @ev:target is present then the listener is only
+                     * invoked if event target has the same ID.
+                     */
+                    if (oListener["ev:target"]) {
+                        if (oEvt.target.id != oListener["ev:target"])
+                            bInvoke = false;
+                    }
 
-								switch (sDefaultAction)
-								{
-									case "cancel":
-										bPreventDefault = true;
-										break;
+                    if (typeof (oListener.handleEvent) == "undefined") {
+                        //prevents ghost listeners being invoked.
+                        bInvoke = false;
+                        //remove ghost listener from the list.
+                        //(enable later, too pressing to test now)
+                        //arr.splice(i,1);
+                        //debugger;
+                    }
 
-									case "perform":
-									default:
-										bPreventDefault = false;
-										break;
-								}
+                    if (bInvoke) {
+                        oListener.handleEvent(oEvt);
+                    }
 
-								if (bPreventDefault) {
-									oEvt.preventDefault();
-								}
+                    /*
+                     * If @ev:preventDefault is set then the default
+                     * handler is to be cancelled.
+                     */
+                    var sDefaultAction = this.element["ev:defaultAction"];
+                    var bPreventDefault;
 
-								/*
-								 * If @ev:propagate is set then we need to
-								 * stop propagation.
-								 */
+                    switch (sDefaultAction) {
+                    case "cancel":
+                        bPreventDefault = true;
+                        break;
 
-								var sPropagate = this.element["ev:propagate"];
-								var bStopPropagation;
+                    case "perform":
+                    default:
+                        bPreventDefault = false;
+                        break;
+                    }
 
-								switch (sPropagate)
-								{
-									case "stop":
-										bPreventDefault = true;
-										break;
+                    if (bPreventDefault) {
+                        oEvt.preventDefault();
+                    }
 
-									case "continue":
-									default:
-										bPreventDefault = false;
-										break;
-								}
+                    /*
+                     * If @ev:propagate is set then we need to
+                     * stop propagation.
+                     */
+                    var sPropagate = this.element["ev:propagate"];
+                    var bStopPropagation;
 
-								if (bStopPropagation)
-									oEvt.stopPropagation();
+                    switch (sPropagate) {
+                    case "stop":
+                        bPreventDefault = true;
+                        break;
 
-								/*
-								 * Stop propagation doesn't stop a group,
-								 * but "stop immediate" does
-								 */
-		
-								if (oEvt._stopImmediatePropagation) {
-									break;
-								}
-							}//for ( each listener in this group )								
-							
-							//flush any events that were added to the queue by the last iteration.
-							FlushEventQueue();
+                    case "continue":
+                    default:
+                        bPreventDefault = false;
+                        break;
+                    }
 
-					//	}//if ( there are listeners in this group )
-								
-						/*
-						 * Stop propagation let's the current group complete
-						 * before stopping all other listeners
-						 */
-		
-					//	if (oEvt._stopPropagation)
-					//		break;
-					//}//for ( each group in this phase )
-				}// if ( there are groups for this phase )
-			}// if ( there are listeners for this event )
-		}//_notifyListeners()
-		
-		function getTargetList(oEvt)
-		{
-			var bRet = new Array();
-			var oNode = oEvt.target.parentElement;
+                    if (bStopPropagation) {
+                        oEvt.stopPropagation();
+                    }
 
-			while (oNode)
-			{
-				var sTypeOfAddEventListener = typeof oNode.addEventListener;
-				if ( sTypeOfAddEventListener == "function" || sTypeOfAddEventListener == "unknown") {
-					bRet.push(oNode);
-				}
-				oNode = oNode.parentElement;
-			}
-			return bRet;
-		}
+                    /*
+                     * Stop propagation doesn't stop a group,
+                     * but "stop immediate" does
+                     */
+                    if (oEvt._stopImmediatePropagation) {
+                        break;
+                    }
+                }//for ( each listener in this group )                              
 
-		function capture(oEvt,arrTargetList)
-		{
-				/*
-			 * CAPTURE PHASE
-			 * In the capture phase we target ancestors in order
-			 * from the root to our target.
-			 *
-			 * After notifying each listener we check oEvt._stopPropogation
-			 * to see if the process should continue, although for
-			 * each target we carry out all listeners, uninterrupted.
-			 *
-			 * Note that capturing does *not* happen on the target of the
-			 * event.
-			 */	
-			oEvt.eventPhase = oEvt.CAPTURING_PHASE;
-			var i;
+                //flush any events that were added to the queue by the last iteration.
+                FlushEventQueue();
 
-			for (i = arrTargetList.length - 1; i >= 0 ; i--)
-			{
-				oNode = arrTargetList[i];
-				oNode.currentTarget = oNode;
-		
-				oNode._notifyListeners(oEvt);
-				if (oEvt._stopPropagation) {
-					break;
-				}
-			}// for ( each ancestor )
-		}
-		
-		function bubble(oEvt,arrTargetList)		
-		{
-			/*
-			 * BUBBLE PHASE
-			 * In the bubble phase we target ancestors in reverse order,
-			 * i.e., from the target up to the root. Begin with the
-			 * 'current' target.
-			 */
-			if (!oEvt._stopPropagation)
-			{
-				oEvt.eventPhase = oEvt.AT_TARGET;
-				oEvt.currentTarget = this.element;
-		
-				this._notifyListeners(oEvt);
-			}
+                //  }//if ( there are listeners in this group )
 
-			if (!oEvt._stopPropagation)
-			{
-				if (oEvt.bubbles)
-				{
-					oEvt.eventPhase = oEvt.BUBBLING_PHASE;
-		
-					for (i = 0; i < arrTargetList.length; i++)
-					{
-						oNode = arrTargetList[i];
-						oEvt.currentTarget = oNode;
-		
-						oNode._notifyListeners(oEvt);
-						if (oEvt._stopPropagation) {
-							break;
-						}
-					}// for ( each ancestor )
-				}// if ( the event is a bubbling event )
-			}// if ( propogation has not been stopped )
-		}
-		
-		function notifydefault(oEvt)
-		{
-			/*
-			 * Finally, perform the default handlers if not cancelled
-			 */
-		
-			if (!oEvt._cancelled)
-			{
-				oEvt.eventPhase = oEvt.DEFAULT_PHASE;
-				oEvt.currentTarget = this.element;
-		
-				this._notifyListeners(oEvt);
-			}
-		}		
-		var g_iEventsInProgress = 0;
-		var g_pendingEvents = new Array();
-		function _dispatchEvent(oEvt)
-		{
-			if(g_iEventsInProgress > 0)
-			{
-				g_pendingEvents.push({target:this,evt:oEvt});
-				return false;
-			}
-			else {
-				return this._dispatchEvent(oEvt);
-			}
-		}
-		
-		function FlushEventQueue()
-		{
-			var oPendingEvent = g_pendingEvents.pop();
-			while(oPendingEvent)
-			{
-				oPendingEvent.target._dispatchEvent(oPendingEvent.evt);
-				oPendingEvent = g_pendingEvents.pop();
-			}
-		}
-		
-		function __dispatchEvent(oEvt)
-		{
-			++g_iEventsInProgress;
-			try
-			{
-				var sType = oEvt.type;
+                /*
+                 * Stop propagation let's the current group complete
+                 * before stopping all other listeners
+                 */
 
-				/*
-				* The 'target' is always the same, although the 'currentTarget' will
-				* change as bubbling and capture take place.
-				*/
+                //  if (oEvt._stopPropagation)
+                //      break;
+                //}//for ( each group in this phase )
+            }// if ( there are groups for this phase )
+        }// if ( there are listeners for this event )
+    }//_notifyListeners()
 
-				oEvt.target = this.element;
+    function getTargetList(oEvt) {
+        var bRet = new Array();
+        var oNode = oEvt.target.parentElement;
 
-				this.element.document.logger.log("Dispatching: " + sType + " to " + oEvt.target.tagName + ":" + oEvt.target.uniqueID, "evnt");
+        while (oNode) {
+            var sTypeOfAddEventListener = typeof oNode.addEventListener;
+            if (sTypeOfAddEventListener == "function"
+                    || sTypeOfAddEventListener == "unknown") {
+                bRet.push(oNode);
+            }
+            oNode = oNode.parentElement;
+        }
+        return bRet;
+    }
 
-				/*
-				* Increase the action depth, since we don't
-				* want to update the models until we exit
-				* the top-level action handler.
-				*/
+    function capture(oEvt, arrTargetList) {
+        /*
+         * CAPTURE PHASE
+         * In the capture phase we target ancestors in order
+         * from the root to our target.
+         *
+         * After notifying each listener we check oEvt._stopPropogation
+         * to see if the process should continue, although for
+         * each target we carry out all listeners, uninterrupted.
+         *
+         * Note that capturing does *not* happen on the target of the
+         * event.
+         */
+        oEvt.eventPhase = oEvt.CAPTURING_PHASE;
+        var i;
 
-				if (oEvt._actionDepth == undefined) {
-					oEvt._actionDepth = 0;
-				}
+        for (i = arrTargetList.length - 1; i >= 0; i--) {
+            oNode = arrTargetList[i];
+            oNode.currentTarget = oNode;
+            oNode._notifyListeners(oEvt);
+            
+            if (oEvt._stopPropagation) {
+                break;
+            }
+        }// for ( each ancestor )
+    }
 
-				if (oEvt._actionDepth != -1) {
-					oEvt._actionDepth++;
-				}
+    function bubble(oEvt, arrTargetList) {
+        /*
+         * BUBBLE PHASE
+         * In the bubble phase we target ancestors in reverse order,
+         * i.e., from the target up to the root. Begin with the
+         * 'current' target.
+         */
+        if (!oEvt._stopPropagation) {
+            oEvt.eventPhase = oEvt.AT_TARGET;
+            oEvt.currentTarget = this.element;
+            this._notifyListeners(oEvt);
+        }
 
-				/*
-				* First build a list of the node's ancestors. Since the
-				* list of event targets that is used in the bubble and capture
-				* phases is set at the beginning of the event, we can use
-				* the same list twice
-				*/
-			
-				var arrTargetList = getTargetList(oEvt);
+        if (!oEvt._stopPropagation) {           
+            if (oEvt.bubbles) {
+                oEvt.eventPhase = oEvt.BUBBLING_PHASE;
 
+                for (i = 0; i < arrTargetList.length; i++) {
+                    oNode = arrTargetList[i];
+                    oEvt.currentTarget = oNode;
+                    oNode._notifyListeners(oEvt);
+                    
+                    if (oEvt._stopPropagation) {
+                        break;
+                    }
+                }// for ( each ancestor )
+            }// if ( the event is a bubbling event )
+        }// if ( propogation has not been stopped )
+    }
 
-				this.capture(oEvt,arrTargetList);
-				//atTarget(oEvt);
-				this.bubble(oEvt,arrTargetList);
-				
-				if (oEvt._stopPropagation)
-					this.element.document.logger.log("*** Propagation stopped ***", "evnt");
+    function notifydefault(oEvt) {
+        /*
+         * Finally, perform the default handlers if not cancelled
+         */
+        if (!oEvt._cancelled) {
+            oEvt.eventPhase = oEvt.DEFAULT_PHASE;
+            oEvt.currentTarget = this.element;
 
-				if (oEvt._cancelled)
-					this.element.document.logger.log("*** Cancelled ***", "evnt");
-			
-				this.element.document.logger.log("End of dispatchEvent: " + sType, "evnt");
-			
-			}
-			catch(e)
-			{
-				//debugger;
-			}
-			finally
-			{
-				--g_iEventsInProgress;
-			}
-			/*
-			* Let the caller know if the default handlers were
-			* cancelled
-			*/
-				
-			return !oEvt._cancelled;
-		}//dispatchEvent
+            this._notifyListeners(oEvt);
+        }
+    }
+    
+    var g_iEventsInProgress = 0;
+    var g_pendingEvents = new Array();
+    
+    function _dispatchEvent(oEvt) {
+        if (g_iEventsInProgress > 0) {
+            g_pendingEvents.push( {
+                target :this,
+                evt :oEvt
+            });
+            return false;
+        } else {
+            return this._dispatchEvent(oEvt);
+        }
+    }
 
-  
-  function EventTargetProxy(elmnt)
-  {
-  	this.arrListener = new Object();
-  	this.element = elmnt;
+    function FlushEventQueue() {
+        var oPendingEvent = g_pendingEvents.pop();
+        while (oPendingEvent) {
+            oPendingEvent.target._dispatchEvent(oPendingEvent.evt);
+            oPendingEvent = g_pendingEvents.pop();
+        }
+    }
 
-  	this.element.onclick = function( evt ) {
-  	  mapclick2domactivate(elmnt);
-  	  dispatchXformsHintOff(elmnt, evt);
-  	};
+    function __dispatchEvent(oEvt) {
+        ++g_iEventsInProgress;
+        try {
+            var sType = oEvt.type;
 
-    this.element.ondblclick = function(evt){mapdblclick2domactivate(elmnt);};
+            /*
+             * The 'target' is always the same, although the 'currentTarget' will
+             * change as bubbling and capture take place.
+             */
 
-    this.element.onmouseover = function( evt ) {
-  	  StyleHoverishly(elmnt);
-      dispatchXformsHint(elmnt, evt);
+            oEvt.target = this.element;
+            this.element.document.logger.log("Dispatching: " + sType + " to "
+                    + oEvt.target.tagName + ":" + oEvt.target.uniqueID, "evnt");
+
+            /*
+             * Increase the action depth, since we don't
+             * want to update the models until we exit
+             * the top-level action handler.
+             */
+
+            if (oEvt._actionDepth == undefined) {
+                oEvt._actionDepth = 0;
+            }
+
+            if (oEvt._actionDepth != -1) {
+                oEvt._actionDepth++;
+            }
+
+            /*
+             * First build a list of the node's ancestors. Since the
+             * list of event targets that is used in the bubble and capture
+             * phases is set at the beginning of the event, we can use
+             * the same list twice
+             */
+
+            var arrTargetList = getTargetList(oEvt);
+            this.capture(oEvt, arrTargetList);
+            //atTarget(oEvt);
+            this.bubble(oEvt, arrTargetList);
+
+            if (oEvt._stopPropagation) {
+                this.element.document.logger.log("*** Propagation stopped ***",
+                        "evnt");
+            }
+
+            if (oEvt._cancelled) {
+                this.element.document.logger.log("*** Cancelled ***", "evnt");
+            }
+
+            this.element.document.logger.log("End of dispatchEvent: " + sType,
+                    "evnt");
+
+        } catch (e) {
+            //debugger;
+        } finally {
+            --g_iEventsInProgress;
+        }
+        /*
+         * Let the caller know if the default handlers were
+         * cancelled
+         */
+
+        return !oEvt._cancelled;
+    }//dispatchEvent
+
+    function EventTargetProxy(elmnt) {
+        this.arrListener = new Object();
+        this.element = elmnt;
+
+        this.element.onclick = function(evt) {
+            mapclick2domactivate(elmnt);
+            dispatchXformsHintOff(elmnt, evt);
+        };
+
+        this.element.ondblclick = function(evt) {
+            mapdblclick2domactivate(elmnt);
+        };
+
+        this.element.onmouseover = function(evt) {
+            StyleHoverishly(elmnt);
+            dispatchXformsHint(elmnt, evt);
+        };
+
+        this.element.onmouseout = function(evt) {
+            StyleUnhoverishly(elmnt);
+            dispatchXformsHintOff(elmnt, evt);
+        };
+
+        this.element.onkeyup = function(evt) {
+            dispatchXformsHintOff(elmnt, evt);
+        };
+
+        this.element.onfocusin = function(evt) {
+            StyleFocussedly(elmnt);
+        };
+        this.element.onfocusout = function(evt) {
+            StyleUnfocussedly(elmnt);
+        };
+    }
+
+    /*
+     * There are essentially 4 phases:
+     * 1. capturing
+     * 2. at target
+     * 3. bubbling
+     * 4. processing defaults
+     *
+     * However, from the point of view of storing the listeners
+     * we can keep the target and bubbling listeners in the
+     * same place.
+     */
+
+    EventTargetProxy.prototype.PHASE_CAPTURE = 0;
+    EventTargetProxy.prototype.PHASE_BUBBLE = 1;
+    EventTargetProxy.prototype.PHASE_DEFAULT = 2;
+    EventTargetProxy.prototype.addEventListener = _addEventListener;
+    EventTargetProxy.prototype.removeEventListener = _removeEventListener;
+    EventTargetProxy.prototype._notifyListeners = __notifyListeners;
+    EventTargetProxy.prototype.dispatchEvent = _dispatchEvent;
+    EventTargetProxy.prototype._dispatchEvent = __dispatchEvent;
+    EventTargetProxy.prototype.capture = capture;
+    EventTargetProxy.prototype.bubble = bubble;
+
+} else {
+
+    EventTarget = function(elmnt) {
+        this.element = elmnt;
+        this.element.addEventListener("click", function(evt) {
+            mapclick2domactivate(elmnt, evt);
+        }, false);
+        this.element.addEventListener("dblclick", function(evt) {
+            mapdblclick2domactivate(elmnt, evt);
+        }, false);
+        this.element.addEventListener("mouseover", function(evt) {
+            StyleHoverishly(elmnt);
+        }, false);
+        this.element.addEventListener("mouseout", function(evt) {
+            StyleUnhoverishly(elmnt);
+        }, false);
+
+        // Hint is turned on with a mouseover, and off with a mouseout or a click.
+        //
+        this.element.addEventListener("mouseover", function(evt) {
+            dispatchXformsHint(elmnt, evt);
+        }, false);
+        this.element.addEventListener("mouseout", function(evt) {
+            dispatchXformsHintOff(elmnt, evt);
+        }, false);
+        this.element.addEventListener("click", function(evt) {
+            dispatchXformsHintOff(elmnt, evt);
+        }, false);
+        this.element.addEventListener("keyup", function(evt) {
+            dispatchXformsHintOff(elmnt, evt);
+        }, false);
+
+        this.element.addEventListener("focus", function(evt) {
+            StyleFocussedly(elmnt);
+        }, false);
+        this.element.addEventListener("blur", function(evt) {
+            StyleUnfocussedly(elmnt);
+        }, false);
     };
-
-  	this.element.onmouseout = function( evt ) {
-  	  StyleUnhoverishly(elmnt);
-  	  dispatchXformsHintOff(elmnt, evt);
-  	};
-  	
-  	this.element.onkeyup = function( evt ) {
-  	  dispatchXformsHintOff(elmnt, evt);
-  	};
-
-    this.element.onfocusin = function(evt){StyleFocussedly(elmnt);};
-  	this.element.onfocusout = function(evt){StyleUnfocussedly(elmnt);};
-  }
-  
-  /*
-  * There are essentially 4 phases:
-  *	1. capturing
-  *	2. at target
-  *	3. bubbling
-  *	4. processing defaults
-  *
-  * However, from the point of view of storing the listeners
-  * we can keep the target and bubbling listeners in the
-  * same place.
-  */
-  
-  EventTargetProxy.prototype.PHASE_CAPTURE =0;
-  EventTargetProxy.prototype.PHASE_BUBBLE = 1;
-  EventTargetProxy.prototype.PHASE_DEFAULT = 2;
-  EventTargetProxy.prototype.addEventListener = _addEventListener;
-  EventTargetProxy.prototype.removeEventListener = _removeEventListener;
-  EventTargetProxy.prototype._notifyListeners = __notifyListeners;
-  EventTargetProxy.prototype.dispatchEvent = _dispatchEvent;
-  EventTargetProxy.prototype._dispatchEvent = __dispatchEvent;
-  EventTargetProxy.prototype.capture = capture;
-  EventTargetProxy.prototype.bubble = bubble;
-  
-
-}
-else
-{
-
-	EventTarget = function (elmnt)
-	{
-		this.element = elmnt;
-		this.element.addEventListener("click", function(evt){mapclick2domactivate(elmnt,evt);},false);
-		this.element.addEventListener("dblclick", function(evt){mapdblclick2domactivate(elmnt,evt);},false);
-		this.element.addEventListener("mouseover",function(evt){StyleHoverishly(elmnt);},false);
-		this.element.addEventListener("mouseout",function(evt){StyleUnhoverishly(elmnt);},false);
-
-    // Hint is turned on with a mouseover, and off with a mouseout or a click.
-    //
-		this.element.addEventListener("mouseover", function( evt ){ dispatchXformsHint(elmnt, evt); },false);
-		this.element.addEventListener("mouseout",  function( evt ){ dispatchXformsHintOff(elmnt, evt); },false);
-		this.element.addEventListener("click",     function( evt ){ dispatchXformsHintOff(elmnt, evt); },false);
-		this.element.addEventListener("keyup",     function( evt ){ dispatchXformsHintOff(elmnt, evt); },false);
-
-		this.element.addEventListener("focus",function(evt){StyleFocussedly(elmnt);},false);
-		this.element.addEventListener("blur",function(evt){StyleUnfocussedly(elmnt);},false);
-	};
 }
