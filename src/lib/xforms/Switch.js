@@ -14,71 +14,63 @@
  * limitations under the License.
  */
 
-function Switch(elmnt)
-{
+function Switch(elmnt) {
 	this.element = elmnt;
 	this.oCurrentCase = null;
 }
-		Switch.prototype.toggleDefault = function()
-		{
-			//Prepare to loop through the child nodes of the switch - 
-			//	this list may include text nodes, and, if poorly authored, non-case elements.
-			var caseColl = this.element.childNodes;
-			var caseInHand = null;
-			var candidateDefaultCase = null;
-			var bCaseSelectedBySelectedAttribute = false;						
-			for(var i = 0 ;i < caseColl.length;++i)
-			{
-				if(caseColl[i].nodeType == 1 && (caseColl[i]._case))
-				{
-					caseInHand = caseColl[i];
-					if(candidateDefaultCase === null)
-					{
-						//This is the first case element in the nodelist, store it as a candidate default.
-						candidateDefaultCase = caseInHand;
-					}
-					else if(!bCaseSelectedBySelectedAttribute && caseColl[i].getAttribute("selected") == "true" )
-					{
-						//This case is the first to have @selected="true", which trumps simple document-order
-						if(candidateDefaultCase !== null)
-						{
-							candidateDefaultCase.deselect();
-						}
-						candidateDefaultCase = caseInHand;
-						bCaseSelectedBySelectedAttribute = true;
-					}
-					else
-					{
-						//This is neither the first  case, nor the first case encountered with @selected=true.  
-						//therefore, deselect it.
-						caseInHand.deselect();
-					}
+
+Switch.prototype.toggleDefault = function () {
+	//Prepare to loop through the child nodes of the switch - 
+	//	this list may include text nodes, and, if poorly authored, non-case elements.
+	var caseColl, caseInHand, candidateDefaultCase, bCaseSelectedBySelectedAttribute, i;
+	caseColl = this.element.childNodes;
+	caseInHand = null;
+	candidateDefaultCase = null;
+	bCaseSelectedBySelectedAttribute = false;
+	
+	for (i = 0 ;i < caseColl.length;++i) {
+		if (caseColl[i].nodeType === 1 && (caseColl[i]._case)) {
+			caseInHand = caseColl[i];
+			if (candidateDefaultCase === null) {
+				//This is the first case element in the nodelist, store it as a candidate default.
+				candidateDefaultCase = caseInHand;
+			} else if (!bCaseSelectedBySelectedAttribute && caseColl[i].getAttribute("selected") === "true") {
+				//This case is the first to have @selected="true", which trumps simple document-order
+				if (candidateDefaultCase !== null) {
+					candidateDefaultCase.deselect();
 				}
-			}
-			if(candidateDefaultCase!==null)
-			{
-				candidateDefaultCase.select();
-				this.oCurrentCase = candidateDefaultCase;
-			}
-			
-		}
-		
-		Switch.prototype.toggle = function(sCaseID)
-		{
-			/*
-			 * The case must be a child so no need to search the
-			 * whole document.
-			 */
-
-			var oCase = this.element.ownerDocument.getElementById(sCaseID);
-
-			if (oCase)
-			{
-				if (this.oCurrentCase)
-					this.oCurrentCase.deselect();
-				oCase.select();
-				this.oCurrentCase = oCase;
+				candidateDefaultCase = caseInHand;
+				bCaseSelectedBySelectedAttribute = true;
+			} else {
+				//This is neither the first  case, nor the first case encountered with @selected=true.  
+				//therefore, deselect it.
+				caseInHand.deselect();
 			}
 		}
+	}
+	if (candidateDefaultCase !== null) {
+		candidateDefaultCase.select();
+		this.oCurrentCase = candidateDefaultCase;
+	}
+	
+};
+
+Switch.prototype.toggle = function (sCaseID) {
+	/*
+	 * The case must be a child so no need to search the
+	 * whole document.
+	 */
+
+	var oCase = this.element.ownerDocument.getElementById(sCaseID);
+
+	if (oCase) {
+		if (this.oCurrentCase) {
+			this.oCurrentCase.deselect();
+		}
+		oCase.select();
+		this.oCurrentCase = oCase;
+	}
+};
+
 Switch.prototype.onDocumentReady = Switch.prototype.toggleDefault;
 		
