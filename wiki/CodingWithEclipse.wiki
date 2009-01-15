@@ -99,7 +99,7 @@ Finally, at the end of this page, there are some instructions on setting up Subv
   # *Environment set up*
     # Window | Preferences
     # Go to General | Editors | Text Editors
-      * Set "Displayed Tab width: 4" and check "Insert spaces for tabs"
+      * Set "Displayed Tab width: 4" and *uncheck* "Insert spaces for tabs"
     # Go to Team | SVN | Properties Configuration
     # On the Automatic Properties tab, click Add button to add each of the following
 {{{
