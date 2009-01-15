@@ -49,21 +49,17 @@ Currently our attention is focused on completing XForms 1.1 support. The status 
 
 = Feature branches in progress =
 
-== [http://ubiquity-xforms.googlecode.com/svn/branches/stream-lined stream-lined] ==
+== [http://ubiquity-xforms.googlecode.com/svn/branches/xf4h xf4h] ==
 
 Owner: [http://code.google.com/u/nkling/ nkling]
 
-Branch for XForms stream-lined syntax
+Branch for XForms for HTML.
 
 == [http://ubiquity-xforms.googlecode.com/svn/branches/ajax-xforms-model ajax-xforms-model] ==
 
 Owner: [http://code.google.com/u/nkling/ nkling]
 
 Wrap ubiquity xforms's model into different Ajax toolkit (ex. dojo, YUI)
-
-== [BranchImplementSelect implement-select] ==
-
-Completing support for {{{select}}} and {{{select1}}}.
 
 == [http://code.google.com/p/ubiquity-xforms/source/browse/branches/xforms-tests-and-examples xforms-tests-and-examples] ==
 
@@ -86,9 +82,8 @@ Owner: [http://code.google.com/u/paul.butcher/ paul.butcher]
 = Merge status of feature branches =
 
 || *Branch title* || *Last merge _from_ trunk* || *Ready to merge _to_ trunk* || *Last merge _to_ trunk*  || *Merge in progress?* ||
-||stream-lined ||r866||-||-||-||
-||ajax-xforms-model||r485||-||-||-||
-||implement-select||r693|| - || r702 || - ||
+||xf4h ||r1565||-||-||-||
+||ajax-xforms-model||r1653||-||-||-||
 ||loan-form||r925||-||-||-||
 ||refactor-vertextargets||r367||-||-||-||
 ||xforms-tests-and-examples||r642||-||-||-||
