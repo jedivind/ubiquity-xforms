@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
+/*global spawn, FormsProcessor, YAHOO*/
+/*members Slider, createEvent, currValue, dispatchEvent, element, 
+    getHorizSlider, getValue, initEvent, initMutationEvent, innerHTML, 
+    m_bFirstSetValue, m_value, media, onDocumentReady, ownerDocument, 
+    prototype, setValue, subscribe, widget
+*/
+
 var rangecount = 0;
 
-function RangeValue	(elmnt)
+function RangeValue(elmnt)
 {
 	this.element = elmnt;
 	this.currValue = "";
@@ -27,21 +34,21 @@ function RangeValue	(elmnt)
 function rangeValueChanged(pThis, sNewValue)
 {
 	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
-	if(oEvt.initMutationEvent === undefined) {
+	if (oEvt.initMutationEvent === undefined) {
 		oEvt.initMutationEvent = oEvt.initEvent;
 	}
 		
 	oEvt.initMutationEvent("control-value-changed", true, true,
 		null, pThis.currValue, sNewValue, null, null);
 
-	spawn(function() {
+	spawn(function () {
 			FormsProcessor.dispatchEvent(pThis.element, oEvt);
-	});
+	  });
 }
 
-RangeValue.prototype.onDocumentReady = function()
+RangeValue.prototype.onDocumentReady = function ()
 {
-	if (this.element.ownerDocument.media != "print")
+	if (this.element.ownerDocument.media !== "print")
 	{
 		this.element.innerHTML = "<div id='slider-bg" + rangecount + "' class='slider-bg'><div class='slider-thumb' id='slider-thumb" + rangecount + "'> </div></div>";
 		this.m_value = YAHOO.widget.Slider.getHorizSlider("slider-bg" + rangecount, "slider-thumb" + rangecount, 0, 200, 20);
@@ -50,18 +57,18 @@ RangeValue.prototype.onDocumentReady = function()
 		var pThis = this;
 		this.m_value.subscribe(
 			"slideEnd",
-			function() {
-		    			rangeValueChanged(pThis, pThis.m_value.getValue() / 20);
-		      	}
-	     	);
+			function () {
+    		rangeValueChanged(pThis, pThis.m_value.getValue() / 20);
+      }
+   );
 	}
 };
 
-RangeValue.prototype.setValue = function(sValue)
+RangeValue.prototype.setValue = function (sValue)
 {
 	var bRet = false;
 
-	if (this.m_value.getValue() != (sValue * 20))
+	if (this.m_value.getValue() !== (sValue * 20))
 	{
 		this.m_value.setValue(sValue * 20, true, true, true);
 		this.currValue = sValue;
