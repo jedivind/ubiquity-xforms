@@ -68,6 +68,9 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-extended-dom-navigation", type: "js",  fullpath: moduleBase + "ut-extended-dom-navigation.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.addModule({ name: "ux-ut-xforms-submission", type: "js",  fullpath: moduleBase + "ut-xforms-submission.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+	
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
@@ -80,7 +83,8 @@ function runTheTests() {
     "ux-ut-select1", 
     "ux-ut-finite-control",  
     "ux-ut-delete-nodes", 
-    "ux-ut-insert-nodes"
+    "ux-ut-insert-nodes",
+    "ux-ut-xforms-submission"
     
   );
 
@@ -108,6 +112,7 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteReset);
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
+    YAHOO.tool.TestRunner.add(suiteXFormsSubmission);
 
     // Run the tests.
     //
