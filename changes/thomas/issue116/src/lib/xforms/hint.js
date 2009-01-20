@@ -39,8 +39,8 @@ function Hint( el ) {
 
   // Register for the events that enable and disable hint.
   //
-  context.addEventListener("xforms-hint", this, true);
-  context.addEventListener("xforms-hint-off", this, true);
+  context.addEventListener("xforms-hint", this, false);
+  context.addEventListener("xforms-hint-off", this, false);
 
   // The positioning of the hint is relative to its container so
   // indicate that it's a hint container, so that the CSS styles
@@ -51,6 +51,9 @@ function Hint( el ) {
   // Save a pointer to the element.
   //
   this.element = el;
+  this.m_proxy = null;
+  this.defaultText = null;
+  this.addedToModel = false;
 };
 
 Hint.prototype.handleEvent = function( evt ) {
@@ -61,3 +64,78 @@ Hint.prototype.handleEvent = function( evt ) {
   }
   return;
 };
+
+Hint.prototype.rewire = function() {
+    var oPN  = null;
+    var ctxBoundNode = null;
+        
+    if (this.m_proxy) {
+       this.m_proxy = null;
+    }
+
+    ctxBoundNode = this.getBoundNode(1);
+            
+    // [ISSUE] In theory even if the model attribute had changed
+    // by now, this would still work. This means that the
+    // addControl*() methods could perhaps be some kind of global thing.    
+    if (ctxBoundNode.node) {
+        oPN = getProxyNode(ctxBoundNode.node);
+        
+        // Make sure our control knows where its associated proxy is.
+        if (oPN) {
+           this.m_proxy = oPN;            
+        }
+        return true;
+    }    
+    return false;
+};
+
+Hint.prototype.documentReady = function() {
+    var oModel = null;    
+    var childNodes = this.element.childNodes;
+    this.defaultText = UX.isIE ? 
+            this.element.innerText : this.element.textContent;
+    
+    if (!this.addedToModel) {        
+        oModel = getModelFor(this);
+        
+        if (oModel) {
+            oModel.addControl(this);
+        } else {
+            throw("Could not resolve model for group.");
+        }
+    } else { /* shouldn't be called twice */
+        throw("Second attempt to add group to model as a control.");
+    }
+};
+
+Hint.prototype.refresh = function() {
+    var oProxy = this.element.m_proxy;
+
+    if (oProxy) {
+        // [ISSUE] Sometimes a context is being stored when it should be a
+        // proxy...don't know how though!
+
+        if (oProxy["node"]) {
+            oProxy = oProxy["node"];
+
+            // Now fix it so that we don't get this again. This is obviously a
+            // hack since we shouldn't have had this problem in the first place!
+            this.element.m_proxy = oProxy;
+        }
+        this.setInlineText(oProxy.getValue());
+    }
+    return;
+};
+
+Hint.prototype.setInlineText = function(sInlineText) {
+    var sText = sInlineText ? sInlineText : this.defaultText;
+    
+    if (UX.isIE) {
+        this.element.innerText = sText;
+    } else {
+        this.element.textContent = sText;
+    }
+};
+
+Hint.prototype.onDocumentReady = Hint.prototype.documentReady;

@@ -198,9 +198,9 @@ DECORATOR.addDecorationRules({
 
         "hint" : [
           {
-              "name" : "hint",
+              "name" : "hint-element",
               "apply" : function(arrBehaviours) {
-                  return arrBehaviours.concat([Hint]);
+                  return arrBehaviours.concat([Context, Hint]);
               }
           }
         ],
