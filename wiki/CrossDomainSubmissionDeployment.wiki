@@ -85,6 +85,9 @@ return YAHOO.util.Connect.asyncRequest(
 	);
 }}}
 
+You may find that this alone is not enough. If so, you now need to get your hands dirty with the FF browser itself.
+
+In the URL type "about:config", get to "signed.applets.codebase_principal_support" and change its value to true.
 
 *Please be extra careful in your testing with this security instruction!*
 
