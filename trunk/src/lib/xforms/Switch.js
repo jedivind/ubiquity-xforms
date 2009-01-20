@@ -14,11 +14,26 @@
  * limitations under the License.
  */
 
+/*members _case, childNodes, deselect, element, getAttribute, 
+    getElementById, length, nodeType, oCurrentCase, onDocumentReady, 
+    ownerDocument, prototype, select, toggle, toggleDefault
+*/
+
+/**
+  class: Switch
+    corresponds to the xforms switch element
+*/
 function Switch(elmnt) {
 	this.element = elmnt;
 	this.oCurrentCase = null;
 }
 
+/**
+  function: toggleDefault
+  Selects the default case according to the definition here: http://www.w3.org/TR/xforms11/#ui-case
+
+  Called by the xforms processor on document ready.
+*/
 Switch.prototype.toggleDefault = function () {
 	//Prepare to loop through the child nodes of the switch - 
 	//	this list may include text nodes, and, if poorly authored, non-case elements.
@@ -29,18 +44,18 @@ Switch.prototype.toggleDefault = function () {
 	bCaseSelectedBySelectedAttribute = false;
 	
 	for (i = 0 ;i < caseColl.length;++i) {
-		if (caseColl[i].nodeType === 1 && (caseColl[i]._case)) {
+		if (caseColl[i].select && caseColl[i].deselect) {
 			caseInHand = caseColl[i];
-			if (candidateDefaultCase === null) {
-				//This is the first case element in the nodelist, store it as a candidate default.
-				candidateDefaultCase = caseInHand;
-			} else if (!bCaseSelectedBySelectedAttribute && caseColl[i].getAttribute("selected") === "true") {
+      if (!bCaseSelectedBySelectedAttribute && caseColl[i].getAttribute("selected") === "true") {
 				//This case is the first to have @selected="true", which trumps simple document-order
 				if (candidateDefaultCase !== null) {
 					candidateDefaultCase.deselect();
 				}
 				candidateDefaultCase = caseInHand;
 				bCaseSelectedBySelectedAttribute = true;
+			} else if (candidateDefaultCase === null) {
+				//This is the first case element in the nodelist, store it as a candidate default.
+				candidateDefaultCase = caseInHand;
 			} else {
 				//This is neither the first  case, nor the first case encountered with @selected=true.  
 				//therefore, deselect it.
@@ -52,9 +67,14 @@ Switch.prototype.toggleDefault = function () {
 		candidateDefaultCase.select();
 		this.oCurrentCase = candidateDefaultCase;
 	}
-	
 };
 
+/**
+  function: toggle
+  Toggles the child case with the given id.
+  
+  sCaseID - string corresponding to a child case
+*/
 Switch.prototype.toggle = function (sCaseID) {
 	/*
 	 * The case must be a child so no need to search the
