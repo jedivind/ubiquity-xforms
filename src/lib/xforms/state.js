@@ -26,7 +26,7 @@ function setState(pThis,oProxy, sMIPName, sOn, sOff){
 	//	 is one of the more time-consuming actions in IE.  So doing it (6 * 4) times  ( == calls in this function * calls to this function)
 	//	 on every single control on every single refresh is hardly sensible when we are trying to  produce a more performant version of the AJAX form.  
 	//To Reiterate - If we want more performant software, then we must optimise out pointless calls such as this.
-	if(pThis.dirtyState.isDirty(sMIPName))
+  if (pThis.dirtyState && pThis.dirtyState.isDirty(sMIPName))
 	{
 		UX.removeClassName(pThis.element, sOn);
 		UX.removeClassName(pThis.element,sOff);
