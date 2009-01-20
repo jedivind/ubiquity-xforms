@@ -19,10 +19,63 @@
    setState
    */
 
+function DirtyState() {
+  this.m_states = {
+    value: false,
+    //All MIPs are initially set to their default states, so are not dirty.
+    valid: false,
+    enabled: false,
+    required: false,
+    readonly: false
+  };
+}
+
+DirtyState.prototype.isDirty = function (aspect) {
+  var prop, retval = false;
+  //If no argument given, return true if any property is dirty.
+  if (typeof aspect === "undefined") {
+    //By using for...in, instead of a||b||c, it is easier to maintain these functions.
+    for (prop in this.m_states) {
+      if (this.m_states[prop]) {
+        retval = true;
+        break;
+      }
+    }
+  } else {
+    //Otherwise, get the value of that aspect.
+    retval = this.m_states[aspect];
+    if (typeof retval === "undefined") {
+      throw "DirtyState::isDirty, E_INVALIDARG";
+    }
+  }
+  return retval;
+};
+
+DirtyState.prototype.setDirty = function (aspect) { 
+  if (typeof this.m_states[aspect] === "undefined") {
+    throw "DirtyState::setDirty, E_INVALIDARG";
+  }
+  this.m_states[aspect] = true;
+};
+  
+DirtyState.prototype.setClean = function (aspect) {
+  var prop;
+  //If no argument given, perform a full reset
+  if (typeof aspect === "undefined") {
+    for (prop in this.m_states) {
+      this.m_states[prop] = false;
+    }
+  } else {
+    this.m_states[aspect] = false;
+  }
+};
+
+
 function Control(elmnt) {
   this.element = elmnt;
-  this.m_MIPSCurrentlyShowing = { };
+  this.m_MIPSCurrentlyShowing = {};
   this.addedTVCListener = false;
+  this.dirtyState = new DirtyState();
 }
 
 Control.prototype.focusOnValuePseudoElement = function () {
@@ -198,6 +251,9 @@ Control.prototype.setValue = function (sValue) {
   var oldVal, oEvt, pThis, oEvt2;
   oldVal = this.m_sValue;
   this.m_sValue = sValue;
+  if (oldVal !== sValue) {
+    this.dirtyState.setDirty("value");
+  }
 
   try {
     if (this.m_value && this.m_value.setValue !== undefined) {
@@ -218,10 +274,11 @@ Control.prototype.setValue = function (sValue) {
       }
     }
 
-    if (oldVal !== sValue) {
+    if (this.dirtyState.isDirty("value")) {
       // value changes, even if there is no pseudoelement.
       oEvt2 = document.createEvent("MutationEvents");
-      oEvt2.initMutationEvent("xforms-value-changed", true, false, null, oldVal, sValue, "", null);
+      oEvt2.initMutationEvent("xforms-value-changed", true, false, null,
+              oldVal, sValue, "", null);
       FormsProcessor.dispatchEvent(this.element, oEvt2);
     }
   } catch (e) {
@@ -242,10 +299,35 @@ Control.prototype.setType = function (sType) {
 };
 
 Control.prototype.setView = function (oProxy) {
+  this.testMIPChanges(oProxy);
   setState(this, oProxy, "enabled", "enabled", "disabled");
   setState(this, oProxy, "readonly", "read-only", "read-write");
   setState(this, oProxy, "required", "required", "optional");
   setState(this, oProxy, "valid", "valid", "invalid");
+};
+
+Control.prototype.testMIPChanges = function (oProxy) {
+  if (this.isDirtyMIP(oProxy, "enabled")) {
+    this.dirtyState.setDirty("enabled");
+  }
+  if (this.isDirtyMIP(oProxy, "readonly")) {
+    this.dirtyState.setDirty("readonly");
+  }
+  if (this.isDirtyMIP(oProxy, "required")) {
+    this.dirtyState.setDirty("required");
+  }
+  if (this.isDirtyMIP(oProxy, "valid")) {
+    this.dirtyState.setDirty("valid");
+  }
+
+};
+
+Control.prototype.isDirtyMIP = function (oProxy, sMIPName) {
+  return (this.m_MIPSCurrentlyShowing[sMIPName] === undefined ||
+           (oProxy.getMIPState !== undefined && 
+              this.m_MIPSCurrentlyShowing[sMIPName] !== oProxy.getMIPState(sMIPName)
+            )
+          );
 };
 
 /*
@@ -344,6 +426,10 @@ Control.prototype.refresh = function () {
 
     // Get node value and pass that to the control, too.
     this.element.setValue(oProxy.getValue());
+    if (this.dirtyState.isDirty()) {
+      this.dispatchMIPEvents(oProxy);
+      this.dirtyState.setClean();
+    }
   }
 };
 
@@ -383,5 +469,14 @@ Control.prototype.ctor = function () {
   
   if (document.all) {
     this.attachEvent("onfocusin", shiftFocus);
+  }
+};
+
+Control.prototype.dispatchMIPEvents = function (oProxy) {
+  if (oProxy.m_oNode) {  
+    UX.dispatchEvent(this, oProxy.valid.value ? "xforms-valid" : "xforms-invalid", true, false);
+    UX.dispatchEvent(this, oProxy.required.value ? "xforms-required" : "xforms-optional", true, false);
+    UX.dispatchEvent(this, oProxy.readonly.value ? "xforms-readonly" : "xforms-readwrite", true, false);
+    UX.dispatchEvent(this, oProxy.enabled.value ? "xforms-enabled" : "xforms-disabled", true, false);
   }
 };
