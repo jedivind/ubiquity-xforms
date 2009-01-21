@@ -49,8 +49,10 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: moduleBase + "xforms-submission.js" });
 
     loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: moduleBase + "Submission.js",
-  		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core" ] });
+  		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core", "libxh-namespace-manager" ] });
   	
+  	loader.addModule({ name: "xforms-resource", 			type: "js", fullpath: moduleBase + "Resource.js" }); 
+
   	loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: moduleBase + "xforms.js",
   		requires: [ "xforms-model"] });
   	loader.addModule({ name: "xforms-conditional-invocation", type: "js", fullpath: moduleBase + "conditional-invocation.js",
@@ -187,7 +189,7 @@ var g_sBehaviourDirectory  = "";
         "libxh-decorator",
         "xforms-listener", "xforms-event-target-proxy",
         "xforms-conditional-invocation",
-        "xforms-model", "xforms-instance", "xforms-submission",
+        "xforms-model", "xforms-instance", "xforms-submission", "xforms-resource",
         "xforms-action", "xforms-context", "xforms-control",
         "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-group","xforms-repeat","xforms-switch",

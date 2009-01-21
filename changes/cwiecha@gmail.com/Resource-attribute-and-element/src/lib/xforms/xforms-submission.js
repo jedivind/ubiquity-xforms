@@ -192,7 +192,20 @@ submission.prototype.submit = function(oSubmission) {
     if (!oContext.model) {
         oContext = oSubmission.getEvaluationContext();
     }
+    // evaluate @action, @resource and ./resource for submission URL
+	
+	var ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "resource");
     
+    var oResource = null;
+    var sResource = null;
+    
+    if (ns && ns.length > 0) {
+        var oResource = ns[0];
+        sResource = getElementValueOrContent( oContext, oResource );
+    }   
+    sResource = sResource || oSubmission.getAttribute("resource"); 
+    sAction = sResource || sAction;   
+     
     if (oExtDom) {
         // See if there are any nodes for an action.
         var oRes = oContext.model.EvaluateXPath("/sub/action/part", {

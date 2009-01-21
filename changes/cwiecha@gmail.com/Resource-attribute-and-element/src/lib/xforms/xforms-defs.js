@@ -45,6 +45,14 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
+        "resource" : [
+        {
+            "name" : "resource-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([Resource]);
+            }
+        }
+        ],         
         // end model decorations
 
         // begin container form control decorations
@@ -569,6 +577,11 @@ DECORATOR.setupDecorator(
 			selector:"xf|submission",
 			objects:[]
 		},
+		
+		{
+			selector:"xf|resource",
+			objects:[]
+		},		
 
     /* Container Controls */
         {
