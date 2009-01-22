@@ -71,6 +71,9 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-dirtystate", type: "js",  fullpath: moduleBase + "ut-dirtystate.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.addModule({ name: "ux-ut-xforms-submission", type: "js",  fullpath: moduleBase + "ut-xforms-submission.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
@@ -84,8 +87,8 @@ function runTheTests() {
     "ux-ut-finite-control",  
     "ux-ut-delete-nodes", 
     "ux-ut-insert-nodes",
-    "ux-ut-dirtystate" 
-    
+    "ux-ut-dirtystate" ,
+    "ux-ut-xforms-submission"
   );
 
   var sBars = "";
@@ -112,6 +115,7 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteReset);
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
+    YAHOO.tool.TestRunner.add(suiteXFormsSubmission);
 
     // Run the tests.
     //
