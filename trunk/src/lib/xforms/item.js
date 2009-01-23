@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-function Value(elmnt)
-{
+/*global Repeat, DOM_TEXT_NODE, spawn, UX, NamespaceManager, FormsProcessor*/
+
+function Value(elmnt) {
 	this.element = elmnt;
 	UX.addStyle(this.element, "display", "none");	
 }
 
-Value.prototype.onContentReady = function(){
+Value.prototype.onContentReady = function () {
 
-	if(this.element.parentNode.m_ancestorEventTarget){
-        this.element.parentNode.m_ancestorEventTarget.addItem(this.element.parentNode);
+	if (this.element.parentNode.m_ancestorEventTarget) {
+    this.element.parentNode.m_ancestorEventTarget.addItem(this.element.parentNode);
 	}
 };
 
-Value.prototype.getValue = function()
-{
-  if(this.m_sValue === undefined) {
-    if(this.element.firstChild && DOM_TEXT_NODE === this.element.firstChild.nodeType) {
+Value.prototype.getValue = function () {
+  if (this.m_sValue === undefined) {
+    if (this.element.firstChild && DOM_TEXT_NODE === this.element.firstChild.nodeType) {
   	  this.m_sValue = this.element.firstChild.nodeValue;
   	}
   	else {
@@ -41,8 +41,7 @@ Value.prototype.getValue = function()
 	return this.m_sValue;
 };
 
-function Itemset(elmnt)
-{
+function Itemset(elmnt) {
 	this.element = elmnt;
 	this.element.iterationTagName = "item";
 }
@@ -52,8 +51,7 @@ Itemset.prototype = new Repeat();
 //TODO: The  functions here have just been pasted from the .htc, and have not been checked for 
 //	compatibility with the new .js object mechanism.  Certainly, functions towards the end are not 
 //	expected to work.
-function Item(elmnt)
-{
+function Item(elmnt) {
 	this.m_value = null;
 	this.m_bSelected = false;
 	this.m_bReady = false;		
@@ -62,27 +60,28 @@ function Item(elmnt)
 }
 
 
-Item.prototype.getAncestorEventTarget = function() {
-	if(!this.m_ancestorEventTarget) {
-		var el  = this.element.parentNode;
+Item.prototype.getAncestorEventTarget = function () {
+	var el, s;
+	if (!this.m_ancestorEventTarget) {
+		el  = this.element.parentNode;
     //seek through ancestors until the select is found.
-		while(el) {
-      var s = NamespaceManager.getLowerCaseLocalName(el);
-	    if(s.indexOf("select") === 0) {
+		while (el) {
+      s = NamespaceManager.getLowerCaseLocalName(el);
+	    if (s.indexOf("select") === 0) {
 				this.m_ancestorEventTarget = el;
 				break;
 			}
 			el = el.parentNode;
-     }
+    }
 	}
 	return this.m_ancestorEventTarget;
 };
 
-Item.prototype.getLabel = function() {
-  
+Item.prototype.getLabel = function () {
   var s;
-  if(this.m_label) {
-    if(this.m_label.getValue) {
+  
+  if (this.m_label) {
+    if (this.m_label.getValue) {
       s = this.m_label.getValue();
     }
     else {
@@ -97,27 +96,22 @@ Item.prototype.getLabel = function() {
 
 
 
-Item.prototype.findValueElement = function()
-{
-	var coll = NamespaceManager.getElementsByTagNameNS(this.element,"http://www.w3.org/2002/xforms","value");
-	for(var i = 0;i < coll.length;++i)
-	{
-		if(coll[i].parentNode == this.element)
-		{
+Item.prototype.findValueElement = function () {
+	var coll, i;
+	coll = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "value");
+	for (i = 0; i < coll.length; ++i) {
+		if (coll[i].parentNode === this.element) {
 			this.m_value = coll[i];
 			break;
 		}
 	}
-	
 };
 
-Item.prototype.findLabelElement = function()
-{
-	var coll = NamespaceManager.getElementsByTagNameNS(this.element,"http://www.w3.org/2002/xforms","label");
-	for(var i = 0;i < coll.length;++i)
-	{
-		if(coll[i].parentNode == this.element)
-		{
+Item.prototype.findLabelElement = function () {
+	var coll, i;
+	coll = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "label");
+	for (i = 0; i < coll.length; ++i) {
+		if (coll[i].parentNode === this.element) {
 			this.m_label = coll[i];
 			break;
 		}
@@ -125,59 +119,52 @@ Item.prototype.findLabelElement = function()
 	
 };
 
-Item.prototype.onContentReady = function()
-{
-	this.findValueElement();
+Item.prototype.onContentReady = function () {
+  var ownerSelect, pThis;
+  this.findValueElement();
 	this.findLabelElement();
 	this.addVisualRepresentation();
 
-	var ownerSelect = this.getAncestorEventTarget();
-	if(ownerSelect) {
-  	var pThis = this;
-  	ownerSelect.addEventListener("selection-changed", function(e){pThis.handleEvent(e);}, false);
-
+	ownerSelect = this.getAncestorEventTarget();
+	if (ownerSelect) {
+  	pThis = this;
+  	ownerSelect.addEventListener("selection-changed", function (e) {
+  	  pThis.handleEvent(e);
+  	}, false);
+ 
   	this.addEventListener(
-  		"DOMActivate",
-  		{
-  			handleEvent: function(evt)
-  			{
+  		"DOMActivate", {
+  			handleEvent: function (evt) {
   				evt.currentTarget.toggleSelectionStatus();
   			}
   		},
   		false
   	);
   }
-	if(!this.m_bReady)
-	{
+	if (!this.m_bReady) {
 		//appear as though deselected.
 		this.m_bSelected = false;
 		UX.addClassName(this.element, "pc-deselected");
 	}
 };
 
-Item.prototype.addVisualRepresentation = function()
-{
+Item.prototype.addVisualRepresentation = function () {
 
 };
 
-Item.prototype.handleEvent = function(oEvt)
-{
-	if(oEvt.type == "selection-changed" && oEvt.target == this.getAncestorEventTarget())
-	{
-		if(typeof oEvt.newValue == "object")
-		{
+Item.prototype.handleEvent = function (oEvt) {
+	if (oEvt.type === "selection-changed" && oEvt.target === this.getAncestorEventTarget()) {
+		if (typeof oEvt.newValue === "object") {
 			oEvt.newValue = this.array_tryDataselect(oEvt.newValue);
 		}
-		else
-		{
+		else {
 			this.string_tryDataselect(oEvt.newValue);
 		}
 	}
 };
 
-Item.prototype.getValue = function()
-{
-  if(this.m_value.getValue) {
+Item.prototype.getValue = function () {
+  if (this.m_value.getValue) {
 	  return this.m_value.getValue();
 	}
 	else {
@@ -185,35 +172,27 @@ Item.prototype.getValue = function()
 	}
 };
 
-Item.prototype.string_tryDataselect = function(s)
-{
-
-	if(s !== "" && s == this.getValue())
-	{
+Item.prototype.string_tryDataselect = function (s) {
+	if (s !== "" && s === this.getValue()) {
 		this.onDataSelect();
 		return true;
-	}
-	else
-	{
+	}	else {
 		this.onDataDeselect();
 		return false;			
 	}
 };
 
-Item.prototype.array_tryDataselect = function(arr)
-{
+Item.prototype.array_tryDataselect = function (arr) {
 	//given an array, search for this value,
 	//	if present, 
-	var s = this.getValue();
+	var s, i;
+	s = this.getValue();
 //	debugger;
-	if(s !== "")
-	{
-		for(var i = 0;i < arr.length;++i)
-		{
-			if(s == arr[i])
-			{
+	if (s !== "") {
+		for (i = 0;i < arr.length;++i) {
+			if (s === arr[i]) {
 				this.onDataSelect();
-				arr.splice(i,1);
+				arr.splice(i, 1);
 				return arr;
 			}
 		}
@@ -222,61 +201,59 @@ Item.prototype.array_tryDataselect = function(arr)
 	return arr;
 };
 
-Item.prototype.toggleSelectionStatus = function()
-{
+Item.prototype.toggleSelectionStatus = function () {
 	//switch the selected status first, not last,
 	//	else the status may switch fall out-of-phase due to data
 	//	oriented status changes;
 	var bSelected = !this.m_bSelected;
 	
-	if(bSelected)
-	{
+	if (bSelected) {
 		this.onUserSelect();
-	}
-	else
-	{
+	}	else {
 		this.onUserDeselect();
 	}
 };
 
-Item.prototype.onUserSelect = function()
-{
-	var oEvt = this.element.ownerDocument.createEvent("Events");
+Item.prototype.onUserSelect = function () {
+  var oEvt, elmnt;
+	oEvt = this.element.ownerDocument.createEvent("Events");
 	oEvt.initEvent("fp-select", true, true);
-	var elmnt = this.element;
-	spawn(function(){FormsProcessor.dispatchEvent(elmnt,oEvt);});
+	elmnt = this.element;
+	spawn(function () {
+	  FormsProcessor.dispatchEvent(elmnt, oEvt);
+	});
 };
 
-Item.prototype.onUserDeselect = function()
-{
-	var oEvt = this.element.ownerDocument.createEvent("Events");
+Item.prototype.onUserDeselect = function () {
+  var oEvt, elmnt;
+	oEvt = this.element.ownerDocument.createEvent("Events");
 	oEvt.initEvent("fp-deselect", true, true);
-	var elmnt = this.element;
-	spawn(function(){FormsProcessor.dispatchEvent(elmnt,oEvt);});
+	elmnt = this.element;
+	spawn(function () {
+	  FormsProcessor.dispatchEvent(elmnt, oEvt);
+	});
 };
 
-Item.prototype.onDataSelect = function()
-{
-	if(!this.m_bSelected || !this.m_bReady)
-	{
+Item.prototype.onDataSelect = function () {
+  var oEvt;
+	if (!this.m_bSelected || !this.m_bReady) {
 		this.m_bSelected = true;
 		UX.removeClassName(this.element, "pc-deselected");
 		UX.addClassName(this.element, "pc-selected");
-		var oEvt = this.element.ownerDocument.createEvent("Events");
+		oEvt = this.element.ownerDocument.createEvent("Events");
 		oEvt.initEvent("xforms-select", true, true);
 		FormsProcessor.dispatchEvent(this.element,oEvt);
 		this.m_bReady = true;
 	}
 };
 
-Item.prototype.onDataDeselect = function()
-{
-	if(this.m_bSelected || !this.m_bReady)
-	{
+Item.prototype.onDataDeselect = function () {
+  var oEvt;
+	if(this.m_bSelected || !this.m_bReady) {
 		this.m_bSelected = false;
 		UX.removeClassName(this.element, "pc-selected");
 		UX.addClassName(this.element, "pc-deselected");
-		var oEvt = this.element.ownerDocument.createEvent("Events");
+		oEvt = this.element.ownerDocument.createEvent("Events");
 		oEvt.initEvent("xforms-deselect", true, true);
 		FormsProcessor.dispatchEvent(this.element,oEvt);
 		this.m_bReady = true;
