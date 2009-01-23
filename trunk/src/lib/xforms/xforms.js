@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*global NamespaceManager, UX*/
+
+/*global NamespaceManager, UX, document, getProxyNode*/
+
 /**
  * Retrieves the model to which the node <i>oNode</i> is bound. This is based
  * on the presence of model or bind attributes, or on context information gained
@@ -145,6 +147,36 @@ function XFormsProcessor() {
   this.hintOffCounter = 0;
 }
 
+XFormsProcessor.prototype.inheritTrue = function (sMIP, oNode) {
+  var retval, nodeProxy, parentProxy;
+  nodeProxy = getProxyNode(oNode);
+  //Get direct value of this MIP.
+  retval = nodeProxy.getMIP(sMIP).value;
+  //If direct value is not already true, check if any ancestors are true 
+  if (!retval && oNode.parentNode) {
+    parentProxy = getProxyNode(oNode.parentNode);
+    if (parentProxy.readonly.getValue()) {
+      retval = true;
+    }
+  }
+  return retval;
+};
+  
+XFormsProcessor.prototype.inheritFalse = function (sMIP, oNode) {
+  var retval, nodeProxy, parentProxy;
+  nodeProxy = getProxyNode(oNode);
+  
+  //Get direct value of this MIP.
+  retval = nodeProxy.getMIP(sMIP).value;
+  //If direct value is not already false, check if any ancestors are false 
+  if (retval && oNode.parentNode) {
+    parentProxy = getProxyNode(oNode.parentNode);
+    if (!parentProxy[sMIP].getValue()) {
+      retval = false;
+    }
+  }
+  return retval;
+};
 
 XFormsProcessor.prototype.addDefaultEventListener = function (oTarget, sType, oListener) {
 

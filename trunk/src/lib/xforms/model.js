@@ -376,8 +376,19 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContextNode) {
     var oCPE = (oVertex) 
                ? new ComputedXPathExpression(oPN, sExpr, {node:oContextNode}, pThis) 
                : new MIPExpression(oPN, sExpr, {node:oContextNode}, pThis);
-    oPN[sMIPName] = oCPE;
 
+    if (sMIPName === "readonly") {
+       oCPE.getValue = function () {
+         return FormsProcessor.inheritTrue("readonly", oContextNode);
+       }
+    } else if (sMIPName === "relevant") {
+       oCPE.getValue = function () {
+         return FormsProcessor.inheritFalse("enabled", oContextNode);
+       }
+      
+    }
+
+    oPN[sMIPName] = oCPE;
     /*
      * Create a vertex for the expression, and add the vertex for the node that
      * we are iterating over as a dependent (if there is one).

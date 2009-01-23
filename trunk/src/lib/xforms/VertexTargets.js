@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/*global ProxyNode, UX, FormsProcessor, DOM_ELEMENT_NODE, DOM_TEXT_NODE, DOM_ATTRIBUTE_NODE, DOM_CDATA_SECTION_NODE*/
+
 /*
  * [ISSUE] Things have got a little untidy, in that
  * in the various context functions (getBoundNode,
@@ -28,7 +30,7 @@
 
 function getProxyNode(oNode)
 {
-  if(oNode === null || oNode === undefined) {
+  if (oNode === null || oNode === undefined) {
     throw "getProxyNode, E_INVALIDARG";
   }
   
@@ -281,16 +283,43 @@ function ProxyNode(oNode)
 	this.m_oNode = oNode;
 	this.m_refcount = 0;
 	this.calculate = null;
-	this.readonly = { value: false };
-	this.required = { value: false };
-	this.enabled = { value: true };
-	this.outofrange = { value: false };
-	this.valid = { value: true };
-    
-    // get the type form the node
-    //
-    this.datatype =  oNode.getAttribute("xsi:type") || "xsd:string";    
+	this.readonly = { 
+	  value: false, 
+	  getValue: function () {
+	    return FormsProcessor.inheritTrue("readonly", oNode);
+	  }
+	};
+	
+	this.required = { 
+		getValue:  function () {
+		  return false;
+		}
+  };
+  
+	this.enabled = {
+	  value: true,
+	  getValue: function () {
+	    return FormsProcessor.inheritFalse("enabled", oNode);
+	  }
+	};
+	
+	this.outOfRange = {
+	  getValue: function () {
+	    return false;
+	  }
+	};
+	
+	this.valid = { 
+	  getValue: function () {
+	    return true;
+	  }
+	};
+	
+  // get the type form the node
+  this.datatype =  oNode.getAttribute("xsi:type") || "xsd:string";    
 }
+
+
 
 ProxyNode.prototype.getMIP = function(sMIPName)
 {
@@ -311,7 +340,7 @@ ProxyNode.prototype.getMIPState = function(sMIPName)
 	var bRet = false;
 
 	if (oMIP)
-		bRet = oMIP.value;
+		bRet = oMIP.getValue();
 
 	return bRet;
 };
@@ -348,7 +377,7 @@ ProxyNode.prototype.setValue = function(sVal, oModel)
 {
 	var oRet = null;
 
-	if (!this.readonly.value)
+	if (!this.readonly.getValue())
 	{
 		var oNode = this.getNode();
 	
@@ -491,6 +520,7 @@ function ComputedXPathExpression(oProxy, sXPath, oContext, oModel)
 	this.m_oModel = oModel;
 	this.value = null;
 	this.dependentExpressions = new Array();
+	
 	this.identifier = function()
 	{
 		return "comp["+sXPath+"]";
@@ -611,8 +641,12 @@ function MIPExpression(oProxy, sXPath, oContext, oModel)
 	MIPExpression.superclass.constructor.call(this, oProxy, sXPath, oContext, oModel);
 }
 
+
 YAHOO.extend(MIPExpression, ComputedXPathExpression);
 
+MIPExpression.prototype.getValue =function(){
+	  return this.value;
+}
 
 MIPExpression.prototype.update = function()
 {
