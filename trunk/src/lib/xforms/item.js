@@ -242,20 +242,20 @@ Item.prototype.onDataSelect = function () {
 		UX.addClassName(this.element, "pc-selected");
 		oEvt = this.element.ownerDocument.createEvent("Events");
 		oEvt.initEvent("xforms-select", true, true);
-		FormsProcessor.dispatchEvent(this.element,oEvt);
+		FormsProcessor.dispatchEvent(this.element, oEvt);
 		this.m_bReady = true;
 	}
 };
 
 Item.prototype.onDataDeselect = function () {
   var oEvt;
-	if(this.m_bSelected || !this.m_bReady) {
+	if (this.m_bSelected || !this.m_bReady) {
 		this.m_bSelected = false;
 		UX.removeClassName(this.element, "pc-selected");
 		UX.addClassName(this.element, "pc-deselected");
 		oEvt = this.element.ownerDocument.createEvent("Events");
 		oEvt.initEvent("xforms-deselect", true, true);
-		FormsProcessor.dispatchEvent(this.element,oEvt);
+		FormsProcessor.dispatchEvent(this.element, oEvt);
 		this.m_bReady = true;
 	}
 };
