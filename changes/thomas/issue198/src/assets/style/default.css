@@ -257,12 +257,18 @@ xf|trigger xf|label {
 }
 
 xforms\:dispatch,
-xf\:dispatch  {
+xf\:dispatch,
+xforms\:setvalue,
+xf\:setvalue
+{
     display: none;
 }
 
 xforms|dispatch,
-xf|dispatch {
+xf|dispatch,
+xforms|:setvalue,
+xf|:setvalue
+{
     display: none;
 }
 
