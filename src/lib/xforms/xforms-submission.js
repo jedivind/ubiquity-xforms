@@ -228,6 +228,7 @@ submission.prototype.submit = function(oSubmission) {
     // ===== M E T H O D =========
     // The XForms method is mapped to the right method for the protocol.
     //
+	// Note: @method as it is considered a token not a string.  As such it should be compared in a case-sensitive way.
     switch (sMethod) {
     case "get":
         sMethod = "GET";
@@ -251,6 +252,13 @@ submission.prototype.submit = function(oSubmission) {
             sBody = xmlText(oContext.node);
         }
         break;
+		
+	case "delete":
+		sMethod = "DELETE";
+		sSerialisation = "application/x-www-form-urlencoded";
+		sAction += this.serialiseForAction(oContext);
+		sBody = null;
+		break;
 
     default:
         /* the submission method being used needs to be implemented */
@@ -298,7 +306,7 @@ submission.prototype.serialiseForAction = function(oContext) {
 
     if (oContext.node) {
         // [ISSUE] This returns every text node.
-        var r = oContext.model.EvaluateXPath(".//*", oContext);
+        var r = oContext.model.EvaluateXPath(".|.//*", oContext);
         var sep = "?";
 
         for ( var i = 0; i < r.value.length; ++i) {
@@ -310,7 +318,7 @@ submission.prototype.serialiseForAction = function(oContext) {
                         && o.firstChild.nodeValue) {
                     var sPropName = 
                         String(o.nodeName).replace(/underscore/g, "_");
-                    oRet += sep + sPropName + "=" + o.firstChild.nodeValue;
+                    oRet += sep + encodeURIComponent(sPropName) + "=" + encodeURIComponent(o.firstChild.nodeValue);
                     sep = "&";
                 }
             }
