@@ -143,6 +143,7 @@ submission.prototype.processResult = function(sData, isFailure,
  * This is also the object to which we want all of our events targetted.
  */
 submission.prototype.submit = function(oSubmission) {
+	var sResource = null;
     var oEvt = null;
     var ns = oSubmission.getElementsByTagName("extension");
     var oExtDom = null;
@@ -192,7 +193,17 @@ submission.prototype.submit = function(oSubmission) {
     if (!oContext.model) {
         oContext = oSubmission.getEvaluationContext();
     }
+    // evaluate @action, @resource and ./resource for submission URL
+	
+	ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "resource");
     
+    sResource = (ns && ns.length > 0)
+        ? getElementValueOrContent(oContext, ns[0])
+        : null;
+    
+    sResource = sResource || oSubmission.getAttribute("resource"); 
+    sAction = sResource || sAction;   
+     
     if (oExtDom) {
         // See if there are any nodes for an action.
         var oRes = oContext.model.EvaluateXPath("/sub/action/part", {

@@ -266,6 +266,16 @@ xf|dispatch {
     display: none;
 }
 
+xforms\:resource,
+xf\:resource  {
+    display: none;
+}
+
+xforms|resource,
+xf|resource {
+    display: none;
+}
+
 .invalid xf\:alert, .invalid xforms\:alert {
     display: inline;
     background-color: transparent;
