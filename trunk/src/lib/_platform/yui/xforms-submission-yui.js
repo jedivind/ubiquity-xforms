@@ -18,25 +18,22 @@
  * [TODO] Could probably turn this into one object. 
  */
 
-callback.prototype.success = function(o)
-{
-	if (o.responseText !== undefined)
-	{
+callback.prototype.success = function(o) {
+	if (o.responseText !== undefined) {
 		var result = o.responseText; 
 		this.processResult(result, false); 
      }
 }
 
-callback.prototype.failure = function(o)
-{
+callback.prototype.failure = function(o) {
 	var result = o.status + " " + o.statusText; 
 	this.processResult(result, true); 
 }
 
-submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCallback)
-{
-	if (nTimeout)
+submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCallback) {
+	if (nTimeout) {
 		oCallback.timeout = nTimeout;
+    }
 
 	return YAHOO.util.Connect.asyncRequest(
 		sMethod,
@@ -46,8 +43,7 @@ submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCall
 	);
 }
 
-submission.prototype.getConnection = function()
-{
+submission.prototype.getConnection = function() {
 	return YAHOO.util.Connect;
 }
 

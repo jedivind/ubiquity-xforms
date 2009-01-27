@@ -18,13 +18,11 @@
  * This is really 'xf:submission'.
  */
 
-function Submission(el)
-{
+function Submission(el) {
 	this.element = el;
 }
 
-Submission.prototype.onDocumentReady = function()
-{
+Submission.prototype.onDocumentReady = function() {
 	/*
 		* We invoke the submission when we see the
 		* xforms-submit event.
@@ -34,8 +32,7 @@ Submission.prototype.onDocumentReady = function()
 	  this,
 		"xforms-submit",
 		{
-			handleEvent: function(evt)
-			{
+			handleEvent: function(evt) {
 			    evt.target.ownerDocument.submission.submit(evt.target);
 				return;
 			}
@@ -46,14 +43,12 @@ Submission.prototype.onDocumentReady = function()
 
 /* This is a temporary home. */
 
-if (!document.submissionJSON)
-{
+if (!document.submissionJSON) {
     document.submissionJSON = {
         _timeoutlength: 30000,  /* 30 seconds by default */
         _running: [],
 
-        _timeout: function(id, url)
-        {
+        _timeout: function(id, url) {
             var cbo = this._running[id];
             
             this._running[id] = null;
@@ -62,16 +57,14 @@ if (!document.submissionJSON)
             cbo.callbackErr("Timeout", -1, cbo.self);
         },//_timeout
 
-        _callbackhandler: function(o)
-        {
+        _callbackhandler: function(o) {
             var cbo = this._running[callbackIndex];
             
             if (!cbo)
                 return;
             this._running[callbackIndex] = null;
             window.clearTimeout(cbo.timeout);
-            if (!o || !o.count)
-            {
+            if (!o || !o.count) {
                 if (!cbo.callbackErr)
                     return;
                 cbo.callbackErr("Bad response", -2, cbo.self);
@@ -83,8 +76,7 @@ if (!document.submissionJSON)
             cbo.callbackOk(o, cbo.resource, cbo.self);
         },//_callbackhandler
 
-        _execute: function(url, resource, callbackOk, callbackErr, timeoutlength)
-        {
+        _execute: function(url, resource, callbackOk, callbackErr, timeoutlength) {
             if (!timeoutlength)
                 timeoutlength = this._timeoutlength;
             var id = this._running.length;
@@ -119,22 +111,19 @@ if (!document.submissionJSON)
         },//_execute
 
         /* use these three calls to run and cancel Pipes calls */
-        cancelrequest: function(id)
-        {
+        cancelrequest: function(id) {
             var cbo = this._running[i];
             
             window.clearTimeout(cbo.timeout);
             this._running[i]=null;
         },//cancelrequest
         
-        cancelallrequests: function()
-        {
+        cancelallrequests: function() {
             for (var i = 0; i < this._running.length; i++)
                 this.cancelrequest(i);
         },//cancelallrequests
         
-        run: function(action, params, resource, callbackOk, callbackErr, timeoutLength)
-        {
+        run: function(action, params, resource, callbackOk, callbackErr, timeoutLength) {
             return this._execute(
                 document.submission.buildGetUrl(action, params),
                 resource,
