@@ -49,7 +49,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: moduleBase + "xforms-submission.js" });
 
     loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: moduleBase + "Submission.js",
-  		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core" ] });
+  		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core", "libxh-namespace-manager"  ] });
   	
   	loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: moduleBase + "xforms.js",
   		requires: [ "xforms-model"] });
