@@ -174,10 +174,80 @@ Control.prototype.AddValuePseudoElement = function () {
         window.status = "";
       }
       this.m_bAddedToModel = false;
+      this.addInputEventFilter();
     }
   } catch (e) {
     // debugger;
     // alert(e.description);
+  }
+};
+
+
+Control.prototype.addInputEventFilter = function () {
+  var pThis, filterKeyPress, filterMouseAction;
+  if (this.m_value) {
+    pThis = this;
+    
+    filterKeyPress = function (e) {
+      if (pThis.m_proxy && pThis.m_proxy.readonly.value) {
+        //only ignore alphanumeric, delete, backspace, and enter.
+        if (e.keyCode !== 9 && //Tab
+            !(e.keyCode >= 112 && e.keyCode <= 123) && //Function Keys
+            !(e.keyCode >= 33 && e.keyCode <= 36) // page up, page down, home, end
+          ) {
+          
+          if (e.preventDefault) {
+            e.preventDefault();
+          }
+
+          if (e.stopPropagation) {
+            e.stopPropagation();
+          }
+          
+          e.cancelBubble = true;
+          
+          return false;
+        }
+      }
+      return true;
+    };
+
+    filterMouseAction = function (e) {
+      if (pThis.m_proxy && pThis.m_proxy.readonly.value) {
+
+        if (e.preventDefault) {
+          e.preventDefault();
+        }
+        
+        if (e.stopPropagation) {
+          e.stopPropagation();
+        }
+        e.cancelBubble = true;
+        //left button down normally causes focus.
+        //  Don't propagate it, or allow its default action to occur
+        //  as this may result in changes (e.g. in range)
+        //  instead, simply cause focus to occur.
+        if (e.button === 0 && e.type === "mousedown") {
+          e.target.focus();
+        }
+        return false;
+      }
+      return true;
+    };
+
+    if (this.m_value.addEventListener) {
+      this.m_value.addEventListener("keydown", filterKeyPress, true);
+      this.m_value.addEventListener("mousedown", filterMouseAction, true);
+      this.m_value.addEventListener("mousemove", filterMouseAction, true);
+      this.m_value.addEventListener("mouseup", filterMouseAction, true);
+      this.m_value.addEventListener("onclick", filterMouseAction, true);      
+    } else if (this.m_value.attachEvent) {
+      this.m_value.attachEvent("onkeydown", filterKeyPress);
+      this.m_value.attachEvent("onmousedown", filterMouseAction);
+      this.m_value.attachEvent("onmousemove", filterMouseAction);
+      this.m_value.attachEvent("onmouseup", filterMouseAction);
+      this.m_value.attachEvent("onclick", filterMouseAction);
+    }
   }
 };
 
