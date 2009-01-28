@@ -204,3 +204,15 @@ xf\:repeat > *, xforms\:repeat > *, xf\:itemset > *, xforms\:itemset > * {
 xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready >  xforms\:group {
   -moz-binding: url("decorator.xml#decorator");
 }
+
+smil\:animate {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+smil\:animateColor {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+smil\:set {
+  -moz-binding: url("decorator.xml#decorator");
+}
