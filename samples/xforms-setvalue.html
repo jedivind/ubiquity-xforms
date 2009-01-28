@@ -51,9 +51,16 @@
 			<xf:label>Surname:</xf:label>
 		</xf:output>
 		<hr />
+
+		<hr />
 		<xf:trigger>
 			<xf:label>Click to set the surname to the value of the first name</xf:label>
-			<xf:setvalue ev:event="DOMActivate" ref="surname" value="../firstname"/>
+			<xf:setvalue ev:event="DOMActivate" ref="surname" value="../firstname"></xf:setvalue>			
+		</xf:trigger>
+		<hr />
+		<xf:trigger>
+			<xf:label>Click to set the surname to Joe</xf:label>
+			<xf:setvalue ev:event="DOMActivate" ref="surname" >Joe</xf:setvalue>
 		</xf:trigger>
 	</body>
 </html>
