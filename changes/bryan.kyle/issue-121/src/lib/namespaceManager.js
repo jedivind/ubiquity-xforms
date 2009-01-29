@@ -266,6 +266,21 @@ var NamespaceManager  = function(){
 		YAHOO.util.Dom.getElementsBy(fnCheckNamespace,null, searchNode);
 		return;
 	}
+	
+	/**
+	 * Creates an element with the specified namespace.  Same interface and semantics as document.createElementNS()
+	 */
+	function createElementNS_Aware(namespaceURI, elementName) {
+		return document.createElementNS(namespaceURI, elementName);
+	}
+
+	// For namespace un-aware DOMs
+	function createElementNS_Unaware(namespaceURI, elementName) {
+		var element = document.createElement(elementName);
+		element.namespaceURI = namespaceURI;
+		return element;
+	}
+	
   /**
     Some parsers believe that ":" is just a character in a simple node name, rather than a separator between the local name, 
     and a prefix corresponding to a node's namespace.  Using this function to get the local name will return the proper local name. 
@@ -365,5 +380,14 @@ var NamespaceManager  = function(){
 	} else {
 		itself.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
 	}
+
+	if (document.createElementNS) {
+		itself.createElementNS = createElementNS_Aware;
+	} else {
+		itself.createElementNS = createElementNS_Unaware;
+	}
+	
+	
+	
 	return itself;
 }();

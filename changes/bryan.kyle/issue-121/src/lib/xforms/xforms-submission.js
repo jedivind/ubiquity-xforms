@@ -296,7 +296,7 @@ submission.prototype.submit = function(oSubmission) {
     // callback
 
     var oCallback = new callback(this, oSubmission, oContext);
-    this.setHeaders(oContext.model, this.getConnection(), oExtDom);
+	this.setHeaders(oContext.model, this.getConnection(), oExtDom, oSubmission);
 
     try {
         return this.request(sMethod, sAction, sBody, nTimeout, oCallback);
@@ -338,32 +338,84 @@ submission.prototype.serialiseForAction = function(oContext) {
     return oRet;
 }
 
-submission.prototype.setHeaders = function(oModel, connection, oExtdom) {
+submission.prototype.setHeaders = function(oModel, connection, oExtdom, oSubmission) {
+	var headers = {};
+	
+	var i, j;
+	var nodelist;
+	var elements;
+	var path;
+	var header;
+	var name;
+	var value;
+	var values;
+	
     if (oExtdom) {
-        var r = oModel.EvaluateXPath("//headers/header", oExtdom);
-        
-        for ( var i = 0; i < r.value.length; ++i) {
-            var sPath = r.value[i].getAttribute("value");
-            
-            if (sPath) {
-                var rHeader = oModel.EvaluateXPath(sPath, null);
-                
-                if (rHeader) {
-                    var sHeaderValue = ""
-                    switch (typeof (rHeader.value)) {
-                    case "string":
-                        sHeaderValue = rHeader.value;
-                        break;
-                    case "object":
-                        sHeaderValue = rHeader.value[0].nodeValue;
-                    }
-                    var sLabel = r.value[i].getAttribute("name");
-                    connection.initHeader(sLabel, sHeaderValue);
-                }
-            }
-        }
-    }
-}
+		nodelist = oModel.EvaluateXPath("//headers/header", oExtdom);
+		
+		for ( i = 0; i < headers.value.length; ++i ) {
+			path = nodelist.value[i].getAttribute("value");
+			
+			if (path) {
+				header = oModel.EvaluateXPath(path, null);
+				
+				if (header) {
+					value = "";
+					switch (typeof (header.value)) {
+					case "string":
+						value = header.value;
+						break;
+					case "object":
+						value = header.value[0].nodeValue;
+						break;
+					}
+					name = nodelist.value[i].getAttribute("name");
+					
+					if (headers[name])
+						headers[name].push(value);
+					else
+						headers[name] = [value];
+				}
+			}
+		}
+	}
+
+	elements = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header");
+	for ( i = 0; i < elements.length; ++i) {
+		nodelist = NamespaceManager.getElementsByTagNameNS(elements[i], "http://www.w3.org/2002/xforms", "name");
+		
+		if (nodelist.length === 0) {
+			document.logger.log("INFO: Ignoring <xf:header> without an <xf:name> element");
+			continue;
+		} else {
+			name = nodelist[0].getValue();
+
+			// Ignore headers that don't have a name
+			if (!name || name.trim() === '') {
+				document.logger.log("INFO: Ignoring <xf:header> whose <xf:name> is empty");
+				continue;
+			}
+		}
+		
+		values = [];
+		nodelist = NamespaceManager.getElementsByTagNameNS(elements[i], "http://www.w3.org/2002/xforms", "value");
+		for ( j = 0; j < nodelist.length; ++j) {
+			value = nodelist[j].getValue();
+			if (value);
+				values.push(value);
+		}
+		
+
+		if (headers[name])
+			headers[name].concat(values);
+		else
+			headers[name] = values;
+	}
+	
+	for ( name in headers ) {
+		connection.initHeader(name, headers[name].join(' '));
+	}
+};
 
 submission.prototype.buildGetUrl = function(action, params) {
     var url = action;
