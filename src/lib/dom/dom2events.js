@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/*global document*/
 /*
  * If there is no document.createEvent function then add one.
  */
@@ -60,9 +61,9 @@ if (!document.createEvent)
 	    var that = {};
 
 	    that.CAPTURING_PHASE = 0;
-		that.AT_TARGET = 1;
-		that.BUBBLING_PHASE = 2;
-		that.DEFAULT_PHASE = 3;
+  		that.AT_TARGET = 1;
+  		that.BUBBLING_PHASE = 2;
+  		that.DEFAULT_PHASE = 3;
 
 	    that.initEvent = function(eventTypeArg, canBubbleArg, cancellableArg){
 
@@ -77,7 +78,7 @@ if (!document.createEvent)
 			that._cancelled = false;
 			that._stopPropagation = false;
 			that._stopImmediatePropagation = false;
-		return;
+		  return;
 		};
 
 		that.stopPropagation = function() {
@@ -135,29 +136,29 @@ if (!document.createEvent)
 
 	var MutationEvent = function()
 	{
-	    var that = Event();
-	    that.MODIFICATION = 1;
+    var that = Event();
+    that.MODIFICATION = 1;
 		that.ADDITION = 2;
 		that.REMOVAL = 3;
 
 		that.initMutationEvent = function(
-		eventTypeArg,
-		canBubbleArg,
-		cancellableArg,
-		relatedNodeArg,
-		prevValueArg,
-		newValueArg,
-		attrNameArg,
-				attrChangeArg) {
+  		eventTypeArg,
+  		canBubbleArg,
+  		cancellableArg,
+  		relatedNodeArg,
+  		prevValueArg,
+  		newValueArg,
+  		attrNameArg,
+  		attrChangeArg) {
 
- 		that.initEvent(eventTypeArg, canBubbleArg, cancellableArg);
-
-		that.relatedNode = relatedNodeArg;
-		that.prevValue = prevValueArg;
-		that.newValue = newValueArg;
-		that.attrName = attrNameArg;
-		that.attrChange = attrChangeArg;
-	}
+     		that.initEvent(eventTypeArg, canBubbleArg, cancellableArg);
+    
+    		that.relatedNode = relatedNodeArg;
+    		that.prevValue = prevValueArg;
+    		that.newValue = newValueArg;
+    		that.attrName = attrNameArg;
+    		that.attrChange = attrChangeArg;
+    	}
 	    return that;
 	};
 

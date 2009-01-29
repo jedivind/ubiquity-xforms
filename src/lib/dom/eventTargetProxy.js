@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+/*global FormsProcessor, document, UX, setTimeout*/
 var EventTarget = null;
 
 function dispatchXformsHint(elmnt, e) {
-    var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
-    var savedHintOffCounter = FormsProcessor.hintOffCounter;
+    var oEvt, savedHintOffCounter;
+    oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+    savedHintOffCounter = FormsProcessor.hintOffCounter;
 
-    setTimeout( function() {
+    setTimeout(function () {
         if (savedHintOffCounter === FormsProcessor.hintOffCounter) {
-            oEvt.initUIEvent("xforms-hint", true, true, null, 1);
-            FormsProcessor.dispatchEvent(elmnt, oEvt);
+          oEvt.initUIEvent("xforms-hint", true, true, null, 1);
+          FormsProcessor.dispatchEvent(elmnt, oEvt);
         }
     }, 200);
 
@@ -123,7 +124,43 @@ function findEventListenerIdx(oArray, oListener) {
 }
 
 //There is no need for this in firefox.
-if (document.all) {
+if (UX.isIE) {
+
+    function EventTargetProxy(elmnt) {
+        this.arrListener = {};
+        this.element = elmnt;
+
+        this.element.onclick = function(evt) {
+            mapclick2domactivate(elmnt);
+            dispatchXformsHintOff(elmnt, evt);
+        };
+
+        this.element.ondblclick = function(evt) {
+            mapdblclick2domactivate(elmnt);
+        };
+
+        this.element.onmouseover = function(evt) {
+            StyleHoverishly(elmnt);
+            dispatchXformsHint(elmnt, evt);
+        };
+
+        this.element.onmouseout = function(evt) {
+            StyleUnhoverishly(elmnt);
+            dispatchXformsHintOff(elmnt, evt);
+        };
+
+        this.element.onkeyup = function(evt) {
+            dispatchXformsHintOff(elmnt, evt);
+        };
+
+        this.element.onfocusin = function(evt) {
+            StyleFocussedly(elmnt);
+        };
+        this.element.onfocusout = function(evt) {
+            StyleUnfocussedly(elmnt);
+        };
+    }
+
 
     EventTarget = EventTargetProxy;
 
@@ -131,8 +168,19 @@ if (document.all) {
      * P R I V A T E
      * =============
      */
+   var g_iEventsInProgress = 0;
+   var g_pendingEvents = [];
 
-    function _addEventListener(sType, oListener, bPhase) {
+   var flushEventQueue = function() {
+        var oPendingEvent = g_pendingEvents.pop();
+        while (oPendingEvent) {
+            oPendingEvent.target._dispatchEvent(oPendingEvent.evt);
+            oPendingEvent = g_pendingEvents.pop();
+        }
+    }
+
+
+    var _addEventListener = function(sType, oListener, bPhase) {
         var iPhase = this.PHASE_BUBBLE;
 
         if (typeof (sType) !== "string" || typeof (bPhase) !== "boolean"
@@ -154,9 +202,9 @@ if (document.all) {
         if (findEventListenerIdx(this.arrListener[sType][iPhase], oListener) < 0) {
             this.arrListener[sType][iPhase].push(oListener);
         }
-    } //_addEventListener
+    }; //_addEventListener
 
-    function _removeEventListener(sType, oListener, bPhase) {
+     var _removeEventListener = function(sType, oListener, bPhase) {
         var oList = null;
         var idx = 0;
         var iPhase = this.PHASE_BUBBLE;
@@ -186,9 +234,9 @@ if (document.all) {
                 oList.splice(idx, 1);
             }
         } // if ( some listeners exist for this type and phase )
-    }//_removeEventListener
+    };//_removeEventListener
 
-    function __notifyListeners(oEvt) {
+    var __notifyListeners = function (oEvt) {
         /*
          * First get the list of listeners for this type
          */
@@ -219,9 +267,7 @@ if (document.all) {
                 break;
 
             default:
-                throw "[CEventTarget._notifyListeners] Invalid phase: "
-                        + oEvt.eventPhase;
-                break;
+                throw "[CEventTarget._notifyListeners] Invalid phase: " + oEvt.eventPhase;
             }// switch ( on the event phase )
 
             /*
@@ -247,7 +293,7 @@ if (document.all) {
                 for ( var i = 0; i < arr.length; i++) {
                     // flush any events that have been added prior to this loop
                     // either in the previous iteration, or before the first iteration.
-                    FlushEventQueue();
+                    flushEventQueue();
                     var oListener = arr[i];
                     var bInvoke = true;
 
@@ -256,8 +302,9 @@ if (document.all) {
                      * invoked if event target has the same ID.
                      */
                     if (oListener["ev:target"]) {
-                        if (oEvt.target.id != oListener["ev:target"])
+                        if (oEvt.target.id != oListener["ev:target"]) {
                             bInvoke = false;
+                        }
                     }
 
                     if (typeof (oListener.handleEvent) == "undefined") {
@@ -327,7 +374,7 @@ if (document.all) {
                 }//for ( each listener in this group )                              
 
                 //flush any events that were added to the queue by the last iteration.
-                FlushEventQueue();
+                flushEventQueue();
 
                 //  }//if ( there are listeners in this group )
 
@@ -341,10 +388,10 @@ if (document.all) {
                 //}//for ( each group in this phase )
             }// if ( there are groups for this phase )
         }// if ( there are listeners for this event )
-    }//_notifyListeners()
+    };//_notifyListeners()
 
-    function getTargetList(oEvt) {
-        var bRet = new Array();
+    var getTargetList = function (oEvt) {
+        var bRet = [];
         var oNode = oEvt.target.parentElement;
 
         while (oNode) {
@@ -356,9 +403,9 @@ if (document.all) {
             oNode = oNode.parentElement;
         }
         return bRet;
-    }
+    };
 
-    function capture(oEvt, arrTargetList) {
+    var capture = function (oEvt, arrTargetList) {
         /*
          * CAPTURE PHASE
          * In the capture phase we target ancestors in order
@@ -372,7 +419,7 @@ if (document.all) {
          * event.
          */
         oEvt.eventPhase = oEvt.CAPTURING_PHASE;
-        var i;
+        var i, oNode;
 
         for (i = arrTargetList.length - 1; i >= 0; i--) {
             oNode = arrTargetList[i];
@@ -383,15 +430,16 @@ if (document.all) {
                 break;
             }
         }// for ( each ancestor )
-    }
+    };
 
-    function bubble(oEvt, arrTargetList) {
+    var bubble = function (oEvt, arrTargetList) {
         /*
          * BUBBLE PHASE
          * In the bubble phase we target ancestors in reverse order,
          * i.e., from the target up to the root. Begin with the
          * 'current' target.
          */
+        var i, oNode;
         if (!oEvt._stopPropagation) {
             oEvt.eventPhase = oEvt.AT_TARGET;
             oEvt.currentTarget = this.element;
@@ -413,9 +461,9 @@ if (document.all) {
                 }// for ( each ancestor )
             }// if ( the event is a bubbling event )
         }// if ( propogation has not been stopped )
-    }
+    };
 
-    function notifydefault(oEvt) {
+    var notifydefault = function(oEvt) {
         /*
          * Finally, perform the default handlers if not cancelled
          */
@@ -425,10 +473,8 @@ if (document.all) {
 
             this._notifyListeners(oEvt);
         }
-    }
+    };
     
-    var g_iEventsInProgress = 0;
-    var g_pendingEvents = new Array();
     
     function _dispatchEvent(oEvt) {
         if (g_iEventsInProgress > 0) {
@@ -439,14 +485,6 @@ if (document.all) {
             return false;
         } else {
             return this._dispatchEvent(oEvt);
-        }
-    }
-
-    function FlushEventQueue() {
-        var oPendingEvent = g_pendingEvents.pop();
-        while (oPendingEvent) {
-            oPendingEvent.target._dispatchEvent(oPendingEvent.evt);
-            oPendingEvent = g_pendingEvents.pop();
         }
     }
 
@@ -470,7 +508,7 @@ if (document.all) {
              * the top-level action handler.
              */
 
-            if (oEvt._actionDepth == undefined) {
+            if (oEvt._actionDepth === undefined) {
                 oEvt._actionDepth = 0;
             }
 
@@ -514,41 +552,6 @@ if (document.all) {
 
         return !oEvt._cancelled;
     }//dispatchEvent
-
-    function EventTargetProxy(elmnt) {
-        this.arrListener = new Object();
-        this.element = elmnt;
-
-        this.element.onclick = function(evt) {
-            mapclick2domactivate(elmnt);
-            dispatchXformsHintOff(elmnt, evt);
-        };
-
-        this.element.ondblclick = function(evt) {
-            mapdblclick2domactivate(elmnt);
-        };
-
-        this.element.onmouseover = function(evt) {
-            StyleHoverishly(elmnt);
-            dispatchXformsHint(elmnt, evt);
-        };
-
-        this.element.onmouseout = function(evt) {
-            StyleUnhoverishly(elmnt);
-            dispatchXformsHintOff(elmnt, evt);
-        };
-
-        this.element.onkeyup = function(evt) {
-            dispatchXformsHintOff(elmnt, evt);
-        };
-
-        this.element.onfocusin = function(evt) {
-            StyleFocussedly(elmnt);
-        };
-        this.element.onfocusout = function(evt) {
-            StyleUnfocussedly(elmnt);
-        };
-    }
 
     /*
      * There are essentially 4 phases:
