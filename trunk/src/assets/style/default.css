@@ -340,14 +340,14 @@ xf|alert xf|label pe-value {
 
 .slider-bg {
     position: relative; 
-    background:url(bg-fader.gif) 5px 0 no-repeat; 
+    background:url(../bg-fader.gif) 5px 0 no-repeat; 
     height:28px; 
     width:228px;  
 }
 
 *[class~="slider-bg"] {
     position: relative; 
-    background:url(bg-fader.gif) 5px 0 no-repeat; 
+    background:url(../bg-fader.gif) 5px 0 no-repeat; 
     height:28px; 
     width:228px;  
 }
@@ -357,7 +357,7 @@ xf|alert xf|label pe-value {
    top: 4px;
    height:21px;
    width: 17px;
-   background-image:url(thumb-n.gif)
+   background-image:url(../thumb-n.gif)
 }
 
 *[class~="slider-thumb"] { 
