@@ -14,70 +14,73 @@
  * limitations under the License.
  */
 
+/*global UX, DECORATOR, EventTarget, NamespaceManager */
 /*
  * The key to the whole thing is @ev:event, so there's
  * no point in proceeding if we don't have that.
  */
 function Listener(elmnt) {
-    this.element = elmnt;
+  this.element = elmnt;
 }
 
 // attachListeners();
 
-Listener.prototype.attachListeners = function() {
-    var oElement = this.element;
-    var sEvent = NamespaceManager.getAttributeNS(oElement, 
-            "http://www.w3.org/2001/xml-events", "event");
-    var sObserverRef = NamespaceManager.getAttributeNS(oElement, 
-            "http://www.w3.org/2001/xml-events", "observer");
-    var sPhase = NamespaceManager.getAttributeNS(oElement, 
-            "http://www.w3.org/2001/xml-events", "phase");
-    var bUseCapture = (sPhase === "capture") ? true : false;
-    var oObserver = null;
-    
-    if (!sEvent) {
-        return;
-    }
-    
-    // [TODO] What if the element doesn't exist yet?
-    if (sObserverRef) {
-        oObserver = oElement.ownerDocument.getElementById(sObserverRef);
-    } else {
-        oObserver = oElement.parentNode;        
-    }
-    
-    try {
-        if (oObserver && sEvent) {
-            var thisAsListener = this;
+Listener.prototype.attachListeners = function () {
+  var oElement, sEvent, sObserverRef, sPhase, bUseCapture, oObserver, thisAsListener, oTarget;
+  
+  oElement = this.element;
+  sEvent = NamespaceManager.getAttributeNS(oElement, 
+          "http://www.w3.org/2001/xml-events", "event");
+  sObserverRef = NamespaceManager.getAttributeNS(oElement, 
+          "http://www.w3.org/2001/xml-events", "observer");
+  sPhase = NamespaceManager.getAttributeNS(oElement, 
+          "http://www.w3.org/2001/xml-events", "phase");
+  bUseCapture = (sPhase === "capture") ? true : false;
+  oObserver = null;
+  
+  if (!sEvent) {
+    return;
+  }
+  
+  // [TODO] What if the element doesn't exist yet?
+  if (sObserverRef) {
+    oObserver = oElement.ownerDocument.getElementById(sObserverRef);
+  } else {
+    oObserver = oElement.parentNode;        
+  }
+  
+  try {
+    if (oObserver && sEvent) {
+      thisAsListener = this;
 
-            if (UX.isIE) {
-                if (!oObserver.addEventListener) {
-                    // Extend element from EventTarget if it does not
-                    // has addEventListener method.
-                    var oTarget = new EventTarget(oElement);
-                    DECORATOR.extend(oObserver, oTarget, false);
-                }
-            } else {
-                // Firefox EventTarget::addEventListener will not take an 
-                // element as a listener even if it exposes a handleEvent 
-                // method. 
-                // In order to work around this, a proxy function is required.
-                thisAsListener = function(evt) {
-                    oElement.handleEvent(evt);
-                }                
-            }
-                
-            oObserver.addEventListener(sEvent, thisAsListener, bUseCapture);
+      if (UX.isIE) {
+        if (!oObserver.addEventListener) {
+          // Extend element from EventTarget if it does not
+          // has addEventListener method.
+          oTarget = new EventTarget(oElement);
+          DECORATOR.extend(oObserver, oTarget, false);
         }
-    } catch (e) {
-        debugger;
+      } else {
+        // Firefox EventTarget::addEventListener will not take an 
+        // element as a listener even if it exposes a handleEvent 
+        // method. 
+        // In order to work around this, a proxy function is required.
+        thisAsListener = function (evt) {
+          oElement.handleEvent(evt);
+        };
+      }
+          
+      oObserver.addEventListener(sEvent, thisAsListener, bUseCapture);
     }
-} // attach()
+  } catch (e) {
+    debugger;
+  }
+}; // attach()
 
-Listener.prototype.detach = function() {
+Listener.prototype.detach = function () {
     /*
      * [TODO] Detach the registered listener.
      */
-}
+};
 
 Listener.prototype.onDocumentReady = Listener.prototype.attachListeners;
