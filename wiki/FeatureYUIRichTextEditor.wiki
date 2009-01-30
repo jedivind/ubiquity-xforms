@@ -1,0 +1,13 @@
+#summary One-sentence summary of this page.
+Feature to implement the YUI Rich Text editor as an xf:input custom control.
+
+= Introduction =
+
+See http://developer.yahoo.com/yui/editor/ for background on the YUI Rich Text control.
+
+
+= Details =
+
+Requirements: 
+* Capture HTML output of the YUI editor and bind to the XForms model
+* Support hide/expose on XForms relevance events
