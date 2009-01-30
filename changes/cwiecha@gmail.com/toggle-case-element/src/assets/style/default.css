@@ -272,6 +272,16 @@ xf|setvalue
     display: none;
 }
 
+xforms\:toggle,
+xf\:toggle  {
+    display: none;
+}
+
+xforms|toggle,
+xf|toggle {
+    display: none;
+}
+
 xforms\:resource,
 xf\:resource  {
     display: none;
