@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,15 +27,15 @@ function callback(oMediator, oObserver, oContext) {
 callback.prototype.processResult = function(data, isFailure) {
     this.m_mediator.processResult(data, isFailure, this.m_observer,
             this.m_context);
-}
+};
 
 callback.prototype.success = function(o) {
     throw "callback::success() has not been implemented";
-}
+};
 
 callback.prototype.failure = function(o) {
     throw "callback::failure() has not been implemented";
-}
+};
 
 /*
  * [TODO] Use some kind of addFeature thing.
@@ -53,11 +53,11 @@ document.submission = new submission();
 submission.prototype.request = function(sMethod, sAction, 
                                         sBody, nTimeout, oCallback) {
     throw "submission::request() has not been implemented";
-}
+};
 
 submission.prototype.getConnection = function() {
     throw "submission::getConnection() has not been implemented";
-}
+};
 
 submission.prototype.processResult = function(sData, isFailure, 
                                               oObserver, oContext) {
@@ -136,7 +136,7 @@ submission.prototype.processResult = function(sData, isFailure,
             FormsProcessor.dispatchEvent(oObserver, oEvt);
         }
     }
-}
+};
 
 /*
  * We give the submit function an object that contains all of the parameters.
@@ -197,9 +197,7 @@ submission.prototype.submit = function(oSubmission) {
 	
 	ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "resource");
     
-    sResource = (ns && ns.length > 0)
-        ? getElementValueOrContent(oContext, ns[0])
-        : null;
+	sResource = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : null;
     
     sResource = sResource || oSubmission.getAttribute("resource"); 
     sAction = sResource || sAction;   
@@ -274,8 +272,8 @@ submission.prototype.submit = function(oSubmission) {
     default:
         /* the submission method being used needs to be implemented */
         debugger;
-        oSubmission.ownerDocument.logger.log("Submission method '"
-                + oSubmission["method"] + "' is not defined.", "error");
+        oSubmission.ownerDocument.logger.log("Submission method '" +
+                oSubmission.method + "' is not defined.", "error");
         break;
     }
 
@@ -305,7 +303,7 @@ submission.prototype.submit = function(oSubmission) {
         oEvt.initEvent("xforms-submit-error", true, false);
         FormsProcessor.dispatchEvent(oSubmission, oEvt);
     }
-}
+};
 
 /*
  * [TODO] Change the name, and remove the separator stuff, since this is a
@@ -324,9 +322,9 @@ submission.prototype.serialiseForAction = function(oContext) {
             var o = r.value[i];
 
             if (o && o.nodeType == DOM_ELEMENT_NODE) {
-                if (o.firstChild && (o.childNodes.length == 1)
-                        && (o.firstChild.nodeType == DOM_TEXT_NODE)
-                        && o.firstChild.nodeValue) {
+                if (o.firstChild && (o.childNodes.length == 1) &&
+                        (o.firstChild.nodeType == DOM_TEXT_NODE) &&
+                         o.firstChild.nodeValue) {
                     var sPropName = 
                         String(o.nodeName).replace(/underscore/g, "_");
                     oRet += sep + encodeURIComponent(sPropName) + "=" + encodeURIComponent(o.firstChild.nodeValue);
@@ -336,7 +334,7 @@ submission.prototype.serialiseForAction = function(oContext) {
         }
     }
     return oRet;
-}
+};
 
 submission.prototype.setHeaders = function(oModel, connection, oExtdom) {
     if (oExtdom) {
@@ -349,7 +347,7 @@ submission.prototype.setHeaders = function(oModel, connection, oExtdom) {
                 var rHeader = oModel.EvaluateXPath(sPath, null);
                 
                 if (rHeader) {
-                    var sHeaderValue = ""
+                    var sHeaderValue = "";
                     switch (typeof (rHeader.value)) {
                     case "string":
                         sHeaderValue = rHeader.value;
@@ -363,7 +361,7 @@ submission.prototype.setHeaders = function(oModel, connection, oExtdom) {
             }
         }
     }
-}
+};
 
 submission.prototype.buildGetUrl = function(action, params) {
     var url = action;
@@ -375,10 +373,10 @@ submission.prototype.buildGetUrl = function(action, params) {
             if (params[key] === null) {
                 continue;
             }
-            url += sep + encodeURIComponent(key) + "=" 
-                   + encodeURIComponent(params[key]);
+            url += sep + encodeURIComponent(key) + "=" +
+                   encodeURIComponent(params[key]);
             sep = "&";
         }
     }//if ( there are parameters to add to the action )
     return url;
-}//buildurl
+};//buildurl
