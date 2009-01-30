@@ -183,8 +183,10 @@ submission.prototype.submit = function(oSubmission) {
     var sAction = oSubmission.getAttribute("action");
     var sMethod = oSubmission.getAttribute("method");
     var sSerialisation;
-    var sBody;
+	var oBody;
     var oContext = oSubmission.getBoundNode();
+	var bHasHeaders = false;
+	var sReplace = null;
     
     if (oContext.node && !oSubmission.getAttribute("instance")) {
         oSubmission.srcInstance = oContext.node.ownerDocument.XFormsInstance;
@@ -242,15 +244,14 @@ submission.prototype.submit = function(oSubmission) {
     case "get":
         sMethod = "GET";
         sSerialisation = "application/x-www-form-urlencoded";
-        sAction += this.serialiseForAction(oContext);
-        sBody = null;
+        oBody = this.serialiseForAction(oContext);
         break;
 
     case "post":
         sMethod = "POST";
         sSerialisation = "application/xml";
         if (oContext.node) {
-            sBody = xmlText(oContext.node);
+            oBody = xmlText(oContext.node);
         }
         break;
 
@@ -258,15 +259,14 @@ submission.prototype.submit = function(oSubmission) {
         sMethod = "PUT";
         sSerialisation = "application/xml";
         if (oContext.node) {
-            sBody = xmlText(oContext.node);
+            oBody = xmlText(oContext.node);
         }
         break;
 		
 	case "delete":
 		sMethod = "DELETE";
 		sSerialisation = "application/x-www-form-urlencoded";
-		sAction += this.serialiseForAction(oContext);
-		sBody = null;
+		oBody = this.serialiseForAction(oContext);
 		break;
 
     default:
@@ -288,21 +288,44 @@ submission.prototype.submit = function(oSubmission) {
                 "Error: " + e.description, "error");
     }
 
-    //
-    // Callback for asynchronous submission
-    // [ISSUE] synchronous submissions need to do the request here without a
-    // callback
+	bHasHeaders = (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
+	sReplace = oSubmission.getAttribute("replace");
 
-    var oCallback = new callback(this, oSubmission, oContext);
-    this.setHeaders(oContext.model, this.getConnection(), oExtDom);
+	if ((sMethod === "GET") && (!sReplace || sReplace === 'all') && !bHasHeaders && sSerialisation === "application/x-www-form-urlencoded") {
+		var oForm = this.buildFormFromObject(oBody);
+		oForm.action = sAction;
+		oForm.method = sMethod.toLowerCase();
+		document.body.appendChild(oForm);
+		
+		try {
+			oForm.submit();
+		} catch (e) {
+			oEvt = oSubmission.ownerDocument.createEvent("Events");
+			oEvt.initEvent("xforms-submit-error", true, false);
+			FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		}
+	} else {
+		// Callback for asynchronous submission
+		// [ISSUE] synchronous submissions need to do the request here without a
+		// callback
 
-    try {
-        return this.request(sMethod, sAction, sBody, nTimeout, oCallback);
-    } catch (e) {
-        oEvt = oSubmission.ownerDocument.createEvent("Events");
-        oEvt.initEvent("xforms-submit-error", true, false);
-        FormsProcessor.dispatchEvent(oSubmission, oEvt);
-    }
+		var oCallback = new callback(this, oSubmission, oContext);
+		this.setHeaders(oContext.model, this.getConnection(), oExtDom);
+
+		try {
+
+			if ((sMethod === "GET" || sMethod === "DELETE") && (oBody || oBody !== "") && sSerialisation === "application/x-www-form-urlencoded") {
+				sAction = sAction + "?" + oBody.toString();
+				oBody = null;
+			}
+			
+			return this.request(sMethod, sAction, oBody, nTimeout, oCallback);
+		} catch (e) {
+			oEvt = oSubmission.ownerDocument.createEvent("Events");
+			oEvt.initEvent("xforms-submit-error", true, false);
+			FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		}
+	}
 };
 
 /*
@@ -311,29 +334,67 @@ submission.prototype.submit = function(oSubmission) {
  */
 
 submission.prototype.serialiseForAction = function(oContext) {
-    var oRet = "";
-
+	var values = {};
+	
+	var nodeset;
+	var i;
+	var node;
+	
     if (oContext.node) {
         // [ISSUE] This returns every text node.
-        var r = oContext.model.EvaluateXPath(".|.//*", oContext);
-        var sep = "?";
+        nodeset = oContext.model.EvaluateXPath(".|.//*", oContext);
 
-        for ( var i = 0; i < r.value.length; ++i) {
-            var o = r.value[i];
+		for ( i = 0; i < nodeset.value.length; ++i ) {
+			node = nodeset.value[i];
 
-            if (o && o.nodeType == DOM_ELEMENT_NODE) {
-                if (o.firstChild && (o.childNodes.length == 1) &&
-                        (o.firstChild.nodeType == DOM_TEXT_NODE) &&
-                         o.firstChild.nodeValue) {
-                    var sPropName = 
-                        String(o.nodeName).replace(/underscore/g, "_");
-                    oRet += sep + encodeURIComponent(sPropName) + "=" + encodeURIComponent(o.firstChild.nodeValue);
-                    sep = "&";
+            if (node && node.nodeType == DOM_ELEMENT_NODE) {
+                if (node.firstChild && (node.childNodes.length == 1) &&
+					(node.firstChild.nodeType == DOM_TEXT_NODE) && 
+					node.firstChild.nodeValue) {
+					
+					values[String(node.nodeName).replace(/underscore/g, "_")] = node.firstChild.nodeValue;
                 }
-            }
-        }
-    }
-    return oRet;
+			}
+		}
+	}
+
+	// Add a toString method to the dictionary so that the result can be concatenated with another string.
+	values.toString = function() {
+		var pairs = [];
+		var key, value;
+		
+		for ( key in this ) {
+			if (this.hasOwnProperty(key) && typeof(this[key]) !== "function") {
+				pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(this[key]));
+			}
+		}
+		
+		return pairs.join("&");
+	};
+
+	return values;
+};
+
+/**
+ * Builds an HTML form element from an object.
+ */
+submission.prototype.buildFormFromObject = function(object) {
+	var form = document.createElement("form");
+	var field = null;
+	var key, value;
+	
+	for ( key in object ) {
+		if ( object.hasOwnProperty(key) && typeof(object[key]) !== "function") {
+			field = document.createElement("input");
+			field.type = "hidden";
+			field.name = key;
+			field.value = object[key];
+			
+			form.appendChild(field);
+		}
+	}
+	
+	return form;
 };
 
 submission.prototype.setHeaders = function(oModel, connection, oExtdom) {
