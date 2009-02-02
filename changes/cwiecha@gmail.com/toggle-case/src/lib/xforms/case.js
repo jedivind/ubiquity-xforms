@@ -53,3 +53,11 @@ XFormsCase.prototype.select = function()
 	//	if it invokes several other actions. 
 	spawn(function(){FormsProcessor.dispatchEvent(elmnt,evt);});
 };
+
+XFormsCase.prototype.toggle = function()
+{
+	var oSwitch = this.getSwitch();
+	if ( oSwitch && this.id ) {
+		oSwitch.toggle(this.id);
+	}
+};

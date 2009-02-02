@@ -23,9 +23,16 @@ Toggle.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Toggle.prototype.performAction = function (evt)
 {
-
-	var sCaseID = this.element.getAttribute("case");
+	
+	var oContext = this.getEvaluationContext();
+	var ns = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "case");
+    
+    var sCaseID = (ns && ns.length > 0)
+        ? getElementValueOrContent(oContext, ns[0])
+        : this.element.getAttribute("case"); 
+	
 	var oCase = this.element.ownerDocument.getElementById(sCaseID);
-	var oSwitch = oCase.getSwitch();
-	oSwitch.toggle(sCaseID);
+	if (oCase && oCase['toggle'] && oCase['toggle'] instanceof Function) {	// quack quack	
+		oCase.toggle();
+	}
 };

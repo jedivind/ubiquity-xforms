@@ -303,7 +303,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "toggle-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([Listener, Toggle]);
+                return arrBehaviours.concat([Listener, Context, Toggle]);
             }
         }
         ],
