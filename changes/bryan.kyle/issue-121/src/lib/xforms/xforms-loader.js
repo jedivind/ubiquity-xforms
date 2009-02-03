@@ -34,6 +34,9 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: moduleBase + "../threads.js" });
   	loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: moduleBase + "../dom/dom2events.js",
   		requires: [ "yahoo" ] });
+    loader.addModule({ name: "xforms-dom2",                type: "js", fullpath: moduleBase + "../dom/dom2.js",
+         requires: [ "yahoo" ]});
+
   	loader.addModule({ name: "xforms-utils", type: "js",  fullpath: moduleBase + "../UXUtils.js" });
   	
   	loader.addModule({ name: "xforms-vertex-target",       type: "js",  fullpath: moduleBase + "VertexTargets.js",
@@ -90,7 +93,7 @@ var g_sBehaviourDirectory  = "";
   	//container elements
   	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" });
   	loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: moduleBase + "Repeat.js",
-  		requires: [ "xforms-model","xforms-group"]});
+        requires: [ "xforms-model","xforms-group","xforms-dom2"]});
   	
   	loader.addModule({ name: "backplane-case",        type: "js",  fullpath: moduleBase + "../_backplane/case.js" });
   	loader.addModule({ name: "xforms-case",        type: "js",  fullpath: moduleBase + "case.js", 
@@ -102,7 +105,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
   		requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
   	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: moduleBase + "context.js",
-  	    requires:[ "libxh-namespace-manager"]});
+        requires:[ "libxh-namespace-manager", "xforms-dom2" ]});
   	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: moduleBase + "../dom/eventTargetProxy.js",
   		requires: [ "xforms-dom2events" ] });
   

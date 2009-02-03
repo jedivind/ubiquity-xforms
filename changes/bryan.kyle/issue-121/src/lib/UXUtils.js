@@ -219,8 +219,12 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
 	         if (document.defaultView.getComputedStyle(oElement, null)[styleName] !== value) {
   	  	  	    stylesheet = oElement.ownerDocument.styleSheets[0];
 	  		    // make sure prefix has namespace declared in stylesheet
-	  		    stylesheet.insertRule("@namespace " + oElement.prefix + " url(http://www.w3.org/2002/xforms);", 0);
- 	    	    stylesheet.insertRule(oElement.prefix + "|" + oElement.localName + " {" + styleName + ":" + value + ";}", (stylesheet.cssRules.length === 0)? 1:stylesheet.cssRules.length);
+				 try {
+	  				 stylesheet.insertRule("@namespace " + oElement.prefix + " url(http://www.w3.org/2002/xforms);", 0);
+ 	    			 stylesheet.insertRule(oElement.prefix + "|" + oElement.localName + " {" + styleName + ":" + value + ";}", (stylesheet.cssRules.length === 0)? 1:stylesheet.cssRules.length);
+				 } catch (e) {
+					 document.logger.log("INFO: Couldn't set style " + styleName + " to " + value);
+				 }
  	         }
  	      }
 	   }
