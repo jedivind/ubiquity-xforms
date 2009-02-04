@@ -147,7 +147,9 @@ submission.prototype.submit = function(oSubmission) {
     var oEvt = null;
     var ns = oSubmission.getElementsByTagName("extension");
     var oExtDom = null;
-    
+    var instanceId = oSubmission.getAttribute("instance");
+    var instance;
+
     if (ns && ns.length > 0) {
         var oExt = ns[0];
         oExtDom = oExt.getDocument();
@@ -185,8 +187,14 @@ submission.prototype.submit = function(oSubmission) {
     var sSerialisation;
     var sBody;
     var oContext = oSubmission.getBoundNode();
-    
-    if (oContext.node && !oSubmission.getAttribute("instance")) {
+
+    if (instanceId) {
+        instance = oSubmission.ownerDocument.getElementById(instanceId);
+        if (!instance || !NamespaceManager.compareFullName(instance, "instance", "http://www.w3.org/2002/xforms")) {
+            UX.dispatchEvent(oSubmission, "xforms-binding-exception",  true, false, false);
+            return;
+        }
+    } else if (oContext.node) {
         oSubmission.srcInstance = oContext.node.ownerDocument.XFormsInstance;
     }
     
