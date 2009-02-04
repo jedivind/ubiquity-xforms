@@ -32,6 +32,7 @@ suiteXFormsSubmission.add(
 			
 			setUp: function() {
 				this.node = document.createElement("xf:submission");
+				this.node.setAttribute("replace", "none");
 				
 				// Implement the methods that submission.submit calls.
 				this.node.getBoundNode = function() { return {}; };
@@ -109,9 +110,9 @@ suiteXFormsSubmission.add(
 					node: getFirstNode(this.model.EvaluateXPath("/car/color"))
 				}; 
 				
-				var string = document.submission.serialiseForAction(context);
+				var string = document.submission.serialiseForAction(context).toString();
 				
-				Assert.areEqual("?color=blue", string);
+				Assert.areEqual("color=blue", string);
 			},
 			
 			testSerializeWhenRefIsNotLeafNode: function() {
@@ -123,9 +124,9 @@ suiteXFormsSubmission.add(
 					node: getFirstNode(this.model.EvaluateXPath("/car"))
 				}; 
 				
-				var string = document.submission.serialiseForAction(context);
+				var string = document.submission.serialiseForAction(context).toString();
 				
-				Assert.areEqual("?make=Ford&color=blue", string);
+				Assert.areEqual("make=Ford&color=blue", string);
 			}
 			
 		}));
