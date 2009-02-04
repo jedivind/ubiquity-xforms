@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-function XFormsCase(elmnt)
-{
+function XFormsCase(elmnt) {
 	this._case = new Case(elmnt);
 }
 
-XFormsCase.prototype.getSwitch = function()
-{
+XFormsCase.prototype.getSwitch = function() {
 	return this._case.element.parentNode;
 };
 
-XFormsCase.prototype.deselect = function()
-{
+XFormsCase.prototype.deselect = function() {
 	this._case.deselect();
 
 	var elmnt = this._case.element;
@@ -39,8 +36,7 @@ XFormsCase.prototype.deselect = function()
 	spawn(function(){FormsProcessor.dispatchEvent(elmnt,evt);});
 };
 
-XFormsCase.prototype.select = function()
-{
+XFormsCase.prototype.select = function() {
 	this._case.select();
 
 	var elmnt = this._case.element;
@@ -52,4 +48,11 @@ XFormsCase.prototype.select = function()
 	//There is no need to run this event in line, and doing so may cause a stack overflow,
 	//	if it invokes several other actions. 
 	spawn(function(){FormsProcessor.dispatchEvent(elmnt,evt);});
+};
+
+XFormsCase.prototype.toggle = function() {
+	var oSwitch = this.getSwitch();
+	if (oSwitch && this.id) {
+		oSwitch.toggle(this.id);
+	}
 };

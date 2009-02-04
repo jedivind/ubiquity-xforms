@@ -122,7 +122,7 @@ var g_sBehaviourDirectory  = "";
             requires:["xforms-instance","xforms-actions"]});
             
   	loader.addModule({ name: "xforms-toggle",             type: "js",  fullpath: moduleBase + "toggle.js",
-  	    	requires:["xforms-actions"]});
+  	    	requires:["xforms-actions", "libxh-namespace-manager"]});
 
   	loader.addModule({ name: "backplane-multimap",             type: "js",  fullpath: moduleBase + "../_backplane/multimap.js"});
   	
