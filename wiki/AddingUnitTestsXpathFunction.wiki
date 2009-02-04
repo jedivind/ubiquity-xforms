@@ -38,7 +38,7 @@ suiteXPathCoreFunctions.add(
 );
 }}}
 
-Save your code, and run the [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3/_unit-tests/main.html unit-test driver]. Click on {{{Run}}} and you should see the name of your new unit-test, followed by a green bar next to the name of your function, indicating that it has passed.
+Save your code, and run the [http://code.google.com/p/ubiquity-xforms/source/browse/branches/0.3.x/_unit-tests/main.html unit-test driver]. Click on {{{Run}}} and you should see the name of your new unit-test, followed by a green bar next to the name of your function, indicating that it has passed.
 
 If you see script errors then check that you pasted your code correctly, and most importantly, that you placed you code at the top-level of the script.
 
