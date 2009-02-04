@@ -259,7 +259,9 @@ xf|trigger xf|label {
 xforms\:dispatch,
 xf\:dispatch,
 xforms\:setvalue,
-xf\:setvalue
+xf\:setvalue,
+xforms\:toggle,
+xf\:toggle
 {
     display: none;
 }
@@ -267,7 +269,9 @@ xf\:setvalue
 xforms|dispatch,
 xf|dispatch,
 xforms|setvalue,
-xf|setvalue
+xf|setvalue,
+xforms|toggle,
+xf|toggle
 {
     display: none;
 }
