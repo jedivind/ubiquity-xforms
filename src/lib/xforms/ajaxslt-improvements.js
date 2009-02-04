@@ -288,3 +288,43 @@ LocationExpr.prototype.evaluate = function(ctx) {
   }
   return retval;
 };
+
+XNode.prototype.insertBefore = function(newNode, oldNode) {
+  var i, c, newChildren = [], oRet = newNode;
+
+  if (!oldNode) {
+      if (newNode.parentNode) {
+        newNode.parentNode.removeChild(newNode);
+      }
+      this.appendChild(newNode);
+  } else if ((oldNode !== newNode) && (oldNode.parentNode === this)) {
+      if (newNode.parentNode) {
+        newNode.parentNode.removeChild(newNode);
+      }
+
+      for (i = 0; i < this.childNodes.length; ++i) {
+        c = this.childNodes[i];
+        if (c === oldNode) {
+          newChildren.push(newNode);
+
+          newNode.parentNode = this;
+
+          newNode.previousSibling = oldNode.previousSibling;
+          oldNode.previousSibling = newNode;
+          if (newNode.previousSibling) {
+            newNode.previousSibling.nextSibling = newNode;
+          }
+
+          newNode.nextSibling = oldNode;
+
+          if (this.firstChild === oldNode) {
+            this.firstChild = newNode;
+          }
+        }
+        newChildren.push(c);
+      }
+      this.childNodes = newChildren;
+  }
+
+  return oRet;
+}
