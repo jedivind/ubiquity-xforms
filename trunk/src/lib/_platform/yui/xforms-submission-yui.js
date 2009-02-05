@@ -19,21 +19,35 @@
  */
 
 callback.prototype.success = function(o) {
-	if (o.responseText !== undefined) {
-		var result = o.responseText; 
-		this.processResult(result, false); 
-     }
+   	this.processResult(
+           { 
+             status : o.status || NaN,             
+             statusText : o.statusText || "",      
+             responseText : o.responseText || "",  
+             responseHeaders : o.getResponseHeader,
+             resourceURI : this.resourceURI
+           }                                        
+           , false); 
 }
 
 callback.prototype.failure = function(o) {
-	var result = o.status + " " + o.statusText; 
-	this.processResult(result, true); 
+    this.processResult(
+        { 
+          status : o.status || NaN,             
+          statusText : o.statusText || "",      
+          responseText : o.responseText || "",  
+          responseHeaders : o.getResponseHeader,
+          resourceURI : this.resourceURI
+        }                                        
+        , true); 
 }
 
 submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCallback) {
 	if (nTimeout) {
 		oCallback.timeout = nTimeout;
     }
+
+    oCallback.resourceURI = sAction;
 
 	return YAHOO.util.Connect.asyncRequest(
 		sMethod,

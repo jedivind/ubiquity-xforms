@@ -20,6 +20,7 @@
 
 function Submission(el) {
 	this.element = el;
+    this.submissionBody = "";
 }
 
 Submission.prototype.onDocumentReady = function() {
@@ -35,6 +36,18 @@ Submission.prototype.onDocumentReady = function() {
 			handleEvent: function(evt) {
 			    evt.target.ownerDocument.submission.submit(evt.target);
 				return;
+			}
+		}
+	);
+
+	FormsProcessor.addDefaultEventListener(
+	  this,
+		"xforms-submit-serialize",
+		{
+			handleEvent: function(evt) {
+			    if (evt.context) {
+                    evt.target.submissionBody = evt.context["submission-body"];
+                }
 			}
 		}
 	);
