@@ -50,7 +50,7 @@ DECORATOR.addDecorationRules({
 		{
 			"name" : "name-element",
 			apply : function(arrBehavious) {
-				return arrBehavious.concat([EventTarget, Context, Value]);
+				return arrBehavious.concat([EventTarget, Context, Control, Value]);
 			}
 		}
 		],
