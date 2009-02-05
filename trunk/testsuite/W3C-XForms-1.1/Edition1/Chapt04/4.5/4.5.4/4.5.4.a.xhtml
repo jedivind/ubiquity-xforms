@@ -10,9 +10,7 @@
     </head>
     <body>
     <xforms:model>
-            <xforms:instance resource="badfile.xml">
-            	<data/>
-            </xforms:instance>
+            <xforms:instance resource="badfile.xml"/>
             <xforms:message ev:event="xforms-link-exception" level="modal">xforms-link-exception</xforms:message>
             <xforms:action ev:event="xforms-link-exception">
               <xforms:setvalue model="catcher" ref="/eventdata" value="event('resource-uri')"/>

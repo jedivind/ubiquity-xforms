@@ -13,9 +13,13 @@
             <xforms:instance>
                 <data/>
             </xforms:instance>
+            <xforms:message ev:event="xforms-link-error" level="modal">xforms-link-error</xforms:message>
+            <xforms:action ev:event="xforms-link-error">
+	            <xforms:setvalue model="catcher" ref="instance('catcher_inst')" value="event('resource-uri')"/>
+	       	</xforms:action>
         </xforms:model>
     <xforms:model id="catcher">
-          <xforms:instance>
+          <xforms:instance id="catcher_inst">
             <eventdata/>
           </xforms:instance>
         </xforms:model>
@@ -33,14 +37,10 @@
 	            <xforms:label>LOAD</xforms:label>
 	            <xforms:action ev:event="DOMActivate">
 	                <xforms:load resource="badlink.txt" show="new"/>
-	            	<xforms:message ev:event="xforms-link-error" level="modal">xforms-link-error</xforms:message>
-	            	<xforms:action ev:event="xforms-link-error">
-	                  <xforms:setvalue model="catcher" ref="/eventdata" value="event('resource-uri')"/>
 	            	</xforms:action>
-	            </xforms:action>
 	        </xforms:trigger>
 		</xforms:group>
-		<xforms:output model="catcher" ref="/eventdata">
+		<xforms:output model="catcher" ref="instance('catcher_inst')">
           <xforms:label>Resource URI : </xforms:label>
         </xforms:output>
         
