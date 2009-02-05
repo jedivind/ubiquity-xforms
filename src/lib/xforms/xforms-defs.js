@@ -45,6 +45,15 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
+		
+		"name" : [
+		{
+			"name" : "name-element",
+			apply : function(arrBehavious) {
+				return arrBehavious.concat([EventTarget, Context, Value]);
+			}
+		}
+		],
         // end model decorations
 
         // begin container form control decorations
@@ -567,6 +576,11 @@ DECORATOR.setupDecorator(
 
 		{
 			selector:"xf|submission",
+			objects:[]
+		},
+		
+		{
+			selector: "xf|name",
 			objects:[]
 		},
 

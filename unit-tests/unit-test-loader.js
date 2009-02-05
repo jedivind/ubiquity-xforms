@@ -71,8 +71,14 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-dirtystate", type: "js",  fullpath: moduleBase + "ut-dirtystate.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.addModule({ name: "ux-ut-xforms-submission-stub", type: "js", fullpath: moduleBase + "xforms-submission-stub.js",
+    requires: [] });
+	
   loader.addModule({ name: "ux-ut-xforms-submission", type: "js",  fullpath: moduleBase + "ut-xforms-submission.js",
-    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+    requires: [ "yuitest", "logger-css", "test-logger-css", "ux-ut-xforms-submission-stub" ] });
+
+  loader.addModule({ name: "ux-ut-xforms-submission-header", type: "js",  fullpath: moduleBase + "ut-xforms-submission-header.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css", "ux-ut-xforms-submission-stub" ] });
 
   loader.require(
     "ux-ut-xforms-library-loaded", 
@@ -88,8 +94,8 @@ function runTheTests() {
     "ux-ut-delete-nodes", 
     "ux-ut-insert-nodes",
     "ux-ut-dirtystate",
-    "ux-ut-xforms-submission"
-    
+    "ux-ut-xforms-submission",
+	"ux-ut-xforms-submission-header"
   );
 
   var sBars = "";
@@ -117,6 +123,7 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
     YAHOO.tool.TestRunner.add(suiteXFormsSubmission);
+    YAHOO.tool.TestRunner.add(suiteXFormsSubmissionHeader);
 
     // Run the tests.
     //
