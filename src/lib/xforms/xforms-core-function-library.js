@@ -1033,8 +1033,69 @@ FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx) {
     return new NodeSetValue([ctx.outermostContextNode]);
 };
 
-//	id is implemented by ajaxslt, but not in a manner conformant with XForms.
-//FunctionCallExpr.prototype.xpathfunctions["id"] = ThrowNotImpl;
+/**@addon
+	http://www.w3.org/TR/xforms11/#fn-id
+*/  
+FunctionCallExpr.prototype.xpathfunctions["id"] = function(ctx) {
+    var evalCtx;
+    var ret = [];
+    var ids;
+    var nodeSet; 
+    var nodeValue;
+    var oNodes;
+    var ctxNodes = [];
+    var i, j, k;
+
+    if (!this.args || (this.args.length === 0) || (this.args.length > 2)) {
+        return new NodeSetValue([]);
+    }   
+ 
+    evalCtx = this.args[0].evaluate(ctx);
+ 
+    //
+    // This function returns the in-scope evaluation context node of the
+    // nearest ancestor element of the node containing the XPath expression
+    // that invokes this function.
+    //    
+    if (evalCtx.type === 'node-set') {
+        ids = [];
+        nodeSet = evalCtx.nodeSetValue();
+        for (i = 0; i < nodeSet.length; ++i) {
+            nodeValue = xmlValue(nodeSet[i]).split(/\s+/);
+            for (j = 0; j < nodeValue.length; ++j) {
+                ids.push(nodeValue[j]);
+            }
+        }
+    } else {
+        ids = evalCtx.stringValue().split(/\s+/);
+    }
+	    	    
+    ctxNodes.push(ctx.resolverElement ? ctx.resolverElement.getEvaluationContext().node : ctx.node);
+    
+    //
+    // Look at second parameter, and evaluate.  Use default context above if arg 2 is not specified or is empty
+    //    
+    if (this.args.length === 2) {        
+	    evalCtx = this.args[1].evaluate(ctx);	   
+	
+	    if ((evalCtx.type === 'node-set') && (evalCtx.nodeSetValue().length > 0)) {		    
+	        ctxNodes = evalCtx.nodeSetValue();
+        }		    
+    }
+    
+    for (j = 0; j < ctxNodes.length; ++j) {
+	    for (k = 0; k < ids.length; ++k) {
+	        oNodes = ctxNodes[j].getElementsById(ids[k]);
+	        if (oNodes) {
+		        for (i = 0; i < oNodes.length; ++i) {		                
+		            ret.push(oNodes[i]);
+		        }
+	        }
+	    }
+    }
+	
+    return new NodeSetValue(ret);    
+};
 
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-context
