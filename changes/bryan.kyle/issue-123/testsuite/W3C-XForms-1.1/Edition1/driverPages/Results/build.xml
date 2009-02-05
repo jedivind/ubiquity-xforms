@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<project name="xf-copy-test-suite" default="gen">
+  <target name="gen">    
+  	<xslt  basedir="IE7" destdir="IE7/html"
+  		  extension=".xml"
+  	      style="ubiquityxforms.xsl">
+  		<mapper type="glob" from="*.xml" to="*.html"/>
+    </xslt>
+   
+  </target>
+</project>
