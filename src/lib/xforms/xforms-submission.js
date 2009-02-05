@@ -59,84 +59,149 @@ submission.prototype.getConnection = function() {
     throw "submission::getConnection() has not been implemented";
 };
 
-submission.prototype.processResult = function(sData, isFailure, 
+submission.prototype.processResult = function(oResult, isFailure, 
                                               oObserver, oContext) {
+
+    var sData, sReplace, sInstance, oEvt, oNewDom;
     
     if (oObserver) {
         var oEvt = oObserver.ownerDocument.createEvent("Events");
-        var oNewDom = xmlParse(sData);
+
+        // Set context info properties common to both success and failure results.
+        oEvt.context = {
+            "resource-uri" : oResult.resourceURI,
+            "response-status-code" : oResult.status,
+            "response-reason-phrase" : oResult.statusText,
+            "response-headers" : this.processResponseHeaders(oResult.responseHeaders)
+        };
 
         if (isFailure) {
-            alert("Transaction failed.  The error is: " + sData);
-            oEvt.initEvent("xforms-submit-error", true, false);
-            FormsProcessor.dispatchEvent(oObserver, oEvt);
+            // When the error response specifies an XML media type as defined by [RFC 3023],
+            // the response body is parsed into an XML document and the root element of the
+            // document is returned. If the parse fails, or if the error response specifies
+            // a text media type (starting with text/), then the response body is returned
+            // as a string. Otherwise, an empty string is returned. 
+            oEvt.context["error-type"] = "resource-error";
+            if (!oResult.responseHeaders["Content-Type"].indexOf("text/")) {
+                oEvt.context["response-body"] =  oResult.responseText;
+            } else {
+                try {
+                    oEvt.context["response-body"] =  xmlParse(oResult.responseText);
+                } catch (e) {
+                    oEvt.context["response-body"] =  oResult.responseText;
+                }
+            }
+			oEvt.initEvent("xforms-submit-error", true, false);
+			FormsProcessor.dispatchEvent(oObserver, oEvt);
         } else {
-            // We now need to store the returned data. First find out what the
-            // @replace value was set to.
+            sData = oResult.responseText;
 
-            var sReplace = oObserver.getAttribute("replace");
-            var sInstance = null;
-            sReplace = (sReplace) ? sReplace : "all";
+            // If the server returned a response body, process it according to the value of the
+            // 'replace' attribute. If there is no response body, we still need to dispatch
+            // xforms-submit-done with whatever context info we do have.
 
-            switch (sReplace) {
-            case "all":
-                oObserver.ownerDocument.logger.log(
-                        "@replace = 'all'", "submission");
+            if (sData) {
+                // We now need to store the returned data. First find out what the
+                // @replace value was set to.
 
-                if (UX.isIE) {
-                    document.write(sData);
-                } else {
-                    if (UX.isFF) {
-                        // on FF, <?xml version="1.0"?> needs to be factored out
-                        if (sData.indexOf("<?", 0) === 0) {
-                            sData = sData.substr(sData.indexOf("?>") + 2);
+                sReplace = oObserver.getAttribute("replace") || "all";
+
+                switch (sReplace) {
+                case "all":
+                    oObserver.ownerDocument.logger.log(
+                            "@replace = 'all'", "submission");
+
+                    if (UX.isIE) {
+                        document.write(sData);
+                    } else {
+                        if (UX.isFF) {
+                            // on FF, <?xml version="1.0"?> needs to be factored out
+                            if (sData.indexOf("<?", 0) === 0) {
+                                sData = sData.substr(sData.indexOf("?>") + 2);
+                            }
+                        }
+                        document.documentElement.innerHTML = sData;
+                    }
+                    break;
+
+                case "instance":
+                    oObserver.ownerDocument.logger.log(
+                            "@replace = 'instance'", "submission");
+                    sInstance = oObserver.getAttribute("instance");
+
+                    if (!oResult.responseHeaders["Content-Type"].indexOf("text/")) {
+                        oEvt.context["error-type"] =  "resource-error";
+                        oEvt.initEvent("xforms-submit-error", true, false);
+                        FormsProcessor.dispatchEvent(oObserver, oEvt);
+                    } else {
+                        try {
+                            oNewDom = xmlParse(sData);
+                        } catch (e) {
+                            oEvt.context["error-type"] =  "parse-error";
+                            oEvt.initEvent("xforms-submit-error", true, false);
+                            FormsProcessor.dispatchEvent(oObserver, oEvt);
                         }
                     }
-                    document.documentElement.innerHTML = sData;
-                }
-                break;
 
-            case "instance":
-                oObserver.ownerDocument.logger.log(
-                        "@replace = 'instance'", "submission");
-                sInstance = oObserver.getAttribute("instance");
-
-                // @replace="instance" causes the returned data to overwrite an
-                // instance. If no instance is specified then the instance to
-                // overwrite is the one submitted.
-                if (sInstance) {
-                    if (!oContext.model.replaceInstanceDocument(
-                            sInstance, oNewDom)) {
-                        throw "Instance '" + sInstance + "' not found.";
+                    // @replace="instance" causes the returned data to overwrite an
+                    // instance. If no instance is specified then the instance to
+                    // overwrite is the one submitted.
+                    if (sInstance) {
+                        if (!oContext.model.replaceInstanceDocument(
+                                sInstance, oNewDom)) {
+                            throw "Instance '" + sInstance + "' not found.";
+                        }
+                    } else if (oObserver.srcInstance) {
+                        if (!__replaceInstanceDocument(oContext.model, 
+                                oObserver.srcInstance, oNewDom)) {
+                            throw "Failed to replace source instance";
+                        }
+                    } else {
+                        debugger;
+                        // don't know where to put it - first instance of first
+                        // model?
                     }
-                } else if (oObserver.srcInstance) {
-                    if (!__replaceInstanceDocument(oContext.model, 
-                            oObserver.srcInstance, oNewDom)) {
-                        throw "Failed to replace source instance";
-                    }
-                } else {
-                    debugger;
-                    // don't know where to put it - first instance of first
-                    // model?
+                    break;
+
+                case "none":
+                    oObserver.ownerDocument.logger.log(
+                            "@replace = 'none'", "submission");
+                    break;
+
+                default:
+                    oObserver.ownerDocument.logger.log(
+                            "Invalid replace value.", "submission");
+                    break;
                 }
-                break;
-
-            case "none":
-                oObserver.ownerDocument.logger.log(
-                        "@replace = 'none'", "submission");
-                break;
-
-            default:
-                oObserver.ownerDocument.logger.log(
-                        "Invalid replace value.", "submission");
-                break;
             }
-
             oEvt.initEvent("xforms-submit-done", true, false);
             FormsProcessor.dispatchEvent(oObserver, oEvt);
         }
     }
 };
+
+submission.prototype.processResponseHeaders = function(oHeaders) {
+  var xmlDoc, headerElt, nameElt, valueElt, name, value, responseHeaders = [ ];
+
+  // Create a <header><name/><value/></header> node for each
+  // response header from the server.
+  for (name in oHeaders) {
+      value = oHeaders[name];
+
+      xmlDoc = new XDocument();
+      headerElt = xmlDoc.createElement("header");
+      nameElt = xmlDoc.createElement("name");
+      nameElt.appendChild(xmlDoc.createTextNode(name));
+      headerElt.appendChild(nameElt);
+      valueElt = xmlDoc.createElement("value");
+      valueElt.appendChild(xmlDoc.createTextNode(value));
+      headerElt.appendChild(valueElt);
+
+      responseHeaders.push(headerElt);
+  }
+
+  return responseHeaders;
+}
 
 /*
  * We give the submit function an object that contains all of the parameters.
@@ -189,7 +254,9 @@ submission.prototype.submit = function(oSubmission) {
     var oContext = oSubmission.getBoundNode();
 	var bHasHeaders = false;
 	var sReplace = null;
-    
+    var xmlDoc = new XDocument();
+    var oSubmissionBody = xmlDoc.createTextNode("");
+
     if (instanceId) {
         instance = oSubmission.ownerDocument.getElementById(instanceId);
         if (!instance || !NamespaceManager.compareFullName(instance, "instance", "http://www.w3.org/2002/xforms")) {
@@ -285,12 +352,18 @@ submission.prototype.submit = function(oSubmission) {
         break;
     }
 
-    // Notify any listeners that we are about to begin the submission.
+    // Dispatch xforms-submit-serialize.
+    // If the event context submission-body property string is empty, then no
+    // operation is performed so that the submission will use the normal
+    // serialization data. Otherwise, if the event context submission-body
+    // property string is non-empty, then the serialization data for the
+    // submission is set to be the content of the submission-body string.
     try {
-        oEvt = oSubmission.ownerDocument.createEvent("Events");
-        oEvt.initEvent("needs-clarifying-xforms-submit-starting", 
-                false, false, sMethod, sAction);
+        oEvt = oSubmission.ownerDocument.createEvent("Events"); 
+        oEvt.initEvent("xforms-submit-serialize", true, false);
+        oEvt.context = { "submission-body" : [oSubmissionBody] };
         FormsProcessor.dispatchEvent(oSubmission, oEvt);
+        oBody = oSubmission.submissionBody[0].nodeValue || oBody;
     } catch (e) {
         oSubmission.ownerDocument.logger.log(
                 "Error: " + e.description, "error");
@@ -310,6 +383,10 @@ submission.prototype.submit = function(oSubmission) {
 		} catch (e) {
 			oEvt = oSubmission.ownerDocument.createEvent("Events");
 			oEvt.initEvent("xforms-submit-error", true, false);
+            oEvt.context = {
+                "error-type" : "resource-error",
+                "resource-uri" : sAction
+            };
 			FormsProcessor.dispatchEvent(oSubmission, oEvt);
 		} finally {
 			oForm.parentNode.removeChild(oForm);
@@ -333,6 +410,10 @@ submission.prototype.submit = function(oSubmission) {
 		} catch (e) {
 			oEvt = oSubmission.ownerDocument.createEvent("Events");
 			oEvt.initEvent("xforms-submit-error", true, false);
+            oEvt.context = {
+                "error-type" : "resource-error",
+                "resource-uri" : sAction
+            };
 			FormsProcessor.dispatchEvent(oSubmission, oEvt);
 		}
 	}
