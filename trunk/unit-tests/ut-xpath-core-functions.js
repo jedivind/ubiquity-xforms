@@ -22,7 +22,7 @@
 //
 var ctx = new ExprContext(
   xmlParse(
-    "<test> \
+    "<test  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'> \
       <numbers> \
          <number>1</number> \
          <number>2</number> \
@@ -57,6 +57,25 @@ var ctx = new ExprContext(
          <number>6</number> \
          <number>12</number> \
       </numbers5> \
+      <numbers6 id='n6'> \
+         <number id='a1'>1</number> \
+         <number xml:id='a2'>2</number> \
+         <number xsi:type='xsd:ID' value='4'>a3</number> \
+      </numbers6> \
+      <numbers7> \
+         <number id='a4'>4</number> \
+         <number xml:id='a5'>5</number> \
+         <number xsi:type='xsd:ID' value='6'>a6</number> \
+      </numbers7> \
+      <numbers8 id='n8'> \
+         <number id='a4'>4</number> \
+         <number xml:id='a5'>5</number> \
+         <number xsi:type='xsd:ID' value='6'>a6</number> \
+      </numbers8> \
+      <idlist> \
+         <id>a1</id> \
+         <id>a2</id> \
+      </idlist> \
     </test>"
   )
 );
@@ -1267,4 +1286,60 @@ suiteXPathCoreFunctions.add(
 			
 		}) //new TestCase
 
+);
+suiteXPathCoreFunctions.add(
+  new YAHOO.tool.TestCase({
+      name: "Test id()",
+      testIdExists : function () {
+          var Assert = YAHOO.util.Assert;
+          Assert.isFunction(FunctionCallExpr.prototype.xpathfunctions["id"], "id() is not defined.");
+      },
+
+      testIdUsingIdAttribute : function () {
+          var Assert = YAHOO.util.Assert; 
+          Assert.areEqual(1, evalXPath("id('a1')").numberValue());
+      },
+      
+      testIdUsingXmlIdAttribute : function () {
+          var Assert = YAHOO.util.Assert;
+          Assert.areEqual(2, evalXPath("id('a2')").numberValue());
+      },
+
+      testIdUsingXsiTypeAttribute : function () {
+          var Assert = YAHOO.util.Assert;
+          Assert.areEqual(4, evalXPath("id('a3')/@value").numberValue());
+      },
+
+      testIdUsingWhiteSpaceSeparatedList : function () {
+          var Assert = YAHOO.util.Assert;
+          Assert.areEqual(3, evalXPath("sum(id('a1 a2'))").numberValue());
+      },
+      
+      testIdUsingNodesetObject : function () {
+          var Assert = YAHOO.util.Assert; 
+          Assert.areEqual(3, evalXPath("sum(id(/test/idlist/id))").numberValue());
+      },
+      
+      testIdSearchesDefaultNodeset : function () {
+          var Assert = YAHOO.util.Assert;
+          Assert.areEqual(8, evalXPath("sum(id('a4'))").numberValue());
+          Assert.areEqual(10, evalXPath("sum(id('a5'))").numberValue());
+          Assert.areEqual(12, evalXPath("sum(id('a6')/@value)").numberValue());
+      },      
+
+      testIdSearchesSubset : function () {
+          var Assert = YAHOO.util.Assert;
+          Assert.areEqual(4, evalXPath("sum(id('a4', id('n8')))").numberValue());
+          Assert.areEqual(5, evalXPath("sum(id('a5', id('n8')))").numberValue());
+          Assert.areEqual(6, evalXPath("sum(id('a6', id('n8'))/@value)").numberValue());
+      },
+      
+      testIdFail : function () {
+          var Assert = YAHOO.util.Assert;
+          Assert.areEqual("", evalXPath("id()").stringValue(), "id() with zero parameters should return an empty nodeset.");
+          Assert.areEqual("", evalXPath("id('a', 'b', 'c')").stringValue(), "id() with more than 2 parameters should return an empty nodeset.");
+          Assert.areEqual("", evalXPath("id('z6')").stringValue(), "id() with nonexistent ids should return an empty nodeset.");
+          Assert.areEqual("", evalXPath("id('z6', id('z8'))").stringValue(), "id() with nonexistent ids should return an empty nodeset.");
+      }
+  })//new TestCase
 );

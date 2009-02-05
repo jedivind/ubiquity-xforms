@@ -328,3 +328,40 @@ XNode.prototype.insertBefore = function(newNode, oldNode) {
 
   return oRet;
 }
+
+/** 
+    The AJAXSLT XNode does not support @xml:id or @xsi:type="xsd:ID",
+    so this function does support these attributes.
+    
+    This function was expanded from the original getElementById() xpath function in AJAXSLT.
+    This function returns an array of nodes.
+    @addon    
+*/
+XNode.prototype.getElementsById = function(id) {
+    var ret = [];
+    var oID = null;
+    domTraverseElements(this, function(node) {
+        //
+        // is there an id attribute?
+        //
+        oID = node.getAttribute('id');
+        if (!oID) {
+            //
+            // Is there an xml:id attribute?
+            // 
+            oID = node.getAttribute('xml:id');
+             
+            // 
+            // finally, see if there is an xsi:type='xsd:ID' attribute
+            // 
+            if (!oID && node.getAttribute('xsi:type') === 'xsd:ID') {
+                oID = node.firstChild.nodeValue.trim();
+            }
+        } 
+    
+        if (oID === id) {
+            ret.push(node); 
+        }
+    }, null);
+    return ret;
+};
