@@ -24,7 +24,7 @@
     </head>
     <body>
         <h1 class="title">XForms 1.1 Test Suite Implementation Status for Ubiquity-XForms</h1>
-        <h2 class="subtitle">XForms 1.1 Test -- December 2008</h2>
+        <h2 class="subtitle">XForms 1.1 Test -- February 2009</h2>
         <h3>This report describes the results from testing the XForms 1.1 Test Suite with Ubiquity-XForms.</h3>
     
         <h2 class="subtitle">Legend</h2>
