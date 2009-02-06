@@ -71,8 +71,9 @@ var NamespaceManager  = function(){
 	/**
 		populates the list of output namespaces if the document has a namespaces property
 	*/
-	function readOutputNamespacesFromNamespaceAwareDocument () {
-		var nsList = document.namespaces;
+	function readOutputNamespacesFromNamespaceAwareDocument (oDocument) {  
+	    oDocument = oDocument || document;
+		var nsList = oDocument.namespaces;
 		for(var i = 0; i < nsList.length; ++i) {
 			this.addOutputNamespace(nsList[i].name, nsList[i].urn); 		
 		}
@@ -82,15 +83,16 @@ var NamespaceManager  = function(){
 		populates the list of output namespaces by treating  xml namespace declarations on the documentElement
 		as attributes
 	*/
-	function readOutputNamespacesFromDocumentElementAtrributeList () {
-		var attrMap =document.documentElement.attributes;
+	function readOutputNamespacesFromDocumentElementAtrributeList(oDocument) {
+    	oDocument = oDocument || document;
+		var attrMap = oDocument.documentElement.attributes;
 		var l = attrMap.length;
 		for(var i = 0;i < l;++i) {
-			var thisAttr = attrMap.item(i);
+			var thisAttr = attrMap[i];
 			//see if this is an xml namespace declaration.
-			if(thisAttr.name.indexOf('xmlns:') ===0) {
-				var prefix = thisAttr.name.slice(6);
-				this.addOutputNamespace(prefix,thisAttr.value);
+			if(thisAttr.nodeName.indexOf('xmlns:') ===0) {
+				var prefix = thisAttr.nodeName.slice(6).toLowerCase();
+				this.addOutputNamespace(prefix,thisAttr.nodeValue);
 			}
 		}
 	}
@@ -358,6 +360,7 @@ var NamespaceManager  = function(){
 	else {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromDocumentElementAtrributeList;
 	}
+	itself.readOutputNamespacesFromInstance = readOutputNamespacesFromDocumentElementAtrributeList;
 	if (UX.isXHTML){
 	    itself.getElementsByTagNameNS = getElementsByTagNameNS;
 	} else if(document.namespaces) {

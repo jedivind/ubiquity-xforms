@@ -69,7 +69,7 @@ suiteXFormsSubmissionHeader.add(
 				this.name.appendChild(document.createTextNode("header-name"));
 				this.value.appendChild(document.createTextNode("header-value"));
 
-				document.submission.setHeaders(null, connection, null, this.submission);
+				document.submission.setHeaders(null, null, this.submission);
 				
 				Assert.isNotNull(connection.headers["header-name"]);
 				Assert.areEqual("header-value", connection.headers["header-name"]);
@@ -79,7 +79,7 @@ suiteXFormsSubmissionHeader.add(
 			testSetHeaderIgnoresHeadersWithoutNames: function() {
 				var Assert = YAHOO.util.Assert;
 				
-				var connection;
+				var connection = document.submission.initConnection();
 				var key;
 				var count = 0;
 				
@@ -90,7 +90,7 @@ suiteXFormsSubmissionHeader.add(
 				this.name.appendChild(document.createTextNode(""));
 				
 				connection = document.submission.getConnection();
-				document.submission.setHeaders(null, connection, null, this.submission);
+				document.submission.setHeaders(null, null, this.submission);
 
 				// Make sure there aren't any headers.				
 				for ( key in connection.headers ) {
@@ -107,7 +107,7 @@ suiteXFormsSubmissionHeader.add(
 				this.header.removeChild(this.name);
 
 				connection = document.submission.getConnection();
-				document.submission.setHeaders(null, connection, null, this.submission);
+				document.submission.setHeaders(null, null, this.submission);
 
 				// Make sure there aren't any headers.				
 				for ( key in connection.headers ) {
@@ -132,7 +132,7 @@ suiteXFormsSubmissionHeader.add(
 				this.value.appendChild(document.createTextNode(""));
 				
 				connection = document.submission.getConnection();
-				document.submission.setHeaders(null, connection, null, this.submission);
+				document.submission.setHeaders(null, null, this.submission);
 				
 				Assert.isNotNull(connection.headers["header-name"]);
 				Assert.areEqual("", connection.headers["header-name"]);
@@ -145,9 +145,9 @@ suiteXFormsSubmissionHeader.add(
 				this.header.removeChild(this.value);
 				
 				connection = document.submission.getConnection();
-				document.submission.setHeaders(null, connection, null, this.submission);
+				document.submission.setHeaders(null, null, this.submission);
 				
-				Assert.isNotNull(connection.headers["header-name"]);
+				Assert.isNotNull(connection.headers["header-name"]);				
 				Assert.areEqual("", connection.headers["header-name"]);
 			},
 			
@@ -173,7 +173,7 @@ suiteXFormsSubmissionHeader.add(
 
 
 				connection = document.submission.getConnection();
-				document.submission.setHeaders(null, connection, null, this.submission);
+				document.submission.setHeaders(null, null, this.submission);
 				
 				Assert.isNotNull(connection.headers["header-name"]);
 				Assert.areEqual("header-value-1 header-value-2", connection.headers["header-name"]);
