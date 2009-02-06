@@ -180,7 +180,6 @@ _Note: Chapter 1, Appendix G and H tests not included_
   *  xforms-model-destruct event not dispatched
 
 == Missing Features for XForms 1.1 ==
-  * Setvalue basically works, but display should be none
   * Setindex 
   * Upload 
     * @mediatype
@@ -198,10 +197,7 @@ _Note: Chapter 1, Appendix G and H tests not included_
   * Output
     * @appearance
     * ?currency format/decimal format?
-  * Range
-    * @start
-    * @end
-    * @step
+  * Range 
     * @incremental
   * Trigger/Submit
     * @appearance(full:compact:minimal)
@@ -231,14 +227,12 @@ _Note: Chapter 1, Appendix G and H tests not included_
     * unsuccessful testing
   * Load
     * {{{<resource/>}}}
-  * Submission
-    * @resource
+  * Submission    
     * @mode 
     * @validate
     * @relevant
     * @version
-    * @indent 
-    * @mediatype 
+    * @indent
     * @encoding 
     * @omit-xml-declarations 
     * @standalone 
@@ -252,12 +246,4 @@ _Note: Chapter 1, Appendix G and H tests not included_
       * support "multipart-post" 
       * support "form-data-post" 
       * support "urlencoded-post" 
-    * {{{<resource/>}}}
-    * {{{<header/>}}}
-      * {{{<name/>}}}
-      * {{{<value/>}}}
-  
-= Blocking Issues =
-  *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=78&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-78: Purchase Order: event() xpath function implementation]
-  *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=86&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-86: Overactive Hint]
-  *  [http://code.google.com/p/ubiquity-xforms/issues/detail?id=87&colspec=Iteration%20Owner%20ID%20Type%20Priority%20Summary%20Component Issue-87: Overactive Select1 Dropdown list]
+     
