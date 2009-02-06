@@ -3,12 +3,12 @@
     <specChapter chapterName="7. " productId="" chapterTitle="XPath Expressions in XForms">
         <statusSummary>
             <numNormTotal>60</numNormTotal>
-            <numNormPass>39</numNormPass>
-            <numNormFail>21</numNormFail>
+            <numNormPass>42</numNormPass>
+            <numNormFail>18</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>60</numBasicTotal>
-            <numBasicPass>39</numBasicPass>
-            <numBasicFail>21</numBasicFail>
+            <numBasicPass>42</numBasicPass>
+            <numBasicFail>18</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>

@@ -3,12 +3,12 @@
     <specChapter chapterName="11. " productId="" chapterTitle="The XForms Submission Module">
         <statusSummary>
             <numNormTotal>67</numNormTotal>
-            <numNormPass>18</numNormPass>
-            <numNormFail>49</numNormFail>
+            <numNormPass>27</numNormPass>
+            <numNormFail>40</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>67</numBasicTotal>
-            <numBasicPass>18</numBasicPass>
-            <numBasicFail>49</numBasicFail>
+            <numBasicPass>27</numBasicPass>
+            <numBasicFail>40</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>

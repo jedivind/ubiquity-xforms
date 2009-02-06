@@ -3,12 +3,12 @@
     <specChapter chapterName="6. " productId="" chapterTitle="Model Item Properties">
         <statusSummary>
             <numNormTotal>11</numNormTotal>
-            <numNormPass>2</numNormPass>
-            <numNormFail>9</numNormFail>
+            <numNormPass>3</numNormPass>
+            <numNormFail>8</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>9</numBasicTotal>
-            <numBasicPass>2</numBasicPass>
-            <numBasicFail>7</numBasicFail>
+            <numBasicPass>3</numBasicPass>
+            <numBasicFail>6</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
