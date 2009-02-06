@@ -1089,8 +1089,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-envelope</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-06</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -1103,8 +1103,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-mediatype</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-06</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -1131,8 +1131,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-HTTP-Binding</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-06</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -1145,8 +1145,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-HTTP-Binding</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-06</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -1173,8 +1173,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#SOAP-HTTP-Binding</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-06</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
