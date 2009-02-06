@@ -26,7 +26,7 @@ callback.prototype.success = function(o) {
              responseText : o.responseText || "",  
              responseHeaders : o.getResponseHeader,
              resourceURI : this.resourceURI
-           }                                        
+     }
            , false); 
 }
 
@@ -38,7 +38,7 @@ callback.prototype.failure = function(o) {
           responseText : o.responseText || "",  
           responseHeaders : o.getResponseHeader,
           resourceURI : this.resourceURI
-        }                                        
+}
         , true); 
 }
 
@@ -61,4 +61,19 @@ submission.prototype.getConnection = function() {
 	return YAHOO.util.Connect;
 }
 
+//
+// Add initialization functions for library specific features
+//
+submission.prototype.init = function() { 
+    this.getConnection().setDefaultPostHeader(false);
+    return true;
+}
 	
+submission.prototype.setHeader = function(header, value) { 
+    return this.getConnection().initHeader(header, value);
+}
+
+//
+// initialize yui submission object 
+//
+document.submission.init();

@@ -22,7 +22,7 @@ function callback(oMediator, oObserver, oContext) {
     this.m_mediator = oMediator;
     this.m_observer = oObserver;
     this.m_context = oContext;
-}
+};
 
 callback.prototype.processResult = function(data, isFailure) {
     this.m_mediator.processResult(data, isFailure, this.m_observer,
@@ -57,6 +57,14 @@ submission.prototype.request = function(sMethod, sAction,
 
 submission.prototype.getConnection = function() {
     throw "submission::getConnection() has not been implemented";
+};
+
+submission.prototype.setHeader = function(header, value) {
+    throw "submission::setHeader() has not been implemented";
+};
+
+submission.prototype.init = function() {
+    throw "submission::init() has not been implemented";
 };
 
 submission.prototype.processResult = function(oResult, isFailure, 
@@ -214,7 +222,18 @@ submission.prototype.submit = function(oSubmission) {
     var oExtDom = null;
     var instanceId = oSubmission.getAttribute("instance");
     var instance;
-
+    var sAction = oSubmission.getAttribute("action");
+    var sMethod = oSubmission.getAttribute("method");
+    var sMediatype = oSubmission.getAttribute("mediatype");
+    var sEncoding = oSubmission.getAttribute("encoding");
+    var sSerialisation;
+    var sBody;
+    var oContext = oSubmission.getBoundNode();
+    var bHasHeaders = false;
+	var sReplace = null;
+    var xmlDoc = new XDocument();
+    var oSubmissionBody = xmlDoc.createTextNode("");    
+ 
     if (ns && ns.length > 0) {
         var oExt = ns[0];
         oExtDom = oExt.getDocument();
@@ -246,17 +265,7 @@ submission.prototype.submit = function(oSubmission) {
     if (nTimeout === null) {
         nTimeout = 5000;
     }
-
-    var sAction = oSubmission.getAttribute("action");
-    var sMethod = oSubmission.getAttribute("method");
-    var sSerialisation;
-	var oBody;
-    var oContext = oSubmission.getBoundNode();
-	var bHasHeaders = false;
-	var sReplace = null;
-    var xmlDoc = new XDocument();
-    var oSubmissionBody = xmlDoc.createTextNode("");
-
+    
     if (instanceId) {
         instance = oSubmission.ownerDocument.getElementById(instanceId);
         if (!instance || !NamespaceManager.compareFullName(instance, "instance", "http://www.w3.org/2002/xforms")) {
@@ -328,6 +337,14 @@ submission.prototype.submit = function(oSubmission) {
         if (oContext.node) {
             oBody = xmlText(oContext.node);
         }
+        
+        //
+        // build SOAP Header information
+        //
+        if (sMediatype) {
+            this.setSOAPHeaders(oContext.node, sMediatype, sEncoding); 
+        }
+        
         break;
 
     case "put":
@@ -397,7 +414,7 @@ submission.prototype.submit = function(oSubmission) {
 		// callback
 
 		var oCallback = new callback(this, oSubmission, oContext);
-		this.setHeaders(oContext.model, this.getConnection(), oExtDom, oSubmission);
+		this.setHeaders(oContext.model, oExtDom, oSubmission);
 
 		try {
 
@@ -488,7 +505,7 @@ submission.prototype.buildFormFromObject = function(object) {
 	return form;
 };
 
-submission.prototype.setHeaders = function(oModel, connection, oExtdom, oSubmission) {
+submission.prototype.setHeaders = function(oModel, oExtdom, oSubmission) {
 	var headers = {};
 	
 	var i, j;
@@ -566,7 +583,7 @@ submission.prototype.setHeaders = function(oModel, connection, oExtdom, oSubmiss
 	}
 	
 	for ( name in headers ) {
-		connection.initHeader(name, headers[name].join(' '));
+		this.setHeader(name, headers[name].join(' '));
 	}
 };
 
@@ -587,3 +604,53 @@ submission.prototype.buildGetUrl = function(action, params) {
     }//if ( there are parameters to add to the action )
     return url;
 };//buildurl
+
+
+submission.prototype.setSOAPHeaders = function(oContextNode, sMediatype, sEncoding) {
+    var result;
+    // match on content for "action=" in mediatype
+    var matchAction = /action=([^\s\t\r\n\v\f;]+);?/;
+    // match content for "charset=" in mediatype
+    var matchCharset = /charset=([\w-]+);?/;
+    var contentType = sMediatype;
+    if (sMediatype) {
+        if (oContextNode && NamespaceManager.getNamespaceURI(oContextNode) === "http://schemas.xmlsoap.org/soap/envelope/") {
+	        //
+	        // Determine if it is SOAP 1.1 or SOAP 1.2,
+	        //  SOAP 1.1 creates a SOAPAction header,
+	        //           adds "text/xml" to the content-type and
+	        //           sets the charset depending on the charset value in the mediatype attribute or the encoding attribute	        
+	        //
+	        //  SOAP 1.2 takes the mediatype and puts it into the content-type
+	        contentType = "text/xml";
+	        
+	        // 
+	        // look for the SOAP action in the mediatype attribute
+	        //
+	        result = matchAction.exec(sMediatype);
+	                        
+	        if (result && result[1]) {
+	            // SOAPAction found in mediatype
+	            this.setHeader("SOAPAction", result[1]); 
+	        }  
+	                        
+	        //
+	        // look for the charset in the mediatype attribute
+	        //                
+	        result = matchCharset.exec(sMediatype); 
+	        
+	        if (result && result[1]) {
+	            // charset found in mediatype
+	            contentType += "; charset=" + result[1] + ";";
+	        } else if (sEncoding) {
+	            // if the charset is not found in the mediatype attribute, use the encoding attribute
+	            contentType += "; charset=" + sEncoding + ";";
+	        } else {
+	            // charset default is UTF-8
+	            contentType += "; charset=" + "UTF-8;";
+	        }	        
+        }
+        
+        this.setHeader("content-type", contentType);                       
+    }
+};

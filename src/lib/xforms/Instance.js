@@ -30,6 +30,7 @@ Instance.prototype.finishLoad = function () {
             this.element.parentNode.flagRebuild();
         this.m_oDOM.XFormsInstance = this;
         this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
+        NamespaceManager.readOutputNamespacesFromInstance(this.m_oDOM);        
     } else if (!this.element["elementState"]) {
         // if we do not have a valid instance from @src, inline or @resource
         // and the elementState has been set to 0, then 
