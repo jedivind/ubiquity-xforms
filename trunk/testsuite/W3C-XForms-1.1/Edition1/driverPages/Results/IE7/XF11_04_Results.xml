@@ -3,12 +3,12 @@
     <specChapter chapterName="4. " productId="" chapterTitle="Processing Model">
         <statusSummary>
             <numNormTotal>65</numNormTotal>
-            <numNormPass>21</numNormPass>
-            <numNormFail>44</numNormFail>
+            <numNormPass>29</numNormPass>
+            <numNormFail>36</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>65</numBasicTotal>
-            <numBasicPass>21</numBasicPass>
-            <numBasicFail>44</numBasicFail>
+            <numBasicPass>29</numBasicPass>
+            <numBasicFail>36</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
