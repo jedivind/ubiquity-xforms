@@ -345,7 +345,7 @@ Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, positi
 			// The nodes are inserted before a particular child node, or 
 			// or appended if insertBeforeNode is falsy.
 	        
-			for (i = 0; i < nsOrigin.length; i++) {           	
+			for (i = 0; i < nsInserted.length; i++) {           	
 				if (insertBeforeNode) {
 					insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
 				} 
