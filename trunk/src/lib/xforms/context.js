@@ -296,63 +296,60 @@ function _getBoundNode(pThis, nOrdinal) {
     var sNodeset = oElement.getAttribute("nodeset");
     var sName = XF4HProcessor.getAttribute(oElement, "name");
 
-    if (!sRef && !sNodeset && !sName) {
-        // Return if no ref | nodeset | name to evaluate
-        return oRet;
-    }
-    
-    // Get the evaluation context, and save the model value.
-    oRet = _getEvaluationContext(pThis);
-    
-    // if no model found - this is possible if user reference to a non-existing model
-    // not possible after we added the code to create a lazy model by default
-    // but we will check for it anyway.
-    if (oRet.model !== null) {   
-        pThis.m_model = oRet.model;        
-        
-        if (sRef && nOrdinal == 1) {        
-            var oRefNode = 
-                getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
-    
-            if (!oRefNode) {
-                // Lazy authoring, 
-                // get the default instance
-                var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
-                
-                if (oInstDoc) {
-                    // Actually we need to check for the QName is valid  but
-                    // it seems that createElement will accept any QName (valid or not)                
-                    oRefNode = oInstDoc.createElement(sRef);
-                    
-                    if (oRefNode) {
-                        oInstDoc.documentElement.appendChild(oRefNode);
-                    } 
-                    // If we created the node from lazy authoring, we need to verify 
-                    // that it it is actually created properly
-                    oRefNode = 
-                        getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
-                    
-                    // Form controls are considered to be non-relevant if any of the 
-                    // following apply:
-                    // the Single Node Binding is expressed and resolves to empty nodeset
-                    // so oRefNode is null if EvaluateXPath is unresolved.
+    if (sRef || sNodeset || sName || oElement.getAttribute("model")) {
+        // Get the evaluation context, and save the model value.
+        oRet = _getEvaluationContext(pThis);
+
+        // if no model found - this is possible if user reference to a non-existing model
+        // not possible after we added the code to create a lazy model by default
+        // but we will check for it anyway.
+        if (oRet.model !== null) {   
+            pThis.m_model = oRet.model;        
+
+            if (sRef && nOrdinal == 1) {        
+                var oRefNode = 
+                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
+
+                if (!oRefNode) {
+                    // Lazy authoring, 
+                    // get the default instance
+                    var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
+
+                    if (oInstDoc) {
+                        // Actually we need to check for the QName is valid  but
+                        // it seems that createElement will accept any QName (valid or not)                
+                        oRefNode = oInstDoc.createElement(sRef);
+
+                        if (oRefNode) {
+                            oInstDoc.documentElement.appendChild(oRefNode);
+                        } 
+                        // If we created the node from lazy authoring, we need to verify 
+                        // that it it is actually created properly
+                        oRefNode = 
+                            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
+
+                        // Form controls are considered to be non-relevant if any of the 
+                        // following apply:
+                        // the Single Node Binding is expressed and resolves to empty nodeset
+                        // so oRefNode is null if EvaluateXPath is unresolved.
+                    }
                 }
+                oRet.node = oRefNode;
+            } else if (sNodeset) {
+
+                if (!pThis.m_arrNodes) {            
+                    pThis.m_arrNodes = 
+                        pThis.m_model.EvaluateXPath(sNodeset, oRet).value;
+                }
+                oRet.node = pThis.m_arrNodes[nOrdinal - 1];
+            } else if (sName) {
+                // Forms-A
+                oRet.node = XF4HProcessor.processElement(
+                        pThis.m_model, oRet.node, oElement, sName);
             }
-            oRet.node = oRefNode;
-        } else if (sNodeset) {
-            
-            if (!pThis.m_arrNodes) {            
-                pThis.m_arrNodes = 
-                    pThis.m_model.EvaluateXPath(sNodeset, oRet).value;
-            }
-            oRet.node = pThis.m_arrNodes[nOrdinal - 1];
-        } else if (sName) {
-            // Forms-A
-            oRet.node = XF4HProcessor.processElement(
-                    pThis.m_model, oRet.node, oElement, sName);
         }
     }
-    
+
     return oRet;
 }
 
