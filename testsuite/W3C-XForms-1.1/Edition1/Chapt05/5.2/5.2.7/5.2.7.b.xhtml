@@ -10,12 +10,12 @@
     <body>
     <xforms:model>
 	  	  <xforms:instance>
-			<payment xmlns="http://commerce.example.com/payment" method="cc">
-		  	  <number/>
+			<payment method="cc">
+		  	  <number></number>
 			  <expiry/>
 			</payment>
 	  	  </xforms:instance>
-	  	  <xforms:bind nodeset="number" type="xforms:card-number" constraint="is-card-number(.)"/>
+	  	  <xforms:bind nodeset="number" type="xforms:card-number"/>
 		</xforms:model>
         <xforms:group>
             <xforms:label class="title">5.2.7.b card-number datatype - credit card example</xforms:label>

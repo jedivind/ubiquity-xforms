@@ -12,55 +12,48 @@
     <xforms:model>
        	  <xforms:instance>
 	        <car>
-	          <haveCar/>
+	          <haveCar>no</haveCar>
 	        </car>
           </xforms:instance>
+          <xforms:bind id="mybind" nodeset="haveCar" readonly="/car/haveCar='yes'"/>
         </xforms:model>
   		<xforms:group>
   			<xforms:label class="title">9.2.1.a2 switch element receives events</xforms:label>
   		</xforms:group>	
   		<xforms:group>
   			<xforms:label>
-  			  When you activate the Show Out Case trigger you must see "You are now in the Out case" 
-			  output to the screen and a Show In Case trigger. 
-			  When you activate the Show In Case trigger you must see "You are now in the In case" 
-			  output to the screen and a Show Out Case trigger. 
-			  When either switch is activated you must see an xforms-disabled message and an xforms-enabled message. 
+  			  When you choose &quot;yes&quot; in the select1 control, you should see the message &quot;Switch is readonly&quot; 
+  			  and the select1 control should be readonly too.
 	  		</xforms:label>	
   		</xforms:group>
   	
-  		<xforms:switch>
-			<xforms:case id="in">
-				<xforms:switch>
-				<xforms:message level="modal" ev:event="xforms-disabled">xforms-disabled</xforms:message>
-				<xforms:message level="modal" ev:event="xforms-enabled">xforms-enabled</xforms:message>
-				  <xforms:case>
 					<xforms:group>
-						<xforms:label>You are now in the In case</xforms:label>
-					</xforms:group>
+  	        <!-- Relying on event to bubble up -->
+	  	    <xforms:message ev:event="xforms-readonly" level="modal">Switch is readonly</xforms:message>
+	  	
+	  		<xforms:switch ref="haveCar" >
+				<xforms:case id="in">				
 					<xforms:trigger>
 						<xforms:label>Show Out Case</xforms:label>
 						<xforms:toggle ev:event="DOMActivate" case="out"/>
 					</xforms:trigger>
 				  </xforms:case>
-				</xforms:switch>
-			</xforms:case>
 			<xforms:case id="out">
-				<xforms:switch>
-				  <xforms:message level="modal" ev:event="xforms-disabled">xforms-disabled</xforms:message>
-				  <xforms:message level="modal" ev:event="xforms-enabled">xforms-enabled</xforms:message>
-				  <xforms:case>
-					<xforms:group>
-						<xforms:label>You are now in the Out case</xforms:label>
-					</xforms:group>
 					<xforms:trigger>
 						<xforms:label>Show In Case</xforms:label>
 						<xforms:toggle ev:event="DOMActivate" case="in"/>
 					</xforms:trigger>
 				  </xforms:case>
 				</xforms:switch>
-			</xforms:case>
-		</xforms:switch>
+		</xforms:group>
 		
-  </body>
-</html>
+		<xforms:select1 ref="haveCar">
+		    <xforms:item>
+		        <xforms:label>Yes</xforms:label>
+		        <xforms:value>yes</xforms:value>
+		    </xforms:item>
+		    <xforms:item>
+		        <xforms:label>No</xforms:label>
+		        <xforms:value>no</xforms:value>
+		    </xforms:item>
+		</xforms:select1>
