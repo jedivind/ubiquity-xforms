@@ -52,9 +52,9 @@
             <xforms:label>Test 6 : </xforms:label>
           </xforms:output>
         </xforms:group>
-        
+        <!-- default is 'base64', so Test 7 must have same value as Test 6 -->
         <xforms:group> 
-          <xforms:output value="if( hmac('key', 'abc', 'SHA-256', '')='nBluMtwBdfhvSxy4konWYZ3mvuaZ5MN45oMJ7Zehpqs=', 'Pass', 'FAIL')">
+          <xforms:output value="if( hmac('key', 'abc', 'SHA-256')='nBluMtwBdfhvSxy4konWYZ3mvuaZ5MN45oMJ7Zehpqs=', 'Pass', 'FAIL')">
             <xforms:label>Test 7 : </xforms:label>
           </xforms:output>
         </xforms:group>

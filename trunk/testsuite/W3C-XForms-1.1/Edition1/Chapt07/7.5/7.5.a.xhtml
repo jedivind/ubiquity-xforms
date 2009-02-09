@@ -19,7 +19,7 @@
                     </box>
                 </box_description>
             </xforms:instance>
-            <xforms:bind nodeset="/box_description/description" readonly="count(/box_description/box/BADXPATH) &gt; 2"/>
+            <xforms:bind nodeset="/box_description/description" readonly="boolean-from-string()" />
             <xforms:message ev:event="xforms-compute-exception" level="modal">xforms-compute-exception</xforms:message>
         </xforms:model>
         <xforms:group>
