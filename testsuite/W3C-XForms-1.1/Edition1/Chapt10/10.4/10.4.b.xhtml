@@ -25,7 +25,7 @@
                     <number_list/>
                 </number_lists>
             </xforms:instance>
-            <xforms:bind id="bind1" nodeset="number_list[2]/number"/>
+            <xforms:bind id="bind1" nodeset="number_list[2]/number[3]" />
         </xforms:model>
     <xforms:model id="mod2">
             <xforms:instance>
@@ -65,9 +65,9 @@
                 <!-- delete <number>6</number> in second number_list nodeset, context attr should be ignored-->
                 <xforms:delete bind="bind1" context="number_list/number"/>
                 <!-- make sure default element node of default instance of model specified by model attr used (10 is deleted) -->
-                <xforms:delete model="mod2" nodeset="number_list[1]/number"/>
+                <xforms:delete model="mod2" nodeset="number_list[1]/number[4]" />
                 <!-- make sure evaluation context changed b4 special attributes evaluated (14 is deleted) -->
-                <xforms:delete model="mod2" context="number_list[2]" nodeset="number"/>
+                <xforms:delete model="mod2" context="number_list[2]" nodeset="number[4]" />
             </xforms:action>
         </xforms:model>
         <xforms:group>
@@ -83,7 +83,7 @@
         </xforms:group>
         <xforms:group model="mod2">
             <xforms:label>You must see only the numbers 7, 8, and 9 :</xforms:label>
-            <xforms:repeat nodeset="number_list/number">
+            <xforms:repeat nodeset="number_list[1]/number">
                 <xforms:output class="hlist" value="concat(. , ' ')">
                     <xforms:label/>
                 </xforms:output>

@@ -40,25 +40,25 @@
         <xforms:switch>
             <xforms:case id="before">
                 <xforms:group>
-                  <xforms:label>Before - You must see the value "1" : </xforms:label>
-                  <xforms:output value="index('repeat_1')">	
+                  <xforms:label>Before - You must see the value &quot;1&quot; : </xforms:label>
+                  <xforms:output value="index('repeat_1')">	<!-- this is the index(outer) -->
                   </xforms:output>
                 </xforms:group>
                 <xforms:group>
-                  <xforms:label>Before - You must see the value "3" : </xforms:label>
-                  <xforms:output value="index('repeat_2')">	
+                  <xforms:label>Before - You must see the value &quot;3&quot; : </xforms:label>
+                  <xforms:output value="index('repeat_2')">	<!-- this is the index(inner) -->
                   </xforms:output>
                 </xforms:group>
             </xforms:case>
             <xforms:case id="after">
                 <xforms:group>
-                  <xforms:label>After - You must see the value "3" : </xforms:label>
-                  <xforms:output value="index('repeat_1')">	
+                  <xforms:label>After - You must see the value &quot;3&quot; : </xforms:label>
+                  <xforms:output value="index('repeat_1')">	<!-- this is the index(outer) -->
                   </xforms:output>
                 </xforms:group>
                 <xforms:group>
-                  <xforms:label>After - You must see the value "1" : </xforms:label>
-                  <xforms:output value="index('repeat_2')">	
+                  <xforms:label>After - You must see the value &quot;1&quot; : </xforms:label>
+                  <xforms:output value="index('repeat_2')">	<!-- this is the index(inner) -->
                   </xforms:output>
                 </xforms:group>
             </xforms:case>
@@ -71,7 +71,9 @@
             </xforms:trigger>
         </xforms:group>  
         <xforms:group>
-            
+          <!-- 
+            <xforms:label>The repeats being acted upon: </xforms:label>
+          -->  
             <xforms:repeat id="repeat_1" nodeset="number_list">
                 <xforms:repeat id="repeat_2" nodeset="number">
                    

@@ -39,7 +39,7 @@
                     <number_list/>
                 </number_lists>
             </xforms:instance>
-            <xforms:instance id="Instance_2">
+            <xforms:instance id="instance_2">
                 <number_lists>
                     <number_list>
                         <number>16</number>
@@ -49,9 +49,7 @@
             </xforms:instance>
             <xforms:action ev:event="xforms-ready">
                 <!-- example without at, should delete last node -->
-                <xforms:delete nodeset="number_list[1]/number"/>
-                <!-- example with at between node-set size and 1 -->
-                <xforms:delete nodeset="instance('instance_2')/number_list/number" at="1"/>
+                <xforms:delete nodeset="number_list[1]/number[3]" />
                 <!-- non-integer example, uses round(), should be 2 -->
                 <xforms:delete nodeset="number_list[2]/number" at="1.5"/>
                 <!-- at < 1, should be 1 -->
@@ -59,7 +57,9 @@
                 <!-- at > node-set size, should be node-set size, 3 -->
                 <xforms:delete nodeset="number_list[4]/number" at="7"/>
                 <!-- round() returns NaN at should be node-set size, 3 -->
-                <xforms:delete nodeset="number_list[5]/number" at="strawberry"/>
+                <xforms:delete nodeset="number_list[5]/number" at="number('NaN')" />
+                 <!-- example with at between node-set size and 1 -->
+                <xforms:delete nodeset="instance('instance_2')/number_list/number" at="1" />
             </xforms:action>
         </xforms:model>
         <xforms:group>
@@ -102,7 +102,7 @@
         </xforms:group>
         <xforms:group>
           <xforms:label>You must see only the number 17 : </xforms:label>
-            <xforms:repeat nodeset="instance('Instance_2')/number_list/number">
+            <xforms:repeat nodeset="instance('instance_2')/number_list/number">
                 <xforms:output value="string(concat(. ,' '))"/>
             </xforms:repeat>
         </xforms:group>
