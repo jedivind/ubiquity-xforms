@@ -36,8 +36,7 @@
       	   <et:event name=""/>
       	</et:events>
       </xforms:instance>
-      <xforms:bind nodeset="instance('tracker_instance')/et:event[1]" relevant="false()"/>
-      <xforms:submission id="submitme" action="http://xformstest.org/cgi-bin/echo.sh" method="post"/>
+      <xforms:bind nodeset="instance('tracker_instance')/et:event[last()]" relevant="false()"/>
     </xforms:model>
   	<xforms:group>
   		<xforms:label class="title">4.6.3.c event sequencing for select/select1 controls (focus changes)</xforms:label>
