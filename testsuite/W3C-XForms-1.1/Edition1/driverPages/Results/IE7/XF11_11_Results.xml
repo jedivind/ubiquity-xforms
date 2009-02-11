@@ -487,8 +487,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-resource-elem</testCaseSpecLink>
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>false</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-10</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -501,8 +501,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-resource-elem</testCaseSpecLink>
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>false</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-10</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
