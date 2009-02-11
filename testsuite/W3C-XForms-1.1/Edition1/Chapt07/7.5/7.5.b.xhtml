@@ -16,9 +16,6 @@
                     <favorite>green</favorite>
                 </favorite_colors>
             </xforms:instance>
-            <xforms:message ev:event="xforms-binding-exception" level="modal">
-                xforms-binding-exception
-            </xforms:message>
         </xforms:model>
         <xforms:group>
             <xforms:label class="title">
@@ -31,8 +28,11 @@
 				xforms-binding-exception. 
             </xforms:label>
         </xforms:group>
-        <xforms:output ref="favorite[boolean-from-string()]">
+        <xforms:output ref="favorite[digest('abc', 'SHA-1', 'INVALID') != '']">
             <xforms:label>I have this many favorite colors:</xforms:label>
+            <xforms:message ev:event="xforms-binding-exception" level="modal">
+                xforms-binding-exception
+            </xforms:message>
         </xforms:output>
     </body>
 </html>

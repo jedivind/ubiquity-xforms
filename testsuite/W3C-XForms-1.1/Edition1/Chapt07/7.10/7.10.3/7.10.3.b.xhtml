@@ -28,8 +28,12 @@
         </xforms:group>
         <xforms:group>
             <xforms:label>
-              You must see the value "Node-A" for the Node Values output. 
-            
+              You must see the value &quot;Node-A&quot; for the Node Values output. <!-- ...I think -->
+            <!-- //This is the old case description, just in case
+                This repeat should operate only on elements in the nodeset
+                &quot;level_1a&quot; whose IDs match &quot;a&quot;, &quot;b&quot;, or
+                &quot;c&quot;. You should see only &quot;a IDREF&quot; below.
+            -->
             </xforms:label>
         </xforms:group>
         <xforms:repeat nodeset="id('a b c', /root/level_1a)">

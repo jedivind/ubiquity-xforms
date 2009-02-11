@@ -19,7 +19,7 @@
                     </box>
                 </box_description>
             </xforms:instance>
-            <xforms:bind nodeset="/box_description/description" readonly="boolean-from-string()" />
+            <xforms:bind nodeset="/box_description/description" readonly="digest('abc', 'SHA-1', 'INVALID') != ''" />
             <xforms:message ev:event="xforms-compute-exception" level="modal">xforms-compute-exception</xforms:message>
         </xforms:model>
         <xforms:group>
