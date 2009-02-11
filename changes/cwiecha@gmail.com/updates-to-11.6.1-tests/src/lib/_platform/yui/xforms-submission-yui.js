@@ -48,6 +48,14 @@ submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCall
     }
 
     oCallback.resourceURI = sAction;
+    
+	//experimental for Firefox Cross Domain problem
+    try {
+      // netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+     } catch (e) {
+      alert("Permission UniversalBrowserRead denied.");
+     }
+   //end experimental    
 
 	return YAHOO.util.Connect.asyncRequest(
 		sMethod,
