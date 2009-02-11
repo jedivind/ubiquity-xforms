@@ -26,7 +26,7 @@
 			</xforms:instance>
 			<xforms:submission id="submit01" method="get" replace="instance" instance="instance2" action="11.10.data.xml" target="invalidNode">
 			  <xforms:message ev:event="xforms-submit-error" level="modal">xforms-submit-error</xforms:message>
-			  <xforms:action ev:event="xforms-link-error">
+			  <xforms:action ev:event="xforms-submit-error">
 	            <xforms:setvalue model="catcher" ref="/eventdata" value="event('error-type')"/>
 	          </xforms:action>
 			</xforms:submission>
