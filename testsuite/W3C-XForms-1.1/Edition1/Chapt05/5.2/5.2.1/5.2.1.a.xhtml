@@ -3,39 +3,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>5.2.1.a built-in primitive types which allow empty content</title>
-        
-        
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
     </head>
     <body>
-    <xforms:model id="emptyData_model">
+       <xforms:model id="emptyData_model">
             <xforms:instance>
                 <types>
-                    <my_dateTime xsi:type="xforms:dateTime"/>
-                    <my_date xsi:type="xforms:date"/>
-                    <my_time xsi:type="xforms:time"/>
-                    <my_gYearMonth xsi:type="xforms:gYearMonth"/>
-                    <my_gYear xsi:type="xforms:gYear"/>
-                    <my_gMonthDay xsi:type="xforms:gMonthDay"/>
-                    <my_gDay xsi:type="xforms:gDay"/>
-                    <my_gMonth xsi:type="xforms:gMonth"/>
-                    <my_string xsi:type="xforms:string"/>
-                    <my_boolean xsi:type="xforms:boolean"/>
-                    <my_base64Binary xsi:type="xforms:base64Binary"/>
-                    <my_hexBinary xsi:type="xforms:hexBinary"/>
-                    <my_float xsi:type="xforms:float"/>
-                    <my_decimal xsi:type="xforms:decimal"/>
-                    <my_double xsi:type="xforms:double"/>
-                    <my_anyURI xsi:type="xforms:anyURI"/>
-                    <my_QName xsi:type="xforms:Qname"/>
+				    <my_dateTime />
+				    <my_date />
+				    <my_time />
+				    <my_gYearMonth />
+				    <my_gYear />
+				    <my_gMonthDay />
+				    <my_gDay />
+				    <my_gMonth />
+				    <my_string />
+				    <my_boolean />
+				    <my_base64Binary />
+				    <my_hexBinary />
+				    <my_float />
+				    <my_decimal />
+				    <my_double />
+				    <my_anyURI />
+				    <my_QName />
                 </types>
             </xforms:instance>
+		    <xforms:bind nodeset="my_dateTime" type="xforms:dateTime" />
+		    <xforms:bind nodeset="my_date" type="xforms:date" />
+		    <xforms:bind nodeset="my_time" type="xforms:time" />
+		    <xforms:bind nodeset="my_gYearMonth" type="xforms:gYearMonth" />
+		    <xforms:bind nodeset="my_gYear" type="xforms:gYear" />
+		    <xforms:bind nodeset="my_gMonthDay" type="xforms:gMonthDay" />
+		    <xforms:bind nodeset="my_gDay" type="xforms:gDay" />
+		    <xforms:bind nodeset="my_gMonth" type="xforms:gMonth" />
+		    <xforms:bind nodeset="my_string" type="xforms:string" />
+		    <xforms:bind nodeset="my_boolean" type="xforms:boolean" />
+		    <xforms:bind nodeset="my_base64Binary" type="xforms:base64Binary" />
+		    <xforms:bind nodeset="my_hexBinary" type="xforms:hexBinary" />
+		    <xforms:bind nodeset="my_float" type="xforms:float" />
+		    <xforms:bind nodeset="my_decimal" type="xforms:decimal" />
+		    <xforms:bind nodeset="my_double" type="xforms:double" />
+		    <xforms:bind nodeset="my_anyURI" type="xforms:anyURI" />
+		    <xforms:bind nodeset="my_QName" type="xforms:QName" />
             <xforms:bind nodeset="/types" relevant="false()"/>
         </xforms:model>
-    <xforms:model id="event_model">
+        <xforms:model id="event_model">
             <xforms:instance>
-                <events>
+	            <events xmlns="">
                     <event/>
                     <event/>
                     <event/>
