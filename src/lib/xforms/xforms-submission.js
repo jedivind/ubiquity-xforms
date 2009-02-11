@@ -70,7 +70,7 @@ submission.prototype.init = function() {
 submission.prototype.processResult = function(oResult, isFailure, 
                                               oObserver, oContext) {
 
-    var sData, sReplace, sInstance, oEvt, oNewDom;
+    var sData, sReplace, sInstance, oEvt, oNewDom, contentType = "";
     
     if (oObserver) {
         var oEvt = oObserver.ownerDocument.createEvent("Events");
@@ -90,7 +90,10 @@ submission.prototype.processResult = function(oResult, isFailure,
             // a text media type (starting with text/), then the response body is returned
             // as a string. Otherwise, an empty string is returned. 
             oEvt.context["error-type"] = "resource-error";
-            if (!oResult.responseHeaders["Content-Type"].indexOf("text/")) {
+            if (oResult.responseHeaders) {
+                contentType = oResult.responseHeaders["Content-Type"];
+            }
+            if (contentType && !contentType.indexOf("text/")) {
                 oEvt.context["response-body"] =  oResult.responseText;
             } else {
                 try {
@@ -137,7 +140,10 @@ submission.prototype.processResult = function(oResult, isFailure,
                             "@replace = 'instance'", "submission");
                     sInstance = oObserver.getAttribute("instance");
 
-                    if (!oResult.responseHeaders["Content-Type"].indexOf("text/")) {
+                    if (oResult.responseHeaders) {
+                        contentType = oResult.responseHeaders["Content-Type"];
+                    }
+                    if (contentType && !contentType.indexOf("text/")) {
                         oEvt.context["error-type"] =  "resource-error";
                         oEvt.initEvent("xforms-submit-error", true, false);
                         FormsProcessor.dispatchEvent(oObserver, oEvt);
@@ -227,7 +233,7 @@ submission.prototype.submit = function(oSubmission) {
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding");
     var sSerialisation;
-    var sBody;
+    var oBody;
     var oContext = oSubmission.getBoundNode();
     var bHasHeaders = false;
 	var sReplace = null;
