@@ -22,9 +22,6 @@ The following setting will allow IE 7 to reference the echo service site "http:/
  # Scroll down to "Miscellaneous", and 
  # Enable the "Access data sources across domains" option.
 
-Note that you also may need to turn *off* the setting for "Enable Native XMLHTTP support"
-on Tools > Internet Options > Advanced in the Security section toward the bottom of the list.
-
 You'll have to exit out of IE and restart it for these setting to work.
 
 ===Local XMLHttpRequest with Get Protocol===
