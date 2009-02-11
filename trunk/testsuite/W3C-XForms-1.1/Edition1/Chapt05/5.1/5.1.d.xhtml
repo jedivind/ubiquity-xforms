@@ -3,36 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">
 	<head>
 		<title>5.1.d supported derived XML schema types in basic processors</title>
-    <script  src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
-    <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
-		
-		
-		
-	</head>
-	
+        <script  src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/> 
+	</head>	
 	<body>
-    <xforms:model>
-			<xforms:instance>
-				<types>
-					<my_integer xsi:type="xsd:integer"/>
-					<my_nonPositiveInteger xsi:type="xsd:nonPositiveInteger"/>
-					<my_negativeInteger xsi:type="xsd:negativeInteger"/>
-					<my_long xsi:type="xsd:long"/>
-					<my_int xsi:type="xsd:int"/>
-					<my_short xsi:type="xsd:short"/>
-					<my_byte xsi:type="xsd:byte"/>
-					<my_nonNegativeInteger xsi:type="xsd:nonNegativeInteger"/>
-					<my_unsignedLong xsi:type="xsd:unsignedLong"/>
-					<my_unsignedInt xsi:type="xsd:unsignedInt"/>
-					<my_unsignedShort xsi:type="xsd:unsignedShort"/>
-					<my_unsignedByte xsi:type="xsd:unsignedByte"/>
-					<my_positiveInteger xsi:type="xsd:positiveInteger"/>
-				</types>
+        <xforms:model>
+		      <xforms:instance xmlns="">
+				  <types>
+					  <my_integer />
+					  <my_nonPositiveInteger />
+					  <my_negativeInteger />
+					  <my_long />
+					  <my_int />
+					  <my_short />
+					  <my_byte />
+					  <my_nonNegativeInteger />
+					  <my_unsignedLong />
+					  <my_unsignedInt />
+					  <my_unsignedShort />
+					  <my_unsignedByte />
+					  <my_positiveInteger />
+				  </types>
 			</xforms:instance>
+		    <xforms:bind nodeset="my_integer" type="xsd:integer"/>
+		    <xforms:bind nodeset="my_nonPositiveInteger" type="xsd:nonPositiveInteger"/>
+		    <xforms:bind nodeset="my_negativeInteger" type="xsd:negativeInteger"/>
+		    <xforms:bind nodeset="my_long" type="xsd:long"/>
+		    <xforms:bind nodeset="my_int" type="xsd:int"/>
+		    <xforms:bind nodeset="my_short" type="xsd:short"/>
+		    <xforms:bind nodeset="my_byte" type="xsd:byte"/>
+		    <xforms:bind nodeset="my_nonNegativeInteger" type="xsd:nonNegativeInteger"/>
+		    <xforms:bind nodeset="my_unsignedLong" type="xsd:unsignedLong"/>
+		    <xforms:bind nodeset="my_unsignedInt" type="xsd:unsignedInt"/>
+		    <xforms:bind nodeset="my_unsignedShort" type="xsd:unsignedShort"/>
+		    <xforms:bind nodeset="my_unsignedByte" type="xsd:unsignedByte"/>
+		    <xforms:bind nodeset="my_positiveInteger" type="xsd:positiveInteger"/>
+
 		</xforms:model>
     <xforms:model id="event_model">
 			<xforms:instance>
-				<events>
+	           <events xmlns="">
 					<event/>
 					<event/>
 					<event/>
@@ -66,7 +76,6 @@
 					<xforms:label/>
 				</xforms:output>
 			</xforms:repeat>
-			<xforms:reset model="event_model"/>
 		</xforms:group>
 	    <xforms:trigger>
 		  <xforms:label>Valid Values</xforms:label>

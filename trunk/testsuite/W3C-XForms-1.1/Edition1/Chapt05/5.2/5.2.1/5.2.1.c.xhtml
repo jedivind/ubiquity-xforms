@@ -3,48 +3,73 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>5.2.1.c built-in data types which allow empty content for basic processors</title>
-        
-        
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
     </head>
     <body>
-    <xforms:model id="emptyData_model">
+        <xforms:model id="emptyData_model">
             <xforms:instance>
                 <types>
-                    <my_dateTime xsi:type="xforms:dateTime"/>
-                    <my_date xsi:type="xforms:date"/>
-                    <my_time xsi:type="xforms:time"/>
-                    <my_gYearMonth xsi:type="xforms:gYearMonth"/>
-                    <my_gYear xsi:type="xforms:gYear"/>
-                    <my_gMonthDay xsi:type="xforms:gMonthDay"/>
-                    <my_gDay xsi:type="xforms:gDay"/>
-                    <my_gMonth xsi:type="xforms:gMonth"/>
-                    <my_string xsi:type="xforms:string"/>
-                    <my_boolean xsi:type="xforms:boolean"/>
-                    <my_base64Binary xsi:type="xforms:base64Binary"/>
-                    <my_decimal xsi:type="xforms:decimal"/>
-                    <my_anyURI xsi:type="xforms:anyURI"/>
-                    <my_integer xsi:type="xforms:integer"/>
-                    <my_nonPositiveInteger xsi:type="xforms:nonPositiveInteger"/>
-                    <my_negativeInteger xsi:type="xforms:negativeInteger"/>
-                    <my_long xsi:type="xforms:long"/>
-                    <my_int xsi:type="xforms:int"/>
-                    <my_short xsi:type="xforms:short"/>
-                    <my_byte xsi:type="xforms::byte"/>
-                    <my_nonNegativeInteger xsi:type="xforms:nonNegativeInteger"/>
-                    <my_unsignedLong xsi:type="xforms:unsignedLong"/>
-                    <my_unsignedInt xsi:type="xforms:unsignedInt"/>
-                    <my_unsignedShort xsi:type="xforms:unsignedShort"/>
-                    <my_unsignedByte xsi:type="xforms:unsignedByte"/>
-                    <my_positiveInteger xsi:type="xforms:positiveInteger"/>
+				  <my_dateTime />
+				  <my_date />
+				  <my_time />
+				  <my_gYearMonth />
+				  <my_gYear />
+				  <my_gMonthDay />
+				  <my_gDay />
+				  <my_gMonth />
+				  <my_string />
+				  <my_boolean />
+				  <my_base64Binary />
+				  <my_decimal />
+				  <my_anyURI />
+				  <my_integer />
+				  <my_nonPositiveInteger />
+				  <my_negativeInteger />
+				  <my_long />
+				  <my_int />
+				  <my_short />
+				  <my_byte />
+				  <my_nonNegativeInteger />
+				  <my_unsignedLong />
+				  <my_unsignedInt />
+				  <my_unsignedShort />
+				  <my_unsignedByte />
+				  <my_positiveInteger />
                 </types>
             </xforms:instance>
+
+		    <xforms:bind nodeset="my_dateTime" type="xforms:dateTime" />
+		    <xforms:bind nodeset="my_date" type="xforms:date" />
+		    <xforms:bind nodeset="my_time" type="xforms:time" />
+		    <xforms:bind nodeset="my_gYearMonth" type="xforms:gYearMonth" />
+		    <xforms:bind nodeset="my_gYear" type="xforms:gYear" />
+		    <xforms:bind nodeset="my_gMonthDay" type="xforms:gMonthDay" />
+		    <xforms:bind nodeset="my_gDay" type="xforms:gDay" />
+		    <xforms:bind nodeset="my_gMonth" type="xforms:gMonth" />
+		    <xforms:bind nodeset="my_string" type="xforms:string" /> 
+  		    <xforms:bind nodeset="my_boolean" type="xforms:boolean" />
+		    <xforms:bind nodeset="my_base64Binary" type="xforms:base64Binary" />
+		    <xforms:bind nodeset="my_decimal" type="xforms:decimal" />
+		    <xforms:bind nodeset="my_anyURI" type="xforms:anyURI" />
+		    <xforms:bind nodeset="my_integer" type="xforms:integer" />
+		    <xforms:bind nodeset="my_nonPositiveInteger" type="xforms:nonPositiveInteger" />
+		    <xforms:bind nodeset="my_negativeInteger" type="xforms:negativeInteger" />
+		    <xforms:bind nodeset="my_long" type="xforms:long" />
+		    <xforms:bind nodeset="my_int" type="xforms:int" />
+		    <xforms:bind nodeset="my_short" type="xforms:short" />
+		    <xforms:bind nodeset="my_byte" type="xforms::byte" />
+		    <xforms:bind nodeset="my_nonNegativeInteger" type="xforms:nonNegativeInteger" />
+		    <xforms:bind nodeset="my_unsignedLong" type="xforms:unsignedLong" />
+		    <xforms:bind nodeset="my_unsignedInt" type="xforms:unsignedInt" />
+		    <xforms:bind nodeset="my_unsignedShort" type="xforms:unsignedShort" />
+		    <xforms:bind nodeset="my_unsignedByte" type="xforms:unsignedByte" />
+		    <xforms:bind nodeset="my_positiveInteger" type="xforms:positiveInteger" />
             <xforms:bind nodeset="/types" relevant="false()"/>
         </xforms:model>
-    <xforms:model id="event_model">
+        <xforms:model id="event_model">
             <xforms:instance>
-                <events>
+	           <events xmlns="">
                     <event/>
                     <event/>
                     <event/>
@@ -239,10 +264,10 @@
         <xforms:group>
             <xforms:input ref="my_integer">
                 <xforms:label>integer</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[14]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model"  ref="/events/event[14]">
                     XFORMS-INVALID(integer)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[14]">
+ 	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[14]">
                     xforms-valid (integer)
                 </xforms:setvalue>
             </xforms:input>
@@ -250,10 +275,10 @@
         <xforms:group>
             <xforms:input ref="my_nonPositiveInteger">
                 <xforms:label>nonPositiveInteger</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[15]">
+ 	            <xforms:setvalue ev:event="xforms-invalid" model="event_model"  ref="/events/event[15]">
                     XFORMS-INVALID (nonPositiveInteger)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[15]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[15]">
                     xforms-valid (nonPositiveInteger)
                 </xforms:setvalue>
             </xforms:input>
@@ -261,10 +286,10 @@
         <xforms:group>
             <xforms:input ref="my_negativeInteger">
                 <xforms:label>negativeInteger</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[16]">
+            	<xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[16]">
                     XFORMS-INVALID (negativeInteger)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[16]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[16]">
                     xforms-valid(negativeInteger)
                 </xforms:setvalue>
             </xforms:input>
@@ -272,10 +297,10 @@
         <xforms:group>
             <xforms:input ref="my_long">
                 <xforms:label>long</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[17]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[17]">
                     XFORMS-INVALID (long)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[17]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[17]">
                     xforms-valid (long)
                 </xforms:setvalue>
             </xforms:input>
@@ -283,10 +308,10 @@
         <xforms:group>
             <xforms:input ref="my_int">
                 <xforms:label>int</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[18]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[18]">
                     XFORMS-INVALID (int)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[18]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model"  ref="/events/event[18]">
                     xforms-valid (int)
                 </xforms:setvalue>
             </xforms:input>
@@ -294,10 +319,10 @@
         <xforms:group>
             <xforms:input ref="my_short">
                 <xforms:label>short</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[19]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[19]">
                     XFORMS-INVALID (short)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[19]">
+  	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[19]">
                     xforms-valid (short)
                 </xforms:setvalue>
             </xforms:input>
@@ -305,10 +330,10 @@
         <xforms:group>
             <xforms:input ref="my_byte">
                 <xforms:label>byte</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[20]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[20]">
                     XFORMS-INVALID (byte)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[20]">
+  	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[20]">
                     xforms-valid (byte)
                 </xforms:setvalue>
             </xforms:input>
@@ -316,10 +341,10 @@
         <xforms:group>
             <xforms:input ref="my_nonNegativeInteger">
                 <xforms:label>nonNegativeInteger</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[21]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[21]">
                     XFORMS-INVALID (nonNegativeInteger)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[21]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[21]">
                     xforms-valid (nonNegativeInteger)
                 </xforms:setvalue>
             </xforms:input>
@@ -327,10 +352,10 @@
         <xforms:group>
             <xforms:input ref="my_unsignedLong">
                 <xforms:label>unsignedLong</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[22]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model"  ref="/events/event[22]">
                     XFORMS-INVALID (unsignedLong)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[22]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model"  ref="/events/event[22]">
                     xforms-valid (unsignedLong)
                 </xforms:setvalue>
             </xforms:input>
@@ -338,10 +363,10 @@
         <xforms:group>
             <xforms:input ref="my_unsignedInt">
                 <xforms:label>unsignedInt</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[23]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[23]">
                     XFORMS-INVALID (unsignedInt)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[23]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[23]">
                     xforms-valid (unsignedInt)
                 </xforms:setvalue>
             </xforms:input>
@@ -349,10 +374,10 @@
         <xforms:group>
             <xforms:input ref="my_unsignedShort">
                 <xforms:label>unsignedShort</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[24]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model"  ref="/events/event[24]">
                     XFORMS-INVALID (unsignedShort)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[24]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[24]">
                     xforms-valid (unsignedShort)
                 </xforms:setvalue>
             </xforms:input>
@@ -360,10 +385,10 @@
         <xforms:group>
             <xforms:input ref="my_unsignedByte">
                 <xforms:label>unsignedByte</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[25]">
+	             <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[25]">
                     XFORMS-INVALID (unsignedByte)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[25]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model"  ref="/events/event[25]">
                     xforms-valid (unsignedByte)
                 </xforms:setvalue>
             </xforms:input>
@@ -371,10 +396,10 @@
         <xforms:group>
             <xforms:input ref="my_positiveInteger">
                 <xforms:label>positiveInteger</xforms:label>
-                <xforms:setvalue ev:event="xforms-invalid" model="event_model" ref="/events/event[26]">
+	            <xforms:setvalue ev:event="xforms-invalid" model="event_model"  ref="/events/event[26]">
                     XFORMS-INVALID (positiveInteger)
                 </xforms:setvalue>
-                <xforms:setvalue ev:event="xforms-valid" model="event_model" ref="/events/event[26]">
+	            <xforms:setvalue ev:event="xforms-valid" model="event_model"  ref="/events/event[26]">
                     xforms-valid event (positiveInteger)
                 </xforms:setvalue>
             </xforms:input>
