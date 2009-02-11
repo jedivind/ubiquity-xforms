@@ -19,25 +19,22 @@
 		  </prices>
         </car>
       </xforms:instance>
-      <xforms:bind id="bind_001"/>
-      <xforms:bind id="bind_002" nodeset="/car">
-        <xforms:bind calculate="avg(prices/price)"/>
+      <xforms:bind id="bind_001" nodeset="avg">
+        <!-- bind with no nodeset -->
+        <xforms:bind calculate="avg(../prices/price)"/>
       </xforms:bind>
     </xforms:model>
+
   	<xforms:group>
   		<xforms:label class="title">3.3.4.b more bind element examples</xforms:label>
   	</xforms:group>
+
 	<xforms:group>
-		<xforms:label>You must see the value &quot;not 3000&quot;:</xforms:label>
-	</xforms:group>
+	  <xforms:label>You must see the value &quot;2000&quot;:</xforms:label>
     <xforms:output bind="bind_001">
-        <xforms:label></xforms:label>
+        <xforms:label>Average car price: </xforms:label>
     </xforms:output>
-	<xforms:group>
-		<xforms:label>You must see the value &quot;2000&quot;:</xforms:label>
 	</xforms:group>
-    <xforms:output bind="bind_002">
-        <xforms:label></xforms:label>
-    </xforms:output>
+
   </body>
 </html>
