@@ -224,8 +224,7 @@ submission.prototype.processResponseHeaders = function(oHeaders) {
 submission.prototype.submit = function(oSubmission) {
 	var sResource = null;
     var oEvt = null;
-    var ns = oSubmission.getElementsByTagName("extension");
-    var oExtDom = null;
+    var ns = null;
     var instanceId = oSubmission.getAttribute("instance");
     var instance;
     var sAction = oSubmission.getAttribute("action");
@@ -240,11 +239,6 @@ submission.prototype.submit = function(oSubmission) {
     var xmlDoc = new XDocument();
     var oSubmissionBody = xmlDoc.createTextNode("");    
  
-    if (ns && ns.length > 0) {
-        var oExt = ns[0];
-        oExtDom = oExt.getDocument();
-    }
-
     /*
      * XForms 1.0
      * 
@@ -294,34 +288,6 @@ submission.prototype.submit = function(oSubmission) {
     sResource = sResource || oSubmission.getAttribute("resource"); 
     sAction = sResource || sAction;   
      
-    if (oExtDom) {
-        // See if there are any nodes for an action.
-        var oRes = oContext.model.EvaluateXPath("/sub/action/part", {
-            node :oExtDom,
-            model :oContext.model,
-            resolverElement :oExt
-        });
-
-        if (oRes && oRes.type == "node-set") {
-            ns = oRes.nodeSetValue();
-
-            // Loop through them, creating the action URL.
-            // 
-            // [ISSUE] We ignore any action placed on the submission element,
-            // but why not concatenate? This is how fP behaves, so only change
-            // this when fP is also changed.
-            sAction = "";
-
-            if (ns) {
-                for ( var i = 0; i < ns.length; i++) {
-                    sAction += getElementValueOrContent(oContext, ns[i]);
-                }
-                oSubmission.ownerDocument.logger.log(
-                        "@action = '" + sAction + "'", "submission");
-            }
-        }
-    }
-
     if (!sMethod) {
         throw "A submission method is required.";
     }    
@@ -420,7 +386,7 @@ submission.prototype.submit = function(oSubmission) {
 		// callback
 
 		var oCallback = new callback(this, oSubmission, oContext);
-		this.setHeaders(oContext.model, oExtDom, oSubmission);
+		this.setHeaders(oContext.model, oSubmission);
 
 		try {
 
@@ -511,48 +477,16 @@ submission.prototype.buildFormFromObject = function(object) {
 	return form;
 };
 
-submission.prototype.setHeaders = function(oModel, oExtdom, oSubmission) {
+submission.prototype.setHeaders = function(oModel, oSubmission) {
 	var headers = {};
-	
 	var i, j;
-	var nodelist;
 	var elements;
+	var nodelist;
 	var path;
 	var header;
 	var name;
-	var value;
 	var values;
-	
-    if (oExtdom) {
-		nodelist = oModel.EvaluateXPath("//headers/header", oExtdom);
-		
-		for ( i = 0; i < headers.value.length; ++i ) {
-			path = nodelist.value[i].getAttribute("value");
-			
-			if (path) {
-				header = oModel.EvaluateXPath(path, null);
-				
-				if (header) {
-					value = "";
-					switch (typeof (header.value)) {
-					case "string":
-						value = header.value;
-						break;
-					case "object":
-						value = header.value[0].nodeValue;
-						break;
-					}
-					name = nodelist.value[i].getAttribute("name");
-					
-					if (headers[name]) {
-						headers[name].push(value);
-					} else {
-						headers[name] = [value];
-					}
-				}
-			}
-		}
-	}
+	var value;
 	
 	elements = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header");
 	for ( i = 0; i < elements.length; ++i) {
