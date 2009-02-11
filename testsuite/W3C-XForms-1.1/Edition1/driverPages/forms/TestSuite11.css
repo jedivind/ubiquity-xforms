@@ -33,7 +33,7 @@ body {
 }
 
 
-xf\:label.title, xforms\:label.title
+xf\:label.title, xforms\:label.title, p.title
 {
     font-size: 15pt; 
     font-weight: bold;
