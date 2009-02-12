@@ -116,6 +116,8 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-model-actions",        type: "js",  fullpath: moduleBase + "modelactions.js",
   		requires:["xforms-actions","xforms-processor"]});  
 
+  	loader.addModule({ name: "xforms-setindex",             type: "js",  fullpath: moduleBase + "setindex.js",
+  	    	requires:["xforms-instance","xforms-actions"]});
   	loader.addModule({ name: "xforms-setvalue",             type: "js",  fullpath: moduleBase + "setvalue.js",
   	    	requires:["xforms-instance","xforms-actions"]});
     loader.addModule({ name: "xforms-insert",               type: "js",  fullpath: moduleBase + "insert.js",
@@ -195,7 +197,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-item",
         "xforms-actions","xforms-model-actions",
-        "xforms-setvalue","xforms-insert","xforms-delete",
+        "xforms-setindex", "xforms-setvalue", "xforms-insert", "xforms-delete",
         "xforms-toggle", 
         "xforms-submit",
         "xforms-hint",

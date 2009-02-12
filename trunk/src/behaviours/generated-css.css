@@ -187,6 +187,11 @@ xf\:refresh, xforms\:refresh {
 xf\:reset, xforms\:reset {
   -moz-binding: url("decorator.xml#decorator");
 }
+
+xf\:setindex, xforms\:setindex {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
 xf\:label >  pe-value, xforms\:label >  pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }

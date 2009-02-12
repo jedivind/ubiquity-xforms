@@ -13,37 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global DeferToConditionalInvocationProcessor, ActionExecutor*/
 
-function XFAction(elmnt)
-{
+function XFAction(elmnt) {
 	this.element = elmnt;
 }
 
 XFAction.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-XFAction.prototype.performAction = function(evt)
-{
-	/*
-	 * An action handler simply supports a handleEvent method,
-	 * so loop through executing them all.
-	 */
-	var oColl = this.element.childNodes;
+XFAction.prototype.performAction = function (evt) {
+  var oColl, i;
+	 // An action handler simply supports a handleEvent method,
+	 // so loop through executing them all.
+	 
+	oColl = this.element.childNodes;
 
-	for (var i = 0; i < oColl.length; i++)
-	{
-		try
-		{
-			if(oColl.item(i).nodeType == 1)
-				ActionExecutor.invokeListener(oColl.item(i), evt);	
-		}
-		catch(e)
-		{
-			/*
-			 * If an action handler isn't yet implemented then
-			 * it needs to be added.
-			 */
-			//debugger;
-		}
+	for (i = 0; i < oColl.length; i++) {
+		if (oColl.item(i).handleEvent) {
+			ActionExecutor.invokeListener(oColl.item(i), evt);
+	  } 
 	}
 	return;
-}
+};
