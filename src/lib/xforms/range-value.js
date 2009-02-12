@@ -18,8 +18,7 @@
 
 var rangecount = 0;
 
-function RangeValue(elmnt)
-{
+function RangeValue(elmnt) {
 	this.element = elmnt;
 	this.currValue = "";
 	this.m_bFirstSetValue = true;
@@ -33,8 +32,7 @@ function RangeValue(elmnt)
 }
 
 
-function rangeValueChanged(pThis, sNewValue)
-{
+function rangeValueChanged(pThis, sNewValue) {
 	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
 	if (oEvt.initMutationEvent === undefined) {
 		oEvt.initMutationEvent = oEvt.initEvent;
@@ -47,10 +45,8 @@ function rangeValueChanged(pThis, sNewValue)
 	  });
 }
 
-RangeValue.prototype.onDocumentReady = function ()
-{
-	if (this.element.ownerDocument.media !== "print")
-	{
+RangeValue.prototype.onDocumentReady = function () {
+	if (this.element.ownerDocument.media !== "print")	{
 		this.element.innerHTML = "<div id='slider-bg" + rangecount + "' class='slider-bg'><div class='slider-thumb' id='slider-thumb" + rangecount + "'> </div></div>";
 		this.tickCount = this.end - this.start;
 		this.trackWidth = 200;
@@ -69,21 +65,22 @@ RangeValue.prototype.onDocumentReady = function ()
 	}
 };
 
-RangeValue.prototype.setValue = function (sValue)
-{
-	var bRet = false, valueAsSliderPosition = this.sliderPositionFromDataValue(sValue);
-	if (this.m_value.getValue() !== valueAsSliderPosition)
-	{
+RangeValue.prototype.setValue = function (sValue) {
+	var bRet = false, nValue = Number(sValue), valueAsSliderPosition = this.sliderPositionFromDataValue(nValue);
+	if (this.m_value.getValue() !== valueAsSliderPosition) {
 		this.m_value.setValue(valueAsSliderPosition, true, true, true);
 		this.currValue = sValue;
 		bRet = true;
-	}
-	else if (this.m_bFirstSetValue)
-	{
+	} else if (this.m_bFirstSetValue)	{
 		bRet = true;
 		this.m_bFirstSetValue = false;
 	}
 	
+	if (nValue > this.end || nValue < this.start || this.quantizeValue(nValue) !== nValue) {
+	  this.element.parentNode.onOutOfRange();
+	} else {
+	  this.element.parentNode.onInRange();
+	}
 	return bRet;
 };
 

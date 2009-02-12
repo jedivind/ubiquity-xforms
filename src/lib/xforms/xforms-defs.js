@@ -135,7 +135,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "range-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, Context, Control, FiniteControl]);
             }
         }
         ],
