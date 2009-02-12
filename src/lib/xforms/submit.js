@@ -24,12 +24,14 @@ Submit.prototype.performAction = function(oEvt) {
     var control = this;
     var oSubmission = null;
     var oDocument = control.element.ownerDocument;
-
     if (oEvt.type === "DOMActivate") {
         var sID = control.element.getAttribute("submission");
 
         if (sID) {
             oSubmission = oDocument.getElementById(sID);
+            if (!oSubmission || !NamespaceManager.compareFullName(oSubmission,"submission","http://www.w3.org/2002/xforms")) {
+              UX.dispatchEvent(this.element, "xforms-binding-exception",  true, false, false);
+            }
         } else {
             // if there is not a declared submssion id, get the first submission
             // element of the default model
@@ -46,6 +48,10 @@ Submit.prototype.performAction = function(oEvt) {
                     }
                 }
             }
+            
+            if (!oSubmission) {
+              throw "There is no submission element associated with the default model.";
+            }
         } 
         
         if (oSubmission) {
@@ -54,11 +60,6 @@ Submit.prototype.performAction = function(oEvt) {
             spawn( function() {
                 FormsProcessor.dispatchEvent(oSubmission, oSubmitEvt)
             });
-        } else {
-            var sErrMsg = sID ?
-             "There is no submission element with an ID of '" + sID + "'" :
-             "There is no submission element associated with the default model."; 
-            throw sErrMsg;
         }
     }
 };
