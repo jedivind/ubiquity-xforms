@@ -162,16 +162,14 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
   
 };
 
-Repeat.prototype.normaliseIndex  = function () {
-    
-  if (this.m_nIndex < 1) {
-    this.m_nIndex = 1;
-  }
-  
-  if (this.m_nIndex > this.m_iterationNodesetLength) {
-    this.m_nIndex = this.m_iterationNodesetLength;
-  }
 
+/**
+  function: normaliseIndex
+  returns: The result of constraining val within the range of 1 to the length of the iteration nodeset.
+*/
+
+Repeat.prototype.normaliseIndex = function (val) {
+  return Math.max(Math.min(val,this.m_iterationNodesetLength),1);
 };
 
 Repeat.prototype.rewire = function () {
@@ -210,7 +208,7 @@ Repeat.prototype.rewire = function () {
   
   if (arrNodes) {
     this.m_iterationNodesetLength = arrNodes.length;
-    this.normaliseIndex();
+    this.m_nIndex = this.normaliseIndex(this.m_nIndex);
     this.putIterations(this.getRequestedIterationCount());
 
     if (!UX.hasDecorationSupport) {
@@ -226,3 +224,15 @@ Repeat.prototype.getIndex = function () {
   return this.m_nIndex;
 };
 
+Repeat.prototype.setIndex = function (newIndex) {
+  var ix = this.normaliseIndex(newIndex)
+  if (ix !== this.m_nIndex) {
+    this.m_nIndex = ix;
+    if (this.m_nIndex > newIndex) {
+      UX.dispatchEvent(this.element, "xforms-scroll-first", true, false, true);
+    } else if (this.m_nIndex < newIndex){
+      UX.dispatchEvent(this.element, "xforms-scroll-last", true, false, true);
+    }
+    this.m_context.model.flagRebuild();
+  }
+};

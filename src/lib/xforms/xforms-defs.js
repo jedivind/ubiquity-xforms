@@ -263,6 +263,15 @@ DECORATOR.addDecorationRules({
         }
         ],
 
+        "setindex" : [
+        {
+            "name" : "setindex-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([Listener, Context, SetIndex]);
+            }
+        }
+        ],
+        
         "setvalue" : [
         {
             "name" : "setvalue-element",
@@ -787,6 +796,11 @@ DECORATOR.setupDecorator(
     		objects:[]
 		},
 
+		{
+			selector:"xf|setindex",
+			objects:[]
+		},
+		
 		{
 			selector:"xf|setvalue",
 			objects:[]
