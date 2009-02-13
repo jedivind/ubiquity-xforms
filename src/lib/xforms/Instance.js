@@ -246,63 +246,115 @@ Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
 };// deleteNodes()
 
 Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, position, originExpr) {
-    var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
-    var nsOrigin = (originExpr) ? this.evalXPath(originExpr, oContext).nodeSetValue() 
+	var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
+	var nsOrigin = (originExpr) ? this.evalXPath(originExpr, oContext).nodeSetValue() 
                                 : ((ns) ? new Array(ns[ns.length-1]) : null);
-    var at, after, i, node, insertLocationNode, insertBeforeNode, cloneNode, nsLocationNode = [ ], nsInserted = [ ], evt;    
+	var at, after, i, insertLocationNode, insertTarget, insertBeforeNode, cloneNode,
+		nsLocationNode = [ ], nsInserted = [ ], evt, atRoot, insertNode;    
     
-    // If there's no context node, then insertion is not possible, so
-    // we'll just no-op in that case.
-    //
-    if (oContext) {        
-        // If, in addition to a context, there is a nodeset, then the insertion will occur within the nodeset
-        //
-        if (ns && ns.length > 0) {
-            // If the 'at' value is not given, then it defaults to the nodeset size.
-            // If the expression is given, then we round its result.  
-            // If the result is too small, then it is 1.
-            // If it is in range, it is used.  Otherwise, if it 
-            // is too big or isNaN, then it is set to the nodeset size
-            //
-            at = (atExpr) ? Math.round(this.evalXPath(atExpr, oContext).numberValue()) : ns.length; 
-            at = at < 1 ? 1 : (at <= ns.length ? at : ns.length);
+	// If there's no context node, then insertion is not possible, so
+	// we'll just no-op in that case.
+	//
+	if (oContext) {        
+		// If, in addition to a context, there is a nodeset, then the insertion will occur within the nodeset
+		//
+		if (ns && ns.length > 0) {
+			// If the 'at' value is not given, then it defaults to the nodeset size.
+			// If the expression is given, then we round its result.  
+			// If the result is too small, then it is 1.
+			// If it is in range, it is used.  Otherwise, if it 
+			// is too big or isNaN, then it is set to the nodeset size
+			//
+			at = (atExpr) ? Math.round(this.evalXPath(atExpr, oContext).numberValue()) : ns.length; 
+			at = at < 1 ? 1 : (at <= ns.length ? at : ns.length);
                     
-            insertLocationNode = ns[at-1];
-            nsLocationNode.push(insertLocationNode);
+			insertLocationNode = ns[at-1];
+			nsLocationNode.push(insertLocationNode);
 
-            after = (position) ? (position !== 'before') : true;
+			after = (position) ? (position !== 'before') : true;
             
-            if (after) {
-                insertBeforeNode = insertLocationNode.nextSibling ? insertLocationNode.nextSibling : null;
-            } else {
+			if (after) {
+				insertBeforeNode = insertLocationNode.nextSibling ? insertLocationNode.nextSibling : null;
+			} else {
                 insertBeforeNode = insertLocationNode;
             }
             
-            // Each inserted node is added to the nsInserted list
-            // The nodes are inserted before a particular child node, or 
-            // if insertBeforeNode is null, then insertBefore() apppends the nodes
-            //
-            for (i=0; i < nsOrigin.length; i++) {
-                cloneNode = nsOrigin[i].cloneNode(true);
-                insertLocationNode.parentNode.insertBefore(cloneNode, insertBeforeNode);
-                nsInserted.push(cloneNode);
-            }        
-        } // end if (non-empty nodeset) 
+			// The insert target from DOM's perspective is the parent of the
+			// node calculated so far.
+			//
+			insertTarget = insertLocationNode.parentNode;
+            
+		} // end if (non-empty nodeset) 
         
-        // If there is no nodeset but there was a context attribute which indicated a node into 
-        // which an insertion should occur, and if there are one or more origin nodes, then we 
-        // can proceed with insertion
-        //
-        else if (oContext.initialContext && nsOrigin && nsOrigin.length > 0) {
-            insertLocationNode = oContext.node ? oContext.node : oContext;
-            nsLocationNode.push(insertLocationNode);
-            insertBeforeNode = (insertLocationNode.firstChild) ? insertLocationNode.firstChild : null;
-            for (i=0; i < nsOrigin.length; i++) {
-                cloneNode = nsOrigin[i].cloneNode(true);
-                insertLocationNode.insertBefore(cloneNode, insertBeforeNode);
-                nsInserted.push(cloneNode);
-            }                
-        }
+		// If there is no nodeset but there was a context attribute which indicated a node into 
+		// which an insertion should occur, and if there are one or more origin nodes, then we 
+		// can proceed with insertion
+		//
+		else if (oContext.initialContext && nsOrigin && nsOrigin.length > 0) {
+			insertTarget = oContext.node ? oContext.node : oContext;            
+			nsLocationNode.push(insertTarget);
+			insertBeforeNode = (insertTarget.firstChild) ? insertTarget.firstChild : null;
+		}
+        
+		// otherwise insertTarget intentionally left undefined, thus
+		// insertion cannot be substantiated which results in the NO-OP
+       
+		if (insertTarget) {
+			// Insert target found.            
+       	
+			// Clone nodes to be inserted first and add them to nsInserted array.
+			// Conceivably, origin nodes could be removed, if inserting at the root (see below).
+			// At the same time determine if the insertion is 'at root' and, 
+			// if so, is it legal (no more the one element can be inserted).
+			// Note, that if it is NOT legal the second and the following
+			// element nodes are not inserted (ignored). 
+        	
+			atRoot = false;
+			for (i = 0; i < nsOrigin.length; i++) {
+				insertNode = true;
+				if ((insertTarget.nodeType === DOM_DOCUMENT_NODE) && (nsOrigin[i].nodeType === DOM_ELEMENT_NODE)) {
+					if (atRoot) {
+						insertNode = false;
+					}
+					else {
+						atRoot = true;
+					}
+				}
+               
+				if (insertNode) {
+					cloneNode = nsOrigin[i].cloneNode(true);
+					nsInserted.push(cloneNode);
+				}
+			}
+        	
+			// Treat the special case of insertion at the root of the instance here.
+			// Namely, before the element could be inserted into document node
+			// remove the existing document element.
+        	
+			if (atRoot) {       		
+				insertLocationNode = insertTarget.firstChild;
+				while (insertLocationNode && (insertLocationNode.nodeType !== DOM_ELEMENT_NODE)) {
+					insertLocationNode = insertLocationNode.nextSibling;
+				}
+        		
+				if (insertLocationNode) {
+					insertTarget.removeChild(insertLocationNode);
+				}
+			}
+        	
+			// Finally, the actual insertion.
+			// The nodes are inserted before a particular child node, or 
+			// or appended if insertBeforeNode is falsy.
+	        
+			for (i = 0; i < nsInserted.length; i++) {           	
+				if (insertBeforeNode) {
+					insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
+				} 
+				else {
+					insertTarget.appendChild(nsInserted[i]);
+				}
+			}
+		}
     } // end if (oContext)
      
     // If we have inserted any nodes then dispatch an event and return true; otherwise just return false
