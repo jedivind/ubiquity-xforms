@@ -48,7 +48,7 @@
 		
 	});
 
-	// Add test for delete nodes.
+	// Add test for insert nodes.
 	//
 	suite.add(
 		new YAHOO.tool.TestCase({
@@ -190,6 +190,19 @@
                 Assert.areEqual(3, suite.testInstance.evalXPath('count(order/item)').numberValue(), "Expected 3 item elements");
                 Assert.isTrue(suite.testInstance.evalXPath('order/item[3]/product = ""').booleanValue(), "Wrong product name");
 
+                return;
+            },
+
+            // Test insertion of the root (document) element of an instance.
+            //
+            testInsertRootElement: function() {
+                Assert.isTrue(suite.testInstance.insertNodes(
+                        suite.testInstance.evalXPath('.').nodeSetValue()[0],  
+                        ".", "1", "after", "/po/prototype"), 
+                        "Insert instance subtree at the instance root failed");
+
+                Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
+                   
                 return;
             }
 
