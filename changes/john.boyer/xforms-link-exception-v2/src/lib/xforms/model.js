@@ -503,6 +503,18 @@ function _model_contentReady(pThis) {
                     pThis.modelConstructDone();
                 }
             }, false);
+
+    /*
+     * Register the default xforms-link-exception handler.
+     */
+    FormsProcessor.addDefaultEventListener(pThis,
+            "xforms-link-exception", {
+                handleEvent : function(evt) {
+                    FormsProcessor.halted = true;
+                    document.logger.log("xforms-link-exception with resource-uri of [" + evt.context["resource-uri"] + "]");
+                }
+            }, false);
+
     return;
 }
 

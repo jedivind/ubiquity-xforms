@@ -145,6 +145,7 @@ function XFormsProcessor() {
   this.defaultHandlers = {};
   this.eventStack = [];
   this.hintOffCounter = 0;
+  this.halted = false;
 }
 
 XFormsProcessor.prototype.inheritTrue = function (sMIP, oNode) {
