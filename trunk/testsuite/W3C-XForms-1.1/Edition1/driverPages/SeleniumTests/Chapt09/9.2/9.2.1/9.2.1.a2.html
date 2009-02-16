@@ -45,19 +45,19 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in']/xforms:switch/xforms:case/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:group/xforms:switch/xforms:case[@id='in']/xforms:trigger</td>
 					<td></td>
 					<td>Checks that the trigger is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:switch/xforms:case/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:group/xforms:switch/xforms:case[@id='out']/xforms:trigger</td>
 					<td></td>
 					<td>Checks that the trigger is in the form</td>
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:switch/xforms:case[@id='in']/xforms:switch/xforms:case/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:group/xforms:switch/xforms:case[@id='in']/xforms:trigger</td>
 					<td></td>
 					<td>Clicks on the button</td>
 				</tr>
@@ -69,57 +69,9 @@
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-disabled*OK</td>
+					<td>[XForms]*Switch is readonly*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-enabled*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
-					<td></td>
-					<td>Clicks on OK button</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
-					<td></td>
-					<td>Clicks on OK button</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/xforms:switch/xforms:case[@id='out']/xforms:switch/xforms:case/xforms:trigger</td>
-					<td></td>
-					<td>Clicks on the button</td>
-				</tr>
-				<tr>
-					<td>pause</td>
-					<td>200</td>
-					<td></td>
-					<td>Waits for the form to load</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-disabled*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-enabled*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
-					<td></td>
-					<td>Clicks on OK button</td>
 				</tr>
 				<tr>
 					<td>click</td>

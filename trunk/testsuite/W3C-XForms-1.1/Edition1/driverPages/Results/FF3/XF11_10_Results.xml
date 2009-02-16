@@ -375,7 +375,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-delete</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passes</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2009-02-10</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>

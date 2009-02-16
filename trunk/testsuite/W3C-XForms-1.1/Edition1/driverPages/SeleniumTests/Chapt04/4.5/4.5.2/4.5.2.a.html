@@ -45,21 +45,15 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:output[@value='es@#invalidXpath']</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@calculate='es@#invalidXpath']</td>
 					<td></td>
-					<td>Checks that the output is in the form</td>
+					<td>Checks that the bind is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:output[@model='catcher' and @ref='/eventdata']</td>
-					<td></td>
-					<td>Checks that the error output is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:output[@model='catcher' and @ref='/eventdata']</td>
-					<td>Error Message : ???*</td>
-					<td>Checks that the output has the right value</td>
+					<td>verifyNotText</td>
+					<td>xpath=/html/body/xforms:output[@ref='/data']</td>
+					<td>*Hello world!*</td>
+					<td>Checks that the output does not have 'Hello world!'</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>

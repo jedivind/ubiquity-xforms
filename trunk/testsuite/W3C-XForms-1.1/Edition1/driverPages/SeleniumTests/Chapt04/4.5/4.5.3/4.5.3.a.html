@@ -57,13 +57,13 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:trigger/xforms:action[@ev:event='DOMActivate']/xforms:message[@ev:event='xforms-link-error']</td>
+					<td>xpath=/html/body/xforms:model/xforms:message[@ev:event='xforms-link-error']</td>
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:output[@model='catcher' and @ref='/eventdata']</td>
+					<td>xpath=/html/body/xforms:output[@model='catcher']</td>
 					<td></td>
 					<td>Checks that the error output is in the form</td>
 				</tr>
@@ -75,7 +75,7 @@
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:output[@model='catcher' and @ref='/eventdata']</td>
+					<td>xpath=/html/body/xforms:output[@model='catcher']</td>
 					<td>Resource URI : ???*</td>
 					<td>Checks that the output has the right value</td>
 				</tr>
