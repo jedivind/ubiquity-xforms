@@ -194,7 +194,7 @@ function XLinkElement(element)
 				oCallback =
 				{
 					success: embed_handleResponse,
-					failure: embed_handleResponse,
+					failure: embed_handleFailure,
 					scope:this
 				};
 				var oTargetElement = getTargetElement();
@@ -270,8 +270,13 @@ function XLinkElement(element)
 		catch(e)
 		{
 	//		alert(e + "\n" + sHref)
-			debugger;
-			//oCallBack.failure()
+            if (element.getAttribute("xlink:show") === "embed") {
+                oCallback.failure();
+            }
+            else {
+			    debugger;
+			}
+			//oCallback.failure()
 		}
 
 	}
@@ -310,7 +315,7 @@ function XLinkElement(element)
 		}
 	//	debugger;
 		spawn(	function(){
-					oTargetElement.xlinkEmbed(o.responseText);
+					oTargetElement.xlinkEmbed(o.responseText, element.getAttribute("xlink:href"));
 					window.status = "";
 					onXLinkTraversed();
 				}
@@ -320,6 +325,20 @@ function XLinkElement(element)
 		//See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731
 //			window.status = "";
 //			onXLinkTraversed()
+	}
+
+	function embed_handleFailure(o) {
+	    try {
+			var evt = element.ownerDocument.createEvent("Events");
+			evt.initEvent("xlink-traversal-failure", false,false);
+			evt.context = { "resource-uri": element.getAttribute("xlink:href") };
+			element.dispatchEvent(evt);
+		} catch (e) {
+		    // ignore
+		}
+		if(m_sActuate == "onRequest" && element.XLinkRequestEvent) {
+			element.removeEventListener(element.XLinkRequestEvent,this,false);
+		}
 	}
 
 	function onXLinkTraversed()
