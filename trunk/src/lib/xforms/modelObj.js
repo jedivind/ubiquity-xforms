@@ -32,6 +32,8 @@ function Model(elmnt) {
 
 
 Model.prototype.onDocumentReady = function() {
+    var self = this;
+
     this.setElementLoaded();
     this._testForReady();
 
@@ -43,6 +45,16 @@ Model.prototype.onDocumentReady = function() {
             this.model.reset();
         }
     }, false);
+
+    if (window.addEventListener) {
+        window.addEventListener("beforeunload", {
+            handleEvent : function (evt) {
+                self.modelDestruct();
+            }
+        }, false);
+    } else {
+        window.attachEvent("onbeforeunload", function () { self.modelDestruct(); });
+    }
 };
 
 
@@ -66,6 +78,9 @@ Model.prototype.modelConstructDone = function() {
     this.m_bReady = true;
 };
 
+Model.prototype.modelDestruct = function() {
+    UX.dispatchEvent(this.element, "xforms-model-destruct", false, false, false);
+};
 
 Model.prototype.fireMCD = function() {
     var evt = this.element.ownerDocument.createEvent("Events");
