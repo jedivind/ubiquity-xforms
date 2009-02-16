@@ -45,49 +45,49 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:bind[@type='nonEmptyString' and @nodeset='/person-name/first-name' and @p3ptype='user.name.given']</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/first-name' and @p3ptype='user.name.given']</td>
 					<td></td>
 					<td>Checks that the bind has a p3ptype attribute on it</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:bind[@type='nonEmptyString' and @nodeset='/person-name/last-name' and @p3ptype='user.name.family']</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/last-name' and @p3ptype='user.name.family']</td>
 					<td></td>
 					<td>Checks that the bind has a p3ptype attribute on it</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:input[@ref='first-name']</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/first-name']</td>
 					<td></td>
 					<td>Checks that the first input is in the form</td>
 				</tr>
 				<tr>
 					<td>type</td>
-					<td>xpath=/html/body/xforms:input[@ref='first-name']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/first-name']/pe-value/input</td>
 					<td>John</td>
 					<td>Try to type into the input field</td>
 				</tr>
 				<tr>
 					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:input[@ref='first-name']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/first-name']/pe-value/input</td>
 					<td>John</td>
 					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:input[@ref='last-name']</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/last-name']</td>
 					<td></td>
 					<td>Checks that the second input is in the form</td>
 				</tr>
 				<tr>
 					<td>type</td>
-					<td>xpath=/html/body/xforms:input[@ref='last-name']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/last-name']/pe-value/input</td>
 					<td>Smith</td>
 					<td>Try to type into the second input field</td>
 				</tr>
 				<tr>
 					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:input[@ref='last-name']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/last-name']/pe-value/input</td>
 					<td>Smith</td>
 					<td>Checks that the second input has the right value</td>
 				</tr>

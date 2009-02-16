@@ -51,15 +51,15 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:output[@model='catcher' and @ref='/eventdata']</td>
+					<td>xpath=/html/body/xforms:output[@ref='/data']</td>
 					<td></td>
-					<td>Checks that the error output is in the form</td>
+					<td>Checks that the output is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:output[@model='catcher' and @ref='/eventdata']</td>
-					<td>Error Information : ???*</td>
-					<td>Checks that the output has the right value</td>
+					<td>verifyNotText</td>
+					<td>xpath=/html/body/xforms:output[@ref='/data']</td>
+					<td>*Hello world!*</td>
+					<td>Checks output does not have 'Hello world!'</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>

@@ -10,7 +10,7 @@
      <body>
     <xforms:model>
                <xforms:instance id="data">
-                    <this>
+                    <this xmlns="">
                          <that>
                               <the_other>
 							  this that and the other...
@@ -18,29 +18,17 @@
                          </that>
                     </this>
                </xforms:instance>
-               <xforms:instance id="resource">
-                    <root>
-                         <resource>http://</resource>
-                    </root>
-               </xforms:instance>
                <xforms:instance id="event_catcher">
-                    <eventinfo>
-                         <return_code></return_code>
-                         <response_headers></response_headers>
+                    <eventinfo xmlns="">
+                         <return_code/>
+                         <response_headers/>
                     </eventinfo>
                </xforms:instance>
                <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="sub_1" method="post" ref="instance('data')" replace="none">
                     <xforms:action ev:event="xforms-submit-done">
-                         <xforms:setvalue ref="instance('event_catcher')/return_code" value="event('response-status-code')"></xforms:setvalue>
+                         <xforms:setvalue ref="instance('event_catcher')/return_code" value="event('response-status-code')"/>
                          <!--  xforms 1.1 will return header[] from event('response-headers') -->
-                         <xforms:insert context="instance('event_catcher')/response_headers" nodeset="*" origin="event('response-headers')"></xforms:insert>
-                    </xforms:action>
-               </xforms:submission>
-               <xforms:submission id="sub_2" method="post" ref="instance('data')" replace="none">
-                    <xforms:resource value="instance('resource')/resource"></xforms:resource>
-                    <xforms:action ev:event="xforms-submit-done">
-                         <xforms:setvalue ref="instance('event_catcher')/return_code" value="event('response-status-code')"></xforms:setvalue>
-                         <xforms:insert nodeset="instance('event_catcher')/response_headers" origin="event('response-headers')"></xforms:insert>
+                         <xforms:insert context="instance('event_catcher')/response_headers" nodeset="*" origin="event('response-headers')"/>
                     </xforms:action>
                </xforms:submission>
           </xforms:model>
