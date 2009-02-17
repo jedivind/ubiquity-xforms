@@ -45,7 +45,7 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:submission[@id='sub1' and @method='post' and @action='http://xformstest.org/cgi-bin/echo.sh']/xforms:header/xforms:name[@value=""]</td>
+					<td>xpath=/html/body/xforms:model/xforms:submission[@id='sub1' and @method='post' and @action='http://xformstest.org/cgi-bin/echo.sh']/xforms:header/xforms:name[@value="''"]</td>
 					<td></td>
 					<td>Checks that name has empty value attribute</td>
 				</tr>
@@ -63,13 +63,13 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>1000</td>
+					<td>2000</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
 				<tr>
 					<td>verifyNotText</td>
-					<td>xpath=//html/body/pre[2]</td>
+					<td>xpath=//html/body/pre</td>
 					<td>*myValue*</td>
 					<td>Checks that the form data is shown</td>
 				</tr>
