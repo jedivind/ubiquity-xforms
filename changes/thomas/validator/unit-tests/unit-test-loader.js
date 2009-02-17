@@ -74,6 +74,9 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-xforms-submission", type: "js",  fullpath: moduleBase + "ut-xforms-submission.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.addModule({ name: "ux-ut-types-validator", type: "js",  fullpath: moduleBase + "ut-types-validator.js",
+	    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
@@ -88,8 +91,8 @@ function runTheTests() {
     "ux-ut-delete-nodes", 
     "ux-ut-insert-nodes",
     "ux-ut-dirtystate",
-    "ux-ut-xforms-submission"
-    
+    "ux-ut-xforms-submission",
+    "ux-ut-types-validator"    
   );
 
   var sBars = "";
@@ -106,7 +109,9 @@ function runTheTests() {
     // Add the test suite to the runner's queue.
     //
     
+   
     YAHOO.tool.TestRunner.add(oSuitePathToModule);
+    YAHOO.tool.TestRunner.add(suiteTypeValidator);
     YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
     YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
     YAHOO.tool.TestRunner.add(suiteNamespaceManager);
@@ -116,7 +121,8 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteReset);
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
-    YAHOO.tool.TestRunner.add(suiteXFormsSubmission);
+    YAHOO.tool.TestRunner.add(suiteXFormsSubmission);    
+
 
     // Run the tests.
     //

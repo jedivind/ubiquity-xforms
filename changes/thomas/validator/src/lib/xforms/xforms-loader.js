@@ -62,6 +62,9 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: moduleBase + "../decorate.js", 
   		requires:["libxh-namespace-manager"]});
   
+  	loader.addModule({ name: "type-validator",            type: "js",  fullpath: moduleBase + "validator.js", 
+  		requires:["libxh-namespace-manager"]});
+  	
     // crypto
     loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
     loader.addModule({ name: "xpath-extension-sha1",        type: "js",  fullpath: moduleBase + "../third-party/sha1.js" });
@@ -198,7 +201,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-submit",
         "xforms-hint",
         "yui-input-calendar","yui-input-color",
-        "xf4h","xforms-submission-core-yui"
+        "xf4h","xforms-submission-core-yui", "type-validator"
       ]
     });
     loader.require( "xforms-defs" );
