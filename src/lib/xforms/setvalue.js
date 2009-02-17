@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-function SetValue(elmnt)
-{
+/*global DeferToConditionalInvocationProcessor, getElementValueOrContent, getProxyNode*/
+
+function SetValue(elmnt) {
 	this.element = elmnt;
 }
 
 SetValue.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-SetValue.prototype.performAction = function (evt)
-{
-	//Retrieve the instance data node.
-	
-	var oContext = this.getBoundNode(1);
-	var oNode = oContext.node;
-	var oPE = getProxyNode(oNode);
+SetValue.prototype.performAction = function (evt) {
+  var oContext, oNode, oPE, sValue;
+  //Retrieve the instance data node.	
+	oContext = this.getBoundNode(1);
+	oNode = oContext.node;
+	oPE = getProxyNode(oNode);
 
 	//Evaluate the value attribute in context of the instance data node
 	//	in order to resolve the value to set in the instance data node.
 	
-	var sValue = getElementValueOrContent(oContext, this.element);
+	sValue = getElementValueOrContent(oContext, this.element);
 	
 	//Update the node.
 	//	 Passing a model value indicates that recalculate etc. is desired. 
