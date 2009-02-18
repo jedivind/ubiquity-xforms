@@ -145,7 +145,100 @@ function XFormsProcessor() {
   this.defaultHandlers = {};
   this.eventStack = [];
   this.hintOffCounter = 0;
+  this.supportedVersions = "1.1";
   this.halted = false;
+}
+
+XFormsProcessor.prototype.findVersion = function (versionList, searchVersion) {
+    var i;
+    if (!versionList || !searchVersion) {
+        return false;
+    }
+    for (i=0; i < versionList.length; i++) {
+        if (versionList[i] === searchVersion) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+XFormsProcessor.prototype.setVersion = function () {
+    var defaultModelVersionList, supportedVersionsList, i, maxPos;
+    
+    if (!this.version) {
+	    if (!document.defaultModel) {
+	        if (!getModelFor(null)) {
+	            return;
+	        }
+	    }
+	    
+	    defaultModelVersionList = (document.defaultModel.getAttribute("version") || "").split(" ");
+	    supportedVersionList = this.supportedVersions.split(" ");
+	    
+	    // Search for the highest supported version that meets the version requirements
+	    // of the default model, if any
+	    maxPos = -1;
+	    for (i=0; i < supportedVersionList.length; i++) {
+	        if (defaultModelVersionList.length === 1 && defaultModelVersionList[0].length === 0 ||
+	            this.findVersion(defaultModelVersionList, supportedVersionList[i])) {
+                if (maxPos === -1 || Number(supportedVersionList[i]) > Number(supportedVersionList[maxPos])) {
+                    maxPos = i;
+                }
+	        }
+	    }
+	    	    
+	    // If an acceptable version was found, assign it to the processor    
+        if (maxPos >= 0) {
+            this.version = supportedVersionList[maxPos];
+        }
+	}
+}
+
+XFormsProcessor.prototype.testModelVersion = function (pModel) {
+    var evt, desiredVersion, exceptionMsg;
+    
+    // Degenerately fail version check if processor is already halted 
+    if (this.halted) {
+        return false;
+    }
+    
+    // If the processor version has not already been selected based on 
+    // the default model, then select it now.
+    if (!this.version) {
+        this.setVersion();
+        // If we don't have a version number, then the version of the default model
+        // is specified and has an error, so we switch to testing the default model 
+        // so the xforms-version-exception is generated on the default model
+        if (!this.version) {
+            exceptionMsg = "Error in default model version"; 
+            pModel = document.defaultModel || pModel;
+        }
+    }
+    
+    // Get the version attribute value
+    desiredVersion = pModel.getAttribute("version") || "";
+
+    // If a version preference is not expressed, then this model is
+    // relaxed and therefore gets a pass
+    if (desiredVersion.length === 0 && this.version) {
+        return true;
+    } 
+    
+    // Otherwise, we seek the processor's selected version in the desired version list
+    if (this.findVersion(desiredVersion.split(" "), this.version)) {
+        return true;
+    } else if (this.version) {
+        exceptionMsg = "Unsupported version for model " + (pModel.getAttribute("id") || "");
+    }
+
+    // Either the processor has no selected version or the processor's selected version 
+    // is not among the list of versions required by this model, so xforms-version-exception
+    evt = document.createEvent("Events");
+    evt.initEvent("xforms-version-exception", true, false);
+    evt.context = { "error-information": exceptionMsg || "" };
+    FormsProcessor.dispatchEvent(document.defaultModel || pModel, evt);
+    return false;
 }
 
 XFormsProcessor.prototype.inheritTrue = function (sMIP, oNode) {
