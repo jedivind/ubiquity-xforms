@@ -393,37 +393,45 @@ Model.prototype.refreshPending = function() {
 
 
 Model.prototype.rebuild = function() {
-    /*
-     * Clear the dependency graph and the change list.
-     */
-    this.m_oDE.clear();
-    this.changeList.clear();
 
-    /*
-     * Process the bind statements.
-     */
-    var oContext = this.getEvaluationContext();
-    processBinds(this, this.element, oContext);
-    this.m_bNeedRebuild = false;
-    this.m_bNeedRecalculate = true;
+    if (!FormsProcessor.halted) {
+	    /*
+	     * Clear the dependency graph and the change list.
+	     */
+	    this.m_oDE.clear();
+	    this.changeList.clear();
+	
+	    /*
+	     * Process the bind statements.
+	     */
+	    var oContext = this.getEvaluationContext();
+	    processBinds(this, this.element, oContext);
+	    this.m_bNeedRebuild = false;
+	    this.m_bNeedRecalculate = true;
+	}
 };
 
 
 Model.prototype.recalculate = function() {
-    this.m_oDE.recalculate(this.changeList);
 
-    /* these could go into one function */
-    this.changeList.clear();
-    this.m_bNeedRecalculate = false;
-    this.m_bNeedRevalidate = true;
+    if (!FormsProcessor.halted) {
+	    this.m_oDE.recalculate(this.changeList);
+	
+	    /* these could go into one function */
+	    this.changeList.clear();
+	    this.m_bNeedRecalculate = false;
+	    this.m_bNeedRevalidate = true;
+	}
 };
 
 
 Model.prototype.revalidate = function() {
-    this.m_bNeedRevalidate = false;
-    // TODO: There is no validation in AJAXSLT DOM, this needs to be
-    // implemented.
-    this.m_bNeedRewire = true;
+    if (!FormsProcessor.halted) {
+	    this.m_bNeedRevalidate = false;
+	    // TODO: There is no validation in AJAXSLT DOM, this needs to be
+	    // implemented.
+	    this.m_bNeedRewire = true;
+	}
 };
 
 
@@ -459,10 +467,13 @@ Model.prototype.rewire = function() {
 
 
 Model.prototype.refresh = function() {
-    var pThis = this;
-    spawn( function() {
-        pThis._refresh();
-    });
+
+    if (!FormsProcessor.halted) {
+	    var pThis = this;
+	    spawn( function() {
+	        pThis._refresh();
+	    });
+	}
 };
 
 
@@ -529,14 +540,16 @@ Model.prototype.instances = function() {
  * resets all instance data to its original state.
  */
 Model.prototype.reset = function() {
-    var instances = this.instances();
-    var l = instances.length;
-    var i;
-    for (i = 0; i < l; ++i) {
-        instances[i].reset();
-    }
-    this.rebuild();
 
+    if (!FormsProcessor.halted) {
+	    var instances = this.instances();
+	    var l = instances.length;
+	    var i;
+	    for (i = 0; i < l; ++i) {
+	        instances[i].reset();
+	    }
+	    this.rebuild();
+	}
 };
 
 

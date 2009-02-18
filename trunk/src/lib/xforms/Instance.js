@@ -22,7 +22,7 @@ function Instance(elmnt) {
 	UX.addStyle(this.element, "display", "none"); 
 }
 
-Instance.prototype.finishLoad = function () {
+Instance.prototype.finishLoad = function (domURL) {
     var ret = false;
     if (this.m_oDOM && this.m_oDOM.documentElement) {
         ret = true;
@@ -33,28 +33,38 @@ Instance.prototype.finishLoad = function () {
         NamespaceManager.readOutputNamespacesFromInstance(this.m_oDOM);        
     } else if (!this.element["elementState"]) {
         // if we do not have a valid instance from @src, inline or @resource
-        // and the elementState has been set to 0, then 
-        // let's throw an xforms-link-exception;   
+        // and the elementState has been set to 0, then throw xforms-link-exception   
         //
-        this.dispatchException("xforms-binding-exception");       
+        ret = true;
+        this.dispatchException(
+            "xforms-link-exception", 
+            {
+                "resource-uri": domURL || this.getAttribute("id") || ""
+            }
+        );
     }
     
     return ret;
 }
 
-Instance.prototype.dispatchException = function (sEx) {
+Instance.prototype.dispatchException = function (exceptionName, exceptionContext) {
     // indicate a problem with the instance state and
     // throw an exception;   
     //
+    var evt = document.createEvent("Events");
+    evt.initEvent(exceptionName, true, false);
+    evt.context = exceptionContext;
     this.element["elementState"] = -1;
-    UX.dispatchEvent(this.element, sEx, false, true, true);  
+    FormsProcessor.dispatchEvent(
+        (typeof this.element.parentNode.modelConstruct === "function") ? this.element.parentNode : this.element, 
+        evt
+    );
 }
 
-
-Instance.prototype.xlinkEmbed = function (s) {
+Instance.prototype.xlinkEmbed = function (s, domURL) {
 	this.m_oDOM = xmlParse(s);
     this.element["elementState"] = 0;
-    this.finishLoad();
+    this.finishLoad(domURL);
 	return true;
 }
 
@@ -92,6 +102,22 @@ Instance.prototype.load = function ( domURL ) {
         },
         false);
         
+        //
+        // If the XLink handler for src or resource fails, then 
+        // we dispatch xforms-link-exception
+        //
+        this.element.addEventListener(
+        "xlink-traversal-failure", {
+            context: this,
+            handleEvent: function (evtParam) {
+                var dispatcher = this.context;
+                spawn(function () {
+                    dispatcher.dispatchException("xforms-link-exception", evtParam.context);
+                });
+            }
+        },
+        false);
+        
         /*
         * [ISSUE] Need to decide how to actuate, since
         * onLoad is too late.
@@ -122,10 +148,17 @@ Instance.prototype.initialisedom = function () {
                 } else {
                     // the success of loading a @src or a @resource can not be determined at this point
                     // since they are asynchronous in behavior
-                    // if we do not have a valid instance from @src, inline or @resource
-                    // then let's throw an xforms-link-exception;   
+                    // But, if we have not initiated a request for @src or @resource and
+                    // we have no inline instance to parse, then we have a malformed instance 
+                    // so we throw an xforms-link-exception with the id of the instance 
+                    // (or empty string if the instance has no id)
                     //
-                    this.dispatchException("xforms-binding-exception"); 
+                    this.dispatchException(
+                        "xforms-link-exception", 
+                        {
+                            "resource-uri": this.getAttribute("id") || ""
+                        }
+                    ); 
                 }            
             }   
         }      
@@ -148,13 +181,7 @@ Instance.prototype.parseInstance = function () {
 	
 	if (sXML !== "") {
 		this.m_oDOM = xmlParse(sXML);
-        if (this.m_oDOM && this.m_oDOM.documentElement) {
-            this.element["elementState"] = 0;        
-        }
-	}
-	else {
-		this.element["elementState"] = -1;
-		this.setAttribute("elementStateDescription", "Cannot have an empty instance.");
+        this.element["elementState"] = 0;        
 	}
 	return;
 };
