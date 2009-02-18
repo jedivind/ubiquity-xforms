@@ -174,36 +174,36 @@ Repeat.prototype.normaliseIndex = function (val) {
 
 Repeat.prototype.rewire = function () {
   var arrNodes = null,
-      sExpr = this.element.getAttribute("nodeset"),
-      sBind,
+      sExpr,
+      sBind = this.element.getAttribute("bind"),
       oBind,
       oContext,
-      r,
-      desiredIterationCount;
+      r;
   
-  if (!sExpr) {
-    sBind = this.element.getAttribute("bind");
-    
-    if (!sBind) {
-        //debugger; /* the repeat has neither a @nodeset or a @bind */
+  if (sBind) {
+    oBind = document.getElementById(sBind);
+
+    if (!oBind || !NamespaceManager.compareFullName(oBind, "bind", "http://www.w3.org/2002/xforms")) {
+      //bind not found with this ID
+      UX.dispatchEvent(this.element, "xforms-binding-exception", false, true, true);
     } else {
-      oBind = this.element.ownerDocument.getElementById(sBind);
-  
-      if (!oBind) {
-        debugger; /* bind not found with this ID */
-      } else {
-        arrNodes = oBind.boundNodeSet;
-        this.m_model = oBind.ownerModel;
-      }
+      arrNodes = oBind.boundNodeSet;
+      this.m_model = oBind.ownerModel;
     }
-  } else {        
-    document.logger.log("Rewiring: " + this.element.tagName + ":" + this.element.uniqueID + ":" + sExpr, "info");
+  } else {
+    sExpr = this.element.getAttribute("nodeset");
     
-    oContext = this.element.getEvaluationContext();
-    this.m_model = oContext.model;
-    r = this.m_model.EvaluateXPath(sExpr, oContext);
-    
-    arrNodes = r.value;
+    if (sExpr) {
+      document.logger.log("Rewiring: " + this.element.tagName + ":" + this.element.uniqueID + ":" + sExpr, "info");
+      
+      oContext = this.element.getEvaluationContext();
+      this.m_model = oContext.model;
+      r = this.m_model.EvaluateXPath(sExpr, oContext);
+      
+      arrNodes = r.value;
+    } else {
+      document.logger.log("Element: " + this.element.tagName + ":" + this.element.uniqueID + " lacks binding attributes.", "warn");
+    }
   }
   
   if (arrNodes) {
