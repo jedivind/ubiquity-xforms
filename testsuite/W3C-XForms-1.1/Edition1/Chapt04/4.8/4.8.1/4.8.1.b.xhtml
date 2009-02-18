@@ -25,15 +25,34 @@
 			</xforms:label>
 		</xforms:group>
 		<script type="text/javascript">
+//		    Original W3C Test
+//			try	{
+//				var model = document.getElementById('my_model1');
+//				var inst1 = model.getInstanceDocument('my_INVALID');
+//				var my_color = inst1.getElementsByTagName('color')[0];
+//				alert(my_color.textContent);
+//			}
+//			catch(DOMException)	{
+//				alert('DOMException');
+//			}
+
+		  var interval = window.setInterval(function() {
 			try	{
 				var model = document.getElementById('my_model1');
+				if (!model) {
+				  return;
+				}
+
 				var inst1 = model.getInstanceDocument('my_INVALID');
 				var my_color = inst1.getElementsByTagName('color')[0];
 				alert(my_color.textContent);
 			}
 			catch(DOMException)	{
 				alert('DOMException');
+				window.clearInterval(interval);
 			}
+		  }, 500);
+
 		</script>
 	</body>
 	
