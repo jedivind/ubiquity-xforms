@@ -277,12 +277,16 @@ xf|toggle
 }
 
 xforms\:resource,
-xf\:resource  {
+xf\:resource,
+xforms\:method,
+xf\:method  {
     display: none;
 }
 
 xforms|resource,
-xf|resource {
+xf|resource,
+xforms|method,
+xf|method {
     display: none;
 }
 
