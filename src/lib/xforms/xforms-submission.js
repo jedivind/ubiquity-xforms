@@ -229,7 +229,7 @@ submission.prototype.submit = function(oSubmission) {
     var instanceId = oSubmission.getAttribute("instance");
     var instance;
     var sAction = oSubmission.getAttribute("action");
-    var sMethod = oSubmission.getAttribute("method");
+    var sMethod = null;
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding");
     var sSerialisation;
@@ -293,6 +293,14 @@ submission.prototype.submit = function(oSubmission) {
     
     sResource = sResource || oSubmission.getAttribute("resource"); 
     sAction = sResource || sAction;   
+    
+    //
+    // Evaluate method element
+    // Method element takes precedence over method attribute
+    //
+    ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "method");  
+      
+    sMethod = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : oSubmission.getAttribute("method") || "get";  
      
     if (oExtDom) {
         // See if there are any nodes for an action.
