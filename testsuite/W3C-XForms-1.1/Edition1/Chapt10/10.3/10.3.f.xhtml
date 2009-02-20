@@ -23,9 +23,9 @@
 				</lines>
        		</xforms:instance>
        		<xforms:instance id="i2">
-       			<indexvalue/>
+       			<indexvalue></indexvalue>
        		</xforms:instance>
-       		<xforms:bind nodeset="instance('i2')" calculate="index('lineset')"/>
+       		<xforms:bind nodeset="instance('i2')" calculate="index('lineset')"></xforms:bind>
 			<xforms:action ev:event="xforms-insert">
 				<xforms:message level="modal">xforms-insert</xforms:message>
 			</xforms:action>
@@ -56,8 +56,8 @@
 			<xforms:label>Insert At index 1</xforms:label>
 			<xforms:action ev:event="DOMActivate">
 				
-				<xforms:insert nodeset="/lines/line" at="1" position="before"/>
-				<xforms:setvalue ref="/lines/line[index('lineset')]/@name"/>
+				<xforms:insert nodeset="/lines/line" at="1" position="before"></xforms:insert>
+				<xforms:setvalue ref="/lines/line[index('lineset')]/@name"></xforms:setvalue>
 				<xforms:setvalue ref="/lines/line[index('lineset')]/price">0.00</xforms:setvalue>
 			</xforms:action>
 		</xforms:trigger>
@@ -65,16 +65,16 @@
 			<xforms:label>Insert At index 1.5</xforms:label>
 			<xforms:action ev:event="DOMActivate">
 				
-				<xforms:insert nodeset="/lines/line" at="1.5" position="before"/>
-				<xforms:setvalue ref="/lines/line[index('lineset')]/@name"/>
+				<xforms:insert nodeset="/lines/line" at="1.5" position="before"></xforms:insert>
+				<xforms:setvalue ref="/lines/line[index('lineset')]/@name"></xforms:setvalue>
 				<xforms:setvalue ref="/lines/line[index('lineset')]/price">0.00</xforms:setvalue>
 			</xforms:action>
 		</xforms:trigger>
 		<xforms:trigger>
 			<xforms:label>Insert At index 100</xforms:label>
 			<xforms:action ev:event="DOMActivate">
-				<xforms:insert nodeset="/lines/line" at="100" position="after"/>
-				<xforms:setvalue ref="/lines/line[index('lineset')]/@name"/>
+				<xforms:insert nodeset="/lines/line" at="100" position="after"></xforms:insert>
+				<xforms:setvalue ref="/lines/line[index('lineset')]/@name"></xforms:setvalue>
 				<xforms:setvalue ref="/lines/line[index('lineset')]/price">0.00</xforms:setvalue>
 			</xforms:action>
 		</xforms:trigger>

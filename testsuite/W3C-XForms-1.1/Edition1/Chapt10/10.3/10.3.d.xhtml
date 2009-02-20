@@ -18,7 +18,7 @@
                         <number>4</number>
                         <number>5</number>
                     </number_list>
-                    <number_list/>
+                    <number_list></number_list>
                 </number_lists>
             </xforms:instance>
         </xforms:model>
@@ -35,57 +35,57 @@
             <xforms:trigger>
                 <xforms:label>Test A: 1 2 3 4 5 5</xforms:label>
                 <xforms:action ev:event="DOMActivate">
-                    <xforms:reset model="mod1"/>
+                    <xforms:reset model="mod1"></xforms:reset>
                     
-                    <xforms:insert nodeset="number_list[1]/number"/>
+                    <xforms:insert nodeset="number_list[1]/number"></xforms:insert>
                 </xforms:action>
             </xforms:trigger>
             <xforms:trigger>
                 <xforms:label>Test B: 1 2 5 3 4 5</xforms:label>
                 <xforms:action ev:event="DOMActivate">
-                    <xforms:reset model="mod1"/>
+                    <xforms:reset model="mod1"></xforms:reset>
                     
-                    <xforms:insert nodeset="number_list/number" at="1.5"/>
+                    <xforms:insert nodeset="number_list/number" at="1.5"></xforms:insert>
                 </xforms:action>
             </xforms:trigger>
             <xforms:trigger>
                 <xforms:label>Test C: 1 2 3 5 4 5</xforms:label>
                 <xforms:action ev:event="DOMActivate">
-                    <xforms:reset model="mod1"/>
+                    <xforms:reset model="mod1"></xforms:reset>
                     
-                    <xforms:insert nodeset="number_list/number" at="3"/>
+                    <xforms:insert nodeset="number_list/number" at="3"></xforms:insert>
                 </xforms:action>
             </xforms:trigger>
             <xforms:trigger>
                 <xforms:label>Test D: 1 5 2 3 4 5</xforms:label>
                 <xforms:action ev:event="DOMActivate">
-                    <xforms:reset model="mod1"/>
+                    <xforms:reset model="mod1"></xforms:reset>
                     
-                    <xforms:insert nodeset="number_list/number" at="-2"/>
+                    <xforms:insert nodeset="number_list/number" at="-2"></xforms:insert>
                 </xforms:action>
             </xforms:trigger>
             <xforms:trigger>
                 <xforms:label>Test E: 1 2 3 4 5 5</xforms:label>
                 <xforms:action ev:event="DOMActivate">
-                    <xforms:reset model="mod1"/>
+                    <xforms:reset model="mod1"></xforms:reset>
                      
-                     <xforms:insert nodeset="number_list/number" at="6"/>
+                     <xforms:insert nodeset="number_list/number" at="6"></xforms:insert>
                 </xforms:action>
             </xforms:trigger>
             <xforms:trigger>
                 <xforms:label>Test F: 1 2 3 4 5 5</xforms:label>
                 <xforms:action ev:event="DOMActivate">
-                    <xforms:reset model="mod1"/>
+                    <xforms:reset model="mod1"></xforms:reset>
                      
-                     <xforms:insert nodeset="number_list/number" at="'foo'"/>
+                     <xforms:insert nodeset="number_list/number" at="'foo'"></xforms:insert>
                 </xforms:action>
             </xforms:trigger>
             <xforms:trigger>
                 <xforms:label>Test G: List sizes remain 5 and 0, respectively</xforms:label>
                 <xforms:action ev:event="DOMActivate">
-                    <xforms:reset model="mod1"/>
+                    <xforms:reset model="mod1"></xforms:reset>
                      
-                     <xforms:insert nodeset="number_list[2]/number" at="2"/>
+                     <xforms:insert nodeset="number_list[2]/number" at="2"></xforms:insert>
                 </xforms:action>
             </xforms:trigger>
         </xforms:group>
@@ -94,7 +94,7 @@
         </xforms:group>
         <xforms:repeat nodeset="number_list[1]/number">
             <xforms:output value=".">
-                <xforms:label/>
+                <xforms:label></xforms:label>
             </xforms:output>
         </xforms:repeat>
         <xforms:output value="count(number_list[1]/number)">
