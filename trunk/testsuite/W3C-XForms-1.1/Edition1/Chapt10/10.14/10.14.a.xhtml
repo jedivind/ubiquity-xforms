@@ -12,10 +12,10 @@
        		<xforms:instance>
 				<data>
 					<uri>http://www.w3.org/TR/xforms11/</uri>
-					<binduri uri="http://www.w3.org/TR/xforms11/"/>
+					<binduri uri="http://www.w3.org/TR/xforms11/"></binduri>
 				</data>
        		</xforms:instance>
-       		<xforms:bind id="uribind" nodeset="binduri/@uri"/>
+       		<xforms:bind id="uribind" nodeset="binduri/@uri"></xforms:bind>
     	</xforms:model>
   		<xforms:group>
 	  		<xforms:label class="title">10.14.a load element attributes</xforms:label>
@@ -28,17 +28,17 @@
   		</xforms:group>
 		<xforms:trigger>
 			<xforms:label>Load Xforms Spec From resource Attribute</xforms:label>
-			<xforms:load ev:event="DOMActivate" resource="http://www.w3.org/TR/xforms11/"/>
+			<xforms:load ev:event="DOMActivate" resource="http://www.w3.org/TR/xforms11/"></xforms:load>
 		</xforms:trigger>
 
 		<xforms:trigger>
 			<xforms:label>Load Xforms Spec From ref Attribute</xforms:label>
-			<xforms:load ev:event="DOMActivate" ref="/data/uri"/>
+			<xforms:load ev:event="DOMActivate" ref="/data/uri"></xforms:load>
 		</xforms:trigger>
 
 		<xforms:trigger>
 			<xforms:label>Load Xforms Spec From bind Attribute</xforms:label>
-			<xforms:load ev:event="DOMActivate" bind="uribind"/>
+			<xforms:load ev:event="DOMActivate" bind="uribind"></xforms:load>
 		</xforms:trigger>
 
   </body>

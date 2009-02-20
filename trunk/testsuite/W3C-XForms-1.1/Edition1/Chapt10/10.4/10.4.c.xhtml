@@ -24,7 +24,7 @@
                         <number>8</number>
                         <number>9</number>
                     </number_list>
-                    <number_list/>
+                    <number_list></number_list>
                 </number_lists>
             </xforms:instance>
             <xforms:instance id="second">
@@ -36,24 +36,24 @@
                 </number_lists>
             </xforms:instance>
             <!-- Delete should terminate with no effect, make sure no nodesets were changed -->
-            <xforms:delete ev:event="xforms-ready" nodeset="number_list[3]/number"/>
+            <xforms:delete ev:event="xforms-ready" nodeset="number_list[3]/number"></xforms:delete>
             <!-- trying to delete an instance, should terminate with no effect -->
-            <xforms:delete ev:event="xforms-ready" nodeset="instance('first')"/>
+            <xforms:delete ev:event="xforms-ready" nodeset="instance('first')"></xforms:delete>
         </xforms:model>
         <xforms:group>
             <xforms:label class="title">10.4.c delete action using context attribute terminates with no effect</xforms:label>
         </xforms:group>
         <xforms:group>
           <xforms:label>You must see the number 3 : </xforms:label>
-            <xforms:output value="count(number_list)"/>
+            <xforms:output value="count(number_list)"></xforms:output>
         </xforms:group>
         <xforms:group>
           <xforms:label>You must see the number 6 : </xforms:label>
-            <xforms:output value="count(number_list[1]/number)"/>
+            <xforms:output value="count(number_list[1]/number)"></xforms:output>
         </xforms:group>
         <xforms:group>
           <xforms:label>You must see the number 3 : </xforms:label>
-            <xforms:output value="count(number_list[2]/number)"/>
+            <xforms:output value="count(number_list[2]/number)"></xforms:output>
         </xforms:group>
         
     </body>

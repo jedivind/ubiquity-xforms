@@ -64,34 +64,34 @@
                     <repeat_3_inner></repeat_3_inner>
                 </xforms:root>
             </xforms:instance>
-            <xforms:bind nodeset="instance('repeat_indices')/repeat_2" calculate="index('repeat_2')"/>
-            <xforms:bind nodeset="instance('repeat_indices')/repeat_2_inner" calculate="index('repeat_2_inner')"/>
-            <xforms:bind nodeset="instance('repeat_indices')/repeat_3" calculate="index('repeat_3')"/>
-            <xforms:bind nodeset="instance('repeat_indices')/repeat_3_inner" calculate="index('repeat_3_inner')"/>
+            <xforms:bind nodeset="instance('repeat_indices')/repeat_2" calculate="index('repeat_2')"></xforms:bind>
+            <xforms:bind nodeset="instance('repeat_indices')/repeat_2_inner" calculate="index('repeat_2_inner')"></xforms:bind>
+            <xforms:bind nodeset="instance('repeat_indices')/repeat_3" calculate="index('repeat_3')"></xforms:bind>
+            <xforms:bind nodeset="instance('repeat_indices')/repeat_3_inner" calculate="index('repeat_3_inner')"></xforms:bind>
             <xforms:action ev:event="xforms-ready">
                 <!--  delete the last member of the list, index should revert to 0 -->
-                <xforms:setindex repeat="repeat_1" index="1"/>
-                <xforms:delete nodeset="instance('instance_1')/number_list" at="1"/>
+                <xforms:setindex repeat="repeat_1" index="1"></xforms:setindex>
+                <xforms:delete nodeset="instance('instance_1')/number_list" at="1"></xforms:delete>
                 <!-- delete last in set, which had index. index should revert to new last element -->
                 <!-- inner repeat index should be reset to 1 -->
-                <xforms:setindex repeat="repeat_2" index="3"/>
-                <xforms:setindex repeat="repeat_2_inner" index="3"/>
-                <xforms:delete nodeset="instance('instance_2')/number_list" at="3"/>
+                <xforms:setindex repeat="repeat_2" index="3"></xforms:setindex>
+                <xforms:setindex repeat="repeat_2_inner" index="3"></xforms:setindex>
+                <xforms:delete nodeset="instance('instance_2')/number_list" at="3"></xforms:delete>
                 <!-- delete node that is not last one -->
-                <xforms:setindex repeat="repeat_3" index="2"/>
-                <xforms:setindex repeat="repeat_3_inner" index="3"/>
-                <xforms:delete nodeset="instance('instance_3')/number_list" at="2" />
+                <xforms:setindex repeat="repeat_3" index="2"></xforms:setindex>
+                <xforms:setindex repeat="repeat_3_inner" index="3"></xforms:setindex>
+                <xforms:delete nodeset="instance('instance_3')/number_list" at="2" ></xforms:delete>
             </xforms:action>
         </xforms:model>
         <xforms:group>
             <xforms:label class="title">10.4.f delete action and repeat element</xforms:label>
         </xforms:group>
-        <xforms:repeat id="repeat_1" nodeset="instance('instance_1')/number_list"/>
+        <xforms:repeat id="repeat_1" nodeset="instance('instance_1')/number_list"></xforms:repeat>
         <xforms:repeat id="repeat_2" nodeset="instance('instance_2')/number_list">
-        	<xforms:repeat id="repeat_2_inner" nodeset="number"/>
+        	<xforms:repeat id="repeat_2_inner" nodeset="number"></xforms:repeat>
         </xforms:repeat>
         <xforms:repeat id="repeat_3" nodeset="instance('instance_3')/number_list">
-            <xforms:repeat id="repeat_3_inner" nodeset="number"/>
+            <xforms:repeat id="repeat_3_inner" nodeset="number"></xforms:repeat>
         </xforms:repeat>
         <xforms:group>
           <xforms:label>

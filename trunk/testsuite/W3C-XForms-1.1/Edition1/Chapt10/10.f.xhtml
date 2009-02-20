@@ -12,8 +12,8 @@
     <xforms:model id="mod1">
         	<xforms:instance>
         		<root>
-        			<data/>
-        			<data/>
+        			<data></data>
+        			<data></data>
         		</root>
         	</xforms:instance>
         	<xforms:message ev:event="xforms-rebuild" level="modal" ev:observer="mod1">xforms-rebuild</xforms:message>
@@ -34,7 +34,7 @@
     	<xforms:trigger>
     		<xforms:label>Insert</xforms:label>
     		<xforms:action ev:event="DOMActivate">
-    			<xforms:insert nodeset="/root/data" at="last()" position="after"/>
+    			<xforms:insert nodeset="/root/data" at="last()" position="after"></xforms:insert>
     			<xforms:message level="modal">xforms:action</xforms:message>
     		</xforms:action>
     	</xforms:trigger>

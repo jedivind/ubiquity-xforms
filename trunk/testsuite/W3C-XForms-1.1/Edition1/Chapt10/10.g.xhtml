@@ -11,8 +11,8 @@
     <xforms:model id="mod1">
         	<xforms:instance>
         		<root>
-        			<data/>
-        			<data/>
+        			<data></data>
+        			<data></data>
         		</root>
         	</xforms:instance>
         	<xforms:message ev:event="xforms-rebuild" level="modal" ev:observer="mod1">xforms-rebuild</xforms:message>
@@ -33,7 +33,7 @@
     	<xforms:trigger>
     		<xforms:label>Delete</xforms:label>
     		<xforms:action ev:event="DOMActivate">
-    			<xforms:delete nodeset="data" at="1"/>
+    			<xforms:delete nodeset="data" at="1"></xforms:delete>
     			<xforms:message level="modal">xforms:action</xforms:message>
     		</xforms:action>
     	</xforms:trigger>
