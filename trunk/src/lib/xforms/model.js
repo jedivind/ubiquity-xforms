@@ -197,7 +197,6 @@ function processBind(oBind, sExpr, oModel, oContext) {
     }
 }
 
-
 // [ISSUE] This function is erroneously named
 // Ideally, a function called something like testfor... should test for a given
 // state,
@@ -218,11 +217,16 @@ function processBind(oBind, sExpr, oModel, oContext) {
 // function to something like "constructIfReady".
 
 function testForReady(pThis) {
-    // Test the children of pThis for readiness, iff pThis element is itself
-    // ready.
+    // Test the children of pThis for readiness, iff pThis element is itself ready
 
     if (pThis["elementLoaded"] === true) {
 
+        // If the version check fails, then the processor will be halted, so we're
+        // not ready and never will be
+        if (!FormsProcessor.testModelVersion(pThis)) {
+            return;
+        }
+        
         // Start with the assumption that pThis is now ready.
         pThis["elementState"] = 0;
 
@@ -512,6 +516,17 @@ function _model_contentReady(pThis) {
                 handleEvent : function(evt) {
                     FormsProcessor.halted = true;
                     document.logger.log("xforms-link-exception, resource-uri: [" + evt.context["resource-uri"] + "]");
+                }
+            }, false);
+
+    /*
+     * Register the default xforms-version-exception handler.
+     */
+    FormsProcessor.addDefaultEventListener(pThis,
+            "xforms-version-exception", {
+                handleEvent : function(evt) {
+                    FormsProcessor.halted = true;
+                    document.logger.log("xforms-version-exception, error-information: [" + evt.context["error-information"] + "]");
                 }
             }, false);
 
