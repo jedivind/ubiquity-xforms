@@ -6,5 +6,7 @@ Each iteration begins with the weekly conference call, and runs for one week. Th
 
 = Details =
 
+[http://code.google.com/p/ubiquity-xforms/issues/list?can=1&q=label%3APriority-Critical&colspec=Milestone+Owner+ID+Type+Priority+Status+Summary+Component&cells=tiles Current critical issues]
+
 || 2009-02-13 || [http://code.google.com/p/ubiquity-xforms/issues/list?can=1&q=Iteration:20090213&sort=status&colspec=Milestone%20Owner%20ID%20Type%20Priority%20Status%20Summary%20Component Issues] || - ||
 || 2009-02-06 || [http://code.google.com/p/ubiquity-xforms/issues/list?can=1&q=Iteration:20090206&sort=status&colspec=Milestone%20Owner%20ID%20Type%20Priority%20Status%20Summary%20Component Issues] || [http://groups.google.com/group/ubiquity-xforms-eng/browse_thread/thread/772e9050a1328ec0 Meeting outcomes] ||
