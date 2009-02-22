@@ -56,12 +56,16 @@ RangeValue.prototype.onDocumentReady = function () {
 		
 		var pThis = this;
 		this.m_value.subscribe(
-			"slideEnd",
+			(this.element.parentNode.getAttribute("incremental") === "true")
+			? "change"
+			: "slideEnd",
 			function () {
-			  var val = pThis.quantizeValue(pThis.dataValueFromSliderPosition(pThis.m_value.getValue()));
-    		rangeValueChanged(pThis, val);
-      }
-   );
+				rangeValueChanged(
+					pThis,
+					pThis.quantizeValue(pThis.dataValueFromSliderPosition(pThis.m_value.getValue()))
+				);
+			}
+		);
 	}
 };
 

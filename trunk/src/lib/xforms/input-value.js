@@ -76,7 +76,10 @@ XFormsInputValue.prototype.onDocumentReady = function()
 		var sTagNameLC = this.getOwnerNodeName();
 		var sElementToCreate = (sTagNameLC == "textarea")?"textarea":"input"; 
 		var oInput = document.createElement(sElementToCreate);
-	
+		var eventName = (this.element.parentNode.getAttribute("incremental") === "true")
+			? "keyup"
+			: "change";
+
 		UX.addStyle(oInput, "backgroundColor", "transparent");
 		UX.addStyle(oInput, "padding", "0");
 		UX.addStyle(oInput, "margin", "0");
@@ -87,11 +90,11 @@ XFormsInputValue.prototype.onDocumentReady = function()
 		var pThis = this;
 		if(document.all)
 		{
-			oInput.attachEvent("onchange", function(e){valueChangedIE(pThis,e);});
+			oInput.attachEvent("on" + eventName, function(e){valueChangedIE(pThis,e);});
 		}
 		else
 		{
-			oInput.addEventListener("change",function(e){valueChangedFF(pThis,e);},false);
+			oInput.addEventListener(eventName,function(e){valueChangedFF(pThis,e);},false);
 		}
 
 			
