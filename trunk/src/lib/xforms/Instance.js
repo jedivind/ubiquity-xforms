@@ -22,51 +22,43 @@ function Instance(elmnt) {
 	UX.addStyle(this.element, "display", "none"); 
 }
 
-Instance.prototype.finishLoad = function (domURL) {
-    var ret = false;
-    if (this.m_oDOM && this.m_oDOM.documentElement) {
-        ret = true;
-        if (typeof this.element.parentNode.flagRebuild === "function")
-            this.element.parentNode.flagRebuild();
-        this.m_oDOM.XFormsInstance = this;
-        this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
-        NamespaceManager.readOutputNamespacesFromInstance(this.m_oDOM);        
-    } else if (!this.element["elementState"]) {
-        // if we do not have a valid instance from @src, inline or @resource
-        // and the elementState has been set to 0, then throw xforms-link-exception   
+Instance.prototype.initialisedom = function () {
+    if (!this.m_oDOM) {       
+        // @src takes precedence over inline data and @resource;
+        // inline data takes precedence over @resource
         //
-        ret = true;
-        this.dispatchException(
-            "xforms-link-exception", 
-            {
-                "resource-uri": domURL || this.getAttribute("id") || ""
-            }
-        );
+        if (this.getAttribute("src")) { 
+            this.load(this.getAttribute("src"));
+        } else {
+            // is there inline data?
+            //
+            this.parseInstance();
+            
+            if (!this.finishLoad()) {
+                // if there wasn't a src attribute, nor an inline instance
+                // then let's try a resource attribute
+                //
+                if (this.getAttribute("resource")) {
+                    this.load(this.getAttribute("resource"));
+                } else {
+                    // the success of loading a @src or a @resource can not be determined at this point
+                    // since they are asynchronous in behavior
+                    // But, if we have not initiated a request for @src or @resource and
+                    // we have no inline instance to parse, then we have a malformed instance 
+                    // so we throw an xforms-link-exception with the id of the instance 
+                    // (or empty string if the instance has no id)
+                    //
+                    this.dispatchException(
+                        "xforms-link-exception", 
+                        {
+                            "resource-uri": this.getAttribute("id") || ""
+                        }
+                    ); 
+                }            
+            }   
+        }      
     }
-    
-    return ret;
-}
-
-Instance.prototype.dispatchException = function (exceptionName, exceptionContext) {
-    // indicate a problem with the instance state and
-    // throw an exception;   
-    //
-    var evt = document.createEvent("Events");
-    evt.initEvent(exceptionName, true, false);
-    evt.context = exceptionContext;
-    this.element["elementState"] = -1;
-    FormsProcessor.dispatchEvent(
-        (typeof this.element.parentNode.modelConstruct === "function") ? this.element.parentNode : this.element, 
-        evt
-    );
-}
-
-Instance.prototype.xlinkEmbed = function (s, domURL) {
-	this.m_oDOM = xmlParse(s);
-    this.element["elementState"] = 0;
-    this.finishLoad(domURL);
-	return true;
-}
+};
 
 Instance.prototype.load = function ( domURL ) {
      
@@ -127,43 +119,12 @@ Instance.prototype.load = function ( domURL ) {
     }
 }
 
-Instance.prototype.initialisedom = function () {
-    if (!this.m_oDOM) {       
-        // @src takes precedence over inline data and @resource;
-        // inline data takes precedence over @resource
-        //
-        if (this.getAttribute("src")) { 
-            this.load(this.getAttribute("src"));
-        } else {
-            // is there inline data?
-            //
-            this.parseInstance();
-            
-            if (!this.finishLoad()) {
-                // if there wasn't a src attribute, nor an inline instance
-                // then let's try a resource attribute
-                //
-                if (this.getAttribute("resource")) {
-                    this.load(this.getAttribute("resource"));
-                } else {
-                    // the success of loading a @src or a @resource can not be determined at this point
-                    // since they are asynchronous in behavior
-                    // But, if we have not initiated a request for @src or @resource and
-                    // we have no inline instance to parse, then we have a malformed instance 
-                    // so we throw an xforms-link-exception with the id of the instance 
-                    // (or empty string if the instance has no id)
-                    //
-                    this.dispatchException(
-                        "xforms-link-exception", 
-                        {
-                            "resource-uri": this.getAttribute("id") || ""
-                        }
-                    ); 
-                }            
-            }   
-        }      
-    }
-};
+Instance.prototype.xlinkEmbed = function (s, domURL) {
+	this.m_oDOM = xmlParse(s);
+    this.element["elementState"] = 0;
+    this.finishLoad(domURL);
+	return true;
+}
 
 Instance.prototype.parseInstance = function () {
 	var sXML = "";
@@ -185,6 +146,45 @@ Instance.prototype.parseInstance = function () {
 	}
 	return;
 };
+
+Instance.prototype.finishLoad = function (domURL) {
+    var ret = false;
+    if (this.m_oDOM && this.m_oDOM.documentElement) {
+        ret = true;
+        if (typeof this.element.parentNode.flagRebuild === "function")
+            this.element.parentNode.flagRebuild();
+        this.m_oDOM.XFormsInstance = this;
+        this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
+        NamespaceManager.readOutputNamespacesFromInstance(this.m_oDOM);        
+    } else if (!this.element["elementState"]) {
+        // if we do not have a valid instance from @src, inline or @resource
+        // and the elementState has been set to 0, then throw xforms-link-exception   
+        //
+        ret = true;
+        this.dispatchException(
+            "xforms-link-exception", 
+            {
+                "resource-uri": domURL || this.getAttribute("id") || ""
+            }
+        );
+    }
+    
+    return ret;
+}
+
+Instance.prototype.dispatchException = function (exceptionName, exceptionContext) {
+    // indicate a problem with the instance state and
+    // throw an exception;   
+    //
+    var evt = document.createEvent("Events");
+    evt.initEvent(exceptionName, true, false);
+    evt.context = exceptionContext;
+    this.element["elementState"] = -1;
+    FormsProcessor.dispatchEvent(
+        (typeof this.element.parentNode.modelConstruct === "function") ? this.element.parentNode : this.element, 
+        evt
+    );
+}
 
 Instance.prototype.getDocument = function () {
     if (this.m_oDOM) { // guard
