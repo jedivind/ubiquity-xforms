@@ -227,7 +227,6 @@ submission.prototype.submit = function(oSubmission) {
     var ns = null;
     var instanceId = oSubmission.getAttribute("instance");
     var instance;
-    var sAction = oSubmission.getAttribute("action");
     var sMethod = null;
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding");
@@ -279,14 +278,14 @@ submission.prototype.submit = function(oSubmission) {
     if (!oContext.model) {
         oContext = oSubmission.getEvaluationContext();
     }
+    
     // evaluate @action, @resource and ./resource for submission URL
 	
 	ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "resource");
     
 	sResource = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : null;
     
-    sResource = sResource || oSubmission.getAttribute("resource"); 
-    sAction = sResource || sAction;   
+    sResource = sResource || oSubmission.getAttribute("resource") || oSubmission.getAttribute("action"); 
     
     //
     // Evaluate method element
@@ -296,10 +295,6 @@ submission.prototype.submit = function(oSubmission) {
       
     sMethod = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : oSubmission.getAttribute("method") || "get";  
      
-    if (!sMethod) {
-        throw "A submission method is required.";
-    }    
-    
     // ===== M E T H O D =========
     // The XForms method is mapped to the right method for the protocol.
     //
@@ -371,7 +366,7 @@ submission.prototype.submit = function(oSubmission) {
 
 	if ((sMethod === "GET") && (!sReplace || sReplace === 'all') && !bHasHeaders && sSerialisation === "application/x-www-form-urlencoded") {
 		var oForm = this.buildFormFromObject(oBody);
-		oForm.action = sAction;
+		oForm.action = sResource;
 		oForm.method = sMethod.toLowerCase();
 		document.body.appendChild(oForm);
 		
@@ -382,7 +377,7 @@ submission.prototype.submit = function(oSubmission) {
 			oEvt.initEvent("xforms-submit-error", true, false);
             oEvt.context = {
                 "error-type" : "resource-error",
-                "resource-uri" : sAction
+                "resource-uri" : sResource
             };
 			FormsProcessor.dispatchEvent(oSubmission, oEvt);
 		} finally {
@@ -399,17 +394,17 @@ submission.prototype.submit = function(oSubmission) {
 		try {
 
 			if ((sMethod === "GET" || sMethod === "DELETE") && (oBody || oBody !== "") && sSerialisation === "application/x-www-form-urlencoded") {
-				sAction = sAction + "?" + oBody.toString();
+				sResource = sResource + "?" + oBody.toString();
 				oBody = null;
 			}
 			
-			return this.request(sMethod, sAction, oBody, nTimeout, oCallback);
+			return this.request(sMethod, sResource, oBody, nTimeout, oCallback);
 		} catch (e) {
 			oEvt = oSubmission.ownerDocument.createEvent("Events");
 			oEvt.initEvent("xforms-submit-error", true, false);
             oEvt.context = {
                 "error-type" : "resource-error",
-                "resource-uri" : sAction
+                "resource-uri" : sResource
             };
 			FormsProcessor.dispatchEvent(oSubmission, oEvt);
 		}
