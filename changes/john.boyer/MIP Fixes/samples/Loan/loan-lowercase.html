@@ -32,7 +32,7 @@
 
         <xforms:instance id="rate">
 	        <rate  xmlns=""></rate>
-	    </xforms:instance>
+	      </xforms:instance>
 	       
         <xforms:bind nodeset="instance('rate')" 
                      calculate="instance('loan')/interestrate div 1200.0"></xforms:bind>
@@ -63,6 +63,23 @@
                      constraint=". &gt;= 5 and . &lt;= 60"></xforms:bind>
               
         <xforms:bind nodeset="startdate" type="xsd:date"></xforms:bind>
+
+        <xforms:instance id="formatted">
+	        <results xmlns="">
+        		<monthly-payment></monthly-payment>
+        		<totalpayout></totalpayout>
+	        </results>
+	      </xforms:instance>
+
+        <xforms:bind nodeset="instance('formatted')/monthly-payment" 
+                     calculate="javascript:currency(number(instance('loan')/monthly-payment))"
+                     relevant="instance('loan')/principal > 0 and instance('loan')/duration > 0"
+                     ></xforms:bind>
+        <xforms:bind nodeset="instance('formatted')/totalpayout" 
+                     calculate="javascript:currency(number(instance('loan')/totalpayout))"
+                     relevant="instance('loan')/principal > 0 and instance('loan')/duration > 0"
+                     ></xforms:bind>
+
         <xforms:setvalue ev:event="xforms-ready" 
                          ref="startdate" 
                          value="choose(.='',substring(local-date(),1,10),.)"></xforms:setvalue>                                    
@@ -148,16 +165,16 @@
      <br />
      <hr size="6" class="rule"></hr>
      
-     <xforms:output class="regular" ref="monthly-payment" value="javascript:currency(number())">
-             <xforms:label>Monthly Payment: </xforms:label>
-         </xforms:output>
-      
+     <xforms:output class="regular" ref="instance('formatted')/monthly-payment">
+          <xforms:label>Monthly Payment: </xforms:label>
+     </xforms:output>
+         
     <br />
-
-      <xforms:output class="regular" ref="totalpayout" value="javascript:currency(number())">
-             <xforms:label>Total Payout: </xforms:label>
-         </xforms:output>
-
+    
+     <xforms:output class="regular" ref="instance('formatted')/totalpayout">
+          <xforms:label>Total Payout: </xforms:label>
+     </xforms:output>
+     
       <div class="spacer"></div><hr size="6" class="rule"/>
            
     <!-- This submit button connects to a submission -->
