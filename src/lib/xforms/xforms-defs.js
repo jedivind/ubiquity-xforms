@@ -390,8 +390,6 @@ DECORATOR.addDecorationRules({
                        NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"message","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"secret","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"textarea","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"mediatype","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
@@ -401,7 +399,9 @@ DECORATOR.addDecorationRules({
         {
             "name" : "input-pevalue",
             "match" : function(element) {
-                return NamespaceManager.compareFullName(element.parentNode,"input","http://www.w3.org/2002/xforms");
+                return NamespaceManager.compareFullName(element.parentNode,"input","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"secret","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"textarea","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, XFormsInputValue]);
