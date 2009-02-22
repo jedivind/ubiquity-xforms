@@ -80,7 +80,9 @@ XFormsInputValue.prototype.onDocumentReady = function()
 		UX.addStyle(oInput, "backgroundColor", "transparent");
 		UX.addStyle(oInput, "padding", "0");
 		UX.addStyle(oInput, "margin", "0");
-		UX.addStyle(oInput, "border", "0");
+		if (sTagNameLC !== "textarea") {
+			UX.addStyle(oInput, "border", "0");
+		}
 
 		var pThis = this;
 		if(document.all)

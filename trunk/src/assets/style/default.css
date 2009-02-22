@@ -95,7 +95,11 @@ xf|select {
 xforms\:output,
 xf\:output,
 xforms\:input,
-xf\:input {
+xf\:input,
+xforms\:secret,
+xf\:secret,
+xforms\:textarea,
+xf\:textarea {
     display: block;
     padding: 0.2em; 
 }
@@ -103,44 +107,72 @@ xf\:input {
 xforms|output,
 xf|output,
 xforms|input,
-xf|input {
+xf|input,
+xforms|secret,
+xf|secret,
+xforms|textarea,
+xf|textarea {
     display: block;
     padding: 0.2em; 
 }
 
 
 xforms\:input xforms\:label,
-xf\:input xf\:label {
+xf\:input xf\:label,
+xforms\:secret xforms\:label,
+xf\:secret xf\:label,
+xforms\:textarea xforms\:label,
+xf\:textarea xf\:label {
     display: inline-block;
     color: black;
 }
 
 xforms|input xforms|label,
-xf|input xf|label {
+xf|input xf|label,
+xforms|secret xforms|label,
+xf|secret xf|label,
+xforms|textarea xforms|label,
+xf|textarea xf|label {
     color: black;
     white-space: -moz-pre-wrap;
 }
 
 xforms\:input pe-value,
-xf\:input pe-value {
+xf\:input pe-value,
+xforms\:secret pe-value,
+xf\:secret pe-value,
+xforms\:textarea pe-value textarea,
+xf\:textarea pe-value textarea {
     border: 2px inset #f0f0f0;
     background-color: white;
 }
 
 xforms|input pe-value,
-xf|input pe-value {
+xf|input pe-value,
+xforms|secret pe-value,
+xf|secret pe-value,
+xforms|textarea pe-value textarea,
+xf|textarea pe-value textarea {
     border: 2px inset #f0f0f0;
     background-color: white;
 }
 
 xforms\:input xforms\:label pe-value,
-xf\:input xf\:label pe-value {
+xf\:input xf\:label pe-value,
+xforms\:secret xforms\:label pe-value,
+xf\:secret xf\:label pe-value,
+xforms\:textarea xforms\:label pe-value,
+xf\:textarea xf\:label pe-value {
     border: none;
     background-color: transparent;
 }
 
 xforms|input xforms|label pe-value,
-xf|input xf|label pe-value {
+xf|input xf|label pe-value,
+xforms|secret xforms|label pe-value,
+xf|secret xf|label pe-value,
+xforms|textarea xforms|label pe-value,
+xf|textarea xf|label pe-value {
     border: none;
     background-color: transparent;
 }
