@@ -268,22 +268,9 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
     has precedence over the child element's inline text.
 */
     UX.getPropertyValue = function(pThis, type) {
-        var sType = pThis.element.getAttribute(type);
         var aChildNode = NamespaceManager.getElementsByTagNameNS(pThis.element,"http://www.w3.org/2002/xforms",type)[0];
-        var oContext = null;
-        var node = null;
-        
-        if (aChildNode) {
-            sType = UX.isIE ? aChildNode.innerText : aChildNode.textContent;
-            if (aChildNode.getAttribute("value")) {
-                oContext = _getEvaluationContext(pThis);
-                node = getFirstNode(
-                    oContext.model.EvaluateXPath(aChildNode.getAttribute("value"), oContext.node)
-                );
-                sType = (node) ? node.firstChild.nodeValue : "";
-            }
-        }
-        return sType;
+       
+        return (aChildNode) ? getElementValueOrContent(_getEvaluationContext(pThis), aChildNode) : pThis.element.getAttribute(type);
 	};
 /**
  *  Utility method to create a event and dispatch it on the target

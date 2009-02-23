@@ -65,9 +65,6 @@ xf\:mediatype, xforms\:mediatype {
 xf\:value, xforms\:value {
   -moz-binding: url("decorator.xml#decorator");
 }
-xf\:name, xforms\:name {
-  -moz-binding: url("decorator.xml#decorator");
-}
 xf\:item, xforms\:item {
   -moz-binding: url("decorator.xml#decorator");
 }
