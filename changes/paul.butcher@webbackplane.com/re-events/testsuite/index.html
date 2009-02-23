@@ -1,0 +1,68 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<title>Tests</title>
+	</head>
+	<body>
+		<h1>Tests</h1>
+		<h2>Running Tests</h2>
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2Fxforms%2FTestSuite.html">
+			Run XForms Selenium Tests</a> 
+		<h4 style="color:red">*Note: Red Tests can not be run by Selenium, because Selenium commands aren't testing those tests correctly.*</h4>
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FW3CTestSuite.html">
+			Run W3C Selenium Tests</a>
+		<br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2Fissues%2FdriverPages%2FSeleniumTests%2FTestSuite.html">
+			Run Regression Tests</a>
+		<h2>Adding XForms Tests</h2>
+		<p>
+			In order to add a new test, the following procedure should be followed:
+			<ol>
+				<li>
+					Create the test form in the appropriate ././html directory.
+				</li>
+				<li>
+					Create a document called "TestSomething.html" where Something is the name of 
+					the set of tests to run on the test form. This will contain the test 
+					instructions in tabular format:
+					<ul>
+						<li>
+							instructions on writing selenese can be found <a href="selenium/reference.html">here</a>,
+						</li>
+						<li>
+							and <a href="xforms/TestOutput.html">TestOutput.html</a> is a reasonable 
+							document to use as a kick-start/template.</li>
+					</ul>
+				</li>
+				<li>
+					Add a row:<br />
+					&lt;tr>&lt;td>&lt;a 
+					href="TestSomething.html">TestSomething&lt;/a>&lt;/td>&lt;tr/>
+					<br />
+					to the table with @id="suiteTable" in the appropriate TestSuite.html
+				</li>
+				<li>
+					The test will now appear in the list of tests available under the <a href="selenium/core/TestRunner.html">
+						Selenium TestRunner.</a>
+				</li>
+			</ol>
+			Important: when writing "open" tests, the path is relative to selenium/core, so 
+			in order to reach the testsuite directory, the path will begin with ../../ 
+			(Unless you map a drive.)
+		</p>
+	</body>
+</html>
