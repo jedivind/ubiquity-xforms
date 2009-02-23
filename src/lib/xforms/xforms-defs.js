@@ -45,15 +45,7 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-		
-		"name" : [
-		{
-			"name" : "name-element",
-			apply : function(arrBehavious) {
-				return arrBehavious.concat([EventTarget, Context, Control, Value]);
-			}
-		}
-		],
+        
         // end model decorations
 
         // begin container form control decorations
@@ -587,12 +579,7 @@ DECORATOR.setupDecorator(
 			selector:"xf|submission",
 			objects:[]
 		},
-		
-		{
-			selector: "xf|name",
-			objects:[]
-		},
-
+        
     /* Container Controls */
         {
             selector:"xf|repeat",
