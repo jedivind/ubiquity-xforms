@@ -385,7 +385,8 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContextNode) {
        oCPE.getValue = function () {
          return FormsProcessor.inheritTrue("readonly", oContextNode);
        }
-    } else if (sMIPName === "relevant") {
+    } else if (sMIPName === "enabled") {
+       // The relevant property is called "enabled" within the implementation
        oCPE.getValue = function () {
          return FormsProcessor.inheritFalse("enabled", oContextNode);
        }

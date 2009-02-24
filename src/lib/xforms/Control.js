@@ -189,7 +189,9 @@ Control.prototype.addInputEventFilter = function () {
     pThis = this;
     
     filterKeyPress = function (e) {
-      if (pThis.m_proxy && pThis.m_proxy.readonly.value) {
+      // If there is a proxy and it is a ProxyNode, not a ProxyExpression, then 
+      // its readonly value may be true
+      if (pThis.m_proxy && pThis.m_proxy.readonly && pThis.m_proxy.readonly.value) {
         //only ignore alphanumeric, delete, backspace, and enter.
         if (e.keyCode !== 9 && //Tab
             !(e.keyCode >= 112 && e.keyCode <= 123) && //Function Keys
@@ -213,7 +215,9 @@ Control.prototype.addInputEventFilter = function () {
     };
 
     filterMouseAction = function (e) {
-      if (pThis.m_proxy && pThis.m_proxy.readonly.value) {
+      // If there is a proxy and it is a ProxyNode, not a ProxyExpression, then 
+      // its readonly value may be true
+      if (pThis.m_proxy && pThis.m_proxy.readonly && pThis.m_proxy.readonly.value) {
 
         if (e.preventDefault) {
           e.preventDefault();
@@ -481,6 +485,7 @@ Control.prototype.refresh = function () {
     // [ISSUE] Sometimes a context is being stored when it should be a
     // proxy...don't know how though!
 
+/* This is a hack that has been fixed by the context code
     if (oProxy.node) {
       oProxy = oProxy.node;
 
@@ -488,6 +493,7 @@ Control.prototype.refresh = function () {
       // hack since we shouldn't have had this problem in the first place!
       this.element.m_proxy = oProxy;
     }
+*/
     this.setView(oProxy);
 
     // Get the type of the node and pass the information to the control in
