@@ -3,7 +3,7 @@
 //
 // The Ubiquity XForms module adds XForms support to the Ubiquity library.
 //
-// Copyright (C) 2008 Backplane Ltd.
+// Copyright © 2008-9 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
