@@ -14,8 +14,8 @@
 *[class~="spacer"] {display: block; margin-bottom:10px; padding-bottom:5px;}
 
 xforms\:input {display: block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
-xforms\:input  pe-value {width: 48%; background-color: white; border: 1px inset black;}
-xforms\:input  xforms\:label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
+xforms\:input pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms\:input xforms\:label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
 xforms\:input.yui-widget-calendar pe-value {background-color: transparent; border: none;}
 xforms\:input.block {display: block;}
 
@@ -24,6 +24,16 @@ xforms|input pe-value {width: 48%; background-color: white; border: 1px inset bl
 xforms|input > xforms|label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
 xforms|input[class~="yui-widget-calendar"] pe-value {background-color: transparent; border: none;}
 xforms|input[class~="block"] {display: block;}
+
+xforms\:textarea {display: block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
+xforms\:textarea pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms\:textarea xforms\:label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
+xforms\:textarea.block {display: block;}
+
+xforms|textarea {display: block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
+xforms|textarea pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms|textarea > xforms|label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
+xforms|textarea[class~="block"] {display: block;}
 
 xforms\:select1 {display: block; width: 98%; background-color: rgb(220,220,220);}
 xforms\:select1  pe-value {width: 48%; background-color: white; border: 1px inset black;}

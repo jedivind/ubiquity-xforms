@@ -177,6 +177,18 @@ xf|textarea xf|label pe-value {
     background-color: transparent;
 }
 
+xforms\:textarea xforms\:label pe-value,
+xf\:textarea xf\:label pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms|textarea xforms|label pe-value,
+xf|textarea xf|label pe-value {
+    border: none;
+    background-color: transparent;
+}
+
 xforms\:submit,
 xf\:submit,
 xforms\:trigger,

@@ -156,29 +156,29 @@ var g_sBehaviourDirectory  = "";
     // ColorPicker widget
   	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: moduleBase + "../extensions/input-color.js",
   		requires: ["yui-color","yui-colorpicker-css"]});
-  	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/colorpicker/colorpicker-min.js",
+  	loader.addModule({ name: "yui-color",           type: "js",  fullpath: moduleBase + "../../../../yui-2.6.0/build/colorpicker/colorpicker-min.js",
   		requires: ["yui-slider"]});
-  	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/slider/slider-min.js" });
-  	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.7.0/build/colorpicker/assets/skins/sam/colorpicker.css" });
+  	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: moduleBase + "../../../../yui-2.6.0/build/slider/slider-min.js" });
+  	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: moduleBase + "../../../../yui-2.6.0/build/colorpicker/assets/skins/sam/colorpicker.css" });
 
 	// YUI Rich Text Control
 
 	loader.addModule({ name: "yui-rich-text",       type: "js",  fullpath: moduleBase + "../extensions/textarea-yui-rich-text.js",
 			requires: ["yui-element", "yui-dom-event", "yui-container-core", "yui-simpleeditor", "yui-rich-text-css"]});
-	loader.addModule({ name: "yui-simpleeditor",    type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/editor/simpleeditor-min.js" });
-	loader.addModule({ name: "yui-rich-text-css",   type: "css", fullpath: "http://yui.yahooapis.com/2.7.0/build/assets/skins/sam/skin.css" });
+	loader.addModule({ name: "yui-simpleeditor",    type: "js",  fullpath: moduleBase + "../../../../yui-2.6.0/build/editor/simpleeditor-min.js" });
+	loader.addModule({ name: "yui-rich-text-css",   type: "css", fullpath: moduleBase + "../../../../yui-2.6.0/build/assets/skins/sam/skin.css" });
 
 
     // Calendar widget
     loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: moduleBase + "../extensions/input-calendar.js",
             requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
-    loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/calendar/calendar-min.js" });
-    loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/container/container_core-min.js" });
-    loader.addModule({ name: "yui-button",          type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/button/button-min.js" });
-    loader.addModule({ name: "yui-dom-event",       type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/yahoo-dom-event/yahoo-dom-event.js" });
-    loader.addModule({ name: "yui-element",         type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/element/element-min.js" });
-    loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: "http://yui.yahooapis.com/2.7.0/build/calendar/assets/skins/sam/calendar.css" });
-    loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.7.0/build/button/assets/skins/sam/button.css" });
+    loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: moduleBase + "../../../../yui-2.6.0/build/calendar/calendar-min.js" });
+    loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: moduleBase + "../../../../yui-2.6.0/build/container/container_core-min.js" });
+    loader.addModule({ name: "yui-button",          type: "js",  fullpath: moduleBase + "../../../../yui-2.6.0/build/button/button-min.js" });
+    loader.addModule({ name: "yui-dom-event",       type: "js",  fullpath: moduleBase + "../../../../yui-2.6.0/build/yahoo-dom-event/yahoo-dom-event.js" });
+    loader.addModule({ name: "yui-element",         type: "js",  fullpath: moduleBase + "../../../../yui-2.6.0/build/element/element-beta-min.js" });
+    loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: moduleBase + "../../../../yui-2.6.0/build/calendar/assets/skins/sam/calendar.css" });
+    loader.addModule({ name: "yui-button-css",      type: "css", fullpath: moduleBase + "../../../../yui-2.6.0/build/button/assets/skins/sam/button.css" });
 
     // Messaging work
     loader.addModule({ name: "yui-style-css",       type: "css", fullpath: moduleBase + "../_platform/yui/message-panel.css" });

@@ -29,6 +29,7 @@
         		<InterestRate>5</InterestRate>
         		<Monthly-Payment></Monthly-Payment>
         		<TotalPayout></TotalPayout>
+				<comments>initial value</comments>
         	</LoanRecord>
         </xforms:instance>
 
@@ -152,6 +153,14 @@
          </xforms:input>
 
      <br />
+	 <xforms:textarea ref="comments" mediatype="text/html">
+		 <xforms:label>Comments: </xforms:label>
+	 </xforms:textarea>
+	 <br/>
+	 <xforms:input ref="comments">
+		 <xforms:label>Raw text: </xforms:label>
+	 </xforms:input>
+
      <hr size="6" class="rule"/>
      
      <xforms:output class="regular" ref="Monthly-Payment" value="javascript:currency(number())">

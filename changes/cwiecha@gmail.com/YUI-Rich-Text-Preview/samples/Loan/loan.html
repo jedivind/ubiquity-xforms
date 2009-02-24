@@ -27,6 +27,7 @@
         		<InterestRate>5</InterestRate>
         		<Monthly-Payment></Monthly-Payment>
         		<TotalPayout></TotalPayout>
+				<comments>Rich text field...</comments>
         	</LoanRecord>
         </xforms:instance>
 
@@ -144,6 +145,14 @@
              <xforms:alert>Choose an interest rate between 5 and 60 percent.</xforms:alert>
          </xforms:input>
      <br />
+	 <xforms:textarea ref="comments" mediatype="text/html">
+		 <xforms:label>Comments: </xforms:label>
+	 </xforms:textarea>
+	 <br/>
+	 <xforms:input ref="comments">
+		 <xforms:label>Raw text: </xforms:label>
+	 </xforms:input>
+
      <hr size="6" class="rule"></hr>
      
      <xforms:output class="regular" ref="Monthly-Payment" value="javascript:currency(number())">

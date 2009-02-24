@@ -453,6 +453,28 @@ DECORATOR.addDecorationRules({
                 return arrBehaviours;
             }
         },
+		{
+            "name" : "textarea-richtext-pevalue",
+            "match" : function(element) {
+                var parent = element.parentNode,
+                    datatype = parent.getAttribute("datatype"),
+                    mediatype = parent.getAttribute("mediatype"),
+                    xf4hmediatype = XF4HProcessor.getAttribute(parent, "mediatype"),
+                    prefixes = [],
+                    prefix = "",
+                    isDate = false,
+                    match = false;
+                if (NamespaceManager.compareFullName(parent,"textarea","http://www.w3.org/2002/xforms")) {
+                    if ((mediatype === "text/html") || (xf4hmediatype === "text/html")){
+                        match = true;
+                    }
+                }
+                return match;
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([TextareaValueRichText]);;
+            }
+        },
         {
             "name" : "inputcolor-pevalue",
             "match" : function(element) {
@@ -467,7 +489,7 @@ DECORATOR.addDecorationRules({
                 return match;
             },
             "apply" : function(arrBehaviours) {
-                UX.replaceArrayElement(arrBehaviours,XFormsInputValue,InputValueColor);
+				UX.replaceArrayElement(arrBehaviours,XFormsInputValue,InputValueColor);
                 return arrBehaviours;
             }
         },
