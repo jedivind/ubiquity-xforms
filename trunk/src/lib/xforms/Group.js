@@ -96,28 +96,7 @@ function Group(elmnt)
 
 		var oProxy = this.element.m_proxy;
 
-		if (oProxy)
-		{
-
-			/*
-				* [ISSUE]
-				* Sometimes a context is being stored when it should be
-				* a proxy...don't know how though!
-				*/
-
-			if (oProxy.node)
-			{
-				oProxy = oProxy.node;
-
-				/*
-					* Now fix it so that we don't get this again. This is
-					* obviously a hack since we shouldn't have had this
-					* problem in the first place!
-					*/
-
-				this.element.m_proxy = oProxy;
-			}
-
+		if (oProxy) {
 			this.setView(oProxy);
 		}
 		return;
