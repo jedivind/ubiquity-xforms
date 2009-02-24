@@ -70,7 +70,7 @@ submission.prototype.init = function() {
 submission.prototype.processResult = function(oResult, isFailure, 
                                               oObserver, oContext) {
 
-    var sData, sReplace, sInstance, oEvt, oNewDom, contentType = "";
+    var sData, sReplace, sInstance, oInstance, oEvt, oNewDom, contentType = "", sTarget, oTargetContext, oTarget; 
     
     if (oObserver) {
         var oEvt = oObserver.ownerDocument.createEvent("Events");
@@ -147,6 +147,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                         oEvt.context["error-type"] =  "resource-error";
                         oEvt.initEvent("xforms-submit-error", true, false);
                         FormsProcessor.dispatchEvent(oObserver, oEvt);
+                        return;
                     } else {
                         try {
                             oNewDom = xmlParse(sData);
@@ -154,26 +155,80 @@ submission.prototype.processResult = function(oResult, isFailure,
                             oEvt.context["error-type"] =  "parse-error";
                             oEvt.initEvent("xforms-submit-error", true, false);
                             FormsProcessor.dispatchEvent(oObserver, oEvt);
+                            return;
                         }
                     }
 
                     // @replace="instance" causes the returned data to overwrite an
                     // instance. If no instance is specified then the instance to
                     // overwrite is the one submitted.
-                    if (sInstance) {
-                        if (!oContext.model.replaceInstanceDocument(
-                                sInstance, oNewDom)) {
-                            throw "Instance '" + sInstance + "' not found.";
-                        }
-                    } else if (oObserver.srcInstance) {
-                        if (!__replaceInstanceDocument(oContext.model, 
-                                oObserver.srcInstance, oNewDom)) {
-                            throw "Failed to replace source instance";
+                    //
+                    // The replacement target node may be specified by @target. The evaluation context
+                    // for @target is the in-scope evaluation context for the submission element, except
+                    // the context node is modified to be the document element of the instance identified by
+                    // the instance attribute if it is specified.
+                    sTarget = oObserver.getAttribute("target");
+                    if (sTarget) {
+                        oTarget = this.processTargetAttribute(sTarget, sInstance, oContext, oObserver, oEvt);
+                        if (!oTarget) {
+                            return;
+                        } else {
+                            oInstance = sInstance ? oContext.model.getInstanceDocument(sInstance).documentElement : null;
+                            if (oTarget === oInstance) {
+                                // Replacing entire instance.
+                                oContext.model.replaceInstanceDocument(sInstance, oNewDom);
+                            } else {
+                                // Replacing a node in the instance.
+                                oTarget.parentNode.replaceChild(oNewDom.documentElement, oTarget);
+                            }
                         }
                     } else {
-                        debugger;
-                        // don't know where to put it - first instance of first
-                        // model?
+                        if (sInstance) {
+                            oContext.model.replaceInstanceDocument(sInstance, oNewDom);
+                        } else if (oObserver.srcInstance) {
+                            __replaceInstanceDocument(oContext.model, oObserver.srcInstance, oNewDom);
+                        } else {
+                            debugger;
+                            // don't know where to put it - first instance of first
+                            // model?
+                        }
+                    }
+                    break;
+
+                case "text":
+                    oObserver.ownerDocument.logger.log(
+                            "@replace = 'text'", "submission");
+
+                    // When @replace="text", the response data is encoded as text and replaces the
+                    // content of the replacement target node. The default replacement target node is
+                    // the document element node of the instance identified by the instance attribute,
+                    // which is equal to the default instance of the model if not specified.
+                    // 
+                    // The replacement target node may be specified by @target. The evaluation context
+                    // for @target is the in-scope evaluation context for the submission element, except
+                    // the context node is modified to be the document element of the instance identified by
+                    // the instance attribute if it is specified.
+ 
+                    sInstance = oObserver.getAttribute("instance");
+                    sTarget = oObserver.getAttribute("target");
+
+                    if (sTarget) {
+                        oTarget = this.processTargetAttribute(sTarget, sInstance, oContext, oObserver, oEvt);
+                        if (!oTarget) {
+                            return;
+                        }
+                    } else {
+                        oTarget = oContext.node;
+                    }
+
+                    if (!oTarget || UX.isNodeReadonly(oTarget.parentNode)) {
+                        oEvt.context["error-type"] =  "target-error";
+                        oEvt.initEvent("xforms-submit-error", true, false);
+                        FormsProcessor.dispatchEvent(oObserver, oEvt);
+                        return;
+                    } else {
+                        oTarget.firstChild.nodeValue = sData;
+                        oContext.model.flagRebuild();
                     }
                     break;
 
@@ -215,6 +270,21 @@ submission.prototype.processResponseHeaders = function(oHeaders) {
   }
 
   return responseHeaders;
+}
+
+submission.prototype.processTargetAttribute = function(sTarget, sInstance, oContext, oObserver, oEvt) {
+    var oTarget = null, oTargetContext, oEvt;
+
+    if (sTarget) {
+        oTargetContext = sInstance ? oContext.model.getInstanceDocument(sInstance).documentElement : oContext;
+        oTarget = oContext.model.EvaluateXPath(sTarget, oTargetContext).nodeSetValue()[0];
+        if (!oTarget || oTarget.nodeType !== DOM_ELEMENT_NODE || UX.isNodeReadonly(oTarget.parentNode)) {
+            oEvt.context["error-type"] = "target-error";
+            oEvt.initEvent("xforms-submit-error", true, false);
+            FormsProcessor.dispatchEvent(oObserver, oEvt);
+        }
+    }
+    return oTarget;
 }
 
 /*
@@ -595,3 +665,4 @@ submission.prototype.setSOAPHeaders = function(oContextNode, sMediatype, sEncodi
         this.setHeader("content-type", contentType);                       
     }
 };
+
