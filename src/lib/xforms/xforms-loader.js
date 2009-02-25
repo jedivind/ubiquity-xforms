@@ -3,7 +3,7 @@
 //
 // The Ubiquity XForms module adds XForms support to the Ubiquity library.
 //
-// Copyright (C) 2008 Backplane Ltd.
+// Copyright © 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -84,12 +84,14 @@ var g_sBehaviourDirectory  = "";
   	
   	
   	//control values
+  	loader.addModule({ name: "xforms-pe-value",         type: "js",  fullpath: moduleBase + "pe-value.js" });
   	loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: moduleBase + "input-value.js" });
   	loader.addModule({ name: "xforms-output-value",        type: "js",  fullpath: moduleBase + "output-value.js" });
   	loader.addModule({ name: "xforms-range-value",        type: "js",  fullpath: moduleBase + "range-value.js",
   		requires: ["slider"]});
   	
   	//container elements
+  	loader.addModule({ name: "xforms-container",        type: "js",  fullpath: moduleBase + "container.js" });
   	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" });
   	loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: moduleBase + "Repeat.js",
         requires: [ "xforms-model","xforms-group","xforms-dom2"]});
@@ -120,7 +122,9 @@ var g_sBehaviourDirectory  = "";
   	    	requires:["xforms-instance","xforms-actions"]});
   	loader.addModule({ name: "xforms-setvalue",             type: "js",  fullpath: moduleBase + "setvalue.js",
   	    	requires:["xforms-instance","xforms-actions"]});
-    loader.addModule({ name: "xforms-insert",               type: "js",  fullpath: moduleBase + "insert.js",
+  	loader.addModule({ name: "xforms-setfocus",             type: "js",  fullpath: moduleBase + "setfocus.js",
+  	    	requires:["xforms-instance","xforms-actions"]});
+   loader.addModule({ name: "xforms-insert",               type: "js",  fullpath: moduleBase + "insert.js",
             requires:["xforms-instance","xforms-actions"]});
     loader.addModule({ name: "xforms-delete",               type: "js",  fullpath: moduleBase + "delete.js",
             requires:["xforms-instance","xforms-actions"]});
@@ -193,11 +197,11 @@ var g_sBehaviourDirectory  = "";
         "xforms-conditional-invocation",
         "xforms-model", "xforms-instance", "xforms-submission",
         "xforms-action", "xforms-context", "xforms-control",
-        "xforms-input-value", "xforms-output-value", "xforms-range-value", 
-        "xforms-group","xforms-repeat","xforms-switch",
+        "xforms-pe-value", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
+        "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-item",
         "xforms-actions","xforms-model-actions",
-        "xforms-setindex", "xforms-setvalue", "xforms-insert", "xforms-delete",
+        "xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
         "xforms-toggle", 
         "xforms-submit",
         "xforms-hint",

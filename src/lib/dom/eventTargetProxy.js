@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -155,9 +155,11 @@ if (UX.isIE) {
 
         this.element.onfocusin = function(evt) {
             StyleFocussedly(elmnt);
+            UX.dispatchEvent(elmnt, "DOMFocusIn", true, false, true);
         };
         this.element.onfocusout = function(evt) {
             StyleUnfocussedly(elmnt);
+            UX.dispatchEvent(elmnt, "DOMFocusOut", true, false, true);
         };
     }
 

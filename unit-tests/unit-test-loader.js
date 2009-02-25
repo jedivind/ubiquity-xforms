@@ -4,7 +4,7 @@
 // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
 // library.
 //
-// Copyright (C) 2008 Backplane Ltd.
+// Copyright © 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -80,6 +80,18 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-xforms-submission-header", type: "js",  fullpath: moduleBase + "ut-xforms-submission-header.js",
     requires: [ "yuitest", "logger-css", "test-logger-css", "ux-ut-xforms-submission-stub" ] });
 
+  loader.addModule({ name: "ux-ut-pe-value", type: "js",  fullpath: moduleBase + "ut-pe-value.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.addModule({ name: "ux-ut-Control", type: "js",  fullpath: moduleBase + "ut-Control.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.addModule({ name: "ux-ut-setfocus", type: "js",  fullpath: moduleBase + "ut-setfocus.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.addModule({ name: "ux-ut-container", type: "js",  fullpath: moduleBase + "ut-container.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
@@ -95,7 +107,11 @@ function runTheTests() {
     "ux-ut-insert-nodes",
     "ux-ut-dirtystate",
     "ux-ut-xforms-submission",
-	"ux-ut-xforms-submission-header"
+	"ux-ut-xforms-submission-header",
+	"ux-ut-pe-value",
+	"ux-ut-Control",
+	"ux-ut-setfocus",
+	"ux-ut-container"
   );
 
   var sBars = "";
@@ -124,7 +140,11 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteSelect1);
     YAHOO.tool.TestRunner.add(suiteXFormsSubmission);
     YAHOO.tool.TestRunner.add(suiteXFormsSubmissionHeader);
-
+	YAHOO.tool.TestRunner.add(suitePeValue);
+	YAHOO.tool.TestRunner.add(suiteControl);
+	YAHOO.tool.TestRunner.add(suiteSetFocus);
+	YAHOO.tool.TestRunner.add(suiteContainer);
+	
     // Run the tests.
     //
 
