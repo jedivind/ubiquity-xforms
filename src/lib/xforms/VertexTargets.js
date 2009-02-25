@@ -396,9 +396,11 @@ ProxyNode.prototype.setValue = function(sVal, oModel)
 		 * If the proxy has a corresponding vertex
 		 * then it means our node has been used in
 		 * a calculation somewhere. We therefore need
-		 * to add the vertex to the change list, and
-		 * signal that we need to perform a recalculate,
-		 * which is currently done by the caller.
+		 * to add the vertex to the change list,
+		 * 
+		 * The need for a recalculate must be signalled
+		 * regardless, as a value has changed.  
+		 * 
 		 */
 
 		if (oModel)
@@ -413,9 +415,10 @@ ProxyNode.prototype.setValue = function(sVal, oModel)
 				 */
 
 				oModel.changeList.addChange(oVertex);
-				oModel.m_bNeedRecalculate = true;
 			}
-			oModel.m_bNeedRefresh = true;
+			
+      oModel.flagRecalculate();
+			oModel.flagRefresh();
 		}
 		
 	}

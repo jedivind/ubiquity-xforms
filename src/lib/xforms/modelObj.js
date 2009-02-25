@@ -37,14 +37,12 @@ Model.prototype.onDocumentReady = function() {
     this.setElementLoaded();
     this._testForReady();
 
-    // Listen to self for xforms-reset.
-    // This event is the prescribed mechanism for invoking reset.
-    this.addEventListener("xforms-reset", {
-        model :this,
-        handleEvent : function(evt) {
-            this.model.reset();
-        }
-    }, false);
+    FormsProcessor.addDefaultEventListenerFor(this.element, "xforms-reset", this, "reset");
+
+    FormsProcessor.addDefaultEventListenerFor(this.element, "xforms-rebuild", this, "_rebuild");
+    FormsProcessor.addDefaultEventListenerFor(this.element, "xforms-recalculate", this, "_recalculate");
+    FormsProcessor.addDefaultEventListenerFor(this.element, "xforms-revalidate", this, "_revalidate");
+    FormsProcessor.addDefaultEventListenerFor(this.element, "xforms-refresh", this, "_refresh");
 
     if (window.addEventListener) {
         window.addEventListener("beforeunload", {
@@ -71,10 +69,10 @@ Model.prototype.modelConstruct = function() {
 Model.prototype.modelConstructDone = function() {
     this.rewire();
     window.status = "refreshing";
-    this.refresh();
-
-    var pThis = this;
-    this.fireMCD();
+    //  As with the other re... activities (see _modelConstruct), during model construction, 
+    //  the work is supposed to be done, without the event being dispatched.
+    this._refresh();
+    this.fireXFormsReady();
     this.m_bReady = true;
 };
 
@@ -82,7 +80,7 @@ Model.prototype.modelDestruct = function() {
     UX.dispatchEvent(this.element, "xforms-model-destruct", false, false, false);
 };
 
-Model.prototype.fireMCD = function() {
+Model.prototype.fireXFormsReady = function() {
     var evt = this.element.ownerDocument.createEvent("Events");
     evt.initEvent("xforms-ready", true, false);
     evt._actionDepth = -1;
@@ -222,7 +220,7 @@ Model.prototype.setValue = function(oContext, sXPath, sExprValue) {
          * the recalculate flag regardless of the vertices, to force things to
          * 'drop through'. This feels the lesser, for now.
          */
-        this.m_bNeedRefresh = true;
+        this.flagRefresh();
     }
     return;
 };
@@ -393,6 +391,15 @@ Model.prototype.refreshPending = function() {
 
 
 Model.prototype.rebuild = function() {
+  UX.dispatchEvent(this.element, "xforms-rebuild", true, true);
+};
+
+Model.prototype._rebuild = function() {
+    /*
+     * Clear the dependency graph and the change list.
+     */
+    this.m_oDE.clear();
+    this.changeList.clear();
 
     if (!FormsProcessor.halted) {
 	    /*
@@ -414,6 +421,12 @@ Model.prototype.rebuild = function() {
 
 Model.prototype.recalculate = function() {
 
+  UX.dispatchEvent(this.element, "xforms-recalculate", true, true);
+}
+
+Model.prototype._recalculate = function() {
+    this.m_oDE.recalculate(this.changeList);
+
     if (!FormsProcessor.halted) {
 	    this.m_oDE.recalculate(this.changeList);
 	
@@ -424,8 +437,11 @@ Model.prototype.recalculate = function() {
 	}
 };
 
-
 Model.prototype.revalidate = function() {
+  UX.dispatchEvent(this.element, "xforms-revalidate", true, true);
+}
+
+Model.prototype._revalidate = function() {
     if (!FormsProcessor.halted) {
 	    this.m_bNeedRevalidate = false;
 	    // TODO: There is no validation in AJAXSLT DOM, this needs to be
@@ -461,7 +477,7 @@ Model.prototype.rewire = function() {
     }
 
     this.m_bNeedRewire = false;
-    this.m_bNeedRefresh = true;
+    this.flagRefresh();
     return;
 };
 
@@ -469,28 +485,26 @@ Model.prototype.rewire = function() {
 Model.prototype.refresh = function() {
 
     if (!FormsProcessor.halted) {
-	    var pThis = this;
-	    spawn( function() {
-	        pThis._refresh();
-	    });
-	}
+      UX.dispatchEvent(this.element, "xforms-refresh", true, true);
+    }
 };
 
 
 Model.prototype._refresh = function() {
     if (this.m_bNeedRefresh) {
         this.m_bNeedRefresh = false;
-        for ( var i = 0; i < this.m_arControls.length; ++i) {
-            var fc = this.m_arControls[i];
-
-            if (fc && typeof fc.element == "object") {
-                fc.refresh();
-            } else {
-                this.m_arControls.splice(i);
-            }
-        }
+      for ( var i = 0; i < this.m_arControls.length; ++i) {
+          var fc = this.m_arControls[i];
+  
+          if (fc && typeof fc.element == "object") {
+              fc.refresh();
+          } else {
+              this.m_arControls.splice(i);
+          }
+      }
+      this.m_bNeedRefresh = false;
+      window.status = "";
     }
-    window.status = "";
     return;
 };
 
@@ -540,7 +554,6 @@ Model.prototype.instances = function() {
  * resets all instance data to its original state.
  */
 Model.prototype.reset = function() {
-
     if (!FormsProcessor.halted) {
 	    var instances = this.instances();
 	    var l = instances.length;
@@ -548,6 +561,7 @@ Model.prototype.reset = function() {
 	    for (i = 0; i < l; ++i) {
 	        instances[i].reset();
 	    }
+        this.flagRebuild();
 	    this.rebuild();
 	}
 };
