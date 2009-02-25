@@ -451,6 +451,9 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
  * itself up-to-date.
  */
 function _deferredUpdate(pThis) {
+  if (!pThis.deferredUpdateInProgress) {
+  
+    pThis.deferredUpdateInProgress = true;
     if (pThis.m_bNeedRebuild) {
         pThis.rebuild();
     }
@@ -470,7 +473,8 @@ function _deferredUpdate(pThis) {
     if (pThis.m_bNeedRefresh) {
         pThis.refresh();
     }
-
+    pThis.deferredUpdateInProgress = false;
+  }
     return;
 }
 
@@ -543,12 +547,13 @@ function _modelConstruct(pThis) {
      * - Construct instance data.
      */
     
-    /*
-     * Perform rebuild, recalculate and revalidate.
-     */
-    pThis.rebuild();
-    pThis.recalculate();
-    pThis.revalidate();
+    
+    //  Perform rebuild, recalculate and revalidate, without dispatching events.
+    
+    pThis._rebuild();
+    pThis._recalculate();
+    pThis._revalidate();
+    pThis.m_bNeedRefresh = false;
 
     var evt = pThis.element.ownerDocument.createEvent("Events");
     evt._actionDepth = -1;

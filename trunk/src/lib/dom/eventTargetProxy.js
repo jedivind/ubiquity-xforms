@@ -539,6 +539,7 @@ if (UX.isIE) {
 
             this.element.document.logger.log("End of dispatchEvent: " + sType,
                     "evnt");
+            notifydefault();
 
         } catch (e) {
             //debugger;

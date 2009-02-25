@@ -124,9 +124,13 @@ function doUpdate() {
     // A) It will be updated when as part of its initialisation
     // B) It can't have been modified during the processing of this event anyway.
     try {
-      m.deferredUpdate();
+      //only update if it is ready, otherwise, if there are multiple models, 
+      // some may rebuild/recalculate etc. before its initial build/calculate, etc.
+      if (m.m_bReady) {
+        m.deferredUpdate();
+      }
     } catch (e) {
-      debugger;
+       debugger;
     }
   }
 }
@@ -306,11 +310,23 @@ XFormsProcessor.prototype.removeDefaultEventListener = function (oTarget, sType,
 };
 
 
-XFormsProcessor.prototype.dispatchEvent = function (oTarget, oEvent) {    
+XFormsProcessor.prototype.addDefaultEventListenerFor = function(target, event, scopeParam, methodName) {
+ this.addDefaultEventListener(target, event, {
+    scope: scopeParam,
+    handleEvent: function () {
+      this.scope[methodName]();
+    }
+  });
+};
+
+XFormsProcessor.prototype.dispatchEvent = function (oTarget, oEvent, bForceInlineExecution) {    
+  var eventExecuted = false;
   try {
     IncrementDeferredUpdate();
     this.eventStack.push(oEvent);
-    if (oTarget.dispatchEvent(oEvent)) {
+      eventExecuted = bForceInlineExecution?oTarget._dispatchEvent(oEvent):oTarget.dispatchEvent(oEvent);
+    
+    if (eventExecuted) {
       this.invokeDefault(oTarget, oEvent);
       this.eventStack.pop();
     }
@@ -349,4 +365,13 @@ XFormsProcessor.prototype.getCurrentEvent = function () {
 
 var FormsProcessor = new XFormsProcessor();
 
+//override of DOM flushEventQueue, to ensure that deferred update, 
+//  and appropriate default invocation are respected.
+ var flushEventQueue = function() {
+      var oPendingEvent = g_pendingEvents.pop();
+      while (oPendingEvent) {
+          FormsProcessor.dispatchEvent(oPendingEvent.target, oPendingEvent.evt, true);                       
+          oPendingEvent = g_pendingEvents.pop();
+      }
+  }
 

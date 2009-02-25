@@ -186,7 +186,6 @@ Load.prototype.performAction = function (evt)
 
 			if (sTarget === undefined || sTarget === "")
 			{
-				debugger;
 				sId = evt.target.id;
 
 				if (sId !== "") {

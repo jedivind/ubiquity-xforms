@@ -207,8 +207,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-rebuild</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-02-123</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -221,9 +221,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-recalculate</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
-            <testCaseRequired>true</testCaseRequired>
+          <testCaseStatus>Passed</testCaseStatus>
+          <testCaseDate>2008-02-123</testCaseDate>
+          <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>
@@ -235,8 +235,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-revalidate</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-02-123</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase> 
@@ -249,8 +249,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-refresh</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2008-02-123</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>        
@@ -263,8 +263,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-reset</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-19</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-23</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>                       
