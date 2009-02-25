@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -193,12 +193,18 @@ XFormsSelect1.prototype.itemChanged = function (oEvt) {
 
 	
 	
-XFormsSelect1.prototype.focusOnValuePseudoElement = function () {
-	if (this.m_value && event.srcElement !== this.m_value)	{
-		if (!this.m_value.contains(event.srcElement) && (this.m_choices && event.srcElement !== this.m_choices && !this.m_choices.contains(event.srcElement))) {
-			this.m_value.focus();
+XFormsSelect1.prototype.giveFocus = function () {
+	if (this.m_proxy.enabled.getValue()) {
+		if (this.m_value && event.srcElement !== this.m_value)	{
+			if (!this.m_value.contains(event.srcElement) && (this.m_choices && event.srcElement !== this.m_choices && !this.m_choices.contains(event.srcElement))) {
+				this.m_value.focus();
+			}
 		}
+
+		return true;
 	}
+
+	return false;
 };
 
 XFormsSelect1.prototype.onContentReady = function () {

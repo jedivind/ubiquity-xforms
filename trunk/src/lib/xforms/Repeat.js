@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,20 @@ function Repeat(elmnt) {
   this.m_offset = 0;
   this.m_iterationNodesetLength = 0;
 }    
-    
+
+Repeat.prototype.onContentReady = function () {
+	FormsProcessor.listenForXFormsFocus(this, this);
+};
+
+Repeat.prototype.giveFocus = function () {
+	var indexNode = this.element.childNodes.item(this.getIndex() - this.m_offset - 1);
+	if (typeof indexNode.giveFocus === "function") {
+		return indexNode.giveFocus();
+	}
+
+	return true;
+};
+
 Repeat.prototype.onDocumentReady = function () {
   this.storeTemplate();
   this.addcontroltomodel();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -361,6 +361,10 @@ XFormsProcessor.prototype.getCurrentEvent = function () {
     ret = this.eventStack[this.eventStack.length - 1];
   }
   return ret;
+};
+
+XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
+	target.addEventListener("xforms-focus", { handleEvent : function(evt) { listener.giveFocus(); } }, false);
 };
 
 var FormsProcessor = new XFormsProcessor();

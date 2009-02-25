@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,12 +78,18 @@ function Control(elmnt) {
   this.dirtyState = new DirtyState();
 }
 
-Control.prototype.focusOnValuePseudoElement = function () {
-  if (this.m_value && event.srcElement !== this.m_value) {
-    if (!this.m_value.contains(event.srcElement)) {
-      this.m_value.focus();
-    }
-  }
+Control.prototype.giveFocus = function () {
+	if (this.m_proxy.enabled.getValue()) {
+		if (typeof this.m_value.giveFocus === "function") {
+			this.m_value.giveFocus();
+		} else {
+			this.m_value.focus();
+		}
+
+		return true;
+	}
+
+	return false;
 };
 
 Control.prototype.RetrieveValuePseudoElement = function () {
@@ -534,18 +540,9 @@ Control.prototype.onDocumentReady = function () {
   );
 };
 
-Control.prototype.onContentReady = Control.prototype.AddValuePseudoElement;
-
-Control.prototype.ctor = function () {
-  var pThis = this;
-  
-  function shiftFocus() {
-    pThis.focusOnValuePseudoElement();
-  }
-  
-  if (document.all) {
-    this.attachEvent("onfocusin", shiftFocus);
-  }
+Control.prototype.onContentReady = function () {
+	this.AddValuePseudoElement();
+	FormsProcessor.listenForXFormsFocus(this, this);
 };
 
 Control.prototype.dispatchMIPEvents = function (oProxy) {

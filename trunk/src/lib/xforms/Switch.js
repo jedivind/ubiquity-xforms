@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,14 @@ function Switch(elmnt) {
 	this.element = elmnt;
 	this.oCurrentCase = null;
 }
+
+Switch.prototype.onContentReady = function () {
+	FormsProcessor.listenForXFormsFocus(this, this);
+};
+
+Switch.prototype.giveFocus = function () {
+	return this.oCurrentCase.giveFocus();
+};
 
 /**
   function: toggleDefault

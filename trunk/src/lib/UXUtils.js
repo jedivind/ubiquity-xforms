@@ -313,6 +313,26 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
         return oElement;
     };
 
+	UX.focusFirstEligibleChild = function (childNodes) {
+		var i;
+
+		for (i = 0; i < childNodes.length; ++i) {
+			if (this.focusTree(childNodes.item(i))) {
+				return true;
+			}
+		}
+
+		return false;
+	};
+
+	UX.focusTree = function (node) {
+		if (typeof node.giveFocus === "function") {
+			return node.giveFocus();
+		}
+
+		return this.focusFirstEligibleChild(node.childNodes);
+	};
+
 // Reference to the global object.
 UX.global = this;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "group-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Group]);
+                return arrBehaviours.concat([EventTarget, Context, Container, Group]);
             }
         }
         ],
@@ -71,7 +71,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "case-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, XFormsCase]);
+                return arrBehaviours.concat([EventTarget, Context, Container, XFormsCase]);
             }
         }
         ],
@@ -273,6 +273,15 @@ DECORATOR.addDecorationRules({
         }
         ],
 
+        "setfocus" : [
+        {
+            "name" : "setfocus-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([Listener, Context, SetFocus]);
+            }
+        }
+        ],
+
         "insert" : [
         {
             "name" : "insert-element",
@@ -396,7 +405,7 @@ DECORATOR.addDecorationRules({
                        NamespaceManager.compareFullName(element.parentNode,"textarea","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, XFormsInputValue]);
+                return arrBehaviours.concat([EventTarget, PeValue, XFormsInputValue]);
             }
         },
         {
@@ -790,6 +799,11 @@ DECORATOR.setupDecorator(
 		
 		{
 			selector:"xf|setvalue",
+			objects:[]
+		},
+
+		{
+			selector:"xf|setfocus",
 			objects:[]
 		},
 
