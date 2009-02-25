@@ -618,16 +618,24 @@ submission.prototype.buildFormFromObject = function(object) {
 
 submission.prototype.setHeaders = function(oModel, oSubmission) {
 	var headers = {};
+	var header;
 	var i, j;
 	var elements;
 	var nodelist;
 	var name;
 	var values;
 	var value;
-	
+
 	elements = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header");
 	for ( i = 0; i < elements.length; ++i) {
-		nodelist = NamespaceManager.getElementsByTagNameNS(elements[i], "http://www.w3.org/2002/xforms", "name");
+		header = elements[i];
+
+		// Ignore this header if it is not a leaf header.
+		if (NamespaceManager.getElementsByTagNameNS(header, "http://www.w3.org/2002/xforms", "header").length > 0) {
+			continue;
+		}
+		
+		nodelist = NamespaceManager.getElementsByTagNameNS(header, "http://www.w3.org/2002/xforms", "name");
 		
 		if (nodelist.length === 0) {
 			document.logger.log("INFO: Ignoring xf:header without an xf:name element");
@@ -650,17 +658,16 @@ submission.prototype.setHeaders = function(oModel, oSubmission) {
 				values.push(value);
 			}
 		}
-		
 
 		if (headers[name]) {
-			headers[name].concat(values);
+			headers[name] = headers[name].concat(values);
 		} else {
 			headers[name] = values;
 		}
 	}
 	
 	for ( name in headers ) {
-		this.setHeader(name, headers[name].join(' '));
+		this.setHeader(name, headers[name].join(','));
 	}
 };
 
