@@ -300,13 +300,16 @@ submission.prototype.submit = function(oSubmission) {
     var sMethod = null;
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding");
-    var sSerialisation;
+    var sSerialisation = oSubmission.getAttribute("serialization");
     var oBody;
-    var oContext = oSubmission.getBoundNode();
+    var oContext;
     var bHasHeaders = false;
 	var sReplace = null;
     var xmlDoc = new XDocument();
-    var oSubmissionBody = xmlDoc.createTextNode("");    
+    var oSubmissionBody = xmlDoc.createTextNode("");
+    var relevancePruning = Boolean(oSubmission.getAttribute("relevant") || (sSerialisation !== "none"));
+    var validation = Boolean(oSubmission.getAttribute("validate") || (sSerialisation !== "none"));
+    var submitDataList = [ ];
  
     /*
      * XForms 1.0
@@ -322,19 +325,79 @@ submission.prototype.submit = function(oSubmission) {
      * 
      */
 
-    /*
-     * XForms 1.1
-     * 
-     * var sValidate = this.element["validate"); var sRelevant =
-     * this.element["relevant");
-     * 
-     */
-
     var nTimeout = oSubmission.getAttribute("timeout");
     if (nTimeout === null) {
         nTimeout = 5000;
     }
     
+    // Obtain the indication of the data to submit
+    //
+    oContext = oSubmission.getBoundNode();
+    if (!oContext.model) {
+        oContext = oSubmission.getEvaluationContext();
+    }
+ 
+    // xforms-submit step 2 test for empty submission data
+    //
+	if (!oContext.node) {
+		oEvt = oSubmission.ownerDocument.createEvent("Events");
+		oEvt.initEvent("xforms-submit-error", true, false);
+		oEvt.context = {
+			"error-type" : "no-data"
+		};
+		FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		return;
+	}
+    
+	// Construct the list proxy nodes for the submit data.
+	// Prune non-relevant nodes if submission relevant is true,
+	// and issue error if resulting submit data list is empty (step 3)
+	//
+	submitDataList = this.constructSubmitDataList(oContext, relevancePruning);
+	if (relevancePruning && submitDataList.length === 0) {
+		oEvt = oSubmission.ownerDocument.createEvent("Events");
+		oEvt.initEvent("xforms-submit-error", true, false);
+		oEvt.context = {
+			"error-type" : "no-data"
+		};
+		FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		return;
+	}
+    
+	// Test validity of the submit data in proxy node list
+	//
+	if (validation && !this.validateSubmitDataList(submitDataList)) {
+		oEvt = oSubmission.ownerDocument.createEvent("Events");
+		oEvt.initEvent("xforms-submit-error", true, false);
+		oEvt.context = {
+			"error-type" : "validation-error"
+		};
+		FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		return;
+	}
+    
+    // Evaluate @action, @resource and ./resource for submission URL
+	//
+	ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "resource");
+    
+	sResource = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : null;
+    
+    sResource = sResource || oSubmission.getAttribute("resource") || oSubmission.getAttribute("action"); 
+    
+    // xforms-submit step 6 test for no resource specified
+    //
+    if (!sResource) {
+		oEvt = oSubmission.ownerDocument.createEvent("Events");
+		oEvt.initEvent("xforms-submit-error", true, false);
+	    oEvt.context = {
+	        "error-type" : "resource-error"
+	    };
+		FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		return;
+	}
+
+    // Process the instance attribute or use the default for instance replacement
+    //	
     if (instanceId) {
         instance = oSubmission.ownerDocument.getElementById(instanceId);
         if (!instance || !NamespaceManager.compareFullName(instance, "instance", "http://www.w3.org/2002/xforms")) {
@@ -344,19 +407,7 @@ submission.prototype.submit = function(oSubmission) {
     } else if (oContext.node) {
         oSubmission.srcInstance = oContext.node.ownerDocument.XFormsInstance;
     }
-    
-    if (!oContext.model) {
-        oContext = oSubmission.getEvaluationContext();
-    }
-    
-    // evaluate @action, @resource and ./resource for submission URL
-	
-	ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "resource");
-    
-	sResource = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : null;
-    
-    sResource = sResource || oSubmission.getAttribute("resource") || oSubmission.getAttribute("action"); 
-    
+        
     //
     // Evaluate method element
     // Method element takes precedence over method attribute
@@ -480,6 +531,21 @@ submission.prototype.submit = function(oSubmission) {
 		}
 	}
 };
+
+submission.prototype.constructSubmitDataList = function(oContext, relevancePruning) {
+    // TBD - construct an array of ProxyNodes for all data nodes, or all that 
+    // are relevant if relevancePruning is true
+    //
+    var rootProxyNode = getProxyNode(oContext.node);  
+    return rootProxyNode.enabled.value ? [ rootProxyNode ] : [ ];
+}
+
+submission.prototype.validateSubmitDataList = function(submitDataList) {
+    // TBD - test validity of each ProxyNode in the submitDataList
+    // return false if any are invalid, or true if all are valid
+    //
+    return true;
+}
 
 /*
  * [TODO] Change the name, and remove the separator stuff, since this is a
