@@ -45,7 +45,24 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-        
+		
+        "header" : [
+        {
+            "name" : "header-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([Context, Header]);
+            }
+        }
+        ],
+
+		"name" : [
+		{
+			"name" : "name-element",
+			apply : function(arrBehavious) {
+				return arrBehavious.concat([EventTarget, Context, Control, Value]);
+			}
+		}
+		],
         // end model decorations
 
         // begin container form control decorations
@@ -543,7 +560,11 @@ UX.selectors = {
     },
     repeat : {
         repeatReady : "xf|repeat.repeat-ready > xf|group"     
-    }   
+    },
+	header : {
+		headerReady : "xf|header.header-ready > *"
+	}
+	
 };
 
 // Attribute selectors are added if the user agent supports them
@@ -556,6 +577,7 @@ if (!UX.isIE6) {
     UX.selectors.input.dateminimal.labelvalue += ", xf|input[datatype='xsd:date'][appearance='minimal'] > xf|label > pe-value, xf|input[datatype='xf:date'][appearance='minimal'] > xf|label > pe-value";
     UX.selectors.repeat.repeatReady += ", xf|repeat[class~='repeat-ready'] > xf|group";
     UX.selectors.itemset.repeatReady += ", xf|itemset[class~='repeat-ready'] > xf|item";
+	UX.selectors.header.headerReady += ", xf|header[class~='header-ready'] > *";
 }
 // else, we delegate selection to ie6-css-selectors-fixer.js
 
@@ -588,7 +610,16 @@ DECORATOR.setupDecorator(
 			selector:"xf|submission",
 			objects:[]
 		},
-        
+		{
+			selector:"xf|header",
+			objects:[]
+		},
+		
+		{
+			selector: "xf|name",
+			objects:[]
+		},
+
     /* Container Controls */
         {
             selector:"xf|repeat",
@@ -873,7 +904,7 @@ DECORATOR.setupDecorator(
         
     //Switch off bindings within repeat, during load-time (FF )
         {
-            selector:"xf|repeat > *,  xf|itemset > *",
+            selector:"xf|repeat > *,  xf|itemset > *, xf|header > *",
             cssText:"-moz-binding:url();"
         },
         {
@@ -886,23 +917,38 @@ DECORATOR.setupDecorator(
             selector: UX.selectors.repeat.repeatReady,
             objects:[]
         }, 
+	// Switch off bindings within headers during load-time (FF)
+		{
+			selector: UX.selectors.header.headerReady,
+			objects:[]
+		},
             
 	//Switch off bindings within repeat,itemset during load-time (IE )
 		{
-			selector:"xf|repeat *, xf|itemset *", 
+			selector:"xf|repeat *, xf|itemset *, xf|header *", 
 			cssText:"-binding-ignore:true;"
 		},
         
    	//Switch bindings repeat back on within repeat.  (IE )
          {
-            selector:"xf|repeat.repeat-ready *",
+            selector:"xf|repeat.repeat-ready *, xf|header.header-ready *",
             cssText:"-binding-ignore:false;"
         },
     //Switch bindings itemset back on within itemset.  (IE )        
         {
             selector:"xf|itemset.repeat-ready *",
             cssText:"-binding-ignore:false;"
-        }
+        },
+		
+	//Switch bindings header back on within header. (IE )
+		{
+			selector:"xf|header.header-ready *",
+			cssText:"-binding-ignore:false;"
+		}
+		
+		
+		
+		
 	],
 	"http://www.w3.org/2002/xforms"); //to tell the decorator so that it doesn't need to write these definitions again
 

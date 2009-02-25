@@ -95,6 +95,9 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" });
   	loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: moduleBase + "Repeat.js",
         requires: [ "xforms-model","xforms-group","xforms-dom2"]});
+	  
+    loader.addModule({ name: "xforms-header",     type: "js", fullpath: moduleBase + "Header.js",
+		requires: [ "libxh-decorator", "xforms-dom2" ] });
   	
   	loader.addModule({ name: "backplane-case",        type: "js",  fullpath: moduleBase + "../_backplane/case.js" });
   	loader.addModule({ name: "xforms-case",        type: "js",  fullpath: moduleBase + "case.js", 
@@ -205,6 +208,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-toggle", 
         "xforms-submit",
         "xforms-hint",
+        "xforms-header",
         "yui-input-calendar","yui-input-color",
         "xf4h","xforms-submission-core-yui"
       ]

@@ -74,15 +74,15 @@
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>1000</td>
-					<td></td>
+					<td>waitForText</td>
+					<td>xpath=//html/body/h1</td>
+					<td>*Form posted data*</td>
 					<td>Waits for the form to load</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
 					<td>xpath=//html/body/pre[2]</td>
-					<td>*myHeader=myValue1,myValue2,myValue1,myValue2,myValue3,myValue4,myValue4*</td>
+					<td>*HTTP_MYHEADER=myValue1,myValue2,myValue1,myValue2,myValue3,myValue4,myValue4*</td>
 					<td>Checks that the form data is shown</td>
 				</tr>
 			  	<!-- This is the testing code if we decide that by using a duplicate header name,

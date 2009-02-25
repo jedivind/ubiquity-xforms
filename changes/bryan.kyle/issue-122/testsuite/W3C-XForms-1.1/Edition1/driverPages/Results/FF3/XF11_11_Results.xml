@@ -3,12 +3,12 @@
     <specChapter chapterName="11. " productId="" chapterTitle="The XForms Submission Module">
         <statusSummary>
             <numNormTotal>67</numNormTotal>
-            <numNormPass>34</numNormPass>
-            <numNormFail>34</numNormFail>
+            <numNormPass>36</numNormPass>
+            <numNormFail>32</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>67</numBasicTotal>
-            <numBasicPass>34</numBasicPass>
-            <numBasicFail>33</numBasicFail>
+            <numBasicPass>36</numBasicPass>
+            <numBasicFail>32</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -543,8 +543,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-header</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-25</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -557,8 +557,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-header</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-25</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
