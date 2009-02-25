@@ -34,8 +34,6 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: moduleBase + "../threads.js" });
   	loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: moduleBase + "../dom/dom2events.js",
   		requires: [ "yahoo" ] });
-    loader.addModule({ name: "xforms-dom2",                type: "js", fullpath: moduleBase + "../dom/dom2.js"});
-
   	loader.addModule({ name: "xforms-utils", type: "js",  fullpath: moduleBase + "../UXUtils.js" });
   	
   	loader.addModule({ name: "xforms-vertex-target",       type: "js",  fullpath: moduleBase + "VertexTargets.js",
@@ -63,7 +61,7 @@ var g_sBehaviourDirectory  = "";
   	
   	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: moduleBase + "../decorate.js", 
   		requires:["libxh-namespace-manager"]});
-  
+    	
     // crypto
     loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
     loader.addModule({ name: "xpath-extension-sha1",        type: "js",  fullpath: moduleBase + "../third-party/sha1.js" });
@@ -81,7 +79,10 @@ var g_sBehaviourDirectory  = "";
 
   	loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: moduleBase + "Instance.js",
   		requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
-  	
+  
+  	loader.addModule({ name: "type-validator",            type: "js",  fullpath: moduleBase + "validator.js", 
+  		requires:["libxh-namespace-manager", "xforms-core-function-library"]});
+
   	
   	//control values
   	loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: moduleBase + "input-value.js" });
@@ -92,7 +93,7 @@ var g_sBehaviourDirectory  = "";
   	//container elements
   	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" });
   	loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: moduleBase + "Repeat.js",
-        requires: [ "xforms-model","xforms-group","xforms-dom2"]});
+  		requires: [ "xforms-model","xforms-group"]});
   	
   	loader.addModule({ name: "backplane-case",        type: "js",  fullpath: moduleBase + "../_backplane/case.js" });
   	loader.addModule({ name: "xforms-case",        type: "js",  fullpath: moduleBase + "case.js", 
@@ -104,7 +105,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
   		requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
   	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: moduleBase + "context.js",
-        requires:[ "libxh-namespace-manager", "xforms-dom2" ]});
+  	    requires:[ "libxh-namespace-manager"]});
   	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: moduleBase + "../dom/eventTargetProxy.js",
   		requires: [ "xforms-dom2events" ] });
   
@@ -116,8 +117,6 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-model-actions",        type: "js",  fullpath: moduleBase + "modelactions.js",
   		requires:["xforms-actions","xforms-processor"]});  
 
-  	loader.addModule({ name: "xforms-setindex",             type: "js",  fullpath: moduleBase + "setindex.js",
-  	    	requires:["xforms-instance","xforms-actions"]});
   	loader.addModule({ name: "xforms-setvalue",             type: "js",  fullpath: moduleBase + "setvalue.js",
   	    	requires:["xforms-instance","xforms-actions"]});
     loader.addModule({ name: "xforms-insert",               type: "js",  fullpath: moduleBase + "insert.js",
@@ -126,7 +125,7 @@ var g_sBehaviourDirectory  = "";
             requires:["xforms-instance","xforms-actions"]});
             
   	loader.addModule({ name: "xforms-toggle",             type: "js",  fullpath: moduleBase + "toggle.js",
-  	    	requires:["xforms-actions", "libxh-namespace-manager"]});
+  	    	requires:["xforms-actions"]});
 
   	loader.addModule({ name: "backplane-multimap",             type: "js",  fullpath: moduleBase + "../_backplane/multimap.js"});
   	
@@ -197,12 +196,12 @@ var g_sBehaviourDirectory  = "";
         "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-item",
         "xforms-actions","xforms-model-actions",
-        "xforms-setindex", "xforms-setvalue", "xforms-insert", "xforms-delete",
+        "xforms-setvalue","xforms-insert","xforms-delete",
         "xforms-toggle", 
         "xforms-submit",
         "xforms-hint",
         "yui-input-calendar","yui-input-color",
-        "xf4h","xforms-submission-core-yui"
+        "xf4h","xforms-submission-core-yui", "type-validator"
       ]
     });
     loader.require( "xforms-defs" );
