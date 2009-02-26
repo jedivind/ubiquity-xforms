@@ -153,20 +153,16 @@ Send.prototype.performAction = function (evt)
 	}
 };
 
-function Load(elmnt)
-{
+function Load(elmnt) {
 	this.element = elmnt;
 }
 
 Load.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-Load.prototype.performAction = function (evt)
-{
+Load.prototype.performAction = function (evt) {
   var sTarget, sId;
-	if (evt.type === "xlink-traversed")
-	{
-		try
-		{
+	if (evt.type === "xlink-traversed") 	{
+		try {
 			this.element.removeBehaviour(this.m_cookie);
 			this.m_cookie = 0;
 		}
@@ -174,31 +170,29 @@ Load.prototype.performAction = function (evt)
 		{
 			//debugger;
 		}
-	}
-	else
-	{
-		if (!this.m_cookie)
-		{
+	}	else {
+		if (!this.m_cookie) {
 			this.element.setAttribute("xlink:href", this.element.getAttribute("resource"));
-			this.element.setAttribute("xlink:show", this.element.getAttribute("show"));
-			//element.setAttribute("xlink:actuate","onLoad");
+			this.element.setAttribute("xlink:show", this.element.getAttribute("show") || "replace");
+
 			sTarget = this.element.getAttribute("target");
 
-			if (sTarget === undefined || sTarget === "")
-			{
+			if (sTarget === undefined || sTarget === "") {
 				sId = evt.target.id;
 
 				if (sId !== "") {
 					this.element.setAttribute("target", sId);
 			  }
 			}
-			this.element.addEventListener("xlink-traversed", this);
 			
-			this.m_cookie = this.element.addBehavior("runtime/xlink.htc");
+			this.element.addEventListener("xlink-traversed", this, false);
+			
+			this.element.attachSingleBehaviour(XLinkElement);
 			this.element.Actuate();
 		}
 	}
 };
+
 
 function Message(elmnt) {
   this.element = elmnt;

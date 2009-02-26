@@ -245,7 +245,16 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-
+        
+        "load" : [
+        {
+            "name" : "setvalue-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([Listener, EventTarget, Context, Load]);
+            }
+        }
+        ],
+        
         "message" : [
         {
             "name" : "message-element",
@@ -787,6 +796,10 @@ DECORATOR.setupDecorator(
     		objects:[]
 		},
 
+		{
+    		selector:"xf|load",
+    		objects:[]
+		},
 		{
     		selector:"xf|message",
     		objects:[]

@@ -149,13 +149,20 @@ xf\:switch, xforms\:switch {
 xf\:action, xforms\:action {
   -moz-binding: url("decorator.xml#decorator");
 }
+
+xf\:load, xforms\:load {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
 xf\:message, xforms\:message {
   -moz-binding: url("decorator.xml#decorator");
 }
+
 xf\:setvalue, xforms\:setvalue,
 xf\:hint, xforms\:hint {
   -moz-binding: url("decorator.xml#decorator");
 }
+
 xf\:insert, xforms\:insert,
 xf\:delete, xforms\:delete {
   -moz-binding: url("decorator.xml#decorator");
