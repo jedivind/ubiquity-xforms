@@ -75,7 +75,7 @@ var ActionExecutor = function () {
 						
 						if (evaluateIfCondition(oRealListener, oRealListener.m_context)) {
 							if (oRealListener.getAttribute("while")) {
-								while (evaluateCondition(oRealListener.getAttribute("while"), oRealListener.m_context)) {
+								while (evaluateCondition(oRealListener.getAttribute("while"), oRealListener.m_context) && evaluateIfCondition(oRealListener, oContext)) {
 									oListener.handleEvent(oEvt);
 								}
 							} else {
@@ -87,7 +87,7 @@ var ActionExecutor = function () {
 					
 			} else if (evaluateIfCondition(oRealListener, oContext)) {	
 				if (oRealListener.getAttribute("while")) {
-					while (evaluateCondition(oRealListener.getAttribute("while"), oContext)) {
+					while (evaluateCondition(oRealListener.getAttribute("while"), oContext) && evaluateIfCondition(oRealListener, oContext)) {
 						oListener.handleEvent(oEvt);
 						oContext = oRealListener.getEvaluationContext();
 					}
