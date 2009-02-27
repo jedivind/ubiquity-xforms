@@ -1,5 +1,5 @@
 /*
- * Copyright © 2008-9 Backplane Ltd.
+ * Copyright Â© 2008-9 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -417,29 +417,40 @@ var DECORATOR = function () {
 				//	this comment)
 				case "ctor":
 				case "onContentReady":
-					ix = addFunction(destination,property, source[property]);
 					if (bExecuteConstructorsImmediately) {
-						destination[property][ix]();
+    					destination[property] = source[property];
+					} else { 
+    					addFunction(destination, property, source[property]);
 					}
 				break;
 				case "onDocumentReady":
-					
-					ix = addFunction(destination,property, source[property]);
 					if (g_bDocumentLoaded && bExecuteConstructorsImmediately) {
-						destination[property][ix]();
+    					destination[property] = source[property];
+					} else {
+    					addFunction(destination, property, source[property]);
 					}
-	
+
 				break;
 				default:
-				//	Otherwise, create this member anew, or override any existing homonymous member.
+					//	Otherwise, create this member anew, or override any existing homonymous member.
 					destination[property] = source[property];
 			}
-			
-
+		}
+		
+		//If immediate execution of constructors has been requested, do so.
+		if (bExecuteConstructorsImmediately) {
+			if (destination.ctor) {
+				destination.ctor();
+			}
+			if (destination.onContentReady) {
+				destination.onContentReady();
+			}
+			if (destination.onDocumentReady) {
+				destination.onDocumentReady();
+			}
 		}
 		return destination;
 	}
-
 	
 
 /**

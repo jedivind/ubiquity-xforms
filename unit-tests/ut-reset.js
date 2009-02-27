@@ -10,10 +10,10 @@ var suiteReset = new YAHOO.tool.TestSuite({
 var caseReset = new YAHOO.tool.TestCase({
 	name  :	"Test reset",
 	setUp : function () {
-    var modelDiv = document.createElement("div");
-    DECORATOR.extend(modelDiv,new EventTarget(modelDiv));
-    this.testModel = new Model(modelDiv);
-    DECORATOR.extend(modelDiv,this.testModel);
+    this.testModel = document.createElement("div");
+    DECORATOR.extend(this.testModel ,new EventTarget(this.testModel), true);
+    document.defaultModel = this.testModel;
+    DECORATOR.extend(this.testModel ,new Model(this.testModel), true);
     this.Assert = YAHOO.util.Assert;
 
   },
@@ -31,7 +31,6 @@ var caseReset = new YAHOO.tool.TestCase({
     testInstance.replaceDocument(xmlParse("<x>hello</x>"))
     this.testModel.addInstance(testInstance);
     
-    _model_contentReady(this.testModel);
 
     //Ensure that the new values are as expected, this does not test reset, but ensures that a 
     //  positive test result for reset is a genuine positive
