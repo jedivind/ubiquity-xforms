@@ -300,15 +300,15 @@ submission.prototype.submit = function(oSubmission) {
     var sMethod = null;
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding");
-    var sSerialisation = oSubmission.getAttribute("serialization");
+    var sSerialization = oSubmission.getAttribute("serialization");
     var oBody;
     var oContext;
     var bHasHeaders = false;
 	var sReplace = null;
     var xmlDoc = new XDocument();
     var oSubmissionBody = xmlDoc.createTextNode("");
-    var relevancePruning = Boolean(oSubmission.getAttribute("relevant") || (sSerialisation !== "none"));
-    var validation = Boolean(oSubmission.getAttribute("validate") || (sSerialisation !== "none"));
+    var relevancePruning = oSubmission.getAttribute("relevant") ? (oSubmission.getAttribute("relevant") !== "false") : (sSerialization !== "none");
+    var validation = oSubmission.getAttribute("validate") ? (oSubmission.getAttribute("validate") !== "false") : (sSerialization !== "none");
     var submitDataList = [ ];
  
     /*
@@ -421,39 +421,35 @@ submission.prototype.submit = function(oSubmission) {
     //
 	// Note: @method as it is considered a token not a string.  As such it should be compared in a case-sensitive way.
     switch (sMethod) {
-    case "get":
-        sMethod = "GET";
-        sSerialisation = "application/x-www-form-urlencoded";
-        oBody = this.serialiseForAction(oContext);
-        break;
+	case "get":
+		sMethod = "GET";
+		sSerialization = "application/x-www-form-urlencoded";
+		oBody = this.serialiseForAction(oContext);
+		break;
 
-    case "post":
-        sMethod = "POST";
-        sSerialisation = "application/xml";
-        if (oContext.node) {
-            oBody = xmlText(oContext.node);
-        }
+	case "post":
+		sMethod = "POST";
+		sSerialization = "application/xml";
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
         
-        //
-        // build SOAP Header information
-        //
-        if (sMediatype) {
-            this.setSOAPHeaders(oContext.node, sMediatype, sEncoding); 
-        }
-        
-        break;
+		//
+		// build SOAP Header information
+		//
+		if (sMediatype) {
+		    this.setSOAPHeaders(oContext.node, sMediatype, sEncoding); 
+		}
+		
+		break;
 
-    case "put":
-        sMethod = "PUT";
-        sSerialisation = "application/xml";
-        if (oContext.node) {
-            oBody = xmlText(oContext.node);
-        }
-        break;
+	case "put":
+		sMethod = "PUT";
+		sSerialization = "application/xml";
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
+		break;
 		
 	case "delete":
 		sMethod = "DELETE";
-		sSerialisation = "application/x-www-form-urlencoded";
+		sSerialization = "application/x-www-form-urlencoded";
 		oBody = this.serialiseForAction(oContext);
 		break;
 
@@ -485,7 +481,7 @@ submission.prototype.submit = function(oSubmission) {
 	bHasHeaders = (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
 	sReplace = oSubmission.getAttribute("replace");
 
-	if ((sMethod === "GET") && (!sReplace || sReplace === 'all') && !bHasHeaders && sSerialisation === "application/x-www-form-urlencoded") {
+	if ((sMethod === "GET") && (!sReplace || sReplace === 'all') && !bHasHeaders && sSerialization === "application/x-www-form-urlencoded") {
 		var oForm = this.buildFormFromObject(oBody);
 		oForm.action = sResource;
 		oForm.method = sMethod.toLowerCase();
@@ -514,7 +510,7 @@ submission.prototype.submit = function(oSubmission) {
 
 		try {
 
-			if ((sMethod === "GET" || sMethod === "DELETE") && (oBody || oBody !== "") && sSerialisation === "application/x-www-form-urlencoded") {
+			if ((sMethod === "GET" || sMethod === "DELETE") && (oBody || oBody !== "") && sSerialization === "application/x-www-form-urlencoded") {
 				sResource = sResource + "?" + oBody.toString();
 				oBody = null;
 			}
@@ -532,12 +528,28 @@ submission.prototype.submit = function(oSubmission) {
 	}
 };
 
+// Construct an array of ProxyNodes for all data nodes, or all 
+// data nodes that are relevant if relevancePruning is true
+//
 submission.prototype.constructSubmitDataList = function(oContext, relevancePruning) {
-    // TBD - construct an array of ProxyNodes for all data nodes, or all that 
-    // are relevant if relevancePruning is true
-    //
-    var rootProxyNode = getProxyNode(oContext.node);  
-    return rootProxyNode.enabled.value ? [ rootProxyNode ] : [ ];
+	var submitDataList = [ ];
+	var stack = [ oContext.node ];
+	var proxyNode;  
+	
+	while (stack.length > 0) {
+		proxyNode = getProxyNode(stack.pop());
+		if (proxyNode.enabled.value || !relevancePruning) {
+			submitDataList.push(proxyNode);
+			if (proxyNode.m_oNode.childNodes) {
+				stack = stack.concat(proxyNode.m_oNode.childNodes.slice(0).reverse());
+			}
+			if (proxyNode.m_oNode.attributes) {
+				stack = stack.concat(proxyNode.m_oNode.attributes.slice(0).reverse());
+			}			
+		}
+	} 
+
+    return submitDataList; 
 }
 
 submission.prototype.validateSubmitDataList = function(submitDataList) {
@@ -545,6 +557,71 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
     // return false if any are invalid, or true if all are valid
     //
     return true;
+}
+
+submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat) {
+	var serialization = "";
+	var buf = [ ];
+	
+	if (serializationFormat === "application/xml") {
+		this.serializeXML(submitDataList, 0, buf);
+	}
+	
+	if (buf.length > 0) {
+		serialization = buf.join('');
+	}
+	
+    return serialization;
+}
+
+submission.prototype.serializeXML = function(submitDataList, listPos, buf) {
+	var node = submitDataList[listPos].m_oNode;
+	
+	if (node.nodeType == DOM_TEXT_NODE) {
+		buf.push(xmlEscapeText(node.nodeValue));
+		listPos++;
+	} else if (node.nodeType == DOM_CDATA_SECTION_NODE) {
+		buf.push('<![CDATA[' + node.nodeValue + ']]>');
+		listPos++;
+	} else if (node.nodeType == DOM_COMMENT_NODE) {
+		buf.push('<!--' + node.nodeValue + '-->');
+		listPos++;
+	} else if (node.nodeType == DOM_ATTRIBUTE_NODE) {
+		buf.push(' ' + xmlFullNodeName(node) + '="' + xmlEscapeAttr(node.nodeValue) + '"');
+		listPos++;
+	} else if (node.nodeType == DOM_ELEMENT_NODE) {
+		// Start tag
+		buf.push('<' + xmlFullNodeName(node));
+		listPos++;
+		
+		// Attributes, if any
+		while (listPos < submitDataList.length && submitDataList[listPos].m_oNode.nodeType === DOM_ATTRIBUTE_NODE) {
+			listPos = this.serializeXML(submitDataList, listPos, buf);
+		}
+
+		// If the next node is a child of the current node, then we have
+		// content to serialize, otherwise we have an empty tag
+		if (listPos < submitDataList.length && submitDataList[listPos].m_oNode.parentNode === node) {
+			buf.push('>');
+			
+			// Element Content
+			while (listPos < submitDataList.length && submitDataList[listPos].m_oNode.parentNode === node) {
+				listPos = this.serializeXML(submitDataList, listPos, buf);
+			}
+			// End tag
+			buf.push('</' + xmlFullNodeName(node) + '>');
+				
+		} else {
+			// Empty tag
+			buf.push('/>');
+		}
+	} else if (node.nodeType == DOM_DOCUMENT_NODE || node.nodeType == DOM_DOCUMENT_FRAGMENT_NODE) {
+		while (listPos < submitDataList.length && submitDataList[listPos].m_oNode.parentNode === node) {
+			listPos = this.serializeXML(submitDataList, listPos, buf);
+		}
+	}
+	
+	return listPos;
 }
 
 /*
