@@ -540,6 +540,16 @@ xforms|output *[class~="calnavright"], xf|output *[class~="calnavright"] {
     padding:0px;
     position:relative;
 }
+
+*[class~="ux-drop-button"] {
+    font-size:1pt;
+    display:inline-block;
+    margin:0px;
+    padding:0px;
+    position:relative;   
+    min-height: 17px; 
+}
+
 .ux-drop-button .first-child {
     background-image: url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);
     background-repeat: no-repeat;
@@ -550,7 +560,21 @@ xforms|output *[class~="calnavright"], xf|output *[class~="calnavright"] {
     padding:0px;
 }
 
+*[class~="ux-drop-button"] *[class~="first-child"] {
+    background-image: url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-color:transparent;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+
 .focus {
+  border: 1px lightgray dashed;
+}
+
+*[class~="focus"] {
   border: 1px lightgray dashed;
 }
 
