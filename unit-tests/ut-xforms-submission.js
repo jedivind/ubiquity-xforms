@@ -29,47 +29,65 @@ suiteXFormsSubmission.add(
 			name: "Test xf:submission @method",
 			
 			setUp: function() {
-				this.node = document.createElement("xf:submission");
-				this.node.setAttribute("replace", "none");
+
+				this.model = document.createElement("xf:model");
 				
-				// Implement the methods that submission.submit calls.
-				this.node.getBoundNode = function() { return {}; };
-				this.node.getEvaluationContext = function() { return {}; };
+				this.instance = document.createElement("xf:instance");
+				this.model.appendChild(this.instance);
+				
+				this.submission = document.createElement("xf:submission");
+				this.submission.setAttribute("replace", "none");
+				this.submission.setAttribute("resource", ".");
+				this.model.appendChild(this.submission);
+
+				DECORATOR.extend(this.model, new EventTarget(this.model), false);
+				DECORATOR.extend(this.model, new Model(this.model), false);
+				DECORATOR.extend(this.instance, new EventTarget(this.instance), false);
+				DECORATOR.extend(this.instance, new Instance(this.instance), false);
+				DECORATOR.extend(this.submission, new EventTarget(this.submission), false);
+				DECORATOR.extend(this.submission, new Context(this.submission), false);
+				DECORATOR.extend(this.submission, new Submission(this.submission), false);
+
+				this.instance.replaceDocument(xmlParse("<car><make>Ford</make><color>blue</color></car>"));
+				this.model.addInstance(this.instance);
+
 			},
 			
 			tearDown: function() {
-				delete this.node;
+				delete this.submission;
+				delete this.instance;
+				delete this.model;
 			},
 			
 			testGetMethod: function() {
 				var Assert = YAHOO.util.Assert;
-				
-				this.node.setAttribute("method", "get");
-				document.submission.submit(this.node);
+
+				this.submission.setAttribute("method", "get");
+				document.submission.submit(this.submission);
 				Assert.areEqual("GET", document.submission.method);
 			},
 			
 			testPutMethod: function() {
 				var Assert = YAHOO.util.Assert;
 				
-				this.node.setAttribute("method", "put");
-				document.submission.submit(this.node);
+				this.submission.setAttribute("method", "put");
+				document.submission.submit(this.submission);
 				Assert.areEqual("PUT", document.submission.method);
 			},
 			
 			testPostMethod: function() {
 				var Assert = YAHOO.util.Assert;
 				
-				this.node.setAttribute("method", "post");
-				document.submission.submit(this.node);
+				this.submission.setAttribute("method", "post");
+				document.submission.submit(this.submission);
 				Assert.areEqual("POST", document.submission.method);
 			},
 			
 			testDeleteMethod: function() {
 				var Assert = YAHOO.util.Assert;
 				
-				this.node.setAttribute("method", "delete");
-				document.submission.submit(this.node);
+				this.submission.setAttribute("method", "delete");
+				document.submission.submit(this.submission);
 				Assert.areEqual("DELETE", document.submission.method);
 			}
 			
