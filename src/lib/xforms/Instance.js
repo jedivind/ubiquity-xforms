@@ -207,8 +207,9 @@ Instance.prototype.replaceDocument = function (oDom) {
 Instance.prototype.reset = function () {
 	this.replaceDocument(this.m_oOriginalDOM.cloneNode(true));
 };
-
-Instance.prototype.onContentReady = Instance.prototype.initialisedom;
+//Initialising the DOM during DocumentReadyensures that handlers have 
+//	had a chance to bind to events that may occur as a result of this initialisation.
+Instance.prototype.onDocumentReady = Instance.prototype.initialisedom;
 
 // Delete nodes takes a nodelist and deletes the node at a specified
 // position in that list. If no position is specified then the entire

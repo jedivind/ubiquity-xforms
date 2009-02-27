@@ -95,9 +95,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-modelConstruct</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
-            <testCaseRequired>true</testCaseRequired>
+	        	<testCaseStatus>Passed</testCaseStatus>
+	        	<testCaseDate>2008-02-25</testCaseDate>
+	        	<testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>
