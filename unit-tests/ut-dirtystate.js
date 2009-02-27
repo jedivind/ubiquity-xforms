@@ -17,12 +17,12 @@
         d = new DirtyState();
       },
       
-      testIsInitiallyDirty : function () {
-        YAHOO.util.Assert.areSame(true,d.isDirty());
+      testIsInitiallyClean : function () {
+        YAHOO.util.Assert.areSame(false,d.isDirty());
       },
       
-      testValueInitiallyDirty : function () {
-        YAHOO.util.Assert.areSame(true,d.isDirty("value"));
+      testValueInitiallyClean : function () {
+        YAHOO.util.Assert.areSame(false,d.isDirty("value"));
       },
       
       testMIPsInitiallyClean : function () {
