@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ Insert.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Insert.prototype.performAction = function (evt)
 {
+
     var oContext = this.getEvaluationContext();
     var nodesetExpr = this.element.getAttribute("nodeset"),
         atExpr = this.element.getAttribute("at"),
@@ -34,4 +35,5 @@ Insert.prototype.performAction = function (evt)
                     atExpr, positionExpr, originExpr)) {
         oContext.model.flagRebuild();
     }
+    this.m_context = null;
 };

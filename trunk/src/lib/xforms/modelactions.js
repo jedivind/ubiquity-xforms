@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,7 +95,7 @@ Reset.prototype = new ModelFunctionAction(
     //create and dispatch an xforms-reset event on the model, as defined in http://www.w3.org/TR/xforms11/#action-reset
     var oEvt = this.element.ownerDocument.createEvent("Events");
     oEvt.initEvent("xforms-reset", true, true);
-    FormsProcessor.dispatchEvent(theModel,oEvt);
+    FormsProcessor.dispatchEvent(theModel, oEvt, true);
   }
 );
 
