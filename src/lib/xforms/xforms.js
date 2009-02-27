@@ -1,5 +1,5 @@
 /*
- * Copyright © 2008-2009 Backplane Ltd.
+ * Copyright Â© 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -324,7 +324,8 @@ XFormsProcessor.prototype.dispatchEvent = function (oTarget, oEvent, bForceInlin
   try {
     IncrementDeferredUpdate();
     this.eventStack.push(oEvent);
-      eventExecuted = bForceInlineExecution?oTarget._dispatchEvent(oEvent):oTarget.dispatchEvent(oEvent);
+      //This is only required for IE.  Conformant browsers despatch events at the correct time without prompting
+      eventExecuted = (UX.isIE && bForceInlineExecution)? oTarget._dispatchEvent(oEvent): oTarget.dispatchEvent(oEvent);
     
     if (eventExecuted) {
       this.invokeDefault(oTarget, oEvent);
