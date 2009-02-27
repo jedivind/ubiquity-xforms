@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -444,8 +444,9 @@ Model.prototype.revalidate = function() {
 Model.prototype._revalidate = function() {
     if (!FormsProcessor.halted) {
 	    this.m_bNeedRevalidate = false;
-	    // TODO: There is no validation in AJAXSLT DOM, this needs to be
-	    // implemented.
+
+	    this.applyChildBindConstraints(this);
+
 	    this.m_bNeedRewire = true;
 	}
 };
@@ -584,4 +585,29 @@ Model.prototype._testForReady = function() {
 Model.prototype.setElementLoaded = function() {
     this.elementLoaded = true;
     return;
+};
+
+Model.prototype.applyChildBindConstraints = function(parent) {
+	var i;
+	for (i = 0; i < parent.childNodes.length; ++i) {
+		if (NamespaceManager.compareFullName(parent.childNodes[i], "bind", "http://www.w3.org/2002/xforms")) {
+			this.applyBindConstraint(parent.childNodes[i]);
+			this.applyChildBindConstraints(parent.childNodes[i]);
+		}
+	}
+};
+
+Model.prototype.applyBindConstraint = function(bind) {
+	var constraint = bind.getAttribute("constraint");
+	if (constraint && constraint !== "") {
+		if (!bind.m_proxy) {
+			bind.m_proxy = new ProxyNode(bind);
+		}
+
+		if (!bind.m_proxy.constraint) {
+			bind.m_proxy.constraint = new MIPExpression(bind.m_proxy, constraint, { node: bind }, this);
+		}
+
+		bind.m_proxy.constraint.update();
+	}
 };
