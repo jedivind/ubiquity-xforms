@@ -33,6 +33,23 @@
                     </po>"
                 )
             );
+            
+			this.originDIV = document.createElement( "div" );
+			this.originInstance = new Instance( this.testDIV );
+            this.originInstance.replaceDocument(
+                xmlParse(
+                    "<po xmlns=''> \
+                         <prototype> \
+                             <item> \
+                                <product></product> \
+                                <unitcost>0</unitcost> \
+                                <qty>0</qty> \
+                                <itemtotal>0</itemtotal> \
+                             </item> \
+                         </prototype> \
+                    </po>"
+                )
+            );
 			return;
 		},// setUp()
 
@@ -43,6 +60,11 @@
 			delete this.testInstance;
 			this.testInstance = null;
 			
+			delete this.originDIV;
+			this.originDIV = null;
+
+			delete this.originInstance;
+			this.originInstance = null;
 			return;
 		}// tearDown()
 		
@@ -59,6 +81,8 @@
 				//
 				Assert.areEqual(2, suite.testInstance.evalXPath('count(*/item)').numberValue(),
 					"Instance not initialised correctly");
+				Assert.areEqual(1, suite.originInstance.evalXPath('count(*/item)').numberValue(),
+					"Origin instance not initialised correctly");
 				return;
 			}, // setUp()
 
@@ -74,12 +98,23 @@
             
                 Assert.isTrue(suite.testInstance.insertNodes(
                     suite.testInstance.evalXPath('order').nodeSetValue()[0],  
-                    "item", "1", "after", "/po/prototype/item"), 
+                    "item", "1", "after", 
+                    // "/po/prototype/item"), 
+                    suite.originInstance.evalXPath('/po/prototype/item').nodeSetValue()),  
                     "Insert did not insert any nodes");
 
                 Assert.areEqual(2, suite.testInstance.evalXPath('count(order/item)').numberValue());
                 Assert.isTrue(suite.testInstance.evalXPath('order/item[1]/product = "P1"').booleanValue());
                 Assert.isTrue(suite.testInstance.evalXPath('order/item[2]/product = ""').booleanValue());
+                
+                Assert.isTrue(
+                    suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument
+                    &&
+                    suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument
+                    ===
+                    suite.testInstance.evalXPath('order/item[2]').nodeSetValue()[0].ownerDocument,
+                    "Owner document of inserted node is not correctly set"                    
+                );
                 
                 return;
             },
@@ -96,7 +131,7 @@
                 // to adjust the testInstance, relative to the setUp(), so that it has
                 // the desired property of having an empty list for us to insert within
                 // 
-                Assert.isTrue(suite.testInstance.deleteNodes(null, "order/item", "1"));
+                Assert.isTrue(suite.testInstance.deleteNodes(null, "order/child::node()"));
                 
                 // Ensure we have the correct starting property of an empty list, 
                 // i.e. ensure the P1 product item is in fact gone now  
@@ -111,7 +146,9 @@
                        node: suite.testInstance.evalXPath('order').nodeSetValue()[0],
                        initialContext : suite.testInstance.evalXPath('.').nodeSetValue()[0]
                     },  
-                    null, null, null, "/po/prototype/item"), 
+                    null, null, null, 
+                    // "/po/prototype/item"), 
+                    suite.originInstance.evalXPath('/po/prototype/item').nodeSetValue()),  
                     "Insert did not insert any nodes");
 
                 // Ensure we got from zero elements above to one element
@@ -122,6 +159,31 @@
                 //
                 Assert.isTrue(suite.testInstance.evalXPath('order/item[1]/product = ""').booleanValue());
 
+                // The absolute XPath uses the owner document of the context node to 
+                // get to the document element, so this assertion ensures that the 
+                // newly inserted node belongs to the right document.
+                // 
+                Assert.areEqual(1, 
+                    suite.testInstance.evalXPath(
+                        'count(/po/order)',
+                        suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0] 
+                    ).numberValue(), 
+                    "XPath failed because owner document of inserted node is not correctly set");
+                                
+                // Ensure that newly appended node belongs to the same document as its parent
+                // The above assertion already makes sure, but this was added first and it's
+                // still a valid assertion worth testing in case the xpath engine ever stops
+                // using ownerDocument as a short circuit on absolute URIs 
+                // 
+                Assert.isTrue(
+                    suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument
+                    &&
+                    suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument
+                    ===
+                    suite.testInstance.evalXPath('order').nodeSetValue()[0].ownerDocument,
+                    "Owner document of inserted node is not correctly set"                    
+                );
+                
                 return;
             },
             
@@ -149,7 +211,8 @@
                        node: suite.testInstance.evalXPath('order').nodeSetValue()[0],
                        initialContext : suite.testInstance.evalXPath('.').nodeSetValue()[0]
                     },  
-                    "item", "1", "after", "/po/prototype/item"), 
+                    "item", "1", "after", 
+                    "/po/prototype/item"), 
                     "Insert did not insert any nodes");
 
                 // Ensure we got from zero elements above to one element
