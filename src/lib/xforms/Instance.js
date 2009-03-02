@@ -279,7 +279,9 @@ Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, positi
 
 Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, originExpr) {
 	
-	var nsOrigin = (originExpr) ? this.evalXPath(originExpr, oContext).nodeSetValue() 
+    var nsOrigin = (originExpr) ? (typeof originExpr === 'string'
+                                   ? this.evalXPath(originExpr, oContext).nodeSetValue()
+                                   : originExpr) 
                                 : ((ns) ? new Array(ns[ns.length-1]) : null);
 	var at, after, i, insertLocationNode, insertTarget, insertBeforeNode, cloneNode,
 		nsLocationNode = [ ], nsInserted = [ ], evt, atRoot, insertNode;    
@@ -379,12 +381,7 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 			// or appended if insertBeforeNode is falsy.
 	        
 			for (i = 0; i < nsInserted.length; i++) {           	
-				if (insertBeforeNode) {
-					insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
-				} 
-				else {
-					insertTarget.appendChild(nsInserted[i]);
-				}
+				insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
 			}
 		}
     } // end if (oContext)
