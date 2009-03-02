@@ -68,13 +68,11 @@ function getModelFor(oNode) {
   sBindId = oNode.getAttribute("bind");
       
   if (sBindId) {
-    oBind  = document.getElementById(sBindId);
+		oBind = FormsProcessor.getBindObject(sBindId,oNode);
 
-    if (oBind) {
+		if (oBind) {
       oNode.ownerModel = getModelFor(oBind);
-    } else {
-      UX.dispatchEvent(oNode, "xforms-binding-exception", false, true, true);
-    }
+    } 
     return oNode.ownerModel;
   }
       
@@ -166,6 +164,37 @@ XFormsProcessor.prototype.find = function (array, value) {
     
     return false;
 }
+
+/**
+	Function: getBindObject
+	
+	bindid - The id of the bind element that is to be returned
+	notifyOnException - An EventTarget object that is to be notified in case of exception
+	returns - If bindid refers to a bind object, the bind element referenced by bindid, otherwise, null.
+	
+	An xforms-binding-exception will be raised if there is no element referenced by bindid,
+		or if the element with that id is not an xforms bind element.
+
+*/
+XFormsProcessor.prototype.getBindObject = function (bindid, notifyOnException) {
+		var bindObject = null,
+		notifyOnException = notifyOnException || document.defaultModel;
+		
+		if(bindid) {
+		  bindObject = document.getElementById(bindid);
+		
+	    if (!bindObject || !NamespaceManager.compareFullName(bindObject, "bind", "http://www.w3.org/2002/xforms")) {
+	      //bind not found with this ID
+	      bindObject = null;
+	    	if(notifyOnException) {
+		      UX.dispatchEvent(notifyOnException, "xforms-binding-exception", true, false, false);
+		    }
+	      this.halted = true;
+			}
+		}
+		return bindObject;
+}
+
 
 XFormsProcessor.prototype.setVersion = function () {
     var defaultModelVersions, i, maxPos;

@@ -4,7 +4,7 @@
 // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
 // library.
 //
-// Copyright © 2008-2009 Backplane Ltd.
+// Copyright Â© 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -92,6 +92,9 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-container", type: "js",  fullpath: moduleBase + "ut-container.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+	loader.addModule({ name: "ux-ut-formsProcessor", type: "js",  fullpath: moduleBase + "ut-formsProcessor.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
@@ -111,7 +114,8 @@ function runTheTests() {
 	"ux-ut-pe-value",
 	"ux-ut-Control",
 	"ux-ut-setfocus",
-	"ux-ut-container"
+	"ux-ut-container",
+	"ux-ut-formsProcessor"
   );
 
   var sBars = "";

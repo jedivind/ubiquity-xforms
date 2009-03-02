@@ -23,17 +23,26 @@ Insert.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Insert.prototype.performAction = function (evt)
 {
+	var oContext = this.getEvaluationContext(),
+		bindid = this.element.getAttribute("bind"),
+		atExpr = this.element.getAttribute("at"),
+		positionExpr = this.element.getAttribute("position"),
+		originExpr = this.element.getAttribute("origin"),
+		oInstance = oContext.model.instances()[0],
+		nodesetExpr,
+		nodeset,
+		bindObject;
 
-    var oContext = this.getEvaluationContext();
-    var nodesetExpr = this.element.getAttribute("nodeset"),
-        atExpr = this.element.getAttribute("at"),
-        positionExpr = this.element.getAttribute("position"),
-        originExpr = this.element.getAttribute("origin");
-    var oInstance = oContext.model.instances()[0];
-    
-    if (oInstance.insertNodes(oContext, nodesetExpr, 
-                    atExpr, positionExpr, originExpr)) {
-        oContext.model.flagRebuild();
-    }
-    this.m_context = null;
+	if (bindid) {
+		bindObject = FormsProcessor.getBindObject(bindid, this.element);
+		nodeset = bindObject.boundNodeSet;
+	} else {
+		nodesetExpr = this.element.getAttribute("nodeset");
+		nodeset = (nodesetExpr) ? oInstance.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
+	}
+
+	if (oInstance.insertNodeset(oContext, nodeset, atExpr, positionExpr, originExpr)) {
+		oContext.model.flagRebuild();
+	}
+	this.m_context = null;
 };
