@@ -73,39 +73,49 @@ ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
     The AJAXSLT XNode does not support cloneNode
     @addon
     @param {bool} bDeep Whether to run a deep (everything) or shallow (just the tag and attributes, no children) clone
-    @throws String if bDeep is false, shallow clones are not yet implemented.
 */
 
-XNode.prototype.cloneNode = function(bDeep)
-{
-    var s, oDoc;
-    if(bDeep)
-    {
-        //TODO: revisit and revise this method to use the DOM.
-        //    Serializing and deserializing the candidate node is obviously the quick way to write this function, but somewhat inefficient.
-        //     Also, this can only work for nodes of type document or element.  
-        s = xmlText(this);
-        oDoc = xmlParse(s);
-        if(this.nodeType == DOM_DOCUMENT_NODE)
-        {
-            return oDoc;
-        }
-        else if(this.nodeType == DOM_ELEMENT_NODE)
-        {
-            return oDoc.documentElement;
-        }
-        else
-        {
-            return null;
-        }
+XNode.prototype.cloneNode = function(bDeep) {
+	var newNode, i;
+	
+	if (bDeep) {
+		if (this.nodeType === DOM_DOCUMENT_NODE || this.nodeType === DOM_ELEMENT_NODE || this.nodeType === DOM_DOCUMENT_FRAGMENT_NODE) {
+			newNode = this.cloneNode(false);
+			
+			for (i = 0; i < this.childNodes.length; i++) {
+				newNode.appendChild(this.childNodes[i].cloneNode(true));
+			}
+		} else {
+			bDeep = false;
+		}
     }
-    else
-    {
-        //TODO: implement shallow cloning.
-        throw ("XNode::cloneNode - shallow clones are not supported");
-    }
+    
+	if (!bDeep) {
+		if (this.nodeType === DOM_DOCUMENT_NODE) {
+			newNode = new XDocument();
+		} else if (this.nodeType === DOM_ELEMENT_NODE) {
+			newNode = XNode.create(DOM_ELEMENT_NODE, this.nodeName, null, null);
+			for (i = 0; i < this.attributes.length; i++) {
+				newNode.setAttribute(this.attributes[i].nodeName, this.attributes[i].nodeValue);
+			}
+		} else {
+			newNode = XNode.create(this.nodeType, this.nodeName, this.nodeValue, null);
+		} 
+	}
+	
+	return newNode;
 };
 
+/** A shallow clone of an element includes its tag and its attributes.
+	If you need a "very" shallow clone of just the tag, then you can
+	invoke cloneNode() and then call this function on the resulting node. 
+	@addon
+*/
+XNode.prototype.removeAttributeList = function() {
+	while (this.attributes.length > 0) {
+		this.removeAttribute(this.attributes[0].nodeName);
+	}
+}
 
 /**@addon
 */

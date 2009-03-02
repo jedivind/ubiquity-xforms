@@ -310,6 +310,7 @@ submission.prototype.submit = function(oSubmission) {
     var relevancePruning = oSubmission.getAttribute("relevant") ? (oSubmission.getAttribute("relevant") !== "false") : (sSerialization !== "none");
     var validation = oSubmission.getAttribute("validate") ? (oSubmission.getAttribute("validate") !== "false") : (sSerialization !== "none");
     var submitDataList = [ ];
+    var oForm, requestURI;
  
     /*
      * XForms 1.0
@@ -424,7 +425,7 @@ submission.prototype.submit = function(oSubmission) {
 	case "get":
 		sMethod = "GET";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serialiseForAction(oContext);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
 		break;
 
 	case "post":
@@ -450,7 +451,7 @@ submission.prototype.submit = function(oSubmission) {
 	case "delete":
 		sMethod = "DELETE";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serialiseForAction(oContext);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
 		break;
 
     default:
@@ -482,8 +483,8 @@ submission.prototype.submit = function(oSubmission) {
 	sReplace = oSubmission.getAttribute("replace");
 
 	if ((sMethod === "GET") && (!sReplace || sReplace === 'all') && !bHasHeaders && sSerialization === "application/x-www-form-urlencoded") {
-		var oForm = this.buildFormFromObject(oBody);
-		oForm.action = sResource;
+		oForm = this.buildFormFromObject(oBody.dictionary);
+		oForm.action = requestURI;
 		oForm.method = sMethod.toLowerCase();
 		document.body.appendChild(oForm);
 		
@@ -540,10 +541,10 @@ submission.prototype.constructSubmitDataList = function(oContext, relevancePruni
 		proxyNode = getProxyNode(stack.pop());
 		if (proxyNode.enabled.value || !relevancePruning) {
 			submitDataList.push(proxyNode);
-			if (proxyNode.m_oNode.childNodes) {
+			if (proxyNode.m_oNode.childNodes.length > 0) {
 				stack = stack.concat(proxyNode.m_oNode.childNodes.slice(0).reverse());
 			}
-			if (proxyNode.m_oNode.attributes) {
+			if (proxyNode.m_oNode.attributes.length > 0) {
 				stack = stack.concat(proxyNode.m_oNode.attributes.slice(0).reverse());
 			}			
 		}
@@ -561,115 +562,119 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
 
 submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat) {
 	var serialization = "";
-	var buf = [ ];
+	var xmlDoc = this.constructSubmitDataListDOM(submitDataList);
 	
 	if (serializationFormat === "application/xml") {
-		this.serializeXML(submitDataList, 0, buf);
-	}
-	
-	if (buf.length > 0) {
-		serialization = buf.join('');
+		serialization = xmlText(xmlDoc);
+	} else if (serializationFormat === "application/x-www-form-urlencoded") {
+		serialization = this.serializeURLEncoded(xmlDoc); 
 	}
 	
     return serialization;
 }
 
-submission.prototype.serializeXML = function(submitDataList, listPos, buf) {
-	var node = submitDataList[listPos].m_oNode;
+submission.prototype.constructSubmitDataListDOM = function(submitDataList) {
+	var root = submitDataList[0].m_oNode.cloneNode(false);
+	var xmlDoc;
 	
-	if (node.nodeType == DOM_TEXT_NODE) {
-		buf.push(xmlEscapeText(node.nodeValue));
-		listPos++;
-	} else if (node.nodeType == DOM_CDATA_SECTION_NODE) {
-		buf.push('<![CDATA[' + node.nodeValue + ']]>');
-		listPos++;
-	} else if (node.nodeType == DOM_COMMENT_NODE) {
-		buf.push('<!--' + node.nodeValue + '-->');
-		listPos++;
-	} else if (node.nodeType == DOM_ATTRIBUTE_NODE) {
-		buf.push(' ' + xmlFullNodeName(node) + '="' + xmlEscapeAttr(node.nodeValue) + '"');
-		listPos++;
-	} else if (node.nodeType == DOM_ELEMENT_NODE) {
-		// Start tag
-		buf.push('<' + xmlFullNodeName(node));
-		listPos++;
-		
-		// Attributes, if any
-		while (listPos < submitDataList.length && submitDataList[listPos].m_oNode.nodeType === DOM_ATTRIBUTE_NODE) {
-			listPos = this.serializeXML(submitDataList, listPos, buf);
-		}
+	if (root.nodeType === DOM_DOCUMENT_NODE) {
+		xmlDoc = root;
+	} else if (root.nodeType === DOM_ELEMENT_NODE) {
+		xmlDoc = new XDocument();
+		xmlDoc.appendChild(root);
+	} else {
+		throw ("Submission data must be rooted by an element or a document node");
+	}
+	
+	this._constructSubmitDataListDOM(submitDataList, 0, root);
+	
+	return xmlDoc;
+}
 
-		// If the next node is a child of the current node, then we have
-		// content to serialize, otherwise we have an empty tag
-		if (listPos < submitDataList.length && submitDataList[listPos].m_oNode.parentNode === node) {
-			buf.push('>');
-			
-			// Element Content
-			while (listPos < submitDataList.length && submitDataList[listPos].m_oNode.parentNode === node) {
-				listPos = this.serializeXML(submitDataList, listPos, buf);
-			}
-			// End tag
-			buf.push('</' + xmlFullNodeName(node) + '>');
-				
-		} else {
-			// Empty tag
-			buf.push('/>');
+submission.prototype._constructSubmitDataListDOM = function(submitDataList, listPos, parentNode) {
+	var node, submitListParent;
+	
+	// The parentNode is in the new DOM being contructed, but we also need
+	// to know the parent in the original instance data.
+	submitListParent = submitDataList[listPos].m_oNode;
+	
+	// Now we can advance past the parentNode, i.e. the submitListParent in the submitDataList
+	listPos++;
+	
+	// For element nodes, process the attributes (if any)
+	//
+	if (parentNode.nodeType === DOM_ELEMENT_NODE) {
+		while (listPos < submitDataList.length && submitDataList[listPos].m_oNode.nodeType === DOM_ATTRIBUTE_NODE) {
+			parentNode.setAttribute(submitDataList[listPos].m_oNode.nodeName, submitDataList[listPos].m_oNode.nodeValue);
+			listPos++;
 		}
-	} else if (node.nodeType == DOM_DOCUMENT_NODE || node.nodeType == DOM_DOCUMENT_FRAGMENT_NODE) {
-		while (listPos < submitDataList.length && submitDataList[listPos].m_oNode.parentNode === node) {
-			listPos = this.serializeXML(submitDataList, listPos, buf);
+	}
+	
+	// For element, document and fragment nodes, process children (if any) 
+	//
+	if (parentNode.nodeType === DOM_ELEMENT_NODE ||	parentNode.nodeType === DOM_DOCUMENT_NODE) {
+		while (listPos < submitDataList.length && submitDataList[listPos].m_oNode.parentNode === submitListParent) {
+			node = submitDataList[listPos].m_oNode.cloneNode(false);
+			node.removeAttributeList();
+			parentNode.appendChild(node);
+			if (node.nodeType === DOM_ELEMENT_NODE) {
+				listPos = this._constructSubmitDataListDOM(submitDataList, listPos, node);
+			} else {
+				listPos++;
+			}
 		}
 	}
 	
 	return listPos;
 }
 
-/*
- * [TODO] Change the name, and remove the separator stuff, since this is a
- * general function that turns a nodelist into a sequence of name/value pairs.
- */
-
-submission.prototype.serialiseForAction = function(oContext) {
-	var values = {};
+submission.prototype.serializeURLEncoded = function(node) {
+	var stack = [ node ];
+	var taggedValues = {};
+	var i, isLeaf, tag, value, childNode;
 	
-	var nodeset;
-	var i;
-	var node;
-	
-    if (oContext.node) {
-        // [ISSUE] This returns every text node.
-        nodeset = oContext.model.EvaluateXPath(".|.//*", oContext);
-
-		for ( i = 0; i < nodeset.value.length; ++i ) {
-			node = nodeset.value[i];
-
-            if (node && node.nodeType == DOM_ELEMENT_NODE) {
-                if (node.firstChild && (node.childNodes.length == 1) &&
-					(node.firstChild.nodeType == DOM_TEXT_NODE) && 
-					node.firstChild.nodeValue) {
-					
-					values[String(node.nodeName).replace(/underscore/g, "_")] = node.firstChild.nodeValue;
-                }
+	while (stack.length > 0) {
+		node = stack.pop();
+		if (node.nodeType === DOM_ELEMENT_NODE || node.nodeType === DOM_DOCUMENT_NODE || node.nodeType === DOM_DOCUMENT_FRAGMENT_NODE) {
+			isLeaf = true;
+			value = "";
+			for (i = node.childNodes.length - 1; i >= 0; i--) {
+				childNode = node.childNodes[i];
+				if (childNode.nodeType === DOM_TEXT_NODE || childNode.nodeType === DOM_CDATA_SECTION_NODE) {
+					value = childNode.nodeValue + value;
+				} else if (childNode.nodeType === DOM_ELEMENT_NODE) {
+					isLeaf = false;
+					stack.push(childNode);
+				}
 			}
+			if (isLeaf && node.nodeType === DOM_ELEMENT_NODE) {
+				tag = node.nodeName;
+				if (tag.indexOf(':') != 0) {
+					tag = tag.slice(tag.indexOf(':') + 1);
+				}
+				
+				taggedValues[tag] = value;
+			}			
 		}
 	}
-
-	// Add a toString method to the dictionary so that the result can be concatenated with another string.
-	values.toString = function() {
-		var pairs = [];
-		var key, value;
-		
-		for ( key in this ) {
-			if (this.hasOwnProperty(key) && typeof(this[key]) !== "function") {
-				pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(this[key]));
+	
+    return {
+    	separator: "&",
+    	dictionary: taggedValues,
+    	toString: function() {
+			var pairs = [];
+			var key;
+			
+			for ( key in this.dictionary ) {
+				if (this.dictionary.hasOwnProperty(key) && typeof(this.dictionary[key]) !== "function") {
+					pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(this.dictionary[key]));
+				}
 			}
+			
+			return pairs.join(this.separator);
 		}
-		
-		return pairs.join("&");
 	};
-
-	return values;
-};
+}
 
 /**
  * Builds an HTML form element from an object.
