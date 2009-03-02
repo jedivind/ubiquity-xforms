@@ -289,6 +289,108 @@ LocationExpr.prototype.evaluate = function(ctx) {
   return retval;
 };
 
+XNode.prototype.setOwnerDocument = function(owner, bDeep) {
+	var i;
+	
+	if (this.nodeType === DOM_DOCUMENT_NODE) {
+		this.ownerDocument = null;
+	} else {
+		this.ownerDocument = owner;
+	}
+	
+	if (bDeep) {
+		for (i = 0; i < this.attributes.length; i++) {
+			this.attributes[i].setOwnerDocument(owner);
+		}
+		for (i = 0; i < this.childNodes.length; i++) {
+			this.childNodes[i].setOwnerDocument(owner, true);
+		}
+	}
+}
+
+// This version corrects the original by setting the ownerDocument of node
+//
+XNode.prototype.appendChild = function(node) {
+
+  // ownerDocument
+  if (node.ownerDocument !== this.ownerDocument) {
+      node.setOwnerDocument(this.nodeType === DOM_DOCUMENT_NODE ? this : this.ownerDocument, true);
+  }	
+      
+  // firstChild
+  if (this.childNodes.length == 0) {
+    this.firstChild = node;
+  }
+
+  // previousSibling
+  node.previousSibling = this.lastChild;
+
+  // nextSibling
+  node.nextSibling = null;
+  if (this.lastChild) {
+    this.lastChild.nextSibling = node;
+  }
+
+  // parentNode
+  node.parentNode = this;
+
+  // lastChild
+  this.lastChild = node;
+
+  // childNodes
+  this.childNodes.push(node);
+}
+
+// This version corrects the original by setting the ownerDocument of newNode
+//
+XNode.prototype.replaceChild = function(newNode, oldNode) {
+  if (oldNode == newNode) {
+    return;
+  }
+
+  for (var i = 0; i < this.childNodes.length; ++i) {
+    if (this.childNodes[i] == oldNode) {
+      if (newNode.ownerDocument !== oldNode.ownerDocument) {
+          newNode.setOwnerDocument(oldNode.ownerDocument, true);
+      }	
+      
+      this.childNodes[i] = newNode;
+
+      var p = oldNode.parentNode;
+      oldNode.parentNode = null;
+      newNode.parentNode = p;
+
+      p = oldNode.previousSibling;
+      oldNode.previousSibling = null;
+      newNode.previousSibling = p;
+      if (newNode.previousSibling) {
+        newNode.previousSibling.nextSibling = newNode;
+      }
+
+      p = oldNode.nextSibling;
+      oldNode.nextSibling = null;
+      newNode.nextSibling = p;
+      if (newNode.nextSibling) {
+        newNode.nextSibling.previousSibling = newNode;
+      }
+
+      if (this.firstChild == oldNode) {
+        this.firstChild = newNode;
+      }
+
+      if (this.lastChild == oldNode) {
+        this.lastChild = newNode;
+      }
+
+      break;
+    }
+  }
+}
+
+// This version fixes two behaviors.  
+// 1. It does appendChild when !oldNode, per DOM spec
+// 2. It sets the ownerDocument of newNode
+//
 XNode.prototype.insertBefore = function(newNode, oldNode) {
   var i, c, newChildren = [], oRet = newNode;
 
@@ -297,11 +399,16 @@ XNode.prototype.insertBefore = function(newNode, oldNode) {
         newNode.parentNode.removeChild(newNode);
       }
       this.appendChild(newNode);
+      
   } else if ((oldNode !== newNode) && (oldNode.parentNode === this)) {
       if (newNode.parentNode) {
         newNode.parentNode.removeChild(newNode);
       }
-
+      
+      if (newNode.ownerDocument !== oldNode.ownerDocument) {
+          newNode.setOwnerDocument(oldNode.ownerDocument, true);
+      }	
+       
       for (i = 0; i < this.childNodes.length; ++i) {
         c = this.childNodes[i];
         if (c === oldNode) {
