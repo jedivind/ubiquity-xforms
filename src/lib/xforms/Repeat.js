@@ -1,5 +1,5 @@
 /*
- * Copyright © 2008-2009 Backplane Ltd.
+ * Copyright  2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -182,7 +182,7 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 */
 
 Repeat.prototype.normaliseIndex = function (val) {
-  return Math.max(Math.min(val,this.m_iterationNodesetLength),1);
+  return Math.max(Math.min(val, this.m_iterationNodesetLength), !this.m_iterationNodesetLength? 0: 1);
 };
 
 Repeat.prototype.rewire = function () {
