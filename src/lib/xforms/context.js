@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -232,6 +232,7 @@ function _getEvaluationContextFromParent(pThis) {
 
 
 function _getBoundNode(pThis, nOrdinal) {
+		var oBind;
     var oProxy = pThis.m_proxy;
     var oElement = pThis.element;
     var sBindId  = oElement.getAttribute("bind");
@@ -270,17 +271,10 @@ function _getBoundNode(pThis, nOrdinal) {
     // http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-nodeset
     
     if (sBindId) {
-        if (!pThis.m_arrNodes) { 
-            var oBind = oElement.ownerDocument.getElementById(sBindId);
-            
-            if (!oBind) {
-                // Dispatch xforms-binding-exception if bind is not resolved 
-                UX.dispatchEvent(oElement, 
-                        "xforms-binding-exception", false, true, true);
-                return oRet;
-            }            
-            pThis.m_model    = oBind["ownerModel"];
-            pThis.m_arrNodes = oBind["boundNodeSet"];
+        if (!pThis.m_arrNodes) {
+            oBind = FormsProcessor.getBindObject(sBindId, oElement);
+            pThis.m_model    = oBind.ownerModel;
+            pThis.m_arrNodes = oBind.boundNodeSet;
         }
         oRet.model = pThis.m_model;        
         

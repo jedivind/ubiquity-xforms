@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -274,7 +274,11 @@ Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
 };// deleteNodes()
 
 Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, position, originExpr) {
-	var ns = (nodesetExpr) ? this.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
+	return this.insertNodeset(oContext, ((nodesetExpr) ? this.evalXPath(nodesetExpr, oContext).nodeSetValue() : null), atExpr, position, originExpr);
+};
+
+Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, originExpr) {
+	
 	var nsOrigin = (originExpr) ? this.evalXPath(originExpr, oContext).nodeSetValue() 
                                 : ((ns) ? new Array(ns[ns.length-1]) : null);
 	var at, after, i, insertLocationNode, insertTarget, insertBeforeNode, cloneNode,

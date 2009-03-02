@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -124,8 +124,8 @@ function processBind(oBind, sExpr, oModel, oContext) {
                         // keeping 'boundNode' for now, so that it
                         // doesn't break anything.
                         if (i === 0) {
-                            oBind["boundNode"] = oPN;
-                            oBind["boundNodeSet"] = oNodeset;
+                            oBind.boundNode = oPN;
+                            oBind.boundNodeSet = oNodeset;
                         }
 
                         // Create a vertex for the MDDG. Note that when

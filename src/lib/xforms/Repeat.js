@@ -1,5 +1,5 @@
 /*
- * Copyright  2008-2009 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -194,12 +194,8 @@ Repeat.prototype.rewire = function () {
       r;
   
   if (sBind) {
-    oBind = document.getElementById(sBind);
-
-    if (!oBind || !NamespaceManager.compareFullName(oBind, "bind", "http://www.w3.org/2002/xforms")) {
-      //bind not found with this ID
-      UX.dispatchEvent(this.element, "xforms-binding-exception", false, true, true);
-    } else {
+    oBind = FormsProcessor.getBindObject(sBind, this.element);
+    if (oBind) {
       arrNodes = oBind.boundNodeSet;
       this.m_model = oBind.ownerModel;
     }
