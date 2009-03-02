@@ -7,12 +7,8 @@
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" xalan:indent-amount="2" xmlns:xalan="http://xml.apache.org/xslt"/>
 	
-    <xsl:param name="filename"></xsl:param>    
-    
-    <xsl:variable  name="otherff"
-                   select="document(concat('FF3Results/',$filename))/ts:testSuite/ts:specChapter"/>
-    
-    
+    <xsl:param name="dir"></xsl:param>    
+
 	<xsl:template match="*">
 	<html xmlns="http://www.w3.org/1999/xhtml"  
     xmlns:ts="http://www.w3c.org/MarkUp/Forms/XForms/Test/11"
@@ -54,7 +50,7 @@
             <tr class="heading">
                 <td class="inner130">Test Case Number</td>
                 <td class="innerLongCell">Test Case Name</td>
-                <td class="innerTitle">IE 7</td>
+                <td class="innerTitle"><xsl:value-of select="$dir"></xsl:value-of></td>
             </tr>
       
         <xsl:apply-templates/>
