@@ -176,7 +176,7 @@ suiteXFormsSubmissionHeader.add(
 				document.submission.setHeaders(null, this.submission);
 				
 				Assert.isNotNull(connection.headers["header-name"]);
-				Assert.areEqual("header-value-1 header-value-2", connection.headers["header-name"]);
+				Assert.areEqual("header-value-1,header-value-2", connection.headers["header-name"]);
 									  
 			}
 			
