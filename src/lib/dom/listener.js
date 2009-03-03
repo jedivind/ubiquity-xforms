@@ -57,7 +57,7 @@ Listener.prototype.attachListeners = function () {
         if (!oObserver.addEventListener) {
           // Extend element from EventTarget if it does not
           // has addEventListener method.
-          oTarget = new EventTarget(oElement);
+          oTarget = new EventTarget(oObserver);
           DECORATOR.extend(oObserver, oTarget, false);
         }
       } else {
