@@ -95,6 +95,9 @@ function runTheTests() {
 	loader.addModule({ name: "ux-ut-formsProcessor", type: "js",  fullpath: moduleBase + "ut-formsProcessor.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+	loader.addModule({ name: "ux-ut-types-validator", type: "js",  fullpath: moduleBase + "ut-types-validator.js",
+		requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
@@ -115,7 +118,8 @@ function runTheTests() {
 	"ux-ut-Control",
 	"ux-ut-setfocus",
 	"ux-ut-container",
-	"ux-ut-formsProcessor"
+	"ux-ut-formsProcessor",
+    "ux-ut-types-validator"
   );
 
   var sBars = "";
@@ -133,6 +137,7 @@ function runTheTests() {
     //
     
     YAHOO.tool.TestRunner.add(oSuitePathToModule);
+    YAHOO.tool.TestRunner.add(suiteTypeValidator);
     YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
     YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
     YAHOO.tool.TestRunner.add(suiteNamespaceManager);

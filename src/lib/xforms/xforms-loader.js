@@ -82,6 +82,8 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: moduleBase + "Instance.js",
   		requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
   	
+  	loader.addModule({ name: "xforms-type-validator", type: "js",  fullpath: moduleBase + "validator.js", 
+  		requires:["libxh-namespace-manager", "xforms-core-function-library"]});
   	
   	//control values
   	loader.addModule({ name: "xforms-pe-value",         type: "js",  fullpath: moduleBase + "pe-value.js" });
@@ -197,7 +199,7 @@ var g_sBehaviourDirectory  = "";
         "ux-default-css",
         "libxh-decorator",
         "xforms-listener", "xforms-event-target-proxy",
-        "xforms-conditional-invocation",
+        "xforms-conditional-invocation", "xforms-type-validator",
         "xforms-model", "xforms-instance", "xforms-submission",
         "xforms-action", "xforms-context", "xforms-control",
         "xforms-pe-value", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
