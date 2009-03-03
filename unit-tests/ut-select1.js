@@ -123,9 +123,62 @@ var suiteSelect1 = function () {
       YAHOO.util.Assert.isNull(select.getSingleDisplayValue("staying"));
     }
   });
-    
+
+  var caseSelect1 = new YAHOO.tool.TestCase({
+    name:	"Test XFormsSelect1",
+
+    setUp: function() {
+      this.select1 = this.createElement("xf:select1", "http://www.w3.org/2002/xforms", document.body);
+      DECORATOR.extend(this.select1, new EventTarget(this.select1), false);
+      DECORATOR.extend(this.select1, new Context(this.select1), false);
+      DECORATOR.extend(this.select1, new Control(this.select1), false);
+      DECORATOR.extend(this.select1, new XFormsSelect1(this.select1), false);
+      DECORATOR.extend(this.select1, new FiniteControl(this.select1), false);
+
+      if (!this.select1.m_value) {
+        this.select1.m_value = this.createElement("input", null, this.select1);
+        DECORATOR.extend(this.select1.m_value, new EventTarget(this.select1.m_value), false);
+        DECORATOR.extend(this.select1.m_value, new XFormsSelect1Value(this.select1.m_value), false);
+      }
+
+      if (!this.select1.m_proxy) {
+        this.select1.m_proxy = {};
+        this.select1.m_proxy.enabled = { getValue: function () { return true; } };
+      }
+    },
+
+    tearDown: function(){
+      document.body.removeChild(this.select1);
+      this.select1 = null;
+    },
+
+    testGiveFocus: function() {
+      this.select1.m_value.blur();
+      YAHOO.util.Assert.isFalse(this.select1 === document.activeElement || this.select1.contains(document.activeElement));
+      this.select1.giveFocus();
+      YAHOO.util.Assert.isTrue(this.select1 === document.activeElement || this.select1.contains(document.activeElement));
+	},
+
+    createElement: function(name, ns, parent) {
+      var element;
+
+      if (ns) {
+        element = document.createElementNS(ns, name);
+      } else {
+        element = document.createElement(name);
+      }
+
+      if (parent) {
+        element = parent.appendChild(element);
+      }
+
+      return element;
+    }
+  });
+
   retval.add(caseMultimap);
   retval.add(caseCommonSelect);
+  retval.add(caseSelect1);
   return retval;
 }();
 

@@ -189,14 +189,13 @@ XFormsSelect1.prototype.itemChanged = function (oEvt) {
     }
   }
 };
-	
 
-	
-	
 XFormsSelect1.prototype.giveFocus = function () {
 	if (this.m_proxy.enabled.getValue()) {
-		if (this.m_value && event.srcElement !== this.m_value)	{
-			if (!this.m_value.contains(event.srcElement) && (this.m_choices && event.srcElement !== this.m_choices && !this.m_choices.contains(event.srcElement))) {
+		if (this.m_value && this.m_value !== document.activeElement && !this.m_value.contains(document.activeElement))	{
+			if (typeof this.m_value.giveFocus === "function") {
+				this.m_value.giveFocus();
+			} else {
 				this.m_value.focus();
 			}
 		}
