@@ -4,7 +4,7 @@
 // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
 // library.
 //
-// Copyright (C) 2008 Backplane Ltd.
+// Copyright © 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -450,12 +450,7 @@ FunctionCallExpr.prototype.xpathfunctions["property"] = function(ctx) {
         var match = property.match(/^[_a-z][\w\.\-]*/i);
         if (match && match[0] == property && document.defaultModel) {
             // Matched the whole property string so it is a valid NCName.
-            if (NamespaceManager.compareFullName(
-                    ctx.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
-                UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
-            } else {
-                UX.dispatchEvent(document.defaultModel, "xforms-binding-exception", true, false, false);
-            }
+            this.dispatchExceptionEvent(ctx);
         }
     }
 
@@ -470,43 +465,33 @@ FunctionCallExpr.prototype.xpathfunctions["digest"] = function(ctx) {
         return new StringValue("");
     }
 
-	var data = this.args[0].evaluate(ctx).stringValue();
-	var algorithm = this.args[1].evaluate(ctx).stringValue();
-	var encoding = (this.args.length === 3) ? this.args[2].evaluate(ctx).stringValue() : "base64";
+    var digest = "", shaCrypt;
+    var data = this.args[0].evaluate(ctx).stringValue();
+    var algorithm = this.args[1].evaluate(ctx).stringValue();
+    var encoding = (this.args.length === 3) ? this.args[2].evaluate(ctx).stringValue() : "base64";
 
-    var bException = false, digest = "";
-
-    if (algorithm === "MD5") {
-        if (encoding === "base64") {
-            digest = MD5.b64_md5(data);
-        } else if (encoding === "hex") {
-            digest = MD5.hex_md5(data);
-        } else {
-            bException = true;
+    if (encoding === "hex" || encoding === "base64") {
+        switch (algorithm) {
+            case "MD5":
+                if (encoding === "base64") {
+                    digest = MD5.b64_md5(data);
+                } else if (encoding === "hex") {
+                    digest = MD5.hex_md5(data);
+                }
+                break;
+            case "SHA-1":
+            case "SHA-256":
+            case "SHA-384":
+            case "SHA-512":
+                shaCrypt = new jsSHA(data);
+                digest = shaCrypt.getHash(algorithm, encoding === "hex" ? "HEX" : "B64");
+                break;
+            default:
+                this.dispatchExceptionEvent(ctx);
+                break;
         }
-    } else if (algorithm === "SHA-1") {
-        if (encoding === "base64") {
-            digest = SHA1.b64_sha1(data);
-        } else if (encoding === "hex") {
-            digest = SHA1.hex_sha1(data);
-        } else {
-            bException = true;
-        }
-    } else if (!(algorithm === "SHA-256" || 
-                 algorithm === "SHA-384" || 
-                 algorithm === "SHA-512")) {
-        // SHA-256/384/512 are not currently supported but should return
-        // an empty digest string rather than throw an exception.
-        bException = true;
-    }
-
-    if (bException) {
-        if (NamespaceManager.compareFullName(
-                ctx.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
-            UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
-        } else {
-            UX.dispatchEvent(document.defaultModel, "xforms-binding-exception", true, false, false);
-        }
+    } else {
+        this.dispatchExceptionEvent(ctx);
     }
 
     return new StringValue(digest);
@@ -519,45 +504,35 @@ FunctionCallExpr.prototype.xpathfunctions["hmac"] = function(ctx) {
     if (!this.args || this.args.length < 3 || this.args.length > 4) {
         return new StringValue("");
     }
-    
-	var key = this.args[0].evaluate(ctx).stringValue();
-	var data = this.args[1].evaluate(ctx).stringValue();
-	var algorithm = this.args[2].evaluate(ctx).stringValue();
-	var encoding = (this.args.length === 4) ? this.args[3].evaluate(ctx).stringValue() : "base64";
 
-    var bException = false, hmac = "";
+    var hmac = "", shaCrypt;
+    var key = this.args[0].evaluate(ctx).stringValue();
+    var data = this.args[1].evaluate(ctx).stringValue();
+    var algorithm = this.args[2].evaluate(ctx).stringValue();
+    var encoding = (this.args.length === 4) ? this.args[3].evaluate(ctx).stringValue() : "base64";
 
-    if (algorithm === "MD5") {
-        if (encoding === "base64") {
-            hmac = MD5.b64_hmac_md5(key, data);
-        } else if (encoding === "hex") {
-            hmac = MD5.hex_hmac_md5(key, data);
-        } else {
-            bException = true;
+    if (encoding === "hex" || encoding === "base64") {
+        switch (algorithm) {
+            case "MD5":
+                 if (encoding === "base64") {
+                    hmac = MD5.b64_hmac_md5(key, data);
+                } else if (encoding === "hex") {
+                    hmac = MD5.hex_hmac_md5(key, data);
+                }
+                break;
+            case "SHA-1":
+            case "SHA-256":
+            case "SHA-384":
+            case "SHA-512":
+                shaCrypt = new jsSHA(data);
+                hmac = shaCrypt.getHMAC(key, algorithm, encoding === "hex" ? "HEX" : "B64");
+                break;
+            default:
+                this.dispatchExceptionEvent(ctx);
+                break;
         }
-    } else if (algorithm === "SHA-1") {
-        if (encoding == "base64") {
-            hmac = SHA1.b64_hmac_sha1(key, data);
-        } else if (encoding === "hex") {
-            hmac = SHA1.hex_hmac_sha1(key, data);
-        } else {
-            bException = true;
-        }
-    } else if (!(algorithm === "SHA-256" || 
-                 algorithm === "SHA-384" || 
-                 algorithm === "SHA-512")) {
-        // SHA-256/384/512 are not currently supported but should return
-        // an empty hmac string rather than throw an exception.
-        bException = true;
-    }
-
-    if (bException) {
-        if (NamespaceManager.compareFullName(
-                ctx.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
-            UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
-        } else {
-            UX.dispatchEvent(document.defaultModel, "xforms-binding-exception", true, false, false);
-        }
+    } else {
+        this.dispatchExceptionEvent(ctx);
     }
 
     return new StringValue(hmac);
@@ -1212,3 +1187,10 @@ FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx) {
 	return new NodeSetValue(ret);
 };
 
+FunctionCallExpr.prototype.dispatchExceptionEvent = function (context) {
+	if (NamespaceManager.compareFullName(context.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
+		UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
+	} else {
+		UX.dispatchEvent(document.defaultModel, "xforms-binding-exception", true, false, false);
+	}
+};
