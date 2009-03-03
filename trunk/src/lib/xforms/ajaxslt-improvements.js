@@ -78,7 +78,7 @@ ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
 XNode.prototype.cloneNode = function(bDeep) {
 	var newNode, i;
 	
-	if (bDeep) {
+	if (bDeep) {		
 		if (this.nodeType === DOM_DOCUMENT_NODE || this.nodeType === DOM_ELEMENT_NODE || this.nodeType === DOM_DOCUMENT_FRAGMENT_NODE) {
 			newNode = this.cloneNode(false);
 			
@@ -94,12 +94,12 @@ XNode.prototype.cloneNode = function(bDeep) {
 		if (this.nodeType === DOM_DOCUMENT_NODE) {
 			newNode = new XDocument();
 		} else if (this.nodeType === DOM_ELEMENT_NODE) {
-			newNode = XNode.create(DOM_ELEMENT_NODE, this.nodeName, null, null);
+			newNode = XNode.create(DOM_ELEMENT_NODE, this.nodeName, null, new XDocument());
 			for (i = 0; i < this.attributes.length; i++) {
 				newNode.setAttribute(this.attributes[i].nodeName, this.attributes[i].nodeValue);
 			}
 		} else {
-			newNode = XNode.create(this.nodeType, this.nodeName, this.nodeValue, null);
+			newNode = XNode.create(this.nodeType, this.nodeName, this.nodeValue, new XDocument());
 		} 
 	}
 	
