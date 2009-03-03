@@ -27,7 +27,7 @@
 	suiteGetBindObject = new YAHOO.tool.TestSuite({
       setUp: function(){
       	testDiv = this.createElement("div", "", document.body);
-      	testDiv.innerHTML = "<xf:bind id='bind-0'></xf:bind><span id='not-a-bind'></span>";
+      	testDiv.innerHTML = "<xf:bind xmlns:xf='http://www.w3.org/2002/xforms' id='bind-0'></xf:bind><span id='not-a-bind'></span>";
       },
       
       tearDown: function(){
@@ -72,13 +72,14 @@
       testGetBindSuccessfullyWithNoErrorReceptacle : function () {
       	var bindObj;
       	bindObj = FormsProcessor.getBindObject("bind-0");
-      	YAHOO.util.Assert.areSame(bindObj.id,"bind-0");
+      	//YAHOO.util.Assert.areSame(bindObj.id,"bind-0");
+      	YAHOO.util.Assert.areSame(bindObj.getAttribute("id"),"bind-0");
       },
 
-			testGetBindSuccessfully : function () {
+      testGetBindSuccessfully : function () {
       	var bindObj;
       	bindObj = FormsProcessor.getBindObject("bind-0", errorReceptacle);
-      	YAHOO.util.Assert.areSame("bind-0", bindObj.id);
+      	YAHOO.util.Assert.areSame("bind-0", bindObj.getAttribute("id"));
       	YAHOO.util.Assert.areSame("", errorReceptacle.err);
       },
       
