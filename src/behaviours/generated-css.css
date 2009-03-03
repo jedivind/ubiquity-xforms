@@ -204,11 +204,11 @@ xf\:label >  pe-value, xforms\:label >  pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
 
-xf\:repeat *, xforms\:repeat *, xf\:itemset *, xforms\:itemset * {
+xf\:repeat *, xforms\:repeat *, xf\:itemset *, xforms\:itemset *, xforms\:header *, xf\:header * {
   -binding-ignore:true;
 }
 
-xf\:repeat.repeat-ready *, xforms\:repeat.repeat-ready *, xf\:itemset.repeat-ready *, xforms\:itemset.repeat-ready * {
+xf\:repeat.repeat-ready *, xforms\:repeat.repeat-ready *, xf\:itemset.repeat-ready *, xforms\:itemset.repeat-ready *, xf\:header.header-ready *, xforms\:header.header-ready * {
   -binding-ignore:false;
 }
 
@@ -228,11 +228,11 @@ xf\:select1 > xf\:itemset *, xforms\:select1 >  xforms\:itemset * {
   -moz-binding:url();
 }
 
-xf\:repeat > *, xforms\:repeat > *, xf\:itemset > *, xforms\:itemset > * {
+xf\:repeat > *, xforms\:repeat > *, xf\:itemset > *, xforms\:itemset > *, xf\:header > *, xforms\:header > * {
   -moz-binding:url();
 }
 
-xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready >  xforms\:group {
+xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready >  xforms\:group, xf\:header.header-ready > *, xforms\:header.header-ready > * {
   -moz-binding: url("decorator.xml#decorator");
 }
 
