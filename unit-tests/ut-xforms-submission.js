@@ -120,13 +120,8 @@ suiteXFormsSubmission.add(
 			testSerializeWhenRefIsLeafNode: function() {
 				
 				var Assert = YAHOO.util.Assert;
-				
-				var context = { 
-					model: this.model,
-					node: getFirstNode(this.model.EvaluateXPath("/car/color"))
-				}; 
-				
-				var string = document.submission.serialiseForAction(context).toString();
+				var node = getFirstNode(this.model.EvaluateXPath("/car/color"));
+				var string = document.submission.serializeURLEncoded(node).toString();
 				
 				Assert.areEqual("color=blue", string);
 			},
@@ -134,13 +129,8 @@ suiteXFormsSubmission.add(
 			testSerializeWhenRefIsNotLeafNode: function() {
 				
 				var Assert = YAHOO.util.Assert;
-				
-				var context = { 
-					model: this.model,
-					node: getFirstNode(this.model.EvaluateXPath("/car"))
-				}; 
-				
-				var string = document.submission.serialiseForAction(context).toString();
+				var node = getFirstNode(this.model.EvaluateXPath("/car"));
+				var string = document.submission.serializeURLEncoded(node).toString();
 				
 				Assert.areEqual("make=Ford&color=blue", string);
 			}
