@@ -66,7 +66,7 @@ var g_sBehaviourDirectory  = "";
   
     // crypto
     loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
-    loader.addModule({ name: "xpath-extension-sha1",        type: "js",  fullpath: moduleBase + "../third-party/sha1.js" });
+    loader.addModule({ name: "xpath-extension-sha",        type: "js",  fullpath: moduleBase + "../third-party/jsSHA/src/sha.js" });
 
   	loader.addModule({ name: "xforms-dom-util",            type: "js",  fullpath: moduleBase + "../ajaxslt/util.js" });
   	loader.addModule({ name: "xforms-dom-xml",            type: "js",  fullpath: moduleBase + "../ajaxslt/xmltoken.js" });
@@ -76,7 +76,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-ajaxslt-improvements", type: "js",  fullpath: moduleBase + "ajaxslt-improvements.js",
   		requires: [ "xforms-dom", "xforms-xpath" ] });
   	loader.addModule({ name: "xforms-core-function-library", type: "js",  fullpath: moduleBase + "xforms-core-function-library.js",
-  	requires: [ "xforms-xpath", "xpath-extension-md5", "xpath-extension-sha1" ] });
+  	requires: [ "xforms-xpath", "xpath-extension-md5", "xpath-extension-sha" ] });
 
 
   	loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: moduleBase + "Instance.js",

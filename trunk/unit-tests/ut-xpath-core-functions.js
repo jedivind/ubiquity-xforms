@@ -4,7 +4,7 @@
 // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
 // library.
 //
-// Copyright (C) 2008 Backplane Ltd.
+// Copyright © 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -1055,26 +1055,71 @@ suiteXPathCoreFunctions.add(
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("kAFQmDzST7DWlj99KOF/cg==", evalXPath('digest("abc", "MD5", "base64")').stringValue());
+      Assert.areEqual("OUSwJcnKfuwxVLRGZq4EoA==", evalXPath('digest("cba", "MD5", "base64")').stringValue());
     },
 
     testDigestMD5Hex : function () {
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("900150983cd24fb0d6963f7d28e17f72", evalXPath('digest("abc", "MD5", "hex")').stringValue());
+      Assert.areEqual("3944b025c9ca7eec3154b44666ae04a0", evalXPath('digest("cba", "MD5", "hex")').stringValue());
     },
 
     testDigestSHA1Base64 : function () {
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("qZk+NkcGgWq6PiVxeFDCbJzQ2J0=", evalXPath('digest("abc", "SHA-1", "base64")').stringValue());
+      Assert.areEqual("2fBQn7fovX1MS2J9/scMDA4B+zQ=", evalXPath('digest("cba", "SHA-1", "base64")').stringValue());
     },
 
     testDigestSHA1Hex : function () {
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("a9993e364706816aba3e25717850c26c9cd0d89d", evalXPath('digest("abc", "SHA-1", "hex")').stringValue());
-    }
+      Assert.areEqual("d9f0509fb7e8bd7d4c4b627dfec70c0c0e01fb34", evalXPath('digest("cba", "SHA-1", "hex")').stringValue());
+    },
 
+    testDigestSHA256Base64 : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0=", evalXPath('digest("abc", "SHA-256", "base64")').stringValue());
+      Assert.areEqual("bZcIdNDbdnpwWHmJc/Is9liWAe2rV5ljEvLve1blWE0=", evalXPath('digest("cba", "SHA-256", "base64")').stringValue());
+    },
+
+    testDigestSHA256Hex : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", evalXPath('digest("abc", "SHA-256", "hex")').stringValue());
+      Assert.areEqual("6d970874d0db767a7058798973f22cf6589601edab57996312f2ef7b56e5584d", evalXPath('digest("cba", "SHA-256", "hex")').stringValue());
+    },
+
+    testDigestSHA384Base64 : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("ywB1P0WjXou1oD1pmsZQBycsMqsO3tFjGotgWkP/W+2AhgcroefMI1i67KE0yCWn", evalXPath('digest("abc", "SHA-384", "base64")').stringValue());
+      Assert.areEqual("CPCtC1wB1CBZBoGZIWDq3h2Ca/92cfkrc8YrWMQwzQyKOx5aoC6s+KxikeyS2HQC", evalXPath('digest("cba", "SHA-384", "base64")').stringValue());
+    },
+
+    testDigestSHA384Hex : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("cb00753f45a35e8bb5a03d699ac65007272c32ab0eded1631a8b605a43ff5bed8086072ba1e7cc2358baeca134c825a7", evalXPath('digest("abc", "SHA-384", "hex")').stringValue());
+      Assert.areEqual("08f0ad0b5c01d420590681992160eade1d826bff7671f92b73c62b58c430cd0c8a3b1e5aa02eacf8ac6291ec92d87402", evalXPath('digest("cba", "SHA-384", "hex")').stringValue());
+    },
+
+    testDigestSHA512Base64 : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("3a81oZNherrMQXNJriBBMRLm+k6JqX6iCp7u5ktV05ohkpkqJ0/BqDa6PCOj/uu9RU1EI2Q86A4qmslPpUyknw==", evalXPath('digest("abc", "SHA-512", "base64")').stringValue());
+      Assert.areEqual("Ox0Xv+yNvpbk0Aqaummo6hlXnXnhLi3N2RW+A4Chqc7ieqxuskVgci4r5dunMicuUMaqd0sUMmj6eFuvxgVJeg==", evalXPath('digest("cba", "SHA-512", "base64")').stringValue());
+    },
+
+    testDigestSHA512Hex : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f", evalXPath('digest("abc", "SHA-512", "hex")').stringValue());
+      Assert.areEqual("3b1d17bfec8dbe96e4d00a9aba69a8ea19579d79e12e2dcdd915be0380a1a9cee27aac6eb24560722e2be5dba732272e50c6aa774b143268fa785bafc605497a", evalXPath('digest("cba", "SHA-512", "hex")').stringValue());
+    }
   })//new TestCase
 );
 
@@ -1093,26 +1138,81 @@ suiteXPathCoreFunctions.add(
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("0v6YBj+HawMZOvtJtJeVkQ==", evalXPath('hmac("key", "abc", "MD5", "base64")').stringValue());
+      Assert.areEqual("bCSk6K/KO69NMyhKWPYTbw==", evalXPath('hmac("key", "cba", "MD5", "base64")').stringValue());
+      Assert.areEqual("w+hRIhZI/WXCKnupI3JgiA==", evalXPath('hmac("yek", "abc", "MD5", "base64")').stringValue());
     },
 
     testHmacMD5Hex : function () {
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("d2fe98063f876b03193afb49b4979591", evalXPath('hmac("key", "abc", "MD5", "hex")').stringValue());
+      Assert.areEqual("6c24a4e8afca3baf4d33284a58f6136f", evalXPath('hmac("key", "cba", "MD5", "hex")').stringValue());
+      Assert.areEqual("c3e851221648fd65c22a7ba923726088", evalXPath('hmac("yek", "abc", "MD5", "hex")').stringValue());
     },
 
     testHmacSHA1Base64 : function () {
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("T9CyFSdu8S8rPkyOysKBFJi2Vvw=", evalXPath('hmac("key", "abc", "SHA-1", "base64")').stringValue());
+      Assert.areEqual("dHQFZ4dO10c+gfUgguxNiHoZU5s=", evalXPath('hmac("key", "cba", "SHA-1", "base64")').stringValue());
+      Assert.areEqual("qZIn8kfO385rqYAjwTaqqY1RKlU=", evalXPath('hmac("yek", "abc", "SHA-1", "base64")').stringValue());
     },
 
     testHmacSHA1Hex : function () {
       var Assert = YAHOO.util.Assert;
 
       Assert.areEqual("4fd0b215276ef12f2b3e4c8ecac2811498b656fc", evalXPath('hmac("key", "abc", "SHA-1", "hex")').stringValue());
-    }
+      Assert.areEqual("74740567874ed7473e81f52082ec4d887a19539b", evalXPath('hmac("key", "cba", "SHA-1", "hex")').stringValue());
+      Assert.areEqual("a99227f247cedfce6ba98023c136aaa98d512a55", evalXPath('hmac("yek", "abc", "SHA-1", "hex")').stringValue());
+    },
 
+    testHmacSHA256Base64 : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("nBluMtwBdfhvSxy4konWYZ3mvuaZ5MN45oMJ7Zehpqs=", evalXPath('hmac("key", "abc", "SHA-256", "base64")').stringValue());
+      Assert.areEqual("FoooUP5V9Xff1WjwEnfkC0U+495Pg6+0GPMaClxylB8=", evalXPath('hmac("key", "cba", "SHA-256", "base64")').stringValue());
+      Assert.areEqual("8KQyoEf2ms8tw2AkSoFmu8q4xMU+53WBTS/Ne6tHgmU=", evalXPath('hmac("yek", "abc", "SHA-256", "base64")').stringValue());
+    },
+
+    testHmacSHA256Hex : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("9c196e32dc0175f86f4b1cb89289d6619de6bee699e4c378e68309ed97a1a6ab", evalXPath('hmac("key", "abc", "SHA-256", "hex")').stringValue());
+      Assert.areEqual("168a2850fe55f577dfd568f01277e40b453ee3de4f83afb418f31a0a5c72941f", evalXPath('hmac("key", "cba", "SHA-256", "hex")').stringValue());
+      Assert.areEqual("f0a432a047f69acf2dc360244a8166bbcab8c4c53ee775814d2fcd7bab478265", evalXPath('hmac("yek", "abc", "SHA-256", "hex")').stringValue());
+    },
+
+    testHmacSHA384Base64 : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("MN25yPNHz/v7ROUZ2BTwdM9AR6Vdb1YzJPHGozkg5e37KjS6xgvcls0zqVYj19Y4", evalXPath('hmac("key", "abc", "SHA-384", "base64")').stringValue());
+      Assert.areEqual("S60hKnrilLjcG+EMVYwDnZaJ6uj8wHWpkiMJ9BmMAjiP6kRlktUnBXQQc3TpzpAP", evalXPath('hmac("key", "cba", "SHA-384", "base64")').stringValue());
+      Assert.areEqual("mPh49SPLLZ2Qy0ShF68eRnN4dzZ7TGtnEJUkNSiqAfWCggX1DtoIZ1fTo+Jm1+EX", evalXPath('hmac("yek", "abc", "SHA-384", "base64")').stringValue());
+    },
+
+    testHmacSHA384Hex : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("30ddb9c8f347cffbfb44e519d814f074cf4047a55d6f563324f1c6a33920e5edfb2a34bac60bdc96cd33a95623d7d638", evalXPath('hmac("key", "abc", "SHA-384", "hex")').stringValue());
+      Assert.areEqual("4bad212a7ae294b8dc1be10c558c039d9689eae8fcc075a9922309f4198c02388fea446592d5270574107374e9ce900f", evalXPath('hmac("key", "cba", "SHA-384", "hex")').stringValue());
+      Assert.areEqual("98f878f523cb2d9d90cb44a117af1e46737877367b4c6b671095243528aa01f5828205f50eda086757d3a3e266d7e117", evalXPath('hmac("yek", "abc", "SHA-384", "hex")').stringValue());
+    },
+
+    testHmacSHA512Base64 : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("OSaiB8jEKwxBeSy9PhoaqvX3olcE9i38k5xJh9184GAAnFuxwkRzVbMhbxC1N+mvp7ZKTlORsNYxFy0Hk54Ieg==", evalXPath('hmac("key", "abc", "SHA-512", "base64")').stringValue());
+      Assert.areEqual("jSh86FwT3D0OJmtsip7aznax52ILNYVk6q1LtUveY5vaHBx0NFnjFpXhPCHBTOC10lb29sFhNB9k7AMVXYzvpA==", evalXPath('hmac("key", "cba", "SHA-512", "base64")').stringValue());
+      Assert.areEqual("IaC+AIWWR+l7g9WJkdEIyFC9K6ogCXZlDvzqO6NzdQYneWsuAC1egkPXT2C+Tm9n6d177s2YJrmWe6DfM59S7w==", evalXPath('hmac("yek", "abc", "SHA-512", "base64")').stringValue());
+    },
+
+    testHmacSHA512Hex : function () {
+      var Assert = YAHOO.util.Assert;
+
+      Assert.areEqual("3926a207c8c42b0c41792cbd3e1a1aaaf5f7a25704f62dfc939c4987dd7ce060009c5bb1c2447355b3216f10b537e9afa7b64a4e5391b0d631172d07939e087a", evalXPath('hmac("key", "abc", "SHA-512", "hex")').stringValue());
+      Assert.areEqual("8d287ce85c13dc3d0e266b6c8a9edace76b1e7620b358564eaad4bb54bde639bda1c1c743459e31695e13c21c14ce0b5d256f6f6c161341f64ec03155d8cefa4", evalXPath('hmac("key", "cba", "SHA-512", "hex")').stringValue());
+      Assert.areEqual("21a0be00859647e97b83d58991d108c850bd2baa200976650efcea3ba373750627796b2e002d5e8243d74f60be4e6f67e9dd7beecd9826b9967ba0df339f52ef", evalXPath('hmac("yek", "abc", "SHA-512", "hex")').stringValue());
+    }
   })//new TestCase
 );
 
