@@ -129,3 +129,7 @@ To check the admin and host information that was added, look for the slave on it
 {{{
 http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/builders/full-ie7-test
 }}}
+
+= Testing Firefox =
+
+Install Firefox onto the slave machine. The latest stable version is always available from the [http://firefox.com Firefox home-page]. Make sure not to tick 'make this my default browser', if you also plan to test with Internet Explorer on the same machine.
