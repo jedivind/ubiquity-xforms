@@ -84,7 +84,7 @@
 			// the last one.
 			//
 			testDeleteNodeNodsetOfManyIndexOfCountItemFromPurchaseOrder: function() {
-				Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "count(item)"));
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "count(../item)"));
 
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue());
