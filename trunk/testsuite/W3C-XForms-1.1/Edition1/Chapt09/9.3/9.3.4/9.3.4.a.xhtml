@@ -12,7 +12,7 @@
     <xforms:model>
 		<xforms:instance>
 			<yourname>
-			  <myID/>
+			  <myID></myID>
 			</yourname>
 		</xforms:instance>
 	</xforms:model>
@@ -30,13 +30,13 @@
 			<xforms:case id="in">
 				<xforms:trigger ref="/yourname">
 					<xforms:label>Show Out Case</xforms:label>
-					<xforms:toggle ev:event="DOMActivate" case="out"/>
+					<xforms:toggle ev:event="DOMActivate" case="out"></xforms:toggle>
 				</xforms:trigger>
 			</xforms:case>
 			<xforms:case id="out">
 				<xforms:trigger>
 					<xforms:label>Show In Case</xforms:label>
-					<xforms:toggle ev:event="DOMActivate" case="in"/>
+					<xforms:toggle ev:event="DOMActivate" case="in"></xforms:toggle>
 				</xforms:trigger>
 			</xforms:case>
 		</xforms:switch>
