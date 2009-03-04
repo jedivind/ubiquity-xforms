@@ -1,11 +1,20 @@
 <?xml version="1.0"?>
-<project name="check-results" default="regression">
-  <target name="regression">
-    <loadfile property="results" srcFile="regressionResults.html" />
+<project name="check-results" default="regression-ie7">
+  <target name="regression-ie7">
+    <loadfile property="results" srcFile="regression-ie7-results.html" />
     <condition property="failed">
       <matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
     </condition>
-    <fail message="Regression tests failed."
+    <fail message="Regression tests failed for IE7."
+          if="failed"/>
+  </target>
+
+  <target name="xforms11-ie7">
+    <loadfile property="results" srcFile="xforms11-ie7-results.html" />
+    <condition property="failed">
+      <matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
+    </condition>
+    <fail message="XForms 1.1 tests failed for IE7."
           if="failed"/>
   </target>
 </project>
