@@ -3,7 +3,7 @@
 //
 // The Ubiquity XForms module adds XForms support to the Ubiquity library.
 //
-// Copyright © 2008-2009 Backplane Ltd.
+// Copyright Â© 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -45,7 +45,12 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "backplane-pds",              type: "js",  fullpath: moduleBase + "pds.js" });
   	loader.addModule({ name: "backplane-model",            type: "js",  fullpath: moduleBase + "model.js",
   		requires: [ "backplane-pds" ] });
-  	loader.addModule({ name: "xforms-model",               type: "js",  fullpath: moduleBase + "modelObj.js",
+
+		loader.addModule({ name: "dirtystate",            type: "js",  fullpath: moduleBase + "dirtystate.js" });
+		loader.addModule({ name: "mip-consumer",            type: "js",  fullpath: moduleBase + "mipconsumer.js",
+  		requires: [ "dirtystate" ] });
+
+		loader.addModule({ name: "xforms-model",               type: "js",  fullpath: moduleBase + "modelObj.js",
   		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager", "xforms-threads", "xforms-vertex-target" ] });
 
   	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: moduleBase + "xforms-submission.js" });
@@ -94,7 +99,8 @@ var g_sBehaviourDirectory  = "";
   	
   	//container elements
   	loader.addModule({ name: "xforms-container",        type: "js",  fullpath: moduleBase + "container.js" });
-  	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" });
+  	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" ,
+        requires: [ "mip-consumer"]});
   	loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: moduleBase + "Repeat.js",
         requires: [ "xforms-model","xforms-group","xforms-dom2"]});
 	  
@@ -105,11 +111,11 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-case",        type: "js",  fullpath: moduleBase + "case.js", 
   		requires: [ "backplane-case"]});
   	loader.addModule({ name: "xforms-switch",        type: "js",  fullpath: moduleBase + "Switch.js",
-  		requires: [ "xforms-case"]});
+  		requires: [ "xforms-case", "mip-consumer"]});
   	
   	
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
-  		requires: [ "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
+  		requires: [ "dirtystate", "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
   	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: moduleBase + "context.js",
         requires:[ "libxh-namespace-manager", "xforms-dom2" ]});
   	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: moduleBase + "../dom/eventTargetProxy.js",

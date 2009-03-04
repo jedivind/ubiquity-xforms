@@ -1,5 +1,5 @@
 /*
- * Copyright © 2008-2009 Backplane Ltd.
+ * Copyright Â© 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "group-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Container, Group]);
+                return arrBehaviours.concat([EventTarget, MIPConsumer, Context, Container, Group]);
             }
         }
         ],
@@ -79,7 +79,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "switch-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Switch]);
+                return arrBehaviours.concat([EventTarget, MIPConsumer, Context, Switch]);
             }
         }
         ],
