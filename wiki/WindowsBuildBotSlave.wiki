@@ -40,3 +40,22 @@ The latest versions of !PyWin32 are on the [http://sourceforge.net/project/platf
 == Install !BuildBot ==
 
 ASCEND has a [http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.exe Windows installer] that installs !BuildBot. It's only version 0.7.6 but it seems to work ok.
+
+== Steps to be added ==
+
+_Unfortunately an error in my wiki syntax on the previous line caused a whole load of steps to be lost. I'll have to add them back later._
+
+== Launch the slave ==
+
+To launch the slave, type:
+{{{
+buildbot start full
+}}}
+in the !BuildBot directory, or change into the `full` directory and type:
+{{{
+buildbot start .
+}}}
+After a short wait the page for the builder that the slave is part of should show the status of the new slave. For example, if the slave has been added to the `full-test` build, then the following link should show the new slave as `CONNECTED`:
+{{{
+http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/builders/full-test/
+}}}
