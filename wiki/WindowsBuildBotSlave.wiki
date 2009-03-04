@@ -1,0 +1,42 @@
+#summary Notes about creating a BuildBot slave on Windows.
+#labels Phase-QA
+
+= Introduction =
+
+It's fairly straightforward to create a BuildBot slave that will connect to the Ubiquity XForms BuildBot master. This page captures notes on the process.
+
+= Details =
+
+== Install Python ==
+
+The latest versions of Python are on the [http://www.python.org/download/ Python download page]. The Windows installers for version 2.x are recommended over version 3 installers. At the time of writing the latest was version 2.6.1.
+
+Add the Python (`c:\Python26\`) and Python scripts (`c:\Python26\Scripts\`) directories to `PATH` in the environment variables.
+
+Also add `.PY` to `PATHEXT`.
+
+Open a new command prompt (an existing one won't have the new entries in the environment variables) and verify that you can run Python:
+{{{
+python --version
+}}}
+
+You should see version 2.6.1, but if you don't, type `set` and ensure that the changes to `PATH` and `PATHEXT` are showing up.
+
+== Install Twisted ==
+
+The latest versions of Twisted are on the [http://twistedmatrix.com/trac/ Twisted Matrix Labs trac page]. Choose a version of Twisted that matches the version of Python installed in the previous step, which in this case is Twisted 8.2.0 for Python 2.6.
+
+Open a new command prompt and verify that you can run Twisted:
+{{{
+trial --version
+}}}
+
+You should see version 8.2.0.
+
+== Install Python Extensions for Windows ==
+
+The latest versions of PyWin32 are on the [http://sourceforge.net/project/platformdownload.php?group_id=78018&sel_platform=3212 pywin32 Sourceforge.net page]. Choose a version that matches the version of Python installed in the first step, which in this case is PyWin32 build 212 for Python 2.6.
+
+== Install BuildBot ==
+
+[http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.exe
