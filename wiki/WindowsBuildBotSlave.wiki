@@ -3,7 +3,9 @@
 
 = Introduction =
 
-It's fairly straightforward to create a Buildbot slave that will connect to the Ubiquity XForms Buildbot master. This page captures notes on the process, and will apply to any Buildbot slave. If you specifically want to set up a slave that talks to the Ubiquity XForms master then you'll need to obtain a slave name, and let us know the user-name and password. You can do this by contacting [mailto:mark.birbeck@webBackplane.com Mark Birbeck].
+It's fairly straightforward to create a Buildbot slave that will connect to the Ubiquity XForms Buildbot master. This page captures notes on the process, and will apply to any Buildbot slave. If you specifically want to set up a slave that talks to the Ubiquity XForms master then you'll need to obtain a slave name, and let us know the user-name and password. You'll also need to decide what it is that you are going to test, so that the Buildbot master can send the correct commands to your slave.
+
+You can do all of this by contacting [mailto:mark.birbeck@webBackplane.com Mark Birbeck].
 
 = Details =
 
