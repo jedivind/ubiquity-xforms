@@ -3,7 +3,7 @@
 
 = Introduction =
 
-It's fairly straightforward to create a BuildBot slave that will connect to the Ubiquity XForms BuildBot master. This page captures notes on the process.
+It's fairly straightforward to create a !BuildBot slave that will connect to the Ubiquity XForms BuildBot master. This page captures notes on the process.
 
 = Details =
 
@@ -39,4 +39,4 @@ The latest versions of PyWin32 are on the [http://sourceforge.net/project/platfo
 
 == Install BuildBot ==
 
-[http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.exe
+ASCEND has a [http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.exe Windows installer] that installs BuildBot. It's only version 0.7.6 but it seems to work ok.
