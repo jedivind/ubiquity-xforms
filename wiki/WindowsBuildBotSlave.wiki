@@ -41,6 +41,19 @@ The latest versions of !PyWin32 are on the [http://sourceforge.net/project/platf
 
 ASCEND has a [http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.exe Windows installer] that installs !BuildBot. It's only version 0.7.6 but it seems to work ok.
 
+Once !BuildBot is installed, the `buildbot.bat` file in the Python scripts directory will need to be edited to point to installed version of Python. Assuming that Python 2.6 is being used, then the file will be found here:
+{{{
+c:\Python26\scripts\buildbot.bat
+}}}
+and will contain this:
+{{{
+@python C:\Python23\Scripts\buildbot %*
+}}}
+which should be changed to:
+{{{
+@python C:\Python26\Scripts\buildbot %*
+}}}
+
 == Steps to be added ==
 
 _Unfortunately an error in my wiki syntax on the previous line caused a whole load of steps to be lost. I'll have to add them back later._
