@@ -67,7 +67,8 @@ in the !BuildBot directory, or change into the `full` directory and type:
 {{{
 buildbot start .
 }}}
-After a short wait the page for the builder that the slave is part of should show the status of the new slave. For example, if the slave has been added to the `full-test` build, then the following link should show the new slave as `CONNECTED`:
+After a short wait the list of slaves should include the freshly added slave:
 {{{
-http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/builders/full-test/
+http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/buildslaves
 }}}
+If the slave has been added correctly then it should show up in the list with the comment _Slave is currently connected_.
