@@ -98,6 +98,9 @@ function runTheTests() {
 	loader.addModule({ name: "ux-ut-types-validator", type: "js",  fullpath: moduleBase + "ut-types-validator.js",
 		requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+loader.addModule({ name: "ux-ut-mip-consumer", type: "js",  fullpath: moduleBase + "ut-MIPConsumer.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
@@ -119,7 +122,8 @@ function runTheTests() {
 	"ux-ut-setfocus",
 	"ux-ut-container",
 	"ux-ut-formsProcessor",
-    "ux-ut-types-validator"
+	"ux-ut-types-validator",
+	"ux-ut-mip-consumer"
   );
 
   var sBars = "";

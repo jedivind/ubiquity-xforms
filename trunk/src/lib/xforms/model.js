@@ -45,14 +45,12 @@ function processBinds(oModel, oElement, oContext) {
     var len = nsBinds.length;
     var i;
     
-    /*
-     * [ISSUE] Should check tagUrn.
-     */
     for ( i = 0; i < len; i++) {
         var oBind = nsBinds[i];
         
         if (NamespaceManager.compareFullName(
-                oBind, "bind", "http://www.w3.org/2002/xforms")) {            
+                oBind, "bind", "http://www.w3.org/2002/xforms")) { 
+            
             oBind["ownerModel"] = oModel;
             
             // If the bind statement has a nodeset attribute 
