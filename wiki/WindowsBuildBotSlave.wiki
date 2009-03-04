@@ -99,6 +99,14 @@ You should see version 1.7.1.
 
 == Create the slave ==
 
+Change directory to the Buildbot directory created above (`c:\Documents and Settings\buildbot`), and type the following command:
+{{{
+buildbot create-slave ec2-174-129-107-106.compute-1.amazonaws.com:9989 win32-full password
+}}}
+The server name and port number are fixed, because they represent the Ubiquity XForms master. The slave name and password will have been agreed at the beginning.
+
+Assuming all is well, a number of lines of output will be displayed, indicating that the files have been created correctly.
+
 == Launch the slave ==
 
 To launch the slave, type:
