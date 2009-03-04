@@ -133,3 +133,17 @@ http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/builders/full-ie7-test
 = Testing Firefox =
 
 Install Firefox onto the slave machine. The latest stable version is always available from the [http://firefox.com Firefox home-page]. Make sure not to tick 'make this my default browser', if you also plan to test with Internet Explorer on the same machine.
+
+If you are using FF3 then it needs to be told to allow local files to be regarded as coming from the 'same origin'. To do this, navigate to:
+{{{
+about:config
+}}}
+and acknowledge the warning. When the list of options is shown, filter on:
+{{{
+strict_origin_policy
+}}}
+You should be left with one option:
+{{{
+security.fileuri.strict_origin_policy
+}}}
+If it is already set to `false` then there is nothing to do, but if it is `true`, double-click on the option to toggle its value.
