@@ -41,7 +41,7 @@ The latest versions of !PyWin32 are on the [http://sourceforge.net/project/platf
 
 ASCEND has a [http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.exe Windows installer] that installs !BuildBot. It's only version 0.7.6 but it seems to work ok.
 
-Once !BuildBot is installed, the `buildbot.bat` file in the Python scripts directory will need to be edited to point to installed version of Python. Assuming that Python 2.6 is being used, then the file will be found here:
+Once !BuildBot is installed, the `buildbot.bat` file in the Python scripts directory will need to be edited to point to the installed version of Python. Assuming that Python 2.6 is being used, then the file will be found here:
 {{{
 c:\Python26\scripts\buildbot.bat
 }}}
@@ -52,6 +52,22 @@ and will contain this:
 which should be changed to:
 {{{
 @python C:\Python26\Scripts\buildbot %*
+}}}
+
+Next, the !BuildBot startup file -- `startup.py` -- needs to be modified due to a problem with Twisted. The file should be here:
+{{{
+c:\Python26\Lib\site-packages\buildbot\scripts\startup.py
+}}}
+Replace the lines beginning at line 108, with:
+{{{
+        if platformType == "win32":
+            try:
+                from twisted.scripts._twistw import run
+            except ImportError:
+                from twisted.scripts.twistd import run
+        else:
+            from twisted.scripts.twistd import run
+        run()
 }}}
 
 == Steps to be added ==
