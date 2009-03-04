@@ -45,6 +45,10 @@ ASCEND has a [http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.e
 
 _Unfortunately an error in my wiki syntax on the previous line caused a whole load of steps to be lost. I'll have to add them back later._
 
+== Install SVN ==
+
+The latest versions of SVN for Windows are available from the [http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91 Tigris.org Windows download page]. Use the latest MSI that contains the basic Win32 binaries (currently 1.5.3).
+
 == Install Apache Ant ==
 
 The latest version of Apache Ant is available from the [http://ant.apache.org/bindownload.cgi Apache Ant binary distribution page]. Download the ZIP file for the latest version, currently 1.7.1, and extract to the root directory. Then rename the directory to `c:\ant`.
