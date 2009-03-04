@@ -3,7 +3,7 @@
 
 = Introduction =
 
-It's fairly straightforward to create a !BuildBot slave that will connect to the Ubiquity XForms !BuildBot master. This page captures notes on the process, and will apply to any !BuildBot slave. If you specifically want to set up a slave that talks to the Ubiquity XForms master then you'll need to obtain a slave name, and let us know the user-name and password. You can do this by contacting [mailto:mark.birbeck@webBackplane.com Mark Birbeck].
+It's fairly straightforward to create a Buildbot slave that will connect to the Ubiquity XForms Buildbot master. This page captures notes on the process, and will apply to any Buildbot slave. If you specifically want to set up a slave that talks to the Ubiquity XForms master then you'll need to obtain a slave name, and let us know the user-name and password. You can do this by contacting [mailto:mark.birbeck@webBackplane.com Mark Birbeck].
 
 = Details =
 
@@ -37,11 +37,11 @@ You should see version 8.2.0.
 
 The latest versions of !PyWin32 are on the [http://sourceforge.net/project/platformdownload.php?group_id=78018&sel_platform=3212 pywin32 Sourceforge.net page]. Choose a version that matches the version of Python installed in the first step, which in this case is !PyWin32 build 212 for Python 2.6.
 
-== Install !BuildBot ==
+== Install Buildbot ==
 
-ASCEND has a [http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.exe Windows installer] that installs !BuildBot. It's only version 0.7.6 but it seems to work ok.
+ASCEND has a [http://ascendwiki.cheme.cmu.edu/images/0/0f/Buildbot-0.7.6.win32.exe Windows installer] that installs Buildbot. It's only version 0.7.6 but it seems to work ok.
 
-Once !BuildBot is installed, the `buildbot.bat` file in the Python scripts directory will need to be edited to point to the installed version of Python. Assuming that Python 2.6 is being used, then the file will be found here:
+Once Buildbot is installed, the `buildbot.bat` file in the Python scripts directory will need to be edited to point to the installed version of Python. Assuming that Python 2.6 is being used, then the file will be found here:
 {{{
 c:\Python26\scripts\buildbot.bat
 }}}
@@ -54,7 +54,7 @@ which should be changed to:
 @python C:\Python26\Scripts\buildbot %*
 }}}
 
-Next, the !BuildBot startup file -- `startup.py` -- needs to be modified due to a problem with Twisted. The file should be here:
+Next, the Buildbot startup file -- `startup.py` -- needs to be modified due to a problem with Twisted. The file should be here:
 {{{
 c:\Python26\Lib\site-packages\buildbot\scripts\startup.py
 }}}
@@ -70,9 +70,16 @@ Replace the lines beginning at line 108, with:
         run()
 }}}
 
-== Steps to be added ==
+Verify that you can run Buildbot:
+{{{
+buildbot --version
+}}}
+You should see that Buildbot has version 0.7.6, and that Twisted has version 8.2.0.
 
-_Unfortunately an error in my wiki syntax on the previous line caused a whole load of steps to be lost. I'll have to add them back later._
+Create a directory to hold the Buildbot slave (or slaves) at:
+{{{
+c:\Documents and Settings\buildbot
+}}}
 
 == Install SVN ==
 
@@ -90,13 +97,15 @@ ant -version
 }}}
 You should see version 1.7.1.
 
+== Create the slave ==
+
 == Launch the slave ==
 
 To launch the slave, type:
 {{{
 buildbot start full
 }}}
-in the !BuildBot directory, or change into the `full` directory and type:
+in the Buildbot directory (`c:\Documents and Settings\buildbot`). Alternatively, change into the `full` directory (`c:\Documents and Settings\buildbot\full`) and type:
 {{{
 buildbot start .
 }}}
