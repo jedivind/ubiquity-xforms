@@ -72,3 +72,8 @@ After a short wait the list of slaves should include the freshly added slave:
 http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/buildslaves
 }}}
 If the slave has been added correctly then it should show up in the list with the comment _Slave is currently connected_.
+
+Each slave has its own page on the !BuildBot master, so to check the admin and host information that was added, use the slave's name, as follows:
+{{{
+http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/builders/full-ie7-test
+}}}
