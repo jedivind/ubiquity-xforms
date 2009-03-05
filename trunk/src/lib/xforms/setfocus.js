@@ -21,11 +21,11 @@ function SetFocus(element) {
 SetFocus.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 SetFocus.prototype.performAction = function () {
-	var controlId, control, i;
+	var controlId, control;
 
 	doUpdate();
 
-	controlId = this.element.getAttribute("control");
+	controlId = UX.getPropertyValue(this, "control");
 	if (controlId) {
 		control = document.getElementById(controlId);
 		if (control) {
