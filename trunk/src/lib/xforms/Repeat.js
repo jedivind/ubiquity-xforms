@@ -149,6 +149,12 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
   }
   
   sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
+  
+  //Suspend the decorator,
+  //	content added is received in order of opening tag, 
+  //	and both ContentReady and DocumentReady are executed out of order. 
+  DECORATOR.suspend();
+  
   while (desiredIterationCount > this.m_CurrentIterationCount) {
     //In the absence of an iteration corresponding to this index, insert one.
     oIterationElement = (UX.isXHTML) ? 
@@ -171,6 +177,11 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
     
     this.m_CurrentIterationCount++;
   }
+  //Spawn the resumption of the decorator,
+  //	spawning allows the content to add itself, prior to being initialised by the resumption
+  spawn(function () {
+  	DECORATOR.resume();
+  });
   
   
 };
