@@ -733,7 +733,9 @@ Object.extend(TestResult.prototype, {
         var objFSO, scriptFile;
 
         if (navigator.userAgent.toLowerCase().indexOf("gecko") !== -1) {
-						fileName = makeAbsoluteURI(this.getLocalPath(document.location.toString()), fileName);
+						fileName = this.getLocalPath(
+							makeAbsoluteURI(document.location.toString(), fileName)
+						);
             netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
 						var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
 						
