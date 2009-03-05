@@ -108,6 +108,7 @@
 		</xf:switch>
 	</xf:repeat>
 	<hr />
+	
 	<xf:trigger id="toggle-ext">
 		<xf:label>Toggle</xf:label>
 		<xf:toggle ev:event="DOMActivate" case="rpt1-c1"></xf:toggle>
@@ -115,23 +116,30 @@
 	
 	<xf:trigger id="ix-1">
 		<xf:label>index = 1</xf:label>
-		<xf:setindex ev:event="DOMActivate" repeat="rpt1" index="1"></xf:toggle>
+		<xf:setindex ev:event="DOMActivate" repeat="rpt1" index="1"></xf:setindex>
 	</xf:trigger>
 	
 	<hr />
 	
+	
 	<xf:repeat id="rpt2" nodeset="rpt1">
-		<xf:output value="index('rpt3')"></xf:output>
+		<xf:repeat id="rpt3" nodeset="../rpt1">
+			<xf:input ref="."><xf:label>rpt1:</xf:label></xf:input>
+		</xf:repeat>
 		<xf:trigger>
 			<xf:label>index = 2</xf:label>
 			<xf:setindex repeat="rpt3" index="2" ev:event="DOMActivate"></xf:setindex>
 		</xf:trigger>
-		<xf:repeat id="rpt3" nodeset="../rpt1"></xf:repeat>
+		<xf:output value="index('rpt3')"></xf:output>
 	</xf:repeat>
+	
+
+	
 	<xf:output  ref="instance('inst-ready')" id="ready">
 		<xf:label>
 			Ready:
 		</xf:label>
 	</xf:output>
+	
 </body>
 </html>

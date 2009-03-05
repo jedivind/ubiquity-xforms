@@ -437,7 +437,14 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
         try {
             oRet = xpathDomEval(sXPath, oContext);
         } catch (e) {
-            //	this.element.ownerDocument.xformslog.log("Build error: " + e.description, "bind");
+        
+	       	if(oContext.resolverElement) {
+						if(!FormsProcessor.halted) {
+							FormsProcessor.halted = true;
+							UX.dispatchEvent(oContext.resolverElement, "xforms-binding-exception", true, false);						
+						}
+
+        	}
         }
     }
     return oRet;
