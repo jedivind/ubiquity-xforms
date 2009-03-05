@@ -328,38 +328,6 @@ Control.prototype.setType = function (sType) {
   return;
 };
 
-Control.prototype.setView = function (oProxy) {
-  this.testMIPChanges(oProxy);
-  setState(this, oProxy, "enabled", "enabled", "disabled");
-  setState(this, oProxy, "readonly", "read-only", "read-write");
-  setState(this, oProxy, "required", "required", "optional");
-  setState(this, oProxy, "valid", "valid", "invalid");
-};
-
-Control.prototype.testMIPChanges = function (oProxy) {
-  if (this.isDirtyMIP(oProxy, "enabled")) {
-    this.dirtyState.setDirty("enabled");
-  }
-  if (this.isDirtyMIP(oProxy, "readonly")) {
-    this.dirtyState.setDirty("readonly");
-  }
-  if (this.isDirtyMIP(oProxy, "required")) {
-    this.dirtyState.setDirty("required");
-  }
-  if (this.isDirtyMIP(oProxy, "valid")) {
-    this.dirtyState.setDirty("valid");
-  }
-
-};
-
-Control.prototype.isDirtyMIP = function (oProxy, sMIPName) {
-  return (this.m_MIPSCurrentlyShowing[sMIPName] === undefined ||
-           (oProxy.getMIPState !== undefined && 
-              this.m_MIPSCurrentlyShowing[sMIPName] !== oProxy.getMIPState(sMIPName)
-            )
-          );
-};
-
 /*
  * [ISSUE] This has evolved a little, and needs a good tidy up. The basic
  * behaviour is to find a proxy node and then connect the control to it. Whether
@@ -435,33 +403,22 @@ Control.prototype.xrewire = function () {
 Control.prototype.refresh = function () {
   document.logger.log("Refreshing: " + this.element.tagName + ":" + this.element.uniqueID, "control");
 
+  this.setView();
+
   var oProxy = this.element.m_proxy;
 
   if (oProxy) {
-    // [ISSUE] Sometimes a context is being stored when it should be a
-    // proxy...don't know how though!
-
-/* This is a hack that has been fixed by the context code
-    if (oProxy.node) {
-      oProxy = oProxy.node;
-
-      // Now fix it so that we don't get this again. This is obviously a
-      // hack since we shouldn't have had this problem in the first place!
-      this.element.m_proxy = oProxy;
-    }
-*/
-    this.setView(oProxy);
-
     // Get the type of the node and pass the information to the control in
     // case it needs to change its behaviour or appearance.
     this.element.setType(oProxy.getType());
 
     // Get node value and pass that to the control, too.
     this.element.setValue(oProxy.getValue());
-    if (this.dirtyState.isDirty()) {
-      this.dispatchMIPEvents(oProxy);
-      this.dirtyState.setClean();
-    }
+  }
+
+  if (this.dirtyState.isDirty()) {
+    this.dispatchMIPEvents();
+    this.dirtyState.setClean();
   }
 };
 
@@ -493,13 +450,4 @@ Control.prototype.onDocumentReady = function () {
 Control.prototype.onContentReady = function () {
 	this.AddValuePseudoElement();
 	FormsProcessor.listenForXFormsFocus(this, this);
-};
-
-Control.prototype.dispatchMIPEvents = function (oProxy) {
-  if (oProxy.m_oNode) {  
-    UX.dispatchEvent(this, oProxy.valid.value ? "xforms-valid" : "xforms-invalid", true, false);
-    UX.dispatchEvent(this, oProxy.required.value ? "xforms-required" : "xforms-optional", true, false);
-    UX.dispatchEvent(this, oProxy.readonly.value ? "xforms-readonly" : "xforms-readwrite", true, false);
-    UX.dispatchEvent(this, oProxy.enabled.value ? "xforms-enabled" : "xforms-disabled", true, false);
-  }
 };

@@ -47,7 +47,7 @@ var g_sBehaviourDirectory  = "";
   		requires: [ "backplane-pds" ] });
 
 		loader.addModule({ name: "dirtystate",            type: "js",  fullpath: moduleBase + "dirtystate.js" });
-		loader.addModule({ name: "mip-consumer",            type: "js",  fullpath: moduleBase + "mipconsumer.js",
+		loader.addModule({ name: "xforms-mip-handler",            type: "js",  fullpath: moduleBase + "mip-handler.js",
   		requires: [ "dirtystate" ] });
 
 		loader.addModule({ name: "xforms-model",               type: "js",  fullpath: moduleBase + "modelObj.js",
@@ -100,7 +100,7 @@ var g_sBehaviourDirectory  = "";
   	//container elements
   	loader.addModule({ name: "xforms-container",        type: "js",  fullpath: moduleBase + "container.js" });
   	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" ,
-        requires: [ "mip-consumer"]});
+        requires: [ "xforms-mip-handler"]});
   	loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: moduleBase + "Repeat.js",
         requires: [ "xforms-model","xforms-group","xforms-dom2"]});
 	  
@@ -111,11 +111,13 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-case",        type: "js",  fullpath: moduleBase + "case.js", 
   		requires: [ "backplane-case"]});
   	loader.addModule({ name: "xforms-switch",        type: "js",  fullpath: moduleBase + "Switch.js",
-  		requires: [ "xforms-case", "mip-consumer"]});
+  		requires: [ "xforms-case", "xforms-mip-handler"]});
   	
   	
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
-  		requires: [ "dirtystate", "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
+  		requires: [ "dirtystate", "xforms-mip-handler", "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
+  	loader.addModule({ name: "xforms-optional-binding",             type: "js",  fullpath: moduleBase + "optional-binding.js",
+  		requires: [ "xforms-mip-handler" ] });
   	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: moduleBase + "context.js",
         requires:[ "libxh-namespace-manager", "xforms-dom2" ]});
   	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: moduleBase + "../dom/eventTargetProxy.js",
@@ -207,7 +209,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-listener", "xforms-event-target-proxy",
         "xforms-conditional-invocation", "xforms-type-validator",
         "xforms-model", "xforms-instance", "xforms-submission",
-        "xforms-action", "xforms-context", "xforms-control",
+        "xforms-action", "xforms-context", "xforms-control", "xforms-optional-binding",
         "xforms-pe-value", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-item",
