@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -161,35 +161,26 @@ Load.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Load.prototype.performAction = function (evt) {
   var sTarget, sId;
-	if (evt.type === "xlink-traversed") 	{
-		try {
-			this.element.removeBehaviour(this.m_cookie);
-			this.m_cookie = 0;
-		}
-		catch (e)
-		{
-			//debugger;
-		}
-	}	else {
-		if (!this.m_cookie) {
-			this.element.setAttribute("xlink:href", this.element.getAttribute("resource"));
-			this.element.setAttribute("xlink:show", this.element.getAttribute("show") || "replace");
 
-			sTarget = this.element.getAttribute("target");
+	if (!this.element.Actuate) {
+		this.element.setAttribute("xlink:href", this.element.getAttribute("resource"));
+		this.element.setAttribute("xlink:show", this.element.getAttribute("show") || "replace");
 
-			if (sTarget === undefined || sTarget === "") {
-				sId = evt.target.id;
+		sTarget = this.element.getAttribute("target");
 
-				if (sId !== "") {
-					this.element.setAttribute("target", sId);
-			  }
-			}
-			
-			this.element.addEventListener("xlink-traversed", this, false);
-			
-			this.element.attachSingleBehaviour(XLinkElement);
-			this.element.Actuate();
+		if (sTarget === undefined || sTarget === "") {
+			sId = evt.target.id;
+
+			if (sId !== "") {
+				this.element.setAttribute("target", sId);
+		  }
 		}
+		this.element.attachSingleBehaviour(XLinkElement);
+		this.element.handleEvent = DeferToConditionalInvocationProcessor;
+	}
+	
+	if (this.element.Actuate) {
+		this.element.Actuate();
 	}
 };
 

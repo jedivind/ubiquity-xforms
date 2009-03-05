@@ -354,7 +354,7 @@ XFormsProcessor.prototype.dispatchEvent = function (oTarget, oEvent, bForceInlin
     IncrementDeferredUpdate();
     this.eventStack.push(oEvent);
       //This is only required for IE.  Conformant browsers despatch events at the correct time without prompting
-      eventExecuted = (UX.isIE && bForceInlineExecution)? oTarget._dispatchEvent(oEvent): oTarget.dispatchEvent(oEvent);
+      eventExecuted = (UX.isIE && bForceInlineExecution)? oTarget._dispatchEvent(oEvent): oTarget.dispatchEvent? oTarget.dispatchEvent(oEvent): false;
     
     if (eventExecuted) {
       this.invokeDefault(oTarget, oEvent);
