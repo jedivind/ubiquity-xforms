@@ -183,10 +183,10 @@ function XLinkElement(element)
 			//In the case of replace and new, it should be sufficient to use standard ECMAScript
 			//	calls, handing the href value to the appropriate handler supplied by the browser.				
 			case "replace":
-				element.ownerDocument.location.href = sResolvedHref;
+				document.location.href = sResolvedHref;
 				break;
 			case "new":
-				element.ownerDocument.open(sResolvedHref,"_blank");
+				window.open(sResolvedHref,"_blank");
 				break;
 			//embed should kick off an AJAX request, which will later fill up the appropriate element.
 			case "embed":
