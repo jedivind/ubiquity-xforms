@@ -397,6 +397,18 @@ XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
 	target.addEventListener("xforms-focus", { handleEvent : function(evt) { listener.giveFocus(); } }, false);
 };
 
+XFormsProcessor.prototype.hasProxyNode = function (element) {
+	return element && element.m_proxy && element.m_proxy.m_oNode;
+};
+
+XFormsProcessor.prototype.getProxyNode = function (element) {
+	if (this.hasProxyNode(element)) {
+		return element.m_proxy;
+	}
+
+	return null;
+};
+
 var FormsProcessor = new XFormsProcessor();
 
 //override of DOM flushEventQueue, to ensure that deferred update, 

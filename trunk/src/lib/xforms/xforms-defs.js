@@ -59,7 +59,7 @@ DECORATOR.addDecorationRules({
 		{
 			"name" : "name-element",
 			apply : function(arrBehavious) {
-				return arrBehavious.concat([EventTarget, Context, Control, Value]);
+				return arrBehavious.concat([EventTarget, MIPHandler, Context, Control, Value]);
 			}
 		}
 		],
@@ -70,7 +70,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "group-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPConsumer, Context, Container, Group]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Container, Group]);
             }
         }
         ],
@@ -79,7 +79,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "switch-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPConsumer, Context, Switch]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, OptionalBinding, Switch]);
             }
         }
         ],
@@ -108,7 +108,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "submit-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control, Submit]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding, Submit]);
             }
         }
         ],
@@ -117,7 +117,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "trigger-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
             }
         }
         ],
@@ -126,7 +126,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "input-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control]);
             }
         }
         ],
@@ -135,7 +135,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "output-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
             }
         }
         ],
@@ -144,7 +144,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "range-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control, FiniteControl]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, FiniteControl]);
             }
         }
         ],
@@ -153,7 +153,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "textarea-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control]);
             }
         }
         ],
@@ -162,7 +162,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "secret-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control]);
             }
         }
         ],
@@ -171,7 +171,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "select-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control, Select]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, Select]);
             }
         }
         ],
@@ -180,7 +180,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "select1-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control, XFormsSelect1, FiniteControl]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, XFormsSelect1, FiniteControl]);
             }
         }
         ],
@@ -189,7 +189,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "mediatype-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control]);
             }
         }
         ],
@@ -200,7 +200,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "label-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
             }
         }
         ],
@@ -209,7 +209,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "alert-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
             }
         }
         ],
@@ -247,7 +247,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "value-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Context, Control, Value]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding, Value]);
             }
         }
         ],
@@ -276,7 +276,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "message-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([Listener, EventTarget, Context, Control, Message]);
+                return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message]);
             }
         }
         ],
