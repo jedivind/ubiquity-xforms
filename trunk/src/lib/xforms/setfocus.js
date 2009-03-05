@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009 Backplane Ltd.
+ * Copyright Â© 2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ SetFocus.prototype.performAction = function () {
 
 	controlId = UX.getPropertyValue(this, "control");
 	if (controlId) {
-		control = document.getElementById(controlId);
+		control = FormsProcessor.getElementById(controlId, this.element);
 		if (control) {
 			UX.dispatchEvent(control, "xforms-focus", false, true);
 		}

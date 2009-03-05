@@ -397,7 +397,106 @@ XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
 	target.addEventListener("xforms-focus", { handleEvent : function(evt) { listener.giveFocus(); } }, false);
 };
 
+
+
+(function(){
+	//private members related to XFormsProcessor.getElementById 
+	var ELEMENT_TYPE = 1, chooseDescendentFromList, walkGetElementById, getContainingInnerScope;
+
+	chooseDescendentFromList = function (list, ancestor) {
+		var i;
+		for (i = 0; i < list.length; ++i) {
+			if (ancestor.contains(list[i])) {
+				return list[i];
+			}
+		}
+		return null;
+	}
+	
+	walkGetElementById = function (id, scope) {
+		var scopeChild = scope.firstChild, returnCandidate = null;
+		while (scopeChild  && !returnCandidate) {
+			if (scopeChild.nodeType === ELEMENT_TYPE  && !scopeChild.ignoreOnWalk) {
+				if (scopeChild.id === id) {
+					returnCandidate = scopeChild;
+				} else {
+					returnCandidate = walkGetElementById(id, scopeChild);
+				}
+			}
+			scopeChild = scopeChild.nextSibling;
+		}
+		return returnCandidate;
+	};
+	
+	getContainingInnerScope = function (element, outerScope) {
+		var candidateScopeContainer = element.parentNode;
+		while (candidateScopeContainer.parentNode) {
+			if (candidateScopeContainer.outerScope && (!outerScope || outerScope === candidateScopeContainer.outerScope)) {
+				return candidateScopeContainer;
+			}
+			candidateScopeContainer = candidateScopeContainer.parentNode;
+		}
+		return null;
+	};
+	
+	/**
+		Function: getElementById
+		id: ID used as search term
+		topic: (optional) element used to resolve ambiguities where a scoped ID is concerned
+		
+		Follows the algorithm described here:
+			http://www.w3.org/TR/xforms11/#idref-resolve
+			That is, if the topic is within the same scope as an ambiguous ID, returns the instance
+				of that ID in the same inner scope; otherwise, return the instance that is "exposed"
+	*/
+	
+	XFormsProcessor.prototype.getElementById = function (id, topic) {
+		var returnCandidate, candidateScope;
+		returnCandidate = document.getElementById(id);
+		if (returnCandidate) {
+			candidateScope = getContainingInnerScope(returnCandidate);
+			if (candidateScope) {
+				if (topic && candidateScope.outerScope.contains(topic)) {
+					returnCandidate = this.getElementByIdWithAncestor(id, getContainingInnerScope(topic, candidateScope.outerScope));
+				} else if (!candidateScope.outerScope.exposes(returnCandidate)) {
+					returnCandidate = candidateScope.outerScope.getPublicElementById(id);
+				}
+			}
+		}
+		return returnCandidate;
+	};
+	
+	XFormsProcessor.prototype.getElementByIdWithAncestor = function (id, ancestorOrSelf) {
+		var returnCandidate, candidateScope;
+		if (ancestorOrSelf && ancestorOrSelf.id === id) {
+			//If scope has the requested id, don't bother looking elsewhere, just return it.
+			returnCandidate = ancestorOrSelf;
+		} else {
+			//Use the DOM's built in mechanism for getting an element given an ID
+			returnCandidate = document.getElementById(id);
+			if (returnCandidate) {
+			
+				if (ancestorOrSelf &&  !ancestorOrSelf.contains(returnCandidate)) {
+					//If the element returned by the DOM's id resolver is outside scope, 
+					//	it is the wrong one.
+					if (UX.isIE) {
+						//IE's subversive implementation of getElementsByName returns a list of elements with that id
+						//	other browsers just use the name attribute
+						returnCandidate = chooseDescendentFromList(document.getElementsByName(id), ancestorOrSelf);
+					} else {
+						//Unfortunately, now the DOM must be walked, using scope.
+						returnCandidate = walkGetElementById(id, ancestorOrSelf);
+					}
+				}
+			}
+		}
+		return returnCandidate;
+	};
+	
+}())
+
 var FormsProcessor = new XFormsProcessor();
+
 
 //override of DOM flushEventQueue, to ensure that deferred update, 
 //  and appropriate default invocation are respected.

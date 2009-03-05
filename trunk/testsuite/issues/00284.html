@@ -37,12 +37,11 @@
 			<xf:bind id="bind2" nodeset="number_list[2]/number[2]"></xf:bind>
 			
 			<xf:action ev:event="xforms-ready">
-				<xf:setvalue ref="instance('ready-instance')" value="'TRUE'"></xf:setvalue>
 				<xf:insert bind="bind1" context="number_list/number"></xf:insert>
+				<xf:setvalue ref="instance('ready-instance')" value="'TRUE'"></xf:setvalue>
 			</xf:action>
 		</xf:model>
 		
-		<xf:output ref="instance('ready-instance')" id="ready"><xf:label>Ready: </xf:label></xf:output>
 		
 		<xf:group>
 			<xf:label> You must see the correct values for each output control below. </xf:label>
@@ -78,6 +77,7 @@
 				<xf:label ></xf:label>
 			</xf:output>
 		</xf:group>
+		<xf:output ref="instance('ready-instance')" id="ready"><xf:label>Ready: </xf:label></xf:output>
 		
 	</body>
 </html>

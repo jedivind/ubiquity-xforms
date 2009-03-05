@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ SetIndex.prototype.performAction = function (evt) {
   //Find the desired repeat object.
   if (!(this.element.hasAttribute) || this.element.hasAttribute("repeat")) {
     repeatID = this.element.getAttribute("repeat");  
-    repeatElement = document.getElementById(repeatID);
+    repeatElement = FormsProcessor.getElementById(repeatID, this.element);
     if (repeatElement) {
       if (repeatElement.setIndex) {
         //evaluate @index
