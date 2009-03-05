@@ -92,13 +92,16 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-container", type: "js",  fullpath: moduleBase + "ut-container.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
-	loader.addModule({ name: "ux-ut-formsProcessor", type: "js",  fullpath: moduleBase + "ut-formsProcessor.js",
+  loader.addModule({ name: "ux-ut-formsProcessor", type: "js",  fullpath: moduleBase + "ut-formsProcessor.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
-	loader.addModule({ name: "ux-ut-types-validator", type: "js",  fullpath: moduleBase + "ut-types-validator.js",
-		requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+  loader.addModule({ name: "ux-ut-types-validator", type: "js",  fullpath: moduleBase + "ut-types-validator.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
-loader.addModule({ name: "ux-ut-mip-consumer", type: "js",  fullpath: moduleBase + "ut-MIPConsumer.js",
+  loader.addModule({ name: "ux-ut-mip-handler", type: "js",  fullpath: moduleBase + "ut-MIPHandler.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+  loader.addModule({ name: "ux-ut-optional-binding", type: "js",  fullpath: moduleBase + "ut-optional-binding.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
   loader.require(
@@ -123,7 +126,8 @@ loader.addModule({ name: "ux-ut-mip-consumer", type: "js",  fullpath: moduleBase
 	"ux-ut-container",
 	"ux-ut-formsProcessor",
 	"ux-ut-types-validator",
-	"ux-ut-mip-consumer"
+	"ux-ut-mip-handler",
+	"ux-ut-optional-binding"
   );
 
   var sBars = "";

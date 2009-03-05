@@ -354,7 +354,7 @@ XFormsProcessor.prototype.dispatchEvent = function (oTarget, oEvent, bForceInlin
     IncrementDeferredUpdate();
     this.eventStack.push(oEvent);
       //This is only required for IE.  Conformant browsers despatch events at the correct time without prompting
-      eventExecuted = (UX.isIE && bForceInlineExecution)? oTarget._dispatchEvent(oEvent): oTarget.dispatchEvent? oTarget.dispatchEvent(oEvent): false;
+      eventExecuted = (UX.isIE && bForceInlineExecution)? oTarget._dispatchEvent(oEvent): (oTarget.dispatchEvent? oTarget.dispatchEvent(oEvent): false);
     
     if (eventExecuted) {
       this.invokeDefault(oTarget, oEvent);
@@ -495,8 +495,19 @@ XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
 	
 }())
 
-var FormsProcessor = new XFormsProcessor();
+XFormsProcessor.prototype.hasProxyNode = function (element) {
+	return element && element.m_proxy && element.m_proxy.m_oNode;
+};
 
+XFormsProcessor.prototype.getProxyNode = function (element) {
+	if (this.hasProxyNode(element)) {
+		return element.m_proxy;
+	}
+
+	return null;
+};
+
+var FormsProcessor = new XFormsProcessor();
 
 //override of DOM flushEventQueue, to ensure that deferred update, 
 //  and appropriate default invocation are respected.
