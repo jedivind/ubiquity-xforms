@@ -66,7 +66,7 @@ Dispatch.prototype.performAction = function (evt) {
   sTargetID = UX.getPropertyValue(this, "target");
 
   if (sTargetID) {
-    oTarget = this.element.ownerDocument.getElementById(sTargetID);
+    oTarget = FormsProcessor.getElementById(sTargetID, this.element);
 
     if (oTarget) {
       sName = UX.getPropertyValue(this, "name");

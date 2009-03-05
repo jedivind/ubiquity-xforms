@@ -36,7 +36,7 @@ Repeat.prototype.onContentReady = function () {
 };
 
 Repeat.prototype.giveFocus = function () {
-	var indexNode = this.element.childNodes.item(this.getIndex() - this.m_offset - 1);
+	var indexNode = this.getCurrentIteration();
 	if (typeof indexNode.giveFocus === "function") {
 		return indexNode.giveFocus();
 	}
@@ -164,6 +164,8 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
     oIterationElement.setAttribute("ordinal", this.m_offset + this.m_CurrentIterationCount + 1);
     UX.addClassName(oIterationElement, "repeat-iteration");
     
+    oIterationElement.outerScope = this;
+    
     templateClone = this.element.sTemplate.cloneNode(true);
 
     //Move each child of templateClone to oIterationElement, maintaining order.
@@ -255,4 +257,18 @@ Repeat.prototype.setIndex = function (newIndex) {
     }
     this.m_context.model.flagRebuild();
   }
+};
+
+
+Repeat.prototype.getCurrentIteration = function () {
+	return this.element.childNodes.item(this.getIndex() - this.m_offset - 1);
+};
+
+Repeat.prototype.getPublicElementById = function (id) {
+
+	return FormsProcessor.getElementByIdWithAncestor(id,this.getCurrentIteration());
+};
+
+Repeat.prototype.exposes = function (element) {
+	return this.getCurrentIteration().contains(element);
 };

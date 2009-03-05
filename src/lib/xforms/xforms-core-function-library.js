@@ -4,7 +4,7 @@
 // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
 // library.
 //
-// Copyright © 2008-2009 Backplane Ltd.
+// Copyright Â© 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -354,7 +354,7 @@ FunctionCallExpr.prototype.xpathfunctions["count-non-empty"] = function(ctx) {
 */
 FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx) {
     var s =  this.args[0].evaluate(ctx).stringValue();
-    var oRpt = document.getElementById(s);
+    var oRpt = FormsProcessor.getElementById(s, ctx.resolverElement);
     if (oRpt) {
         return new NumberValue(oRpt.getIndex());
     }
@@ -1179,7 +1179,7 @@ FunctionCallExpr.prototype.xpathfunctions["event"] = function(ctx) {
 @addon*/
 FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx) {
 	var sInstance = this.args[0].evaluate(ctx).stringValue();
-	var oInst = document.getElementById(sInstance);
+	var oInst = FormsProcessor.getElementById(sInstance, ctx.resolverElement);
 	var ret = null;
 	if (oInst)	{
 		ret = new Array(oInst.getDocument().documentElement);

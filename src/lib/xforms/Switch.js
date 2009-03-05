@@ -84,12 +84,13 @@ Switch.prototype.toggleDefault = function () {
   sCaseID - string corresponding to a child case
 */
 Switch.prototype.toggle = function (sCaseID) {
-	/*
-	 * The case must be a child so no need to search the
-	 * whole document.
-	 */
-
-	var oCase = this.element.ownerDocument.getElementById(sCaseID);
+	var i, oCase;
+	for (i = 0; this.element.childNodes.length; ++i) {
+		if (this.element.childNodes[i].id === sCaseID) {
+			oCase = this.element.childNodes[i];
+			break;
+		}
+	}
 
 	if (oCase) {
 		if (this.oCurrentCase) {

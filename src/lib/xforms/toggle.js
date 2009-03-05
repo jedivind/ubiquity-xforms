@@ -21,16 +21,21 @@ function Toggle(elmnt) {
 Toggle.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Toggle.prototype.performAction = function (evt) {
+	var oCase, oContext, ns, sCaseID;
+	oContext = this.getEvaluationContext();
+	ns = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "case");
 	
-	var oContext = this.getEvaluationContext();
-	var ns = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "case");
-    
-    var sCaseID = (ns && ns.length > 0)
-        ? getElementValueOrContent(oContext, ns[0])
-        : this.element.getAttribute("case"); 
+	sCaseID = (ns && ns.length > 0)
+		? getElementValueOrContent(oContext, ns[0])
+		: this.element.getAttribute("case");
+
+	if (sCaseID) {
 	
-	var oCase = this.element.ownerDocument.getElementById(sCaseID);
-	if (oCase && typeof oCase.toggle === 'function') {	// quack quack	
-		oCase.toggle();
+		oCase = FormsProcessor.getElementById(sCaseID, this.element);
+
+		if (oCase && oCase.toggle) {
+			oCase.toggle();
+		}
 	}
 };
+
