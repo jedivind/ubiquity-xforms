@@ -582,3 +582,13 @@ xforms|output *[class~="calnavright"], xf|output *[class~="calnavright"] {
 {
   cursor:pointer
 }
+
+xforms\:control,
+xf\:control {
+    display: none;
+}
+
+xforms|control,
+xf|control {
+    display: none;
+}
