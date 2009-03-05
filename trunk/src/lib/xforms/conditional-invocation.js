@@ -52,15 +52,16 @@ var ActionExecutor = function () {
 	var itself = { };
 	
 	itself.invokeListener = function (oListener, oEvt) {
-		var oRealListener, oContext, oRes, i;
+		var oRealListener, oContext, oRes, i, sIf, sWhile;
 		//This is likely to have been called with a proxy listener, as defined in ConditionalInvocationListener
 		oRealListener = oListener.realListener?oListener.realListener:oListener;
 		//oRealListener will be the actual handler for the event that may contain the parameters for conditional invocation
 		//oListener will be the object on which to call handleEvent, it will pass the call on to the real listener.
 		
 		if (typeof oRealListener.getEvaluationContext !== "undefined") {
-			oContext = oRealListener.getEvaluationContext();
+
 			if (oRealListener.getAttribute("iterate")) {
+				oContext = oRealListener.getEvaluationContext();
 				oRes = oContext.model.EvaluateXPath(oRealListener.getAttribute("iterate"), oContext);
 				if (oRes && oRes.value) {
 					for (i = 0; i < oRes.value.length; ++i) {
@@ -85,14 +86,23 @@ var ActionExecutor = function () {
 					}
 				}
 					
-			} else if (evaluateIfCondition(oRealListener, oContext)) {	
-				if (oRealListener.getAttribute("while")) {
-					while (evaluateCondition(oRealListener.getAttribute("while"), oContext) && evaluateIfCondition(oRealListener, oContext)) {
-						oListener.handleEvent(oEvt);
-						oContext = oRealListener.getEvaluationContext();
+			} else {
+				sIf = oRealListener.getAttribute("if");
+				sWhile = oRealListener.getAttribute("while");
+				if(sIf || sWhile) {
+					oContext = oRealListener.getEvaluationContext();
+
+					if (evaluateIfCondition(oRealListener, oContext)) {	
+						if (oRealListener.getAttribute("while")) {
+							while (evaluateCondition(oRealListener.getAttribute("while"), oContext) && evaluateIfCondition(oRealListener, oContext)) {
+								oListener.handleEvent(oEvt);
+								oContext = oRealListener.getEvaluationContext();
+							}
+						}	else {
+							oListener.handleEvent(oEvt);
+						}
 					}
-				}
-				else {
+				}	else {
 					oListener.handleEvent(oEvt);
 				}
 			}

@@ -355,7 +355,7 @@ FunctionCallExpr.prototype.xpathfunctions["count-non-empty"] = function(ctx) {
 FunctionCallExpr.prototype.xpathfunctions["index"] = function(ctx) {
     var s =  this.args[0].evaluate(ctx).stringValue();
     var oRpt = FormsProcessor.getElementById(s, ctx.resolverElement);
-    if (oRpt) {
+    if (oRpt && oRpt.getIndex) {
         return new NumberValue(oRpt.getIndex());
     }
 
@@ -1191,6 +1191,6 @@ FunctionCallExpr.prototype.dispatchExceptionEvent = function (context) {
 	if (NamespaceManager.compareFullName(context.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
 		UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
 	} else {
-		UX.dispatchEvent(document.defaultModel, "xforms-binding-exception", true, false, false);
+		UX.dispatchEvent(context.resolverElement, "xforms-binding-exception", true, false, false);
 	}
 };
