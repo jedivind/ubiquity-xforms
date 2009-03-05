@@ -52,7 +52,9 @@ var DECORATOR = function () {
 	innerSetupDecorator = null,
 	getCustomCSSProperty,
 	isIE,
-	itself = {};
+	itself = {},
+	m_elementsInSuspension = [],
+	m_suspended = 0;
 
 
 	function extendDecorationRules(rules, additions) {
@@ -589,44 +591,46 @@ var DECORATOR = function () {
   
 	function attachDecoration(element,handleContentReady, handleDocumentReady) {
 		//window.status = "decorating: " + element.nodeName; 
-		var bReturn = false,
-		tIndex = element.getAttribute("tabindex"),
-		arrBehaviours,
-		i;
-		//quit if already manually decorated
-		if (!UX.hasDecorationSupport && element.decorated) {
-			return bReturn;
-		}
-		if(tIndex === 0){
-			element.tabIndex = 1;
-		}
-
-		element.decorated = true;
-		element.constructors = [];
-		element.contentReadyHandlers = [];
-		element.documentReadyHandlers = [];
-		//add capability to 
-		element.attachSingleBehaviour = attachSingleBehaviour;
-
-		arrBehaviours = getDecorationObjectNames(element);				
-		arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
-		if (arrBehaviours.length  > 0) {
-			for (i = 0;i < arrBehaviours.length;++i) {
-				addObjectBehaviour(element,arrBehaviours[i],false);
+		var bReturn = false, tIndex, arrBehaviours, i;
+		if (m_suspended) {
+			m_elementsInSuspension.push(element);
+		} else {
+			tIndex = element.getAttribute("tabindex");
+			//quit if already manually decorated
+			if (!UX.hasDecorationSupport && element.decorated) {
+				return bReturn;
 			}
-			callHandlers(element,element.ctor);
-
-			//If the caller has requested that this function shoudl sort out 
-			//	contentReady and documentReady, sort them out now.
-			if (handleContentReady) {
-				callHandlers(element,element.onContentReady);
+			if(tIndex === 0){
+				element.tabIndex = 1;
 			}
-			
-			if (handleDocumentReady) {
-				registerForOnloadOrCallNow(element,element.onDocumentReady);
+	
+			element.decorated = true;
+			element.constructors = [];
+			element.contentReadyHandlers = [];
+			element.documentReadyHandlers = [];
+			//add capability to 
+			element.attachSingleBehaviour = attachSingleBehaviour;
+	
+			arrBehaviours = getDecorationObjectNames(element);				
+			arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
+			if (arrBehaviours.length  > 0) {
+				for (i = 0;i < arrBehaviours.length;++i) {
+					addObjectBehaviour(element,arrBehaviours[i],false);
+				}
+				callHandlers(element,element.ctor);
+	
+				//If the caller has requested that this function shoudl sort out 
+				//	contentReady and documentReady, sort them out now.
+				if (handleContentReady) {
+					callHandlers(element,element.onContentReady);
+				}
+				
+				if (handleDocumentReady) {
+					registerForOnloadOrCallNow(element,element.onDocumentReady);
+				}
+	
+				bReturn =  true;
 			}
-
-			bReturn =  true;
 		}
 		return bReturn;
 	}
@@ -671,6 +675,17 @@ var DECORATOR = function () {
     this.callDocumentReadyHandlers();
   };
 
+	itself.suspend = function () {
+		++m_suspended;
+	};
+	
+	itself.resume = function () {
+		if (!--m_suspended) {
+			while (m_elementsInSuspension[0]) {
+				attachDecoration(m_elementsInSuspension.pop(), true, true);
+			}
+		}
+	};
 	return itself;
 }();
 
