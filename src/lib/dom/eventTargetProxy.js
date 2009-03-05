@@ -619,6 +619,9 @@ if (UX.isIE) {
         }, true);
         this.element.addEventListener("blur", function(evt) {
             StyleUnfocussedly(elmnt);
-        }, false);
+            if (UX.isFF) {
+                UX.dispatchEvent(elmnt, "DOMFocusOut", true, false, true);
+            }
+        }, true);
     };
 }
