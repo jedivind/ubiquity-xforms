@@ -14,7 +14,7 @@
 // limitations under the License.
 
 (function(){
-	var suiteMIPHandler;
+	var suiteMIPConsumer;
 	var returnFalse = function () { 
 		return false;
 	} 
@@ -22,10 +22,10 @@
 		return true;
 	} 
 	YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
-			name: "Testing the MIPHandler object",
+			name: "Testing the MIPConsumer object",
       setUp: function(){
       	this.testDiv = this.createElement("div", document.body);
-      	DECORATOR.extend(this.testDiv, new MIPHandler(this.testDiv), false);
+      	DECORATOR.extend(this.testDiv, new MIPConsumer(this.testDiv), false);
       },
       
       tearDown: function(){
@@ -34,8 +34,7 @@
       },
       
       testSetView : function () {
-       	this.testDiv.m_proxy = {
-       		m_oNode: this.testDiv,
+      	this.testDiv.setView({
       		readonly:{getValue:returnFalse},
       		required:{getValue:returnFalse},
       		valid:{getValue:returnTrue},
@@ -52,26 +51,23 @@
       					return true;
       			}
       		}
-      	};
-      	this.testDiv.setView();
+      	})
+      	
       	YAHOO.util.Assert.areSame( "enabled read-write optional valid", this.testDiv.className);
       },
       
       testIsDirtyMIP : function () {
-       	this.testDiv.m_proxy = { m_oNode: this.testDiv, getMIPState: function () { return true; } };
-     	this.testDiv.m_MIPSCurrentlyShowing.readonly = false;
-      	YAHOO.util.Assert.areSame(true, this.testDiv.isDirtyMIP("readonly"));
+      	this.testDiv.m_MIPSCurrentlyShowing.readonly = false;
+      	YAHOO.util.Assert.areSame(true, this.testDiv.isDirtyMIP({getMIPState: function () {return true}}, "readonly"));
       },
       
       testIsNotDirtyMIP : function () {
-       	this.testDiv.m_proxy = { m_oNode: this.testDiv, getMIPState: function () { return true; } };
       	this.testDiv.m_MIPSCurrentlyShowing.readonly = true;
-      	YAHOO.util.Assert.areSame(false, this.testDiv.isDirtyMIP("readonly"));
+      	YAHOO.util.Assert.areSame(false, this.testDiv.isDirtyMIP({getMIPState: function () {return true}}, "readonly"));
       },
       
       testTestMIPChangesNoChange : function () {
-       	this.testDiv.m_proxy = {
-       		m_oNode: this.testDiv,
+       	var oProxy = {
       		readonly:{getValue:returnFalse},
       		required:{getValue:returnFalse},
       		valid:{getValue:returnTrue},
@@ -90,9 +86,9 @@
       		}
       	};
       	
-       	this.testDiv.setView();
+       	this.testDiv.setView(oProxy);
        	this.testDiv.dirtyState.setClean();
-       	this.testDiv.testMIPChanges();
+       	this.testDiv.testMIPChanges(oProxy);
       	YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("readonly"));
       	YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("required"));
       	YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("valid"));
@@ -100,8 +96,7 @@
       },
       
       testTestMIPChangesAllChange : function () {
-       	this.testDiv.m_proxy = {
-       		m_oNode: this.testDiv,
+       	var oProxy0 = {
       		readonly:{getValue:returnFalse},
       		required:{getValue:returnFalse},
       		valid:{getValue:returnTrue},
@@ -120,15 +115,7 @@
       		}
       	};
 
-       	this.testDiv.setView();
-       	this.testDiv.dirtyState.setClean();
-
-       	this.testDiv.m_proxy = {
-       		m_oNode: this.testDiv,
-      		readonly:{getValue:returnTrue},
-      		required:{getValue:returnTrue},
-      		valid:{getValue:returnFalse},
-      		enabled:{getValue:returnFalse},
+				var oProxy1 = {
       		getMIPState: function (s) {
       			switch(s) {
       				case "readonly" :
@@ -142,7 +129,9 @@
       			}
       		}
       	};
-       	this.testDiv.testMIPChanges();
+       	this.testDiv.setView(oProxy0);
+       	this.testDiv.dirtyState.setClean();
+       	this.testDiv.testMIPChanges(oProxy1);
       	YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("readonly"));
       	YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("required"));
       	YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("valid"));
@@ -150,15 +139,14 @@
       },
       
       testTestMIPChangesSomeChange : function () {
-       	this.testDiv.m_proxy = {
-       		m_oNode: this.testDiv,
+       	var oProxy0 = {
       		readonly:{getValue:returnFalse},
       		required:{getValue:returnFalse},
       		valid:{getValue:returnTrue},
       		enabled:{getValue:returnTrue},
       		getMIPState: function (s) {
       			switch(s) {
-      				case "readonly":
+      				case "readonly" :
       					return false;
       				case "required":
       					return false;
@@ -170,18 +158,10 @@
       		}
       	};
 
-       	this.testDiv.setView();
-       	this.testDiv.dirtyState.setClean();
-
-       	this.testDiv.m_proxy = {
-       		m_oNode: this.testDiv,
-      		readonly:{getValue:returnTrue},
-      		required:{getValue:returnFalse},
-      		valid:{getValue:returnFalse},
-      		enabled:{getValue:returnTrue},
+				var oProxy1 = {
       		getMIPState: function (s) {
       			switch(s) {
-      				case "readonly":
+      				case "readonly" :
       					return true;
       				case "required":
       					return false;
@@ -192,16 +172,17 @@
       			}
       		}
       	};
-       	this.testDiv.testMIPChanges();
+       	this.testDiv.setView(oProxy0);
+       	this.testDiv.dirtyState.setClean();
+       	this.testDiv.testMIPChanges(oProxy1);
       	YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("readonly"),"readonly");
       	YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("required"), "required");
       	YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("valid"), "valid");
       	YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("enabled"), "enabled");
       },
       
-      testDispatchMIPEvents: function () {
-       	this.testDiv.m_proxy = {
-       		m_oNode: this.testDiv,
+			testDispatchMIPEvents: function () {
+				var oProxy = {
       		readonly:{getValue:returnFalse},
       		required:{getValue:returnFalse},
       		valid:{getValue:returnTrue},
@@ -219,27 +200,25 @@
       			}
       		},
       		m_oNode: {}
-       	};
-
-       	this.testDiv.setView();
-       	this.testDiv.eventsReceived = "";
-       	this.testDiv.dispatchEvent = function (e) {
-       		this.eventsReceived += e.type;
-        };
-
-      	this.testDiv.dispatchMIPEvents();
+      	};
+      	
+				this.testDiv.setView(oProxy);
+				this.testDiv.eventsReceived = "";
+				this.testDiv.dispatchEvent = function (e) {
+					this.eventsReceived += e.type;
+				};
+      	this.testDiv.dispatchMIPEvents(oProxy);
       	YAHOO.util.Assert.areSame("xforms-validxforms-optionalxforms-readwritexforms-enabled", this.testDiv.eventsReceived);
-      },
-
-      testRefresh: function () {
-      	this.testDiv.m_proxy = {
-      		m_oNode: this.testDiv,
+			},
+			
+			testRefresh: function () {
+				this.testDiv.m_proxy = {
       		readonly:{getValue:returnFalse},
       		required:{getValue:returnFalse},
-       		valid:{getValue:returnTrue},
-       		enabled:{getValue:returnTrue},
-       		getMIPState: function (s) {
-       			switch(s) {
+      		valid:{getValue:returnTrue},
+      		enabled:{getValue:returnTrue},
+      		getMIPState: function (s) {
+      			switch(s) {
       				case "readonly" :
       					return false;
       				case "required":
@@ -249,46 +228,48 @@
       				case "enabled":
       					return true;
       			}
-        	},
+      		},
       		m_oNode: {}
       	};
+      	
+				this.testDiv.eventsReceived = "";
+				this.testDiv.dispatchEvent = function (e) {
+					this.eventsReceived += e.type;
+				};
 
-      	this.testDiv.eventsReceived = "";
-      	this.testDiv.dispatchEvent = function (e) {
-      	this.eventsReceived += e.type;
-     };
-
-     this.testDiv.refresh();
+				this.testDiv.refresh();
       	YAHOO.util.Assert.areSame( "enabled read-write optional valid", this.testDiv.className, "class");
       	YAHOO.util.Assert.areSame("xforms-validxforms-optionalxforms-readwritexforms-enabled", this.testDiv.eventsReceived, "events");
-     },
+			},
 			
-     testRewire: function () {
-      	var node = {getAttribute: function(){return null}}, oProxy = getProxyNode(node);
-      	this.testDiv.getBoundNode = function(){
-      		return {model:{},node:node};
-      	};
-      	this.testDiv.rewire();
-      	YAHOO.util.Assert.areSame(oProxy, this.testDiv.m_proxy);
-     },
-
-     createElement: function(name, parent) {
-      	var element = document.createElement(name);
-
-      	if (parent) {
-      		parent.appendChild(element);
-      	}
-
-      	return element;
-     },
-
-     destroyElement: function(element, propertyName, parent) {
-      	if (parent) {
-      		parent.removeChild(element);
-      	}
-
-      	delete this[propertyName];
-     }
+			testRewire: function () {
+				var node = {getAttribute: function(){return null}},
+						oProxy = getProxyNode(node);
+				this.testDiv.getBoundNode = function(){
+				
+					return {model:{},node:node};
+				};
+				this.testDiv.rewire();
+				YAHOO.util.Assert.areSame(oProxy, this.testDiv.m_proxy);
+			},
+			
+			createElement: function(name, parent) {
+				var element = document.createElement(name);
+	
+				if (parent) {
+					parent.appendChild(element);
+				}
+	
+				return element;
+			},
+	
+			destroyElement: function(element, propertyName, parent) {
+				if (parent) {
+					parent.removeChild(element);
+				}
+	
+				delete this[propertyName];
+			}
 	}));
 	
 }());
