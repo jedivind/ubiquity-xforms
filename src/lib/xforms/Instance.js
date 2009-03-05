@@ -216,13 +216,17 @@ Instance.prototype.onDocumentReady = Instance.prototype.initialisedom;
 // list is deleted.
 //
 Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
-    var ns = this.evalXPath(nodesetExpr, oContext).nodeSetValue(),
-		at = (atExpr) ? Math.round(this.evalXPath(atExpr, oContext).numberValue()) : undefined,
+  return this.deleteFromNodeset(oContext, this.evalXPath(nodesetExpr, oContext).nodeSetValue(), atExpr);
+};
+
+Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
+		var at = (atExpr) ? Math.round(this.evalXPath(atExpr, oContext).numberValue()) : undefined,
 		i, node, nsDeleted = [ ], evt;
 
 	// If no nodes are found then there is nothing to do.
 	//
-	if (ns.length) {
+	
+	if (nodeset.length) {
 		// If we have some nodes, and an 'at' value, then delete the
 		// specific node:
 		//
@@ -231,10 +235,10 @@ Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
 		    // If it is in range, it is used.  Otherwise, if it 
 		    // is too big or isNaN, then it is set to the nodeset size
 		    //
-            at = at < 1 ? 1 : (at <= ns.length ? at : ns.length);
+            at = at < 1 ? 1 : (at <= nodeset.length ? at : nodeset.length);
             
-			if (ns[at - 1]) {
-				node = ns[at - 1];
+			if (nodeset[at - 1]) {
+				node = nodeset[at - 1];
 				nsDeleted.push(node);
 
 				if (node.parentNode) {
@@ -245,8 +249,8 @@ Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
 			// If there is no 'at' value, then delete all the nodes in
 			// the list:
 			//
-			for (i = 0; i < ns.length; i++) {
-				node = ns[ i ];
+			for (i = 0; i < nodeset.length; i++) {
+				node = nodeset[ i ];
 				nsDeleted.push(node);
 				
 				if (node.parentNode) {

@@ -23,12 +23,22 @@ Delete.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Delete.prototype.performAction = function (evt)
 {
-    var oContext = this.getEvaluationContext();
-    var nodesetExpr = this.element.getAttribute("nodeset"),
-        atExpr = this.element.getAttribute("at");
-    var oInstance = oContext.model.instances()[0];
-    
-    if (oInstance.deleteNodes(oContext, nodesetExpr, atExpr)) {
-        oContext.model.flagRebuild();
-    }
+	var oContext  = this.getEvaluationContext(),
+		bindid = this.element.getAttribute("bind"),
+		atExpr = this.element.getAttribute("at"),
+		oInstance = oContext.model.instances()[0],
+		nodesetExpr, 
+		bindObject;
+
+	if (bindid) {
+		bindObject = FormsProcessor.getBindObject(bindid, this.element);
+		nodeset = bindObject.boundNodeSet;
+	} else {
+		nodesetExpr = this.element.getAttribute("nodeset");
+		nodeset = (nodesetExpr) ? oInstance.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
+	}
+
+	if (oInstance.deleteFromNodeset(oContext, nodeset, atExpr)) {
+		oContext.model.flagRebuild();
+	}
 };
