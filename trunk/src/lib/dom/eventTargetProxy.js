@@ -613,7 +613,10 @@ if (UX.isIE) {
 
         this.element.addEventListener("focus", function(evt) {
             StyleFocussedly(elmnt);
-        }, false);
+            if (UX.isFF) {
+                UX.dispatchEvent(elmnt, "DOMFocusIn", true, false, true);
+            }
+        }, true);
         this.element.addEventListener("blur", function(evt) {
             StyleUnfocussedly(elmnt);
         }, false);
