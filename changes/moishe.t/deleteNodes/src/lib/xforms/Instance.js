@@ -221,29 +221,29 @@ Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
     
    /**
      Helper function: deleteNode - deletes a given node as per XForms 1.1 section 10.4 step 4.
-     returns the deleted node or null if the node cannot be deleted according the XForms 1.1.
+     Returns true if the node is indeed deleted or false if the node cannot be deleted according the XForms 1.1.
      delete processing rules (and must be ignored).
    */
 	var deleteNode = function(node, deleteLocation) {
     	var parentNode = node.parentNode;
-    	var proxyNode;
+     	
+    	if (!parentNode || 
+    			((parentNode.nodeType === DOM_DOCUMENT_NODE) && (node.nodeType === DOM_ELEMENT_NODE))) {
+    		return false;
+    	}
     	
-    	if (!parentNode)
-    		return null;
-    	
-    	if ((parentNode.nodeType === DOM_DOCUMENT_NODE) && (node.nodeType === DOM_ELEMENT_NODE))
-    		return null;
-    	
-    	readonlyTestProxyNode = (deleteLocation === undefined)? getProxyNode(node) : getProxyNode(parentNode);	
-    	if (readonlyTestProxyNode && readonlyTestProxyNode.readonly && readonlyTestProxyNode.readonly.getValue())
-    		return null;
+    	if (UX.isNodeReadonly((deleteLocation) ? parentNode : node)) {
+    		return false;
+    	}
     		
-    	if (node.nodeType === DOM_ATTRIBUTE_NODE)
+    	if (node.nodeType === DOM_ATTRIBUTE_NODE) {
     		parentNode.removeAttribute(node.nodeName);
-    	else
+    	}
+    	else {
     		parentNode.removeChild(node);
+    	}
     		
-    	return node; 	
+    	return true; 	
     };
     
 	// If no nodes are found then there is nothing to do.
@@ -253,7 +253,7 @@ Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
 		// Calculate evaluation context for the at attribute.
 		//
 		if (atExpr) {
-			atContext = UX.derive(oContext);
+			atContext = UX.beget(oContext);
 			atContext.size = ns.length;
 			atContext.position = 1;
 			atContext.node = ns[0];			

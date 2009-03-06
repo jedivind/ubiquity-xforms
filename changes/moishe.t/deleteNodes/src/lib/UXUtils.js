@@ -439,9 +439,9 @@ UX.isNodeReadonly = function(oNode) {
 };
 
 /**
- *  Utility method to construct an object that inherit (prototypically) from a given object. 
+ *  Utility method to construct an object that inherits (prototypically) from a given object. 
  */
-UX.derive = function(o) {
+UX.beget = function(o) {
 	function Constructor(){};
 	Constructor.prototype = o;
 	return new Constructor();
