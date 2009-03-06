@@ -12,13 +12,13 @@
 				xmlParse(
 					"<shoppingcart xmlns=''> \
 						<item> \
-							<product>SKU-0815</product> \
+							<product cat='sku'>SKU-0815</product> \
 							<quantity>1</quantity> \
 							<unitcost>29.99</unitcost> \
 							<price>29.99</price> \
 						</item> \
 						<item> \
-							<product>SKU-4711</product> \
+							<product cat='sku'>SKU-4711</product> \
 							<quantity>3</quantity> \
 							<unitcost>7.49</unitcost> \
 							<price>22.47</price> \
@@ -84,7 +84,7 @@
 			// the last one.
 			//
 			testDeleteNodeNodsetOfManyIndexOfCountItemFromPurchaseOrder: function() {
-				Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "count(item)"));
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "last()"));
 
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue());
@@ -160,8 +160,32 @@
 
 				Assert.areEqual(2, suite.testInstance.evalXPath('count(item)').numberValue());
 				return;
+			},
+                       
+			// Try to delete root element and root node.
+			//
+			testDeleteNodeFailToDeleteRoot: function() {
+				Assert.isFalse(suite.testInstance.deleteNodes(null, "."));
+				Assert.isFalse(suite.testInstance.deleteNodes(null, "/"));
+
+				Assert.areEqual(2, suite.testInstance.evalXPath('count(item)').numberValue());
+				return;
+			},			
+            
+			// Try to delete readonly node.
+			//
+			testDeleteReadonlyNode: function() {
+				var ns = suite.testInstance.evalXPath('item[1]').nodeSetValue();
+				Assert.areEqual(1, ns.length);
+				var proxy = getProxyNode(ns[0]);
+				proxy.readonly.value = true;
+				Assert.isFalse(suite.testInstance.deleteNodes(null, "item/product", "1"));
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item[1]/product"));
+
+				Assert.areEqual(1, suite.testInstance.evalXPath('count(item/product)').numberValue());
+				return;
 			}
-		})//new TestCase
+ 		})//new TestCase
 	); //suite.add( ... )
 
 	YAHOO.tool.TestRunner.add(suite);
