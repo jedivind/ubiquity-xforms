@@ -428,6 +428,12 @@ submission.prototype.submit = function(oSubmission) {
 		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
 		break;
 
+	case "urlencoded-post":
+		sMethod = "POST";
+		sSerialization = "application/x-www-form-urlencoded";
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
+		break;
+
 	case "post":
 		sMethod = "POST";
 		sSerialization = "application/xml";
@@ -482,12 +488,12 @@ submission.prototype.submit = function(oSubmission) {
 	bHasHeaders = (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
 	sReplace = oSubmission.getAttribute("replace") || "all";
 
-	if ((sMethod === "GET") && (sReplace === 'all') && !bHasHeaders && sSerialization === "application/x-www-form-urlencoded") {
+	if ((sMethod === "GET" || sMethod === "POST") && (sReplace === 'all') && !bHasHeaders && sSerialization === "application/x-www-form-urlencoded") {
 		oForm = this.buildFormFromObject(oBody.dictionary);
 		oForm.action = sResource;
 		oForm.method = sMethod.toLowerCase();
 		document.body.appendChild(oForm);
-		
+
 		try {
 			oForm.submit();
 		} catch (e) {
@@ -510,7 +516,6 @@ submission.prototype.submit = function(oSubmission) {
 		this.setHeaders(oContext.model, oSubmission);
 
 		try {
-
 			if ((sMethod === "GET" || sMethod === "DELETE") && (oBody || oBody !== "") && sSerialization === "application/x-www-form-urlencoded") {
 				sResource = sResource + "?" + oBody.toString();
 				oBody = null;
@@ -770,7 +775,6 @@ submission.prototype.buildGetUrl = function(action, params) {
     }//if ( there are parameters to add to the action )
     return url;
 };//buildurl
-
 
 submission.prototype.setSOAPHeaders = function(oContextNode, sMediatype, sEncoding) {
     var result;
