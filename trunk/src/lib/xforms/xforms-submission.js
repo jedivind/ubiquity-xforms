@@ -458,7 +458,7 @@ submission.prototype.submit = function(oSubmission) {
         /* the submission method being used needs to be implemented */
         debugger;
         oSubmission.ownerDocument.logger.log("Submission method '" +
-                oSubmission.method + "' is not defined.", "error");
+                sMethod + "' is not defined.", "error");
         break;
     }
 
