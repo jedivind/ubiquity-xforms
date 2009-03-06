@@ -220,13 +220,49 @@ Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
 };
 
 Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
-		var at = (atExpr) ? Math.round(this.evalXPath(atExpr, oContext).numberValue()) : undefined,
-		i, node, nsDeleted = [ ], evt;
-
+    var at, atContext, i, node, nsDeleted = [ ], evt;
+    
+   /**
+     Helper function: deleteNode - deletes a given node as per XForms 1.1 section 10.4 step 4.
+     Returns true if the node is indeed deleted or false if the node cannot be deleted according the XForms 1.1.
+     delete processing rules (and must be ignored).
+   */
+	var deleteNode = function(node, deleteLocation) {
+    	var parentNode = node.parentNode;
+     	
+    	if (!parentNode || 
+    			((parentNode.nodeType === DOM_DOCUMENT_NODE) && (node.nodeType === DOM_ELEMENT_NODE))) {
+    		return false;
+    	}
+    	
+    	if (UX.isNodeReadonly((deleteLocation) ? parentNode : node)) {
+    		return false;
+    	}
+    		
+    	if (node.nodeType === DOM_ATTRIBUTE_NODE) {
+    		parentNode.removeAttribute(node.nodeName);
+    	}
+    	else {
+    		parentNode.removeChild(node);
+    	}
+    		
+    	return true; 	
+    };
+    
 	// If no nodes are found then there is nothing to do.
 	//
-	
 	if (nodeset.length) {
+		
+		// Calculate evaluation context for the at attribute.
+		//
+		if (atExpr) {
+			atContext = UX.beget(oContext);
+			atContext.size = nodeset.length;
+			atContext.position = 1;
+			atContext.node = nodeset[0];			
+			at = Math.round(this.evalXPath(atExpr, atContext).numberValue());
+		}
+			
 		// If we have some nodes, and an 'at' value, then delete the
 		// specific node:
 		//
@@ -237,24 +273,19 @@ Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
 		    //
             at = at < 1 ? 1 : (at <= nodeset.length ? at : nodeset.length);
             
-			if (nodeset[at - 1]) {
-				node = nodeset[at - 1];
+            node = nodeset[at - 1];
+			if (deleteNode(node, at)) {
 				nsDeleted.push(node);
-
-				if (node.parentNode) {
-					node.parentNode.removeChild(node);
-				}
 			}
+			
 		} else {
 			// If there is no 'at' value, then delete all the nodes in
 			// the list:
 			//
 			for (i = 0; i < nodeset.length; i++) {
-				node = nodeset[ i ];
-				nsDeleted.push(node);
-				
-				if (node.parentNode) {
-					node.parentNode.removeChild(node);
+				node = nodeset[i];
+				if (deleteNode(node)) {
+					nsDeleted.push(node);
 				}
 			}// for each node
 		}// if there is an at value ... else ...
