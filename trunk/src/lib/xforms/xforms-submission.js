@@ -480,9 +480,9 @@ submission.prototype.submit = function(oSubmission) {
     }
 
 	bHasHeaders = (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
-	sReplace = oSubmission.getAttribute("replace");
+	sReplace = oSubmission.getAttribute("replace") || "all";
 
-	if ((sMethod === "GET") && (!sReplace || sReplace === 'all') && !bHasHeaders && sSerialization === "application/x-www-form-urlencoded") {
+	if ((sMethod === "GET") && (sReplace === 'all') && !bHasHeaders && sSerialization === "application/x-www-form-urlencoded") {
 		oForm = this.buildFormFromObject(oBody.dictionary);
 		oForm.action = sResource;
 		oForm.method = sMethod.toLowerCase();
