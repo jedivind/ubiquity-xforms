@@ -866,7 +866,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-11-18</testCaseDate>
+        		<testCaseDate>2009-03-07</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
