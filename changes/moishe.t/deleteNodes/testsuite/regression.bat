@@ -1,1 +1,0 @@
-C:/Docume~1/buildbot/full/build/testsuite/selenium/core/TestRunner.hta "test=../../issues/driverPages/SeleniumTests/TestSuite.html&auto=true&save=true&resultsUrl=regressionResults.html&close=true"
