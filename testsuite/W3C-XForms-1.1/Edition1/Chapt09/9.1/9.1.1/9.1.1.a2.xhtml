@@ -10,7 +10,7 @@
 	<body>
     <xforms:model>
 		<xforms:instance>
-			<yourname/>
+			<yourname></yourname>
 		</xforms:instance>
 	</xforms:model>
 		<xforms:group>
@@ -34,7 +34,7 @@
 				</xforms:group>
 				<xforms:trigger ref="/yourname">
 					<xforms:label>Show Out Case</xforms:label>
-					<xforms:toggle ev:event="DOMActivate" case="out"/>
+					<xforms:toggle ev:event="DOMActivate" case="out"></xforms:toggle>
 				</xforms:trigger>
 			</xforms:case>
 			<xforms:case id="out">
@@ -45,7 +45,7 @@
 				</xforms:group>
 				<xforms:trigger>
 					<xforms:label>Show In Case</xforms:label>
-					<xforms:toggle ev:event="DOMActivate" case="in"/>
+					<xforms:toggle ev:event="DOMActivate" case="in"></xforms:toggle>
 				</xforms:trigger>
 			</xforms:case>
 		</xforms:switch>
