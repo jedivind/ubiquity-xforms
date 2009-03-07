@@ -180,6 +180,9 @@
 				var proxy = getProxyNode(ns[0]);
 				proxy.readonly.value = true;
 				Assert.isFalse(suite.testInstance.deleteNodes(null, "item/product", "1"));
+
+				Assert.areEqual(2, suite.testInstance.evalXPath('count(item/product)').numberValue());
+				
 				Assert.isTrue(suite.testInstance.deleteNodes(null, "item[1]/product"));
 
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item/product)').numberValue());
