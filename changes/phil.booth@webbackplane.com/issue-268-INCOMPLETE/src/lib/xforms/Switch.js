@@ -98,8 +98,8 @@ Switch.prototype.toggle = function (sCaseID) {
 		if (this.oCurrentCase) {
 			this.oCurrentCase.deselect();
 		}
-		oCase.select();
 		this.oCurrentCase = oCase;
+		oCase.select();
 	}
 };
 

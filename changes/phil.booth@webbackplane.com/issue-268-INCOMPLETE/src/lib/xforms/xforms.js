@@ -507,16 +507,34 @@ XFormsProcessor.prototype.getProxyNode = function (element) {
 	return null;
 };
 
-XFormsProcessor.prototype.refreshDescendents = function(nodes){
+	
+	
+XFormsProcessor.prototype.iterateOverDescendents = function (nodes, func) {
 	var i;
 	for (i = 0; i < nodes.length; ++i) {
-		if (typeof  nodes[i].refresh === "function") {
-			nodes[i].refresh();
-		}
-		this.refreshDescendents(nodes[i].childNodes);
+		this.iterateOverDescendents(nodes[i].childNodes, func);
+		func(nodes[i]);
 	}
-}
 
+};
+
+XFormsProcessor.prototype.refreshDescendents = function(nodes){
+	this.iterateOverDescendents(nodes, function (n) {
+		if (typeof  n.refresh === "function") {
+			n.refresh();
+		}
+	})
+};
+
+XFormsProcessor.prototype.refreshDescendentsForRelevance = function(nodes){
+	this.iterateOverDescendents(nodes, function (n) {
+		if (typeof  n.refresh === "function") {
+			n.dirtyState.setDirty("enabled");
+			n.refresh();
+		}
+	})
+};
+	
 var FormsProcessor = new XFormsProcessor();
 
 //override of DOM flushEventQueue, to ensure that deferred update, 

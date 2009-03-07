@@ -200,7 +200,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "label-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding, SilentMIPHandler]);
             }
         }
         ],
@@ -276,7 +276,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "message-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message]);
+                return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message, SilentMIPHandler]);
             }
         }
         ],

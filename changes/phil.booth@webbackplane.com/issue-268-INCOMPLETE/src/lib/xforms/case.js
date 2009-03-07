@@ -25,23 +25,26 @@ XFormsCase.prototype.getSwitch = function() {
 };
 
 XFormsCase.prototype.deselect = function() {
-	var element = this._case.element;
+	var _case = this._case;
 
-	//FormsProcessor.refreshDescendents(element.childNodes);
+//	FormsProcessor.refreshDescendents(element.childNodes);
 
-	UX.dispatchEvent(element, "xforms-deselect", true, false, false);
 
-	this._case.deselect();
+	spawn(function () {
+		UX.dispatchEvent(_case.element, "xforms-deselect", true, false, true);
+		_case.deselect();
+		FormsProcessor.refreshDescendentsForRelevance(_case.element.childNodes);
+	});
 };
 
 XFormsCase.prototype.select = function() {
-	var element = this._case.element;
+	var _case = this._case;
 
-	this._case.select();
-
-	UX.dispatchEvent(element, "xforms-select", true, false, false);
-
-	//FormsProcessor.refreshDescendents(element.childNodes);
+	spawn(function () {
+		UX.dispatchEvent(_case.element, "xforms-select", true, false, true);
+		_case.select();
+		FormsProcessor.refreshDescendentsForRelevance(_case.element.childNodes);
+	});
 };
 
 XFormsCase.prototype.toggle = function() {

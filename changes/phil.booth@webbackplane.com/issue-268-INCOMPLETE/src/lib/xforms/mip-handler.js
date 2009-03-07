@@ -109,39 +109,50 @@ MIPHandler.prototype.mustBeBound = function () {
 	return true;
 };
 
-MIPHandler.prototype.inheritEnabled = function () {
-	var parent = this.element.parentNode;
-	while (parent) {
-		if (parent.isGroup || parent.isSwitch) {
-			if (parent.isEnabled() === false) {
-				return false;
-			}
-		} else if (parent.isCase) {
-			if (parent !== parent.getSwitch().getSelectedCase()) {
-				return false;
-			}
+(function () {
+
+	var isEnabled = function (node) {
+		var proxyNode;
+	
+		if (!inheritEnabled(node)) {
+			return false;
 		}
-
-		parent = parent.parentNode;
+	
+		proxyNode = FormsProcessor.getProxyNode(node.element)
+		if (proxyNode && !proxyNode.enabled.getValue()) {
+			return false;
+		}
+	
+		return node.mustBeBound() ? false : true;
+	},
+	
+	inheritEnabled = function (node) {
+		var parent = node.parentNode;
+		while (parent) {
+			if (parent.isGroup || parent.isSwitch) {
+				if (isEnabled(parent) === false) {
+					return false;
+				}
+			} else if (parent.isCase) {
+				if (parent !== parent.getSwitch().getSelectedCase()) {
+					return false;
+				}
+			}
+	
+			parent = parent.parentNode;
+		}
+	
+		return true;
+	};
+	
+	MIPHandler.prototype.inheritEnabled = function () {
+		inheritEnabled(this.element);
 	}
+	MIPHandler.prototype.isEnabled = function () {
+		return isEnabled(this);
+	};
+}());
 
-	return true;
-};
-
-MIPHandler.prototype.isEnabled = function () {
-	var proxyNode;
-
-	if (!this.inheritEnabled()) {
-		return false;
-	}
-
-	proxyNode = FormsProcessor.getProxyNode(this.element)
-	if (proxyNode && !proxyNode.enabled.getValue()) {
-		return false;
-	}
-
-	return this.mustBeBound() ? false : true;
-};
 
 MIPHandler.prototype.getMIPState = function (mip) {
 	var retval = { isSet: false }, proxyNode;
@@ -159,3 +170,6 @@ MIPHandler.prototype.getMIPState = function (mip) {
 
 	return retval;
 };
+
+function SilentMIPHandler () {}
+SilentMIPHandler.prototype.dispatchMIPEvents = function () {};
