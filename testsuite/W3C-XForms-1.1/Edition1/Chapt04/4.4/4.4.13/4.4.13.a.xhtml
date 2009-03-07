@@ -11,11 +11,11 @@
     <xforms:model>
       <xforms:instance>
         <car>
-          <make/>
-          <year/>
+          <make></make>
+          <year></year>
         </car>
       </xforms:instance>
-      <xforms:setfocus control="input_year" ev:event="xforms-ready"/>
+      <xforms:setfocus control="input_year" ev:event="xforms-ready"></xforms:setfocus>
     </xforms:model>
     <xforms:group>
     	<xforms:label class="title">4.4.13.a DOMFocusIn event</xforms:label>
@@ -33,7 +33,7 @@
        	<xforms:action ev:event="DOMFocusIn">
         	<xforms:message level="modal">DOMFocusIn</xforms:message>
           	
-          	<xforms:setfocus control="input_make"/>
+          	<xforms:setfocus control="input_make"></xforms:setfocus>
        	</xforms:action>
     </xforms:input>
 	
