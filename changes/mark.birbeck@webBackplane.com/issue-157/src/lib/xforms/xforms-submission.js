@@ -301,7 +301,7 @@ submission.prototype.submit = function(oSubmission) {
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding");
     var sSerialization = oSubmission.getAttribute("serialization");
-    var sSeparator = oSubmission.getAttribute("separator") || ";";
+    var sSeparator = oSubmission.getAttribute("separator") || "&";
     var oBody;
     var oContext;
     var bHasHeaders = false;
@@ -774,7 +774,7 @@ submission.prototype.buildGetUrl = function(action, params, separator) {
 	return action
 		+ (
 			(pairs.length)
-				? "?" + pairs.join(separator)
+				? "?" + pairs.join(separator || "&")
 				: ""
 		);
 };//buildurl
