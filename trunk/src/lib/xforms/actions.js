@@ -196,12 +196,15 @@ function Message(elmnt) {
 
 Message.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
+
 Message.prototype.performAction = function (evt) {
   var sLevel, context;
   sLevel = this.element.getAttribute("level");
   // The context for our hint is the parent element.
   //
   context = this.element.parentNode;
+ 
+  FormsProcessor.refreshDescendents(this.childNodes);
   
   switch (sLevel) {
   case "modeless":

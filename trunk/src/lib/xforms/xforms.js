@@ -507,6 +507,16 @@ XFormsProcessor.prototype.getProxyNode = function (element) {
 	return null;
 };
 
+XFormsProcessor.prototype.refreshDescendents = function(nodes){
+	var i;
+	for (i = 0; i < nodes.length; ++i) {
+		if (typeof  nodes[i].refresh === "function") {
+			nodes[i].refresh();
+		}
+		this.refreshDescendents(nodes[i].childNodes);
+	}
+}
+
 var FormsProcessor = new XFormsProcessor();
 
 //override of DOM flushEventQueue, to ensure that deferred update, 
