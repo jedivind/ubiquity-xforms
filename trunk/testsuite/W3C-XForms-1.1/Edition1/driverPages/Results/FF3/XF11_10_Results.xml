@@ -291,9 +291,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-insert</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
-            <testCaseRequired>true</testCaseRequired>
+	        	<testCaseStatus>Passed</testCaseStatus>
+	        	<testCaseDate>2009-03-06</testCaseDate>
+	        	<testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>

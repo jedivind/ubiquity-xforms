@@ -941,7 +941,15 @@ DECORATOR.setupDecorator(
 			selector:"xf|repeat *, xf|itemset *, xf|header *", 
 			cssText:"-binding-ignore:true;"
 		},
-        
+
+		{
+			selector:"xf|repeat.repeat-ready xf|repeat.repeat-ready *", 
+			cssText:"-binding-ignore:false;"
+		},
+		{
+			selector:"xf|repeat.repeat-ready xf|repeat *", 
+			cssText:"-binding-ignore:true;"
+		},
    	//Switch bindings repeat back on within repeat.  (IE )
          {
             selector:"xf|repeat.repeat-ready *, xf|header.header-ready *",
