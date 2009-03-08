@@ -160,10 +160,26 @@ function Load(elmnt) {
 Load.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Load.prototype.performAction = function (evt) {
-  var sTarget, sId;
+	var boundNode = this.element.getBoundNode(1),
+	    resource = UX.getPropertyValue(this.element, "resource"),
+	    textNode, sTarget, sId;
+
+	if ((boundNode.node && resource) || (!boundNode.node && !resource)) {
+		return;
+	}
+
+	if (boundNode.node) {
+		textNode = getFirstTextNode(boundNode.node);
+		if (textNode) {
+			resource = textNode.nodeValue;
+		} else {
+			resource = boundNode.node.nodeValue;
+		}
+	}
+
+	this.element.setAttribute("xlink:href", resource);
 
 	if (!this.element.Actuate) {
-		this.element.setAttribute("xlink:href", this.element.getAttribute("resource"));
 		this.element.setAttribute("xlink:show", this.element.getAttribute("show") || "replace");
 
 		sTarget = this.element.getAttribute("target");
@@ -173,12 +189,12 @@ Load.prototype.performAction = function (evt) {
 
 			if (sId !== "") {
 				this.element.setAttribute("target", sId);
-		  }
+			}
 		}
 		this.element.attachSingleBehaviour(XLinkElement);
 		this.element.handleEvent = DeferToConditionalInvocationProcessor;
 	}
-	
+
 	if (this.element.Actuate) {
 		this.element.Actuate();
 	}
