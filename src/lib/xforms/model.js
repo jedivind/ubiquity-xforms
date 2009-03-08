@@ -539,6 +539,14 @@ function _model_contentReady(pThis) {
                     document.logger.log("xforms-version-exception, error-information: [" + evt.context["error-information"] + "]");
                 }
             }, false);
+            
+    pThis.addEventListener(
+            "xforms-insert", {
+                scope:pThis,
+                handleEvent : function(evt) {
+                  pThis.storeInsertedNodes(evt.context["inserted-nodes"]);
+                }
+            }, false);
 
     return;
 }

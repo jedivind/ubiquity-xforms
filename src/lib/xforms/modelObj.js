@@ -28,6 +28,7 @@ function Model(elmnt) {
     this.m_arControls = [];
     this.xformselement = "model";
     this.externalInstances = [];
+    this.m_NodesInsertedSinceLastRewire = [];
 }
 
 
@@ -67,24 +68,33 @@ Model.prototype.modelConstruct = function() {
 
 
 Model.prototype.modelConstructDone = function() {
+    this.initialisationLock = 1;
     this.rewire();
     window.status = "refreshing";
     //  As with the other re... activities (see _modelConstruct), during model construction, 
     //  the work is supposed to be done, without the event being dispatched.
     this._refresh();
-    this.fireXFormsReady();
+    this.resumeXFormsReady();
     this.m_bReady = true;
 };
+
+Model.prototype.stopXFormsReady = function () {
+	++this.initialisationLock;
+}
+
+Model.prototype.resumeXFormsReady = function () {
+	if (!--this.initialisationLock && !this.m_bReadyFired) {
+		this.fireXFormsReady();
+	}
+}
 
 Model.prototype.modelDestruct = function() {
     UX.dispatchEvent(this.element, "xforms-model-destruct", false, false, false);
 };
 
 Model.prototype.fireXFormsReady = function() {
-    var evt = this.element.ownerDocument.createEvent("Events");
-    evt.initEvent("xforms-ready", true, false);
-    evt._actionDepth = -1;
-    FormsProcessor.dispatchEvent(this.element, evt);
+  this.m_bXFormsReadyFired = true;
+  UX.dispatchEvent(this.element, "xforms-ready", false, false, true);
 };
 
 
@@ -391,7 +401,10 @@ Model.prototype.refreshPending = function() {
 
 
 Model.prototype.rebuild = function() {
-  UX.dispatchEvent(this.element, "xforms-rebuild", true, true);
+	if (this.m_bNeedRebuild) {
+		this.m_bNeedRebuild = false;
+		UX.dispatchEvent(this.element, "xforms-rebuild", true, true);
+	}
 };
 
 Model.prototype._rebuild = function() {
@@ -413,20 +426,21 @@ Model.prototype._rebuild = function() {
 	     */
 	    var oContext = this.getEvaluationContext();
 	    processBinds(this, this.element, oContext);
-	    this.m_bNeedRebuild = false;
-	    this.m_bNeedRecalculate = true;
+		this.m_bNeedRecalculate = true;
+		this.m_bNeedRebuild = false;
+
 	}
 };
 
 
 Model.prototype.recalculate = function() {
-
-  UX.dispatchEvent(this.element, "xforms-recalculate", true, true);
+	if (this.m_bNeedRecalculate) {
+		this.m_bNeedRecalculate = false;
+		UX.dispatchEvent(this.element,"xforms-recalculate", true, true);
+	}
 }
 
 Model.prototype._recalculate = function() {
-    this.m_oDE.recalculate(this.changeList);
-
     if (!FormsProcessor.halted) {
 	    this.m_oDE.recalculate(this.changeList);
 	
@@ -438,15 +452,18 @@ Model.prototype._recalculate = function() {
 };
 
 Model.prototype.revalidate = function() {
-  UX.dispatchEvent(this.element, "xforms-revalidate", true, true);
+	if (this.m_bNeedRevalidate) {
+		this.m_bNeedRevalidate = false;
+		UX.dispatchEvent(this.element, "xforms-revalidate", true, true);
+	}
 }
 
 Model.prototype._revalidate = function() {
     if (!FormsProcessor.halted) {
-	    this.m_bNeedRevalidate = false;
 
 	    this.applyChildBindConstraints(this);
 
+	    this.m_bNeedRevalidate = false;
 	    this.m_bNeedRewire = true;
 	}
 };
@@ -478,34 +495,34 @@ Model.prototype.rewire = function() {
     }
 
     this.m_bNeedRewire = false;
+    this.m_bNeedRefresh = true;
     this.flagRefresh();
+    this.m_NodesInsertedSinceLastRewire = [];
     return;
 };
 
 
 Model.prototype.refresh = function() {
 
-    if (!FormsProcessor.halted) {
-      UX.dispatchEvent(this.element, "xforms-refresh", true, true);
-    }
+  if (!FormsProcessor.halted && this.m_bNeedRefresh) {
+		this.m_bNeedRefresh = false;
+		UX.dispatchEvent(this.element, "xforms-refresh",true , true);
+  }
 };
 
 
 Model.prototype._refresh = function() {
-    if (this.m_bNeedRefresh) {
-        this.m_bNeedRefresh = false;
-      for ( var i = 0; i < this.m_arControls.length; ++i) {
-          var fc = this.m_arControls[i];
-  
-          if (fc && typeof fc.element == "object") {
-              fc.refresh();
-          } else {
-              this.m_arControls.splice(i);
-          }
-      }
-      this.m_bNeedRefresh = false;
-      window.status = "";
+    for ( var i = 0; i < this.m_arControls.length; ++i) {
+        var fc = this.m_arControls[i];
+
+        if (fc && typeof fc.element == "object") {
+            fc.refresh();
+        } else {
+            this.m_arControls.splice(i);
+        }
     }
+    this.m_bNeedRefresh = false;
+    window.status = "";
     return;
 };
 
@@ -520,6 +537,25 @@ Model.prototype.addInstance = function(theInstance) {
     return this;
 };
 
+
+Model.prototype.storeInsertedNodes = function (nodes) {
+	var i;
+	for (i = 0; i < nodes.length; ++i) {
+		this.m_NodesInsertedSinceLastRewire.unshift(nodes[i]);
+	}
+}
+
+Model.prototype.indexOfNewNode = function (nodes) {
+	var i, j;
+	for (i = 0; i < nodes.length; ++i) {
+		for (j = 0; j < this.m_NodesInsertedSinceLastRewire.length; ++j) {
+			if (nodes[i] === this.m_NodesInsertedSinceLastRewire[j]) {
+				return i;
+			}
+		}
+	}
+	return -1;
+};
 
 Model.prototype.removeInstance = function(theInstance) {
     var i;
@@ -562,8 +598,8 @@ Model.prototype.reset = function() {
 	    for (i = 0; i < l; ++i) {
 	        instances[i].reset();
 	    }
-        this.flagRebuild();
-	    this.rebuild();
+	    this.flagRebuild();
+	    _deferredUpdate(this);
 	}
 };
 

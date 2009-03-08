@@ -125,7 +125,7 @@ function doUpdate() {
       //only update if it is ready, otherwise, if there are multiple models, 
       // some may rebuild/recalculate etc. before its initial build/calculate, etc.
       if (m.m_bReady) {
-        m.deferredUpdate();
+        _deferredUpdate(m);
       }
     } catch (e) {
        debugger;
@@ -354,7 +354,7 @@ XFormsProcessor.prototype.dispatchEvent = function (oTarget, oEvent, bForceInlin
     IncrementDeferredUpdate();
     this.eventStack.push(oEvent);
       //This is only required for IE.  Conformant browsers despatch events at the correct time without prompting
-      eventExecuted = (UX.isIE && bForceInlineExecution)? oTarget._dispatchEvent(oEvent): (oTarget.dispatchEvent? oTarget.dispatchEvent(oEvent): false);
+      eventExecuted = oTarget.dispatchEvent(oEvent);
     
     if (eventExecuted) {
       this.invokeDefault(oTarget, oEvent);

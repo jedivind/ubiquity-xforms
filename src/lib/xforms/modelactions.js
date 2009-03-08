@@ -66,36 +66,33 @@ function Reset(elmnt){
 }
 
 Rebuild.prototype = new ModelFunctionAction(
-  function(theModel){
-    theModel.rebuild();
-  }
+	function(theModel){
+		theModel._rebuild();
+	}
 );
 
 Recalculate.prototype = new ModelFunctionAction(
-  function(theModel){
-    theModel.recalculate();
-  }
+	function(theModel){
+		theModel._recalculate();
+	}
 );
 
 Revalidate.prototype = new ModelFunctionAction(
-  function(theModel)
-  {
-    theModel.revalidate();
-  }
+	function(theModel){
+		theModel._revalidate();
+	}
 );
 
 Refresh.prototype = new ModelFunctionAction(
-  function(theModel){
-    theModel.refresh();
-  }
+	function(theModel){
+		theModel._refresh();
+	}
 );
 
 Reset.prototype = new ModelFunctionAction(
-  function(theModel) {
-    //create and dispatch an xforms-reset event on the model, as defined in http://www.w3.org/TR/xforms11/#action-reset
-    var oEvt = this.element.ownerDocument.createEvent("Events");
-    oEvt.initEvent("xforms-reset", true, true);
-    FormsProcessor.dispatchEvent(theModel, oEvt, true);
-  }
+	function(theModel) {
+		//create and dispatch an xforms-reset event on the model, as defined in http://www.w3.org/TR/xforms11/#action-reset
+		UX.dispatchEvent(theModel, "xforms-reset", true, true);
+	}
 );
 

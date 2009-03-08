@@ -112,79 +112,89 @@ Repeat.prototype.getRequestedIterationCount = function () {
   return desiredIterationCount;
 };
 
+
 Repeat.prototype.putIterations = function (desiredIterationCount) {
 
-  var formerOffset, i, currentOrdinal, sDefaultPrefix, iterations, oIterationElement, templateClone;
-  if (desiredIterationCount < this.m_CurrentIterationCount) {
-    //Trim any superfluous iterations if desired.
-    while (this.element.childNodes.length > desiredIterationCount) {
-      this.element.removeChild(this.element.lastChild);
-    }
-    this.m_CurrentIterationCount = this.element.childNodes.length;
-  }
-  //hold the current offset, to determine whether it is necessary to change
-  //  the ordinals of the various iterations.
-  formerOffset = this.m_offset;
-  
-  //Fix the viewport so that the desired index will be visible.
-  if (this.m_nIndex < this.m_offset) {
-    //If offset is later than index, move the viewport such that index is the last visible iteration
-    this.m_offset = 1 + this.m_nIndex - desiredIterationCount;
-  } else if (this.m_nIndex > (desiredIterationCount + this.m_offset)) {
-    //If there are fewer iterations than would allow the current index to be visible
-    //Set the offset and index to match.
-    this.m_offset = this.m_nIndex - 1;
-  }
-  
-  //Offset has changed, iterate through extant iterations, altering their ordinals accordingly.
-  if (formerOffset !== this.m_offset) {
-    iterations = this.element.childNodes;
-    
-    for (i = 0; i < this.m_CurrentIterationCount; ++i) {
-      currentOrdinal = i + this.m_offset;
-      if (iterations[i]) {
-        iterations[i].setAttribute("ordinal", currentOrdinal);
-      } 
-    }
-  }
-  
-  sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
-  
-  //Suspend the decorator,
-  //	content added is received in order of opening tag, 
-  //	and both ContentReady and DocumentReady are executed out of order. 
-  DECORATOR.suspend();
-  
-  while (desiredIterationCount > this.m_CurrentIterationCount) {
-    //In the absence of an iteration corresponding to this index, insert one.
-    oIterationElement = (UX.isXHTML) ? 
-      document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.iterationTagName) :
-      document.createElement(sDefaultPrefix + this.element.iterationTagName);
-    oIterationElement.setAttribute("ref", ".");
-    oIterationElement.setAttribute("ordinal", this.m_offset + this.m_CurrentIterationCount + 1);
-    UX.addClassName(oIterationElement, "repeat-iteration");
-    
-    oIterationElement.outerScope = this;
-    
-    templateClone = this.element.sTemplate.cloneNode(true);
+	var formerOffset, i, currentOrdinal, sDefaultPrefix, iterations, oIterationElement, templateClone, thisModel;
+	if (desiredIterationCount < this.m_CurrentIterationCount) {
+		//Trim any superfluous iterations if desired.
+		while (this.element.childNodes.length > desiredIterationCount) {
+		  this.element.removeChild(this.element.lastChild);
+		}
+		this.m_CurrentIterationCount = this.element.childNodes.length;
+	}
+	//hold the current offset, to determine whether it is necessary to change
+	//  the ordinals of the various iterations.
+	formerOffset = this.m_offset;
+	
+	
+	//Fix the viewport so that the desired index will be visible.
+	if (this.m_nIndex < this.m_offset) {
+		//If offset is later than index, move the viewport such that index is the last visible iteration
+		this.m_offset = 1 + this.m_nIndex - desiredIterationCount;
+	} else if (this.m_nIndex > (desiredIterationCount + this.m_offset)) {
+		//If there are fewer iterations than would allow the current index to be visible
+		//Set the offset and index to match.
+		this.m_offset = this.m_nIndex - 1;
+	}
+	
+	//Offset has changed, iterate through extant iterations, altering their ordinals accordingly.
+	if (formerOffset !== this.m_offset) {
+		iterations = this.element.childNodes;
+		
+		for (i = 0; i < this.m_CurrentIterationCount; ++i) {
+		  currentOrdinal = i + this.m_offset;
+		  if (iterations[i]) {
+		    iterations[i].setAttribute("ordinal", currentOrdinal);
+		  } 
+		}
+	}
+	
+	sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
+	
+	//Suspend the decorator,
+	//	content added is received in order of opening tag, 
+	//	and both ContentReady and DocumentReady are executed out of order. 
+	var suspension = false;
+	if (desiredIterationCount > this.m_CurrentIterationCount) {
+		suspension = true;
+		DECORATOR.suspend();
+		this.m_model.stopXFormsReady();
+  	}
 
-    //Move each child of templateClone to oIterationElement, maintaining order.
-    while (templateClone.hasChildNodes()) {
-      oIterationElement.appendChild(templateClone.firstChild);
-    }
-    this.element.appendChild(oIterationElement);
-    window.status = "";
-    //set the status bar, to fix the progress bar.
-    //See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731 
-    
-    this.m_CurrentIterationCount++;
-  }
+	while (desiredIterationCount > this.m_CurrentIterationCount) {
+		//In the absence of an iteration corresponding to this index, insert one.
+		oIterationElement = (UX.isXHTML) ? 
+			document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.iterationTagName) :
+			document.createElement(sDefaultPrefix + this.element.iterationTagName);
+		oIterationElement.setAttribute("ref", ".");
+		oIterationElement.setAttribute("ordinal", this.m_offset + this.m_CurrentIterationCount + 1);
+		UX.addClassName(oIterationElement, "repeat-iteration");
+		
+		oIterationElement.outerScope = this;
+		
+		templateClone = this.element.sTemplate.cloneNode(true);
+		
+		//Move each child of templateClone to oIterationElement, maintaining order.
+		while (templateClone.hasChildNodes()) {
+			oIterationElement.appendChild(templateClone.firstChild);
+		}
+		this.element.appendChild(oIterationElement);
+		window.status = "";
+		//set the status bar, to fix the progress bar.
+		//See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731 
+		
+		this.m_CurrentIterationCount++;
+	}
+	thisModel = this.m_model;
   //Spawn the resumption of the decorator,
   //	spawning allows the content to add itself, prior to being initialised by the resumption
-  spawn(function () {
-  	DECORATOR.resume();
-  });
-  
+	if(suspension) {
+		spawn(function () {
+			DECORATOR.resume();
+			thisModel.resumeXFormsReady();
+		});
+	}
   
 };
 
@@ -204,7 +214,8 @@ Repeat.prototype.rewire = function () {
       sBind = this.element.getAttribute("bind"),
       oBind,
       oContext,
-      r;
+      r,
+      newIndex;
   
   if (sBind) {
     oBind = FormsProcessor.getBindObject(sBind, this.element);
@@ -230,6 +241,10 @@ Repeat.prototype.rewire = function () {
   
   if (arrNodes) {
     this.m_iterationNodesetLength = arrNodes.length;
+    newIndex = this.m_model.indexOfNewNode(arrNodes);
+    if (newIndex !== -1) {
+      this.m_nIndex = newIndex + 1;
+    }
     this.m_nIndex = this.normaliseIndex(this.m_nIndex);
     this.putIterations(this.getRequestedIterationCount());
 
@@ -247,7 +262,7 @@ Repeat.prototype.getIndex = function () {
 };
 
 Repeat.prototype.setIndex = function (newIndex) {
-  var ix = this.normaliseIndex(newIndex)
+  var ix = this.normaliseIndex(newIndex);
   if (ix !== this.m_nIndex) {
     this.m_nIndex = ix;
     if (this.m_nIndex > newIndex) {
@@ -255,7 +270,7 @@ Repeat.prototype.setIndex = function (newIndex) {
     } else if (this.m_nIndex < newIndex){
       UX.dispatchEvent(this.element, "xforms-scroll-last", true, false, true);
     }
-    this.m_context.model.flagRebuild();
+    this.m_model.flagRebuild();
   }
 };
 

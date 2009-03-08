@@ -592,32 +592,42 @@ var DECORATOR = function () {
 	function attachDecoration(element,handleContentReady, handleDocumentReady) {
 		//window.status = "decorating: " + element.nodeName; 
 		var bReturn = false, tIndex, arrBehaviours, i;
-		if (m_suspended) {
-			m_elementsInSuspension.push(element);
-		} else {
-			tIndex = element.getAttribute("tabindex");
-			//quit if already manually decorated
-			if (!UX.hasDecorationSupport && element.decorated) {
-				return bReturn;
+		tIndex = element.getAttribute("tabindex");
+		//quit if already manually decorated
+		if (!UX.hasDecorationSupport && element.decorated) {
+			return bReturn;
+		}
+		if (tIndex === 0){
+			element.tabIndex = 1;
+		}
+
+		element.decorated = true;
+		element.constructors = [];
+		element.contentReadyHandlers = [];
+		element.documentReadyHandlers = [];
+		//add capability to 
+		element.attachSingleBehaviour = attachSingleBehaviour;
+
+		arrBehaviours = getDecorationObjectNames(element);				
+		arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
+		if (arrBehaviours.length  > 0) {
+			for (i = 0;i < arrBehaviours.length;++i) {
+				addObjectBehaviour(element,arrBehaviours[i],false);
 			}
-			if(tIndex === 0){
-				element.tabIndex = 1;
+			if (m_suspended) {
+				m_elementsInSuspension.push(element);
+			} else {
+	
+				callConstructionFunctions(element, handleContentReady, handleDocumentReady) 
+				
+				bReturn =  true;
 			}
+		}
+		return bReturn;
+	}
 	
-			element.decorated = true;
-			element.constructors = [];
-			element.contentReadyHandlers = [];
-			element.documentReadyHandlers = [];
-			//add capability to 
-			element.attachSingleBehaviour = attachSingleBehaviour;
-	
-			arrBehaviours = getDecorationObjectNames(element);				
-			arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
-			if (arrBehaviours.length  > 0) {
-				for (i = 0;i < arrBehaviours.length;++i) {
-					addObjectBehaviour(element,arrBehaviours[i],false);
-				}
-				callHandlers(element,element.ctor);
+	function callConstructionFunctions(element, handleContentReady, handleDocumentReady) {
+		callHandlers(element,element.ctor);
 	
 				//If the caller has requested that this function shoudl sort out 
 				//	contentReady and documentReady, sort them out now.
@@ -628,16 +638,7 @@ var DECORATOR = function () {
 				if (handleDocumentReady) {
 					registerForOnloadOrCallNow(element,element.onDocumentReady);
 				}
-	
-				bReturn =  true;
-			}
-		}
-		return bReturn;
 	}
-	
-
-
-	
 	
 	//Once the decorator has been set up, in IE, this function wil be called to decorate the elements.
 	function decorate(e) {   
@@ -662,7 +663,18 @@ var DECORATOR = function () {
 		}
 		return;
 	}
-		
+	
+	var isInDocument = function (element) {
+		var parent = element.parentNode;
+		while (parent) {	
+			if (parent === document) {
+				return true;
+			}
+			parent = parent.parentNode;
+		}
+		return false;
+	};
+	
 	itself.extend = extend;
 	itself.setupDecorator = setupDecorator;
 	itself.attachDecoration = attachDecoration;
@@ -680,9 +692,15 @@ var DECORATOR = function () {
 	};
 	
 	itself.resume = function () {
+		var element;
 		if (!--m_suspended) {
 			while (m_elementsInSuspension[0]) {
-				attachDecoration(m_elementsInSuspension.pop(), true, true);
+				element = m_elementsInSuspension.pop();
+				//A new element may have been added, then removed from the document
+				//	during the suspension.  Check if it still exists before initialising.
+				if (isInDocument(element)) {
+					callConstructionFunctions(element, true, true);
+				}
 			}
 		}
 	};
