@@ -9,9 +9,9 @@ Blah blah.
 
 The XForms 1.1 test suite comprises:
 
-* a file that lists all of the tests to run;
-* individual test forms;
-* a driver file for each test.
+  * a file that lists all of the tests to run;
+  * individual test forms;
+  * a driver file for each test.
 
 == List of tests to run ==
 
