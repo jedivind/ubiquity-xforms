@@ -305,7 +305,7 @@ function _getBoundNode(pThis, nOrdinal) {
                 var oRefNode = 
                     getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
 
-                if (!oRefNode && !pThis.m_model.constructingUI) {
+                if (!oRefNode && pThis.m_model.constructingUI) {
                     // Lazy authoring, 
                     // get the default instance
                     var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
