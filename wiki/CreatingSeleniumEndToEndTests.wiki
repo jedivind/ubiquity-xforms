@@ -77,8 +77,8 @@ The first step in a driver page will be to open the individual test form that wi
 <tr>
   <td>open</td>
   <td>../../W3C-XForms-1.1/Edition1/Chapt11/11.1/11.1.n.xhtml</td>
-  <td>&nbsp;</td>
-  <td>&nbsp;</td>
+  <td>&amp;nbsp;</td>
+  <td>&amp;nbsp;</td>
 </tr>
 }}}
 
@@ -89,7 +89,7 @@ Once the form is loaded, UXF will initialise. We can't run any tests until this 
   <td>waitForText</td>
   <td>xpath=//xforms:output[@id='status']/pe-value</td>
   <td>ready</td>
-  <td>&nbsp;</td>
+  <td>&amp;nbsp;</td>
 </tr>
 }}}
 
