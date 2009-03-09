@@ -321,6 +321,7 @@ var xmlSchemaRules = {
         "QName" : {
 	        validate : function(sValue) {
 		        // TODO
+		        return true;
 	        }
         }
     }

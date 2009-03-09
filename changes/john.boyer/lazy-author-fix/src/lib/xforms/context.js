@@ -311,22 +311,30 @@ function _getBoundNode(pThis, nOrdinal) {
                     var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
 
                     if (oInstDoc) {
-                        // Actually we need to check for the QName is valid  but
-                        // it seems that createElement will accept any QName (valid or not)                
-                        oRefNode = oInstDoc.createElement(sRef);
+                        if (xmlSchemaRules.rules["QName"].validate(sRef)) {
+                            oRefNode = oInstDoc.createElement(sRef);
 
-                        if (oRefNode) {
-                            oInstDoc.documentElement.appendChild(oRefNode);
-                        } 
-                        // If we created the node from lazy authoring, we need to verify 
-                        // that it it is actually created properly
-                        oRefNode = 
-                            getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
+                            if (oRefNode) {
+                                oInstDoc.documentElement.appendChild(oRefNode);
+                                // Update the evaluation context of the element
+                                pThis.m_context.node = oInstDoc.documentElement;
+                                // Update oRet to serve as the context for getting
+                                // the newly appended element as the bound node.
+                                oRet.node = oInstDoc.documentElement;
+                                oRet.position = oRet.size = 1;
+                            } 
+                            // If we created the node from lazy authoring, we need to verify 
+                            // that it it is actually created properly
+                            oRefNode = 
+                                getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
 
-                        // Form controls are considered to be non-relevant if any of the 
-                        // following apply:
-                        // the Single Node Binding is expressed and resolves to empty nodeset
-                        // so oRefNode is null if EvaluateXPath is unresolved.
+                            // Form controls are considered to be non-relevant if any of the 
+                            // following apply:
+                            // the Single Node Binding is expressed and resolves to empty nodeset
+                            // so oRefNode is null if EvaluateXPath is unresolved.
+                        } else {
+                            UX.dispatchEvent(oElement, "xforms-binding-exception", false, true, true);
+                        }
                     }
                 }
                 oRet.node = oRefNode;
