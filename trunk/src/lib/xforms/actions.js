@@ -200,63 +200,34 @@ Load.prototype.performAction = function (evt) {
 	}
 };
 
-
 function Message(elmnt) {
   this.element = elmnt;
   
-  // hide the message, for ephemeral case
-  document.notify.ephemeral(this.element, false);
-
   this.element.addEventListener("ub-activate", this, false);
 }
 
 Message.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-
 Message.prototype.performAction = function (evt) {
-  var sLevel, context;
-  sLevel = this.element.getAttribute("level");
-  // The context for our hint is the parent element.
-  //
-  context = this.element.parentNode;
- 
-  FormsProcessor.refreshDescendents(this.element.childNodes);
-  
-  switch (sLevel) {
-  case "modeless":
-    document.notify.messageWindow(this, false);
-    break;
-      
-  case "ephemeral":
-    // Check to see if the message parent is valid.
-    //
-    if (!context) {
-      throw "No context found for message";
-    }
-    
-    // The positioning of the message is relative to its container so
-    // indicate that it's a message container, so that the CSS styles
-    // in message.css can kick in.
-    //
-    UX.addClassName(context, "xf-message-container");
-    
-    // An ephemeral message will "act" like a hint, in fact, the xforms-hint-off event can be used
-    // to turn-off the message, just like a hint.  The ephemeral message will be shown and a user
-    // can click on the ephemeral message to turn it off, otherwise it times out.
-    if ((evt.type === "xforms-hint-off") && (evt.target.parentNode === this.element)) {
-      document.notify.ephemeral(this.element, false);
-    } else {
-      document.notify.ephemeral(this.element, true);
-    }
-    break;
-      
-  case "modal":
-    document.notify.messageWindow(this, true);
-    break;
-  default :
-    document.notify.messageWindow(this, true);
-    break;
-  }
+  var sLevel = this.element.getAttribute("level");
+
+	FormsProcessor.refreshDescendents(this.element.childNodes);
+
+	switch (sLevel) {
+		case "modeless":
+			document.notify.messageWindow(this, false);
+			break;
+
+		case "ephemeral":
+			document.notify.ephemeral(this.element, evt.activate);
+			break;
+
+		case "modal":
+			document.notify.messageWindow(this, true);
+			break;
+
+		default:
+			document.notify.messageWindow(this, true);
+			break;
+	}
 };
-
-

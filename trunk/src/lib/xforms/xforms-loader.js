@@ -197,7 +197,7 @@ var g_sBehaviourDirectory  = "";
 	loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + "../../assets/style/hint.css" });
 	loader.addModule({ name: "xforms-message-css",  type: "css", fullpath: moduleBase + "../../assets/style/message.css" });
 
-    loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "hint.js",
+    loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "HintMixin.js",
       requires: [ "xforms-hint-css", "xforms-notify" ] });
 
     loader.addModule({ name: "xforms-help",         type: "js",  fullpath: moduleBase + "HelpMixin.js",

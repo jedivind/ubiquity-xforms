@@ -697,7 +697,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#ui-commonelems-hint</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-11-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>

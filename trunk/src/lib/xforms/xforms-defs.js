@@ -214,13 +214,18 @@ DECORATOR.addDecorationRules({
         }
         ],
 
-        "hint" : [
-          {
-              "name" : "hint",
-              "apply" : function(arrBehaviours) {
-                  return arrBehaviours.concat([OptionalBinding, Hint]);
-              }
-          }
+				// Hint is a type of message.
+				//
+				"hint" : [
+					{
+						"name": "hint-element",
+						"apply" : function(arrBehaviours) {
+							return arrBehaviours.concat([
+								/* It's a Message ... */ Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message,
+								/* ... and a Hint.    */ HintMixin 
+							]);
+						}
+	        }
         ],
         // end common support decorations
 
@@ -431,6 +436,7 @@ DECORATOR.addDecorationRules({
                        NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"help","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"hint","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"message","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"mediatype","http://www.w3.org/2002/xforms");
             },
@@ -750,6 +756,10 @@ DECORATOR.setupDecorator(
 		},
 		{
 			selector:" xf|alert > pe-value",
+			objects:[]
+		},
+		{
+			selector:" xf|hint > pe-value",
 			objects:[]
 		},
 		{

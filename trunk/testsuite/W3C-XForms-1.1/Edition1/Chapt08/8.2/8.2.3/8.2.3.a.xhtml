@@ -22,7 +22,7 @@
 		  "Instance Hint Message". 
 		</xforms:label>	
 	</xforms:group>
-	<xforms:input id="input1">
+	<xforms:input id="input1" ref="/msg">
 		<xforms:label>Input : </xforms:label>
 		<xforms:hint id="hintSrc" ref="/msg"/>
   	</xforms:input>
@@ -32,6 +32,6 @@
   			<xforms:dispatch name="xforms-hint" target="input1"/>
   		</xforms:action>
   	</xforms:trigger>
-  	
+  	<xforms:output id="status" value="'ready'"></xforms:output>
   </body>
 </html>

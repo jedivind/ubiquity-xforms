@@ -28,8 +28,9 @@ xf\:value  > pe-value,  xforms\:value  > pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
 
-xf\:message >  pe-value, xforms\:message >  pe-value,
-xf\:help >  pe-value, xforms\:help >  pe-value {
+xf\:help >  pe-value, xforms\:help >  pe-value,
+xf\:hint >  pe-value, xforms\:hint >  pe-value,
+xf\:message >  pe-value, xforms\:message >  pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
 
@@ -156,12 +157,12 @@ xf\:load, xforms\:load {
 }
 
 xf\:help, xforms\:help,
+xf\:hint, xforms\:hint,
 xf\:message, xforms\:message {
   -moz-binding: url("decorator.xml#decorator");
 }
 
-xf\:setvalue, xforms\:setvalue,
-xf\:hint, xforms\:hint {
+xf\:setvalue, xforms\:setvalue {
   -moz-binding: url("decorator.xml#decorator");
 }
 
