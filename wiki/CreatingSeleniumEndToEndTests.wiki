@@ -1,0 +1,49 @@
+#summary How to write an end-to-end test using Selenium.
+#labels Phase-QA
+
+= Introduction =
+
+Blah blah.
+
+= XForms 1.1 Test Suite =
+
+The XForms 1.1 test suite comprises:
+
+* a file that lists all of the tests to run;
+* individual test forms;
+* a driver file for each test.
+
+== List of tests to run ==
+
+The higher Selenium XForms 1.1 test suite is located at:
+{{{
+testsuite/W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/W3CTestSuite.html
+}}}
+
+This is currently being broken into individual chapters, such as:
+{{{
+testsuite/W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuiteChapter11.html
+}}}
+
+== Individual test forms ==
+
+Each of the XForms 1.1 tests has an XForm located in a sub-directory of:
+{{{
+testsuite/W3C-XForms-1.1/Edition1
+}}}
+The tests are broken down by chapter, and then section (and sometimes even sub-section). For example, test `11.1.n` would be in section `11.1` in chapter 11:
+{{{
+testsuite/W3C-XForms-1.1/Edition1/Chapt11/11.1/11.1.n.xhtml
+}}}
+
+= Running the tests =
+
+The Selenium driver file is at:
+{{{
+testsuite/selenium/core/TestRunner.html
+}}}
+
+To run the chapter 11 tests, for example, use the following:
+{{{
+testsuite/selenium/core/TestRunner.html?test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuiteChapter11.html
+}}}
