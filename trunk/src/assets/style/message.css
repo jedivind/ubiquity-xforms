@@ -64,6 +64,16 @@ xf|message pe-value {
     background-color: transparent;
 }
 
+xforms\:message,
+xf\:message {
+    display: none;
+}
+
+xforms|message,
+xf|message {
+    display: none;
+}
+
 xforms\:message.active,
 xf\:message.active {
     display: inline;
