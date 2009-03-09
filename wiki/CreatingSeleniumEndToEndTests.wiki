@@ -150,8 +150,15 @@ To have Selenium save the results of running the tests add `save=true` and `resu
 testsuite/selenium/core/TestRunner.html?save=true&resultsUrl=..\..\xforms11-ff3-results.html&test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuiteChapter11.html
 }}}
 
-To automatically close the browser after the tests have completed, add `close=true`. This is useful when running the tests from the command-line. For example, to load the chapter 11 tests in Firefox, run them automatically, save the results, and then close, we would use the following command:
+To automatically close the browser after the tests have completed, add `close=true`. This is useful when running the tests from the command-line. For example, to load the chapter 11 tests in Firefox on Windows, run them automatically, save the results, and then close, we would use the following command:
 
 {{{
 "C:\Program Files\Mozilla Firefox\firefox.exe" "testsuite\selenium\core\TestRunner.html?test=..\..\W3C-XForms-1.1\Edition1\driverPages\SeleniumTests\TestSuiteChapter11.html&auto=true&save=true&resultsUrl=..\..\xforms11-ff3-results.html&close=true"
 }}}
+
+There are Windows batch files to do just this, at:
+{{{
+testsuite/xforms11-chapter11-ff3.bat
+}}}
+
+These files are designed to be run by Builbot Windows slaves (see WindowsBuildBotSlave).
