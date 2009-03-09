@@ -482,3 +482,18 @@ XNode.prototype.getElementsById = function(id) {
     }, null);
     return ret;
 };
+
+// This version attaches the newly created attribute to its 'parent'.
+// Failure to do this makes the whole attribute's XPath ancestor's axis hollow.   
+//
+XNode.prototype.setAttribute = function(name, value) {
+  for (var i = 0; i < this.attributes.length; ++i) {
+    if (this.attributes[i].nodeName == name) {
+      this.attributes[i].nodeValue = '' + value;
+      return;
+    }
+  }
+  var newAttr = XNode.create(DOM_ATTRIBUTE_NODE, name, value, this);
+  this.attributes.push(newAttr);
+  newAttr.parentNode = this;
+};
