@@ -61,12 +61,41 @@ testsuite/W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/Chapt11/11.1/11.1.n.
 == Individual test forms ==
 
 Each of the XForms 1.1 tests has an XForm located in a sub-directory of:
+
 {{{
 testsuite/W3C-XForms-1.1/Edition1
 }}}
+
 The tests are broken down by chapter, and then section (and sometimes even sub-section). For example, test `11.1.n` would be in section `11.1` in chapter 11:
+
 {{{
 testsuite/W3C-XForms-1.1/Edition1/Chapt11/11.1/11.1.n.xhtml
+}}}
+
+The forms are generated from the original W3C forms, located here:
+
+{{{
+Not sure yet!
+}}}
+
+To convert the files for use by UXF, run the following command:
+
+{{{
+testsuite/W3C-XForms-1.1/ant
+}}}
+
+This will run `ant` in the test suite directory, which will use the `build.xml` file to process each file in the test suite. (For information on installing `ant`, see WindowsBuildBotSlave.)
+
+For each file `ant` will run the `ubiquityxforms.xsl` transformation, which does the following:
+
+  * adds the UXF library loader script to the `head` element;
+  * moves all `xf:model` elements that appear in the `head` to the `body`;
+  * adds an `xf:output` to the end of the `body` to allow tests to detect when the form is ready.
+
+This last step is provided by the following mark-up:
+
+{{{
+<xforms:output id="status" value="'ready'"></xforms:output>
 }}}
 
 = Writing a driver page =
