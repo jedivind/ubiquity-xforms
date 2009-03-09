@@ -122,16 +122,36 @@ Once the form is loaded, UXF will initialise. We can't run any tests until this 
 </tr>
 }}}
 
-
-
 = Running the tests =
 
 The Selenium driver file is at:
+
 {{{
 testsuite/selenium/core/TestRunner.html
 }}}
 
 To run the chapter 11 tests, for example, use the following:
+
 {{{
 testsuite/selenium/core/TestRunner.html?test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuiteChapter11.html
+}}}
+
+This opens Selenium so that you are ready to run tests individually or the entire suite.
+
+To have Selenium load the tests and then automatically run all of them, add `auto=true`:
+
+{{{
+testsuite/selenium/core/TestRunner.html?auto=true&test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuiteChapter11.html
+}}}
+
+To have Selenium save the results of running the tests add `save=true` and `resultsUrl=filename`. For example:
+
+{{{
+testsuite/selenium/core/TestRunner.html?save=true&resultsUrl=..\..\xforms11-ff3-results.html&test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuiteChapter11.html
+}}}
+
+To automatically close the browser after the tests have completed, add `close=true`. This is useful when running the tests from the command-line. For example, to load the chapter 11 tests in Firefox, run them automatically, save the results, and then close, we would use the following command:
+
+{{{
+"C:\Program Files\Mozilla Firefox\firefox.exe" "testsuite\selenium\core\TestRunner.html?test=..\..\W3C-XForms-1.1\Edition1\driverPages\SeleniumTests\TestSuiteChapter11.html&auto=true&save=true&resultsUrl=..\..\xforms11-ff3-results.html&close=true"
 }}}
