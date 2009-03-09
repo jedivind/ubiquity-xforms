@@ -26,3 +26,9 @@ Herein, I provide a list of issues related to test cases in the W3C-XForms-1.1 t
   * http://code.google.com/p/ubiquity-xforms/issues/detail?id=299
 == event after unload==
   * http://code.google.com/p/ubiquity-xforms/issues/detail?id=286
+== modal messages are not modal ==
+  * http://code.google.com/p/ubiquity-xforms/issues/detail?id=228
+
+= Not a Scooby =
+== digest() and hmac() ==
+The tests for digest() and hmac() are currently failing for a reason I can't fathom. The results of the two functions are returning the correct data in all cases. However, the relevance that the tests employ to display the results is not working. So you end up with both the pass and fail messages being displayed for each case. The relevant test cases are 7.8.3.a, 7.8.3.b, 7.8.3.f, 7.8.4.a, 7.8.4.b and 7.8.4.f.
