@@ -262,7 +262,21 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-        
+
+				// Help is a type of message.
+				//
+				"help" : [
+					{
+						"name": "help-element",
+						"apply" : function(arrBehaviours) {
+							return arrBehaviours.concat([
+								/* It's a Message ... */ Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message,
+								/* ... and a Help.    */ HelpMixin 
+							]);
+						}
+	        }
+        ],
+
         "load" : [
         {
             "name" : "setvalue-element",
@@ -416,6 +430,7 @@ DECORATOR.addDecorationRules({
                 return NamespaceManager.compareFullName(element.parentNode,"output","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"help","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"message","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"mediatype","http://www.w3.org/2002/xforms");
             },
@@ -741,6 +756,10 @@ DECORATOR.setupDecorator(
 			selector:" xf|message > pe-value",
 			objects:[]
 		},
+		{
+			selector:" xf|help > pe-value",
+			objects:[]
+		},
 
 		{
 			selector:"xf|label",
@@ -833,6 +852,10 @@ DECORATOR.setupDecorator(
 		},
 		{
     		selector:"xf|message",
+    		objects:[]
+		},
+		{
+    		selector:"xf|help",
     		objects:[]
 		},
 

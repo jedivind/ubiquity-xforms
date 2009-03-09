@@ -1,5 +1,5 @@
 /*
- * Copyright Â© 2008-2009 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -206,8 +206,8 @@ function Message(elmnt) {
   
   // hide the message, for ephemeral case
   document.notify.ephemeral(this.element, false);
-  
-  this.element.addEventListener("xforms-hint-off", this, true);
+
+  this.element.addEventListener("ub-activate", this, false);
 }
 
 Message.prototype.handleEvent = DeferToConditionalInvocationProcessor;
@@ -220,7 +220,7 @@ Message.prototype.performAction = function (evt) {
   //
   context = this.element.parentNode;
  
-  FormsProcessor.refreshDescendents(this.childNodes);
+  FormsProcessor.refreshDescendents(this.element.childNodes);
   
   switch (sLevel) {
   case "modeless":

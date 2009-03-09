@@ -3,7 +3,7 @@
 //
 // The Ubiquity XForms module adds XForms support to the Ubiquity library.
 //
-// Copyright Â© 2008-2009 Backplane Ltd.
+// Copyright © 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -193,11 +193,15 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "yui-style-css",       type: "css", fullpath: moduleBase + "../_platform/yui/message-panel.css" });
     loader.addModule({ name: "xforms-notify",       type: "js",  fullpath: moduleBase + "../_backplane/notify.js" });
     loader.addModule({ name: "message-yui",         type: "js",  fullpath: moduleBase + "../_platform/yui/message.js" });
+	loader.addModule({ name: "xforms-help-css",     type: "css", fullpath: moduleBase + "../../assets/style/help.css" });
 	loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + "../../assets/style/hint.css" });
 	loader.addModule({ name: "xforms-message-css",  type: "css", fullpath: moduleBase + "../../assets/style/message.css" });
 
     loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "hint.js",
       requires: [ "xforms-hint-css", "xforms-notify" ] });
+
+    loader.addModule({ name: "xforms-help",         type: "js",  fullpath: moduleBase + "HelpMixin.js",
+      requires: [ "xforms-help-css", "xforms-notify" ] });
 
     // XF4H Processor
     loader.addModule( { name: "xf4h",  type: "js",  fullpath: moduleBase + "xf4h.js"});
@@ -217,7 +221,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
         "xforms-toggle", 
         "xforms-submit",
-        "xforms-hint",
+        "xforms-hint", "xforms-help",
         "xforms-header",
         "yui-input-calendar","yui-input-color",
         "xf4h","xforms-submission-core-yui"
