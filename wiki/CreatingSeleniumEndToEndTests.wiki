@@ -46,7 +46,7 @@ Each entry in the document is a link to driver file to be loaded, plus a title f
 
 == Driver pages ==
 
-Each driver page is an HTML file that contains a list of instructions that Selenium will understand. These are located in:
+Each driver page is an HTML file that contains a list of instructions that Selenium will understand (for more details see the [http://release.seleniumhq.org/selenium-core/0.8.0/reference.html Selenium Reference]). These are located in:
 
 {{{
 testsuite/W3C-XForms-1.1/Edition1/driverPages/SeleniumTests
