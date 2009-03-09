@@ -16,11 +16,11 @@
 					<color>blue</color>
 				</car>
 			</xforms:instance>
-			<xforms:bind id="make_bind" nodeset="/car/make"/>
-			<xforms:bind id="year_bind" nodeset="/car/year"/>
-			<xforms:bind id="color_bind" nodeset="/car/color"/>
+			<xforms:bind id="make_bind" nodeset="/car/make"></xforms:bind>
+			<xforms:bind id="year_bind" nodeset="/car/year"></xforms:bind>
+			<xforms:bind id="color_bind" nodeset="/car/color"></xforms:bind>
 			
-			<xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh" method="post" omit-xml-declaration="1"/>
+			<xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh" method="post" omit-xml-declaration="1"></xforms:submission>
         </xforms:model>
     	<xforms:group>
   			<xforms:label class="title">11.1.o omit-xml-declaration attribute of submission element</xforms:label>
