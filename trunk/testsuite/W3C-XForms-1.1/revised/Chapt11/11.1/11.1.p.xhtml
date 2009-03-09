@@ -21,26 +21,28 @@
 			<xforms:bind id="color_bind" nodeset="/car/color"></xforms:bind>
 			
 			<xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh" method="post" standalone="true"></xforms:submission>
-			<xforms:submission id="submit2" action="http://xformstest.org/cgi-bin/echo.sh" method="post" standalone="false"></xforms:submission>
+			<xforms:submission id="submit2" action="http://xformstest.org/cgi-bin/echo.sh" method="post" standalone="yes"></xforms:submission>
+			<xforms:submission id="submit3" action="http://xformstest.org/cgi-bin/echo.sh" method="post"></xforms:submission>
         </xforms:model>
     	<xforms:group>
   			<xforms:label class="title">11.1.p standalone attribute of submission element</xforms:label>
   		</xforms:group>
   		<xforms:group>
   			<xforms:label>
-  			  When you activate the Submit With Standalone submit control you must see a standalone 
-  			  declaration in the form data. It may appear as the value " standalone="yes" " or 
-  			  " standalone="true" ". 
-  			  When you activate the Submit Without Standalone submit control you must not see a standalone 
-  			  declaration in the form data. 
+  			  When you activate the "Submit standalone=true" submit control you must see a standalone="true" 
+  			  attribute in the submitted data. When you activate the "Submit standalone=yes" submit control you
+  			  must see a standalone="yes" attribute in the submitted data. When you activate the "Submit without
+  			  standalone" submit control you must see no standalone attribute in the submitted data.
   			</xforms:label>
   		</xforms:group>
   		<xforms:submit submission="submit">
-  			<xforms:label>Submit With Standalone</xforms:label>
+  			<xforms:label>Submit standalone=true</xforms:label>
   		</xforms:submit>
   		<xforms:submit submission="submit2">
-  			<xforms:label>Submit Without Standalone</xforms:label>
+  			<xforms:label>Submit standalone=yes</xforms:label>
   		</xforms:submit>
-  		
+  		<xforms:submit submission="submit3">
+  			<xforms:label>Submit without standalone</xforms:label>
+  		</xforms:submit>
     </body>
 </html>
