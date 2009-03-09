@@ -9,13 +9,13 @@ Blah blah.
 
 The XForms 1.1 test suite comprises:
 
-  * a file that lists all of the tests to run;
-  * individual test forms;
-  * a driver file for each test.
+  * a file that lists all of the tests to run, in the form of links to 'driver files';
+  * a driver file for each test, which links to one or more individual test forms;
+  * a set of individual test forms;
 
 == List of tests to run ==
 
-The higher Selenium XForms 1.1 test suite is located at:
+The top level list of XForms 1.1 tests to run is located at:
 {{{
 testsuite/W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/W3CTestSuite.html
 }}}
@@ -23,6 +23,24 @@ testsuite/W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/W3CTestSuite.html
 This is currently being broken into individual chapters, such as:
 {{{
 testsuite/W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuiteChapter11.html
+}}}
+
+Each entry in the document is a link to driver file to be loaded, plus a title for the test. These entries appear as rows in a table:
+
+{{{
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+  <tbody>
+    <tr>
+      <td><b>XForms 1.1 Chapter 11 Test Suite</b></td>
+    </tr>
+    <tr><td><a href="./Chapt11/11.1/11.1.a.html">11.1.a ref attribute of submission element</a></td></tr>
+    <tr><td><a href="./Chapt11/11.1/11.1.b.html">11.1.b bind attribute of submission element</a></td></tr>
+    .
+    .
+    .
+    <tr><td><a href="./Chapt11/11.11/11.11.4/11.11.4.b.html">11.11.4.b handling SOAP success response</a></td></tr>
+  </tbody>
+</table>
 }}}
 
 == Individual test forms ==
