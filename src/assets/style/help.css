@@ -48,6 +48,16 @@ xf|help pe-value {
     background-color: transparent;
 }
 
+xforms\:help,
+xf\:help {
+    display: none;
+}
+
+xforms|help,
+xf|help {
+    display: none;
+}
+
 xforms\:help.active,
 xf\:help.active {
     display: inline;

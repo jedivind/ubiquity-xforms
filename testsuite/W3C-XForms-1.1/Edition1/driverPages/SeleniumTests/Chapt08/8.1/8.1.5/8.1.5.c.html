@@ -28,116 +28,92 @@
 				<tr>
 					<td>open</td>
 					<td>../../W3C-XForms-1.1/Edition1/Chapt08/8.1/8.1.5/8.1.5.c.xhtml</td>
-					<td>&nsp;</td>
-					<td>Opens the form</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>3000</td>
-					<td></td>
-					<td>Waits for the form to load</td>
+					<td>waitForText</td>
+					<td>xpath=//xforms:output[@id='status']/pe-value</td>
+					<td>ready</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>verifyTitle</td>
-					<td>8.1.5.c UI Common added to output element</td>
-					<td></td>
-					<td>Makes sure this is the right form</td>
+					<td>setTimeout</td>
+					<td>2000</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output</td>
-					<td></td>
-					<td>Checks that the output is in the form</td>
+					<td>assertNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:alert</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output/xforms:alert</td>
-					<td></td>
-					<td>Checks that the output's alert is in the form</td>
+					<td>assertNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:hint</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output/xforms:hint</td>
-					<td></td>
-					<td>Checks that the output's hint is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output/xforms:help</td>
-					<td></td>
-					<td>Checks that the output's help is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:trigger[1]</td>
-					<td></td>
-					<td>Checks that the trigger is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:trigger[2]</td>
-					<td></td>
-					<td>Checks that the trigger is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:trigger[3]</td>
-					<td></td>
-					<td>Checks that the trigger is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyTextNotPresent</td>
-					<td>*That is an invalid name*That is an invalid name*</td>
-					<td></td>
-					<td>Checks to see if the page is set up right</td>
+					<td>assertNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:help</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:trigger[1]</td>
-					<td></td>
-					<td>Clicks on the alert button</td>
+					<td>&nbsp;</td>
+					<td>Alert</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>*That is an invalid name*That is an invalid name*</td>
-					<td></td>
-					<td>Checks that the alert is visible</td>
+					<td>waitForVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:alert</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>verifyTextNotPresent</td>
-					<td>*This is the hint message*This is the hint message*</td>
-					<td></td>
-					<td>Checks to see if the page is set up right</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:alert</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:trigger[2]</td>
-					<td></td>
-					<td>Clicks on the hint button</td>
+					<td>&nbsp;</td>
+					<td>Hint</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>*This is the hint message*This is the hint message*</td>
-					<td></td>
-					<td>Checks that the hint is visible</td>
+					<td>waitForVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:hint</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>verifyTextNotPresent</td>
-					<td>[XForms]*This is the help message*OK</td>
-					<td></td>
-					<td>Checks to see if the page is set up right</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:hint</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:trigger[3]</td>
-					<td></td>
-					<td>Clicks on the help button</td>
+					<td>&nbsp;</td>
+					<td>Help</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>[XForms]*This is the help message*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
+					<td>waitForVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:help</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:output/xforms:help</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 			</tbody>
 		</table>
