@@ -69,6 +69,32 @@ The tests are broken down by chapter, and then section (and sometimes even sub-s
 testsuite/W3C-XForms-1.1/Edition1/Chapt11/11.1/11.1.n.xhtml
 }}}
 
+= Writing a driver page =
+
+The first step in a driver page will be to open the individual test form that will be controlled:
+
+{{{
+<tr>
+  <td>open</td>
+  <td>../../W3C-XForms-1.1/Edition1/Chapt11/11.1/11.1.n.xhtml</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+}}}
+
+Once the form is loaded, UXF will initialise. We can't run any tests until this initialisation is complete, but each form should contain an XForms `output` control which can be used to detect that the UXF has fully initialised. So we use the Selenium `waitForText` command to pause until the form is ready:
+
+{{{
+<tr>
+  <td>waitForText</td>
+  <td>xpath=//xforms:output[@id='status']/pe-value</td>
+  <td>ready</td>
+  <td>&nbsp;</td>
+</tr>
+}}}
+
+
+
 = Running the tests =
 
 The Selenium driver file is at:
