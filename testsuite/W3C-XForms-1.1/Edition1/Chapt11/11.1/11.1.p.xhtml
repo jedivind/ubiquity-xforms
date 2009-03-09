@@ -16,12 +16,12 @@
 					<color>blue</color>
 				</car>
 			</xforms:instance>
-			<xforms:bind id="make_bind" nodeset="/car/make"/>
-			<xforms:bind id="year_bind" nodeset="/car/year"/>
-			<xforms:bind id="color_bind" nodeset="/car/color"/>
+			<xforms:bind id="make_bind" nodeset="/car/make"></xforms:bind>
+			<xforms:bind id="year_bind" nodeset="/car/year"></xforms:bind>
+			<xforms:bind id="color_bind" nodeset="/car/color"></xforms:bind>
 			
-			<xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh" method="post" standalone="true"/>
-			<xforms:submission id="submit2" action="http://xformstest.org/cgi-bin/echo.sh" method="post" standalone="false"/>
+			<xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh" method="post" standalone="true"></xforms:submission>
+			<xforms:submission id="submit2" action="http://xformstest.org/cgi-bin/echo.sh" method="post" standalone="false"></xforms:submission>
         </xforms:model>
     	<xforms:group>
   			<xforms:label class="title">11.1.p standalone attribute of submission element</xforms:label>
