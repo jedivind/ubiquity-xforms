@@ -53,76 +53,69 @@ The format of a locator is:</p>
 <p>
 We support the following strategies for locating elements:
 </p>
-<blockquote>
-<dl>
-<dt>
-<strong>identifier</strong>=<em>id</em>
-</dt>
-<dd>Select the element with the specified @id attribute. If no match is
+<ul>
+<li>
+<strong>identifier</strong>=<em>id</em>: 
+Select the element with the specified @id attribute. If no match is
 found, select the first element whose @name attribute is <em>id</em>.
-(This is normally the default; see below.)</dd>
-<dt>
-<strong>id</strong>=<em>id</em>
-</dt>
-<dd>Select the element with the specified @id attribute.</dd>
-<dt>
-<strong>name</strong>=<em>name</em>
-</dt>
-<dd>Select the first element with the specified @name attribute.</dd>
-<dd>
+(This is normally the default; see below.)</li>
+<li>
+<strong>id</strong>=<em>id</em>:
+Select the element with the specified @id attribute.</li>
+<li>
+<strong>name</strong>=<em>name</em>:
+Select the first element with the specified @name attribute.
 <ul class="first last simple">
 <li>username</li>
 <li>name=username</li>
 </ul>
-</dd>
-<dd>The name may optionally be followed by one or more <em>element-filters</em>, separated from the name by whitespace.  If the <em>filterType</em> is not specified, <strong>value</strong> is assumed.</dd>
-<dd>
+<p>The name may optionally be followed by one or more <em>element-filters</em>, separated from the name by whitespace.  If the <em>filterType</em> is not specified, <strong>value</strong> is assumed.</p>
 <ul class="first last simple">
 <li>name=flavour value=chocolate</li>
 </ul>
-</dd>
-<dt>
-<strong>dom</strong>=<em>javascriptExpression</em>
-</dt>
-<dd>
-<dd>Find an element using JavaScript traversal of the HTML Document Object
-Model. DOM locators <em>must</em> begin with "document.".
+</li>
+<li>
+<strong>dom</strong>=<em>javascriptExpression</em>: 
+
+Find an element by evaluating the specified string.  This allows you to traverse the HTML Document Object
+Model using JavaScript.  Note that you must not return a value in this string; simply make it the last expression in the block.
 <ul class="first last simple">
 <li>dom=document.forms['myForm'].myDropdown</li>
 <li>dom=document.images[56]</li>
+<li>dom=function foo() { return document.links[1]; }; foo();</li>
 </ul>
-</dd>
-</dd>
-<dt>
-<strong>xpath</strong>=<em>xpathExpression</em>
-</dt>
-<dd>Locate an element using an XPath expression.
+</li>
+<li>
+<strong>xpath</strong>=<em>xpathExpression</em>: 
+Locate an element using an XPath expression.
 <ul class="first last simple">
 <li>xpath=//img[@alt='The image alt text']</li>
 <li>xpath=//table[@id='table1']//tr[4]/td[2]</li>
+<li>xpath=//a[contains(@href,'#id1')]</li>
+<li>xpath=//a[contains(@href,'#id1')]/@class</li>
+<li>xpath=(//table[@class='stylee'])//th[text()='theHeaderText']/../td</li>
+<li>xpath=//input[@name='name2' and @value='yes']</li>
+<li>xpath=//*[text()="right"]</li>
 </ul>
-</dd>
-<dt>
-<strong>link</strong>=<em>textPattern</em>
-</dt>
-<dd>Select the link (anchor) element which contains text matching the
+</li>
+<li>
+<strong>link</strong>=<em>textPattern</em>:
+Select the link (anchor) element which contains text matching the
 specified <em>pattern</em>.
 <ul class="first last simple">
 <li>link=The link text</li>
 </ul>
-</dd>
-<dt>
-<strong>css</strong>=<em>cssSelectorSyntax</em>
-</dt>
-<dd>Select the element using css selectors. Please refer to <a href="http://www.w3.org/TR/REC-CSS2/selector.html">CSS2 selectors</a>, <a href="http://www.w3.org/TR/2001/CR-css3-selectors-20011113/">CSS3 selectors</a> for more information. You can also check the TestCssLocators test in the selenium test suite for an example of usage, which is included in the downloaded selenium core package.
+</li>
+<li>
+<strong>css</strong>=<em>cssSelectorSyntax</em>:
+Select the element using css selectors. Please refer to <a href="http://www.w3.org/TR/REC-CSS2/selector.html">CSS2 selectors</a>, <a href="http://www.w3.org/TR/2001/CR-css3-selectors-20011113/">CSS3 selectors</a> for more information. You can also check the TestCssLocators test in the selenium test suite for an example of usage, which is included in the downloaded selenium core package.
 <ul class="first last simple">
 <li>css=a[href="#id3"]</li>
 <li>css=span#firstChild + span</li>
 </ul>
-</dd>
-<dd>Currently the css selector locator supports all css1, css2 and css3 selectors except namespace in css3, some pseudo classes(:nth-of-type, :nth-last-of-type, :first-of-type, :last-of-type, :only-of-type, :visited, :hover, :active, :focus, :indeterminate) and pseudo elements(::first-line, ::first-letter, ::selection, ::before, ::after). </dd>
-</dl>
-</blockquote>
+<p>Currently the css selector locator supports all css1, css2 and css3 selectors except namespace in css3, some pseudo classes(:nth-of-type, :nth-last-of-type, :first-of-type, :last-of-type, :only-of-type, :visited, :hover, :active, :focus, :indeterminate) and pseudo elements(::first-line, ::first-letter, ::selection, ::before, ::after). </p>
+</li>
+</ul>
 <p>
 Without an explicit locator prefix, Selenium uses the following default
 strategies:
@@ -161,28 +154,24 @@ Selects a single element based on its position in the list (offset from zero).</
 <p>
 Various Pattern syntaxes are available for matching string values:
 </p>
-<blockquote>
-<dl>
-<dt>
-<strong>glob:</strong><em>pattern</em>
-</dt>
-<dd>Match a string against a "glob" (aka "wildmat") pattern. "Glob" is a
+<ul>
+<li>
+<strong>glob:</strong><em>pattern</em>:
+Match a string against a "glob" (aka "wildmat") pattern. "Glob" is a
 kind of limited regular-expression syntax typically used in command-line
 shells. In a glob pattern, "*" represents any sequence of characters, and "?"
 represents any single character. Glob patterns match against the entire
-string.</dd>
-<dt>
-<strong>regexp:</strong><em>regexp</em>
-</dt>
-<dd>Match a string using a regular-expression. The full power of JavaScript
-regular-expressions is available.</dd>
-<dt>
-<strong>exact:</strong><em>string</em>
-</dt>
-<dd>Match a string exactly, verbatim, without any of that fancy wildcard
-stuff.</dd>
-</dl>
-</blockquote>
+string.</li>
+<li>
+<strong>regexp:</strong><em>regexp</em>:
+Match a string using a regular-expression. The full power of JavaScript
+regular-expressions is available.</li>
+<li>
+<strong>exact:</strong><em>string</em>:
+
+Match a string exactly, verbatim, without any of that fancy wildcard
+stuff.</li>
+</ul>
 <p>
 If no pattern prefix is specified, Selenium assumes that it's a "glob"
 pattern.
@@ -206,6 +195,24 @@ pattern.
 </dd>
 <br>
 <dt>
+<strong><a name="altKeyDown"></a>altKeyDown
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Press the alt key and hold it down until doAltUp() is called or a new page is loaded.</dd>
+<br>
+<dt>
+<strong><a name="altKeyUp"></a>altKeyUp
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Release the alt key.</dd>
+<br>
+<dt>
 <strong><a name="answerOnNextPrompt"></a>answerOnNextPrompt
 		(
 			answer
@@ -218,6 +225,17 @@ the next JavaScript prompt [window.prompt()].<p>Arguments:</p>
 <li>answer - the answer to give in response to the prompt pop-up</li>
 </ul>
 </dd>
+<br>
+<dt>
+<strong><a name="break"></a>break
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Halt the currently running test, and wait for the user to press the Continue button.
+This command is useful for debugging, but be careful when using it, because it will
+force automated tests to hang until a user intervenes manually.</dd>
 <br>
 <dt>
 <strong><a name="check"></a>check
@@ -269,10 +287,7 @@ waitForPageToLoad.<p>Arguments:</p>
 </dt>
 <dd>Clicks on a link, button, checkbox or radio button. If the click action
 causes a new page to load (like a link usually does), call
-waitForPageToLoad.
-
-Beware of http://jira.openqa.org/browse/SEL-280, which will lead some event handlers to
-get null event arguments.  Read the bug for more details, including a workaround.<p>Arguments:</p>
+waitForPageToLoad.<p>Arguments:</p>
 <ul>
 <li>locator - an element locator</li>
 <li>coordString - specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.</li>
@@ -288,6 +303,24 @@ get null event arguments.  Read the bug for more details, including a workaround
 </dt>
 <dd>Simulates the user clicking the "close" button in the titlebar of a popup
 window or tab.</dd>
+<br>
+<dt>
+<strong><a name="controlKeyDown"></a>controlKeyDown
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Press the control key and hold it down until doControlUp() is called or a new page is loaded.</dd>
+<br>
+<dt>
+<strong><a name="controlKeyUp"></a>controlKeyUp
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Release the control key.</dd>
 <br>
 <dt>
 <strong><a name="createCookie"></a>createCookie
@@ -319,18 +352,89 @@ under test, unless you specified a path for this cookie explicitly.<p>Arguments:
 </dd>
 <br>
 <dt>
+<strong><a name="doubleClick"></a>doubleClick
+		(
+			locator
+		)
+	</strong>
+</dt>
+<dd>Double clicks on a link, button, checkbox or radio button. If the double click action
+causes a new page to load (like a link usually does), call
+waitForPageToLoad.<p>Arguments:</p>
+<ul>
+<li>locator - an element locator</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="doubleClickAt"></a>doubleClickAt
+		(
+			locator,coordString
+		)
+	</strong>
+</dt>
+<dd>Doubleclicks on a link, button, checkbox or radio button. If the action
+causes a new page to load (like a link usually does), call
+waitForPageToLoad.<p>Arguments:</p>
+<ul>
+<li>locator - an element locator</li>
+<li>coordString - specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="dragAndDrop"></a>dragAndDrop
+		(
+			locator,movementsString
+		)
+	</strong>
+</dt>
+<dd>Drags an element a certain distance and then drops it<p>Arguments:</p>
+<ul>
+<li>locator - an element locator</li>
+<li>movementsString - offset in pixels from the current location to which the element should be moved, e.g., "+70,-300"</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="dragAndDropToObject"></a>dragAndDropToObject
+		(
+			locatorOfObjectToBeDragged,locatorOfDragDestinationObject
+		)
+	</strong>
+</dt>
+<dd>Drags an element and drops it on another element<p>Arguments:</p>
+<ul>
+<li>locatorOfObjectToBeDragged - an element to be dragged</li>
+<li>locatorOfDragDestinationObject - an element whose location (i.e., whose center-most pixel) will be the point where locatorOfObjectToBeDragged  is dropped</li>
+</ul>
+</dd>
+<br>
+<dt>
 <strong><a name="dragdrop"></a>dragdrop
 		(
 			locator,movementsString
 		)
 	</strong>
 </dt>
-<dd>Drags an element a certain distance and then drops it
-Beware of http://jira.openqa.org/browse/SEL-280, which will lead some event handlers to
-get null event arguments.  Read the bug for more details, including a workaround.<p>Arguments:</p>
+<dd>deprecated - use dragAndDrop instead<p>Arguments:</p>
 <ul>
 <li>locator - an element locator</li>
 <li>movementsString - offset in pixels from the current location to which the element should be moved, e.g., "+70,-300"</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="echo"></a>echo
+		(
+			message
+		)
+	</strong>
+</dt>
+<dd>Prints the specified message into the third table cell in your Selenese tables.
+Useful for debugging.<p>Arguments:</p>
+<ul>
+<li>message - the message to print</li>
 </ul>
 </dd>
 <br>
@@ -351,6 +455,18 @@ handler.<p>Arguments:</p>
 </dd>
 <br>
 <dt>
+<strong><a name="getSpeed"></a>getSpeed
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Get execution speed (i.e., get the millisecond length of the delay following each selenium operation).  By default, there is no such delay, i.e.,
+the delay is 0 milliseconds.
+
+See also setSpeed.</dd>
+<br>
+<dt>
 <strong><a name="goBack"></a>goBack
 		(
 			
@@ -358,6 +474,20 @@ handler.<p>Arguments:</p>
 	</strong>
 </dt>
 <dd>Simulates the user clicking the "back" button on their browser.</dd>
+<br>
+<dt>
+<strong><a name="highlight"></a>highlight
+		(
+			locator
+		)
+	</strong>
+</dt>
+<dd>Briefly changes the backgroundColor of the specified element yellow.  Useful for debugging.<p>Arguments:</p>
+<ul>
+<li>locator - an <a href="#locators">element locator</a>
+</li>
+</ul>
+</dd>
 <br>
 <dt>
 <strong><a name="keyDown"></a>keyDown
@@ -405,6 +535,24 @@ handler.<p>Arguments:</p>
 </dd>
 <br>
 <dt>
+<strong><a name="metaKeyDown"></a>metaKeyDown
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Press the meta key and hold it down until doMetaUp() is called or a new page is loaded.</dd>
+<br>
+<dt>
+<strong><a name="metaKeyUp"></a>metaKeyUp
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Release the meta key.</dd>
+<br>
+<dt>
 <strong><a name="mouseDown"></a>mouseDown
 		(
 			locator
@@ -427,10 +575,7 @@ the specified element.<p>Arguments:</p>
 	</strong>
 </dt>
 <dd>Simulates a user pressing the mouse button (without releasing it yet) on
-the specified element.
-
-Beware of http://jira.openqa.org/browse/SEL-280, which will lead some event handlers to
-get null event arguments.  Read the bug for more details, including a workaround.<p>Arguments:</p>
+the specified element.<p>Arguments:</p>
 <ul>
 <li>locator - an <a href="#locators">element locator</a>
 </li>
@@ -461,10 +606,7 @@ the specified element.<p>Arguments:</p>
 	</strong>
 </dt>
 <dd>Simulates a user pressing the mouse button (without releasing it yet) on
-the specified element.
-
-Beware of http://jira.openqa.org/browse/SEL-280, which will lead some event handlers to
-get null event arguments.  Read the bug for more details, including a workaround.<p>Arguments:</p>
+the specified element.<p>Arguments:</p>
 <ul>
 <li>locator - an <a href="#locators">element locator</a>
 </li>
@@ -523,10 +665,7 @@ the specified element.<p>Arguments:</p>
 	</strong>
 </dt>
 <dd>Simulates a user pressing the mouse button (without releasing it yet) on
-the specified element.
-
-Beware of http://jira.openqa.org/browse/SEL-280, which will lead some event handlers to
-get null event arguments.  Read the bug for more details, including a workaround.<p>Arguments:</p>
+the specified element.<p>Arguments:</p>
 <ul>
 <li>locator - an <a href="#locators">element locator</a>
 </li>
@@ -557,6 +696,40 @@ new browser session on that domain.<p>Arguments:</p>
 </dd>
 <br>
 <dt>
+<strong><a name="openWindow"></a>openWindow
+		(
+			url,windowID
+		)
+	</strong>
+</dt>
+<dd>Opens a popup window (if a window with that ID isn't already open).
+After opening the window, you'll need to select it using the selectWindow
+command.
+
+<p>This command can also be a useful workaround for bug SEL-339.  In some cases, Selenium will be unable to intercept a call to window.open (if the call occurs during or before the "onLoad" event, for example).
+In those cases, you can force Selenium to notice the open window's name by using the Selenium openWindow command, using
+an empty (blank) url, like this: openWindow("", "myFunnyWindow").</p>
+<p>Arguments:</p>
+<ul>
+<li>url - the URL to open, which can be blank</li>
+<li>windowID - the JavaScript window ID of the window to select</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="pause"></a>pause
+		(
+			waitTime
+		)
+	</strong>
+</dt>
+<dd>Wait for the specified amount of time (in milliseconds)<p>Arguments:</p>
+<ul>
+<li>waitTime - the amount of time to sleep (in milliseconds)</li>
+</ul>
+</dd>
+<br>
+<dt>
 <strong><a name="refresh"></a>refresh
 		(
 			
@@ -564,6 +737,19 @@ new browser session on that domain.<p>Arguments:</p>
 	</strong>
 </dt>
 <dd>Simulates the user clicking the "Refresh" button on their browser.</dd>
+<br>
+<dt>
+<strong><a name="removeAllSelections"></a>removeAllSelections
+		(
+			locator
+		)
+	</strong>
+</dt>
+<dd>Unselects all of the selected options in a multi-select element.<p>Arguments:</p>
+<ul>
+<li>locator - an <a href="#locators">element locator</a> identifying a multi-select box</li>
+</ul>
+</dd>
 <br>
 <dt>
 <strong><a name="removeSelection"></a>removeSelection
@@ -596,41 +782,38 @@ Select element (e.g. for selecting a specific option, or for asserting
 that the selected option satisfies a specification). There are several
 forms of Select Option Locator.
 </p>
-<dl>
-<dt>
-<strong>label</strong>=<em>labelPattern</em>
-</dt>
-<dd>matches options based on their labels, i.e. the visible text. (This
+<ul>
+<li>
+<strong>label</strong>=<em>labelPattern</em>:
+matches options based on their labels, i.e. the visible text. (This
 is the default.)
 <ul class="first last simple">
 <li>label=regexp:^[Oo]ther</li>
 </ul>
-</dd>
-<dt>
-<strong>value</strong>=<em>valuePattern</em>
-</dt>
-<dd>matches options based on their values.
+</li>
+<li>
+<strong>value</strong>=<em>valuePattern</em>:
+matches options based on their values.
 <ul class="first last simple">
 <li>value=other</li>
 </ul>
-</dd>
-<dt>
-<strong>id</strong>=<em>id</em>
-</dt>
-<dd>matches options based on their ids.
+</li>
+<li>
+<strong>id</strong>=<em>id</em>:
+
+matches options based on their ids.
 <ul class="first last simple">
 <li>id=option1</li>
 </ul>
-</dd>
-<dt>
-<strong>index</strong>=<em>index</em>
-</dt>
-<dd>matches an option based on its index (offset from zero).
+</li>
+<li>
+<strong>index</strong>=<em>index</em>:
+matches an option based on its index (offset from zero).
 <ul class="first last simple">
 <li>index=2</li>
 </ul>
-</dd>
-</dl>
+</li>
+</ul>
 <p>
 If no option locator prefix is provided, the default behaviour is to match on <strong>label</strong>.
 </p>
@@ -669,8 +852,26 @@ like this: <code>dom=frames["main"].frames["subframe"]</code>
 	</strong>
 </dt>
 <dd>Selects a popup window; once a popup window has been selected, all
-commands go to that window. To select the main window again, use "null"
-as the target.<p>Arguments:</p>
+commands go to that window. To select the main window again, use null
+as the target.
+
+<p>Selenium has several strategies for finding the window object referred to by the "windowID" parameter.</p>
+<p>1.) if windowID is null, then it is assumed the user is referring to the original window instantiated by the browser).</p>
+<p>2.) if the value of the "windowID" parameter is a JavaScript variable name in the current application window, then it is assumed
+that this variable contains the return value from a call to the JavaScript window.open() method.</p>
+<p>3.) Otherwise, selenium looks in a hash it maintains that maps string names to window objects.  Each of these string 
+names matches the second parameter "windowName" past to the JavaScript method  window.open(url, windowName, windowFeatures, replaceFlag)
+(which selenium intercepts).</p>
+<p>If you're having trouble figuring out what is the name of a window that you want to manipulate, look at the selenium log messages
+which identify the names of windows created via window.open (and therefore intercepted by selenium).  You will see messages
+like the following for each window as it is opened:</p>
+<p>
+<code>debug: window.open call intercepted; window ID (which you can use with selectWindow()) is "myNewWindow"</code>
+</p>
+<p>In some cases, Selenium will be unable to intercept a call to window.open (if the call occurs during or before the "onLoad" event, for example).
+(This is bug SEL-339.)  In those cases, you can force Selenium to notice the open window's name by using the Selenium openWindow command, using
+an empty (blank) url, like this: openWindow("", "myFunnyWindow").</p>
+<p>Arguments:</p>
 <ul>
 <li>windowID - the JavaScript window ID of the window to select</li>
 </ul>
@@ -713,6 +914,39 @@ This method will fail if the specified element isn't an input element or textare
 </dd>
 <br>
 <dt>
+<strong><a name="setMouseSpeed"></a>setMouseSpeed
+		(
+			pixels
+		)
+	</strong>
+</dt>
+<dd>Configure the number of pixels between "mousemove" events during dragAndDrop commands (default=10).
+<p>Setting this value to 0 means that we'll send a "mousemove" event to every single pixel
+in between the start location and the end location; that can be very slow, and may
+cause some browsers to force the JavaScript to timeout.</p>
+<p>If the mouse speed is greater than the distance between the two dragged objects, we'll
+just send one "mousemove" at the start location and then one final one at the end location.</p>
+<p>Arguments:</p>
+<ul>
+<li>pixels - the number of pixels between "mousemove" events</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="setSpeed"></a>setSpeed
+		(
+			value
+		)
+	</strong>
+</dt>
+<dd>Set execution speed (i.e., set the millisecond length of a delay which will follow each selenium operation).  By default, there is no such delay, i.e.,
+the delay is 0 milliseconds.<p>Arguments:</p>
+<ul>
+<li>value - the number of milliseconds to pause after operation</li>
+</ul>
+</dd>
+<br>
+<dt>
 <strong><a name="setTimeout"></a>setTimeout
 		(
 			timeout
@@ -725,6 +959,38 @@ This method will fail if the specified element isn't an input element or textare
 The default timeout is 30 seconds.<p>Arguments:</p>
 <ul>
 <li>timeout - a timeout in milliseconds, after which the action will return with an error</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="shiftKeyDown"></a>shiftKeyDown
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Press the shift key and hold it down until doShiftUp() is called or a new page is loaded.</dd>
+<br>
+<dt>
+<strong><a name="shiftKeyUp"></a>shiftKeyUp
+		(
+			
+		)
+	</strong>
+</dt>
+<dd>Release the shift key.</dd>
+<br>
+<dt>
+<strong><a name="store"></a>store
+		(
+			expression,variableName
+		)
+	</strong>
+</dt>
+<dd>This command is a synonym for storeExpression.<p>Arguments:</p>
+<ul>
+<li>expression - the value to store</li>
+<li>variableName - the name of a <a href="#storedVars">variable</a> in which the result is to be stored.</li>
 </ul>
 </dd>
 <br>
@@ -753,6 +1019,31 @@ submit buttons, e.g. single-input "Search" forms.<p>Arguments:</p>
 
 <p>Can also be used to set the value of combo boxes, check boxes, etc. In these cases,
 value should be the value of the option selected, not the visible text.</p>
+<p>Arguments:</p>
+<ul>
+<li>locator - an <a href="#locators">element locator</a>
+</li>
+<li>value - the value to type</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="typeKeys"></a>typeKeys
+		(
+			locator,value
+		)
+	</strong>
+</dt>
+<dd>Simulates keystroke events on the specified element, as though you typed the value key-by-key.
+
+<p>This is a convenience method for calling keyDown, keyUp, keyPress for every character in the specified string;
+this is useful for dynamic UI widgets (like auto-completing combo boxes) that require explicit key events.</p>
+<p>Unlike the simple "type" command, which forces the specified value into the page directly, this command
+may or may not have any visible effect, even in cases where typing keys would normally have a visible effect.
+For example, if you use "typeKeys" on a form element, you may or may not see the results of what you typed in
+the field.</p>
+<p>In some cases, you may need to use the simple "type" command to set the value of the field and then the "typeKeys" command to
+send the keystroke events corresponding to what you just typed.</p>
 <p>Arguments:</p>
 <ul>
 <li>locator - an <a href="#locators">element locator</a>
@@ -861,6 +1152,132 @@ wait immediately after a Selenium command that caused a page-load.</p>
 </dl>
 <h2>Selenium Accessors</h2>
 <dl>
+<dt>
+<strong><a name="assertErrorOnNext"></a>assertErrorOnNext
+		(
+			message
+		)
+	</strong>
+</dt>
+<dd>Tell Selenium to expect an error on the next command execution.<p>Arguments:</p>
+<ul>
+<li>message - The error message we should expect.  This command will fail if the wrong error message appears.</li>
+</ul>
+<p>Related Assertions, automatically generated:</p>
+<ul>
+<li>assertNotErrorOnNext
+				(
+					message
+				)
+			</li>
+<li>verifyErrorOnNext
+				(
+					message
+				)
+			</li>
+<li>verifyNotErrorOnNext
+				(
+					message
+				)
+			</li>
+<li>waitForErrorOnNext
+				(
+					message
+				)
+			</li>
+<li>waitForNotErrorOnNext
+				(
+					message
+				)
+			</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="assertFailureOnNext"></a>assertFailureOnNext
+		(
+			message
+		)
+	</strong>
+</dt>
+<dd>Tell Selenium to expect a failure on the next command execution.<p>Arguments:</p>
+<ul>
+<li>message - The failure message we should expect.  This command will fail if the wrong failure message appears.</li>
+</ul>
+<p>Related Assertions, automatically generated:</p>
+<ul>
+<li>assertNotFailureOnNext
+				(
+					message
+				)
+			</li>
+<li>verifyFailureOnNext
+				(
+					message
+				)
+			</li>
+<li>verifyNotFailureOnNext
+				(
+					message
+				)
+			</li>
+<li>waitForFailureOnNext
+				(
+					message
+				)
+			</li>
+<li>waitForNotFailureOnNext
+				(
+					message
+				)
+			</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="assertSelected"></a>assertSelected
+		(
+			selectLocator,optionLocator
+		)
+	</strong>
+</dt>
+<dd>Verifies that the selected option of a drop-down satisfies the optionSpecifier.  <i>Note that this command is deprecated; you should use assertSelectedLabel, assertSelectedValue, assertSelectedIndex, or assertSelectedId instead.</i>
+<p>See the select command for more information about option locators.</p>
+<p>Arguments:</p>
+<ul>
+<li>selectLocator - an <a href="#locators">element locator</a> identifying a drop-down menu</li>
+<li>optionLocator - an option locator, typically just an option label (e.g. "John Smith")</li>
+</ul>
+<p>Related Assertions, automatically generated:</p>
+<ul>
+<li>assertNotSelected
+				(
+					selectLocator, optionLocator
+				)
+			</li>
+<li>verifySelected
+				(
+					selectLocator, optionLocator
+				)
+			</li>
+<li>verifyNotSelected
+				(
+					selectLocator, optionLocator
+				)
+			</li>
+<li>waitForSelected
+				(
+					selectLocator, optionLocator
+				)
+			</li>
+<li>waitForNotSelected
+				(
+					selectLocator, optionLocator
+				)
+			</li>
+</ul>
+</dd>
+<br>
 <dt>
 <strong><a name="storeAlert"></a>storeAlert
 		
@@ -1248,10 +1665,7 @@ generated and Selenium will hang until someone manually clicks OK.</p>
 		
 	</strong>
 </dt>
-<dd>Gets the value of an element attribute.
-
-Beware of http://jira.openqa.org/browse/SEL-280, which will lead some event handlers to
-get null event arguments.  Read the bug for more details, including a workaround.<p>Arguments:</p>
+<dd>Gets the value of an element attribute.<p>Arguments:</p>
 <ul>
 <li>attributeLocator - an element locator followed by an</li>
 <li>variableName -
@@ -1909,7 +2323,7 @@ refer to the top-level runner test window, not the window of your application.</
 <p>If you need a reference to the window of your application, you can refer
 to <code>this.browserbot.getCurrentWindow()</code> and if you need to use
 a locator to refer to a single element in your application page, you can
-use <code>this.page().findElement("foo")</code> where "foo" is your locator.</p>
+use <code>this.browserbot.findElement("foo")</code> where "foo" is your locator.</p>
 <p>Arguments:</p>
 <ul>
 <li>script - the JavaScript snippet to run</li>
@@ -2177,6 +2591,57 @@ centralized JavaScript logging mechanism under some conditions.</p>
 				)
 			</li>
 <li>waitForNotLogMessages
+				(
+					<a href="#patterns">pattern</a>
+				)
+			</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="storeMouseSpeed"></a>storeMouseSpeed
+		
+		(
+			
+			variableName
+		)
+		
+	</strong>
+</dt>
+<dd>Returns the number of pixels between "mousemove" events during dragAndDrop commands (default=10).<p>
+<dl>
+<dt>Returns: </dt>
+<dd>the number of pixels between "mousemove" events during dragAndDrop commands (default=10)</dd>
+</dl>
+</p>
+<p>Related Assertions, automatically generated:</p>
+<ul>
+<li>assertMouseSpeed
+				(
+					<a href="#patterns">pattern</a>
+				)
+			</li>
+<li>assertNotMouseSpeed
+				(
+					<a href="#patterns">pattern</a>
+				)
+			</li>
+<li>verifyMouseSpeed
+				(
+					<a href="#patterns">pattern</a>
+				)
+			</li>
+<li>verifyNotMouseSpeed
+				(
+					<a href="#patterns">pattern</a>
+				)
+			</li>
+<li>waitForMouseSpeed
+				(
+					<a href="#patterns">pattern</a>
+				)
+			</li>
+<li>waitForNotMouseSpeed
 				(
 					<a href="#patterns">pattern</a>
 				)
@@ -3076,6 +3541,74 @@ The selected frame will return true, while all others will return false.</p>
 <li>waitForNotWhetherThisFrameMatchFrameExpression
 				(
 					currentFrameString, target
+				)
+			</li>
+</ul>
+</dd>
+<br>
+<dt>
+<strong><a name="storeWhetherThisWindowMatchWindowExpression"></a>storeWhetherThisWindowMatchWindowExpression
+		
+		(
+			currentWindowString,
+target,
+
+			variableName
+		)
+		
+	</strong>
+</dt>
+<dd>Determine whether currentWindowString plus target identify the window containing this running code.
+
+<p>This is useful in proxy injection mode, where this code runs in every
+browser frame and window, and sometimes the selenium server needs to identify
+the "current" window.  In this case, when the test calls selectWindow, this
+routine is called for each window to figure out which one has been selected.
+The selected window will return true, while all others will return false.</p>
+<p>Arguments:</p>
+<ul>
+<li>currentWindowString - starting window</li>
+<li>target - new window (which might be relative to the current one, e.g., "_parent")</li>
+<li>variableName -
+                    the name of a <a href="#storedVars">variable</a> in which the result is to be stored.
+                </li>
+</ul>
+<p>
+<dl>
+<dt>Returns: </dt>
+<dd>true if the new window is this code's window</dd>
+</dl>
+</p>
+<p>Related Assertions, automatically generated:</p>
+<ul>
+<li>assertWhetherThisWindowMatchWindowExpression
+				(
+					currentWindowString, target
+				)
+			</li>
+<li>assertNotWhetherThisWindowMatchWindowExpression
+				(
+					currentWindowString, target
+				)
+			</li>
+<li>verifyWhetherThisWindowMatchWindowExpression
+				(
+					currentWindowString, target
+				)
+			</li>
+<li>verifyNotWhetherThisWindowMatchWindowExpression
+				(
+					currentWindowString, target
+				)
+			</li>
+<li>waitForWhetherThisWindowMatchWindowExpression
+				(
+					currentWindowString, target
+				)
+			</li>
+<li>waitForNotWhetherThisWindowMatchWindowExpression
+				(
+					currentWindowString, target
 				)
 			</li>
 </ul>
