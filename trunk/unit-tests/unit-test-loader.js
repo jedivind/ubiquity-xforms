@@ -104,6 +104,9 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-optional-binding", type: "js",  fullpath: moduleBase + "ut-optional-binding.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.addModule({ name: "ux-ut-ajaxslt-improvements", type: "js",  fullpath: moduleBase + "ut-ajaxslt-improvements.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
