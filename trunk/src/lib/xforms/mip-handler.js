@@ -63,32 +63,49 @@ MIPHandler.prototype.refresh = function () {
 	}
 };
 
-MIPHandler.prototype.isDirtyMIP = function (sMIPName) {
-	var state = this.getMIPState(sMIPName);
-	return this.m_MIPSCurrentlyShowing[sMIPName] === undefined ||
-	       (state.isSet && this.m_MIPSCurrentlyShowing[sMIPName] !== state.value);
-};
+(function () {
+	var isDirtyMIP = function (self, sMIPName) {
+		var state = self.getMIPState(sMIPName);
+		return self.m_MIPSCurrentlyShowing[sMIPName] === undefined ||
+			(state.isSet && self.m_MIPSCurrentlyShowing[sMIPName] !== state.value);
+	},
+	
+	setDirtyState = function (self, mip) {
+		if (isDirtyMIP(self, mip)) {
+			self.dirtyState.setDirty(mip);
+		}
+	},
+	
+	setDirtyStates = function (self) {
+		setDirtyState(self, "enabled");
+		setDirtyState(self, "readonly");
+		setDirtyState(self, "required");
+		setDirtyState(self, "valid");
+	};
 
-MIPHandler.prototype.setDirtyState = function (mip) {
-	if (this.isDirtyMIP(mip)) {
-		this.dirtyState.setDirty(mip);
+	MIPHandler.prototype.updateMIPs = function() {
+	 	setDirtyStates(this);
+	 	setState(this, "enabled", "enabled", "disabled");
+		setState(this, "readonly", "read-only", "read-write");
+		setState(this, "required", "required", "optional");
+		setState(this, "valid", "valid", "invalid");
+	};
+	
+	//public exposition of otherwise private functions, to 
+	//	facilitate testing.
+	MIPHandler.prototype.isDirtyMIP = function (mip) {
+		return isDirtyMIP(this, mip);
 	}
-};
 
-MIPHandler.prototype.setDirtyStates = function () {
-	this.setDirtyState("enabled");
-	this.setDirtyState("readonly");
-	this.setDirtyState("required");
-	this.setDirtyState("valid");
-};
-
-MIPHandler.prototype.updateMIPs = function() {
- 	this.setDirtyStates();
- 	setState(this, "enabled", "enabled", "disabled");
-	setState(this, "readonly", "read-only", "read-write");
-	setState(this, "required", "required", "optional");
-	setState(this, "valid", "valid", "invalid");
-};
+	MIPHandler.prototype.setDirtyState = function (mip) {
+		setDirtyState(this, mip);
+	};
+	
+	MIPHandler.prototype.setDirtyStates = function () {
+		setDirtyStates(this);
+	};
+	
+}());
 
 MIPHandler.prototype.broadcastMIPs = function () {
 };
