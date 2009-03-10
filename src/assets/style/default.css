@@ -322,23 +322,23 @@ xf|method {
     display: none;
 }
 
-.invalid xf\:alert, .invalid xforms\:alert {
+.invalid > xf\:alert, .invalid > xforms\:alert {
     display: inline;
     background-color: transparent;
     color: #D00;
 }
 
-*[class~="invalid"] xf|alert, *[class~="invalid"] xforms|alert {
+*[class~="invalid"] > xf|alert, *[class~="invalid"] > xforms|alert {
     display: inline;
     background-color: transparent;
     color: #D00;
 }
 
-.valid xf\:alert, .valid xforms\:alert  {
+.valid > xf\:alert, .valid > xforms\:alert  {
     display: none;
 }
 
-*[class~="valid"] xf|alert, *[class~="valid"] xforms|alert  { 
+*[class~="valid"] > xf|alert, *[class~="valid"] > xforms|alert  { 
     display: none;
 }
 
