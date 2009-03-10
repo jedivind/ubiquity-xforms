@@ -68,8 +68,10 @@ Model.prototype.modelConstruct = function() {
 
 
 Model.prototype.modelConstructDone = function() {
+    this.constructingUI = true;
     this.initialisationLock = 1;
     this.rewire();
+    this.constructingUI = false;
     window.status = "refreshing";
     //  As with the other re... activities (see _modelConstruct), during model construction, 
     //  the work is supposed to be done, without the event being dispatched.
