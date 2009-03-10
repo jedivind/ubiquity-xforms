@@ -34,7 +34,6 @@ function Model(elmnt) {
 
 Model.prototype.onDocumentReady = function() {
     var self = this;
-
     this.setElementLoaded();
     this._testForReady();
 
@@ -54,8 +53,24 @@ Model.prototype.onDocumentReady = function() {
     } else {
         window.attachEvent("onbeforeunload", function () { self.modelDestruct(); });
     }
+    this.checkFunctionsAttribute();
 };
 
+Model.prototype.checkFunctionsAttribute = function () {
+	var i, evt,
+		functionString = this.element.getAttribute("functions"),
+		requiredFunctions = functionString ? functionString.split(" ") : [];
+	for (i = 0; i < requiredFunctions.length; ++i) {
+		if (typeof window[requiredFunctions[i]] !== "function") {
+			evt = document.createEvent("Events");
+			evt.initEvent("xforms-compute-exception", true, false);
+			evt.context = {
+				"error-message": "function '" + requiredFunctions[i] + "' specified in model/@functions is not a function."
+			}
+			this.dispatchEvent(evt);
+		}
+	}
+}
 
 Model.prototype.onContentReady = function() {
     return _model_contentReady(this);
