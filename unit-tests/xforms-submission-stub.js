@@ -53,5 +53,5 @@ submission.prototype.getConnection = function() {
 };
 
 submission.prototype.setHeader = function(name, value) {
-	return this.connection.initHeader(name, value);
+	return this.getConnection().initHeader(name, value);
 };
