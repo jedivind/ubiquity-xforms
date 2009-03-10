@@ -1,4 +1,5 @@
 #summary Troubleshooting ubiquity-xforms.
+#labels HowTo,Index
 
 = Introduction =
 
