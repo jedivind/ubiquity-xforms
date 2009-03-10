@@ -1,5 +1,5 @@
 #summary A list of worrisome or questionable tests that ubiquity xforms may never pass.
-#labels Phase-Requirements
+#labels Phase-Requirements,Index
 
 = Introduction =
 
