@@ -187,6 +187,16 @@
 
 				Assert.areEqual(1, suite.testInstance.evalXPath('count(item/product)').numberValue());
 				return;
+			},
+			
+			// Delete attribute node.
+			//
+			testDeleteAttributeNode: function() {
+				Assert.areEqual(2, suite.testInstance.evalXPath('count(item/product/@cat)').numberValue());
+				Assert.isTrue(suite.testInstance.deleteNodes(null, "item[2]/product/@cat"));
+
+				Assert.areEqual(1, suite.testInstance.evalXPath('count(item/product/@cat)').numberValue());
+				return;
 			}
  		})//new TestCase
 	); //suite.add( ... )
