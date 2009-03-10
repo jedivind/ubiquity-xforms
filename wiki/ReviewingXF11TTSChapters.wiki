@@ -1,5 +1,5 @@
 #summary How to review an XForms 1.1 Test Suite chapter.
-#labels Phase-QA,HowTo
+#labels Phase-QA,HowTo,Status
 
 = Introduction =
 
