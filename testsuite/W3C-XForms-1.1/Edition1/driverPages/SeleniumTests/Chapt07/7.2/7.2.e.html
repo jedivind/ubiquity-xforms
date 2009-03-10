@@ -28,31 +28,31 @@
 				<tr>
 					<td>open</td>
 					<td>../../W3C-XForms-1.1/Edition1/Chapt07/7.2/7.2.e.xhtml</td>
-					<td>&nsp;</td>
+					<td>&nbsp;</td>
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>3000</td>
-					<td></td>
-					<td>Waits for the form to load</td>
+					<td>waitForXformsControlValue</td>
+					<td>xpath=//xforms:output[@id='status']</td>
+					<td>ready</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
 					<td>7.2.e context size and position</td>
-					<td></td>
+					<td>&nbsp;</td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
 					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='test:child' and @calculate='position() + last()']</td>
-					<td></td>
+					<td>&nbsp;</td>
 					<td>Checks that the bind is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
 					<td>xpath=/html/body/xforms:repeat</td>
-					<td></td>
+					<td>&nbsp;</td>
 					<td>Checks that the repeat is in the form</td>
 				</tr>
 				<tr>
