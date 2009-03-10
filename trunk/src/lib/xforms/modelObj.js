@@ -85,7 +85,7 @@ Model.prototype.stopXFormsReady = function () {
 }
 
 Model.prototype.resumeXFormsReady = function () {
-	if (!--this.initialisationLock && !this.m_bReadyFired) {
+	if (!--this.initialisationLock && !this.m_bXFormsReadyFired) {
 		this.fireXFormsReady();
 	}
 }
