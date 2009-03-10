@@ -1,5 +1,5 @@
 #summary Creating and registering user defined functions.
-#labels Phase-Implementation
+#labels Phase-Implementation,HowTo,Status
 
 = Introduction =
 
