@@ -52,4 +52,7 @@ Anything that is red in the first file, but green in the second can be marked as
 
 == Tests that are blocking automation ==
 
-Any test that is marked as being green in the manual file, but red in the second is preventing the test-suite from being automated. Of course there will be other things blocking automation, too, but in this situation a test that can be run successfully when run manually (and so having a green entry in the manually-generated file), but fails when run in Selenium (having a red entry in the Selenium-generated file) needs to be addressed. Some guidance on how to do this is at r2317.
+Any test that is marked as being green in the manual file, but red in the second is preventing the test-suite from being automated. Of course there will be other things blocking automation, too, but in this situation a test that can be run successfully when run manually (and so having a green entry in the manually-generated file), but fails when run in Selenium (having a red entry in the Selenium-generated file) needs to be addressed. Some guidance on how to do this is at r2317, which explains:
+
+  * how to indicate that the XForms processor has been loaded and initialised, by adding an `xf:output` to the end of the form;
+  * how to use this `xf:output` in a driver page, so that the test can wait until the XForms processor has been initialised before continuing.
