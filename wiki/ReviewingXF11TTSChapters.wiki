@@ -9,7 +9,7 @@ As we get closer to completing XForms 1.1 support, we need to keep track of wher
 
 We are still in the process of automating our tests, and until that happens, we have two sources of information about which tests pass.
 
-== Manual chapter status files ==
+== Manually maintained chapter status files ==
 
 The first source is a set of XML files, one for each test suite chapter, which contains an entry for each test, and an indicator of whether the tests has passed or not. These documents are used to generate an HTML page which summarises the status of the tests in each chapter.
 
