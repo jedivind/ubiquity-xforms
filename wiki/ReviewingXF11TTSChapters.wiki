@@ -18,3 +18,12 @@ These files are currently maintained manually, with developers updating the docu
 The source XML files are are maintained for each supported. Currently we have [http://ubiquity-xforms.googlecode.com/svn/trunk/testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/FF3/ chapter files for Firefox 3] and [http://ubiquity-xforms.googlecode.com/svn/trunk/testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/IE7/ chapter files for IE 7].
 
 The HTML status pages are available on the Buildbot server, [http://uxf-bb.webbackplane.com:8080/Results/IE7/ResultsTable.html one for IE 7] and [http://uxf-bb.webbackplane.com:8080/Results/FF3/ResultsTable.html one for FF 3].
+
+== Selenium-generated chapter status files ==
+
+Selenium can generate a status file that shows the output of a test run. However, there are currently two problems. The first is that even after breaking the XForms 1.1 test suite file into multiple chapter files, many of them still require human intervention to complete. Secondly, many of the tests have not been written 'defensively', which means they can fail in different environments. The consequence of this is that some of the tests that fail under Selenium are regarded as a 'pass' by developers who run the tests manually, and so the Selenium-generated file cannot be regarded as authoritative.
+
+The generated files are in the same directories as above ( [http://uxf-bb.webbackplane.com:8080/Results/IE7/ one for IE 7] and [http://uxf-bb.webbackplane.com:8080/Results/FF3/ one for FF 3]), with names that follow the following pattern:
+{{{
+xforms11-Chapter7-ie-results.html
+}}}
