@@ -1,5 +1,5 @@
 #summary How to write an end-to-end test using Selenium.
-#labels Phase-QA
+#labels Phase-QA,HowTo
 
 = Introduction =
 
