@@ -5,12 +5,14 @@
 
 As we get closer to completing XForms 1.1 support, we need to keep track of where the gaps are in our coverage, so that people can get straight to what needs to be done.
 
-= Details =
+= Status files =
 
 We are still in the process of automating our tests, and until that happens, we have two sources of information about which tests pass:
 
   * manually maintained chapter status files;
   * Selenium-generated chapter status files.
+
+Once the tests are full automated the test-generated files will always be authoritative.
 
 == Manually maintained chapter status files ==
 
@@ -30,6 +32,8 @@ The generated files are in the same directories as above ( [http://uxf-bb.webbac
 {{{
 xforms11-Chapter7-ie-results.html
 }}}
+
+= Reviewing a chapter =
 
 == 'Missing' passing tests ==
 
