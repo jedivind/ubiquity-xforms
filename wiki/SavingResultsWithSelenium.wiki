@@ -1,4 +1,5 @@
 #summary Saving the Results with Selenium (More Detailed Explanation of Changes)
+#labels HowTo
 
 = Introduction =
 
@@ -207,4 +208,3 @@ Click on the All button to run the rest of the testSuite from the previous test 
 	saveResults is still turned *on, so the testSuiteFlag will be switched and become true.*
 	After SR.html finishes, then Selenium will call testComplete() from ST.js on line 1128 where runNextTest() will be called.  (Not new code.)
 	runNextTest() from ST.js on line 153 will run the next test case, then run the last test, then run the next test case, then run the last test, and on, and on.
-
