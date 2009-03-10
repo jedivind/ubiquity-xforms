@@ -28,14 +28,14 @@
 				<tr>
 					<td>open</td>
 					<td>../../W3C-XForms-1.1/Edition1/Chapt07/7.2/7.2.a.xhtml</td>
-					<td>&nsp;</td>
+					<td>&nbsp;</td>
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>3000</td>
-					<td></td>
-					<td>Waits for the form to load</td>
+					<td>waitForXformsControlValue</td>
+					<td>xpath=//xforms:output[@id='status']</td>
+					<td>ready</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
@@ -74,21 +74,21 @@
 					<td>Checks that bind is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:input[@bind='firstname']/pe-value/input</td>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:input[@bind='firstname']</td>
 					<td>Seth</td>
 					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
-					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:input[@bind='lastname']/pe-value/input</td>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:input[@bind='lastname']</td>
 					<td>Peters</td>
 					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
+					<td>verifyXformsControlValue</td>
 					<td>xpath=/html/body/xforms:output[@ref='my:email']</td>
-					<td>*speters@example.com*</td>
+					<td>speters@example.com</td>
 					<td>Checks that the output has the right value</td>
 				</tr>
 			</tbody>
