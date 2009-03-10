@@ -6,7 +6,7 @@
 .green { background-color: #00ff00; text-align: center; }
 .red { background-color: #ff3333; text-align: center; }
 .white { background-color: #ffffff; text-align: center; }
-
+.orange { background-color: orange; text-align: center; }
 
 .title
 {
@@ -62,6 +62,18 @@ xf\:label, xforms|label
    text-align:       center;
    overflow:         auto;
    border:           thin solid;
+}
+
+.innerCellFailedOptional
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            100px;
+   text-align:       center;
+   overflow:         auto;
+   border:           thin solid;
+   background-color: orange;
 }
 
 .innerCellFailed
