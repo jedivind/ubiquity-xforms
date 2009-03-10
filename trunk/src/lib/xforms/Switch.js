@@ -28,6 +28,8 @@ function Switch(elmnt) {
 	this.oCurrentCase = null;
 }
 
+Switch.prototype.isSwitch = true;
+
 Switch.prototype.onContentReady = function () {
 	FormsProcessor.listenForXFormsFocus(this, this);
 };
@@ -96,10 +98,13 @@ Switch.prototype.toggle = function (sCaseID) {
 		if (this.oCurrentCase) {
 			this.oCurrentCase.deselect();
 		}
-		oCase.select();
 		this.oCurrentCase = oCase;
+		oCase.select();
 	}
 };
 
+Switch.prototype.getSelectedCase = function () {
+	return this.oCurrentCase;
+};
 
 Switch.prototype.onDocumentReady = Switch.prototype.toggleDefault;

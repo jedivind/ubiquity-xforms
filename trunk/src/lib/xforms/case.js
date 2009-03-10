@@ -18,36 +18,28 @@ function XFormsCase(elmnt) {
 	this._case = new Case(elmnt);
 }
 
+XFormsCase.prototype.isCase = true;
+
 XFormsCase.prototype.getSwitch = function() {
 	return this._case.element.parentNode;
 };
 
 XFormsCase.prototype.deselect = function() {
+	var element = this._case.element;
 	this._case.deselect();
-
-	var elmnt = this._case.element;
-	var evt = elmnt.ownerDocument.createEvent("Events");
-
-	evt.initEvent("xforms-deselect", true, false);
-	evt._actionDepth = -1;
-
-	//There is no need to run this event in line, and doing so may cause a stack overflow,
-	//	if it invokes several other actions. 
-	spawn(function(){FormsProcessor.dispatchEvent(elmnt,evt);});
+	spawn(function () {
+		UX.dispatchEvent(element, "xforms-deselect", true, false, true);
+		FormsProcessor.refreshDescendentsForRelevance(element.childNodes);
+	});
 };
 
 XFormsCase.prototype.select = function() {
+	var element = this._case.element;
 	this._case.select();
-
-	var elmnt = this._case.element;
-	var evt = elmnt.ownerDocument.createEvent("Events");
-
-	evt.initEvent("xforms-select", true, false);
-	evt._actionDepth = -1;
-
-	//There is no need to run this event in line, and doing so may cause a stack overflow,
-	//	if it invokes several other actions. 
-	spawn(function(){FormsProcessor.dispatchEvent(elmnt,evt);});
+	spawn(function () {
+		UX.dispatchEvent(element, "xforms-select", true, false, true);
+		FormsProcessor.refreshDescendentsForRelevance(element.childNodes);
+	});
 };
 
 XFormsCase.prototype.toggle = function() {

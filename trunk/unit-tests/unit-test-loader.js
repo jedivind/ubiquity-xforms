@@ -101,6 +101,9 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-mip-handler", type: "js",  fullpath: moduleBase + "ut-MIPHandler.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.addModule({ name: "ux-ut-mip-eventtarget", type: "js",  fullpath: moduleBase + "ut-MIPEventTarget.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.addModule({ name: "ux-ut-optional-binding", type: "js",  fullpath: moduleBase + "ut-optional-binding.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
@@ -130,6 +133,7 @@ function runTheTests() {
 	"ux-ut-formsProcessor",
 	"ux-ut-types-validator",
 	"ux-ut-mip-handler",
+	"ux-ut-mip-eventtarget",
 	"ux-ut-optional-binding"
   );
 

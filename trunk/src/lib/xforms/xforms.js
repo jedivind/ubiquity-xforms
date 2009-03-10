@@ -163,7 +163,7 @@ XFormsProcessor.prototype.find = function (array, value) {
     }
     
     return false;
-}
+};
 
 /**
 	Function: getBindObject
@@ -193,8 +193,7 @@ XFormsProcessor.prototype.getBindObject = function (bindid, notifyOnException) {
 			}
 		}
 		return bindObject;
-}
-
+};
 
 XFormsProcessor.prototype.setVersion = function () {
     var defaultModelVersions, i, maxPos;
@@ -225,7 +224,7 @@ XFormsProcessor.prototype.setVersion = function () {
             this.version = this.supportedVersions[maxPos];
         }
 	}
-}
+};
 
 XFormsProcessor.prototype.testModelVersion = function (pModel) {
     var evt, desiredVersion, exceptionMsg;
@@ -272,7 +271,7 @@ XFormsProcessor.prototype.testModelVersion = function (pModel) {
     evt.context = { "error-information": exceptionMsg || "" };
     FormsProcessor.dispatchEvent(document.defaultModel || pModel, evt);
     return false;
-}
+};
 
 XFormsProcessor.prototype.inheritTrue = function (sMIP, oNode) {
   var retval, nodeProxy, parentProxy;
@@ -411,7 +410,7 @@ XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
 			}
 		}
 		return null;
-	}
+	};
 	
 	walkGetElementById = function (id, scope) {
 		var scopeChild = scope.firstChild, returnCandidate = null;
@@ -507,15 +506,30 @@ XFormsProcessor.prototype.getProxyNode = function (element) {
 	return null;
 };
 
-XFormsProcessor.prototype.refreshDescendents = function(nodes){
+XFormsProcessor.prototype.visitDescendents = function (nodes, visit) {
 	var i;
 	for (i = 0; i < nodes.length; ++i) {
-		if (typeof  nodes[i].refresh === "function") {
-			nodes[i].refresh();
-		}
-		this.refreshDescendents(nodes[i].childNodes);
+		this.visitDescendents(nodes[i].childNodes, visit);
+		visit(nodes[i]);
 	}
-}
+};
+
+XFormsProcessor.prototype.refreshDescendents = function (nodes) {
+	this.visitDescendents(nodes, function (n) {
+		if (typeof n.refresh === "function") {
+			n.refresh();
+		}
+	});
+};
+
+XFormsProcessor.prototype.refreshDescendentsForRelevance = function (nodes) {
+	this.visitDescendents(nodes, function (n) {
+		if (n.dirtyState && typeof n.refresh === "function") {
+			n.dirtyState.setDirty("enabled");
+			n.refresh();
+		}
+	});
+};
 
 var FormsProcessor = new XFormsProcessor();
 
@@ -527,5 +541,4 @@ var FormsProcessor = new XFormsProcessor();
           FormsProcessor.dispatchEvent(oPendingEvent.target, oPendingEvent.evt, true);                       
           oPendingEvent = g_pendingEvents.pop();
       }
-  }
-
+  };
