@@ -609,9 +609,8 @@ Model.prototype.reset = function() {
 /*
  * P R I V A T E =============
  */
-Model.prototype.createMIP = function(oVertex, sMIPName, sExpr, oPN,
-        oContextNode) {
-    return _createMIP(this, oVertex, sMIPName, sExpr, oPN, oContextNode);
+Model.prototype.createMIP = function(oVertex, sMIPName, sExpr, oPN, oContext) {
+    return _createMIP(this, oVertex, sMIPName, sExpr, oPN, oContext);
 };
 
 
