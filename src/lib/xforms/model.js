@@ -75,15 +75,15 @@ function processBinds(oModel, oElement, oContext) {
 
 
 function processBind(oBind, sExpr, oModel, oContext) {
-    var oNodeset, oNode, oPN;
-    var i, j;
-    var sMIPName, sMIPVal;
-    var modelItemProps = ["readonly", "required", "relevant", "calculate", 
-                          "constraint",  "type" /*, "p3ptype" */ ];
-    var oRes = oModel.EvaluateXPath(sExpr, oContext);
-    var oBinder = null;
-    var oParentBind = null;
-    
+    var oNodeset, oNode, oPN,
+      i, j,
+      sMIPName, sMIPVal,
+      modelItemProps = ["readonly", "required", "relevant", "calculate", 
+                          "constraint",  "type" /*, "p3ptype" */ ],
+      oRes = oModel.EvaluateXPath(sExpr, oContext),
+      oBinder = null,
+      oParentBind = null,
+      loopContext;
     if (oRes) {
         // The bind has an inline-context attribute
         // we need to get the nearest ancestor with nodeset attribute
@@ -107,7 +107,13 @@ function processBind(oBind, sExpr, oModel, oContext) {
                 // loop through all the nodes
                 for(i = 0; i < oNodeset.length; i++) {
                     oNode = oNodeset[i];
-
+                    loopContext = {
+                                node: oNode,
+                                model: oModel,
+                                position: i,
+                                size: oNodeset.length,
+                                resolverElement: oBind
+                            };
                     if (oNode) {
                         // Either create or locate the proxy node for
                         // the current node.
@@ -159,21 +165,13 @@ function processBind(oBind, sExpr, oModel, oContext) {
                                 if (oParentBind) {
                                     oPN = oParentBind["boundNode"];
                                 }
-                                oModel.createMIP(
-                                        oMIPVertex, sMIPName, sMIPVal, oPN, oNode);
+                                oModel.createMIP(oMIPVertex, sMIPName, sMIPVal, oPN, loopContext);
                             }
                         }
+                        
                         // Finally, process any nested bind statements
                         // in the context of this node.
-                        processBinds(oModel, oBind, 
-                            {
-                                node: oNode,
-                                model: oModel,
-                                position: i,
-                                size: oNodeset.length,
-                                resolverElement: oBind
-                            }
-                        );
+                        processBinds(oModel, oBind, loopContext);
                     }
                 } // for ( each of the nodes in the node-list )
             }            
@@ -371,22 +369,22 @@ function _addControlExpression(pThis, oTarget, oContext, sXPath) {
  * unnecessary too. (The only difference between them is that @calculate will
  * store its result in a node, and therefore needs to have a dependent vertex.)
  */
-function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContextNode) {
+function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContext) {
     /*
      * Create an expression.
      */
     var oCPE = (oVertex) 
-               ? new ComputedXPathExpression(oPN, sExpr, {node:oContextNode}, pThis) 
-               : new MIPExpression(oPN, sExpr, {node:oContextNode}, pThis);
+               ? new ComputedXPathExpression(oPN, sExpr, oContext, pThis) 
+               : new MIPExpression(oPN, sExpr, oContext, pThis);
 
     if (sMIPName === "readonly") {
        oCPE.getValue = function () {
-         return FormsProcessor.inheritTrue("readonly", oContextNode);
+         return FormsProcessor.inheritTrue("readonly", oContext.node);
        }
     } else if (sMIPName === "enabled") {
        // The relevant property is called "enabled" within the implementation
        oCPE.getValue = function () {
-         return FormsProcessor.inheritFalse("enabled", oContextNode);
+         return FormsProcessor.inheritFalse("enabled", oContext.node);
        }
       
     }
