@@ -497,3 +497,59 @@ XNode.prototype.setAttribute = function(name, value) {
   this.attributes.push(newAttr);
   newAttr.parentNode = this;
 };
+
+// Enhancements to support processing instructions.
+//
+// This is completely new, in that it doesn't override anything.
+//
+XDocument.prototype.createProcessingInstruction = function(target, data) {
+  return XNode.create(DOM_PROCESSING_INSTRUCTION_NODE, '#processing-instruction', target + " " + data.replace(/^\s\s*/, '').replace(/\s\s*$/, ''), this);
+}
+
+// This method already existed, but the last few lines have been added.
+//
+function xmlTextR(node, buf, cdata) {
+  if (node.nodeType == DOM_TEXT_NODE) {
+    buf.push(xmlEscapeText(node.nodeValue));
+
+  } else if (node.nodeType == DOM_CDATA_SECTION_NODE) {
+    if (cdata) {
+      buf.push(node.nodeValue);
+    } else {
+      buf.push('<![CDATA[' + node.nodeValue + ']]>');
+    }
+
+  } else if (node.nodeType == DOM_COMMENT_NODE) {
+    buf.push('<!--' + node.nodeValue + '-->');
+
+  } else if (node.nodeType == DOM_ELEMENT_NODE) {
+    buf.push('<' + xmlFullNodeName(node));
+    for (var i = 0; i < node.attributes.length; ++i) {
+      var a = node.attributes[i];
+      if (a && a.nodeName && a.nodeValue) {
+        buf.push(' ' + xmlFullNodeName(a) + '="' +
+                 xmlEscapeAttr(a.nodeValue) + '"');
+      }
+    }
+
+    if (node.childNodes.length == 0) {
+      buf.push('/>');
+    } else {
+      buf.push('>');
+      for (var i = 0; i < node.childNodes.length; ++i) {
+        arguments.callee(node.childNodes[i], buf, cdata);
+      }
+      buf.push('</' + xmlFullNodeName(node) + '>');
+    }
+
+  } else if (node.nodeType == DOM_DOCUMENT_NODE ||
+             node.nodeType == DOM_DOCUMENT_FRAGMENT_NODE) {
+    for (var i = 0; i < node.childNodes.length; ++i) {
+      arguments.callee(node.childNodes[i], buf, cdata);
+    }
+	/* Added code starts */
+  } else if (node.nodeType == DOM_PROCESSING_INSTRUCTION_NODE) {
+    buf.push('<?' + node.nodeValue + '?>');
+	/* Added code ends */
+  }
+}
