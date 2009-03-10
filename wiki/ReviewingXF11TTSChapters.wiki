@@ -35,8 +35,15 @@ xforms11-Chapter7-ie-results.html
 
 = Reviewing a chapter =
 
+The first step in reviewing a chapter is to see if there are any tests that the automated system says are passed, but which the developers have not manually marked as passed. This could be for a number of reasons, but the main one will be that the test in question hasn't been run; this can happen because when working on an issue, it will not always be clear what other tests might apply to the features you are working on.
+
 == 'Missing' passing tests ==
 
 Since not all tests will necessarily have been run, then it is possible that there are tests listed in the manually maintained documents that could be passed, but are still marked as failing.
 
 We are currently in the process of updating the manually maintained files to include any new information we've obtained by running the automated tests. I.e., if a test shows green on the Selenium-generated files but red on the manual files, we can safely update the manual file.
+
+To illustrate, if we wanted to check chapter 7 for tests that Selenium has passed, but developers hadn't, we would look at the following two files:
+
+||[http://uxf-bb.webbackplane.com:8080/Results/IE7/html/XF11_07_Results.html Manual test results for IE 7]||
+||[http://uxf-bb.webbackplane.com:8080/Results/IE7/xforms11-Chapter7-ie-results.html Selenium test results||
