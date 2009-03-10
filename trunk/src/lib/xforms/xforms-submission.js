@@ -304,7 +304,8 @@ submission.prototype.submit = function(oSubmission) {
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding") || "UTF-8";
     var sSerialization = oSubmission.getAttribute("serialization");
-    var oBody;
+		var sSeparator = oSubmission.getAttribute("separator") || "&";
+		var oBody;
     var oContext;
     var bHasHeaders = false;
 	var sReplace = null;
@@ -431,6 +432,12 @@ submission.prototype.submit = function(oSubmission) {
 		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
 		break;
 
+	case "form-data-post":
+		sMethod = "POST";
+		sSerialization = sSerialization || "multipart/form-data";
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
+		break;
+
 	case "urlencoded-post":
 		sMethod = "POST";
 		sSerialization = "application/x-www-form-urlencoded";
@@ -491,8 +498,15 @@ submission.prototype.submit = function(oSubmission) {
 	bHasHeaders = (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
 	sReplace = oSubmission.getAttribute("replace") || "all";
 
-	if ((sMethod === "GET" || sMethod === "POST") && (sReplace === 'all') && !bHasHeaders && sSerialization === "application/x-www-form-urlencoded") {
-		oForm = this.buildFormFromObject(oBody.dictionary);
+	if (
+		sReplace === 'all' && (
+			(sMethod === "GET" || sMethod === "POST") &&
+			!bHasHeaders &&
+			(sSerialization === "application/x-www-form-urlencoded" || sSerialization === "multipart/form-data")
+		)
+	) {
+		oForm = this.buildFormFromObject(oBody);
+		oForm.encoding = sSerialization;
 		oForm.action = sResource;
 		oForm.method = sMethod.toLowerCase();
 		document.body.appendChild(oForm);
@@ -520,7 +534,7 @@ submission.prototype.submit = function(oSubmission) {
 
 		try {
 			if ((sMethod === "GET" || sMethod === "DELETE") && (oBody || oBody !== "") && sSerialization === "application/x-www-form-urlencoded") {
-				sResource = sResource + "?" + oBody.toString();
+				sResource = this.buildGetUrl(sResource, oBody, sSeparator);
 				oBody = null;
 			}
 			
@@ -569,23 +583,28 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
 }
 
 submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, encoding) {
-	var serialization = "";
 	var xmlDoc = this.constructSubmitDataListDOM(submitDataList);
 
-	encoding = encoding || "UTF-8";
-
+	// For XML serialisation just return an XML document.
+	//
 	if (serializationFormat === "application/xml") {
+		encoding = encoding || "UTF-8";
+
 		this.setHeader("Content-Type", serializationFormat + "; charset=" + encoding);
 		xmlDoc.insertBefore(
 			xmlDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + encoding + "\""),
 			xmlDoc.firstChild
 		);
-		serialization = xmlText(xmlDoc);
-	} else if (serializationFormat === "application/x-www-form-urlencoded") {
-		serialization = this.serializeURLEncoded(xmlDoc); 
+		return xmlText(xmlDoc);
 	}
-	
-    return serialization;
+
+	// For HTML forms-compatible serialisations, create a set of URL encoded name/value pairs.
+	//
+	if (serializationFormat === "application/x-www-form-urlencoded" || serializationFormat === "multipart/form-data") {
+		return this.serializeURLEncoded(xmlDoc); 
+	}
+
+	return "";
 }
 
 submission.prototype.constructSubmitDataListDOM = function(submitDataList) {
@@ -673,22 +692,7 @@ submission.prototype.serializeURLEncoded = function(node) {
 		}
 	}
 	
-    return {
-    	separator: "&",
-    	dictionary: taggedValues,
-    	toString: function() {
-			var pairs = [];
-			var key;
-			
-			for ( key in this.dictionary ) {
-				if (this.dictionary.hasOwnProperty(key) && typeof(this.dictionary[key]) !== "function") {
-					pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(this.dictionary[key]));
-				}
-			}
-			
-			return pairs.join(this.separator);
-		}
-	};
+    return taggedValues;
 }
 
 /**
@@ -768,22 +772,18 @@ submission.prototype.setHeaders = function(oModel, oSubmission) {
 	}
 };
 
-submission.prototype.buildGetUrl = function(action, params) {
-    var url = action;
+submission.prototype.buildGetUrl = function(action, params, separator) {
+	var key, pairs = [ ];
 
-    if (params) {
-        var sep = "?"; //should test that action doesn't already have this anywhere already.
+	if (params) {
+		for (key in params) {
+			if (params.hasOwnProperty(key) && typeof(params[key]) !== "function") {
+				pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
+			}
+		}
+	}//if ( there are parameters to add to the action )
 
-        for ( var key in params) {
-            if (params[key] === null) {
-                continue;
-            }
-            url += sep + encodeURIComponent(key) + "=" +
-                   encodeURIComponent(params[key]);
-            sep = "&";
-        }
-    }//if ( there are parameters to add to the action )
-    return url;
+	return action + ((pairs.length) ? ("?" + pairs.join(separator || "&")) : "");
 };//buildurl
 
 submission.prototype.setSOAPHeaders = function(oContextNode, sMediatype, sEncoding) {
