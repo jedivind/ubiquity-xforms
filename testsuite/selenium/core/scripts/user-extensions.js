@@ -114,6 +114,11 @@ Selenium.prototype.assertXFormsProperty = function(locator,propObjString)
 	}
 }
 
+Selenium.prototype.getXformsControlValue = function(locator) {
+	var element = this.page().findElement(locator);
+
+	return element.getValue();
+};
 
 Selenium.prototype.findEffectiveStyleProperty = function(element, property) {
 	var propertyValue = "";
