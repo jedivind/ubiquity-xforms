@@ -1,0 +1,20 @@
+#summary How to review an XForms 1.1 Test Suite chapter.
+#labels Phase-QA
+
+= Introduction =
+
+As we get closer to completing XForms 1.1 support, we need to keep track of where the gaps are in our coverage, so that people can get straight to what needs to be done.
+
+= Details =
+
+We are still in the process of automating our tests, and until that happens, we have two sources of information about which tests pass.
+
+== Manual chapter status files ==
+
+The first source is a set of XML files, one for each test suite chapter, which contains an entry for each test, and an indicator of whether the tests has passed or not. These documents are used to generate an HTML page which summarises the status of the tests in each chapter.
+
+These files are currently maintained manually, with developers updating the documents whenever they pass a test. Whenever an updated chapter file is checked in to SVN, a Buildbot slave will regenerate the HTML status files.
+
+The source XML files are are maintained for each supported. Currently we have [http://ubiquity-xforms.googlecode.com/svn/trunk/testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/FF3/ chapter files for Firefox 3] and [http://ubiquity-xforms.googlecode.com/svn/trunk/testsuite/W3C-XForms-1.1/Edition1/driverPages/Results/IE7/ chapter files for IE 7].
+
+The HTML status pages are available on the Buildbot server, [http://uxf-bb.webbackplane.com:8080/Results/IE7/ResultsTable.html one for IE 7] and [http://uxf-bb.webbackplane.com:8080/Results/FF3/ResultsTable.html one for FF 3].
