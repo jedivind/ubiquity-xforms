@@ -37,28 +37,9 @@
 			FormsProcessor.halted = false;
 		},
 
-		testSetView : function () {
-			this.testDiv.m_proxy = {
-				m_oNode: {},
-				readonly: { getValue: returnFalse },
-				required: { getValue: returnFalse },
-				valid: { getValue: returnTrue },
-				enabled: { getValue: returnTrue },
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly" :
-							return false;
-						case "required":
-							return false;
-						case "valid":
-							return true;
-						case "enabled":
-							return true;
-					}
-				}
-			};
-			this.testDiv.setView();
-			YAHOO.util.Assert.areSame("enabled read-write optional valid", this.testDiv.className);
+		testUpdateMIPs : function () {
+			this.testDiv.updateMIPs();
+			YAHOO.util.Assert.areSame("disabled", this.testDiv.className);
 		},
 
 		testIsDirtyMIP : function () {
@@ -73,7 +54,7 @@
 			YAHOO.util.Assert.areSame(false, this.testDiv.isDirtyMIP("readonly"));
 		},
 
-		testTestMIPChangesNoChange : function () {
+		testSetDirtyStatesNoChange : function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
 				readonly: { getValue: returnFalse },
@@ -94,16 +75,16 @@
 				}
 			};
 
-			this.testDiv.setView();
+			this.testDiv.updateMIPs();
 			this.testDiv.dirtyState.setClean();
-			this.testDiv.testMIPChanges();
+			this.testDiv.setDirtyStates();
 			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("readonly"));
 			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("required"));
 			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("valid"));
 			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("enabled"));
 		},
 
-		testTestMIPChangesAllChange : function () {
+		testSetDirtyStatesAllChange : function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
 				readonly: {getValue: returnFalse },
@@ -124,7 +105,7 @@
 				}
 			};
 
-			this.testDiv.setView();
+			this.testDiv.updateMIPs();
 			this.testDiv.dirtyState.setClean();
 
 			this.testDiv.m_proxy = {
@@ -146,14 +127,14 @@
 					}
 				}
 			};
-			this.testDiv.testMIPChanges();
+			this.testDiv.setDirtyStates();
 			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("readonly"));
 			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("required"));
 			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("valid"));
 			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("enabled"));
 		},
 
-		testTestMIPChangesSomeChange : function () {
+		testSetDirtyStatesSomeChange : function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
 				readonly: { getValue: returnFalse },
@@ -174,7 +155,7 @@
 				}
 			};
 
-			this.testDiv.setView();
+			this.testDiv.updateMIPs();
 			this.testDiv.dirtyState.setClean();
 
 			this.testDiv.m_proxy = {
@@ -197,14 +178,14 @@
 				}
 			};
 
-			this.testDiv.testMIPChanges();
+			this.testDiv.setDirtyStates();
 			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("readonly"),"readonly");
 			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("required"), "required");
 			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("valid"), "valid");
 			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("enabled"), "enabled");
 		},
 
-		testDispatchMIPEvents: function () {
+		testBroadcastMIPs: function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
 				readonly: { getValue: returnFalse },
@@ -225,14 +206,14 @@
 				}
 			};
 
-			this.testDiv.setView();
+			this.testDiv.updateMIPs();
 			this.testDiv.eventsReceived = "";
 			this.testDiv.dispatchEvent = function (e) {
 				this.eventsReceived += e.type;
 			};
 
-			this.testDiv.dispatchMIPEvents();
-			YAHOO.util.Assert.areSame("xforms-validxforms-optionalxforms-readwritexforms-enabled", this.testDiv.eventsReceived);
+			this.testDiv.broadcastMIPs();
+			YAHOO.util.Assert.areSame("", this.testDiv.eventsReceived);
 		},
 
 		testRefresh: function () {
@@ -263,7 +244,7 @@
 
 			this.testDiv.refresh();
 			YAHOO.util.Assert.areSame( "enabled read-write optional valid", this.testDiv.className, "class");
-			YAHOO.util.Assert.areSame("xforms-validxforms-optionalxforms-readwritexforms-enabled", this.testDiv.eventsReceived, "events");
+			YAHOO.util.Assert.areSame("", this.testDiv.eventsReceived, "events");
 		},
 
 		testRewire: function () {

@@ -20,6 +20,8 @@ function Group(elmnt)
 	this.m_MIPSCurrentlyShowing = {};
 }
 
+Group.prototype.isGroup = true;
+
 	Group.prototype.setValue = function(sValue)
 	{
 		return;

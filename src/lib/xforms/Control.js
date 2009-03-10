@@ -405,7 +405,7 @@ Control.prototype.refresh = function () {
 
   var oProxy = this.element.m_proxy;
 
-  this.setView();
+  this.updateMIPs();
 
   if (oProxy) {
     // Get the type of the node and pass the information to the control in
@@ -417,7 +417,7 @@ Control.prototype.refresh = function () {
   }
 
   if (this.dirtyState.isDirty()) {
-    this.dispatchMIPEvents();
+    this.broadcastMIPs();
     this.dirtyState.setClean();
   }
 };

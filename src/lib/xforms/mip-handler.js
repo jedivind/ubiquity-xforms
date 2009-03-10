@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 function MIPHandler(element) {
 	this.element = element;
 	this.dirtyState = new DirtyState();
@@ -55,10 +55,10 @@ MIPHandler.prototype.rewire = function () {
 MIPHandler.prototype.refresh = function () {
 	document.logger.log("Refreshing: " + this.element.tagName + ":" + this.element.uniqueID, "control");
 
-	this.setView();
+	this.updateMIPs();
 
 	if (this.dirtyState.isDirty()) {
-		this.dispatchMIPEvents();
+		this.broadcastMIPs();
 		this.dirtyState.setClean();
 	}
 };
@@ -69,36 +69,28 @@ MIPHandler.prototype.isDirtyMIP = function (sMIPName) {
 	       (state.isSet && this.m_MIPSCurrentlyShowing[sMIPName] !== state.value);
 };
 
-MIPHandler.prototype.testMIPChange = function (mip) {
+MIPHandler.prototype.setDirtyState = function (mip) {
 	if (this.isDirtyMIP(mip)) {
 		this.dirtyState.setDirty(mip);
 	}
 };
 
-MIPHandler.prototype.testMIPChanges = function () {
-	this.testMIPChange("enabled");
-	this.testMIPChange("readonly");
-	this.testMIPChange("required");
-	this.testMIPChange("valid");
+MIPHandler.prototype.setDirtyStates = function () {
+	this.setDirtyState("enabled");
+	this.setDirtyState("readonly");
+	this.setDirtyState("required");
+	this.setDirtyState("valid");
 };
 
-MIPHandler.prototype.setView = function() {
- 	this.testMIPChanges();
+MIPHandler.prototype.updateMIPs = function() {
+ 	this.setDirtyStates();
  	setState(this, "enabled", "enabled", "disabled");
 	setState(this, "readonly", "read-only", "read-write");
 	setState(this, "required", "required", "optional");
 	setState(this, "valid", "valid", "invalid");
 };
 
-MIPHandler.prototype.dispatchMIPEvents = function () {
-	var proxyNode = FormsProcessor.getProxyNode(this.element);
-	if (proxyNode) {
-		UX.dispatchEvent(this, proxyNode.valid.getValue() ? "xforms-valid" : "xforms-invalid", true, false);
-		UX.dispatchEvent(this, proxyNode.required.getValue() ? "xforms-required" : "xforms-optional", true, false);
-		UX.dispatchEvent(this, proxyNode.readonly.getValue() ? "xforms-readonly" : "xforms-readwrite", true, false);
-	}
-
-	UX.dispatchEvent(this, this.isEnabled() ? "xforms-enabled" : "xforms-disabled", true, false);
+MIPHandler.prototype.broadcastMIPs = function () {
 };
 
 MIPHandler.prototype.onDocumentReady = function () {
@@ -109,8 +101,33 @@ MIPHandler.prototype.mustBeBound = function () {
 	return true;
 };
 
+MIPHandler.prototype.inheritEnabled = function () {
+	var parent = this.element.parentNode;
+	while (parent) {
+		if (parent.isGroup || parent.isSwitch) {
+			if (parent.isEnabled() === false) {
+				return false;
+			}
+		} else if (parent.isCase) {
+			if (parent.getSwitch() && typeof parent.getSwitch().getSelectedCase === "function" && parent !== parent.getSwitch().getSelectedCase()) {
+				return false;
+			}
+		}
+
+		parent = parent.parentNode;
+	}
+
+	return true;
+};
+
 MIPHandler.prototype.isEnabled = function () {
-	var proxyNode = FormsProcessor.getProxyNode(this.element);
+	var proxyNode;
+
+	if (!this.inheritEnabled()) {
+		return false;
+	}
+
+	proxyNode = FormsProcessor.getProxyNode(this.element);
 	if (proxyNode) {
 		return proxyNode.enabled.getValue();
 	}

@@ -16,12 +16,21 @@
 (function(){
 	var suiteOptionalBinding;
 
+	var returnFalse = function () { 
+		return false;
+	};
+
+	var returnTrue = function () { 
+		return true;
+	};
+
 	YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
 		name: "Testing the OptionalBinding object",
 
 		setUp: function(){
 			this.ob = this.createElement("div", document.body);
-			DECORATOR.extend(this.ob, new OptionalBinding(this.testDiv), false);
+			DECORATOR.extend(this.ob, new MIPHandler(this.ob), false);
+			DECORATOR.extend(this.ob, new OptionalBinding(this.ob), false);
 		},
 
 		tearDown: function(){
@@ -32,6 +41,11 @@
 		testMustBeBound: function () {
 			YAHOO.util.Assert.isFunction(this.ob.mustBeBound);
 			YAHOO.util.Assert.isFalse(this.ob.mustBeBound());
+		},
+
+		testUpdateMIPs : function () {
+			this.ob.updateMIPs();
+			YAHOO.util.Assert.areSame("enabled", this.ob.className);
 		},
 
 		createElement: function (name, parent) {
