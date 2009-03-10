@@ -11,9 +11,9 @@
   <body>
     <xforms:model id="order">
       <xforms:instance>
-        <carOrder/>
+        <carOrder></carOrder>
       </xforms:instance>
-      <xforms:submission id="submit_car" method="post" action="http://xformstest.org/cgi-bin/echo.sh"/>
+      <xforms:submission id="submit_car" method="post" action="http://xformstest.org/cgi-bin/echo.sh"></xforms:submission>
     </xforms:model>
     <xforms:model id="carsForSale">
       <xforms:instance>
@@ -40,8 +40,8 @@
       	<xforms:label>Cars</xforms:label>
 	    
         <xforms:itemset nodeset="/carsAvailable/car" model="invalidModel">
-        	<xforms:label ref="."/>
-          	<xforms:value ref="."/>
+        	<xforms:label ref="."></xforms:label>
+          	<xforms:value ref="."></xforms:value>
           	<xforms:action ev:event="xforms-binding-exception">
       			<xforms:message level="modal">xforms-binding-exception</xforms:message>
       	  	</xforms:action>

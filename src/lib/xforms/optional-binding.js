@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009 Backplane Ltd.
+ * Copyright Â© 2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,4 +19,11 @@ function OptionalBinding() {
 
 OptionalBinding.prototype.mustBeBound = function () {
 	return false;
+};
+
+function OptionalIfUnspecifiedBinding() {
+}
+
+OptionalIfUnspecifiedBinding.prototype.mustBeBound = function () {
+	return Boolean(this.getAttribute("ref"));
 };

@@ -249,16 +249,9 @@ Control.prototype.AddTVCListener = function () {
       this.m_value.addEventListener("control-value-changed", {
         control : this,
         handleEvent : function (evt) {
-          if (document.all) {
-            evt.type = "target-value-changed";
-            FormsProcessor.dispatchEvent(this.control, evt);
-          } else {
-            var oEvt = this.control.element.ownerDocument.createEvent("MutationEvents");
-            oEvt.initMutationEvent("target-value-changed", true, true, null, evt.prevValue, evt.newValue, null, null);
-            FormsProcessor.dispatchEvent(this.control, oEvt);
-          }
-          // this.control.element.ownerDocument.xformslog.log("target-value-changed",
-          // "event");
+          var oEvt = document.createEvent("MutationEvents");
+          oEvt.initMutationEvent("target-value-changed", true, true, null, evt.prevValue, evt.newValue, null, null);
+          FormsProcessor.dispatchEvent(this.control, oEvt);
         }
       }, false);
       this.addedTVCListener = true;
@@ -390,7 +383,7 @@ Control.prototype.xrewire = function () {
 
   if (oPN) {
     this.m_proxy = oPN;
-  }
+  } 
 
   // [TEMP] This cannot be permanently removed until we can tell the
   // difference between:

@@ -27,6 +27,9 @@ xf\:mediatype >  pe-value, xforms\:mediatype >  pe-value {
 xf\:value  > pe-value,  xforms\:value  > pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
+xf\:copy  > pe-value,  xforms\:copy  > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
 
 xf\:help >  pe-value, xforms\:help >  pe-value,
 xf\:hint >  pe-value, xforms\:hint >  pe-value,
@@ -65,6 +68,10 @@ xf\:mediatype, xforms\:mediatype {
   -moz-binding: url("decorator.xml#decorator");
 }
 xf\:value, xforms\:value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:copy, xforms\:copy {
   -moz-binding: url("decorator.xml#decorator");
 }
 xf\:item, xforms\:item {
@@ -215,6 +222,16 @@ xf\:repeat.repeat-ready *, xforms\:repeat.repeat-ready *, xf\:itemset.repeat-rea
   -binding-ignore:false;
 }
 
+
+xf\:select > xf\:item , xforms\:select > xforms\:item,
+xf\:select > xf\:itemset , xforms\:select >  xforms\:itemset,
+xf\:select > xf\:choices, xforms\:select >  xforms\:choices {
+  -binding-ignore:true;
+}
+xforms\:select .pe-choices xforms\:item, xforms\:select .pe-choices xforms\:item * {
+  -binding-ignore:false;
+}
+
 xf\:itemset.repeat-ready > xf\:item, xforms\:itemset.repeat-ready > xforms\:item {
   -moz-binding: url("decorator.xml#decorator");
 }
@@ -231,6 +248,17 @@ xf\:select1 > xf\:itemset *, xforms\:select1 >  xforms\:itemset * {
   -moz-binding:url();
 }
 
+xf\:select > xf\:item , xforms\:select > xforms\:item,
+xf\:select > xf\:itemset , xforms\:select >  xforms\:itemset,
+xf\:select > xf\:choices, xforms\:select >  xforms\:choices {
+  -moz-binding:url();
+}
+xf\:select > xf\:item *, xforms\:select >  xforms\:item *,
+xf\:select > xf\:itemset *, xforms\:select >  xforms\:itemset *,
+xf\:select > xf\:choices *, xforms\:select >  xforms\:choices *
+{
+  -moz-binding:url();
+}
 xf\:repeat > *, xforms\:repeat > *, xf\:itemset > *, xforms\:itemset > *, xf\:header > *, xforms\:header > * {
   -moz-binding:url();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2008-2009 Backplane Ltd.
+ * Copyright Â© 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,267 +14,11 @@
  * limitations under the License.
  */
  
- /*global document, UX, CommonSelect, spawn, FormsProcessor, NamespaceManager, event, DropBox, XFormsInputValue*/
+ /*global document, UX, CommonSelect, spawn, FormsProcessor, NamespaceManager, event, DropBox*/
  
-function XFormsSelect1(elmnt)
-{
-	this.element = elmnt;
-	this.currentDisplayValue = "";
-	this.element.addEventListener("fp-select", this, false);
-	this.element.addEventListener("xforms-select", this, false);
-	this.element.addEventListener("xforms-deselect", this, false);
-	this.element.addEventListener("xforms-value-changed", this, false);
-	this.m_currentItem = null;
-			
-	var keypressHandler = {
-	  handleEvent: function (o) {
-      switch (o.keyCode) {
-      case 38 : //up
-        elmnt.selectPreviousItem();
-        break;
-      case 40 : //down
-        elmnt.selectNextItem();
-  	  }
-	  }
-	},
-	
-	wheelHandler = {
-    handleEvent: function (o) {
-      switch (o.type) {
-      case "focus":
-        this.trapMouseWheel();
-        break;
-      case "blur":
-        this.untrapMouseWheel();
-        break;
-      case "mousewheel":
-      case "DOMMouseScroll":
-        this.handleScroll(o);
-	    }
-	  },
-	  
-	  trapMouseWheel: function () {
-      if (UX.isFF) {
-        document.addEventListener("DOMMouseScroll", this, true);
-      } else if (UX.isIE) {
-        document.attachEvent("onmousewheel", wheelHandler.handleScroll);
-      } else {
-        document.addEventListener("mousewheel", this, true);  	    
-      }
-      
-    }, 	  
-	  untrapMouseWheel: function () {
-      if (UX.isFF) {
-        document.removeEventListener("DOMMouseScroll", this, true);
-      } else if (UX.isIE) {
-        document.detachEvent("onmousewheel", wheelHandler.handleScroll);
-      } else {
-        document.removeEventListener("mousewheel", this, true);  	    
-      }
-	  },
-	  
-	  handleScroll: function (o) {
-	    var wheelDelta = o.wheelDelta;
-	    if (typeof wheelDelta === "undefined") {
-	      wheelDelta = o.detail;
-	    }
-	    
-	    //Firefox mousewheel movement is reported in the
-	    //  opposite direction to everyone else
-	    if (UX.isFF) {
-	      wheelDelta *= -1;
-	    }
-	     
-	    if (wheelDelta > 0) {
-	      elmnt.selectPreviousItem();
-	    } else {
-	      elmnt.selectNextItem();
-	    }
-	    
-	    if (o.preventDefault) {
-	      o.preventDefault();
-	    }
-	    return false;
-	    
-	  }
-	};
-
-  if (UX.isIE) {
-    this.element.attachEvent("onkeyup", keypressHandler.handleEvent);
-    this.element.attachEvent("onfocusin", wheelHandler.trapMouseWheel);
-    this.element.attachEvent("onfocusout", wheelHandler.untrapMouseWheel);
-    
-  } else {
-    this.element.addEventListener("keyup", keypressHandler, false);
-    this.element.addEventListener("focus", wheelHandler, true);
-    this.element.addEventListener("blur", wheelHandler, true);
-  }
-  
-  
-  
-}
-
-XFormsSelect1.prototype = new CommonSelect();
-
-XFormsSelect1.prototype.handleEvent = function (oEvt)
-{
-	switch (oEvt.type)
-	{
-	case "fp-select":
-	  this.element.m_currentItem = oEvt.target;
-	  this.onValueSelected(oEvt.target.getValue());
-		break;
-	case "xforms-select":
-	case "xforms-deselect":
-		oEvt.stopPropagation();
-		break;
-	case "xforms-value-changed" :
-	//This needn't be run inline, and causes stack overflow in IE if it is.
-	  var element = this.element;
-    spawn(function () {
-      element.itemChanged(oEvt);
-    });
-	
-	}			
-};
-	
-
-XFormsSelect1.prototype.getFirstItem = function () {
-  return UX.getFirstNodeByName(this.m_choices, "item", "http://www.w3.org/2002/xforms");
-};
-
-XFormsSelect1.prototype.selectFirstItem = function () {
-  var firstItem = this.getFirstItem();
-  if (firstItem !== null) {
-    firstItem.onUserSelect();
-  }
-};
-
-XFormsSelect1.prototype.selectPreviousItem = function () {
-  var previousItem;
-  if (this.m_currentItem === null) {
-    this.selectFirstItem();
-  } else {
-    previousItem = UX.getPreviousNodeByName(this.m_currentItem, "item", "http://www.w3.org/2002/xforms", this.m_choices);
-    if (previousItem !== null) {
-      previousItem.onUserSelect();
-    }
-  }
-};
-
-XFormsSelect1.prototype.selectNextItem = function () {
-  var nextItem;
-  if (this.m_currentItem === null) {
-    this.selectFirstItem();
-  } else {
-    nextItem = UX.getNextNodeByName(this.m_currentItem, "item", "http://www.w3.org/2002/xforms", this.m_choices);
-    if (nextItem !== null) {
-      nextItem.onUserSelect();
-    }
-  }
-};
-
-XFormsSelect1.prototype.onValueSelected = function (value) {
-  this.element.hideChoices();
-  var oEvt1 = document.createEvent("MutationEvents");
-  oEvt1.initMutationEvent("control-value-changed", false, true, null, "", value, "", 1);
-  FormsProcessor.dispatchEvent(this.element.m_value, oEvt1);
-};
-
-XFormsSelect1.prototype.itemChanged = function (oEvt) {
-  if (oEvt.target !== this.element) {
-    var sNodeName = NamespaceManager.getLowerCaseLocalName(oEvt.target);
-    if (sNodeName === "value") {
-      this.itemValueChanged(oEvt.target.parentNode, oEvt.prevValue, oEvt.newValue);
-    }
-  }
-};
-
-XFormsSelect1.prototype.giveFocus = function () {
-	if (this.m_proxy.enabled.getValue()) {
-		if (this.m_value && this.m_value !== document.activeElement && !this.m_value.contains(document.activeElement))	{
-			if (typeof this.m_value.giveFocus === "function") {
-				this.m_value.giveFocus();
-			} else {
-				this.m_value.focus();
-			}
-		}
-
-		return true;
-	}
-
-	return false;
-};
-
-XFormsSelect1.prototype.onContentReady = function () {
-	var s = this.getAttribute("appearance");
-	if (s !== undefined && s !== "") {
-		UX.addClassName(this, "appearance-" + s);
-	}
-};
-
-XFormsSelect1.prototype.onDocumentReady = function () {
-  var oPeChoices, nl, n, s, i;
-  if (!this.m_choices) {
-		oPeChoices = this.element.ownerDocument.createElement("div");
-		UX.addClassName(oPeChoices, "pe-choices");
-
-		nl = this.childNodes;
-		for (i = 0;i < nl.length; ++i) {
-			n = nl[i];
-			s = NamespaceManager.getLowerCaseLocalName(n);
-			switch (s) {
-			case "item":
-			case "itemset":
-			case "choices":
-				//shift to pc-choices.
-				oPeChoices.appendChild(n);
-				--i;
-				break;
-			default:
-			//leave in situ
-			}
-		}
-		this.choicesBox = new DropBox(this.element, this.element.m_value, oPeChoices);
-    this.m_choices = oPeChoices;
-  }
-};
-
-XFormsSelect1.prototype.showChoices = function () {
-  this.choicesBox.show();
-};
-
-XFormsSelect1.prototype.hideChoices = function () {
-  this.choicesBox.hide();
-};
-
-XFormsSelect1.prototype.getDisplayValue = function (sValue) {
-  return this.getSingleDisplayValue(sValue);
-};
-  
-XFormsSelect1.prototype.isOpen = function () {
-  return this.getAttribute("selection") === "open";
-};
-
-XFormsSelect1.prototype.onItemAdded = function (item, key) {
-  //The new item is the same as the current value,
-  //    which could not be displayed when it was set.
-  //  Since it can now be set, set it.
-  if (!this.isInRange() && key === this.currentDisplayValue && this.m_value.setValue) {
-    this.m_value.setValue(key);
-  }
-};
-
-XFormsSelect1.prototype.onItemRemoved = function (item, key) {
-  //The removed item is the same as the current value,
-  //  which may no longer be displayable.
-  if (this.isInRange() && key === this.currentDisplayValue && this.m_value.setValue) {
-    this.m_value.setValue(key);
-  } 
-};
-
-function Select(elmnt) {	
+function XFormsSelect(elmnt) {	
   this.element = elmnt;
+  this.multiselect = true;
   this.element.addEventListener("fp-select", this, false);
   this.element.addEventListener("fp-deselect", this, false);
   this.element.addEventListener("xforms-select", this, false);
@@ -283,30 +27,64 @@ function Select(elmnt) {
   this.m_values = [];
 }
 
-Select.prototype.handleEvent = function (oEvt) {
-	var oEvt1, s, i;
-	switch (oEvt.type) {
-	case "fp-select":
-		this.m_values.push(oEvt.target.getValue());
-		oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
-		oEvt1.initMutationEvent("control-value-changed", false, true, null, "", this.m_values.join(" "), 1);
-		oEvt1._actionDepth = oEvt._actionDepth;
-		FormsProcessor.dispatchEvent(this.element.m_value, oEvt1);
-		break;
-		
-	case "fp-deselect":
-		s = oEvt.target.getValue();
-		for (i = 0;i < this.m_values.length;++i) {
-			if (s === this.m_values[i]) {
-				this.m_values.splice(i, 1);
+XFormsSelect.prototype = new CommonSelect();
 
-				oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
-				oEvt1.initMutationEvent("control-value-changed", false, true, null, "", this.m_values.join(" "), 1);
-				oEvt1._actionDepth = oEvt._actionDepth;
-				FormsProcessor.dispatchEvent(this.element.m_value, oEvt1);
+XFormsSelect.prototype.useDropBox = function () {
+  return this.element.getAttribute("appearance") === "minimal";
+};
+
+
+XFormsSelect.prototype.onValueSelected = function (item) {
+	var value = item.getValue();
+	var oEvt;
+	if (value && typeof value === "object") {
+		clone = value.cloneNode(true);
+		item.valueInInstance = this.element.m_proxy.appendChild(value, this);
+		if (item.valueInInstance) {
+			this.element.m_model.flagRebuild();
+			doUpdate();
+		}
+	} else {
+		this.m_values.push(value);
+		oEvt = this.element.ownerDocument.createEvent("MutationEvents");
+		oEvt.initMutationEvent("control-value-changed", false, true, null, "", this.m_values.join(" "), "", 1);
+		FormsProcessor.dispatchEvent(this.element.m_value, oEvt);
+	}
+};
+
+XFormsSelect.prototype.onValueDeselected = function (item) {
+	var oEvt, value = item.getValue();
+	if (value && typeof value === "object") {
+		if (this.element.m_proxy.removeChild(value, this)) {
+		  	this.element.m_model.flagRebuild();
+		  	doUpdate();
+			oEvt = this.element.ownerDocument.createEvent("MutationEvents");
+			oEvt.initMutationEvent("data-value-changed", false, true, null, "", "", "", 1);
+			FormsProcessor.dispatchEvent(this.element, oEvt);
+		}
+	} else {
+		for (i = 0;i < this.m_values.length;++i) {
+			if (value === this.m_values[i]) {
+				this.m_values.splice(i, 1);
+				oEvt = this.element.ownerDocument.createEvent("MutationEvents");
+				oEvt.initMutationEvent("control-value-changed", false, true, null, "", this.m_values.join(" "), "", 1);
+				FormsProcessor.dispatchEvent(this.element.m_value, oEvt);
 				break;
 			}
 		}
+	}
+};
+
+XFormsSelect.prototype.handleEvent = function (oEvt) {
+	var oEvt, s, i;
+	switch (oEvt.type) {
+	case "fp-select":
+	  this.onValueSelected(oEvt.target);
+		oEvt.stopPropagation();
+		break;
+		
+	case "fp-deselect":
+		this.onValueDeselected(oEvt.target);
 		break;
 	case "data-value-changed":
 		this.m_values = oEvt.newValue.split(" ");
@@ -320,127 +98,50 @@ Select.prototype.handleEvent = function (oEvt) {
 	}				
 };
 
-Select.prototype.onSelectionChanged = function (s) {
-	var oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
-	oEvt1.initMutationEvent("selection-changed", false, false, null, "", s.split(" "), 1);
+XFormsSelect.prototype.onSelectionChanged = function (s) {
+	var i, oEvt1 = this.element.ownerDocument.createEvent("MutationEvents");
+	//In a DOM Events compliant environment, only strings are allowed to be values in the mutation event
+	//  and it is readonly.  Therefore, it can't be used to transmit the change in array values.
+	this.element.m_undisplayedValues = s.trim().split(" ");
+	if (this.element.containsCopyElements()) {
+		for (i = 0; i < this.element.m_proxy.m_oNode.childNodes.length ;++i) {
+			if (this.element.m_proxy.m_oNode.childNodes[i].nodeType !== DOM_TEXT_NODE) {
+				this.element.m_undisplayedValues.push(this.element.m_proxy.m_oNode.childNodes[i]);
+			}
+		}
+	}
+	
+	oEvt1.initMutationEvent("selection-changed", false, false, null, "", s, "", 1);
 	FormsProcessor.dispatchEvent(this.element, oEvt1);
+  // If there are values left over, then this control is out of range.
+	if (this.element.m_undisplayedValues.length) {
+	  this.element.onOutOfRange();
+	} else { 
+	  this.element.onInRange();
+	}
 	return;
 };
 
-var XFormsSelectValue = XFormsInputValue;
 
-function XFormsSelect1Value(elmnt) {
-	this.element = elmnt;
-  this.currValue = "";
-  this.m_bFirstSetValue = true;
-}
-
-
-XFormsSelect1Value.prototype.getOwnerNodeName = function () {
-  return NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
+XFormsSelect.prototype.onContentReady = function () {
+	var s = this.getAttribute("appearance");
+	//Set a default appearance of compact.  This is not mandated, 
+	// but a dropbox is not typically expected of a select control.
+	if (!s) {
+		s = "compact";
+	}
+	UX.addClassName(this, "appearance-" + s);
+	
 };
 
-XFormsSelect1Value.prototype.onDocumentReady = function () {
-	if (this.element.ownerDocument.media !== "print") {
-		var sTagNameLC = this.getOwnerNodeName(),
-		sElementToCreate = "input",
-		oInput = document.createElement(sElementToCreate),
-    pSelect = this.parentNode,
-    pThis = this;
-    
-    if (oInput.addEventListener) {
-      oInput.addEventListener("change", function (e) {
-        pThis.trySetManuallyEnteredValue(oInput.value);
-      }, false);
-      
-      oInput.addEventListener("click", function () {
-        pSelect.showChoices();
-      }, false);
-      
-      if (!this.parentNode.isOpen()) {
-        //ignore the typing of any alphanumeric characters, other than tab, 
-        //  which should cause focus to move. 
-        oInput.addEventListener("keypress", function (e) {
-          if (e.keyCode !== 9) {
-            e.preventDefault();
-          }
-        }, true);
-      }
-    }
-    else {
-      oInput.attachEvent("onchange", function (e) {
-        pThis.trySetManuallyEnteredValue(oInput.value);
-      });
-      
-      oInput.attachEvent("onclick", function () {
-        pSelect.showChoices();
-      });
-      
-      if (!this.parentNode.isOpen()) {
-        //ignore the typing of any alphanumeric characters, other than tab, 
-        //  which should cause focus to move. 
-        oInput.attachEvent("onkeypress", function (e) {
-          if (e.keyCode !== 9) {
-            return false;
-          }
-          return true;
-        });
-      }
-    }
-  
-		UX.addStyle(oInput, "backgroundColor", "transparent");
-    UX.addStyle(oInput, "padding", "0");
-    UX.addStyle(oInput, "margin", "0");
-    UX.addStyle(oInput, "border", "0");
-    
-    this.element.appendChild(oInput);   
-    this.m_value = oInput;
-  }
+XFormsSelect.prototype.getDisplayValue = function (sValue) {
+	var i, l,  arrDisplayValues = [], arrValues;
+	arrValues = sValue? sValue.trim().split(" "): [];
+	l = arrValues.length;
+	for (i = 0 ; i < l ;++i) {
+		arrDisplayValues.push(this.getSingleDisplayValue(arrValues[i]));
+	}
+	return arrDisplayValues.join(" ");
 };
 
-
-XFormsSelect1Value.prototype.trySetManuallyEnteredValue = function (value) {
-  if (this.parentNode.isOpen() || this.parentNode.getDisplayValue(value) !== null) {
-    //if the value entered is legitimate, let it in.
-    this.parentNode.onValueSelected(value);
-  }
-  else {
-    //otherwise, replace it with the current value.
-    this.setDisplayValue(this.currValue, true);
-  }
-};
-
-XFormsSelect1Value.prototype.setValue = function (sValue) {
-
-  var sDisplayValue = this.parentNode.getDisplayValue(sValue);
-
-  //Open selections don't go out of range, just display the value as given
-  if (sDisplayValue === null && this.parentNode.isOpen()) {
-    sDisplayValue = sValue;
-  }
-  
-  return this.setDisplayValue(sDisplayValue);
-};
-
-XFormsSelect1Value.prototype.setDisplayValue = function (sDisplayValue, bForceRedisplay) {
-	var bRet = false;
- 
-  if (sDisplayValue === null) {
-    this.parentNode.onOutOfRange();
-    sDisplayValue = "";
-  } else {
-    this.parentNode.onInRange();
-  }
-  
-
-	if (bForceRedisplay || this.currValue !== sDisplayValue) {
-	  this.m_value.value = sDisplayValue;
-		this.currValue = sDisplayValue;
-		bRet = true;
-	}	else if (this.m_bFirstSetValue)	{
-		bRet = true;
-		this.m_bFirstSetValue = false;
-	}	
-	return bRet;
-};
-
+XFormsSelectValue = XFormsCommonSelectValue;

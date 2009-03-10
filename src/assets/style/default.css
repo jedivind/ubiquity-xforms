@@ -405,57 +405,6 @@ xf|alert xf|label pe-value {
     top: 4px; 
 }
 
-xforms\:item, xf\:item {
-    display:block;
-}
-
-xforms|item, xf|item {
-    display:block;
-}
-
-xf\:choices, xforms\:choices {
-  display:block;
-  margin-left: 1em;
-}
-
-xf|choices {
-  display:block;
-  margin-left: 1em;
-}
-
-xforms\:select1 pe-value,
-xf\:select1 pe-value {
-    border: 2px inset #f0f0f0;
-    background-color: white;
-}
-
-xforms|select1 pe-value,
-xf|select1 pe-value {
-    border: 2px inset #f0f0f0;
-    background-color: white;
-}
-
-xf\:item pe-value,
-xforms\:item pe-value {
-    border: none;
-    background-color:transparent;
-}
-
-xf|item pe-value,
-xforms|item pe-value {
-    border: none;
-    background-color:transparent;
-}
-
-xf\:select1 xf\:label pe-value, xforms\:select1 xforms\:label pe-value {
-    border: none;
-    background-color: transparent;
-}
-
-xf|select1 xf|label pe-value, xforms|select1 xforms|label pe-value {
-    border: none;
-    background-color: transparent;
-}
 
 .ux-calendar-bg {
     display: inline;
@@ -533,6 +482,128 @@ xforms|output *[class~="calnavright"], xf|output *[class~="calnavright"] {
 }
 
 
+.focus {
+  border: 1px lightgray dashed;
+}
+
+/*
+  select, select1 and children thereof.
+*/
+
+xforms\:item, xf\:item {
+    display:block;
+}
+
+xforms|item, xf|item {
+    display:block;
+}
+
+xf\:choices, xforms\:choices {
+  display:block;
+  margin-left: 1em;
+}
+
+xf|choices {
+  display:block;
+  margin-left: 1em;
+}
+
+xforms\:select.appearance-minimal pe-value,
+xf\:select.appearance-minimal pe-value,
+xforms\:select1.appearance-minimal pe-value,
+xf\:select1.appearance-minimal pe-value
+{
+    border: 2px inset #f0f0f0;
+    background-color: white;
+}
+
+xforms|select.appearance-minimal pe-value,
+xforms|select1.appearance-minimal pe-value
+{
+    border: 2px inset #f0f0f0;
+    background-color: white;
+}
+
+xforms\:select.appearance-compact .pe-choices,
+xf\:select.appearance-compact .pe-choices,
+xforms\:select1.appearance-compact .pe-choices,
+xf\:select1.appearance-compact .pe-choices {
+  height:4em;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  padding-right:20px;
+}
+
+xforms|select.appearance-compact .pe-choices,
+xforms|select1.appearance-compact .pe-choices {
+  height:4em;
+  overflow-y:scroll;
+  overflow-x:visible;
+}
+
+/*
+  Conceal pe-value for select and select1 appearances that do not need one.
+*/
+xforms\:select.appearance-compact pe-value,
+xf\:select.appearance-compact pe-value,
+xforms\:select.appearance-full pe-value,
+xf\:select.appearance-full pe-value,
+xforms\:select1.appearance-compact pe-value,
+xf\:select1.appearance-compact pe-value,
+xforms\:select1.appearance-full pe-value,
+xf\:select1.appearance-full pe-value {
+  display:none;
+}
+
+xf|select.appearance-full pe-value,
+xf|select.appearance-compact pe-value,
+xf|select1.appearance-full pe-value,
+xf|select1.appearance-compact pe-value {
+  display:none;
+}
+
+/*
+  cancel the above concealment for labels - this also applies to item labels.
+*/
+
+.appearance-full xf\:label pe-value,
+.appearance-compact xf\:label pe-value,
+.appearance-full xforms\:label pe-value, 
+.appearance-compact xforms\:label pe-value {
+  display:inline-block;
+}
+
+.appearance-compact xf\:label pe-value {
+  display:inline-block;
+}
+
+
+.appearance-minimal xf\:item pe-value,
+.appearance-minimal xforms\:item pe-value {
+    border: none;
+    background-color:transparent;
+}
+
+.appearance-minimal xf|item pe-value {
+    border: none;
+    background-color:transparent;
+}
+
+xf\:select1.appearance-minimal xf\:label pe-value, xforms\:select1.appearance-minimal xforms\:label pe-value,
+xf\:select.appearance-minimal xf\:label pe-value, xforms\:select.appearance-minimal xforms\:label pe-value {
+    border: none;
+    background-color: transparent;
+    display:inline-block;
+}
+
+xf|select1.appearance-minimal xf|label pe-value, xforms|select1.appearance-minimal xforms|label pe-value,
+xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal xforms|label pe-value {
+    border: none;
+    background-color: transparent;
+    display:inline-block;
+}
+
+
 .ux-drop-button {
     font-size:1pt;
     display:inline-block;
@@ -580,7 +651,7 @@ xforms|output *[class~="calnavright"], xf|output *[class~="calnavright"] {
 
 .pe-choices
 {
-  cursor:pointer
+  cursor:pointer;
 }
 
 xforms\:control,
@@ -592,3 +663,75 @@ xforms|control,
 xf|control {
     display: none;
 }
+
+
+xforms\:select .pc-deselected, xf\:select .pc-deselected {
+  background-image: url(../select-deselected.png);
+}
+
+xforms|select .pc-deselected {
+  background-image: url(../select-deselected.png);
+}
+
+xforms\:select .pc-selected , xf\:select .pc-selected {
+  background-image: url(../select-selected.png);
+}
+
+xforms|select .pc-selected {
+  background-image: url(../select-selected.png);
+}
+
+xforms\:select xforms\:item, xf\:select xf\:item {
+  background-position:left;
+  background-repeat: no-repeat;
+  text-indent: 14px;
+}
+
+xforms|select xforms|item {
+  background-position:left;
+  background-repeat: no-repeat;
+  text-indent: 14px;
+}
+xforms\:copy, xf\:copy {
+	display:none;
+}
+
+
+xforms\:select1 .pc-deselected, xf\:select1 .pc-deselected {
+  background-image: url(../select1-deselected.png);
+}
+
+xforms|select1 .pc-deselected {
+  background-image: url(../select1-deselected.png);
+}
+
+xforms\:select1 .pc-selected , xf\:select1 .pc-deselected {
+  background-image: url(../select1-selected.png);
+}
+
+xforms|select1 .pc-selected {
+  background-image: url(../select1-selected.png);
+}
+
+xforms\:select1 xforms\:item, xf\:select1 xf\:item {
+  background-position:left;
+  background-repeat: no-repeat;
+  text-indent: 14px;
+}
+
+xforms|select1 xforms|item {
+  background-position:left;
+  background-repeat: no-repeat;
+  text-indent: 14px;
+}
+
+xforms\:select1.appearance-minimal xforms\:item, xf\:select1.appearance-minimal xf\:item {
+  background-image: none;
+  text-indent: 0px;
+}
+
+xforms|select1.appearance-minimal xforms|item {
+  background-image: none;
+  text-indent: 0px;
+}
+
