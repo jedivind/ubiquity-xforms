@@ -46,4 +46,6 @@ We are currently in the process of updating the manually maintained files to inc
 To illustrate, if we wanted to check chapter 7 for tests that Selenium has passed, but developers hadn't, we would look at the following two files:
 
 ||[http://uxf-bb.webbackplane.com:8080/Results/IE7/html/XF11_07_Results.html Manual test results for IE 7]||
-||[http://uxf-bb.webbackplane.com:8080/Results/IE7/xforms11-Chapter7-ie-results.html Selenium test results||
+||[http://uxf-bb.webbackplane.com:8080/Results/IE7/xforms11-Chapter7-ie-results.html Selenium test results]||
+
+Anything that is red in the first file, but green in the second can be marked as passed in the manual files.
