@@ -28,62 +28,98 @@
 				<tr>
 					<td>open</td>
 					<td>../../W3C-XForms-1.1/Edition1/Chapt11/11.1/11.1.n.xhtml</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>waitForText</td>
-					<td>xpath=//xforms:output[@id='status']/pe-value</td>
-					<td>ready</td>
-					<td>&nbsp;</td>
+					<td>pause</td>
+					<td>3000</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>11.1.n encoding attribute of submission element</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:submission[@id='submitA' and @action='http://xformstest.org/cgi-bin/echo.sh' and @method='post']</td>
+					<td></td>
+					<td>Checks that submission has the encoding attribute</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:submission[@id='submitB' and @action='http://xformstest.org/cgi-bin/echo.sh' and @method='post' and @encoding='ISO-8859-1']</td>
+					<td></td>
+					<td>Checks that submission has the encoding attribute</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submitA']</td>
+					<td></td>
+					<td>Checks that submit is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submitB']</td>
+					<td></td>
+					<td>Checks that submit is in the form</td>
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=//xforms:submit[@submission='submitA']/xforms:label</td>
-					<td>&nbsp;</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submitA']/xforms:label</td>
+					<td></td>
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>waitForText</td>
-					<td>xpath=/html/body/h1</td>
-					<td>Form posted data</td>
-					<td>&nbsp;</td>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Waits for the form data page to load</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/pre</td>
-					<td>*xml version="1.0" encoding="UTF-8"*</td>
-					<td>&nbsp;</td>
+					<td>verifyTextPresent</td>
+					<td>*encoding=&quot;UTF-8&quot;*</td>
+					<td></td>
+					<td>Checks that the form data is shown</td>
 				</tr>
 				<tr>
 					<td>open</td>
 					<td>../../W3C-XForms-1.1/Edition1/Chapt11/11.1/11.1.n.xhtml</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>waitForText</td>
-					<td>xpath=//xforms:output[@id='status']/pe-value</td>
-					<td>ready</td>
-					<td>&nbsp;</td>
+					<td>pause</td>
+					<td>3000</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>11.1.n encoding attribute of submission element</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=//xforms:submit[@submission='submitB']/xforms:label</td>
-					<td>&nbsp;</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submitB']/xforms:label</td>
+					<td></td>
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>waitForText</td>
-					<td>xpath=/html/body/h1</td>
-					<td>Form posted data</td>
-					<td>&nbsp;</td>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Waits for the form data page to load</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/pre</td>
-					<td>*xml version="1.0" encoding="ISO-8859-1"*</td>
-					<td>&nbsp;</td>
+					<td>verifyTextPresent</td>
+					<td>*encoding=&quot;ISO-8859-1&quot;*</td>
+					<td></td>
+					<td>Checks that the form data is shown</td>
 				</tr>
 			</tbody>
 		</table>

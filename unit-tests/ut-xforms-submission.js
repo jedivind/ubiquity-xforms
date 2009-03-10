@@ -121,18 +121,18 @@ suiteXFormsSubmission.add(
 				
 				var Assert = YAHOO.util.Assert;
 				var node = getFirstNode(this.model.EvaluateXPath("/car/color"));
-				var string = document.submission.buildGetUrl("", document.submission.serializeURLEncoded(node));
+				var string = document.submission.serializeURLEncoded(node).toString();
 				
-				Assert.areEqual("?color=blue", string);
+				Assert.areEqual("color=blue", string);
 			},
 			
 			testSerializeWhenRefIsNotLeafNode: function() {
 				
 				var Assert = YAHOO.util.Assert;
 				var node = getFirstNode(this.model.EvaluateXPath("/car"));
-				var string = document.submission.buildGetUrl("", document.submission.serializeURLEncoded(node));
+				var string = document.submission.serializeURLEncoded(node).toString();
 				
-				Assert.areEqual("?make=Ford&color=blue", string);
+				Assert.areEqual("make=Ford&color=blue", string);
 			}
 			
 		}));
