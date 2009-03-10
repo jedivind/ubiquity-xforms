@@ -111,14 +111,14 @@ The first step in a driver page will be to open the individual test form that wi
 </tr>
 }}}
 
-Once the form is loaded, UXF will initialise. We can't run any tests until this initialisation is complete, but each form should contain an XForms `output` control which can be used to detect that the UXF has fully initialised. So we use the Selenium `waitForText` command to pause until the form is ready:
+Once the form is loaded, UXF will initialise. We can't run any tests until this initialisation is complete, but each form should contain an XForms `output` control which can be used to detect that the UXF has fully initialised. So we use the UXF Selenium extension command `waitForXformsControlValue` to pause until the form is ready:
 
 {{{
 <tr>
-  <td>waitForText</td>
-  <td>xpath=//xforms:output[@id='status']/pe-value</td>
+  <td>waitForXformsControlValue</td>
+  <td>xpath=//xforms:output[@id='status']</td>
   <td>ready</td>
-  <td>&amp;nbsp;</td>
+  <td>&nbsp;</td>
 </tr>
 }}}
 
