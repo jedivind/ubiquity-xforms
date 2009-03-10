@@ -349,6 +349,7 @@ XNode.prototype.appendChild = function(node) {
 
   // childNodes
   this.childNodes.push(node);
+  return node;
 }
 
 // This version corrects the original by setting the ownerDocument of newNode

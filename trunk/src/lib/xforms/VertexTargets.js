@@ -1,5 +1,5 @@
 /*
- * Copyright © 2008-2009 Backplane Ltd.
+ * Copyright Â© 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -350,9 +350,7 @@ ProxyNode.prototype.getMIPState = function(sMIPName)
 
 ProxyNode.prototype.getNode = function()
 {
-	var oRet = this.m_oNode;
-
-	return oRet;
+	return this.m_oNode;
 };
 
 ProxyNode.prototype.getType = function()
@@ -375,6 +373,32 @@ ProxyNode.prototype.getValue = function()
 
 	return sRet;
 };
+
+
+ProxyNode.prototype.removeChild = function(node, caller) {
+	if (this.m_oNode.nodeType === DOM_ELEMENT_NODE) {
+		if (!this.readonly.getValue()) {
+			this.m_oNode.removeChild(node);
+			return true;
+		}
+	} else {
+			UX.dispatchEvent(caller, "xforms-binding-exception", true, false);
+	}
+	return false;
+}
+
+ProxyNode.prototype.appendChild = function(node, caller) {
+
+	if (this.m_oNode.nodeType === DOM_ELEMENT_NODE) {
+		if (!this.readonly.getValue()) {
+			return this.m_oNode.appendChild(node);
+		}
+	} else {
+			UX.dispatchEvent(caller, "xforms-binding-exception", true, false);
+	}
+	return null;
+	
+}
 
 ProxyNode.prototype.setValue = function(sVal, oModel)
 {

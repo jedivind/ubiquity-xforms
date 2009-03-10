@@ -135,7 +135,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "output-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, OptionalBinding]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, OptionalIfUnspecifiedBinding]);
             }
         }
         ],
@@ -171,7 +171,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "select-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, Select]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, XFormsCommonSelect,  ElementWithChoices, XFormsSelect, FiniteControl]);
             }
         }
         ],
@@ -180,7 +180,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "select1-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, XFormsSelect1, FiniteControl]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, XFormsCommonSelect, ElementWithChoices, XFormsSelect1, FiniteControl]);
             }
         }
         ],
@@ -253,6 +253,15 @@ DECORATOR.addDecorationRules({
             "name" : "value-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding, Value]);
+            }
+        }
+        ],
+        
+        "copy" : [
+        {
+            "name" : "copy-element",
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([EventTarget, Context, Control, OptionalBinding, Copy]);
             }
         }
         ],
@@ -728,6 +737,10 @@ DECORATOR.setupDecorator(
 			selector:"xf|value",
 			objects:[]
 		},
+		{
+			selector:"xf|copy",
+			objects:[]
+		},
 
 		{
 			selector:"xf|input > pe-value",
@@ -939,14 +952,7 @@ DECORATOR.setupDecorator(
             selector:"xf|mediatype >  pe-value",
             objects:[]
         },       
-        {
-            selector:"xf|select1 > xf|item, xf|select1 > xf|itemset",
-            cssText:"-moz-binding:url();"
-        },        
-        {
-            selector:"xf|select1 > xf|item *, xf|select1 > xf|itemset *",
-            cssText:"-moz-binding:url();"
-        },
+    
         
     //Switch off bindings within repeat, during load-time (FF )
         {

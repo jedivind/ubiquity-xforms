@@ -132,6 +132,7 @@ var suiteSelect1 = function () {
       DECORATOR.extend(this.select1, new EventTarget(this.select1), false);
       DECORATOR.extend(this.select1, new Context(this.select1), false);
       DECORATOR.extend(this.select1, new Control(this.select1), false);
+      DECORATOR.extend(this.select1, new XFormsCommonSelect(this.select1), false);
       DECORATOR.extend(this.select1, new XFormsSelect1(this.select1), false);
       DECORATOR.extend(this.select1, new FiniteControl(this.select1), false);
 

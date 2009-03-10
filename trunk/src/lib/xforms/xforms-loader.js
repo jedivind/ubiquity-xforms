@@ -155,10 +155,17 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "finite-control",             type: "js",  fullpath: moduleBase + "finite-control.js"});
     
   	      
+  	loader.addModule({ name: "xforms-common-select",             type: "js",  fullpath: moduleBase + "commonselect.js",
+  	    	requires:["xforms-dropbox-yui"]});
+  	loader.addModule({ name: "xforms-select1",             type: "js",  fullpath: moduleBase + "select1.js",
+  	    	requires:["xforms-dom2events", "backplane-select", "finite-control", "xforms-common-select"]});
   	loader.addModule({ name: "xforms-select",             type: "js",  fullpath: moduleBase + "select.js",
-  	    	requires:["xforms-dom2events", "backplane-select", "finite-control","xforms-dropbox-yui"]});
+  	    	requires:["xforms-dom2events", "backplane-select", "finite-control","xforms-common-select"]});
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
   	    	requires:["xforms-dom2events"]});
+  	loader.addModule({ name: "xforms-copy",             type: "js",  fullpath: moduleBase + "copy.js",
+  	    	requires:["xforms-dom2events"]});
+  	    	
 
     loader.addModule({ name: "xforms-submit",             type: "js",  fullpath: moduleBase + "submit.js"});
 
@@ -218,7 +225,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-action", "xforms-context", "xforms-control", "xforms-optional-binding",
         "xforms-pe-value", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
-        "xforms-select","xforms-item",
+        "xforms-select","xforms-select1", "xforms-item", "xforms-copy",
         "xforms-actions","xforms-model-actions",
         "xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
         "xforms-toggle", 

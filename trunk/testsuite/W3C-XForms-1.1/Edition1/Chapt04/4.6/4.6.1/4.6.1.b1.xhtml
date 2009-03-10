@@ -12,32 +12,32 @@
     <xforms:model>
       <xforms:instance>
         <car>
-          <make/>
-          <vin/>
-          <color/>
+          <make></make>
+          <vin></vin>
+          <color></color>
         </car>
       </xforms:instance>
-      <xforms:bind id="bind1" nodeset="/car/make"/>
-      <xforms:bind id="bind2" nodeset="/car/vin"/>
-      <xforms:bind id="bind3" nodeset="/car/color"/>
-      <xforms:bind id="bind14" nodeset="/car/price"/>
+      <xforms:bind id="bind1" nodeset="/car/make"></xforms:bind>
+      <xforms:bind id="bind2" nodeset="/car/vin"></xforms:bind>
+      <xforms:bind id="bind3" nodeset="/car/color"></xforms:bind>
+      <xforms:bind id="bind14" nodeset="/car/price"></xforms:bind>
       <xforms:action ev:event="xforms-recalculate">
-      	<xforms:insert at="index('repeat_event_tracker')" position="after" nodeset="/et:events/et:event" model="event_tracker"/>
+      	<xforms:insert at="index('repeat_event_tracker')" position="after" nodeset="/et:events/et:event" model="event_tracker"></xforms:insert>
         <xforms:setvalue model="event_tracker" ref="/et:events/et:event[index('repeat_event_tracker')]/@name">xforms-recalculate</xforms:setvalue>
       </xforms:action>
       <xforms:action ev:event="xforms-revalidate">
-      	<xforms:insert at="index('repeat_event_tracker')" position="after" nodeset="/et:events/et:event" model="event_tracker"/>
+      	<xforms:insert at="index('repeat_event_tracker')" position="after" nodeset="/et:events/et:event" model="event_tracker"></xforms:insert>
         <xforms:setvalue model="event_tracker" ref="/et:events/et:event[index('repeat_event_tracker')]/@name">xforms-revalidate</xforms:setvalue>
       </xforms:action>
       <xforms:action ev:event="xforms-refresh">
-      	<xforms:insert at="index('repeat_event_tracker')" position="after" nodeset="/et:events/et:event" model="event_tracker"/>
+      	<xforms:insert at="index('repeat_event_tracker')" position="after" nodeset="/et:events/et:event" model="event_tracker"></xforms:insert>
         <xforms:setvalue model="event_tracker" ref="/et:events/et:event[index('repeat_event_tracker')]/@name">xforms-refresh</xforms:setvalue>
       </xforms:action>
     </xforms:model>
     <xforms:model id="event_tracker">
       <xforms:instance id="tracker_instance">
       	<et:events>
-      	   <et:event name=""/>
+      	   <et:event name=""></et:event>
       	</et:events>
       </xforms:instance>
     </xforms:model>
@@ -68,19 +68,19 @@
     	<xforms:trigger>
     		<xforms:label>Test input</xforms:label>
     		<xforms:setvalue ev:event="DOMActivate" ref="/car/make">Honda</xforms:setvalue>
-    		<xforms:setfocus ev:event="DOMActivate" control="secret1"/>
+    		<xforms:setfocus ev:event="DOMActivate" control="secret1"></xforms:setfocus>
     	</xforms:trigger>
     	
     	<xforms:trigger>
     		<xforms:label>Test secret</xforms:label>
     		<xforms:setvalue ev:event="DOMActivate" ref="/car/vin">1337</xforms:setvalue>
-    		<xforms:setfocus ev:event="DOMActivate" control="input1"/>
+    		<xforms:setfocus ev:event="DOMActivate" control="input1"></xforms:setfocus>
     	</xforms:trigger>
     	
     	<xforms:trigger>
     		<xforms:label>Test textarea</xforms:label>
     		<xforms:setvalue ev:event="DOMActivate" ref="/car/color">blue</xforms:setvalue>
-    		<xforms:setfocus ev:event="DOMActivate" control="input1"/>
+    		<xforms:setfocus ev:event="DOMActivate" control="input1"></xforms:setfocus>
     	</xforms:trigger>
     </xforms:group>	
     

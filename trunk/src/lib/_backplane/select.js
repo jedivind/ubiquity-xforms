@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,12 +30,23 @@ function CommonSelect() {
       this.currentDisplayValue = sValue;
       var retval = null;
       var theItem = null; 
+      var i;
       if(this.items) {
         //get the item from the map,
         theItem = this.items[sValue];
         //if it's an array, get the first one.
-        if(theItem instanceof Array) {
-          theItem = theItem[0];
+        if (UX.isArray(theItem)) {
+            if (typeof sValue === "object") {
+                for (i = 0; i < theItem.length; ++i) {
+                    if (UX.isEquivalentNode(theItem[i].getValue(), sValue)) {
+                        theItem = theItem[i];
+                        break;
+                    }
+                }
+             }
+             else {
+                 theItem = theItem[0];
+             }
         }
         
         if(theItem) {

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2008-9 Backplane Ltd.
+ * Copyright Â© 2008-9 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -276,7 +276,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
  *  Utility method to create a event and dispatch it on the target
  */
     UX.dispatchEvent = function(oTarget, sEventName, bBubble, bCancel, bSpawn) {
-       var oEvent = oTarget.ownerDocument.createEvent("Events");
+       var oEvent = document.createEvent("Events");
        oEvent.initEvent(sEventName, bBubble, bCancel);   
         
        if (bSpawn) {
@@ -437,6 +437,23 @@ UX.type = function(o) {
 UX.isNodeReadonly = function(oNode) {
   return (oNode && oNode.m_proxy && oNode.m_proxy.readonly && oNode.m_proxy.readonly.value);
 };
+
+//an imperfect implementation of an isEquivalentNode function, which would check namespaces and node types 
+//	(a text node containing "<x />" is equivalent to an empty "x" element, according to this function).
+//	If it is required to do anything more, it will need to be improved.
+UX.isEquivalentNode = function(lhs, rhs) {
+	return xmlText(lhs) === xmlText(rhs);
+};
+
+UX.isArray = function (v) {
+    return (v && v === "object" &&
+    	typeof v.length === "number" &&
+    	typeof v.splice === "function" &&
+    	!v.propertyIsEnumerable("length"));
+};
+
+
+
 
 /**
  *  Utility method to construct an object that inherits (prototypically) from a given object. 
