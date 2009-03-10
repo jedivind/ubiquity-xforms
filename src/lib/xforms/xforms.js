@@ -112,7 +112,10 @@ function doUpdate() {
   var ns, len, m, i;
   ns = NamespaceManager.getElementsByTagNameNS(document, "http://www.w3.org/2002/xforms", "model");
   len = ns.length;
-  
+  //This may be a forced update, within setfocus or setindex
+  // If so, re... events may not work correctly, 
+  var storedUpdateDepth = g_DeferredUpdateDepth;
+  g_DeferredUpdateDepth = 0;
   for (i = 0; i < len; ++i) {
     m = ns[i];
     // There is a chance that a model has been inserted into the document
@@ -131,7 +134,9 @@ function doUpdate() {
        debugger;
     }
   }
+  g_DeferredUpdateDepth = storedUpdateDepth;
 }
+
 function IncrementDeferredUpdate() {
   ++g_DeferredUpdateDepth;
 }
