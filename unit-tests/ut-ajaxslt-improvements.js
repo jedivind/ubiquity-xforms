@@ -3,10 +3,12 @@
 		var Assert = YAHOO.util.Assert;
 		var xmlDoc,
 		    xmlString = [
-					'<name>',
-					'Donald Duck',
-					'</name>'
-				].join('');
+				'<foo>',
+					'<bar>hello</bar>',
+					'<baz>world</baz>',
+					'<koda>basanda<bosoya>umahasha</bosoya>tikki<ottobo></ottobo></koda>'
+				'</foo>'
+			].join('');
 
 		var suite = new YAHOO.tool.TestSuite({
 			name: "AJAXSLT Extensions"
@@ -32,20 +34,20 @@
 						xmlDoc.firstChild
 					);
 					Assert.areEqual("<?xml version='1.0' encoding='ISO-8859-1'?>" + xmlString, xmlText(xmlDoc));
-		    },
+				},
 
-				// A lot of examples you see on the web have a leading space before "version".
-				// We trim leading and trailing whitespace to make it easier to compare documents.
-				// But we might as well test this feature.
-				//
 				testAddXMLPIWithLeadingSpaces : function () {
 					xmlDoc.insertBefore(
 						xmlDoc.createProcessingInstruction("xml", "   version='1.0' encoding='ISO-8859-1'   "),
 						xmlDoc.firstChild
 					);
 					Assert.areEqual("<?xml version='1.0' encoding='ISO-8859-1'?>" + xmlString, xmlText(xmlDoc));
-		    }
-		  })//new TestCase
+				},
+
+				testCDATA : function () {
+					Assert.areEqual("<foo><bar><![CDATA[hello]]></bar><baz>world</baz><koda><![CDATA[basanda]]><bosoya>umahasha</bosoya><![CDATA[tikki]]><ottobo></ottobo><![CDATA[]]></koda></foo>", xmlText(xmlDoc, [ "bar", "koda" ]));
+				}
+			})
 		);
 
 		// Add our test suite to the test runner.
