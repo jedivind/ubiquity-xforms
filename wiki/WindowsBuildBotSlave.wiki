@@ -1,5 +1,5 @@
 #summary Notes about creating a BuildBot slave on Windows.
-#labels Phase-QA
+#labels Phase-QA,HowTo
 
 = Introduction =
 
