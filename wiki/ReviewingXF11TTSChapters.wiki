@@ -7,7 +7,10 @@ As we get closer to completing XForms 1.1 support, we need to keep track of wher
 
 = Details =
 
-We are still in the process of automating our tests, and until that happens, we have two sources of information about which tests pass.
+We are still in the process of automating our tests, and until that happens, we have two sources of information about which tests pass:
+
+  * manually maintained chapter status files;
+  * Selenium-generated chapter status files.
 
 == Manually maintained chapter status files ==
 
@@ -27,3 +30,9 @@ The generated files are in the same directories as above ( [http://uxf-bb.webbac
 {{{
 xforms11-Chapter7-ie-results.html
 }}}
+
+== 'Missing' passing tests ==
+
+Since not all tests will necessarily have been run, then it is possible that there are tests listed in the manually maintained documents that could be passed, but are still marked as failing.
+
+We are currently in the process of updating the manually maintained files to include any new information we've obtained by running the automated tests. I.e., if a test shows green on the Selenium-generated files but red on the manual files, we can safely update the manual file.
