@@ -315,6 +315,7 @@ submission.prototype.submit = function(oSubmission) {
     var validation = oSubmission.getAttribute("validate") ? (oSubmission.getAttribute("validate") !== "false") : (sSerialization !== "none");
     var submitDataList = [ ];
     var oForm;
+    var cdataSectionElements = oSubmission.getAttribute("cdata-section-elements") ? oSubmission.getAttribute("cdata-section-elements").split(" ") : false;
  
     /*
      * XForms 1.0
@@ -429,25 +430,25 @@ submission.prototype.submit = function(oSubmission) {
 	case "get":
 		sMethod = "GET";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
 		break;
 
 	case "form-data-post":
 		sMethod = "POST";
 		sSerialization = sSerialization || "multipart/form-data";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
 		break;
 
 	case "urlencoded-post":
 		sMethod = "POST";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
 		break;
 
 	case "post":
 		sMethod = "POST";
 		sSerialization = "application/xml";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
         
 		//
 		// build SOAP Header information
@@ -461,13 +462,13 @@ submission.prototype.submit = function(oSubmission) {
 	case "put":
 		sMethod = "PUT";
 		sSerialization = "application/xml";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
 		break;
 		
 	case "delete":
 		sMethod = "DELETE";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
 		break;
 
     default:
@@ -582,7 +583,8 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
     return true;
 }
 
-submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, encoding) {
+submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, encoding, cdataSectionElements) {
+	var serialization = "";
 	var xmlDoc = this.constructSubmitDataListDOM(submitDataList);
 
 	// For XML serialisation just return an XML document.
@@ -595,7 +597,7 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 			xmlDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + encoding + "\""),
 			xmlDoc.firstChild
 		);
-		return xmlText(xmlDoc);
+		return xmlText(xmlDoc, cdataSectionElements);
 	}
 
 	// For HTML forms-compatible serialisations, create a set of URL encoded name/value pairs.

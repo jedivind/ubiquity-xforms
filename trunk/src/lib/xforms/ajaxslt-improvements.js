@@ -499,19 +499,29 @@ XNode.prototype.setAttribute = function(name, value) {
   newAttr.parentNode = this;
 };
 
-// Enhancements to support processing instructions.
-//
-// This is completely new, in that it doesn't override anything.
-//
 XDocument.prototype.createProcessingInstruction = function(target, data) {
   return XNode.create(DOM_PROCESSING_INSTRUCTION_NODE, '#processing-instruction', target + " " + data.replace(/^\s\s*/, '').replace(/\s\s*$/, ''), this);
-}
+};
 
-// This method already existed, but the last few lines have been added.
-//
 function xmlTextR(node, buf, cdata) {
+  var i, parentNodeName, elementContainsCDATA, a;
   if (node.nodeType == DOM_TEXT_NODE) {
-    buf.push(xmlEscapeText(node.nodeValue));
+    elementContainsCDATA = false;
+    if (cdata && typeof cdata === 'object' && typeof cdata.length === 'number' && typeof cdata.splice === 'function' && !cdata.propertyIsEnumerable('length')) {
+      parentNodeName = xmlFullNodeName(node.parentNode);
+      for (i = 0; i < cdata.length; ++i) {
+        if (parentNodeName === cdata[i]) {
+          elementContainsCDATA = true;
+          break;
+        }
+      }
+    }
+
+    if (elementContainsCDATA) {
+      buf.push('<![CDATA[' + xmlEscapeText(node.nodeValue) + ']]>');
+    } else {
+      buf.push(xmlEscapeText(node.nodeValue));
+    }
 
   } else if (node.nodeType == DOM_CDATA_SECTION_NODE) {
     if (cdata) {
@@ -525,8 +535,8 @@ function xmlTextR(node, buf, cdata) {
 
   } else if (node.nodeType == DOM_ELEMENT_NODE) {
     buf.push('<' + xmlFullNodeName(node));
-    for (var i = 0; i < node.attributes.length; ++i) {
-      var a = node.attributes[i];
+    for (i = 0; i < node.attributes.length; ++i) {
+      a = node.attributes[i];
       if (a && a.nodeName && a.nodeValue) {
         buf.push(' ' + xmlFullNodeName(a) + '="' +
                  xmlEscapeAttr(a.nodeValue) + '"');
@@ -537,7 +547,7 @@ function xmlTextR(node, buf, cdata) {
       buf.push('/>');
     } else {
       buf.push('>');
-      for (var i = 0; i < node.childNodes.length; ++i) {
+      for (i = 0; i < node.childNodes.length; ++i) {
         arguments.callee(node.childNodes[i], buf, cdata);
       }
       buf.push('</' + xmlFullNodeName(node) + '>');
@@ -545,12 +555,10 @@ function xmlTextR(node, buf, cdata) {
 
   } else if (node.nodeType == DOM_DOCUMENT_NODE ||
              node.nodeType == DOM_DOCUMENT_FRAGMENT_NODE) {
-    for (var i = 0; i < node.childNodes.length; ++i) {
+    for (i = 0; i < node.childNodes.length; ++i) {
       arguments.callee(node.childNodes[i], buf, cdata);
     }
-	/* Added code starts */
   } else if (node.nodeType == DOM_PROCESSING_INSTRUCTION_NODE) {
     buf.push('<?' + node.nodeValue + '?>');
-	/* Added code ends */
   }
 }
