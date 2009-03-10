@@ -32,10 +32,10 @@
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>3000</td>
-					<td></td>
-					<td>Waits for the form to load</td>
+					<td>waitForXformsControlValue</td>
+					<td>xpath=//xforms:output[@id='status']</td>
+					<td>ready</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
@@ -56,7 +56,7 @@
 					<td>Checks that the input is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyValue</td>
+					<td>assertXformsControlValue</td>
 					<td>xpath=/html/body/xforms:input[@xmlns:ex='http://example.org' and @ref='/ex:Root']/pe-value/input</td>
 					<td>Mazda</td>
 					<td>Checks that the input has the right value</td>
@@ -68,7 +68,7 @@
 					<td>Try to type another text into the readonly field</td>
 				</tr>
 				<tr>
-					<td>verifyValue</td>
+					<td>verifyXformsControlValue</td>
 					<td>xpath=/html/body/xforms:input[@xmlns:ex='http://example.org' and @ref='/ex:Root']/pe-value/input</td>
 					<td>Mazda</td>
 					<td>Checks that the input has the right value</td>
