@@ -70,7 +70,7 @@ submission.prototype.init = function() {
 submission.prototype.processResult = function(oResult, isFailure, 
                                               oObserver, oContext) {
 
-    var sData, sReplace, sInstance, oInstance, oEvt, oNewDom, contentType = "", sTarget, oTargetContext, oTarget; 
+    var sData, sReplace, sInstance, oInstance, oEvt, oNewDom, contentType = "", sTarget, oTargetContext, oTarget, newXhtml; 
     
     if (oObserver) {
         var oEvt = oObserver.ownerDocument.createEvent("Events");
@@ -122,16 +122,19 @@ submission.prototype.processResult = function(oResult, isFailure,
                     oObserver.ownerDocument.logger.log(
                             "@replace = 'all'", "submission");
 
-                    if (UX.isIE) {
-                        document.write(sData);
-                    } else {
-                        if (UX.isFF) {
-                            // on FF, <?xml version="1.0"?> needs to be factored out
-                            if (sData.indexOf("<?", 0) === 0) {
-                                sData = sData.substr(sData.indexOf("?>") + 2);
-                            }
+                    if (UX.isFF) {
+                        // on FF, <?xml version="1.0"?> needs to be factored out
+                        if (sData.indexOf("<?", 0) === 0) {
+                            sData = sData.substr(sData.indexOf("?>") + 2);
                         }
-                        document.documentElement.innerHTML = sData;
+                    }
+
+                    if (UX.isXHTML) {
+                      newXhtml = document.createElement("div");
+                      newXhtml.innerHTML = sData;
+                      document.documentElement.innerHTML = newXhtml.getElementsByTagName("html")[0].innerHTML;
+                    } else {
+                      document.write(sData);
                     }
                     break;
 
@@ -299,7 +302,7 @@ submission.prototype.submit = function(oSubmission) {
     var instance;
     var sMethod = null;
     var sMediatype = oSubmission.getAttribute("mediatype");
-    var sEncoding = oSubmission.getAttribute("encoding");
+    var sEncoding = oSubmission.getAttribute("encoding") || "UTF-8";
     var sSerialization = oSubmission.getAttribute("serialization");
     var oBody;
     var oContext;
@@ -425,19 +428,19 @@ submission.prototype.submit = function(oSubmission) {
 	case "get":
 		sMethod = "GET";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
 		break;
 
 	case "urlencoded-post":
 		sMethod = "POST";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
 		break;
 
 	case "post":
 		sMethod = "POST";
 		sSerialization = "application/xml";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
         
 		//
 		// build SOAP Header information
@@ -451,13 +454,13 @@ submission.prototype.submit = function(oSubmission) {
 	case "put":
 		sMethod = "PUT";
 		sSerialization = "application/xml";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
 		break;
 		
 	case "delete":
 		sMethod = "DELETE";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding);
 		break;
 
     default:
@@ -565,11 +568,18 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
     return true;
 }
 
-submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat) {
+submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, encoding) {
 	var serialization = "";
 	var xmlDoc = this.constructSubmitDataListDOM(submitDataList);
-	
+
+	encoding = encoding || "UTF-8";
+
 	if (serializationFormat === "application/xml") {
+		this.setHeader("Content-Type", serializationFormat + "; charset=" + encoding);
+		xmlDoc.insertBefore(
+			xmlDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + encoding + "\""),
+			xmlDoc.firstChild
+		);
 		serialization = xmlText(xmlDoc);
 	} else if (serializationFormat === "application/x-www-form-urlencoded") {
 		serialization = this.serializeURLEncoded(xmlDoc); 
