@@ -32,10 +32,10 @@
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>3000</td>
-					<td></td>
-					<td>Waits for the form to load</td>
+					<td>waitForXformsControlValue</td>
+					<td>xpath=//xforms:output[@id='status']</td>
+					<td>ready</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
@@ -63,19 +63,19 @@
 				</tr>
 				<tr>
 					<td>verifyNotVisible</td>
-					<td>xpath=/html/body/xforms:input[@ref='/person-name/first-name/title']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/first-name/title']</td>
 					<td></td>
 					<td>Checks that this input is not visible</td>
 				</tr>
 				<tr>
 					<td>verifyNotVisible</td>
-					<td>xpath=/html/body/xforms:input[@ref='/person-name/first-name/name']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/first-name/name']</td>
 					<td></td>
 					<td>Checks that this input is not visible</td>
 				</tr>
 				<tr>
 					<td>verifyVisible</td>
-					<td>xpath=/html/body/xforms:input[@ref='/person-name/last-name']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:input[@ref='/person-name/last-name']</td>
 					<td></td>
 					<td>Checks that this input is visible</td>
 				</tr>
