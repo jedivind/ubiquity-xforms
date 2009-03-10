@@ -305,12 +305,12 @@ function _getBoundNode(pThis, nOrdinal) {
                 var oRefNode = 
                     getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
 
-                if (!oRefNode) {
+                if (!oRefNode && pThis.m_model.constructingUI) {
                     // Lazy authoring, 
                     // get the default instance
                     var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
 
-                    if (oInstDoc) {
+                    if (oInstDoc && oInstDoc.isLazilyAuthored) {
                         // Actually we need to check for the QName is valid  but
                         // it seems that createElement will accept any QName (valid or not)                
                         oRefNode = oInstDoc.createElement(sRef);
@@ -373,11 +373,11 @@ function _getDefaultInstanceDocument(oModel) {
      }
     
     oModel.appendChild(instanceNode);
-    
     if (UX.isIE || !UX.hasDecorationSupport) {
         // Force immediate decoration of instance element for IE and
         // browser that doesn't support decoration
         DECORATOR.attachDecoration(instanceNode, true, true);
     }
+    instanceNode.m_oDOM.isLazilyAuthored = true;
     return oModel.getInstanceDocument();
 }
