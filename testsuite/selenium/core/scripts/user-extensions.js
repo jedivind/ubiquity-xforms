@@ -120,6 +120,13 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 	return element.getValue();
 };
 
+Selenium.prototype.isModelReady = function(locator) {
+	var doc = this.page();
+	var element = doc.findElement(locator);
+
+	return element.m_bXFormsReadyFired;
+};
+
 Selenium.prototype.findEffectiveStyleProperty = function(element, property) {
 	var propertyValue = "";
 	if (selenium.browserbot.getCurrentWindow().getComputedStyle){
