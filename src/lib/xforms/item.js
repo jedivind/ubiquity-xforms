@@ -22,23 +22,29 @@ function Value(elmnt) {
 }
 
 Value.prototype.onContentReady = function () {
-	var ownerSelect = this.element.parentNode.getOwnerSelect()
-	if (ownerSelect) {
-    	ownerSelect.addItem(this.element.parentNode,this.getValue());
+	var ownerSelect;
+	if (typeof this.element.parentNode.getOwnerSelect === "function") {
+		ownerSelect = this.element.parentNode.getOwnerSelect();
+		if (ownerSelect) {
+			ownerSelect.addItem(this.element.parentNode,this.getValue());
+		}
 	}
 };
 
 
 Value.prototype.setValue = function (s) {
-	var ownerSelect = this.element.parentNode.getOwnerSelect()
-	if (this.m_sValue !== s) {
-		if (ownerSelect) {
-		  // When the value of an xf:value element changes, this must be reflected
-		  //  in the select or select1 to which it is bound. 
-			ownerSelect.removeItem(this.element.parentNode,this.m_sValue);
-			this.m_sValue = s;
-			ownerSelect.addItem(this.element.parentNode,s);
-			ownerSelect.refreshDisplayValue();
+	var ownerSelect;
+	if (typeof this.element.parentNode.getOwnerSelect === "function") {
+		ownerSelect = this.element.parentNode.getOwnerSelect()
+		if (this.m_sValue !== s) {
+			if (ownerSelect) {
+			  // When the value of an xf:value element changes, this must be reflected
+			  //  in the select or select1 to which it is bound. 
+				ownerSelect.removeItem(this.element.parentNode,this.m_sValue);
+				this.m_sValue = s;
+				ownerSelect.addItem(this.element.parentNode,s);
+				ownerSelect.refreshDisplayValue();
+			}
 		}
 	}
 };

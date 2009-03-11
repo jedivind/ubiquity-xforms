@@ -86,11 +86,7 @@ Repeat.prototype.addcontroltomodel = function ()	{
     var oModel = getModelFor(this);
     if (oModel) {
       oModel.addControl(this);
-    } else {
-      debugger;
-    }
-  } else { /* shouldn't be called twice */
-    debugger;
+    } 
   }    
 };
 
