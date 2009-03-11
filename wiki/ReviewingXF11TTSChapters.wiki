@@ -58,3 +58,12 @@ Some guidance on how to address these kinds of issues is at r2317, which explain
 
   * indicate that the XForms processor has been loaded and initialised, by adding an `xf:output` to the end of the form;
   * use this `xf:output` in a driver page, so that the test can wait until the XForms processor has been initialised before continuing.
+
+== Tests that are blocking automation because they require human intervention ==
+
+There are some tests in the test-suite that require some kind of intervention in order to proceed. There is no general solution to this, and each test needs to be looked at on a case-by-case basis. Types of issues will be:
+
+  * a debugger command that was lurking in the code has been hit. In general we should replace these with `throw`;
+  * a bug in the code opening the debugger. In the short term it's probably best to disable the debugger on the Buildbot slave running the tests;
+  * an alert message that is not being acknowledged. Selenium allows us to 'click' alert messages (although you would expect them to timeout, so this may no longer be an issue after the recent upgrade to Selenium);
+  * _add any other bits of useful information here._
