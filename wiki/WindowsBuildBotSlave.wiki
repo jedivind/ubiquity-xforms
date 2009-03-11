@@ -135,28 +135,6 @@ http://uxf-bb.webbackplane.com:8080/builders/full-ie7-test
 
 _Note: The slave will show up, but the step to add admin and host info hasn't been added yet, so the information will just be default information._
 
-= Testing Firefox =
+== Configure your browsers ==
 
-Install Firefox onto the slave machine. The latest stable version is always available from the [http://firefox.com Firefox home-page]. Make sure not to tick 'make this my default browser', if you also plan to test with Internet Explorer on the same machine.
-
-If you are using FF3, and want to run tests locally -- and a Buildbot slave will need this capability -- then Firefox needs to be told to allow local files to be regarded as coming from the 'same origin'. To do this, navigate to:
-{{{
-about:config
-}}}
-and acknowledge the warning. When the list of options is shown, filter on:
-{{{
-strict_origin_policy
-}}}
-You should be left with one option:
-{{{
-security.fileuri.strict_origin_policy
-}}}
-If it is already set to `false` then there is nothing to do, but if it is `true`, double-click on the option to toggle its value.
-
-When the Selenium tests run on a Buildbot slave they will close Firefox when they are finished. FF3 does not allow this behaviour by default, so once again a setting will need to be changed; set:
-{{{
-dom.allow_scripts_to_close_windows
-}}}
-to `true`.
-
-The first time the Selenium tests are run on a Buildbot slave there is a security message that needs to be acknowledged. This gives Firefox permission to save the test output to a local file. Provided the check-box for 'remembering' the value is set, then this will not need to be done again.
+Information about how to set up your browsers so that they can be used for testing is available at ConfiguringBrowsersForTests.
