@@ -103,7 +103,7 @@ You should see version 1.7.1.
 
 Change directory to the Buildbot directory created above (`c:\Documents and Settings\buildbot`), and type the following command:
 {{{
-buildbot create-slave full ec2-174-129-107-106.compute-1.amazonaws.com:9989 win32-full password
+buildbot create-slave full uxf-bb.webbackplane.com:9989 win32-full password
 }}}
 The server name and port number are fixed, because they represent the Ubiquity XForms master. The slave name and password (the last two parameters) will have been agreed at the beginning (see _Introduction_, above). The directory into which to install the slave files is set to `full` and is relative to the current directory.
 
@@ -121,13 +121,13 @@ buildbot start .
 }}}
 After a short wait the list of slaves should include the freshly added slave:
 {{{
-http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/buildslaves
+http://uxf-bb.webbackplane.com:8080/buildslaves
 }}}
 If the slave has been added correctly then it should show up in the list with the comment _Slave is currently connected_.
 
 To check the admin and host information that was added, look for the slave on its corresponding builder's page. For example, if the slave had been added to the builder `full-ie7-test` then its details should show up here:
 {{{
-http://ec2-174-129-107-106.compute-1.amazonaws.com:8080/builders/full-ie7-test
+http://uxf-bb.webbackplane.com:8080/builders/full-ie7-test
 }}}
 
 = Testing Firefox =
