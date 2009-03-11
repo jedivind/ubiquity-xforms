@@ -25,5 +25,7 @@ IF [%1]==[ff] SET TEST_SUITE_CMD="C:\Program Files\Mozilla Firefox\firefox.exe" 
 :: Run the test(s)
 %TEST_SUITE_CMD%
 
-:: 
-:: ant -f "testsuite\build.xml"
+:: Move the Selenium produced files to the correct 'Results' directory so they can be merged by merge-selenium-build.xml
+:: CD /d %~dp0
+:: IF [%1]==[ie] move /Y xforms11-*-ie-results.html W3C-XForms-1.1\Edition1\driverPages\Results\IE7
+:: IF [%1]==[ff] move /Y xforms11-*-ff-results.html W3C-XForms-1.1\Edition1\driverPages\Results\FF3
