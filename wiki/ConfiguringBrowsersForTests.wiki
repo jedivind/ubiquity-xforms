@@ -1,0 +1,51 @@
+#summary How to configure your browser to run tests on your machine.
+
+= Introduction =
+
+This page describes the configuration settings required to run tests in the various browsers, on your machine.
+
+= Selenium =
+
+Selenium tests involve an XForms, some driver files and the Selenium library itself. The various files can be in various locations, but usually they will all be running on your local machine.
+
+== Firefox 3 ==
+
+To run Selenium tests against Firefox 3, ensure that you have the latest stable version, which is always available from the [http://firefox.com Firefox home-page]. If you also plan to test with Internet Explorer on the same machine, then when installing Firefox, ensure that the 'make this my default browser' option is _not_checked.
+
+=== Running tests locally ===
+
+If you want to run the tests from local files -- and if you are setting up a Buildbot slave you'll need this capability -- Firefox needs to be told to allow local files to be regarded as coming from the 'same origin'. To do this, navigate to:
+
+{{{
+about:config
+}}}
+
+and acknowledge the warning. When the list of options is shown, filter on:
+
+{{{
+strict_origin_policy
+}}}
+
+You should be left with one option:
+
+{{{
+security.fileuri.strict_origin_policy
+}}}
+
+If it is already set to `false` then there is nothing to do, but if it is `true`, double-click on the option to toggle its value.
+
+=== Automatically closing Firefox when the tests are complete ===
+
+When the Selenium tests are run on a Buildbot slave they will close Firefox when they are finished. However, FF3 does not allow this behaviour by default, so once again, if you are setting up a Buildbot slave you'll need to change another setting; the property:
+
+{{{
+dom.allow_scripts_to_close_windows
+}}}
+
+needs to be set to `true`.
+
+=== Saving the test results ===
+
+If you ask Selenium to save the test results, then the first time the tests are run there will be a security message that needs to be acknowledged. This gives Firefox permission to save the test output to a local file. Provided the check-box for 'remembering' the value is set, then this will not need to be done again.
+
+If you are setting up a Buildbot slave then you'll need to run some tests that cause this prompt to be shown, so that you can acknowledge it; that way the Buildbot tests won't be blocked whilst the browser is waiting for acknowledgement.
