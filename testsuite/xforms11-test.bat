@@ -6,9 +6,9 @@
 ::
 :: So, to run from command line (C:\Work\SVN\ubiquity_xforms_lib): 
 ::
-::   xforms-test.bat ff Chapter 2 true
+::   xforms-test.bat ff Chapter 2 true base
 ::   or
-::   xforms-test.bat ie Appendix B false
+::   xforms-test.bat ie Appendix B false base
 ::
 
 SET TEST_SUITE_CMD=
@@ -19,8 +19,8 @@ SET TEST_SUITE_CMD=
 :: FF Example:
 :: "C:\Program Files\Mozilla Firefox\firefox.exe" "testsuite\selenium\core\TestRunner.html?auto=%4&save=true&close=true&test=..%%2F..%%2FW3C-XForms-1.1%%2FEdition1%%2FdriverPages%%2FSeleniumTests%%2FTestSuite%2%3.html&resultsUrl=..\..\xforms11-%2%3-%1-results.html"
 
-IF [%1]==[ie] SET TEST_SUITE_CMD="./testsuite/selenium/core/TestRunner.hta" "test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuite%2%3.html&auto=%4&save=true&close=true&resultsUrl=testsuite/xforms11-%2%3-%1-results.html"
-IF [%1]==[ff] SET TEST_SUITE_CMD="C:\Program Files\Mozilla Firefox\firefox.exe" "testsuite\selenium\core\TestRunner.html?auto=%4&save=true&close=true&test=..%%2F..%%2FW3C-XForms-1.1%%2FEdition1%%2FdriverPages%%2FSeleniumTests%%2FTestSuite%2%3.html&resultsUrl=..\..\xforms11-%2%3-%1-results.html"
+IF [%1]==[ie] SET TEST_SUITE_CMD="./testsuite/selenium/core/TestRunner.hta" "baseUrl=%5&test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuite%2%3.html&auto=%4&save=true&close=true&resultsUrl=testsuite/xforms11-%2%3-%1-results.html"
+IF [%1]==[ff] SET TEST_SUITE_CMD="C:\Program Files\Mozilla Firefox\firefox.exe" "testsuite\selenium\core\TestRunner.html?baseUrl=%5&auto=%4&save=true&close=true&test=..%%2F..%%2FW3C-XForms-1.1%%2FEdition1%%2FdriverPages%%2FSeleniumTests%%2FTestSuite%2%3.html&resultsUrl=..\..\xforms11-%2%3-%1-results.html"
 
 :: Run the test(s)
 %TEST_SUITE_CMD%
