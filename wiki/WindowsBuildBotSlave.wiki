@@ -7,6 +7,8 @@ It's fairly straightforward to create a Buildbot slave that will connect to the 
 
 You can do all of this by contacting [mailto:mark.birbeck@webBackplane.com Mark Birbeck].
 
+For the purposes of this tutorial, let's assume that the slave is called `ff3-win32-full`, which indicates that the slave will run the 'full' test-suite on Firefox 3, and that the slave is a Windows 32 machine.
+
 = Details =
 
 == Install Python ==
@@ -103,7 +105,7 @@ You should see version 1.7.1.
 
 Change directory to the Buildbot directory created above (`c:\Documents and Settings\buildbot`), and type the following command:
 {{{
-buildbot create-slave full uxf-bb.webbackplane.com:9989 win32-full password
+buildbot create-slave full uxf-bb.webbackplane.com:9989 ff3-win32-full password
 }}}
 The server name and port number are fixed, because they represent the Ubiquity XForms master. The slave name and password (the last two parameters) will have been agreed at the beginning (see _Introduction_, above). The directory into which to install the slave files is set to `full` and is relative to the current directory.
 
@@ -115,20 +117,23 @@ To launch the slave, stay in the Buildbot directory (`c:\Documents and Settings\
 {{{
 buildbot start full
 }}}
-or alternatively, change into the `full` directory (`c:\Documents and Settings\buildbot\full`) and type:
+or alternatively, change into the `full` directory (`c:\Documents and Settings\buildbot\full`), which is where the slave configuration files are located, and type:
 {{{
 buildbot start .
 }}}
-After a short wait the list of slaves should include the freshly added slave:
+After a short wait the list of slaves on the master should include the freshly added slave:
 {{{
 http://uxf-bb.webbackplane.com:8080/buildslaves
 }}}
 If the slave has been added correctly then it should show up in the list with the comment _Slave is currently connected_.
 
 To check the admin and host information that was added, look for the slave on its corresponding builder's page. For example, if the slave had been added to the builder `full-ie7-test` then its details should show up here:
+
 {{{
 http://uxf-bb.webbackplane.com:8080/builders/full-ie7-test
 }}}
+
+_Note: The slave will show up, but the step to add admin and host info hasn't been added yet, so the information will just be default information._
 
 = Testing Firefox =
 
