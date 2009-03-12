@@ -13,7 +13,7 @@
        		<xforms:instance>
 				<icecream>
 					<order invalid="">
-						<flavor/>
+						<flavor></flavor>
 					</order>
 				</icecream>
        		</xforms:instance>
@@ -42,8 +42,8 @@
 			<xforms:select model="cone" ref="/icecream/order/@invalid">
 				<xforms:label>Flavors</xforms:label>
 				<xforms:itemset model="flavors" nodeset="/flavors/flavor">
-					<xforms:label ref="@description"/>
-					<xforms:copy ref="."/>
+					<xforms:label ref="@description"></xforms:label>
+					<xforms:copy ref="."></xforms:copy>
 				</xforms:itemset>
 				<xforms:message level="modal" ev:event="xforms-binding-exception">xforms-binding-exception</xforms:message>
 			</xforms:select>
