@@ -64,21 +64,7 @@
               
         <xforms:bind nodeset="startdate" type="xsd:date"></xforms:bind>
 
-        <xforms:instance id="formatted">
-	        <results xmlns="">
-        		<monthly-payment></monthly-payment>
-        		<totalpayout></totalpayout>
-	        </results>
-	      </xforms:instance>
-
-        <xforms:bind nodeset="instance('formatted')/monthly-payment" 
-                     calculate="javascript:currency(number(instance('loan')/monthly-payment))"
-                     relevant="instance('loan')/principal > 0 and instance('loan')/duration > 0"
-                     ></xforms:bind>
-        <xforms:bind nodeset="instance('formatted')/totalpayout" 
-                     calculate="javascript:currency(number(instance('loan')/totalpayout))"
-                     relevant="instance('loan')/principal > 0 and instance('loan')/duration > 0"
-                     ></xforms:bind>
+		<xforms:bind nodeset="monthly-payment | totalpayout" relevant="../principal &gt; 0 and ../duration &gt; 0"></xforms:bind>
 
         <xforms:setvalue ev:event="xforms-ready" 
                          ref="startdate" 
@@ -164,16 +150,20 @@
 
      <br />
      <hr size="6" class="rule"></hr>
-     
-     <xforms:output class="regular" ref="instance('formatted')/monthly-payment">
-          <xforms:label>Monthly Payment: </xforms:label>
-     </xforms:output>
+
+	 <xforms:group ref="monthly-payment">
+	   <xforms:output class="regular" value="javascript:currency(number())">
+		 <xforms:label>Monthly Payment: </xforms:label>
+	   </xforms:output>
+	 </xforms:group>
          
     <br />
     
-     <xforms:output class="regular" ref="instance('formatted')/totalpayout">
-          <xforms:label>Total Payout: </xforms:label>
-     </xforms:output>
+	<xforms:group ref="totalpayout">
+	  <xforms:output class="regular" value="javascript:currency(number())">
+		<xforms:label>Total Payout: </xforms:label>
+	  </xforms:output>
+	</xforms:group>
      
       <div class="spacer"></div><hr size="6" class="rule"/>
            
