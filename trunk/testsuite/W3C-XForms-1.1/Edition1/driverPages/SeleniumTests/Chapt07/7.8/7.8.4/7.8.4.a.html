@@ -44,46 +44,76 @@
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output</td>
-					<td>*Pass*</td>
-					<td>Checks that output1 has the right value</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'SHA-1', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '4fd0b215276ef12f2b3e4c8ecac2811498b656fc']"]</td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:output</td>
-					<td>*Pass*</td>
-					<td>Checks that output2 has the right value</td>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'SHA-1', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != '4fd0b215276ef12f2b3e4c8ecac2811498b656fc']"]</td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[5]/xforms:output</td>
-					<td>*Pass*</td>
-					<td>Checks that output3 has the right value</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'MD5', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'd2fe98063f876b03193afb49b4979591']"]</td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[6]/xforms:output</td>
-					<td>*Pass*</td>
-					<td>Checks that output4 has the right value</td>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'MD5', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != 'd2fe98063f876b03193afb49b4979591']"]</td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[7]/xforms:output</td>
-					<td>*Pass*</td>
-					<td>Checks that output5 has the right value</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'SHA-256', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '9c196e32dc0175f86f4b1cb89289d6619de6bee699e4c378e68309ed97a1a6ab']"]</td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[8]/xforms:output</td>
-					<td>*Pass*</td>
-					<td>Checks that output6 has the right value</td>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'SHA-256', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != '9c196e32dc0175f86f4b1cb89289d6619de6bee699e4c378e68309ed97a1a6ab']"]</td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[9]/xforms:output</td>
-					<td>*Pass*</td>
-					<td>Checks that output7 has the right value</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'SHA-1', 'base64')='T9CyFSdu8S8rPkyOysKBFJi2Vvw=']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'SHA-1', 'base64')!='T9CyFSdu8S8rPkyOysKBFJi2Vvw=']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'MD5', 'base64')='0v6YBj+HawMZOvtJtJeVkQ==']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'MD5', 'base64')!='0v6YBj+HawMZOvtJtJeVkQ==']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'SHA-256', 'base64')='nBluMtwBdfhvSxy4konWYZ3mvuaZ5MN45oMJ7Zehpqs=']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'SHA-256', 'base64')!='nBluMtwBdfhvSxy4konWYZ3mvuaZ5MN45oMJ7Zehpqs=']"]</td>
+					<td></td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>
