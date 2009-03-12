@@ -9,7 +9,7 @@
     <body>
         <xforms:model>
             <xforms:instance>
-                <root/>
+                <root></root>
             </xforms:instance>
         </xforms:model>
         <xforms:group>
@@ -28,8 +28,7 @@
 	            <xforms:label>Test 1 : PASS</xforms:label>
             </xforms:group>
 
-            <xforms:group ref="self::node()[translate(digest('abc', 'SHA-1', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
-'abcdefghijklmnopqrstuvwxyz') != 'a9993e364706816aba3e25717850c26c9cd0d89d']">
+            <xforms:group ref="self::node()[translate(digest('abc', 'SHA-1', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != 'a9993e364706816aba3e25717850c26c9cd0d89d']">
 	            <xforms:label>Test 1 : FAIL</xforms:label>
 	            <xforms:output value="digest('abc', 'SHA-1', 'hex')">
 	                <xforms:label>Bad Value=</xforms:label>
