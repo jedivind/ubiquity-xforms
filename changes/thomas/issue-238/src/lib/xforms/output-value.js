@@ -217,12 +217,14 @@ XFormsOutputValue.prototype.setValueForOutputRendering = function(sValue) {
         if (oRendertype) {
             this.element.parentNode["m_mediatype"] = oRendertype;
             renderAsString = false;
-        }        
+        } else {
+            throw "Render failed";
+        }
     } catch (e) {
         // if an exception occurs, then bail and
         // dispatch an xforms-output-error event
         //
-        UX.dispatchEvent(this.parentNode, "xforms-output-error", false, true, true);   
+        UX.dispatchEvent(this.parentNode, "xforms-output-error", true, false, true);   
     } 
     
     if (renderAsString) {
