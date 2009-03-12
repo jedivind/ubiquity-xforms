@@ -57,13 +57,13 @@
 				</tr>
 		        <tr>
 					<td>type</td>
-					<td>xpath=/html/body/xforms:textarea[@ref='/car/description' and @incremental='true']/pe-value/input</td>
+					<td>xpath=//xforms:textarea//input</td>
 					<td>some text</td>
 			    	<td>Changes the Password</td>
 				</tr>
 				<tr>
 					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:textarea[@ref='/car/description' and @incremental='true']/pe-value/input</td>
+					<td>xpath=//xforms:textarea//input</td>
 					<td>some text</td>
 					<td>Checks that the textarea has the right value</td>
 				</tr>
@@ -72,12 +72,6 @@
 					<td>[XForms]*xforms-value-changed*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
-					<td></td>
-					<td>Clicks on OK button</td>
 				</tr>
 			</tbody>
 		</table>
