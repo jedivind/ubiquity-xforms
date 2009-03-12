@@ -538,7 +538,14 @@ submission.prototype.submit = function(oSubmission) {
 				sResource = this.buildGetUrl(sResource, oBody, sSeparator);
 				oBody = null;
 			}
-			
+
+			// Work out whether we are about to do a cross-domain or cross-protocol request,
+			// and if we are, ask the user for permission.
+			//
+			if (UX.isFF) {
+				netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+			}
+
 			return this.request(sMethod, sResource, oBody, nTimeout, oCallback);
 		} catch (e) {
 			oEvt = oSubmission.ownerDocument.createEvent("Events");
