@@ -56,18 +56,6 @@
 					<td>Checks that the choices is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:select/xforms:itemset</td>
-					<td>*Vanilla*Strawberry*Chocolate*</td>
-					<td>Checks that the itemset has the right values</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:select/xforms:choices</td>
-					<td>*Vanilla*Strawberry*Chocolate*</td>
-					<td>Checks that the choices has the right values</td>
-				</tr>
-				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:group[4]/xforms:select//div[@class='pe-choices']/xforms:item[1]/xforms:label</td>
 					<td></td>
@@ -75,7 +63,7 @@
 				</tr>
 				<tr>
 					<td>pause</td>
-					<td>100</td>
+					<td>2000</td>
 					<td></td>
 					<td>Waits for the select to get the right value</td>
 				</tr>
@@ -84,12 +72,6 @@
 					<td>xpath=/html/body/xforms:group[4]/xforms:select/pe-value/input</td>
 					<td>v</td>
 					<td>Checks that the select is bound correctly</td>
-				</tr>
-				<tr>
-					<td>assertTitle</td>
-					<td>testcase TBD</td>
-					<td></td>
-					<td>This test is not completed yet.</td>
 				</tr>
 			</tbody>
 		</table>

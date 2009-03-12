@@ -12,7 +12,7 @@
     <xforms:model id="cone">
        		<xforms:instance>
 				<icecream>
-					<order/>
+					<order></order>
 				</icecream>
        		</xforms:instance>
     	</xforms:model>
@@ -41,8 +41,8 @@
 			<xforms:select model="cone" ref="/icecream/order">
 				<xforms:label>Flavors</xforms:label>
 				<xforms:itemset model="flavors" nodeset="/flavors/flavor">
-					<xforms:label ref="@description"/>
-					<xforms:copy ref="."/>
+					<xforms:label ref="@description"></xforms:label>
+					<xforms:copy ref="."></xforms:copy>
 				</xforms:itemset>
 			</xforms:select>
 		</xforms:group>
