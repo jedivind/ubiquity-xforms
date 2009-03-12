@@ -428,10 +428,17 @@ submission.prototype.submit = function(oSubmission) {
 	// Note: @method as it is considered a token not a string.  As such it should be compared in a case-sensitive way.
     switch (sMethod) {
 	case "get":
-		sMethod = "GET";
-		sSerialization = "application/x-www-form-urlencoded";
+  		sMethod = "GET";
+  		sSerialization = "application/x-www-form-urlencoded";
 		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
-		break;
+
+		//
+		// build SOAP Header information
+ 		//
+ 		if (sMediatype && sMediatype.indexOf("application/soap+xml") === 0) {
+ 			bHasHeaders = this.setSOAPHeaders(oContext.node, sMethod, sMediatype, sEncoding);
+ 		}
+  		break;
 
 	case "form-data-post":
 		sMethod = "POST";
@@ -453,8 +460,8 @@ submission.prototype.submit = function(oSubmission) {
 		//
 		// build SOAP Header information
 		//
-		if (sMediatype) {
-		    this.setSOAPHeaders(oContext.node, sMediatype, sEncoding); 
+		if (sMediatype && sMediatype.indexOf("application/soap+xml") === 0) {
+			bHasHeaders = this.setSOAPHeaders(oContext.node, sMethod, sMediatype, sEncoding); 
 		}
 		
 		break;
@@ -496,7 +503,9 @@ submission.prototype.submit = function(oSubmission) {
                 "Error: " + e.description, "error");
     }
 
-	bHasHeaders = (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
+	// If the submission contains headers, or is a SOAP submission there are headers.
+	bHasHeaders |= (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
+	
 	sReplace = oSubmission.getAttribute("replace") || "all";
 
 	if (
@@ -795,52 +804,37 @@ submission.prototype.buildGetUrl = function(action, params, separator) {
 	return action + ((pairs.length) ? ("?" + pairs.join(separator || "&")) : "");
 };//buildurl
 
-submission.prototype.setSOAPHeaders = function(oContextNode, sMediatype, sEncoding) {
-    var result;
-    // match on content for "action=" in mediatype
-    var matchAction = /action=([^\s\t\r\n\v\f;]+);?/;
-    // match content for "charset=" in mediatype
-    var matchCharset = /charset=([\w-]+);?/;
-    var contentType = sMediatype;
-    if (sMediatype) {
-        if (oContextNode && NamespaceManager.getNamespaceURI(oContextNode) === "http://schemas.xmlsoap.org/soap/envelope/") {
-	        //
-	        // Determine if it is SOAP 1.1 or SOAP 1.2,
-	        //  SOAP 1.1 creates a SOAPAction header,
-	        //           adds "text/xml" to the content-type and
-	        //           sets the charset depending on the charset value in the mediatype attribute or the encoding attribute	        
-	        //
-	        //  SOAP 1.2 takes the mediatype and puts it into the content-type
-	        contentType = "text/xml";
-	        
-	        // 
-	        // look for the SOAP action in the mediatype attribute
-	        //
-	        result = matchAction.exec(sMediatype);
-	                        
-	        if (result && result[1]) {
-	            // SOAPAction found in mediatype
-	            this.setHeader("SOAPAction", result[1]); 
-	        }  
-	                        
-	        //
-	        // look for the charset in the mediatype attribute
-	        //                
-	        result = matchCharset.exec(sMediatype); 
-	        
-	        if (result && result[1]) {
-	            // charset found in mediatype
-	            contentType += "; charset=" + result[1] + ";";
-	        } else if (sEncoding) {
-	            // if the charset is not found in the mediatype attribute, use the encoding attribute
-	            contentType += "; charset=" + sEncoding + ";";
-	        } else {
-	            // charset default is UTF-8
-	            contentType += "; charset=" + "UTF-8;";
-	        }	        
-        }
-        
-        this.setHeader("content-type", contentType);                       
-    }
+submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype, sEncoding) {
+
+	var result = false;
+	var action = (/action=([^\s\t\r\n\v\f;]+);?/.exec(sMediatype || "") || [])[1];
+	var charset = (/charset=([\w-]+);?/.exec(sMediatype || "") || [])[1] || sEncoding || "UTF-8";
+	
+	var namespaceURI = oContextNode && NamespaceManager.getNamespaceURI(oContextNode);
+	if (sMethod === "POST") {
+		
+		if (namespaceURI === "http://schemas.xmlsoap.org/soap/envelope/") {
+			
+			if (action) {
+				this.setHeader("SOAPAction", action);
+			}
+			
+			this.setHeader("content-type", "text/xml; charset=" + charset);
+			result = true;
+		}
+		else if (namespaceURI === "http://www.w3.org/2003/05/soap-envelope") {
+			this.setHeader("content-type", sMediatype);
+			result = true;
+		}
+		
+	} else if (sMethod === "GET") {
+
+		if (namespaceURI === "http://www.w3.org/2003/05/soap-envelope") {
+			this.setHeader("accept", "application/soap+xml; charset=" + charset);
+			result = true;
+		}
+	}
+	
+	return result;
 };
 
