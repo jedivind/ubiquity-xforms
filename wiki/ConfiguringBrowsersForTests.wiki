@@ -62,9 +62,7 @@ z:\ubiquity\chapter-2
 Next run the following command, which will run the tests for chapter 2:
 
 {{{
-testsuite\xforms11-test.bat ff Chapter 2 true file:\\\z:\ubiquity\chapter-2\testsuite\selenium\core
+testsuite\xforms11-test.bat ff Chapter 2 true
 }}}
-
-The last parameter is an absolute URI, and is a temporary requirement resulting from upgrading Selenium to 0.8.2.
 
 If all is well then the Firefox will be launched, and the tests will start to run. No intervention should be required, and when the tests are finished, Firefox should be closed. (If Firefox is already running then a new tab will be created and then closed.) When the tests have completed, the `testsuite` directory should contain the test results in the file `xforms11-Chapter2-ff-results`.
