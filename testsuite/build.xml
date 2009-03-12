@@ -18,10 +18,6 @@
 		<exec executable="C:\Program Files\Mozilla Firefox\firefox.exe">
 			<arg line="file:///${sel-runner}?${sel-params}" />
 		</exec>
-		<antcall target="check-selenium-output" />
-	</target>
-	
-	<target name="check-selenium-output">
 		<loadfile property="results" srcFile="${results-file-name}.html" />
 		<condition property="failed">
 			<matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
@@ -29,7 +25,7 @@
 		<fail message="Test '${test-name}' failed for browser '${browser}'."
 			if="failed"/>
 	</target>
-	
+
 	<!-- 
 		ant -Dsection=Chapter -Dsub_section=3 -Dbrowser=ie -Ddestination=W3C-XForms-1.1/Edition1/driverPages/Results/IE7 tidy-selenium-results
 		ant -Dsection=Appendix -Dsub_section=B -Dbrowser=ie -Ddestination=W3C-XForms-1.1/Edition1/driverPages/Results/IE7 tidy-selenium-results
