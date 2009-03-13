@@ -8,6 +8,10 @@
   </head>
   <body>
     <xforms:model>
+	  	<xforms:action ev:event="xforms-ready">
+	  	   <xforms:insert nodeset="person[1]" origin="instance('prototypes')/person"/>
+	       <xforms:delete nodeset="person[1]"/>
+		</xforms:action>
   		<xforms:instance>
   			<people>
   				<person>
@@ -23,10 +27,6 @@
   			</prototypes>
   		</xforms:instance>
   	</xforms:model>
-  	<xforms:action ev:event="xforms-ready">
-  	   <xforms:insert nodeset="person[1]" origin="instance('prototypes')/person"/>
-       <xforms:delete nodeset="person[1]"/>
-	</xforms:action>
   	<xforms:group>
   		<xforms:label class="title">
   			b.10.a Replace Element

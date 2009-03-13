@@ -8,6 +8,9 @@
   </head>
   <body>
     <xforms:model>
+	  	<xforms:action ev:event="xforms-ready">
+	  		<xforms:insert nodeset="chapter/*" origin="instance('prototypes')/paragraph" at="7" position="before"/>
+	  	</xforms:action>
   		<xforms:instance>
   			<document>
   				<chapter>
@@ -32,9 +35,6 @@
   			</prototypes>
   		</xforms:instance>
   	</xforms:model>
-  	<xforms:action ev:event="xforms-ready">
-  		<xforms:insert nodeset="chapter/*" origin="instance('prototypes')/paragraph" at="7" position="before"/>
-  	</xforms:action>
   	<xforms:group>
   		<xforms:label class="title">
   			b.15.a Insert Element into Non-Contiguous, Heterogeneous Nodeset
