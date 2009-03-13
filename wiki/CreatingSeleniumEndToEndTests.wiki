@@ -117,19 +117,19 @@ Once the form is loaded, UXF will initialise. We can't run any tests until this 
 
 = Running the tests =
 
-The Selenium driver file is at:
+The Selenium driver file is located at:
 
 {{{
 testsuite/selenium/core/TestRunner.html
 }}}
 
-To run the chapter 11 tests, for example, use the following:
+To run the chapter 11 tests, for example, you would use the following URL in the browser:
 
 {{{
 testsuite/selenium/core/TestRunner.html?test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuiteChapter11.html
 }}}
 
-This opens Selenium so that you are ready to run tests individually or the entire suite.
+This would open Selenium and the test suite for Chapter 11, ready to run tests individually or the entire suite.
 
 To have Selenium load the tests and then automatically run all of them, add `auto=true`:
 
@@ -146,12 +146,18 @@ testsuite/selenium/core/TestRunner.html?save=true&resultsUrl=..\..\xforms11-ff3-
 To automatically close the browser after the tests have completed, add `close=true`. This is useful when running the tests from the command-line. For example, to load the chapter 11 tests in Firefox on Windows, run them automatically, save the results, and then close, we would use the following command:
 
 {{{
-"C:\Program Files\Mozilla Firefox\firefox.exe" "testsuite\selenium\core\TestRunner.html?test=..\..\W3C-XForms-1.1\Edition1\driverPages\SeleniumTests\TestSuiteChapter11.html&auto=true&save=true&resultsUrl=..\..\xforms11-ff3-results.html&close=true"
+"C:\Program Files\Mozilla Firefox\firefox.exe" "testsuite\selenium\core\TestRunner.html?test=..\..\W3C-XForms-1.1\Edition1\driverPages\SeleniumTests\TestSuiteChapter11.html&auto=true&save=true&resultsUrl=..\..\xforms11--chapter11-ff3-results.html&close=true"
 }}}
 
-There are Windows batch files to do just this, at:
+== Using Ant ==
+
+When running on a Buildbot slave (see WindowsBuildBotSlave), the tests will be run by Ant. This can be simulated from the command line in the following way:
+  * change to the root directory of your copy of UXF, i.e., the one just above `testsuite`;
+  * run the command `ant -f testsuite/build.xml run-selenium-tests -Dsection=02 -Dbrowser=ff`.
+
+This will open the browser, run all of the tests for the specified chapter (the `section` parameter), write the results to a file, and then close the browser. (The results file will be available at `testsuite/xforms11-Chapter02-ff-results.html`.)
+
+If you want to load the tests ready to be run manually, then add `auto=false`:
 {{{
-testsuite/xforms11-chapter11-ff3.bat
+ant -f testsuite/build.xml run-selenium-tests -Dsection=02 -Dbrowser=ff -Dauto=false
 }}}
-
-These files are designed to be run by Builbot Windows slaves (see WindowsBuildBotSlave).
