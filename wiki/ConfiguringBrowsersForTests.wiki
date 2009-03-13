@@ -13,6 +13,8 @@ Selenium tests involve an XForms, some driver files and the Selenium library its
 
 To run Selenium tests against Firefox 3, ensure that you have the latest stable version, which is always available from the [http://firefox.com Firefox home-page]. If you also plan to test with Internet Explorer on the same machine, then when installing Firefox, ensure that the 'make this my default browser' option is _not_checked.
 
+Although a test profile is required when running Firefox under a Buildbot slave, it's not completely necessary when testing manually. However, since it is quite a simple step, we would recommend it -- that way any changes you need to make to the browser to allow the test-suite to run don't need to be applied to your normal profile.
+
 === Creating a test profile ===
 
 Firefox supports multiple profiles. To create one for Buildbot, type:
@@ -25,6 +27,8 @@ All of the configurations in the next section need to be applied to this test pr
 {{{
 "c:\Program Files\Mozilla Firefox\firefox.exe" -P buildbot"
 }}}
+
+Acknowledge the dialog that asks if you want Firefox to be your default browser, since this will cause problems when the tests are run with Buildbot.
 
 === Running tests locally ===
 
@@ -70,7 +74,11 @@ The easiest way to check whether everything is working correctly is to run an An
 
 `ant -f testsuite/build.xml run-selenium-test -Dsection=02 -Dbrowser=ff`
 
-This will open the Firefox browser using the profile created above, then run all of the tests for the specified chapter (the `section` parameter), write the results to a file, before finally closing the browser. (The results file will be available at `testsuite/xforms11-Chapter02-ff-results.html`.)
+This will open the Firefox browser using the profile created above, and automatically start running all of the tests for the specified chapter (the `section` parameter). If the tests don't start to run immediately then check that the 'origin policy' setting described above, has been set correctly.
+
+Once complete, the browser will attempt to write the results to a file, but will require your permission to do so. This only needs to be given once. For this example, the results file would be available at `testsuite/xforms11-Chapter02-ff-results.html`.
+
+After saving the test results the browser should close. If that doesn't happen then you double-check the 'close window' permission described above.
 
 If you want to load the tests ready to be run manually, then add `auto=false`:
 {{{
