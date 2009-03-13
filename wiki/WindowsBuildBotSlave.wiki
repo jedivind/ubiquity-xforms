@@ -7,7 +7,7 @@ It's fairly straightforward to create a Buildbot slave that will connect to the 
 
 You can do all of this by contacting [mailto:mark.birbeck@webBackplane.com Mark Birbeck].
 
-For the purposes of this tutorial, let's assume that the slave is called `ff3-win32-full`, which indicates that the slave will run the 'full' test-suite on Firefox 3, and that the slave is a Windows 32 machine.
+For the purposes of this tutorial, let's assume that the slave is called `wbp-vista-1`, which indicates that the slave is running in the Backplane offices, and a Windows Vista machine.
 
 = Details =
 
@@ -105,11 +105,16 @@ You should see version 1.7.1.
 
 Change directory to the Buildbot directory created above (`c:\Documents and Settings\buildbot`), and type the following command:
 {{{
-buildbot create-slave full uxf-bb.webbackplane.com:9989 ff3-win32-full password
+buildbot create-slave full uxf-bb.webbackplane.com:9989 wbp-vista-1 password
 }}}
 The server name and port number are fixed, because they represent the Ubiquity XForms master. The slave name and password (the last two parameters) will have been agreed at the beginning (see _Introduction_, above). The directory into which to install the slave files is set to `full` and is relative to the current directory.
 
 Assuming all is well, a number of lines of output will be displayed, indicating that the files have been created correctly.
+
+Once the slave information has been created, there will be a sub-directory called `info`, which will contain two files. The `admin` file holds details about who to contact for questions about the slave, and should be edited to contain the name and email address of the contact. The `host` file contains a description of the machine with an indication of the browsers that are installed. For example:
+{{{
+Windows Vista, with FF3 and IE7.
+}}}
 
 == Launch the slave ==
 
@@ -127,10 +132,10 @@ http://uxf-bb.webbackplane.com:8080/buildslaves
 }}}
 If the slave has been added correctly then it should show up in the list with the comment _Slave is currently connected_.
 
-To check the admin and host information that was added, look for the slave on its corresponding builder's page. For example, if the slave had been added to the builder `full-ie7-test` then its details should show up here:
+To check the admin and host information that was added, look for the slave on its corresponding builder's page. For example, if the slave had been added to the builder `xf11-ch2-ie-test` then its details should show up here:
 
 {{{
-http://uxf-bb.webbackplane.com:8080/builders/full-ie7-test
+http://uxf-bb.webbackplane.com:8080/builders/xf11-ch2-ie-test
 }}}
 
 _Note: The slave will show up, but the step to add admin and host info hasn't been added yet, so the information will just be default information._
