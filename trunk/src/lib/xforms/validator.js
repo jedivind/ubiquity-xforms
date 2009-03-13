@@ -12,52 +12,147 @@
  * limitations under the License.
  */
 
-/**
- * function: isRFC822ValidEmail(sEmail)
- * JavaScript function to check an email address conforms to RFC822 (http://www.ietf.org/rfc/rfc0822.txt)
- *
- * Version: 0.2
- * Author: Ross Kendall
- * Created: 2006-12-16
- * Updated: 2007-03-22
- *
- * Based on the PHP code by Cal Henderson
- * http://iamcal.com/publish/articles/php/parsing_email/
- * Portions copyright (C) 2006  Ross Kendall - http://rosskendall.com
- * Portions copyright (C) 1993-2005 Cal Henderson - http://iamcal.com
- * Licensed under GNU General Public License
- */
-function isRFC822ValidEmail(sEmail) {
-	var sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
-	var sDtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
-	var sAtom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
-	var sQuotedPair = '\\x5c[\\x00-\\x7f]';
-	var sDomainLiteral = '\\x5b(' + sDtext + '|' + sQuotedPair + ')*\\x5d';
-	var sQuotedString = '\\x22(' + sQtext + '|' + sQuotedPair + ')*\\x22';
-	var sDomain_ref = sAtom;
-	var sSubDomain = '(' + sDomain_ref + '|' + sDomainLiteral + ')';
-	var sWord = '(' + sAtom + '|' + sQuotedString + ')';
-	var sDomain = sSubDomain + '(\\x2e' + sSubDomain + ')*';
-	var sLocalPart = sWord + '(\\x2e' + sWord + ')*';
-	var sAddrSpec = sLocalPart + '\\x40' + sDomain; // complete RFC822 email address spec
-	var sValidEmail = '^' + sAddrSpec + '$'; // as whole string
-
-	var reValidEmail = new RegExp(sValidEmail);
-
-	if (reValidEmail.test(sEmail)) {
-		return true;
-	}
-
-	return false;
+function isValidEmail(sEmail) {
+    return (
+        sEmail.match(/^([A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*)?$/)
+    );
 }
 
 function isCardNumber(sNum) {
-	if (sNum.match(/^\d*[0-9]?$/)) {
-		if (sNum.length >= 12 && sNum.length <= 19) {
-			return true;
-		}
-	}
-	return false;
+	return (
+        sNum.match(/^\d*[0-9]?$/) &&
+        sNum.length >= 12 &&
+        sNum.length <= 19
+    );
+}
+
+function isValidDateTime(sDateTime) {
+    return (
+        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) ||
+        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}Z$/) ||
+        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)
+    );
+}
+
+function isValidTime(sTime) {
+    return (
+        sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) ||
+        sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)
+    );
+}
+
+function isValidDate(sDate) {
+    return (
+        sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/) ||
+        sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)
+    );
+}
+
+function isValidGYearMonth(sGYearMonth) {
+    return (
+        sGYearMonth.match(/^[0-9]{4}\-[0-9]{2}$/)
+    );
+}
+
+function isValidGYear(sGYear) {
+    return (
+        sGYear.match(/^[0-9]{4}$/)
+    );
+}
+
+function isValidGMonthDay(sGMonthDay) {
+    return (
+        sGMonthDay.match(/^\-\-[0-9]{2}\-[0-9]{2}$/)
+    );
+}
+
+function isValidGDay(sGDay) {
+    return (
+        sGDay.match(/^\-\-\-[0-9]{2}$/)
+    );
+}
+
+function isValidGMonth(sGMonth) {
+    return (
+        sGMonth.match(/^\-\-[0-9]{2}$/)
+    );
+}
+
+function isValidBase64Binary(sBase64) {
+    return (
+        sBase64.match(/^[a-zA-Z0-9\+\/\=]+$/)
+    );
+}
+
+function isValidNCName(sNCName) {
+    // NCName           ::=    NCNameStartChar NCNameChar* /* An XML Name, minus the ":" */ 
+    // NCNameChar       ::=    NameChar - ':' 
+    // NCNameStartChar  ::=    Letter | '_'  
+    // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender  
+
+    return (
+        sNCName.match(/^[_a-z][\w\.\-]*$/i)
+    );
+}
+
+function isValidAnyURI(sURI) {
+   var i, c, match, encodedURI = "";
+
+   // Escape non-ascii and disallowed ascii characters. Disallowed characters
+   // are: control characters (0-31 and 127), space (32), double quote (34),
+   // '<' (60), '>' (62), '[' (91), '\' (92), ']' (93), '^' (94), '`' (96),
+   // '{' (123), '|' (124), and '}' (125).
+   for (i = 0; i < sURI.length; i++) {
+       c = sURI.charCodeAt(i);
+       if (((c >= 0 && c <= 31) || c === 127) || (c === 32) || 
+           (c === 34) || (c === 60) || (c === 62) || (c === 91) ||
+           (c === 92) || (c === 93) || (c === 94) || (c === 96) ||
+           (c === 123) || (c === 124) || (c === 125) || (c > 127)) {
+           encodedURI += (encodeURIComponent(String.fromCharCode(c)));
+       } else {
+           encodedURI += (String.fromCharCode(c));
+       }
+   }
+
+   match = encodedURI.match(/^(([^:\/?#]+):)?(\/\/([^\/\?#]*))?([^\?#]*)(\?([^#]*))?(#([^\:#\[\]\@\!\$\&\\'\(\)\*\+\,\;\=]*))?$/);
+   return match ? _isValidAnyURI(match[0]) : false;
+}
+
+function _isValidAnyURI(sURI) {
+    var ixPercent, s;
+
+    if (!sURI) {
+        return true;
+    }
+
+    // The '%' escape character must be followed by a two digit hex number.
+    ixPercent = sURI.indexOf("%");
+    while (ixPercent !== -1) {
+        s = sURI.substr(ixPercent);
+        if (s.length < 3 || isNaN(parseInt(s.substr(ixPercent + 1, 2), 16))) {
+                return false;
+        }
+        s = s.substr(ixPercent + 3);
+        ixPercent = s.indexOf("%");
+    }
+    return true;
+}
+
+function isValidQName(sQName) {
+    // QName ::=  (Prefix ':')? LocalPart 
+    // Prefix ::=  NCName 
+    // LocalPart ::=  NCName 
+    var arrSegments, prefix, localPart;
+    
+    arrSegments = sQName.split(":");
+    prefix = arrSegments.length === 1 ? "" : arrSegments[0];
+    localPart = arrSegments.length ===1 ? arrSegments[0] : arrSegments[1];
+
+    return prefix ? isValidNCName(prefix) && isValidNCName(localPart) : isValidNCName(localPart);
+}
+
+function isInfinityOrNaN(sValue) {
+    return (sValue === 'INF' || sValue === '-INF' || sValue === 'NaN');
 }
 
 function evalXPathFunc(func, args, ctx) {
@@ -84,7 +179,7 @@ var xformsRules = {
 
         "time" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidTime(sValue);
 	        }
         },
 
@@ -96,37 +191,37 @@ var xformsRules = {
 
         "gYearMonth" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGMonth(sValue);
 	        }
         },
 
         "gYear" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGYear(sValue);
 	        }
         },
 
         "gMonthDay" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGMonthDay(sValue);
 	        }
         },
 
         "gDay" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGDay(sValue);
 	        }
         },
 
         "gMonth" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGMonth(sValue);
 	        }
         },
 
         "string" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return true;
 	        }
         },
 
@@ -139,7 +234,7 @@ var xformsRules = {
 
         "base64Binary" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidBase64Binary(sValue);
 	        }
         },
 
@@ -151,7 +246,11 @@ var xformsRules = {
 
         "float" : {
 	        validate : function(sValue) {
-		        return (isNaN(parseFloat(sValue)) === false);
+                if (isInfinityOrNaN(sValue)) {
+                    return true;
+                } else {
+                    return (isNaN(parseFloat(sValue)) === false);
+                }
 	        }
         },
 
@@ -163,25 +262,23 @@ var xformsRules = {
 
         "double" : {
 	        validate : function(sValue) {
-		        // TODO
-	        }
-        },
-
-        "double" : {
-	        validate : function(sValue) {
-		        // TODO
+                if (isInfinityOrNaN(sValue)) {
+                    return true;
+                } else {
+                    return (isNaN(parseFloat(sValue)) === false);
+                }
 	        }
         },
 
         "anyURI" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidAnyURI(sValue);
 	        }
         },
 
         "QName" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidQName(sValue);
 	        }
         },
 
@@ -200,7 +297,7 @@ var xformsRules = {
 
         "email" : {
 	        validate : function(sValue) {
-		        return isRFC822ValidEmail(sValue);
+		        return isValidEmail(sValue);
 	        }
         },
 
@@ -223,7 +320,7 @@ var xmlSchemaRules = {
 
         "time" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidTime(sValue);
 	        }
         },
 
@@ -235,37 +332,37 @@ var xmlSchemaRules = {
 
         "gYearMonth" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGYearMonth(sValue);
 	        }
         },
 
         "gYear" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGYear(sValue);
 	        }
         },
 
         "gMonthDay" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGMonthDay(sValue);
 	        }
         },
 
         "gDay" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGDay(sValue);
 	        }
         },
 
         "gMonth" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidGMonth(sValue);
 	        }
         },
 
         "string" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return true;
 	        }
         },
 
@@ -278,7 +375,7 @@ var xmlSchemaRules = {
 
         "base64Binary" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidBase64Binary(sValue);
 	        }
         },
 
@@ -290,7 +387,11 @@ var xmlSchemaRules = {
 
         "float" : {
 	        validate : function(sValue) {
-		        return (isNaN(parseFloat(sValue)) === false);
+                if (isInfinityOrNaN(sValue)) {
+                    return true;
+                } else {
+                    return (isNaN(parseFloat(sValue)) === false);
+                }
 	        }
         },
 
@@ -302,25 +403,23 @@ var xmlSchemaRules = {
 
         "double" : {
 	        validate : function(sValue) {
-		        // TODO
-	        }
-        },
-
-        "double" : {
-	        validate : function(sValue) {
-		        // TODO
+                if (isInfinityOrNaN(sValue)) {
+                    return true;
+                } else {
+                    return (isNaN(parseFloat(sValue)) === false);
+                }
 	        }
         },
 
         "anyURI" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidAnyURI(sValue);
 	        }
         },
 
         "QName" : {
 	        validate : function(sValue) {
-		        // TODO
+		        return isValidQName(sValue);
 		        return true;
 	        }
         }
@@ -355,11 +454,7 @@ var Validator = {
 		    rule = validateRule.rules[datatype];
 		    if (rule && rule.validate !== undefined) {
 			    return rule.validate(value);
-		    } else {
-			    throw "unsupported built-in datatype ";
 		    }
-	    } else {
-		    throw "data validation is not supported for " + namespace;
 	    }
 	    return false;
     }

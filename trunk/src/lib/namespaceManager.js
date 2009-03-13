@@ -343,7 +343,11 @@ var NamespaceManager  = function(){
     }
     return nsURI;
   }
-  
+
+  function getNamespaceURIForPrefix(nodePrefix) {
+      return (nodePrefix) ? m_outputNamespaceURIs[nodePrefix] : "";
+  }
+
 	var itself = function () {};
 	itself.translateCSSSelector = translateCSSSelector;
 	itself.getOutputPrefixesFromURI = getOutputPrefixesFromURI;
@@ -368,5 +372,6 @@ var NamespaceManager  = function(){
 	} else {
 		itself.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
 	}
+    itself.getNamespaceURIForPrefix = getNamespaceURIForPrefix;
 	return itself;
 }();
