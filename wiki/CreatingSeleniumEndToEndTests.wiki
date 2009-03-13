@@ -89,14 +89,7 @@ This will run `ant` in the test suite directory, which will use the `build.xml` 
 For each file `ant` will run the `ubiquityxforms.xsl` transformation, which does the following:
 
   * adds the UXF library loader script to the `head` element;
-  * moves all `xf:model` elements that appear in the `head` to the `body`;
-  * adds an `xf:output` to the end of the `body` to allow tests to detect when the form is ready.
-
-This last step is provided by the following mark-up:
-
-{{{
-<xforms:output id="status" value="'ready'"></xforms:output>
-}}}
+  * moves all `xf:model` elements that appear in the `head` to the `body`.
 
 = Writing a driver page =
 
@@ -105,9 +98,9 @@ The first step in a driver page will be to open the individual test form that wi
 {{{
 <tr>
   <td>open</td>
-  <td>../../W3C-XForms-1.1/Edition1/Chapt11/11.1/11.1.n.xhtml</td>
-  <td>&amp;nbsp;</td>
-  <td>&amp;nbsp;</td>
+  <td>../../Chapt11/11.1/11.1.n.xhtml</td>
+  <td></td>
+  <td></td>
 </tr>
 }}}
 
@@ -115,10 +108,10 @@ Once the form is loaded, UXF will initialise. We can't run any tests until this 
 
 {{{
 <tr>
-  <td>waitForXformsControlValue</td>
-  <td>xpath=//xforms:output[@id='status']</td>
-  <td>ready</td>
-  <td>&nbsp;</td>
+  <td>waitForModelReady</td>
+  <td>xpath=/html/body/xf:model[1]</td>
+  <td></td>
+  <td></td>
 </tr>
 }}}
 
