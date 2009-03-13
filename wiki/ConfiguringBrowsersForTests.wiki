@@ -13,9 +13,22 @@ Selenium tests involve an XForms, some driver files and the Selenium library its
 
 To run Selenium tests against Firefox 3, ensure that you have the latest stable version, which is always available from the [http://firefox.com Firefox home-page]. If you also plan to test with Internet Explorer on the same machine, then when installing Firefox, ensure that the 'make this my default browser' option is _not_checked.
 
+=== Creating a test profile ===
+
+Firefox supports multiple profiles. To create one for Buildbot, type:
+{{{
+"c:\Program Files\Mozilla Firefox\firefox.exe" -CreateProfile "buildbot C:\Documents and Settings\buildbot\ff-profile"
+}}}
+
+All of the configurations in the next section need to be applied to this test profile, so load Firefox with the Buildbot profile:
+
+{{{
+"c:\Program Files\Mozilla Firefox\firefox.exe" -P buildbot"
+}}}
+
 === Running tests locally ===
 
-If you want to run the tests from local files -- and if you are setting up a Buildbot slave you'll need this capability -- Firefox needs to be told to allow local files to be regarded as coming from the 'same origin'. To do this, navigate to:
+If you want to run the tests from local files -- and you will need to if you are setting up a Buildbot slave -- Firefox needs to be told to allow local files to be regarded as coming from the 'same origin'. To do this, navigate to:
 
 {{{
 about:config
