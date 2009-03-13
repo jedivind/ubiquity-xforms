@@ -49,20 +49,17 @@ needs to be set to `true`.
 
 If you ask Selenium to save the test results, then the first time the tests are run there will be a security message that needs to be acknowledged. This gives Firefox permission to save the test output to a local file. Provided the check-box for 'remembering' the value is set, then this will not need to be done again.
 
-If you are setting up a Buildbot slave then you'll need to run some tests that cause this prompt to be shown, so that you can acknowledge it; that way the Buildbot tests won't be blocked whilst the browser is waiting for acknowledgement.
+If you are setting up a Buildbot slave then you'll need to run some tests that cause this prompt to be shown, so that you can acknowledge it; that way the Buildbot tests won't be blocked whilst the browser is waiting for acknowledgement. This can be done using the following configuration test.
 
 === Verifying your configuration ===
 
-To check that everything is working correctly, we can run an automated test. First, change to a directory that contains a full copy of UXF:
+The easiest way to check whether everything is working correctly is to run an Ant task. This tests both the browser configuration and the Buildbot slave set-up if you are installing a slave.
 
+`ant -f testsuite/build.xml run-selenium-tests -Dsection=02 -Dbrowser=ff`.
+
+This will open the browser, run all of the tests for the specified chapter (the `section` parameter), write the results to a file, and then close the browser. (The results file will be available at `testsuite/xforms11-Chapter02-ff-results.html`.)
+
+If you want to load the tests ready to be run manually, then add `auto=false`:
 {{{
-z:\ubiquity\chapter-2
+ant -f testsuite/build.xml run-selenium-tests -Dsection=02 -Dbrowser=ff -Dauto=false
 }}}
-
-Next run the following command, which will run the tests for chapter 2:
-
-{{{
-testsuite\xforms11-test.bat ff Chapter 2 true
-}}}
-
-If all is well then the Firefox will be launched, and the tests will start to run. No intervention should be required, and when the tests are finished, Firefox should be closed. (If Firefox is already running then a new tab will be created and then closed.) When the tests have completed, the `testsuite` directory should contain the test results in the file `xforms11-Chapter2-ff-results`.
