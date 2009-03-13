@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
-<project name="check-results" default="regression-ie7">
+<project name="check-results" default="run-selenium-test">
 	<property name="browser" value="ff"/>
+	<condition property="browser-runtime" value="C:\Program Files\Mozilla Firefox\firefox.exe">
+		<equals arg1="${browser}" arg2="ff"/>
+	</condition>
+	<condition property="browser-runtime" value="C:\Program Files\Internet Explorer\iexplore.exe">
+		<equals arg1="${browser}" arg2="ie"/>
+	</condition>
+
 	<property name="test-type" value="xforms11"/>
 	<property name="test-section" value="Chapter"/>
 	<property name="section" value="01" />
@@ -15,8 +22,8 @@
 	<property name="destination" location="${merge_base_dir}/${merge_src_dir}" />
 
 	<target name="run-selenium-test">
-		<exec executable="C:\Program Files\Mozilla Firefox\firefox.exe">
-			<arg line="file:///${sel-runner}?${sel-params}" />
+		<exec executable="${browser-runtime}">
+			<arg line="-no-remote -P buildbot file:///${sel-runner}?${sel-params}" />
 		</exec>
 		<loadfile property="results" srcFile="${results-file-name}.html" />
 		<condition property="failed">
