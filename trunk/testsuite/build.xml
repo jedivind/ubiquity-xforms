@@ -29,8 +29,10 @@
 		<condition property="failed">
 			<matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
 		</condition>
-		<fail message="Test '${test-name}' failed for browser '${browser}'."
-			if="failed"/>
+		<fail if="failed"
+			message="Test '${test-name}' failed for browser '${browser}'."
+			status="1"
+		/>
 	</target>
 
 	<!-- 
