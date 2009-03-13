@@ -153,37 +153,6 @@ function getTZOffset(oDate) {
     return s;
 }
 
-/**
-	Determine if a given string is a valid xsd:date.
-	
-	@param {string} sDate, the date to validate.
-	@returns {boolean} True if valid xsd:date, otherwise false.
-*/
-function isValidDate(sDate) {
-    if (sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/) ||
-        sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)) {
-        return true;
-    }
-
-    return false;
-}
-
-/**
-	Determine if a given string is a valid xsd:dateTime.
-	
-	@param {string} sDateTime, the dateTime to validate.
-	@returns {boolean} True if valid xsd:dateTime, otherwise false.
-*/
-function isValidDateTime(sDateTime) {
-    if (sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) ||
-        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}Z$/) ||
-        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)) {
-        return true;
-    }
-
-    return false;
-}
-
 //	http://www.w3.org/TR/xforms11/#expr-lib-bool
 
 /**@addon

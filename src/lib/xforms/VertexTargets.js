@@ -207,7 +207,7 @@ function ProxyExpression(oContext, sXPath, oModel)
 	this.m_context = oContext;
 	this.m_xpath = sXPath;
 	this.m_model = oModel;
-	this.datatype = "xsd:string";
+	this.datatype = "";
 	return;
 }
 
@@ -310,16 +310,26 @@ function ProxyNode(oNode)
 	};
 	
 	this.valid = { 
+      oPN: this,
 	  getValue: function () {
 	    if (this.constraint) {
-	      return this.constraint.getValue();
-	    }
-	    return true;
-	  }
+            if (!this.constraint.getValue()) {
+                return false;
+            }
+        }
+
+        if (this.oPN && this.oPN.validate) {
+            if (!this.oPN.validate()) {
+                return false;
+            }
+        }
+
+        return true;
+      }
 	};
 	
   // get the type form the node
-  this.datatype =  oNode.getAttribute("xsi:type") || "xsd:string";    
+  this.datatype =  oNode.getAttribute("xsi:type") || "";    
 }
 
 
@@ -450,6 +460,20 @@ ProxyNode.prototype.setValue = function(sVal, oModel)
 		
 	}
 	return oRet;
+};
+
+ProxyNode.prototype.validate = function() {
+    var arrSegments, prefix, dataType, dataTypeNS;
+
+    if (!this.datatype) {
+        return true;
+    }
+
+    arrSegments = this.datatype.split(":");
+    prefix = arrSegments.length === 1 ? "" : arrSegments[0];
+    dataType = arrSegments.length === 1 ? arrSegments[0] : arrSegments[1];
+    dataTypeNS = prefix ? NamespaceManager.getNamespaceURIForPrefix(prefix) : "";
+    return Validator.validateValue(dataTypeNS, dataType, this.getValue());
 };
 
 function SingleNodeExpression(oTarget,sXPath, oContext,oModel)
