@@ -8,6 +8,9 @@
   </head>
   <body>
     <xforms:model>
+	  	<xforms:action ev:event="xforms-ready">
+	  		<xforms:insert nodeset="paragraph[2]"/>
+	  	</xforms:action>
   		<xforms:instance>
   			<document>
   				<header>Lorem ipsum</header>
@@ -18,9 +21,6 @@
   			</document>
   		</xforms:instance>
   	</xforms:model>
-  	<xforms:action ev:event="xforms-ready">
-  		<xforms:insert nodeset="paragraph[2]"/>
-  	</xforms:action>
   	<xforms:group>
   		<xforms:label class="title">
   			b.3.a Duplicate Element

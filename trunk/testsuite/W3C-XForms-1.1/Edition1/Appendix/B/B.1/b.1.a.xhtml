@@ -8,6 +8,9 @@
   </head>
   <body>
     <xforms:model>
+	  	<xforms:action ev:event="xforms-ready">
+	  		<xforms:insert context="people" origin="instance('prototypes')/person"/>
+	  	</xforms:action>
   		<xforms:instance>
   			<data>
   				<people>
@@ -25,9 +28,6 @@
   			</prototypes>
   		</xforms:instance>
   	</xforms:model>
-  	<xforms:action ev:event="xforms-ready">
-  		<xforms:insert context="people" origin="instance('prototypes')/person"/>
-  	</xforms:action>
   	<xforms:group>
   		<xforms:label class="title">
   			b.1.a Prepend Element Copy

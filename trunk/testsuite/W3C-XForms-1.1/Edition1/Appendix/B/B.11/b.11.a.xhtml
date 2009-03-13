@@ -8,6 +8,9 @@
   </head>
   <body>
     <xforms:model>
+	  	<xforms:action ev:event="xforms-ready">
+	  	   <xforms:insert nodeset="item[2]/@key" origin="item[1]/@key"/>
+		</xforms:action>
   		<xforms:instance>
   			<items>
   				<item key="0"/>
@@ -15,9 +18,6 @@
   			</items>
   		</xforms:instance>
   	</xforms:model>
-  	<xforms:action ev:event="xforms-ready">
-  	   <xforms:insert nodeset="item[2]/@key" origin="item[1]/@key"/>
-	</xforms:action>
   	<xforms:group>
   		<xforms:label class="title">
   			b.11.a Replace Attribute

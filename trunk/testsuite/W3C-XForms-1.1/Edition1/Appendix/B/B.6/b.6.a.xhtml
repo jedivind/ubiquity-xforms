@@ -8,15 +8,15 @@
   </head>
   <body>
     <xforms:model>
+	    <xforms:action ev:event="xforms-ready">
+	  		<xforms:delete nodeset="item/@rating"/>
+	  	</xforms:action>
   		<xforms:instance>
   			<items>
   				<item key="23" rating="classified"/>
   			</items>
   		</xforms:instance>
   	</xforms:model>
-    <xforms:action ev:event="xforms-ready">
-  		<xforms:delete nodeset="item/@rating"/>
-  	</xforms:action>
   	<xforms:group>
   		<xforms:label class="title">
   			b.6.a Remove Attribute

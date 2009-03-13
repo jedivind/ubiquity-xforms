@@ -8,6 +8,10 @@
   </head>
   <body>
     <xforms:model>
+	    <xforms:action ev:event="xforms-ready">
+	  		<xforms:insert context="item[2]" origin="../item[1]/@rating"/>
+			<xforms:insert context="item[3]" origin="../item[1]/@rating"/>
+	  	</xforms:action>
   		<xforms:instance>
   			<items>
   				<item key="23" rating="classified"/>
@@ -16,10 +20,6 @@
   			</items>
   		</xforms:instance>
   	</xforms:model>
-    <xforms:action ev:event="xforms-ready">
-  		<xforms:insert context="item[2]" origin="../item[1]/@rating"/>
-		<xforms:insert context="item[3]" origin="../item[1]/@rating"/>
-  	</xforms:action>
   	<xforms:group>
   		<xforms:label class="title">
   			b.4.a Set Attribute
