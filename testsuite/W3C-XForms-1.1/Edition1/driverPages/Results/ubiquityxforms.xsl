@@ -32,7 +32,7 @@
 	<!-- 
 		Generate the test suite results summary document
 	-->
-	<xsl:template match="*">
+	<xsl:template match="/ts:testSuite">
 		<html 
 			xmlns="http://www.w3.org/1999/xhtml"  
 	    	xmlns:ts="http://www.w3c.org/MarkUp/Forms/XForms/Test/11"
@@ -72,16 +72,23 @@
 		                <td>The test was not run, or an unknown result occurred.</td>
 		            </tr>
 		        </table>
-		        
-		        <h2 class="subtitle">Results Table</h2>        
-		        
+		    	
+		    	<xsl:apply-templates select="ts:specChapter/ts:statusSummary" />
+		    	
+		        <h2 class="subtitle">Results Table</h2>		        
 		        <table cellpadding="2" cellspacing="1" border="1">
 		            <tr class="heading">
 		                <td class="inner130">Test Case Number</td>
 		                <td class="innerLongCell">Test Case Name</td>
 		                <td class="innerTitle"><xsl:value-of select="$dir"></xsl:value-of></td>
 		            </tr>
-		        	<xsl:apply-templates/>
+		        	<tr class="chapter">
+						<td colspan="3">
+							<xsl:value-of select="ts:specChapter/@chapterName" />
+							<xsl:value-of select="ts:specChapter/@chapterTitle" />
+						</td>
+					</tr>
+		        	<xsl:apply-templates select="ts:specChapter/ts:testCase" />
 		        </table>
 		    </body>
 		</html>
@@ -90,15 +97,9 @@
 	<!--  
 		Create a heading type row for the results table with the chapter name and title.
 	-->
-	<xsl:template match="ts:specChapter">
-		<tr class="chapter">
-			<td colspan="4">
-				<xsl:value-of select="@chapterName" />
-				<xsl:value-of select="@chapterTitle" />
-			</td>
-		</tr>
+	<!-- xsl:template match="ts:specChapter">
 		<xsl:apply-templates />    
-	</xsl:template>
+	</xsl:template -->
 
 	<!-- 
 		Create table row for each chapter test case.
@@ -124,10 +125,49 @@
 			</xsl:choose>            
         </tr>
 	</xsl:template>
- 
+
+	<!-- 
+		Show the chapter results summary info
+	-->
+	<xsl:template match="ts:statusSummary">
+		<h2 class="subtitle">Chapter Results Summary</h2>     
+
+		<table cellpadding="2" cellspacing="1" border="1" width="500">
+			<tr>
+				<td colspan="2"><strong><xsl:value-of select="ts:numNormTotal" /> normative tests</strong></td>
+			</tr>
+			<tr>
+				<td>Passed</td>
+				<td><xsl:value-of select="ts:numNormPass" /></td>
+			</tr>
+			<tr>
+				<td>Failed</td>
+				<td><xsl:value-of select="ts:numNormFail" /></td>
+			</tr>
+			<tr>
+				<td>Unknown</td>
+				<td><xsl:value-of select="ts:numNormUnknown" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><strong><xsl:value-of select="ts:numBasicTotal" /> basic tests</strong></td>
+			</tr>
+			<tr>
+				<td>Passed</td>
+				<td><xsl:value-of select="ts:numBasicPass" /></td>
+			</tr>
+			<tr>
+				<td>Failed</td>
+				<td><xsl:value-of select="ts:numBasicFail" /></td>
+			</tr>
+			<tr>
+				<td>Unknown</td>
+				<td><xsl:value-of select="ts:numBasicUnknown" /></td>
+			</tr>
+		</table>
+	</xsl:template>
+
     <!-- 
     	Ignore following elements in input
-    -->
-    <xsl:template match="ts:statusSummary"/> 
+    -->   
     <xsl:template match="ts:profile"/> 
 </xsl:stylesheet>
