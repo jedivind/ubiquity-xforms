@@ -91,7 +91,7 @@ The latest versions of SVN for Windows are available from the [http://subversion
 
 == Install Apache Ant ==
 
-The latest version of Apache Ant is available from the [http://ant.apache.org/bindownload.cgi Apache Ant binary distribution page]. Download the ZIP file for the latest version, currently 1.7.1, and unpack it to anywhere on your machine. Then set the environment variable `ANT_HOME` to point to the unpack folder and add `%ANT_HOME%\bin` to your `PATH`.
+The latest version of Apache Ant is available from the [http://ant.apache.org/bindownload.cgi Apache Ant binary distribution page]. Download the ZIP file for the latest version, currently 1.7.1, and unpack it to anywhere on your machine. Then set the environment variable `ANT_HOME` to point to the unpacked folder and add `%ANT_HOME%\bin` to your `PATH`.
 
 Open a new command prompt (an existing one won't have the new entries in the environment variables) and verify that you can run Ant:
 {{{
