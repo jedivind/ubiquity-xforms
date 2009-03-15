@@ -12,7 +12,7 @@ We are still in the process of automating our tests, and until that happens, we 
   * manually maintained chapter status files;
   * Selenium-generated chapter status files.
 
-Once the tests are full automated the test-generated files will always be authoritative.
+Once the tests are fully automated the test-generated files will always be authoritative.
 
 == Manually maintained chapter status files ==
 
@@ -28,9 +28,11 @@ The HTML status pages are available on the Buildbot server, [http://uxf-bb.webba
 
 Selenium can generate a status file that shows the output of a test run. However, there are currently two problems. The first is that even after breaking the XForms 1.1 test suite file into multiple chapter files, many of them still require human intervention to complete. Secondly, many of the tests have not been written 'defensively', which means they can fail in different environments. The consequence of this is that some of the tests that fail under Selenium are regarded as a 'pass' by developers who run the tests manually, and so the Selenium-generated file cannot be regarded as authoritative.
 
-The generated files are in the same directories as above ( [http://uxf-bb.webbackplane.com:8080/Results/IE7/ one for IE 7] and [http://uxf-bb.webbackplane.com:8080/Results/FF3/ one for FF 3]), with names that follow the following pattern:
+The generated files come in two flavours -- those that were run under the watchful eye of a human, who helped them to complete, those that have been fully automated and can run under Buildbot.
+
+The human-supervised result files are the ones we are interested in here, and are in the same directories as above ([http://uxf-bb.webbackplane.com:8080/Results/IE7/ one for IE 7] and [http://uxf-bb.webbackplane.com:8080/Results/FF3/ one for FF 3]), with names that follow the following pattern:
 {{{
-xforms11-Chapter7-ie-results.html
+xforms11-Chapter07-ie-results.html
 }}}
 
 = Reviewing a chapter =
@@ -52,12 +54,30 @@ Anything that is red in the first file, but green in the second can be marked as
 
 == Tests that are blocking automation because they should pass (false negatives) ==
 
-Any test that is marked as being green in the manual file, but red in the second is preventing the test-suite from being automated, because it is giving the wrong result. Of course there will be other things that are blocking automation, which we'll look at in the next section, but for 'false negatives' we're looking at tests that are successfull when run manually (and so have a green entry in the manually-generated file), but fail when run in Selenium (having a red entry in the Selenium-generated file).
+Any test that is marked as being green in the manual file, but red in the second is preventing the test-suite from being automated, because it is giving the wrong result. Of course there will be other things that are blocking automation, which we'll look at in the next section, but for 'false negatives' we're looking at tests that are successful when run manually (and so have a green entry in the manually-generated file), but fail when run in Selenium (having a red entry in the Selenium-generated file).
 
-Some guidance on how to address these kinds of issues is at r2317, which explains how to:
+Most Selenium driver pages load their test form and then wait 3 seconds before continuing with the tests. Probably the main factor preventing the tests from running successfully when automated is that when many tests are run consecutively, there is a bit of
+overhead in the transition from one test to another, and it's often the case that 3 seconds is insufficient.
 
-  * indicate that the XForms processor has been loaded and initialised, by adding an `xf:output` to the end of the form;
-  * use this `xf:output` in a driver page, so that the test can wait until the XForms processor has been initialised before continuing.
+Also, the tests need to be able to run on lower spec machines, so all in all, the only solution that is guaranteed to result in a wait of sufficient length is to pause until the XForms processor itself becomes ready.
+
+The main change to achieve this is to replace:
+
+{{{
+ <td>pause</td>
+ <td>3000</td>
+}}}
+
+which occurs near the beginning of a driver page, with:
+
+{{{
+ <td>waitForModelReady</td>
+ <td>xpath=/html/body/xforms:model[1]</td>
+}}}
+
+`isModelReady` is a Selenium extension function that we've added to check that a particular model is ready, and it can be used in various ways, such as `waitForModelReady`, `verifyModelReady`, `assertModelReady`, and so on.
+
+Without this change just about every test will fail under Buildbot.
 
 == Tests that are blocking automation because they require human intervention ==
 
