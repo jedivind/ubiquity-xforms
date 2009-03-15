@@ -218,7 +218,9 @@ TestResult.prototype._saveToFile = function (fileName, form) {
             scriptFile = objFSO.CreateTextFile(fileName);
 				}
 
-         scriptFile.WriteLine("<html><body>\n<h1>Test suite results </h1>" +
+         scriptFile.WriteLine("<html><head><style>\n.status_passed { background-color: #ccffcc; }\n" +
+                             ".status_failed { background-color: #ffcccc; }\n" +
+                             "</style></head><body>\n<h1>Test suite results </h1>" +
                              "\n\n<table>\n<tr>\n<td>result:</td>\n<td>" + inputs["result"] + "</td>\n" +
                              "</tr>\n<tr>\n<td>totalTime:</td>\n<td>" + inputs["totalTime"] + "</td>\n</tr>\n" +
                              "<tr>\n<td>numTestPasses:</td>\n<td>" + inputs["numTestPasses"] + "</td>\n</tr>\n" +
@@ -234,4 +236,3 @@ TestResult.prototype._saveToFile = function (fileName, form) {
         scriptFile.WriteLine("</table></body></html>");
         scriptFile.Close();
     }
-
