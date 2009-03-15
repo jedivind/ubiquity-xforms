@@ -95,6 +95,22 @@ The latest versions of SVN for Windows are available from the [http://subversion
 
 The latest version of Apache Ant is available from the [http://ant.apache.org/bindownload.cgi Apache Ant binary distribution page]. Download the ZIP file for the latest version, currently 1.7.1, and unpack it to anywhere on your machine. Then set the environment variable `ANT_HOME` to point to the unpacked folder and add `%ANT_HOME%\bin` to your `PATH`.
 
+There is an error in the `ant.bat` file which means that any errors that may occur are not signalled to the calling application. This in turn means that the Buildbot slave is always reporting 'success' to the Buildbot master.
+
+So edit the Ant batch file, which will be in the `bin` directory set earlier, and go to line 202, which should have the following:
+{{{
+rem Set the ERRORLEVEL if we are running NT.
+if "%OS%"=="Windows_NT" color 00
+
+goto omega
+}}}
+
+Between the `if` statement and the `goto`, insert the following line:
+
+{{{
+exit %ANT_ERROR%
+}}}
+
 Open a new command prompt (an existing one won't have the new entries in the environment variables) and verify that you can run Ant:
 {{{
 ant -version
