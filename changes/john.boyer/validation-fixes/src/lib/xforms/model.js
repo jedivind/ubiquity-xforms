@@ -156,8 +156,6 @@ function processBind(oBind, sExpr, oModel, oContext) {
                                     oMIPVertex = oPN.m_vertex;
                                 } else if (sMIPName === "relevant") {
                                     sMIPName = "enabled";
-                                } else if (sMIPName === "constraint") {
-                                    sMIPName = "valid";
                                 } else if (sMIPName === "type") {
                                     oPN.datatype = sMIPVal;
                                 }

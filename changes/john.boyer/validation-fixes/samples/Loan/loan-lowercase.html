@@ -55,7 +55,7 @@
                      constraint=". &gt;= 1000 and . &lt;= 100000"></xforms:bind>
                
         <xforms:bind nodeset="duration" 
-                     type="xsd:positiveinteger"
+                     type="xsd:positiveInteger"
                      constraint=". &lt;= 84"></xforms:bind>
 
         <xforms:bind nodeset="interestrate"
@@ -73,7 +73,8 @@
                            method="post" 
                            includenamespaceprefixes=""
                            action="http://xformstest.org/cgi-bin/echo.sh">
-            <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit</xforms:message>
+            <xforms:message ev:event="xforms-submit-error" level="modal" if="event('error-type')!='validation-error'">Unable to submit</xforms:message>
+            <xforms:message ev:event="xforms-submit-error" level="modal" if="event('error-type')='validation-error'">The data must be corrected before submission</xforms:message>
         </xforms:submission>
     </xforms:model>
  

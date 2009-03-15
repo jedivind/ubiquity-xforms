@@ -650,16 +650,12 @@ Model.prototype.applyChildBindConstraints = function(parent) {
 };
 
 Model.prototype.applyBindConstraint = function(bind) {
-	var constraint = bind.getAttribute("constraint");
-	if (constraint && constraint !== "") {
-		if (!bind.m_proxy) {
-			bind.m_proxy = new ProxyNode(bind);
+	if (bind.m_proxy) {
+		if (bind.m_proxy.constraint) {
+			bind.m_proxy.constraint.update();
 		}
-
-		if (!bind.m_proxy.constraint) {
-			bind.m_proxy.constraint = new MIPExpression(bind.m_proxy, constraint, { node: bind }, this);
+		if (bind.m_proxy.required && bind.m_proxy.required.update) {
+			bind.m_proxy.required.update();
 		}
-
-		bind.m_proxy.constraint.update();
 	}
 };

@@ -71,7 +71,8 @@
                               method="post" 
                               includenamespaceprefixes=""
                               action="http://xformstest.org/cgi-bin/echo.sh">
-                <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit. Please try again later.</xforms:message>
+                <xforms:message ev:event="xforms-submit-error" level="modal" if="event('error-type')!='validation-error'">Unable to submit. Please try again later.</xforms:message>
+                <xforms:message ev:event="xforms-submit-error" level="modal" if="event('error-type')='validation-error'">Some of the data on this form is invalid. Please correct errors and try again.</xforms:message>
            </xforms:submission>           
        </xforms:model>
 

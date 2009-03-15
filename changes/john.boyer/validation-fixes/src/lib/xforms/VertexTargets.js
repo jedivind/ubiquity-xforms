@@ -290,11 +290,12 @@ function ProxyNode(oNode)
 	  }
 	};
 	
+	// set up a default required MIP, which is replaced if there is an actual required MIP expression
 	this.required = { 
 		getValue:  function () {
-		  return false;
+			return false;
 		}
-  };
+ 	};
   
 	this.enabled = {
 	  value: true,
@@ -312,11 +313,17 @@ function ProxyNode(oNode)
 	this.valid = { 
       oPN: this,
 	  getValue: function () {
-	    if (this.constraint) {
-            if (!this.constraint.getValue()) {
+	    if (this.oPN && this.oPN.constraint) {
+            if (!this.oPN.constraint.getValue()) {
                 return false;
             }
         }
+        
+        if (this.oPN && this.oPN.required) {
+	    	if (this.oPN.required.getValue() && !this.oPN.getValue()) {
+	    		return false;
+	    	}
+	    }
 
         if (this.oPN && this.oPN.validate) {
             if (!this.oPN.validate()) {
