@@ -208,18 +208,9 @@ _Note: Chapter 1, Appendix G and H tests not included_
   * Select1
     * @incremental
     * @appearance(full[radiobox]:compact[list])
-  * Relevant MIP does not work on controls
-  * Constraint MIP does not work
   * Switch/Case do not work on XHTML, they work on IE and FF(HTML)
-  * Insert still needs some work
-    * @bind
-    * @model
-    * @at
-    * @position
-  * Delete still needs some work
-    * @context
-    * @bind
-    * @at
+  * Delete
+    * The delete-nodes event context info for xforms-delete event
   * Reset causes the script to run forever causing an error
   * Repeat
     * @startindex not working
@@ -229,8 +220,6 @@ _Note: Chapter 1, Appendix G and H tests not included_
     * {{{<resource/>}}}
   * Submission    
     * @mode 
-    * @validate
-    * @relevant
     * @version
     * @indent
     * @encoding 
@@ -241,9 +230,4 @@ _Note: Chapter 1, Appendix G and H tests not included_
     * @target 
     * @separator 
     * @includenamespaceprefixes 
-    * {{{<method/>}}}
-      * support "delete" 
-      * support "multipart-post" 
-      * support "form-data-post" 
-      * support "urlencoded-post" 
      
