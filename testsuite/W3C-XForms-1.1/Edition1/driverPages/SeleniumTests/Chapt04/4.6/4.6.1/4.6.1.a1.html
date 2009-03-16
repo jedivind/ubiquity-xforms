@@ -56,6 +56,12 @@
 					<td>Type a text into the input field</td>
 				</tr>
 				<tr>
+					<td>keyUp</td>
+					<td>xpath=/html/body/xforms:input[@ref='/car/make']/pe-value/input</td>
+					<td>a</td>
+					<td>Simulate last key up in the input field</td>
+				</tr>
+				<tr>
 					<td>verifyValue</td>
 					<td>xpath=/html/body/xforms:input[@ref='/car/make']/pe-value/input</td>
 					<td>Honda</td>
@@ -66,6 +72,12 @@
 					<td>xpath=/html/body/xforms:repeat</td>
 					<td></td>
 					<td>Checks that the repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Wait for the repeat to populate</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
@@ -87,6 +99,12 @@
 					<td>Type a text into the secret field</td>
 				</tr>
 				<tr>
+					<td>keyUp</td>
+					<td>xpath=/html/body/xforms:secret[@ref='/car/vin']/pe-value/input</td>
+					<td>1</td>
+					<td>Simulate last key up in the secret field</td>
+				</tr>
+				<tr>
 					<td>verifyValue</td>
 					<td>xpath=/html/body/xforms:secret[@ref='/car/vin']/pe-value/input</td>
 					<td>1111</td>
@@ -97,6 +115,12 @@
 					<td>xpath=/html/body/xforms:repeat</td>
 					<td></td>
 					<td>Checks that the repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Wait for the repeat to populate</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
@@ -113,13 +137,19 @@
 				</tr>
 				<tr>
 					<td>type</td>
-					<td>xpath=/html/body/xforms:textarea[@ref='/car/color']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:textarea[@ref='/car/color']/pe-value/textarea</td>
 					<td>black</td>
 					<td>Type a text into the textarea field</td>
 				</tr>
 				<tr>
+					<td>keyUp</td>
+					<td>xpath=/html/body/xforms:textarea[@ref='/car/color']/pe-value/textarea</td>
+					<td>k</td>
+					<td>Simulate last key up in the textarea field</td>
+				</tr>
+				<tr>
 					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:textarea[@ref='/car/color']/pe-value/input</td>
+					<td>xpath=/html/body/xforms:textarea[@ref='/car/color']/pe-value/textarea</td>
 					<td>black</td>
 					<td>Checks that the textarea has the right value</td>
 				</tr>
@@ -128,6 +158,12 @@
 					<td>xpath=/html/body/xforms:repeat</td>
 					<td></td>
 					<td>Checks that the repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Wait for the repeat to populate</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
