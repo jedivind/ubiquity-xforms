@@ -55,11 +55,17 @@
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
-		        <tr>
+				<tr>
 					<td>type</td>
 					<td>xpath=/html/body/xforms:secret[@ref='/user/password' and @incremental='true']/pe-value/input</td>
 					<td>password</td>
-			    	<td>Changes the Password</td>
+					<td>Enter value in the secret field</td>
+				</tr>
+				<tr>
+					<td>keyUp</td>
+					<td>xpath=/html/body/xforms:secret[@ref='/user/password' and @incremental='true']/pe-value/input</td>
+					<td>d</td>
+					<td>Simulate last key up</td>
 				</tr>
 				<tr>
 					<td>verifyValue</td>
@@ -68,10 +74,22 @@
 					<td>Checks that the secret has the right value</td>
 				</tr>
 				<tr>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Waits for the alert to load</td>
+				</tr>
+				<tr>
 					<td>verifyTextPresent</td>
 					<td>[XForms]*xforms-value-changed*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
+					<td></td>
+					<td>Clicks on OK button</td>
 				</tr>
 				<tr>
 					<td>click</td>
