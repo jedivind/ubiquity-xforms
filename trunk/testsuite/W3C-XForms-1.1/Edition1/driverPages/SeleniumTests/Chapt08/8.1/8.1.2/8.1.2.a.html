@@ -55,11 +55,17 @@
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
-		        <tr>
+				<tr>
 					<td>type</td>
 					<td>xpath=/html/body/xforms:input[@ref='/order/shipTo/street' and @incremental='true']/pe-value/input</td>
 					<td>1111 First Ave</td>
-			    	<td>Changes the Street Name</td>
+					<td>Enter the Street Name</td>
+				</tr>
+				<tr>
+					<td>keyUp</td>
+					<td>xpath=/html/body/xforms:input[@ref='/order/shipTo/street' and @incremental='true']/pe-value/input</td>
+					<td>e</td>
+					<td>Simulate last key up</td>
 				</tr>
 				<tr>
 					<td>verifyValue</td>
@@ -68,22 +74,28 @@
 					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
-					<td>keyPress</td>
-					<td>xpath=/html</td>
-					<td>\9</td>
-					<td>Tabs to the next input box</td>
-				</tr>
-				<tr>
 					<td>pause</td>
 					<td>1000</td>
 					<td></td>
-					<td>Waits for the form to load</td>
+					<td>Waits for the alert to load</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-value-changed*OK*[XForms]*xforms-value-changed*OK</td>
+					<td>[XForms]*xforms-value-changed*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
+					<td></td>
+					<td>Clicks on OK button</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</td>
+					<td></td>
+					<td>Clicks on OK button</td>
 				</tr>
 			</tbody>
 		</table>
