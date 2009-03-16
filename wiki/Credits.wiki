@@ -6,3 +6,4 @@ Ubiquity XForms relies on a number of other open-source libraries and tools.
   * [http://code.google.com/p/ajaxslt/ Google's AJAXSLT]
   * [http://sourceforge.net/projects/jssha/ Brian Turek's jsSHA]
   * [http://seleniumhq.org/ Selenium]
+  * [http://developer.yahoo.com/yui The Yahoo! User Interface Library (YUI)]
