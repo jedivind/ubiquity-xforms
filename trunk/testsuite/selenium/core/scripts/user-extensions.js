@@ -7,50 +7,56 @@
 //		 commonly used prefixes to this list by hand.
 
 
-PageBot.prototype._namespaceResolver = 
-function(prefix)
-{
 
-	switch(prefix)
+(function () {
+	getNamespaceURI = function(prefix)
 	{
-		case "":
-		case "html":
-		case "xhtml":
-		case "x":
-			return 'http://www.w3.org/1999/xhtml';
-		case "mathml":
-			return 'http://www.w3.org/1998/Math/MathML';
-		case "xf":
-		case "xforms": 
-			return "http://www.w3.org/2002/xforms";
-		case "smil":
-		     return "http://www.w3.org/2005/SMIL21/BasicAnimation";
-		default:
-			throw new Error("My Unknown namespace: " + prefix + ".")
+		switch(prefix)
+		{
+			case "":
+			case "html":
+			case "xhtml":
+			case "x":
+				return 'http://www.w3.org/1999/xhtml';
+			case "mathml": 
+				return 'http://www.w3.org/1998/Math/MathML';
+			case "xf":
+			case "xforms": 
+				return "http://www.w3.org/2002/xforms";
+			case "smil":
+				return "http://www.w3.org/2005/SMIL21/BasicAnimation";
+			case "ev":
+				return "http://www.w3.org/2001/xml-events";
+			default:
+				return prefix;
+		}
+	},
+	
+	getNameObject = function (name, prefix) {
+		var colonIndex = name.indexOf(":"),
+		prefix = (prefix || (colonIndex===-1 ? "" : name.slice(0,colonIndex))).toLowerCase(),
+		localName = (colonIndex===-1 ? name : name.slice(colonIndex+1)).toLowerCase();
+		return {
+			"namespace-URI":getNamespaceURI(prefix),
+			"local-name":localName
+		}
 	}
-}
+	
+	NodeTestName.prototype.evaluate = function(ctx) {
+		var thisName = getNameObject(this.name),
+			nodeName = getNameObject(ctx.node.nodeName, ctx.node.scopeName);
+
+		return new BooleanValue(
+			thisName["local-name"] === nodeName["local-name"] &&
+			thisName["namespace-URI"] === nodeName["namespace-URI"]
+		);
+	};
+}());
+
 
 PageBot.prototype._findElementUsingFullXPath = 
 function(xpath, inDocument) {
-    // HUGE hack - remove namespace from xpath for IE
-    if (browserVersion.isIE)
-    {
-        xpath = xpath.replace(/xf:/g,'')
-        xpath = xpath.replace(/xforms:/g,'')
-        xpath = xpath.replace(/smil:/g,'')
-    }
 
-    // Use document.evaluate() if it's available
-    if (inDocument.evaluate) {
-        // cfis
-        //return inDocument.evaluate(xpath, inDocument, null, 0, null).iterateNext();
-        //PRB: This mechanism can't cope with namespaces - Paul.
-        //var nl = inDocument.evaluate(xpath, inDocument, this._namespaceResolver, 0, null);
-		
-//        return nl.iterateNext();
-    }
-
-    // If not, fall back to slower JavaScript implementation
     var context = new ExprContext(inDocument);
     var xpathObj = xpathParse(xpath);
     var xpathResult = xpathObj.evaluate(context);
@@ -121,9 +127,8 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 };
 
 Selenium.prototype.isModelReady = function(locator) {
-	var doc = this.page();
-	var element = doc.findElement(locator);
-
+	var doc = this.page(),
+		element = doc.findElement(locator);
 	return element.m_bXFormsReadyFired;
 };
 
