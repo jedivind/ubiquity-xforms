@@ -11,12 +11,12 @@
     <xforms:model>
 			<xforms:instance>
 				<person-name>
-					<first-name/>
-					<last-name/>
+					<first-name></first-name>
+					<last-name></last-name>
 				</person-name>
 			</xforms:instance>
-			<xforms:bind id="fname_bind" nodeset="/person-name/first-name" required="true()"/>
-      		<xforms:submission id="fname" action="http://xformstest.org/cgi-bin/echo.sh" method="post" bind="fname_bind"/>
+			<xforms:bind id="fname_bind" nodeset="/person-name/first-name" required="true()"></xforms:bind>
+      		<xforms:submission id="fname" action="http://xformstest.org/cgi-bin/echo.sh" method="post" bind="fname_bind"></xforms:submission>
 		</xforms:model>
 		<xforms:group>
 			<xforms:label class="title">6.1.3.a required property</xforms:label>
