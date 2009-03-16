@@ -45,7 +45,7 @@
 		    </head>
 		    <body>
 		        <h1 class="title">XForms 1.1 Test Suite Implementation Status for Ubiquity-XForms</h1>
-		        <h2 class="subtitle">XForms 1.1 Test -- February 2009</h2>
+		        <h2 class="subtitle">XForms 1.1 Test -- March 16, 2009</h2>
 		        <h3>This report describes the results from testing the XForms 1.1 Test Suite with Ubiquity-XForms.</h3>
 		    
 		        <h2 class="subtitle">Legend</h2>
@@ -132,36 +132,38 @@
 	<xsl:template match="ts:statusSummary">
 		<h2 class="subtitle">Chapter Results Summary</h2>     
 
+    <xsl:variable name="chapterCounts" select="document(@countsfile)/chapterCounts"/>
+    
 		<table cellpadding="2" cellspacing="1" border="1" width="500">
 			<tr>
-				<td colspan="2"><strong><xsl:value-of select="ts:numNormTotal" /> normative tests</strong></td>
+				<td colspan="2"><strong><xsl:value-of select="$chapterCounts/numNormTotal" /> normative tests</strong></td>
 			</tr>
 			<tr>
 				<td>Passed</td>
-				<td><xsl:value-of select="ts:numNormPass" /></td>
+				<td><xsl:value-of select="$chapterCounts/numNormPass" /></td>
 			</tr>
 			<tr>
 				<td>Failed</td>
-				<td><xsl:value-of select="ts:numNormFail" /></td>
+				<td><xsl:value-of select="$chapterCounts/numNormFail" /></td>
 			</tr>
 			<tr>
 				<td>Unknown</td>
-				<td><xsl:value-of select="ts:numNormUnknown" /></td>
+				<td><xsl:value-of select="$chapterCounts/numNormUnknown" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><strong><xsl:value-of select="ts:numBasicTotal" /> basic tests</strong></td>
+				<td colspan="2"><strong><xsl:value-of select="$chapterCounts/numBasicTotal" /> basic tests</strong></td>
 			</tr>
 			<tr>
 				<td>Passed</td>
-				<td><xsl:value-of select="ts:numBasicPass" /></td>
+				<td><xsl:value-of select="$chapterCounts/numBasicPass" /></td>
 			</tr>
 			<tr>
 				<td>Failed</td>
-				<td><xsl:value-of select="ts:numBasicFail" /></td>
+				<td><xsl:value-of select="$chapterCounts/numBasicFail" /></td>
 			</tr>
 			<tr>
 				<td>Unknown</td>
-				<td><xsl:value-of select="ts:numBasicUnknown" /></td>
+				<td><xsl:value-of select="$chapterCounts/numBasicUnknown" /></td>
 			</tr>
 		</table>
 	</xsl:template>

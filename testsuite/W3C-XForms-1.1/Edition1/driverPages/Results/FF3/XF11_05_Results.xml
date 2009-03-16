@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testSuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3c.org/MarkUp/Forms/XForms/Test/11 XF11TestSuite.xsd" specVersion="1.1" xmlns="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
     <specChapter chapterName="5. " productId="" chapterTitle="Datatypes">
-        <statusSummary>
+        <statusSummary countsfile="XF11_05_Results.counts">
             <numNormTotal>14</numNormTotal>
             <numNormPass>0</numNormPass>
             <numNormFail>14</numNormFail>
