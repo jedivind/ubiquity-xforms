@@ -3,7 +3,7 @@
      <item>
         <product></product>
         <unitcost>0</unitcost>
-        <qty>0</qty>
+        <qty>1</qty>
         <itemtotal>0</itemtotal>
      </item>
    </order>
@@ -11,7 +11,7 @@
      <item>
         <product></product>
         <unitcost>0</unitcost>
-        <qty>0</qty>
+        <qty>1</qty>
         <itemtotal>0</itemtotal>
      </item>
    </prototype>

@@ -593,10 +593,13 @@ submission.prototype.constructSubmitDataList = function(oContext, relevancePruni
 }
 
 submission.prototype.validateSubmitDataList = function(submitDataList) {
-    // TBD - test validity of each ProxyNode in the submitDataList
-    // return false if any are invalid, or true if all are valid
-    //
-    return true;
+	var i;
+	for (i = 0; i < submitDataList.length; i++) {
+		if (!submitDataList[i].valid.getValue()) {
+			return false;
+		}
+	}
+	return true;
 }
 
 submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, encoding, cdataSectionElements) {

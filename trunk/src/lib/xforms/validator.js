@@ -244,6 +244,18 @@ var xformsRules = {
 	        }
         },
 
+        "integer" : {
+	        validate : function(sValue) {
+                return (!sValue || sValue.match(/^[-+]?[0-9]+$/));
+	        }
+        },
+
+        "positiveInteger" : {
+	        validate : function(sValue) {
+                return (!sValue || sValue.match(/^[+]?0*[1-9][0-9]*$/));
+	        }
+        },
+
         "float" : {
 	        validate : function(sValue) {
                 if (isInfinityOrNaN(sValue)) {
@@ -382,6 +394,18 @@ var xmlSchemaRules = {
         "hexBinary" : {
 	        validate : function(sValue) {
 		        return (isNaN(parseInt(sValue, 16)) === false);
+	        }
+        },
+
+        "integer" : {
+	        validate : function(sValue) {
+                return (sValue.match(/^[-+]?[0-9]+$/));
+	        }
+        },
+
+        "positiveInteger" : {
+	        validate : function(sValue) {
+                return (sValue.match(/^[+]?0*[1-9][0-9]*$/));
 	        }
         },
 
