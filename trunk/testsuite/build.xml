@@ -23,7 +23,7 @@
 
 	<target name="run-selenium-test">
 		<exec executable="${browser-runtime}">
-			<arg line="-no-remote -P buildbot file:///${sel-runner}?${sel-params}" />
+			<arg line="-no-remote -P buildbot 'file:///${sel-runner}?${sel-params}'" />
 		</exec>
 		<loadfile property="results" srcFile="${results-file-name}.html" />
 		<condition property="failed">
