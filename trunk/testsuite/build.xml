@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <project name="check-results" default="run-selenium-test">
 	<property name="browser" value="ff"/>
+
 	<condition property="browser-runtime" value="C:\Program Files\Mozilla Firefox\firefox.exe">
 		<equals arg1="${browser}" arg2="ff"/>
 	</condition>
@@ -15,8 +16,23 @@
 	<property name="test-name" value="${test-type}-${test-number}"/>
 	<property name="results-file-name" value="${test-name}-${browser}-results"/>
 	<property name="auto" value="true"/>
-	<property name="sel-runner" location="selenium/core/TestRunner.html" />
-	<property name="sel-params" value="auto=${auto}&amp;save=true&amp;close=true&amp;test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuite${test-number}.html&amp;resultsUrl=../../${results-file-name}.html" />
+
+	<condition property="sel-runner-path" value="selenium/core/TestRunner.html">
+		<equals arg1="${browser}" arg2="ff"/>
+	</condition>
+	<condition property="sel-runner-path" value="selenium/core/TestRunner.hta">
+		<equals arg1="${browser}" arg2="ie"/>
+	</condition>
+
+	<property name="sel-runner" location="${sel-runner-path}" />
+
+	<condition property="sel-params" value="auto=${auto}&amp;save=true&amp;close=true&amp;test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuite${test-number}.html&amp;resultsUrl=../../${results-file-name}.html">
+		<equals arg1="${browser}" arg2="ff"/>
+	</condition>
+	<condition property="sel-params" value="auto=${auto}&amp;save=true&amp;close=true&amp;test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuite${test-number}.html&amp;resultsUrl=..%2F${results-file-name}.html">
+		<equals arg1="${browser}" arg2="ie"/>
+	</condition>
+
 	<property name="merge_base_dir" value="W3C-XForms-1.1/Edition1/driverPages/Results" />
 	<property name="merge_src_dir" value="FF3" />
 	<property name="destination" location="${merge_base_dir}/${merge_src_dir}" />
@@ -35,6 +51,22 @@
 		/>
 	</target>
 
+	<target name="run-selenium-test-ie">
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="${sel-runner}" />
+			<arg value="&quot;${sel-params}&quot;" />
+		</exec>
+		<loadfile property="results" srcFile="${results-file-name}.html" />
+		<condition property="failed">
+			<matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
+		</condition>
+		<fail if="failed"
+			message="Test '${test-name}' failed for browser '${browser}'."
+			status="1"
+		/>
+	</target>
+	
 	<!-- 
 		ant -Dsection=Chapter -Dsub_section=3 -Dbrowser=ie -Ddestination=W3C-XForms-1.1/Edition1/driverPages/Results/IE7 tidy-selenium-results
 		ant -Dsection=Appendix -Dsub_section=B -Dbrowser=ie -Ddestination=W3C-XForms-1.1/Edition1/driverPages/Results/IE7 tidy-selenium-results
