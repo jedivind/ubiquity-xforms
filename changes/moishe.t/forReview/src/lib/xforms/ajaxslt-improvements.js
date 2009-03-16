@@ -488,6 +488,9 @@ XNode.prototype.getElementsById = function(id) {
 // Failure to do this makes the whole attribute's XPath ancestor's axis hollow.   
 //
 XNode.prototype.setAttribute = function(name, value) {
+  if (this.nodeType !== DOM_ELEMENT_NODE) {
+    return;  
+  }
   for (var i = 0; i < this.attributes.length; ++i) {
     if (this.attributes[i].nodeName == name) {
       this.attributes[i].nodeValue = '' + value;
@@ -496,6 +499,28 @@ XNode.prototype.setAttribute = function(name, value) {
   }
   var newAttr = XNode.create(DOM_ATTRIBUTE_NODE, name, value, this);
   this.attributes.push(newAttr);
+  newAttr.parentNode = this;
+};
+
+// This (new) method attaches the given attribute node to its new owner element node.
+//
+XNode.prototype.setAttributeNode = function(newAttr) {
+  if ((this.nodeType !== DOM_ELEMENT_NODE) || (newAttr.nodeType !== DOM_ATTRIBUTE_NODE)) {
+    return;  
+  }
+  var i;
+  for (i = 0; i < this.attributes.length; ++i) {
+    if (this.attributes[i].nodeName == newAttr.nodeName) {
+      break;
+    }
+  }
+  
+  if (i < this.attributes.length) {
+    this.attributes[i] = newAttr;
+  }
+  else {
+    this.attributes.push(newAttr);
+  }
   newAttr.parentNode = this;
 };
 
