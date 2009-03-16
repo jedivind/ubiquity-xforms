@@ -126,12 +126,37 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 	return element.getValue();
 };
 
-Selenium.prototype.isModelReady = function(locator) {
-	var doc = this.page(),
-		element = doc.findElement(locator);
-	return element.m_bXFormsReadyFired;
-};
+(function () {
 
+	var checkAllModels = function (doc, prefix) {
+		var i, models = doc.getDocument().getElementsByTagName(prefix + "model");
+		for (i = 0; i < models.length; ++i) {
+			if (!models[i].m_bXFormsReadyFired) {
+				return false;
+			}
+		}
+		return true;
+	};
+	//Calling ...ModelReady with no selector will cause it to seek all models in the 
+	//	given document, and query their readiness in turn.
+	Selenium.prototype.isModelReady = function(locator) {
+		var doc = this.page(), retval = false;
+	
+		if(locator  && locator !== "") {
+			retval = doc.findElement(locator).m_bXFormsReadyFired;
+		} else {
+			if (browserVersion.isIE) {
+				retval = checkAllModels(doc,"");
+			} else {
+				retval = checkAllModels(doc, "xf:");
+				if(retval) {
+					retval = checkAllModels(doc, "xforms:");
+				}
+			}
+		}
+		return retval;
+	};
+}());
 Selenium.prototype.findEffectiveStyleProperty = function(element, property) {
 	var propertyValue = "";
 	if (selenium.browserbot.getCurrentWindow().getComputedStyle){
