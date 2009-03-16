@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testSuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3c.org/MarkUp/Forms/XForms/Test/11 XF11TestSuite.xsd" specVersion="1.1" xmlns="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
     <specChapter chapterName="1. " productId="" chapterTitle="Differences between XForms 1.1 and XForms 1.0">
-        <statusSummary>
+        <statusSummary countsfile="XF11_01_Results.counts">
             <numNormTotal>42</numNormTotal>
             <numNormPass>20</numNormPass>
             <numNormFail>22</numNormFail>
