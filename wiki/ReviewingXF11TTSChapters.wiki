@@ -72,10 +72,10 @@ which occurs near the beginning of a driver page, with:
 
 {{{
  <td>waitForModelReady</td>
- <td>xpath=/html/body/xforms:model[1]</td>
+ <td></td>
 }}}
 
-`isModelReady` is a Selenium extension function that we've added to check that a particular model is ready, and it can be used in various ways, such as `waitForModelReady`, `verifyModelReady`, `assertModelReady`, and so on.
+`isModelReady` is a Selenium extension function that we've added to check that either (a) a particular model is ready (use an XPath expression), or (b) that _all_ models are ready. As with all Selenium commands it can be used in various ways, such as `waitForModelReady`, `verifyModelReady`, `assertModelReady`, and so on.
 
 Without this change just about every test will fail under Buildbot.
 
