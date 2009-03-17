@@ -14,15 +14,15 @@
 
 function isValidEmail(sEmail) {
     return (
-        sEmail.match(/^([A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*)?$/)
+        sEmail.match(/^([A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*)?$/) ? true : false
     );
 }
 
-function isCardNumber(sNum) {
-	return (
+function isValidCardNumber(sNum) {
+    return (
         sNum.match(/^\d*[0-9]?$/) &&
         sNum.length >= 12 &&
-        sNum.length <= 19
+        sNum.length <= 19 ? true : false
     );
 }
 
@@ -30,57 +30,63 @@ function isValidDateTime(sDateTime) {
     return (
         sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) ||
         sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}Z$/) ||
-        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)
+        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false
     );
 }
 
 function isValidTime(sTime) {
     return (
         sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) ||
-        sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)
+        sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false
     );
 }
 
 function isValidDate(sDate) {
     return (
         sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/) ||
-        sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/)
+        sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false
     );
 }
 
 function isValidGYearMonth(sGYearMonth) {
     return (
-        sGYearMonth.match(/^[0-9]{4}\-[0-9]{2}$/)
+        sGYearMonth.match(/^[0-9]{4}\-[0-9]{2}$/) ? true : false
     );
 }
 
 function isValidGYear(sGYear) {
     return (
-        sGYear.match(/^[0-9]{4}$/)
+        sGYear.match(/^[0-9]{4}$/) ? true : false
     );
 }
 
 function isValidGMonthDay(sGMonthDay) {
     return (
-        sGMonthDay.match(/^\-\-[0-9]{2}\-[0-9]{2}$/)
+        sGMonthDay.match(/^\-\-[0-9]{2}\-[0-9]{2}$/) ? true : false
     );
 }
 
 function isValidGDay(sGDay) {
     return (
-        sGDay.match(/^\-\-\-[0-9]{2}$/)
+        sGDay.match(/^\-\-\-[0-9]{2}$/) ? true : false
     );
 }
 
 function isValidGMonth(sGMonth) {
     return (
-        sGMonth.match(/^\-\-[0-9]{2}$/)
+        sGMonth.match(/^\-\-[0-9]{2}$/) ? true : false
     );
 }
 
 function isValidBase64Binary(sBase64) {
     return (
-        sBase64.match(/^[a-zA-Z0-9\+\/\=]+$/)
+        sBase64.match(/^[a-zA-Z0-9\+\/\=]+$/) ? true : false
+    );
+}
+
+function isValidHexBinary(sHexBinary) {
+    return (
+        sHexBinary.match(/^[0-9a-fA-F]+$/) ? true : false
     );
 }
 
@@ -91,7 +97,7 @@ function isValidNCName(sNCName) {
     // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender  
 
     return (
-        sNCName.match(/^[_a-z][\w\.\-]*$/i)
+        sNCName.match(/^[_a-z][\w\.\-]*$/i) ? true : false
     );
 }
 
@@ -121,15 +127,11 @@ function isValidAnyURI(sURI) {
 function _isValidAnyURI(sURI) {
     var ixPercent, s;
 
-    if (!sURI) {
-        return true;
-    }
-
     // The '%' escape character must be followed by a two digit hex number.
     ixPercent = sURI.indexOf("%");
     while (ixPercent !== -1) {
         s = sURI.substr(ixPercent);
-        if (s.length < 3 || isNaN(parseInt(s.substr(ixPercent + 1, 2), 16))) {
+        if (s.length < 3 || !s.substr(ixPercent + 1, 2).match(/^[0-9a-fA-F]$/)) {
                 return false;
         }
         s = s.substr(ixPercent + 3);
@@ -152,7 +154,47 @@ function isValidQName(sQName) {
 }
 
 function isInfinityOrNaN(sValue) {
-    return (sValue === 'INF' || sValue === '-INF' || sValue === 'NaN');
+    return (
+        sValue === 'INF' || sValue === '-INF' || sValue === 'NaN'
+    );
+}
+
+function isValidBoolean(sBoolean) {
+    return (
+        sBoolean === "true" || sBoolean === "false" || sBoolean === "1" || sBoolean === "0"
+    );
+}
+
+function isValidInteger(sInteger) {
+    return (
+        sInteger.match(/^[-+]?[0-9]+$/) ? true : false
+    );
+}
+
+function isValidPositiveInteger(sInteger) {
+    return (
+        sInteger.match(/^[+]?0*[1-9][0-9]*$/) ? true : false
+    );
+}
+
+function isValidFloat(sFloat) {
+    if (isInfinityOrNaN(sFloat)) {
+        return true;
+    } else {
+        return (
+            sFloat.match(/^[-+]?0*[1-9][0-9]*([\.]{1}[0-9]+)?([eE]{1}[-+]?[0-9]+)?$/) ? true : false
+        );
+    }
+}
+
+function isValidDouble(sDouble) {
+    return isValidFloat(sDouble);
+}
+
+function isValidDecimal(sDecimal) {
+    return (
+        sDecimal.match(/^[-+]?0*[1-9][0-9]*([\.]{1}[0-9]+)?$/) ? true : false
+    );
 }
 
 function evalXPathFunc(func, args, ctx) {
@@ -173,49 +215,49 @@ var xformsRules = {
     rules : {
         "dateTime" : {
 	        validate : function(sValue) {
-		        return isValidDateTime(sValue);
+		        return sValue === "" || isValidDateTime(sValue);
 	        }
         },
 
         "time" : {
 	        validate : function(sValue) {
-		        return isValidTime(sValue);
+		        return sValue === "" || isValidTime(sValue);
 	        }
         },
 
         "date" : {
 	        validate : function(sValue) {
-		        return isValidDate(sValue);
+		        return sValue === "" || isValidDate(sValue);
 	        }
         },
 
         "gYearMonth" : {
 	        validate : function(sValue) {
-		        return isValidGMonth(sValue);
+		        return sValue === "" || isValidGMonth(sValue);
 	        }
         },
 
         "gYear" : {
 	        validate : function(sValue) {
-		        return isValidGYear(sValue);
+		        return sValue === "" || isValidGYear(sValue);
 	        }
         },
 
         "gMonthDay" : {
 	        validate : function(sValue) {
-		        return isValidGMonthDay(sValue);
+		        return sValue == "" || isValidGMonthDay(sValue);
 	        }
         },
 
         "gDay" : {
 	        validate : function(sValue) {
-		        return isValidGDay(sValue);
+		        return sValue === "" || isValidGDay(sValue);
 	        }
         },
 
         "gMonth" : {
 	        validate : function(sValue) {
-		        return isValidGMonth(sValue);
+		        return sValue === "" || isValidGMonth(sValue);
 	        }
         },
 
@@ -227,95 +269,86 @@ var xformsRules = {
 
         "boolean" : {
 	        validate : function(sValue) {
-		        return (sValue === "true" || sValue === "false"
-		                || sValue === "1" || sValue === "0");
+                return sValue === "" || isValidBoolean(sValue);
 	        }
         },
 
         "base64Binary" : {
 	        validate : function(sValue) {
-		        return isValidBase64Binary(sValue);
+		        return sValue === "" || isValidBase64Binary(sValue);
 	        }
         },
 
         "hexBinary" : {
 	        validate : function(sValue) {
-		        return (isNaN(parseInt(sValue, 16)) === false);
+                return sValue === "" || isValidHexBinary(sValue);
 	        }
         },
 
         "integer" : {
 	        validate : function(sValue) {
-                return (!sValue || sValue.match(/^[-+]?[0-9]+$/));
+                return sValue === "" || isValidInteger(sValue);
 	        }
         },
 
         "positiveInteger" : {
 	        validate : function(sValue) {
-                return (!sValue || sValue.match(/^[+]?0*[1-9][0-9]*$/));
+                return sValue === "" || isValidPositiveInteger(sValue);
 	        }
         },
 
         "float" : {
 	        validate : function(sValue) {
-                if (isInfinityOrNaN(sValue)) {
-                    return true;
-                } else {
-                    return (isNaN(parseFloat(sValue)) === false);
-                }
+                return sValue === "" || isValidFloat(sValue);
 	        }
         },
 
         "decimal" : {
 	        validate : function(sValue) {
-		        return (isNaN(parseInt(sValue)) === false);
+                return sValue === "" || isValidDecimal(sValue);
 	        }
         },
 
         "double" : {
 	        validate : function(sValue) {
-                if (isInfinityOrNaN(sValue)) {
-                    return true;
-                } else {
-                    return (isNaN(parseFloat(sValue)) === false);
-                }
+                return sValue === "" || isValidDouble(sValue);
 	        }
         },
 
         "anyURI" : {
 	        validate : function(sValue) {
-		        return isValidAnyURI(sValue);
+		        return sValue === "" || isValidAnyURI(sValue);
 	        }
         },
 
         "QName" : {
 	        validate : function(sValue) {
-		        return isValidQName(sValue);
+		        return sValue === "" || isValidQName(sValue);
 	        }
         },
 
         "dayTimeDuration" : {
 	        validate : function(sValue) {
-		        return isNaN(evalXPathFunc("seconds", [sValue]).numberValue()) === false;
+		        return sValue === "" || isNaN(evalXPathFunc("seconds", [sValue]).numberValue()) === false;
 	        }
         },
 
         "yearMonthDuration" : {
 	        validate : function(sValue) {
 		        var sExpr = "months(" + "'" + sValue + "')";
-		        return isNaN(evalXPathFunc("months", [sValue]).numberValue()) === false;
+		        return sValue === "" || isNaN(evalXPathFunc("months", [sValue]).numberValue()) === false;
 	        }
         },
 
         "email" : {
 	        validate : function(sValue) {
-		        return isValidEmail(sValue);
+		        return sValue === "" || isValidEmail(sValue);
 	        }
         },
 
         "card-number" : {
 	        validate : function(sValue) {
-		        return isCardNumber(sValue);
+		        return sValue === "" || isValidCardNumber(sValue);
 	        }
         }
     }
@@ -380,8 +413,7 @@ var xmlSchemaRules = {
 
         "boolean" : {
 	        validate : function(sValue) {
-		        return (sValue === "true" || sValue === "false"
-		                || sValue === "1" || sValue === "0");
+		        return isValidBoolean(sValue);
 	        }
         },
 
@@ -393,45 +425,37 @@ var xmlSchemaRules = {
 
         "hexBinary" : {
 	        validate : function(sValue) {
-		        return (isNaN(parseInt(sValue, 16)) === false);
+		        return isValidHexBinary(sValue);
 	        }
         },
 
         "integer" : {
 	        validate : function(sValue) {
-                return (sValue.match(/^[-+]?[0-9]+$/));
+                return isValidInteger(sValue);
 	        }
         },
 
         "positiveInteger" : {
 	        validate : function(sValue) {
-                return (sValue.match(/^[+]?0*[1-9][0-9]*$/));
+                return isValidPositiveInteger(sValue);
 	        }
         },
 
         "float" : {
 	        validate : function(sValue) {
-                if (isInfinityOrNaN(sValue)) {
-                    return true;
-                } else {
-                    return (isNaN(parseFloat(sValue)) === false);
-                }
+                return isValidFloat(sValue);
 	        }
         },
 
         "decimal" : {
 	        validate : function(sValue) {
-		        return (isNaN(parseInt(sValue)) === false);
+		        return isValidDecimal(sValue);
 	        }
         },
 
         "double" : {
 	        validate : function(sValue) {
-                if (isInfinityOrNaN(sValue)) {
-                    return true;
-                } else {
-                    return (isNaN(parseFloat(sValue)) === false);
-                }
+                return isValidDouble(sValue);
 	        }
         },
 
