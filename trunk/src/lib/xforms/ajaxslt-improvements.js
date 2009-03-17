@@ -22,6 +22,9 @@
 
 var g_bSaveDependencies = false;
 
+
+var HIERARCHY_REQUEST_ERR          = 3;
+
 /**
     The entry point for the library: match an expression against a DOM node.
     An expression and a full context object are received.  The context object
@@ -316,10 +319,33 @@ XNode.prototype.setOwnerDocument = function(owner, bDeep) {
 			this.childNodes[i].setOwnerDocument(owner, true);
 		}
 	}
-}
+};
 
+// This version corrects the original by forbidding multiple elements
+//	and text nodes
+XDocument.prototype.appendChild = function(node) {
+	if (node.nodeType === DOM_TEXT_NODE) {
+		throw {
+			code:HIERARCHY_REQUEST_ERR,
+			message: "Text Nodes are not allowed at the top level of a document"
+		};
+	} else if (node.nodeType === DOM_ELEMENT_NODE && this.documentElement) {
+		throw {
+			code:HIERARCHY_REQUEST_ERR,
+			message: "Only one top level element is allowed in an XML document."
+		};
+	}
+	XNode.prototype.appendChild.call(this, node);
+	this.documentElement = this.childNodes[0];
+};
+
+XDocument.prototype.removeChild = function(node) {
+	if (node === this.documentElement) {
+		this.documentElement = null;
+	}
+	XNode.prototype.removeChild.call(this, node);
+};
 // This version corrects the original by setting the ownerDocument of node
-//
 XNode.prototype.appendChild = function(node) {
 
   // ownerDocument
