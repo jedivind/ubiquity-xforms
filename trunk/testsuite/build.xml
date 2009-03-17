@@ -124,11 +124,11 @@
 	</target>
 
 	<target name="process-w3c-ts-chapter-results">
-		<xslt basedir="${results-dir}/IE7" destdir="${reports-dir}/IE7" style="${results-dir}/ubiquityxforms.xsl">
+		<xslt basedir="${results-dir}/IE7" destdir="${reports-dir}/IE7" style="section-test-results.xsl">
 			<param name="dir" expression="IE7" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
-		<xslt basedir="${results-dir}/FF3" destdir="${reports-dir}/FF3" style="${results-dir}/ubiquityxforms.xsl">
+		<xslt basedir="${results-dir}/FF3" destdir="${reports-dir}/FF3" style="section-test-results.xsl">
 			<param name="dir" expression="FF3" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
