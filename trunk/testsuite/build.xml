@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <project name="check-results" default="run-selenium-test">
+	<property name="results-dir" location="W3C-XForms-1.1/Edition1/driverPages/Results" />
+
 	<property name="browser" value="ff"/>
 
 	<condition property="browser-runtime" value="C:\Program Files\Mozilla Firefox\firefox.exe">
@@ -118,5 +120,15 @@
 			<param name="selenium_file_dir" expression="${merge_src_dir}" />
 		</xslt>
 	</target>
-	
+
+	<target name="process-w3c-ts-chapter-results">
+		<xslt basedir="${results-dir}/IE7" destdir="${results-dir}/IE7/html" style="${results-dir}/ubiquityxforms.xsl">
+			<param name="dir" expression="IE7" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+		<xslt basedir="${results-dir}/FF3" destdir="${results-dir}/FF3/html" style="${results-dir}/ubiquityxforms.xsl">
+			<param name="dir" expression="FF3" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+	</target>
 </project>
