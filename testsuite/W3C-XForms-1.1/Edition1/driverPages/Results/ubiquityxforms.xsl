@@ -130,40 +130,40 @@
 		Show the chapter results summary info
 	-->
 	<xsl:template match="ts:statusSummary">
-		<h2 class="subtitle">Chapter Results Summary</h2>     
+		<h2 class="subtitle">Chapter Results Summary</h2>
 
-    <xsl:variable name="chapterCounts" select="document(@countsfile)/chapterCounts"/>
-    
 		<table cellpadding="2" cellspacing="1" border="1" width="500">
+			<xsl:variable name="testCasesNormative" select="../ts:testCase[ts:testCaseNormative = 'true']"/>
 			<tr>
-				<td colspan="2"><strong><xsl:value-of select="$chapterCounts/numNormTotal" /> normative tests</strong></td>
+				<td colspan="2"><strong><xsl:value-of select="count($testCasesNormative)" /> normative tests</strong></td>
 			</tr>
 			<tr>
 				<td>Passed</td>
-				<td><xsl:value-of select="$chapterCounts/numNormPass" /></td>
+				<td><xsl:value-of select="count($testCasesNormative[ts:testCaseStatus = 'Passed'])" /></td>
 			</tr>
 			<tr>
 				<td>Failed</td>
-				<td><xsl:value-of select="$chapterCounts/numNormFail" /></td>
+				<td><xsl:value-of select="count($testCasesNormative[ts:testCaseStatus = 'Failed'])" /></td>
 			</tr>
 			<tr>
 				<td>Unknown</td>
-				<td><xsl:value-of select="$chapterCounts/numNormUnknown" /></td>
+				<td>not calculated</td>
 			</tr>
+			<xsl:variable name="testCasesBasic" select="../ts:testCase[ts:testCaseBasic = 'true']"/>
 			<tr>
-				<td colspan="2"><strong><xsl:value-of select="$chapterCounts/numBasicTotal" /> basic tests</strong></td>
+				<td colspan="2"><strong><xsl:value-of select="count($testCasesBasic)" /> basic tests</strong></td>
 			</tr>
 			<tr>
 				<td>Passed</td>
-				<td><xsl:value-of select="$chapterCounts/numBasicPass" /></td>
+				<td><xsl:value-of select="count($testCasesBasic[ts:testCaseStatus = 'Passed'])" /></td>
 			</tr>
 			<tr>
 				<td>Failed</td>
-				<td><xsl:value-of select="$chapterCounts/numBasicFail" /></td>
+				<td><xsl:value-of select="count($testCasesBasic[ts:testCaseStatus = 'Failed'])" /></td>
 			</tr>
 			<tr>
 				<td>Unknown</td>
-				<td><xsl:value-of select="$chapterCounts/numBasicUnknown" /></td>
+				<td>not calculated</td>
 			</tr>
 		</table>
 	</xsl:template>
