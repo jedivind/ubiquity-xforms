@@ -141,8 +141,14 @@ Instance.prototype.parseInstance = function () {
 	}
 	
 	if (sXML !== "") {
-		this.m_oDOM = xmlParse(sXML);
-        this.element["elementState"] = 0;        
+		try {
+			this.m_oDOM = xmlParse(sXML);
+		} catch(e) {
+			//Catch and do nothing:
+			// link-exception is despatched by caller
+			// catch here to allow that to happen
+		}
+		this.element["elementState"] = 0;
 	}
 	return;
 };
@@ -164,7 +170,7 @@ Instance.prototype.finishLoad = function (domURL) {
         this.dispatchException(
             "xforms-link-exception", 
             {
-                "resource-uri": domURL || this.getAttribute("id") || ""
+                "resource-uri": domURL || ("#" + this.getAttribute("id"))
             }
         );
     }
