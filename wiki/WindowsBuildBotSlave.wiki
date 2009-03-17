@@ -26,6 +26,10 @@ python --version
 
 You should see version 2.6.1, but if you don't, type `set` and ensure that the changes to `PATH` and `PATHEXT` are showing up.
 
+== Install Python Extensions for Windows ==
+
+The latest versions of !PyWin32 are on the [http://sourceforge.net/project/platformdownload.php?group_id=78018&sel_platform=3212 pywin32 Sourceforge.net page]. Choose a version that matches the version of Python installed in the first step, which in this case is !PyWin32 build 212 for Python 2.6.
+
 == Install Twisted ==
 
 The latest versions of Twisted are on the [http://twistedmatrix.com/trac/ Twisted Matrix Labs trac page]. Choose a version of Twisted that matches the version of Python installed in the previous step, which in this case is Twisted 8.2.0 for Python 2.6.
@@ -36,10 +40,6 @@ trial --version
 }}}
 
 You should see version 8.2.0.
-
-== Install Python Extensions for Windows ==
-
-The latest versions of !PyWin32 are on the [http://sourceforge.net/project/platformdownload.php?group_id=78018&sel_platform=3212 pywin32 Sourceforge.net page]. Choose a version that matches the version of Python installed in the first step, which in this case is !PyWin32 build 212 for Python 2.6.
 
 == Install Buildbot ==
 
