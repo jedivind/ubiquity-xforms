@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <project name="check-results" default="run-selenium-test">
 	<property name="browser" value="ff"/>
-	<property name="ts-dir" value="../../W3C-XForms-1.1/Edition1" />
+	<property name="ts-dir" value="W3C-XForms-1.1/Edition1" />
 	<property name="results-dir" location="${ts-dir}/driverPages/Results" />
 	<property name="reports-dir" location="${ts-dir}/reports" />
 	<property name="test-type" value="xforms11"/>
 	<property name="test-section" value="Chapter"/>
 	<property name="section" value="01" />
 	<property name="test-number" value="${test-section}${section}"/>
-	<property name="test-suite" value="${ts-dir}/driverPages/SeleniumTests/TestSuite${test-number}.html" />
+	<property name="test-suite" value="../../${ts-dir}/driverPages/SeleniumTests/TestSuite${test-number}.html" />
 	<property name="test-name" value="${test-type}-${test-number}"/>
 	<property name="results-file-name" value="${test-name}-${browser}-results"/>
 	<property name="results-file" value="${results-file-name}.html" />
