@@ -197,6 +197,26 @@ function isValidDecimal(sDecimal) {
     );
 }
 
+function isValidNormalizedString(sString) {
+    return (
+        sString.match(/^[^\n\r\t\s]+$/) ? true : false
+    );
+
+}
+
+function isValidListItems(sList) {
+    var arrSegments, i;
+
+    arrSegments = sList.split(" ");
+    for (i = 0; i < arrSegments.length; i++) {
+        if (!isValidNormalizedString(arrSegments[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 function evalXPathFunc(func, args, ctx) {
 	var funcName = new StringValue(func);
 	var argToken =  null; 
@@ -349,6 +369,24 @@ var xformsRules = {
         "card-number" : {
 	        validate : function(sValue) {
 		        return sValue === "" || isValidCardNumber(sValue);
+	        }
+        },
+
+        "normalizedString" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNormalizedString(sValue);
+	        }
+        },
+
+        "listItem" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNormalizedString(sValue);
+	        }
+        },
+
+        "listItems" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidListItems(sValue);
 	        }
         }
     }

@@ -56,13 +56,19 @@ var oXFormsBultinPrimitiveTypeTest = new YAHOO.tool.TestCase({
 });
 
 var oXFormsBultinDerivedTypeTest = new YAHOO.tool.TestCase({
-    name        : "",
+    name        : "Test XForms built-in derived types validation",
     setUp       :   function() {
     },  
     tearDown : function() {
     }, // tearDown()
     test:  
     function() {
+         Assert.isTrue(validateXFormsData("normalizedString", "AString"), "normalizedString 'AString' failed to return true");
+         Assert.isFalse(validateXFormsData("normalizedString", "A String"), "normalizedString 'A String' failed to return false");
+         Assert.isTrue(validateXFormsData("listItem", "Red"), "listItem 'Red' failed to return true");
+         Assert.isFalse(validateXFormsData("listItem", "R\te\td"), "listItem 'R\te\td' failed to return false");
+         Assert.isTrue(validateXFormsData("listItems", "Red Blue Green"), "listItems 'Red Blue Green' failed to return true");
+         Assert.isFalse(validateXFormsData("listItems", "Red\tBlue\tGreen"), "listItems 'Red\tBlue\tGreen' failed to return false");
     } 
 });
 
@@ -162,7 +168,7 @@ var oXFormsCardNumberTypeTest = new YAHOO.tool.TestCase({
 var suiteTypeValidator = new YAHOO.tool.TestSuite("Test Type Validator");
 // suiteTypeValidator.add(oXMLSchemaTypeTest);
 // suiteTypeValidator.add(oXFormsBultinPrimitiveTypeTest);
-// suiteTypeValidator.add(oXFormsBultinDerivedTypeTest);
+suiteTypeValidator.add(oXFormsBultinDerivedTypeTest);
 suiteTypeValidator.add(oXFormsDayTimeDurationTypeTest);
 suiteTypeValidator.add(oXFormsYearMonthDurationTypeTest);
 suiteTypeValidator.add(oXFormsEmailTypeTest);
