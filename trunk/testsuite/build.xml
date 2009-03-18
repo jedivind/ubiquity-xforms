@@ -3,7 +3,7 @@
 	<property name="ts-dir" value="W3C-XForms-1.1/Edition1" />
 	<property name="results-dir" location="${ts-dir}/driverPages/Results" />
 	<property name="reports-dir" location="${ts-dir}/reports" />
-
+	
 	<property name="browser" value="ff"/>
 
 	<condition property="browser-runtime" value="C:\Program Files\Mozilla Firefox\firefox.exe">
@@ -123,6 +123,13 @@
 		</xslt>
 	</target>
 
+	<!-- 
+		Take browser specific test suite XML result files (1) and transform into XHTML, containing detailed information
+		about which test passed/failed for each chapter, in a 'reports' (2) directory.
+		
+		1 - W3C-XForms-1.1/Edition1/driverPages/Results/<browser>/*.xml
+		2 - W3C-XForms-1.1/Edition1/Reports/<browser>/*.html
+	-->
 	<target name="process-w3c-ts-chapter-results">
 		<xslt basedir="${results-dir}/IE7" destdir="${reports-dir}/IE7" style="section-test-results.xsl">
 			<param name="dir" expression="IE7" />
@@ -131,6 +138,23 @@
 		<xslt basedir="${results-dir}/FF3" destdir="${reports-dir}/FF3" style="section-test-results.xsl">
 			<param name="dir" expression="FF3" />
 			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+	</target>
+	
+	<!-- 
+		Produce a overview XHTML file that lists test suite chapter names and the total tests that passed/failed
+		for each chapter for a browser.
+		
+		Note: 'url' param should have a trailing slash.
+	-->
+	<target name="browser-results-summary">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/FF3-results-summary.html">
+			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
+			<param name="browser_dir" expression="FF3" />
+		</xslt>
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/IE7-results-summary.html">
+			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
+			<param name="browser_dir" expression="IE7" />
 		</xslt>
 	</target>
 </project>
