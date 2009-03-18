@@ -121,11 +121,11 @@
 		2 - W3C-XForms-1.1/Edition1/Reports/<browser>/*.html
 	-->
 	<target name="process-w3c-ts-chapter-results">
-		<xslt basedir="${results-dir}/IE7" destdir="${reports-dir}/IE7" style="section-test-results.xsl" force="true">
+		<xslt basedir="${results-dir}/IE7" destdir="${reports-dir}/IE7" style="section-test-results.xsl">
 			<param name="dir" expression="IE7" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
-		<xslt basedir="${results-dir}/FF3" destdir="${reports-dir}/FF3" style="section-test-results.xsl" force="true">
+		<xslt basedir="${results-dir}/FF3" destdir="${reports-dir}/FF3" style="section-test-results.xsl">
 			<param name="dir" expression="FF3" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
@@ -138,11 +138,11 @@
 		Note: 'url' param should have a trailing slash.
 	-->
 	<target name="browser-results-summary">
-		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/FF3/index.html">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/FF3/index.html" force="true">
 			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
 			<param name="browser_dir" expression="FF3" />
 		</xslt>
-		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/IE7/index.html">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/IE7/index.html" force="true">
 			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
 			<param name="browser_dir" expression="IE7" />
 		</xslt>
