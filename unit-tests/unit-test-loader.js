@@ -92,22 +92,7 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-container", type: "js",  fullpath: moduleBase + "ut-container.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
-  loader.addModule({ name: "ux-ut-formsProcessor", type: "js",  fullpath: moduleBase + "ut-formsProcessor.js",
-    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
-
-  loader.addModule({ name: "ux-ut-types-validator", type: "js",  fullpath: moduleBase + "ut-types-validator.js",
-    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
-
-  loader.addModule({ name: "ux-ut-mip-handler", type: "js",  fullpath: moduleBase + "ut-MIPHandler.js",
-    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
-
-  loader.addModule({ name: "ux-ut-mip-eventtarget", type: "js",  fullpath: moduleBase + "ut-MIPEventTarget.js",
-    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
-
-  loader.addModule({ name: "ux-ut-optional-binding", type: "js",  fullpath: moduleBase + "ut-optional-binding.js",
-    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
-
-  loader.addModule({ name: "ux-ut-ajaxslt-improvements", type: "js",  fullpath: moduleBase + "ut-ajaxslt-improvements.js",
+	loader.addModule({ name: "ux-ut-formsProcessor", type: "js",  fullpath: moduleBase + "ut-formsProcessor.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
   loader.require(
@@ -130,11 +115,7 @@ function runTheTests() {
 	"ux-ut-Control",
 	"ux-ut-setfocus",
 	"ux-ut-container",
-	"ux-ut-formsProcessor",
-	"ux-ut-types-validator",
-	"ux-ut-mip-handler",
-	"ux-ut-mip-eventtarget",
-	"ux-ut-optional-binding"
+	"ux-ut-formsProcessor"
   );
 
   var sBars = "";
@@ -152,7 +133,6 @@ function runTheTests() {
     //
     
     YAHOO.tool.TestRunner.add(oSuitePathToModule);
-    YAHOO.tool.TestRunner.add(suiteTypeValidator);
     YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
     YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
     YAHOO.tool.TestRunner.add(suiteNamespaceManager);

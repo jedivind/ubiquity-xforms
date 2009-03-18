@@ -395,7 +395,18 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 						atRoot = true;
 					}
 				}
-               
+				
+				// Attribute node can only be inserted
+				// 1. in an element node
+				// 2. if target location is provided by the context attribute, i.e.
+				// NodeSet Binding nodeset is not specified or empty 
+				
+				if (nsOrigin[i].nodeType === DOM_ATTRIBUTE_NODE){
+					if ((insertTarget.nodeType !== DOM_ELEMENT_NODE) || (ns && ns.length > 0)) {
+						insertNode = false;
+					}
+				}
+				
 				if (insertNode) {
 					cloneNode = nsOrigin[i].cloneNode(true);
 					nsInserted.push(cloneNode);
@@ -418,11 +429,17 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 			}
         	
 			// Finally, the actual insertion.
-			// The nodes are inserted before a particular child node, or 
-			// or appended if insertBeforeNode is falsy.
+			// Non-attribute nodes are inserted before a particular child node, or 
+			// or appended if insertBeforeNode is falsy;
+			// an attribute nodes, on the other hand, are simply set.
 	        
-			for (i = 0; i < nsInserted.length; i++) {           	
-				insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
+			for (i = 0; i < nsInserted.length; i++) {
+				if (nsInserted[i].nodeType !== DOM_ATTRIBUTE_NODE) {           	
+					insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
+				}
+				else {
+					insertTarget.setAttributeNode(nsInserted[i]);
+				}
 			}
 		}
     } // end if (oContext)
