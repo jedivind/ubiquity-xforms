@@ -154,12 +154,14 @@ After a short wait the list of slaves on the master should include the freshly a
 {{{
 http://uxf-bb.webbackplane.com:8080/buildslaves
 }}}
-If the slave has been added correctly then it should show up in the list with the comment _Slave is currently connected_.
+If the slave has been added correctly then it should show up in the list with the comment _Slave is currently connected_. If the `admin` file information was added correctly then below this comment should be the name of the admin contact.
 
-To check the `admin` and `host` file information that was added earlier, look for the slave on its corresponding builder's page. For example, if the slave had been added to the builder `xf11-ch2-ie-test` then its details should show up here:
+To check that the `host` file information was added correctly, click on the name of the builder that is using this slave, and detailed information about the builder should be displayed. Look for the slave in the list, and both the administration and host information should be displayed there.
+
+For example, if the slave had been added to the builder `w3c-ts-ff` then its details should show up here:
 
 {{{
-http://uxf-bb.webbackplane.com:8080/builders/xf11-ch2-ie-test
+http://uxf-bb.webbackplane.com:8080/builders/w3c-ts-ff
 }}}
 
 == Configure your browsers ==
