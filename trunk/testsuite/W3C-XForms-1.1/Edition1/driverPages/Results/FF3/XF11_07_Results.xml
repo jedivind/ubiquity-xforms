@@ -123,8 +123,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#expr-lib</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2009-03-17</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-03-18</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -362,7 +362,7 @@
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
             <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseDate>2009-03-02</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -389,9 +389,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-property</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2009-03-18</testCaseDate>
-            <testCaseRequired>true</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-18</testCaseDate>
+			<testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>

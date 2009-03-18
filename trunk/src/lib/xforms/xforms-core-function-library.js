@@ -1157,8 +1157,8 @@ FunctionCallExpr.prototype.xpathfunctions["globalInstance"] = function(ctx) {
 };
 
 FunctionCallExpr.prototype.dispatchExceptionEvent = function (context) {
-	if (NamespaceManager.compareFullName(context.resolverElement, "model", "http://www.w3.org/2002/xforms")) {            
-		UX.dispatchEvent(document.defaultModel, "xforms-compute-exception", true, false, false);
+	if (NamespaceManager.compareFullName(context.resolverElement, "bind", "http://www.w3.org/2002/xforms")) {
+		UX.dispatchEvent(context.currentModel || document.defaultModel, "xforms-compute-exception", true, false, false);
 	} else {
 		UX.dispatchEvent(context.resolverElement, "xforms-binding-exception", true, false, false);
 	}
