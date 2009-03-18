@@ -138,11 +138,11 @@
 		Note: 'url' param should have a trailing slash.
 	-->
 	<target name="browser-results-summary">
-		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/FF3-results-summary.html">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/FF3/index.html">
 			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
 			<param name="browser_dir" expression="FF3" />
 		</xslt>
-		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/IE7-results-summary.html">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/IE7/index.html">
 			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
 			<param name="browser_dir" expression="IE7" />
 		</xslt>
