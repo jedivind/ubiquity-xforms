@@ -129,10 +129,16 @@ The server name and port number are fixed, because they represent the Ubiquity X
 
 Assuming all is well, a number of lines of output will be displayed, indicating that the files have been created correctly.
 
-Once the slave information has been created, there will be a sub-directory called `info`, which will contain two files. The `admin` file holds details about who to contact for questions about the slave, and should be edited to contain the name and email address of the contact. The `host` file contains a description of the machine with an indication of the browsers that are installed. For example:
+Once the slave information has been created, there will be a sub-directory called `info`, which will contain two files. The `admin` file holds details about who to contact for questions about the slave, and should be edited to contain the name and email address of the contact. The `host` file contains a description of the machine with an indication of the operating system and browsers that are installed. For example:
 {{{
-Windows Vista, with FF3 and IE7.
+Microsoft Windows Vista, Service Pack 1
+2 GHz dual core CPU
+4 GB RAM
+Microsoft Internet Explorer 7.0.6001.18000
+Mozilla Firefox 3.0.7
+Google Chrome 1.0.154.48
 }}}
+This is useful information that administrators can use when deciding which tests to allocate to which slaves.
 
 == Launch the slave ==
 
