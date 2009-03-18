@@ -74,7 +74,7 @@
 						<a href="{$chap_results_base_url}/XF11_{format-number(substring-before(., '.'), '00')}_Results.html"><xsl:value-of select="concat('Chapter ', .)" /></a>
 					</div>
 					<xsl:call-template name="chapter-summary">
-						<xsl:with-param name="results_doc_name" select="concat('W3C-XForms-1.1/Edition1/driverPages/Results/FF3/', 'XF11_', format-number(substring-before(., '.'), '00'), '_Results.xml')" />
+						<xsl:with-param name="results_doc_name" select="concat('W3C-XForms-1.1/Edition1/driverPages/Results/', $browser_dir, '/', 'XF11_', format-number(substring-before(., '.'), '00'), '_Results.xml')" />
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:otherwise>
@@ -82,7 +82,7 @@
 						<a href="{$chap_results_base_url}/XF11_Appendix{substring-before(., '.')}_Results.html"><xsl:value-of select="concat('Appendix ', .)" /></a>
 					</div>
 					<xsl:call-template name="chapter-summary">
-						<xsl:with-param name="results_doc_name" select="concat('W3C-XForms-1.1/Edition1/driverPages/Results/FF3/', 'XF11_Appendix', substring-before(., '.'), '_Results.xml')" />
+						<xsl:with-param name="results_doc_name" select="concat('W3C-XForms-1.1/Edition1/driverPages/Results/', $browser_dir, '/', 'XF11_Appendix', substring-before(., '.'), '_Results.xml')" />
 					</xsl:call-template>
 				</xsl:otherwise>
 			</xsl:choose>
