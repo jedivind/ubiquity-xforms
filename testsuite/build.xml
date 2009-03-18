@@ -1,47 +1,30 @@
 <?xml version="1.0"?>
 <project name="check-results" default="run-selenium-test">
-	<property name="ts-dir" value="W3C-XForms-1.1/Edition1" />
+	<property name="browser" value="ff"/>
+	<property name="ts-dir" value="../../W3C-XForms-1.1/Edition1" />
 	<property name="results-dir" location="${ts-dir}/driverPages/Results" />
 	<property name="reports-dir" location="${ts-dir}/reports" />
-	
-	<property name="browser" value="ff"/>
-
-	<condition property="browser-runtime" value="C:\Program Files\Mozilla Firefox\firefox.exe">
-		<equals arg1="${browser}" arg2="ff"/>
-	</condition>
-	<condition property="browser-runtime" value="C:\Program Files\Internet Explorer\iexplore.exe">
-		<equals arg1="${browser}" arg2="ie"/>
-	</condition>
-
 	<property name="test-type" value="xforms11"/>
 	<property name="test-section" value="Chapter"/>
 	<property name="section" value="01" />
 	<property name="test-number" value="${test-section}${section}"/>
+	<property name="test-suite" value="${ts-dir}/driverPages/SeleniumTests/TestSuite${test-number}.html" />
 	<property name="test-name" value="${test-type}-${test-number}"/>
 	<property name="results-file-name" value="${test-name}-${browser}-results"/>
+	<property name="results-file" value="${results-file-name}.html" />
 	<property name="auto" value="true"/>
-
-	<condition property="sel-runner-path" value="selenium/core/TestRunner.html">
-		<equals arg1="${browser}" arg2="ff"/>
-	</condition>
-	<condition property="sel-runner-path" value="selenium/core/TestRunner.hta">
-		<equals arg1="${browser}" arg2="ie"/>
-	</condition>
-
-	<property name="sel-runner" location="${sel-runner-path}" />
-
-	<condition property="sel-params" value="auto=${auto}&amp;save=true&amp;close=true&amp;test=../../W3C-XForms-1.1/Edition1/driverPages/SeleniumTests/TestSuite${test-number}.html&amp;resultsUrl=../../${results-file-name}.html">
-		<equals arg1="${browser}" arg2="ff"/>
-	</condition>
-	<condition property="sel-params" value="auto=${auto}&amp;save=true&amp;close=true&amp;test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuite${test-number}.html&amp;resultsUrl=..%2F${results-file-name}.html">
-		<equals arg1="${browser}" arg2="ie"/>
-	</condition>
 
 	<property name="merge_base_dir" value="W3C-XForms-1.1/Edition1/driverPages/Results" />
 	<property name="merge_src_dir" value="FF3" />
 	<property name="destination" location="${merge_base_dir}/${merge_src_dir}" />
 
 	<target name="run-selenium-test">
+		<condition property="sel-params" value="auto=${auto}&amp;save=true&amp;close=true&amp;test=${test-suite}&amp;resultsUrl=..\..\${results-file}">
+			<equals arg1="${browser}" arg2="ff"/>
+		</condition>
+		<property name="browser-runtime" value="C:\Program Files\Mozilla Firefox\firefox.exe" />
+		<property name="sel-runner" location="selenium/core/TestRunner.html" />
+
 		<exec executable="${browser-runtime}">
 			<arg line="-no-remote -P buildbot 'file:///${sel-runner}?${sel-params}'" />
 		</exec>
@@ -56,10 +39,17 @@
 	</target>
 
 	<target name="run-selenium-test-ie">
+		<property name="sel-runner" location="selenium/core/TestRunner.hta" />
+
 		<exec executable="cmd">
 			<arg value="/c" />
-			<arg value="${sel-runner}" />
-			<arg value="&quot;${sel-params}&quot;" />
+			<arg value="run-hta" />
+			<arg value="&quot;${sel-runner}&quot;" />
+			<arg value="${test-suite}" />
+			<arg value="${auto}" />
+			<arg value="true" />
+			<arg value="true" />
+			<arg value="${results-file}" />
 		</exec>
 		<loadfile property="results" srcFile="${results-file-name}.html" />
 		<condition property="failed">
