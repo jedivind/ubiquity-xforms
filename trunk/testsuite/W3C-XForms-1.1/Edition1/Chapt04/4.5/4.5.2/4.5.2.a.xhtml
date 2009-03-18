@@ -8,10 +8,10 @@
   </head>
   <body>
     <xforms:model>
-  	  <xforms:instance xmlns="">
-          <data>Hello world!</data>
+  	  <xforms:instance>
+          <data xmlns="">Hello world!</data>
     	</xforms:instance>
-      <xforms:bind nodeset="/data" calculate="es@#invalidXpath"/>
+      <xforms:bind nodeset="/data" calculate="es@#invalidXpath"></xforms:bind>
     	<xforms:message ev:event="xforms-compute-exception" level="modal">xforms-compute-exception</xforms:message>
     </xforms:model>  
         <p class="title">4.5.2.a xforms-compute-exception</p>
