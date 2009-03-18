@@ -175,7 +175,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
           addStyle(baseDefaultPath + "assets/ubiquity-xforms.css");
           addScript(baseDefaultPath + "package/ubiquity-xforms.js", self.onFinish);
         } else {
-          addScript("http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js", 
+          addScript("http://yui.yahooapis.com/2.7.0/build/yuiloader/yuiloader-min.js", 
             function () {
               addScript(baseDefaultPath + "lib/xforms/loader-begin.js", function () {
                 addScript(baseDefaultPath + "lib/xforms/xforms-loader.js");
