@@ -52,16 +52,6 @@ MIPHandler.prototype.rewire = function () {
 	return bRet;
 };
 
-MIPHandler.prototype.refresh = function () {
-	document.logger.log("Refreshing: " + this.element.tagName + ":" + this.element.uniqueID, "control");
-
-	this.updateMIPs();
-
-	if (this.dirtyState.isDirty()) {
-		this.broadcastMIPs();
-		this.dirtyState.setClean();
-	}
-};
 
 (function () {
 	var isDirtyMIP = function (self, sMIPName) {
@@ -81,14 +71,69 @@ MIPHandler.prototype.refresh = function () {
 		setDirtyState(self, "readonly");
 		setDirtyState(self, "required");
 		setDirtyState(self, "valid");
-	};
+	},
+	
+	updateMIPs = function (self) {
+	 	setDirtyStates(self);
+	 	setState(self, "enabled", "enabled", "disabled");
+		setState(self, "readonly", "read-only", "read-write");
+		setState(self, "required", "required", "optional");
+		setState(self, "valid", "valid", "invalid");	
+	},
+	
+	getMIPState = function (self, mip) {
+		var retval = { isSet: false }, proxyNode;
+	
+		if (mip === "enabled") {
+			retval.value = self.isEnabled();
+			retval.isSet = true;
+		} else {
+			proxyNode = FormsProcessor.getProxyNode(self.element);
+			if (proxyNode) {
+				retval.value = proxyNode.getMIPState(mip);
+				retval.isSet = true;
+			}
+		}
+	
+		return retval;
+	},
 
+	inheritEnabled = function (self) {
+		var parent = self.element.parentNode;
+		while (parent) {
+			if (parent.isGroup || parent.isSwitch) {
+				if (isEnabled(parent) === false) {
+					return false;
+				}
+			} else if (parent.isCase) {
+				if (parent.getSwitch() && typeof parent.getSwitch().getSelectedCase === "function" && parent !== parent.getSwitch().getSelectedCase()) {
+					return false;
+				}
+			}
+	
+			parent = parent.parentNode;
+		}
+	
+		return true;
+	},
+	
+	isEnabled = function (self) {
+		var proxyNode;
+	
+		if (!inheritEnabled(self)) {
+			return false;
+		}
+	
+		proxyNode = FormsProcessor.getProxyNode(self.element);
+		if (proxyNode) {
+			return proxyNode.enabled.getValue();
+		}
+	
+		return self.mustBeBound() ? false : true;
+	};
+	
 	MIPHandler.prototype.updateMIPs = function() {
-	 	setDirtyStates(this);
-	 	setState(this, "enabled", "enabled", "disabled");
-		setState(this, "readonly", "read-only", "read-write");
-		setState(this, "required", "required", "optional");
-		setState(this, "valid", "valid", "invalid");
+		updateMIPs(this);
 	};
 	
 	//public exposition of otherwise private functions, to 
@@ -105,6 +150,28 @@ MIPHandler.prototype.refresh = function () {
 		setDirtyStates(this);
 	};
 	
+	MIPHandler.prototype.refresh = function () {
+		document.logger.log("Refreshing: " + this.element.tagName + ":" + this.element.uniqueID, "control");
+		
+		updateMIPs(this);
+	
+		if (this.dirtyState.isDirty()) {
+			this.broadcastMIPs();
+			this.dirtyState.setClean();
+		}
+	};
+	
+	MIPHandler.prototype.getMIPState = function (mip) {
+		return getMIPState(this, mip);
+	};
+	
+	MIPHandler.prototype.inheritEnabled = function () {
+		return inheritEnabled(this);
+	};
+	
+	MIPHandler.prototype.isEnabled = function () {
+		return isEnabled(this);
+	}
 }());
 
 MIPHandler.prototype.broadcastMIPs = function () {
@@ -118,53 +185,3 @@ MIPHandler.prototype.mustBeBound = function () {
 	return true;
 };
 
-MIPHandler.prototype.inheritEnabled = function () {
-	var parent = this.element.parentNode;
-	while (parent) {
-		if (parent.isGroup || parent.isSwitch) {
-			if (parent.isEnabled() === false) {
-				return false;
-			}
-		} else if (parent.isCase) {
-			if (parent.getSwitch() && typeof parent.getSwitch().getSelectedCase === "function" && parent !== parent.getSwitch().getSelectedCase()) {
-				return false;
-			}
-		}
-
-		parent = parent.parentNode;
-	}
-
-	return true;
-};
-
-MIPHandler.prototype.isEnabled = function () {
-	var proxyNode;
-
-	if (!this.inheritEnabled()) {
-		return false;
-	}
-
-	proxyNode = FormsProcessor.getProxyNode(this.element);
-	if (proxyNode) {
-		return proxyNode.enabled.getValue();
-	}
-
-	return this.mustBeBound() ? false : true;
-};
-
-MIPHandler.prototype.getMIPState = function (mip) {
-	var retval = { isSet: false }, proxyNode;
-
-	if (mip === "enabled") {
-		retval.value = this.isEnabled();
-		retval.isSet = true;
-	} else {
-		proxyNode = FormsProcessor.getProxyNode(this.element);
-		if (proxyNode) {
-			retval.value = proxyNode.getMIPState(mip);
-			retval.isSet = true;
-		}
-	}
-
-	return retval;
-};
