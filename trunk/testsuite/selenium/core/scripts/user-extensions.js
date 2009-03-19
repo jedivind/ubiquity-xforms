@@ -157,6 +157,31 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 		return retval;
 	};
 }());
+
+
+(function () {
+	var openLocation = function(target) {
+		// Clear the current page. 
+		LOG.debug("openLocation newPageLoaded = false");
+		this.newPageLoaded = false;
+		this.pageLoadError = null;
+		try {
+			var win = this.getCurrentWindow();
+			this.setOpenLocation(win, target);
+		} catch (e) {
+			window.top.open(absolutify(target, this.baseUrl), "myiframe");
+		}
+	};
+	// Ideally, One would simply override BrowserBot.prototype.openLocation,
+	//	Sadly, each of the platform specific browserbots extends this prior to loading this file
+	//	which means that overriding the base class is ineffective.
+	IEBrowserBot.prototype.openLocation = openLocation;
+	SafariBrowserBot.prototype.openLocation = openLocation;
+	OperaBrowserBot.prototype.openLocation = openLocation;
+	MozillaBrowserBot.prototype.openLocation = openLocation;
+	KonquerorBrowserBot.prototype.openLocation = openLocation;
+}());
+
 Selenium.prototype.findEffectiveStyleProperty = function(element, property) {
 	var propertyValue = "";
 	if (selenium.browserbot.getCurrentWindow().getComputedStyle){
@@ -169,7 +194,7 @@ Selenium.prototype.findEffectiveStyleProperty = function(element, property) {
 		propertyValue = element.currentStyle[property];
 	}
 	return propertyValue;
-}
+};
 
 TestResult.prototype.getLocalPath = function(origPath) {
 	var originalPath = /* convertUriToUTF8( */ origPath /*,config.options.txtFileSystemCharSet)*/;
@@ -265,4 +290,4 @@ TestResult.prototype._saveToFile = function (fileName, form) {
         }
         scriptFile.WriteLine("</table></body></html>");
         scriptFile.Close();
-    }
+};
