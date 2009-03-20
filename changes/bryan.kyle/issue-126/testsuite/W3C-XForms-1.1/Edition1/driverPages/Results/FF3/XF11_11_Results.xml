@@ -179,8 +179,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-submission-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-03-20</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
