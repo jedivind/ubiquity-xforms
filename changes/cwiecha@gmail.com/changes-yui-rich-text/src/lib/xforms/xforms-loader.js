@@ -187,6 +187,14 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/slider/slider-min.js" });
   	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/skins/sam/colorpicker.css" });
 
+	// YUI Rich Text Control
+
+	loader.addModule({ name: "yui-rich-text",       type: "js",  fullpath: moduleBase + "../extensions/textarea-yui-rich-text.js",
+			requires: ["yui-element", "yui-dom-event", "yui-container-core", "yui-simpleeditor", "yui-rich-text-css"]});
+	loader.addModule({ name: "yui-simpleeditor",    type: "js",  fullpath: "http://yui.yahooapis.com/2.7.0/build/editor/simpleeditor-min.js" });  // DIFF LEVEL OF YUI
+	loader.addModule({ name: "yui-rich-text-css",   type: "css", fullpath: "http://yui.yahooapis.com/2.7.0/build/assets/skins/sam/simpleeditor.css" });  // DIFF LEVEL OF YUI
+
+
     // Calendar widget
     loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: moduleBase + "../extensions/input-calendar.js",
             requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
@@ -232,7 +240,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-submit",
         "xforms-hint", "xforms-help",
         "xforms-header",
-        "yui-input-calendar","yui-input-color",
+        "yui-input-calendar","yui-input-color", "yui-rich-text",
         "xf4h","xforms-submission-core-yui"
       ]
     });

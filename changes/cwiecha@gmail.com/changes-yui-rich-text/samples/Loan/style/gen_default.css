@@ -25,6 +25,19 @@ xforms|input > xforms|label pe-value {float: left; width: 200px; white-space: -m
 xforms|input[class~="yui-widget-calendar"] pe-value {background-color: transparent; border: none;}
 xforms|input[class~="block"] {display: block;}
 
+xforms\:textarea {display: inline-block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
+xforms\:textarea > pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms\:textarea > xforms\:label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
+xforms\:textarea.block {display: inline-block;}
+xforms\:textarea[mediatype~="text/html"] pe-value textarea { height:100px; border:0px; }
+.yui-editor-container { border:0px !important;}
+
+xforms|textarea {display: inline-block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
+xforms|textarea > pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms|textarea > xforms|label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
+xforms|textarea[class~="block"] {display: inline-block;}
+xforms|textarea[mediatype~="text/html"] pe-value textarea { height:100px; border:0px; }
+
 xforms\:select1 {display: block; width: 98%; background-color: rgb(220,220,220);}
 xforms\:select1  pe-value {width: 48%; background-color: white; border: 1px inset black;}
 xforms\:select1  xforms\:label  pe-value {float: left; width: 200px; text-align:right; float:left;}
