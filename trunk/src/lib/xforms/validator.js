@@ -97,7 +97,7 @@ function isValidNCName(sNCName) {
     // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender  
 
     return (
-        sNCName.match(/^[_a-z][\w\.\-]*$/i) ? true : false
+        sNCName.match(/^[_a-zA-Z][\w\.\-]*$/i) ? true : false
     );
 }
 
@@ -201,7 +201,6 @@ function isValidNormalizedString(sString) {
     return (
         sString.match(/^[^\n\r\t\s]+$/) ? true : false
     );
-
 }
 
 function isValidListItems(sList) {
@@ -215,6 +214,199 @@ function isValidListItems(sList) {
     }
 
     return true;
+}
+
+function isValidToken(sToken) {
+    var ixSpace;
+
+    if (sToken.charAt(0) === " " ||
+        sToken.charAt(sToken.length - 1) === " " ||
+        sToken.match(/^[\s]{2,}$/)) {
+        return false;
+    }
+    return isValidNormalizedString(sToken);
+}
+
+function isValidLanguage(sLanguage) {
+    return (
+        sLanguage.match(/^[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*$/) ? true : false
+    );
+}
+
+function isValidName(sName) {
+    // Name ::= (Letter | '_' | ':') ( NameChar)* 
+    // NameChar ::= Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender 
+
+    return (
+        sName.match(/^[a-zA-Z\_\:][a-zA-Z0-9.\-\_\:]*$/i) ? true : false
+    );
+}
+
+function isValidIDREFS(sIDREFS) {
+    var arrSegments, i;
+
+    arrSegments = sIDREFS.split(" ");
+    for (i = 0; i < arrSegments.length; i++) {
+        if (!isValidNCName(arrSegments[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function isValidNMTOKEN(sNMTOKEN) {
+    // Nmtoken ::= (NameChar)+ 
+    // NameChar ::= Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender 
+
+    return (
+        sNMTOKEN.match(/^[a-zA-Z0-9\.\-\_\:]+$/) ? true : false
+    );
+}
+
+function isValidNMTOKENS(sNMTOKENS) {
+    var arrSegments, i;
+
+    arrSegments = sNMTOKENS.split(" ");
+    for (i = 0; i < arrSegments.length; i++) {
+        if (!isValidNMTOKEN(arrSegments[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function isValidNonPositiveInteger(sInteger) {
+    return (
+        sInteger.match(/^[-]{1}[0-9]+$/) ||
+        sInteger.match(/^[+]?0$/) ? true : false
+    );
+}
+
+function isValidNegativeInteger(sInteger) {
+    return (
+        sInteger.match(/^[-]{1}[0-9]+$/) ? true : false
+    );
+}
+
+function isValidLong(sLong) {
+    var match, value;
+
+    match = sLong.match(/^[+-]?[0-9]+$/);
+    if (match) {
+        value = Number(match[0]);
+        if (value >= -9223372036854775808 && value <= 9223372036854775807) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isValidInt(sInt) {
+    var match, value;
+
+    match = sInt.match(/^[+-]?[0-9]+$/);
+    if (match) {
+        value = Number(match[0]);
+        if (value >= -2147483648 && value <= 2147483647) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isValidShort(sShort) {
+    var match, value;
+
+    match = sShort.match(/^[+-]?[0-9]+$/);
+    if (match) {
+        value = Number(match[0]);
+        if (value >= -32768 && value <= 32767) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isValidByte(sByte) {
+    var match, value;
+
+    match = sByte.match(/^[+-]?[0-9]+$/);
+    if (match) {
+        value = Number(match[0]);
+        if (value >= -128 && value <= 127) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isValidNonNegativeInteger(sInteger) {
+    return (
+        sInteger.match(/^[+]?[0-9]+$/) ||
+        sInteger.match(/^[+-]?0$/) ? true : false
+    );
+}
+
+function isValidUnsignedLong(sULong) {
+    var match, value;
+
+    match = sULong.match(/^[0-9]+$/);
+    if (match) {
+        value = Number(match[0]);
+        if (value >= 0 && value <= 18446744073709551615) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isValidUnsignedInt(sUInt) {
+    var match, value;
+
+    match = sUInt.match(/^[0-9]+$/);
+    if (match) {
+        value = Number(match[0]);
+        if (value >= 0 && value <= 4294967295) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isValidUnsignedShort(sUShort) {
+    var match, value;
+
+    match = sUShort.match(/^[0-9]+$/);
+    if (match) {
+        value = Number(match[0]);
+        if (value >= 0 && value <= 65535) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isValidUnsignedByte(sUByte) {
+    var match, value;
+
+    match = sUByte.match(/^[0-9]+$/);
+    if (match) {
+        value = Number(match[0]);
+        if (value >= 0 && value <= 255) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function evalXPathFunc(func, args, ctx) {
@@ -253,7 +445,7 @@ var xformsRules = {
 
         "gYearMonth" : {
 	        validate : function(sValue) {
-		        return sValue === "" || isValidGMonth(sValue);
+		        return sValue === "" || isValidGYearMonth(sValue);
 	        }
         },
 
@@ -265,7 +457,7 @@ var xformsRules = {
 
         "gMonthDay" : {
 	        validate : function(sValue) {
-		        return sValue == "" || isValidGMonthDay(sValue);
+		        return sValue === "" || isValidGMonthDay(sValue);
 	        }
         },
 
@@ -388,6 +580,126 @@ var xformsRules = {
 	        validate : function(sValue) {
 		        return sValue === "" || isValidListItems(sValue);
 	        }
+        },
+
+        "token" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidToken(sValue);
+	        }
+        },
+
+        "language" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidLanguage(sValue);
+	        }
+        },
+
+        "Name" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidName(sValue);
+	        }
+        },
+
+        "NCName" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNCName(sValue);
+	        }
+        },
+
+        "ID" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNCName(sValue);
+	        }
+        },
+
+        "IDREF" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNCName(sValue);
+	        }
+        },
+
+        "IDREFS" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidIDREFS(sValue);
+	        }
+        },
+
+        "NMTOKEN" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNMTOKEN(sValue);
+	        }
+        },
+
+        "NMTOKENS" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNMTOKENS(sValue);
+	        }
+        },
+
+        "nonPositiveInteger" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNonPositiveInteger(sValue);
+	        }
+        },
+
+        "negativeInteger" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNegativeInteger(sValue);
+	        }
+        },
+
+        "long" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidLong(sValue);
+	        }
+        },
+
+        "int" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidInt(sValue);
+	        }
+        },
+
+        "short" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidShort(sValue);
+	        }
+        },
+
+        "byte" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidByte(sValue);
+	        }
+        },
+
+        "nonNegativeInteger" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidNonNegativeInteger(sValue);
+	        }
+        },
+
+        "unsignedLong" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidUnsignedLong(sValue);
+	        }
+        },
+
+        "unsignedInt" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidUnsignedInt(sValue);
+	        }
+        },
+
+        "unsignedShort" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidUnsignedShort(sValue);
+	        }
+        },
+
+        "unsignedByte" : {
+	        validate : function(sValue) {
+		        return sValue === "" || isValidUnsignedByte(sValue);
+	        }
         }
     }
 };
@@ -506,7 +818,132 @@ var xmlSchemaRules = {
         "QName" : {
 	        validate : function(sValue) {
 		        return isValidQName(sValue);
-		        return true;
+	        }
+        },
+
+        "normalizedString" : {
+	        validate : function(sValue) {
+		        return isValidNormalizedString(sValue);
+	        }
+        },
+
+        "token" : {
+	        validate : function(sValue) {
+		        return isValidToken(sValue);
+	        }
+        },
+
+        "language" : {
+	        validate : function(sValue) {
+		        return isValidLanguage(sValue);
+	        }
+        },
+
+        "Name" : {
+	        validate : function(sValue) {
+		        return isValidName(sValue);
+	        }
+        },
+
+        "NCName" : {
+	        validate : function(sValue) {
+		        return isValidNCName(sValue);
+	        }
+        },
+
+        "ID" : {
+	        validate : function(sValue) {
+		        return isValidNCName(sValue);
+	        }
+        },
+
+        "IDREF" : {
+	        validate : function(sValue) {
+		        return isValidNCName(sValue);
+	        }
+        },
+
+        "IDREFS" : {
+	        validate : function(sValue) {
+		        return isValidIDREFS(sValue);
+	        }
+        },
+
+        "NMTOKEN" : {
+	        validate : function(sValue) {
+		        return isValidNMTOKEN(sValue);
+	        }
+        },
+
+        "NMTOKENS" : {
+	        validate : function(sValue) {
+		        return isValidNMTOKENS(sValue);
+	        }
+        },
+
+        "nonPositiveInteger" : {
+	        validate : function(sValue) {
+		        return isValidNonPositiveInteger(sValue);
+	        }
+        },
+
+        "negativeInteger" : {
+	        validate : function(sValue) {
+		        return isValidNegativeInteger(sValue);
+	        }
+        },
+
+        "long" : {
+	        validate : function(sValue) {
+		        return isValidLong(sValue);
+	        }
+        },
+
+        "int" : {
+	        validate : function(sValue) {
+		        return isValidInt(sValue);
+	        }
+        },
+
+        "short" : {
+	        validate : function(sValue) {
+		        return isValidShort(sValue);
+	        }
+        },
+
+        "byte" : {
+	        validate : function(sValue) {
+		        return isValidByte(sValue);
+	        }
+        },
+
+        "nonNegativeInteger" : {
+	        validate : function(sValue) {
+		        return isValidNonNegativeInteger(sValue);
+	        }
+        },
+
+        "unsignedLong" : {
+	        validate : function(sValue) {
+		        return isValidUnsignedLong(sValue);
+	        }
+        },
+
+        "unsignedInt" : {
+	        validate : function(sValue) {
+		        return isValidUnsignedInt(sValue);
+	        }
+        },
+
+        "unsignedShort" : {
+	        validate : function(sValue) {
+		        return isValidUnsignedShort(sValue);
+	        }
+        },
+
+        "unsignedByte" : {
+	        validate : function(sValue) {
+		        return isValidUnsignedByte(sValue);
 	        }
         }
     }
