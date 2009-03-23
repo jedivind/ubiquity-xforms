@@ -1,5 +1,5 @@
 /*
- * Copyright © 2008-2009 Backplane Ltd.
+ * Copyright Â© 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -480,9 +480,7 @@ submission.prototype.submit = function(oSubmission) {
 
     default:
         /* the submission method being used needs to be implemented */
-        debugger;
-        oSubmission.ownerDocument.logger.log("Submission method '" +
-                sMethod + "' is not defined.", "error");
+        oSubmission.ownerDocument.logger.log("Submission method '" + sMethod + "' is not defined.", "error");
         break;
     }
 
