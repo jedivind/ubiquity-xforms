@@ -14,64 +14,52 @@
  * limitations under the License.
  */
 
-function processBinds(oModel, oElement, oContext) {
+	// getElementsByTagName Returns all descendent nodes with that tagName, not
+	// just the children.
+	// This leads to the problem that non-child descendent nodes are being
+	// processed multiply, leading
+	// not only to slow rebuilds, but to the situation in which non-child binds
+	// are being processed
+	// first in correct context, then in the context of the original ancestor
+	// for whom this function
+	// was called - to wit, the model, therby giving incorrect results.
+	// The multiplicity of the call is equal to 2 to the power of the depth of
+	// the bind, thus, although an immediate
+	// child of model is called once, a grandchild is called twice, but since it
+	// also calls its children,
+	// those children are each called four times, and so on. Each time, pressing
+	// ever deeper down Pascal's Triangle.
+	//  
+	// I have left this following commented line as a warning to those who may
+	// see an opportunity for optimisation
+	// arising from the amalgamation of oElement.childNodes, and
+	// if(oBind.tagName == "bind"). Do not be tempted
+	// to replace it with getElementsByTagName, as along that road, lies slow
+	// and erroneous behaviour.
+	//  
+	// var nsBinds = oElement.getElementsByTagName("bind");
 
-    // getElementsByTagName Returns all descendent nodes with that tagName, not
-    // just the children.
-    // This leads to the problem that non-child descendent nodes are being
-    // processed multiply, leading
-    // not only to slow rebuilds, but to the situation in which non-child binds
-    // are being processed
-    // first in correct context, then in the context of the original ancestor
-    // for whom this function
-    // was called - to wit, the model, therby giving incorrect results.
-    // The multiplicity of the call is equal to 2 to the power of the depth of
-    // the bind, thus, although an immediate
-    // child of model is called once, a grandchild is called twice, but since it
-    // also calls its children,
-    // those children are each called four times, and so on. Each time, pressing
-    // ever deeper down Pascal's Triangle.
-    //  
-    // I have left this following commented line as a warning to those who may
-    // see an opportunity for optimisation
-    // arising from the amalgamation of oElement.childNodes, and
-    // if(oBind.tagName == "bind"). Do not be tempted
-    // to replace it with getElementsByTagName, as along that road, lies slow
-    // and erroneous behaviour.
-    //  
-    // var nsBinds = oElement.getElementsByTagName("bind");
-
-    var nsBinds = oElement.childNodes;
-    var len = nsBinds.length;
-    var i;
-    
-    for ( i = 0; i < len; i++) {
-        var oBind = nsBinds[i];
-        
-        if (NamespaceManager.compareFullName(
-                oBind, "bind", "http://www.w3.org/2002/xforms")) { 
-            
-            oBind["ownerModel"] = oModel;
-            
-            // If the bind statement has a nodeset attribute 
-            // then get the list of nodes.
-            sExpr = oBind.getAttribute("nodeset");
-            
-            if (sExpr) {
-                processBind(oBind, sExpr, oModel, oContext);
-                
-            } else if (NamespaceManager.compareFullName(
-                  oBind.parentNode, "bind", "http://www.w3.org/2002/xforms")) {
-                // if we are in a nested bind, check for in-line context.
-                sExpr = oBind.getAttribute("context");
-                
-                if (sExpr) {
-                    processBind(oBind, sExpr, oModel, oContext);
-                }
-            }
-        }
-    } // for ( each bind element )
-} // processBinds()
+function processBinds(oModel, oElement, oContext) {	
+	var nsBinds = oElement.childNodes,
+	  len = nsBinds.length,
+	  i,
+	  oBind;
+	for (i = 0; i < len; i++) {
+		oBind = nsBinds[i];
+		
+		if (NamespaceManager.compareFullName(oBind, "bind", "http://www.w3.org/2002/xforms")) { 
+				oBind["ownerModel"] = oModel;
+				
+				// If the bind statement has a nodeset attribute 
+				// then get the list of nodes.
+				sExpr = oBind.getAttribute("nodeset") || ".";
+				
+				if (sExpr) {
+					processBind(oBind, sExpr, oModel, oContext);
+				}
+		}
+	}
+}
 
 
 function processBind(oBind, sExpr, oModel, oContext) {
