@@ -32,8 +32,8 @@
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>3000</td>
+					<td>waitForModelReady</td>
+					<td></td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -86,10 +86,10 @@
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>100</td>
+					<td>waitForTextPresent</td>
 					<td></td>
-					<td>Waits for the form data page to load</td>
+					<td></td>
+					<td>Waits for an error message</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
@@ -110,20 +110,14 @@
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>100</td>
-					<td></td>
-					<td>Waits for the form data page to load</td>
-				</tr>
-				<tr>
 					<td>verifyTextNotPresent</td>
 					<td>[XForms]*xforms-submit-error*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>1000</td>
+					<td>waitForElementPresent</td>
+					<td>xpath=//html/body/pre</td>
 					<td></td>
 					<td>Waits for the form data page to load</td>
 				</tr>
