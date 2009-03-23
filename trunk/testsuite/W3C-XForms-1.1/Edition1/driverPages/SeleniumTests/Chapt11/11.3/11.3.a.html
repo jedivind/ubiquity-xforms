@@ -32,8 +32,8 @@
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>3000</td>
+					<td>waitForModelReady</td>
+					<td></td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -68,10 +68,10 @@
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>100</td>
+					<td>waitForTextPresent</td>
+					<td>[XForms]*xforms-submit-serialize*OK</td>
 					<td></td>
-					<td>Waits for the form to load</td>
+					<td>Checks to see if the message showed up</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
@@ -80,8 +80,8 @@
 					<td>Checks to see if the message showed up</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>1000</td>
+					<td>waitForElementPresent</td>
+					<td>//html/body/pre</td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>

@@ -32,8 +32,8 @@
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>3000</td>
+					<td>waitForModelReady</td>
+					<td></td>
 					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
@@ -79,12 +79,12 @@
 					<td></td>
 					<td>Clicks on submit button</td>
 				</tr>
-                <tr>
-                    <td>pause</td>
-                    <td>2000</td>
-                    <td></td>
-                    <td>Waits</td>
-                </tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:output</td>
+					<td>*Janel*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
 				<tr>
 					<td>verifyText</td>
 					<td>xpath=/html/body/xforms:group[4]/xforms:output</td>
