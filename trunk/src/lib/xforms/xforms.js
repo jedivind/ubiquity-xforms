@@ -283,8 +283,8 @@ XFormsProcessor.prototype.inheritTrue = function (sMIP, oNode) {
   nodeProxy = getProxyNode(oNode);
   //Get direct value of this MIP.
   retval = nodeProxy.getMIP(sMIP).value;
-  //If direct value is not already true, check if any ancestors are true 
-  if (!retval && oNode.parentNode) {
+  //If there is no direct value then check if any ancestors have one.
+  if (retval === undefined && oNode.parentNode) {
     parentProxy = getProxyNode(oNode.parentNode);
     if (parentProxy[sMIP].getValue()) {
       retval = true;

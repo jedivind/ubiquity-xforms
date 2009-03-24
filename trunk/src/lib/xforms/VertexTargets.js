@@ -283,8 +283,14 @@ function ProxyNode(oNode)
 	this.m_oNode = oNode;
 	this.m_refcount = 0;
 	this.calculate = null;
+
+	// If the value is not defined, then it will be determined by
+	// its ancestors. But an explicitly set value of 'true' or
+	// 'false' will override any setting from higher up. Hence
+	// the initialisation to 'undefined'.
+	//
 	this.readonly = { 
-	  value: false, 
+	  value: undefined, 
 	  getValue: function () {
 	    return FormsProcessor.inheritTrue("readonly", oNode);
 	  }

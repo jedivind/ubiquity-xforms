@@ -435,7 +435,7 @@ UX.type = function(o) {
 );    
 
 UX.isNodeReadonly = function(oNode) {
-  return (oNode && oNode.m_proxy && oNode.m_proxy.readonly && oNode.m_proxy.readonly.value);
+  return (oNode && oNode.m_proxy && oNode.m_proxy.readonly && oNode.m_proxy.readonly.getValue());
 };
 
 //an imperfect implementation of an isEquivalentNode function, which would check namespaces and node types 
