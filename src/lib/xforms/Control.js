@@ -147,7 +147,7 @@ Control.prototype.addInputEventFilter = function () {
     filterKeyPress = function (e) {
       // If there is a proxy and it is a ProxyNode, not a ProxyExpression, then 
       // its readonly value may be true
-      if (pThis.m_proxy && pThis.m_proxy.readonly && pThis.m_proxy.readonly.value) {
+      if (pThis.m_proxy && pThis.m_proxy.readonly && pThis.m_proxy.readonly.getValue()) {
         //only ignore alphanumeric, delete, backspace, and enter.
         if (e.keyCode !== 9 && //Tab
             !(e.keyCode >= 112 && e.keyCode <= 123) && //Function Keys
@@ -173,7 +173,7 @@ Control.prototype.addInputEventFilter = function () {
     filterMouseAction = function (e) {
       // If there is a proxy and it is a ProxyNode, not a ProxyExpression, then 
       // its readonly value may be true
-      if (pThis.m_proxy && pThis.m_proxy.readonly && pThis.m_proxy.readonly.value) {
+      if (pThis.m_proxy && pThis.m_proxy.readonly && pThis.m_proxy.readonly.getValue()) {
 
         if (e.preventDefault) {
           e.preventDefault();
