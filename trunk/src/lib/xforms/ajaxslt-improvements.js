@@ -329,14 +329,19 @@ XDocument.prototype.appendChild = function(node) {
 			code:HIERARCHY_REQUEST_ERR,
 			message: "Text Nodes are not allowed at the top level of a document"
 		};
-	} else if (node.nodeType === DOM_ELEMENT_NODE && this.documentElement) {
-		throw {
-			code:HIERARCHY_REQUEST_ERR,
-			message: "Only one top level element is allowed in an XML document."
-		};
+	} else if (node.nodeType === DOM_ELEMENT_NODE) {
+		if (this.documentElement) {
+			throw {
+				code:HIERARCHY_REQUEST_ERR,
+				message: "Only one top level element is allowed in an XML document."
+			};
+		} else {
+			this.documentElement = XNode.prototype.appendChild.call(this, node);
+			return this.documentElement;
+		}
+	} else {
+		return XNode.prototype.appendChild.call(this, node);
 	}
-	XNode.prototype.appendChild.call(this, node);
-	this.documentElement = this.childNodes[0];
 };
 
 XDocument.prototype.removeChild = function(node) {
