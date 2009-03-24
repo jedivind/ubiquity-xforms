@@ -11,7 +11,7 @@ Selenium tests involve an XForms, some driver files and the Selenium library its
 
 == Firefox 3 ==
 
-To run Selenium tests against Firefox 3, ensure that you have the latest stable version, which is always available from the [http://firefox.com Firefox home-page]. If you also plan to test with Internet Explorer on the same machine, then when installing Firefox, ensure that the 'make this my default browser' option is _not_checked.
+To run Selenium tests against Firefox 3, ensure that you have the latest stable version, which is always available from the [http://firefox.com Firefox home-page]. If you also plan to test with Internet Explorer on the same machine, then when installing Firefox, ensure that the 'make this my default browser' option is _not_ checked.
 
 Although a test profile is required when running Firefox under a Buildbot slave, it's not completely necessary when testing manually. However, since it is quite a simple step, we would recommend it -- that way any changes you need to make to the browser to allow the test-suite to run don't need to be applied to your normal profile.
 
@@ -86,6 +86,8 @@ ant -f testsuite/build.xml run-selenium-test -Dsection=02 -Dbrowser=ff -Dauto=fa
 }}}
 
 == Internet Explorer 7 ==
+
+To run Selenium tests against Internet Explorer 7, ensure that you have the latest stable version, which is always available from the [http://www.microsoft.com/windows/downloads/ie/getitnow.mspx IE7 home-page].
 
 The W3C XForms 1.1 test-suite uses XHTML files to hold the XForms. If you plan to run these tests in IE, then a registry setting needs to be changed to allow IE to treat a file with the `.xhtml` extension as an ordinary HTML file.
 
