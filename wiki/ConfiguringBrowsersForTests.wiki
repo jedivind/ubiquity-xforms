@@ -84,3 +84,21 @@ If you want to load the tests ready to be run manually, then add `auto=false`:
 {{{
 ant -f testsuite/build.xml run-selenium-test -Dsection=02 -Dbrowser=ff -Dauto=false
 }}}
+
+== Internet Explorer 7 ==
+
+The W3C XForms 1.1 test-suite uses XHTML files to hold the XForms. If you plan to run these tests in IE, then a registry setting needs to be changed to allow IE to treat a file with the `.xhtml` extension as an ordinary HTML file.
+
+To do this, open the registry editor:
+{{{
+regedit
+}}}
+Expand the `HKEY_CLASSES_ROOT` tree and then type 'MIME`; this will take you to the MIME type tree. Inside you'll find another tree called `Database` which contains all of the MIME mappings. Expand that, then open the `Content Type` tree.
+
+There is unlikely to be an entry for `application/xhtml+xml`, but it's worth double-checking. Assuming that there isn't, click on the right-hand mouse on `Content Type`, and choose `New > Key`, and then provide a name of `application/xhtml+xml`.
+
+On the new key, click on the right-hand mouse and choose `New > String Value`, and then provide a name of `CLSID`. Double-click the resulting entry and add the value `{25336920-03F9-11cf-8FD0-00AA00686F13}`.
+
+Again, on the new key (`application/xhtml+xml`), click on the right-hand mouse and choose `New > String Value`, and provide a name of `Extension`. Double-click the resulting entry and add the value `.xhtml`.
+
+Finally, on the new key click on the right-hand mouse and choose `New > Binary Value`, and provide a name of `Encodiing`. Double-click the resulting entry and type the values `08`, `00`, `00` and `00`.
