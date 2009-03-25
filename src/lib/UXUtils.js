@@ -446,7 +446,7 @@ UX.isEquivalentNode = function(lhs, rhs) {
 };
 
 UX.isArray = function (v) {
-    return (v && v === "object" &&
+    return (v && typeof v === "object" &&
     	typeof v.length === "number" &&
     	typeof v.splice === "function" &&
     	!v.propertyIsEnumerable("length"));

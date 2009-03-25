@@ -34,16 +34,16 @@ function dispatchXformsHint(elmnt, e) {
     //oEvt._actionDepth = -1;
     //FormsProcessor.dispatchEvent(elmnt,oEvt);
     //spawn(function(){elmnt.dispatchEvent(oEvt)});
-    if (document.all) {
-        elmnt.document.parentWindow.event.cancelBubble = true;
-        elmnt.document.parentWindow.event.returnValue = false;
-    } else {
+    if (UX.isIE && window.event) {
+        window.event.cancelBubble = true;
+        window.event.returnValue = false;
+    } else if (e) {
         e.stopPropagation();
     }
 }
 
 function dispatchXformsHintOff(elmnt, e) {
-    var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+    var oEvt = document.createEvent("UIEvents");
     FormsProcessor.hintOffCounter++;
 
     oEvt.initUIEvent("xforms-hint-off", true, true, null, 1);
@@ -52,17 +52,17 @@ function dispatchXformsHintOff(elmnt, e) {
     // oEvt._actionDepth = -1;
     FormsProcessor.dispatchEvent(elmnt, oEvt);
     //spawn(function(){elmnt.dispatchEvent(oEvt)});
-    if (document.all) {
-        elmnt.document.parentWindow.event.cancelBubble = true;
-        elmnt.document.parentWindow.event.returnValue = false;
-    } else {
+    if (UX.isIE && window.event) {
+        window.event.cancelBubble = true;
+        window.event.returnValue = false;
+    } else if (e) {
         e.stopPropagation();
     }
 }
 
 function mapclick2domactivate(elmnt, e) {
 
-    var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
+    var oEvt = document.createEvent("UIEvents");
 
     oEvt.initUIEvent("DOMActivate", true, true, null, 1);
     // There is no need to run this event in line, and doing so may cause a stack overflow,
@@ -70,10 +70,10 @@ function mapclick2domactivate(elmnt, e) {
     // oEvt._actionDepth = -1;
     FormsProcessor.dispatchEvent(elmnt, oEvt);
     //spawn(function(){elmnt.dispatchEvent(oEvt)});
-    if (document.all) {
-        elmnt.document.parentWindow.event.cancelBubble = true;
-        elmnt.document.parentWindow.event.returnValue = false;
-    } else {
+    if (UX.isIE && window.event) {
+        window.event.cancelBubble = true;
+        window.event.returnValue = false;
+    } else if (e) {
         e.stopPropagation();
     }
 }
@@ -86,10 +86,10 @@ function mapdblclick2domactivate(elmnt, e) {
     // if it invokes other actions. 
     // oEvt._actionDepth = -1;
     FormsProcessor.dispatchEvent(elmnt, oEvt);
-    if (document.all) {
-        elmnt.document.parentWindow.event.cancelBubble = true;
-        elmnt.document.parentWindow.event.returnValue = false;
-    } else {
+    if (UX.isIE && window.event) {
+        window.event.cancelBubble = true;
+        window.event.returnValue = false;
+    } else if (e) {
         e.stopPropagation();
     }
 }
@@ -131,8 +131,8 @@ if (UX.isIE) {
         this.arrListener = this.element.arrListener || {};
 
         this.element.onclick = function(evt) {
-            mapclick2domactivate(elmnt);
             dispatchXformsHintOff(elmnt, evt);
+            mapclick2domactivate(elmnt);
         };
 
         this.element.ondblclick = function(evt) {
