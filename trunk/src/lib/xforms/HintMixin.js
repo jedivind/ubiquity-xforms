@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009 Backplane Ltd.
+ * Copyright  2009 Backplane Ltd.
  *
  * Ubiquity provides a standards-based suite of browser enhancements for
  * building a new generation of internet-related applications.
@@ -56,32 +56,34 @@ function HintMixin( element ) {
 	// Register for the hint event. The action is simply to 'activate'
 	// whatever object has acquired the hint aspect.
 	//
-	context.addEventListener(
-		"xforms-hint",
-		{
-			handleEvent: function( evt ) {
-				var forwardEvt = element.ownerDocument.createEvent("Events");
-				
-				forwardEvt.initEvent("ub-activate", false, false);
-				forwardEvt.activate = true;
-				FormsProcessor.dispatchEvent(element, forwardEvt);
-				return;
-			}
-		},
-		false
-	);
-	context.addEventListener(
-		"xforms-hint-off",
-		{
-			handleEvent: function( evt ) {
-				var forwardEvt = element.ownerDocument.createEvent("Events");
-				
-				forwardEvt.initEvent("ub-activate", false, false);
-				forwardEvt.activate = false;
-				FormsProcessor.dispatchEvent(element, forwardEvt);
-				return;
-			}
-		},
-		false
-	);
+	if(typeof context.addEventListener === "function") {
+	    context.addEventListener(
+		    "xforms-hint",
+		    {
+			    handleEvent: function( evt ) {
+				    var forwardEvt = document.createEvent("Events");
+    				
+				    forwardEvt.initEvent("ub-activate", false, false);
+				    forwardEvt.activate = true;
+				    FormsProcessor.dispatchEvent(element, forwardEvt);
+				    return;
+			    }
+		    },
+		    false
+	    );
+	    context.addEventListener(
+		    "xforms-hint-off",
+		    {
+			    handleEvent: function( evt ) {
+				    var forwardEvt = document.createEvent("Events");
+    				
+				    forwardEvt.initEvent("ub-activate", false, false);
+				    forwardEvt.activate = false;
+				    FormsProcessor.dispatchEvent(element, forwardEvt);
+				    return;
+			    }
+		    },
+		    false
+	    );
+    }
 };
