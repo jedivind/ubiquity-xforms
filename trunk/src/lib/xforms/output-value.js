@@ -204,6 +204,8 @@ XFormsOutputValue.prototype.setValueForOutputRendering = function(sValue) {
             } else if ((mediatypeAttr === "application/xhtml+xml") ||
                        (mediatypeAttr === "text/html")) {
                 oRendertype = this.setContent(sValue);
+            } else {
+            	throw "Unrecognised media-type";
             }
         } else if ((appearance === "full") && 
             (this.element.parentNode.m_type) && 
