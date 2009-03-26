@@ -95,7 +95,7 @@ The latest versions of SVN for Windows are available from the [http://subversion
 
 == Install Apache Ant ==
 
-The latest version of Apache Ant is available from the [http://ant.apache.org/bindownload.cgi Apache Ant binary distribution page]. Download the ZIP file for the latest version, currently 1.7.1, and unpack it to anywhere on your machine. Then set the environment variable `ANT_HOME` to point to the unpacked folder and add `%ANT_HOME%\bin` to your `PATH`.
+The latest version of Apache Ant is available from the [http://ant.apache.org/bindownload.cgi Apache Ant binary distribution page]. Download the ZIP file for the latest version, currently 1.7.1, and unpack it to anywhere on your machine. Then set the environment variable `ANT_HOME` to point to the unpacked folder and add `%ANT_HOME%\bin` to your `PATH`. (Note that if this addition is the last entry in the `PATH` variable, it will need to be followed by a semi-colon.)
 
 There is an error in the `ant.bat` file which means that any errors that may occur are not signalled to the calling application. This in turn means that the Buildbot slave is always reporting 'success' to the Buildbot master.
 
