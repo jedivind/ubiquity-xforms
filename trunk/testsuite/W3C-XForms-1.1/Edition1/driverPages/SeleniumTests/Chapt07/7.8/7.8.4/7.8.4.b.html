@@ -45,49 +45,49 @@
 				</tr>
 				<tr>
 					<td>verifyVisible</td>
-					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'SHA-384', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '30ddb9c8f347cffbfb44e519d814f074cf4047a55d6f563324f1c6a33920e5edfb2a34bac60bdc96cd33a95623d7d638']"]</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(hmac('key', 'abc', 'SHA-384', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '30ddb9c8f347cffbfb44e519d814f074cf4047a55d6f563324f1c6a33920e5edfb2a34bac60bdc96cd33a95623d7d638']"]</td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>verifyNotVisible</td>
-					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'SHA-384', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != '30ddb9c8f347cffbfb44e519d814f074cf4047a55d6f563324f1c6a33920e5edfb2a34bac60bdc96cd33a95623d7d638']"]</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(hmac('key', 'abc', 'SHA-384', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != '30ddb9c8f347cffbfb44e519d814f074cf4047a55d6f563324f1c6a33920e5edfb2a34bac60bdc96cd33a95623d7d638']"]</td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>verifyVisible</td>
-					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'SHA-512', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '3926a207c8c42b0c41792cbd3e1a1aaaf5f7a25704f62dfc939c4987dd7ce060009c5bb1c2447355b3216f10b537e9afa7b64a4e5391b0d631172d07939e087a']"]</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(hmac('key', 'abc', 'SHA-512', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '3926a207c8c42b0c41792cbd3e1a1aaaf5f7a25704f62dfc939c4987dd7ce060009c5bb1c2447355b3216f10b537e9afa7b64a4e5391b0d631172d07939e087a']"]</td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>verifyNotVisible</td>
-					<td>xpath=/html/body//xforms:group[ref="self::node()[translate(hmac('key', 'abc', 'SHA-512', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != '3926a207c8c42b0c41792cbd3e1a1aaaf5f7a25704f62dfc939c4987dd7ce060009c5bb1c2447355b3216f10b537e9afa7b64a4e5391b0d631172d07939e087a']"]</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(hmac('key', 'abc', 'SHA-512', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != '3926a207c8c42b0c41792cbd3e1a1aaaf5f7a25704f62dfc939c4987dd7ce060009c5bb1c2447355b3216f10b537e9afa7b64a4e5391b0d631172d07939e087a']"]</td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>verifyVisible</td>
-					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'SHA-384', 'base64')='MN25yPNHz/v7ROUZ2BTwdM9AR6Vdb1YzJPHGozkg5e37KjS6xgvcls0zqVYj19Y4']"]</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[hmac('key', 'abc', 'SHA-384', 'base64')='MN25yPNHz/v7ROUZ2BTwdM9AR6Vdb1YzJPHGozkg5e37KjS6xgvcls0zqVYj19Y4']"]</td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>verifyNotVisible</td>
-					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'SHA-384', 'base64')!='MN25yPNHz/v7ROUZ2BTwdM9AR6Vdb1YzJPHGozkg5e37KjS6xgvcls0zqVYj19Y4']"]</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[hmac('key', 'abc', 'SHA-384', 'base64')!='MN25yPNHz/v7ROUZ2BTwdM9AR6Vdb1YzJPHGozkg5e37KjS6xgvcls0zqVYj19Y4']"]</td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>verifyVisible</td>
-					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'SHA-512', 'base64')='OSaiB8jEKwxBeSy9PhoaqvX3olcE9i38k5xJh9184GAAnFuxwkRzVbMhbxC1N+mvp7ZKTlORsNYxFy0Hk54Ieg==']"]</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[hmac('key', 'abc', 'SHA-512', 'base64')='OSaiB8jEKwxBeSy9PhoaqvX3olcE9i38k5xJh9184GAAnFuxwkRzVbMhbxC1N+mvp7ZKTlORsNYxFy0Hk54Ieg==']"]</td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>verifyNotVisible</td>
-					<td>xpath=/html/body//xforms:group[ref="self::node()[hmac('key', 'abc', 'SHA-512', 'base64')!='OSaiB8jEKwxBeSy9PhoaqvX3olcE9i38k5xJh9184GAAnFuxwkRzVbMhbxC1N+mvp7ZKTlORsNYxFy0Hk54Ieg==']"]</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[hmac('key', 'abc', 'SHA-512', 'base64')!='OSaiB8jEKwxBeSy9PhoaqvX3olcE9i38k5xJh9184GAAnFuxwkRzVbMhbxC1N+mvp7ZKTlORsNYxFy0Hk54Ieg==']"]</td>
 					<td></td>
 					<td></td>
 				</tr>

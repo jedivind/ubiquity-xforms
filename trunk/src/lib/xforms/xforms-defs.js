@@ -70,7 +70,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "group-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Container, OptionalBinding, Group]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Container, OptionalIfUnspecifiedBinding, Group]);
             }
         }
         ],
