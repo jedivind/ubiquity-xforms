@@ -417,8 +417,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-digest</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-18</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-03-26</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -431,8 +431,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-digest</testCaseSpecLink>
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>false</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-18</testCaseDate>
+        	<testCaseStatus>Passed</testCaseStatus>
+        	<testCaseDate>2009-03-26</testCaseDate>
             <testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -487,8 +487,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-hmac</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-18</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+        	<testCaseDate>2009-03-26</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -501,8 +501,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-hmac</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-18</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+        	<testCaseDate>2009-03-26</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
