@@ -421,7 +421,7 @@ XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
 		var scopeChild = scope.firstChild, returnCandidate = null;
 		while (scopeChild  && !returnCandidate) {
 			if (scopeChild.nodeType === ELEMENT_TYPE  && !scopeChild.ignoreOnWalk) {
-				if (scopeChild.id === id) {
+				if (UX.id(scopeChild) === id) {
 					returnCandidate = scopeChild;
 				} else {
 					returnCandidate = walkGetElementById(id, scopeChild);
@@ -472,7 +472,7 @@ XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
 	
 	XFormsProcessor.prototype.getElementByIdWithAncestor = function (id, ancestorOrSelf) {
 		var returnCandidate, candidateScope;
-		if (ancestorOrSelf && ancestorOrSelf.id === id) {
+		if (ancestorOrSelf && UX.id(ancestorOrSelf) === id) {
 			//If scope has the requested id, don't bother looking elsewhere, just return it.
 			returnCandidate = ancestorOrSelf;
 		} else {

@@ -463,3 +463,13 @@ UX.beget = function(o) {
 	Constructor.prototype = o;
 	return new Constructor();
 }
+
+/**
+ *  Utility method to retrieve the @id of a given element.
+ */
+UX.id = function(oElement) {
+	return (UX.isXHTML
+		? (oElement && typeof oElement.getAttribute === 'function' ? oElement.getAttribute("id") : undefined)
+		: (oElement ? oElement.id : undefined));
+}
+
