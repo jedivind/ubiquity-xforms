@@ -207,7 +207,7 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
 	objects. This utility centralizes setting the style on an Element to one location.
 */
     UX.addStyle = function(oElement, styleName, value) {
-       var stylesheet = null;
+       var stylesheet, selector;
        if (oElement.style)	{
 	      oElement.style[styleName] = value;
 	   } else {
@@ -218,10 +218,11 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
 	         // get the computed style and see if it is already set to the value
 	         if (document.defaultView.getComputedStyle(oElement, null)[styleName] !== value) {
   	  	  	    stylesheet = oElement.ownerDocument.styleSheets[0];
-	  		    // make sure prefix has namespace declared in stylesheet
+	  		    // make sure prefix has namespace declared in stylesheet, use identifier based selector where available
 				 try {
 	  				 stylesheet.insertRule("@namespace " + oElement.prefix + " url(http://www.w3.org/2002/xforms);", 0);
- 	    			 stylesheet.insertRule(oElement.prefix + "|" + oElement.localName + " {" + styleName + ":" + value + ";}", (stylesheet.cssRules.length === 0)? 1:stylesheet.cssRules.length);
+	  				 selector = UX.id(oElement) ? ('[id="' + UX.id(oElement) + '"]') : "";
+	  				 stylesheet.insertRule(oElement.prefix + "|" + oElement.localName + selector + " {" + styleName + ":" + value + ";}", (stylesheet.cssRules.length === 0)? 1:stylesheet.cssRules.length);
 				 } catch (e) {
 					 document.logger.log("INFO: Couldn't set style " + styleName + " to " + value);
 				 }
