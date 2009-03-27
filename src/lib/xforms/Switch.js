@@ -87,8 +87,8 @@ Switch.prototype.toggleDefault = function () {
 */
 Switch.prototype.toggle = function (sCaseID) {
 	var i, oCase;
-	for (i = 0; this.element.childNodes.length; ++i) {
-		if (this.element.childNodes[i].id === sCaseID) {
+	for (i = 0; i < this.element.childNodes.length; ++i) {
+		if (UX.id(this.element.childNodes[i]) === sCaseID) {
 			oCase = this.element.childNodes[i];
 			break;
 		}

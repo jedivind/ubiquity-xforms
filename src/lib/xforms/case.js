@@ -44,7 +44,7 @@ XFormsCase.prototype.select = function() {
 
 XFormsCase.prototype.toggle = function() {
 	var oSwitch = this.getSwitch();
-	if (oSwitch && this.id) {
-		oSwitch.toggle(this.id);
+	if (oSwitch && UX.id(this)) {
+		oSwitch.toggle(UX.id(this));
 	}
 };
