@@ -33,7 +33,7 @@ if (UX.isXHTML) {
         /* if it doesn't work, try to find by different route */
         if (oElement === null) {
             var oRes = xpathDomEval( '//*[@id="'+sID+'"]' , document.documentElement);
-            oElement  = (oRes && oRes.nodeSetValue()) ? oRes.nodeSetValue()[0] : null;          
+            oElement  = (oRes && oRes.nodeSetValue() && oRes.nodeSetValue()[0]) ? oRes.nodeSetValue()[0] : null;          
         }
         return oElement;	   
     };
