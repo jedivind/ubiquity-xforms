@@ -341,8 +341,9 @@ function ProxyNode(oNode)
       }
 	};
 	
-  // get the type form the node
-  this.datatype =  oNode.getAttribute("xsi:type") || "";    
+	// Get the type form the node
+	// This is meaningful only for element nodes 
+	this.datatype = (oNode.nodeType === DOM_ELEMENT_NODE) ? oNode.getAttribute("xsi:type") || "" : "";    
 }
 
 
