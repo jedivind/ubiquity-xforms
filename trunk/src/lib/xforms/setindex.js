@@ -32,6 +32,7 @@ SetIndex.prototype.performAction = function (evt) {
   if (!(this.element.hasAttribute) || this.element.hasAttribute("repeat")) {
     repeatID = this.element.getAttribute("repeat");  
     repeatElement = FormsProcessor.getElementById(repeatID, this.element);
+    //If the id can't be resolved - it's a NO-OP.
     if (repeatElement) {
       if (repeatElement.setIndex) {
         //evaluate @index
@@ -55,10 +56,6 @@ SetIndex.prototype.performAction = function (evt) {
         throw "The IDREF provided by setindex/@repeat must resolve to a repeating structure that implements a setIndex method. '" + repeatID + "' is not such a structure.";
       }
       
-    } else {
-      throw this.element.hasAttribute? 
-        "No element was found with id:'" + repeatID + "', as provided by setindex/@repeat.":
-        "setindex/@repeat was not present, or '" + repeatID + "'did not resolve to an IDREF";
     }
   } else {
     throw "The repeat attribute of the setindex element is required.";
