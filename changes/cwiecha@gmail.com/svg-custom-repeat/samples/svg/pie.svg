@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="170" height="130">
+    <script type="text/ecmascript" xlink:href="pie.js" />
+    <defs>
+        <clipPath id="clipGraph">
+            <circle r="75" cx="80" cy="80"/>
+        </clipPath>
+        <clipPath id="clipRight">
+            <rect width="80" height="160" x="80"/>
+        </clipPath>
+        <clipPath id="clipLeft">
+            <rect width="80" height="160" x="0"/>
+        </clipPath>
+        <clipPath id="clipBar">
+            <circle r="75" cx="80" cy="80" transform="scale(1 0.6) translate(0 30)"/>
+            <rect width="150" height="20" x="5" y="45"/>
+        </clipPath>
+        <filter id="Drop_Shadow" filterUnits="objectBoundingBox" x="-10%" y="-10%" width="150%" height="150%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blurredAlpha"/>
+            <feOffset in="blurredAlpha" dx="3" dy="3" result="offsetBlurredAlpha"/>
+	    <feMerge>
+		<feMergeNode in="offsetBlurredAlpha"/>
+		<feMergeNode in="SourceGraphic"/>
+	    </feMerge>
+        </filter>
+        <radialGradient id="aigrd1" gradientUnits="userSpaceOnUse" cx="40" cy="40">
+            <stop offset="0" style="stop-color:#FFFFFF"/>
+            <stop offset="1" style="stop-color:#000000"/>
+        </radialGradient>
+        <radialGradient id="aigrd2" gradientUnits="userSpaceOnUse" cx="75" cy="75">
+            <stop offset="0" style="stop-color:#FFFFFF"/>
+            <stop offset="1" style="stop-color:#000000"/>
+        </radialGradient>
+    </defs>
+    <!-- 
+    <g>
+                    <rect width="160" height="160" fill="#FFFFFF"/>
+     </g> -->
+
+    <g filter="url(#Drop_Shadow)">
+        <g id="foot" clip-path="url(#clipBar)">
+        <g id="Bars">
+            <rect id="Bar" width="160" height="100" fill="#00A651" x="0" y="40"/>
+        </g>
+        <rect width="160" height="160" fill="url(#aigrd2)" opacity="0.2"/>
+        </g>
+        <g transform="scale(1 0.6)">
+            <g clip-path="url(#clipGraph)">
+                <g id="Leftpart" clip-path="url(#clipLeft)">
+                    <rect id="Left" width="80" height="160" x="0" y="0" fill="#00A651"/>
+                </g>
+                <g id="Rightpart" clip-path="url(#clipRight)">
+                    <rect id="Right" width="80" height="160" x="80" y="0" fill="#00A651"/>
+                </g>
+                <rect width="160" height="160" fill="url(#aigrd1)" opacity="0.2"/>
+                <g id="Text" filter="url(#Drop_Shadow)">
+                    <g id="Lefttext">
+                        <text x="80" y="20" fill="#FFFFFF" font-weight="bold" font-family="Arial" font-size="15px" text-anchor="middle"> </text>
+                    </g>
+                    <g id="Righttext">
+                        <text x="80" y="20" fill="#FFFFFF" font-weight="bold" font-family="Arial" font-size="15px" text-anchor="middle" transform="rotate(180 80 16)"> </text>
+                    </g>
+                </g>
+            </g>
+            <!--circle r="75" cx="80" cy="80" stroke="#000000" fill="none"/-->
+        </g>
+    </g>
+</svg>

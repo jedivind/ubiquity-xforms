@@ -198,6 +198,8 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css" });
     loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/button.css" });
 
+	loader.addModule({ name: "svg-piechart",        type: "js",  fullpath: moduleBase + "../extensions/repeat-svg-piechart.js" });
+
     // Messaging work
     loader.addModule({ name: "yui-style-css",       type: "css", fullpath: moduleBase + "../_platform/yui/message-panel.css" });
     loader.addModule({ name: "xforms-notify",       type: "js",  fullpath: moduleBase + "../_backplane/notify.js" });
@@ -233,7 +235,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-hint", "xforms-help",
         "xforms-header",
         "yui-input-calendar","yui-input-color",
-        "xf4h","xforms-submission-core-yui"
+        "xf4h","xforms-submission-core-yui", "svg-piechart"
       ]
     });
     loader.require( "xforms-defs" );

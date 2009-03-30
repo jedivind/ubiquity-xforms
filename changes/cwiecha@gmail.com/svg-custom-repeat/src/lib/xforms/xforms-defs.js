@@ -99,6 +99,15 @@ DECORATOR.addDecorationRules({
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Repeat]);
             }
+        },
+		{
+            "name" : "repeat-element-piechart",
+			"match" : function(element) {
+				return element.getAttribute("role") === "output-proportional";
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([RepeatPieChart]);
+            }
         }
         ],
         // end container form control decorations
