@@ -291,3 +291,9 @@ TestResult.prototype._saveToFile = function (fileName, form) {
         scriptFile.WriteLine("</table></body></html>");
         scriptFile.Close();
 };
+
+Selenium.prototype.doAllowNavigateForReplaceAll = function( allow ) {
+	selenium.browserbot.getCurrentWindow().document.submission.navigateForReplaceAll = (allow === "true");
+
+	return;
+};

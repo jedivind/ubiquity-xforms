@@ -42,6 +42,7 @@ callback.prototype.failure = function(o) {
  */
 
 function submission() {
+	this.navigateForReplaceAll = true;
 }
 
 document.submission = new submission();
@@ -303,7 +304,8 @@ submission.prototype.submit = function(oSubmission) {
     var sMethod = null;
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding") || "UTF-8";
-    var sSerialization = oSubmission.getAttribute("serialization");
+    var sSerialization = oSubmission.getAttribute("serialization") ? (oSubmission.getAttribute("serialization") !== "none") : "";
+    var bSerialize = (oSubmission.getAttribute("serialization") !== "none");
 		var sSeparator = oSubmission.getAttribute("separator") || "&";
 		var oBody;
     var oContext;
@@ -311,8 +313,8 @@ submission.prototype.submit = function(oSubmission) {
 	var sReplace = null;
     var xmlDoc = new XDocument();
     var oSubmissionBody = xmlDoc.createTextNode("");
-    var relevancePruning = oSubmission.getAttribute("relevant") ? (oSubmission.getAttribute("relevant") !== "false") : (sSerialization !== "none");
-    var validation = oSubmission.getAttribute("validate") ? (oSubmission.getAttribute("validate") !== "false") : (sSerialization !== "none");
+    var relevancePruning = oSubmission.getAttribute("relevant") ? (oSubmission.getAttribute("relevant") !== "false") : bSerialize;
+    var validation = oSubmission.getAttribute("validate") ? (oSubmission.getAttribute("validate") !== "false") : bSerialize;
     var submitDataList = [ ];
     var oForm;
     var cdataSectionElements = oSubmission.getAttribute("cdata-section-elements") ? oSubmission.getAttribute("cdata-section-elements").split(" ") : false;
@@ -354,12 +356,14 @@ submission.prototype.submit = function(oSubmission) {
 		FormsProcessor.dispatchEvent(oSubmission, oEvt);
 		return;
 	}
-    
+		
 	// Construct the list proxy nodes for the submit data.
 	// Prune non-relevant nodes if submission relevant is true,
 	// and issue error if resulting submit data list is empty (step 3)
 	//
-	submitDataList = this.constructSubmitDataList(oContext, relevancePruning);
+	if (bSerialize) {
+		submitDataList = this.constructSubmitDataList(oContext, relevancePruning);
+	}
 	if (relevancePruning && submitDataList.length === 0) {
 		oEvt = oSubmission.ownerDocument.createEvent("Events");
 		oEvt.initEvent("xforms-submit-error", true, false);
@@ -508,6 +512,7 @@ submission.prototype.submit = function(oSubmission) {
 
 	if (
 		sReplace === 'all' && (
+			this.navigateForReplaceAll &&
 			(sMethod === "GET" || sMethod === "POST") &&
 			!bHasHeaders &&
 			(sSerialization === "application/x-www-form-urlencoded" || sSerialization === "multipart/form-data")
@@ -604,32 +609,39 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 	var serialization = "";
 	var xmlDoc = this.constructSubmitDataListDOM(submitDataList);
 
-	// For XML serialisation just return an XML document.
-	//
-	if (serializationFormat === "application/xml") {
-		encoding = encoding || "UTF-8";
-
-		this.setHeader("Content-Type", serializationFormat + "; charset=" + encoding);
-		xmlDoc.insertBefore(
-			xmlDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + encoding + "\""),
-			xmlDoc.firstChild
-		);
-		return xmlText(xmlDoc, cdataSectionElements);
-	}
-
-	// For HTML forms-compatible serialisations, create a set of URL encoded name/value pairs.
-	//
-	if (serializationFormat === "application/x-www-form-urlencoded" || serializationFormat === "multipart/form-data") {
-		return this.serializeURLEncoded(xmlDoc); 
-	}
+	if (xmlDoc) {
+		// For XML serialisation just return an XML document.
+		//
+		if (serializationFormat === "application/xml") {
+			encoding = encoding || "UTF-8";
+	
+			this.setHeader("Content-Type", serializationFormat + "; charset=" + encoding);
+			xmlDoc.insertBefore(
+				xmlDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + encoding + "\""),
+				xmlDoc.firstChild
+			);
+			return xmlText(xmlDoc, cdataSectionElements);
+		}
+	
+		// For HTML forms-compatible serialisations, create a set of URL encoded name/value pairs.
+		//
+		if (serializationFormat === "application/x-www-form-urlencoded" || serializationFormat === "multipart/form-data") {
+			return this.serializeURLEncoded(xmlDoc); 
+		}
+	}//if ( there is something to serialize )
 
 	return "";
 }
 
 submission.prototype.constructSubmitDataListDOM = function(submitDataList) {
-	var root = submitDataList[0].m_oNode.cloneNode(false);
+	var root;
 	var xmlDoc;
-	
+
+	if (!submitDataList.length) {
+		return null;
+	}
+
+	root = submitDataList[0].m_oNode.cloneNode(false);
 	if (root.nodeType === DOM_DOCUMENT_NODE) {
 		xmlDoc = root;
 	} else if (root.nodeType === DOM_ELEMENT_NODE) {
