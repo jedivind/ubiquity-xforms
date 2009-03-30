@@ -318,6 +318,7 @@ submission.prototype.submit = function(oSubmission) {
     var submitDataList = [ ];
     var oForm;
     var cdataSectionElements = oSubmission.getAttribute("cdata-section-elements") ? oSubmission.getAttribute("cdata-section-elements").split(" ") : false;
+	var sContentType = null;
     var bOmitXmlDeclaration = UX.JsBooleanFromXsdBoolean(oSubmission.getAttribute("omit-xml-declaration"), "false");
     var sStandalone = UX.JsBooleanFromXsdBoolean(oSubmission.getAttribute("standalone"));
  
@@ -489,6 +490,8 @@ submission.prototype.submit = function(oSubmission) {
         oSubmission.ownerDocument.logger.log("Submission method '" + sMethod + "' is not defined.", "error");
         break;
     }
+	
+	sContentType = sMediatype || sSerialization;
 
     // Dispatch xforms-submit-serialize.
     // If the event context submission-body property string is empty, then no
@@ -508,7 +511,7 @@ submission.prototype.submit = function(oSubmission) {
     }
 
 	// If the submission contains headers, or is a SOAP submission there are headers.
-	bHasHeaders |= (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
+	bHasHeaders = bHasHeaders || (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
 	
 	sReplace = oSubmission.getAttribute("replace") || "all";
 
@@ -516,8 +519,10 @@ submission.prototype.submit = function(oSubmission) {
 		sReplace === 'all' && (
 			this.navigateForReplaceAll &&
 			(sMethod === "GET" || sMethod === "POST") &&
-			!bHasHeaders &&
-			(sSerialization === "application/x-www-form-urlencoded" || sSerialization === "multipart/form-data")
+			!bHasHeaders && (
+				sContentType === sSerialization && 
+				(sSerialization === "application/x-www-form-urlencoded" || sSerialization === "multipart/form-data")
+			)
 		)
 	) {
 		oForm = this.buildFormFromObject(oBody);
@@ -545,6 +550,7 @@ submission.prototype.submit = function(oSubmission) {
 		// callback
 
 		var oCallback = new callback(this, oSubmission, oContext);
+		this.setHeader("content-type", sContentType);
 		this.setHeaders(oContext.model, oSubmission);
 
 		try {
