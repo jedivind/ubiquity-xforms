@@ -53,9 +53,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-duplicate-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>
@@ -67,9 +67,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-set-attribute</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>        
         <testCase>
@@ -81,9 +81,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-remove-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>
@@ -95,9 +95,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-remove-attribute</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>
@@ -123,9 +123,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-copy-nodeset</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>
@@ -137,9 +137,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-copy-attributelist</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>
@@ -165,9 +165,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-replace-attribute</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>   
         <testCase>
@@ -193,9 +193,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-move-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>   
         <testCase>
@@ -207,9 +207,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#insert-delete-patterns-move-attribute</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-04</testCaseDate>
-            <testCaseRequired>false</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-30</testCaseDate>
+			<testCaseRequired>false</testCaseRequired>
             <testCaseNote/>
         </testCase>   
         <testCase>
