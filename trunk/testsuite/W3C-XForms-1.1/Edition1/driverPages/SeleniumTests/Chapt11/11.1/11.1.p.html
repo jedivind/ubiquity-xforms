@@ -81,7 +81,37 @@
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
-					<td>*standalone*</td>
+					<td>*standalone="yes"*</td>
+					<td></td>
+					<td>Checks that the form data is shown</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt11/11.1/11.1.p.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submit2']/xforms:label</td>
+					<td></td>
+					<td>Clicks on submit button</td>
+				</tr>
+				<tr>
+					<td>waitForElementPresent</td>
+					<td>//html/body/pre</td>
+					<td></td>
+					<td>Waits for the form data page to load</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>*standalone="no"*</td>
 					<td></td>
 					<td>Checks that the form data is shown</td>
 				</tr>
@@ -105,7 +135,7 @@
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:submit[@submission='submit2']/xforms:label</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submit3']/xforms:label</td>
 					<td></td>
 					<td>Clicks on submit button</td>
 				</tr>
