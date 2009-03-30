@@ -318,6 +318,8 @@ submission.prototype.submit = function(oSubmission) {
     var submitDataList = [ ];
     var oForm;
     var cdataSectionElements = oSubmission.getAttribute("cdata-section-elements") ? oSubmission.getAttribute("cdata-section-elements").split(" ") : false;
+    var bOmitXmlDeclaration = UX.JsBooleanFromXsdBoolean(oSubmission.getAttribute("omit-xml-declaration"), "false");
+    var sStandalone = UX.JsBooleanFromXsdBoolean(oSubmission.getAttribute("standalone"));
  
     /*
      * XForms 1.0
@@ -434,7 +436,7 @@ submission.prototype.submit = function(oSubmission) {
 	case "get":
   		sMethod = "GET";
   		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
 
 		//
 		// build SOAP Header information
@@ -447,19 +449,19 @@ submission.prototype.submit = function(oSubmission) {
 	case "form-data-post":
 		sMethod = "POST";
 		sSerialization = sSerialization || "multipart/form-data";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
 		break;
 
 	case "urlencoded-post":
 		sMethod = "POST";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
 		break;
 
 	case "post":
 		sMethod = "POST";
 		sSerialization = "application/xml";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
         
 		//
 		// build SOAP Header information
@@ -473,13 +475,13 @@ submission.prototype.submit = function(oSubmission) {
 	case "put":
 		sMethod = "PUT";
 		sSerialization = "application/xml";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
 		break;
 		
 	case "delete":
 		sMethod = "DELETE";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sEncoding, cdataSectionElements);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
 		break;
 
     default:
@@ -546,9 +548,21 @@ submission.prototype.submit = function(oSubmission) {
 		this.setHeaders(oContext.model, oSubmission);
 
 		try {
-			if ((sMethod === "GET" || sMethod === "DELETE") && (oBody || oBody !== "") && sSerialization === "application/x-www-form-urlencoded") {
-				sResource = this.buildGetUrl(sResource, oBody, sSeparator);
-				oBody = null;
+			if ((oBody || oBody !== "") && sSerialization === "application/x-www-form-urlencoded") {
+				switch (sMethod) {
+					case "GET":
+					case "DELETE":
+						sResource = this.buildGetUrl(sResource, oBody, sSeparator);
+						oBody = null;
+						break;
+
+					case "POST":
+						oBody = this.buildEncodedParameters(oBody, sSeparator);
+						break;
+
+					default:
+						break;
+				}
 			}
 
 			// Work out whether we are about to do a cross-domain or cross-protocol request,
@@ -605,7 +619,7 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
 	return true;
 }
 
-submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, encoding, cdataSectionElements) {
+submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, separator, encoding, cdataSectionElements, omitXmlDeclaration, standalone) {
 	var serialization = "";
 	var xmlDoc = this.constructSubmitDataListDOM(submitDataList);
 
@@ -616,17 +630,28 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 			encoding = encoding || "UTF-8";
 	
 			this.setHeader("Content-Type", serializationFormat + "; charset=" + encoding);
-			xmlDoc.insertBefore(
-				xmlDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + encoding + "\""),
-				xmlDoc.firstChild
-			);
+			if (!omitXmlDeclaration) {
+				xmlDoc.insertBefore(
+					xmlDoc.createProcessingInstruction(
+						"xml",
+						"version=\"1.0\"" +
+						" encoding=\"" + encoding + "\"" +
+						(
+							(standalone !== undefined)
+								? (" standalone=\"" + ((standalone) ? "yes" : "no") + "\"")
+								: ""
+						)
+					),
+					xmlDoc.firstChild
+				);
+			}
 			return xmlText(xmlDoc, cdataSectionElements);
 		}
 	
 		// For HTML forms-compatible serialisations, create a set of URL encoded name/value pairs.
 		//
 		if (serializationFormat === "application/x-www-form-urlencoded" || serializationFormat === "multipart/form-data") {
-			return this.serializeURLEncoded(xmlDoc); 
+			return this.serializeURLEncoded(xmlDoc);
 		}
 	}//if ( there is something to serialize )
 
@@ -767,19 +792,12 @@ submission.prototype.setHeaders = function(oModel, oSubmission) {
 			continue;
 		}
 		
-		nodelist = NamespaceManager.getElementsByTagNameNS(header, "http://www.w3.org/2002/xforms", "name");
-		
-		if (nodelist.length === 0) {
-			document.logger.log("INFO: Ignoring xf:header without an xf:name element");
-			continue;
-		} else {
-			name = nodelist[0].getValue();
+		name = UX.getPropertyValue(header, "name");
 
-			// Ignore headers that don't have a name
-			if (!name || name.trim() === '') {
-				document.logger.log("INFO: Ignoring xf:header whose xf:name is empty");
-				continue;
-			}
+		// Ignore headers that don't have a name
+		if (!name || name.trim() === '') {
+			document.logger.log("INFO: Ignoring xf:header whose xf:name is empty");
+			continue;
 		}
 		
 		values = [];
@@ -803,7 +821,7 @@ submission.prototype.setHeaders = function(oModel, oSubmission) {
 	}
 };
 
-submission.prototype.buildGetUrl = function(action, params, separator) {
+submission.prototype.buildEncodedParameters = function(params, separator, queryString) {
 	var key, pairs = [ ];
 
 	if (params) {
@@ -814,8 +832,12 @@ submission.prototype.buildGetUrl = function(action, params, separator) {
 		}
 	}//if ( there are parameters to add to the action )
 
-	return action + ((pairs.length) ? ("?" + pairs.join(separator || "&")) : "");
-};//buildurl
+	return ((queryString) ? queryString : "") + pairs.join(separator || "&");
+};//buildEncodedParameters()
+
+submission.prototype.buildGetUrl = function(action, params, separator) {
+	return action + this.buildEncodedParameters(params, separator, "?");
+};//buildGetUrl()
 
 submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype, sEncoding) {
 

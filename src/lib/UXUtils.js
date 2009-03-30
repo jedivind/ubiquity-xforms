@@ -474,3 +474,24 @@ UX.id = function(oElement) {
 		: (oElement ? oElement.id : undefined));
 }
 
+
+// Method to set a variable to true, false or undefined, based on an xsd:boolean input.
+//
+// The default value is optional.
+//
+UX.JsBooleanFromXsdBoolean = function(fromValue, defaultValue) {
+	var toValue = {
+		"true": true,
+		"1": true,
+		"false": false,
+		"0": false
+	}[fromValue];
+
+	return (toValue !== undefined)
+		? toValue
+		: (
+			(defaultValue !== undefined)
+				? UX.JsBooleanFromXsdBoolean(defaultValue)
+				: undefined
+		);
+};
