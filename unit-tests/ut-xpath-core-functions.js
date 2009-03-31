@@ -4,7 +4,7 @@
 // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
 // library.
 //
-// Copyright © 2008-2009 Backplane Ltd.
+// Copyright (c) 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
