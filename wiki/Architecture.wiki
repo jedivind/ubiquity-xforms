@@ -10,9 +10,9 @@ This page describes the UXF architecture.
 
 The core philosophy of Ubiquity XForms (and indeed of the entire Ubiquity library) is that developers should be able to hide their preferred Ajax library behind declarative mark-up.
 
-This means that the bulk of the library consists of a layer which provides support for a range of XForms and backplane features, that sits on top of some _other_ Ajax library, such as YUI, jQuery, Dojo, and so on. Alongside this collection of modules sits a binding module that processes authors' mark-up, and uses it to determine which functionality to add. The mark-up can therefore effectively be seen as a set of 'hooks' that are used by the core JavaScript code to determine its course of action.
+This means that the bulk of the library consists of a layer which provides support for a range of XForms and backplane features, that sits on top of some _other_ Ajax library, such as YUI, jQuery, Dojo, and so on. Alongside this collection of modules sits a binding module that processes authors' mark-up, and uses it to determine which functionality to add. The mark-up can therefore effectively be seen as a set of 'hooks' that are used by the core !JavaScript code to determine its course of action.
 
-Although the author is free to use JavaScript directly, alongside the script that handles the core XForms mark-up, greater code portability can achieved by using as much mark-up as possible. For this reason UXF provides a number of extension points to allow additional JavaScript code that an author might add, to still be used via the mark-up.
+Although the author is free to use !JavaScript directly, alongside the script that handles the core XForms mark-up, greater code portability can achieved by using as much mark-up as possible. For this reason UXF provides a number of extension points to allow additional !JavaScript code that an author might add, to still be used via the mark-up.
 
 == Mixins ==
 
@@ -20,7 +20,7 @@ A key part of the design is that multiple objects -- called _mixins_ -- can be a
 
 === Communicating Between Mixins ===
 
-Communication between mixins generally takes place via events, even if two mixins are attached to the same element. All of the Ubiquity libraries use [http://www.w3.org/TR/DOM-Level-2-Events/ DOM 2 Events] as their preferred event standard. Although `DOM 2 Events` is supported natively by most browsers, UXF automatically invokes a JavaScript implementation when running on Internet Explorer.
+Communication between mixins generally takes place via events, even if two mixins are attached to the same element. All of the Ubiquity libraries use [http://www.w3.org/TR/DOM-Level-2-Events/ DOM 2 Events] as their preferred event standard. Although `DOM 2 Events` is supported natively by most browsers, UXF automatically invokes a !JavaScript implementation when running on Internet Explorer.
 
 = Document Loading =
 
@@ -50,7 +50,7 @@ For Firefox and Internet Explorer browsers the built-in CSS architecture is used
 
 == Initialising Mixins ==
 
-Most mixins can be initialised within their constructors, in the same way that any other JavaScript objects can. However, during the binding process, each element will also receive both an `OnContentReady` event, and an `OnDocumentReady` event. During decoration, mixins are free to register for one or both of these events, and to use them to carry out further initialisation.
+Most mixins can be initialised within their constructors, in the same way that any other !JavaScript objects can. However, during the binding process, each element will also receive both an `OnContentReady` event, and an `OnDocumentReady` event. During decoration, mixins are free to register for one or both of these events, and to use them to carry out further initialisation.
 
 For example, a mixin that adds functionality for controls might need to add further elements as children of the element that it is attached to. It should only do this once the element has fully loaded, and so for this reason would register for the `OnContentReady` event, and then add the child elements in the event handler. The same mixin also needs to attach itself to the correct XForms model, but there is no point in trying to do this until all models are loaded, so the mixin would register for the `OnDocumentReady` event, and then search for the correct model in the event handler.
 
