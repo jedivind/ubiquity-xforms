@@ -4,7 +4,7 @@
 
 This page describes the UXF architecture.
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 = Overview =
 
