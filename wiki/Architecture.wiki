@@ -1,8 +1,5 @@
 #summary The UXF architecture.
 #labels Featured,Phase-Implementation
-
-goal: "I think the first point is still outstanding, but a defensible first version will probably take only a few hours for you to write.  It should describe the bootstrap process that gets us into core XForms processing, I think.  Essentially, ubiquity-loader begets a few other scripts which do XYZ (describe), and they listen for event ABC-ready and invoke decorators (get me from ubiquity-loader through generated-css and xforms-defs to the point of model-construct-done).  From there, I'd suggest a paragraph on each kind of xforms object (action, form control, submission) and the list of files implementing them (e.g. actions are implemented by files action.js, insert.js, delete.js, setvalue, ...)."
-
 = Introduction =
 
 This page describes the UXF architecture.
