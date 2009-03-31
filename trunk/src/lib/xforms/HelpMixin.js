@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009 Backplane Ltd.
+ * Copyright (c) 2009 Backplane Ltd.
  *
  * Ubiquity provides a standards-based suite of browser enhancements for
  * building a new generation of internet-related applications.
