@@ -53,7 +53,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#datatypes-schema</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2009-03-19</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -95,7 +95,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#empty-content-types</testCaseSpecLink>
             <testCaseBasic>false</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2009-03-19</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
@@ -123,7 +123,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#empty-content-types</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseStatus>Failed</testCaseStatus>
             <testCaseDate>2009-03-19</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
