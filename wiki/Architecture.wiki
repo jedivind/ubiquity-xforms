@@ -58,4 +58,4 @@ Since communication between mixins takes place via events, then much of the init
 
 = Processor Loading Details =
 
-The XForms processor side of UXF loads incrementally as the mixins are gradually added to the elements in the document.
+The XForms processor side of UXF loads incrementally as the mixins are gradually added to the elements in the document. This will be documented in more detail shortly.
