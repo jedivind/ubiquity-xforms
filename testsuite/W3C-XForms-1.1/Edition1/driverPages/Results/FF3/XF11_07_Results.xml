@@ -478,7 +478,21 @@
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
-        <testCase>
+		<testCase>
+			<testCaseSection>7.8.3</testCaseSection>
+			<testCaseName>7.8.3.f</testCaseName>
+			<testCaseLink>../../Chapt07/7.8/7.8.3/7.8.3.f.xhtml</testCaseLink>
+			<testCaseDescription>7.8.3.f digest() function default encoding base64</testCaseDescription>
+			<testCaseSpecLinkName>7.8.3</testCaseSpecLinkName>
+			<testCaseSpecLink>http://www.w3.org/TR/xforms11/#fn-digest</testCaseSpecLink>
+			<testCaseBasic>true</testCaseBasic>
+			<testCaseNormative>true</testCaseNormative>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-03-31</testCaseDate>
+			<testCaseRequired>true</testCaseRequired>
+			<testCaseNote/>
+		</testCase>
+		<testCase>
             <testCaseSection>7.8.4</testCaseSection>
             <testCaseName>7.8.4.a</testCaseName>
             <testCaseLink>../../Chapt07/7.8/7.8.4/7.8.4.a.xhtml</testCaseLink>
