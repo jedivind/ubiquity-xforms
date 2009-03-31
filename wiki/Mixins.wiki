@@ -3,7 +3,7 @@
 
 This page lists the currently support mixins.
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 = Base mixins =
 
