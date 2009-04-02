@@ -28,7 +28,7 @@ MIPHandler.prototype.addcontroltomodel = function () {
 		if (oModel) {
 			setInitialState(this);
 			oModel.addControl(this);
-		} else if((this.element.getAttribute("ref") || this.element.getAttribute("ref"))) {
+		} else if((this.element.getAttribute("ref") || this.element.getAttribute("nodeset"))) {
 			throw("Could not resolve model for MIPHandler");
 		}
 	} else { // shouldn't be called twice 
