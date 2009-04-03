@@ -239,3 +239,11 @@ XFormsOutputValue.prototype.setValueForOutputRendering = function(sValue) {
      
     return renderAsString;  
 }
+
+XFormsOutputValue.prototype.isTypeAllowed = function(sType) { 
+    // Data Binding Restrictions: Binds to any simpleContent
+    if (!this.parentNode.isBoundToComplexContent()) {
+        return true;
+    }
+    return false;
+};

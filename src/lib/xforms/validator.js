@@ -148,7 +148,7 @@ function isValidQName(sQName) {
     
     arrSegments = sQName.split(":");
     prefix = arrSegments.length === 1 ? "" : arrSegments[0];
-    localPart = arrSegments.length ===1 ? arrSegments[0] : arrSegments[1];
+    localPart = arrSegments.length === 1 ? arrSegments[0] : arrSegments[1];
 
     return prefix ? isValidNCName(prefix) && isValidNCName(localPart) : isValidNCName(localPart);
 }
