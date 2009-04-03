@@ -173,7 +173,7 @@ function isValidInteger(sInteger) {
 
 function isValidPositiveInteger(sInteger) {
     return (
-        sInteger.match(/^[+]?0*[1-9][0-9]*$/) ? true : false
+        sInteger.match(/^[+]?[1-9]+[0-9]*$/) ? true : false
     );
 }
 
@@ -182,7 +182,7 @@ function isValidFloat(sFloat) {
         return true;
     } else {
         return (
-            sFloat.match(/^[-+]?0*[1-9][0-9]*([\.]{1}[0-9]+)?([eE]{1}[-+]?[0-9]+)?$/) ? true : false
+            sFloat.match(/^[-+]?0*[1-9]?[0-9]*([\.]{1}[0-9]+)?([eE]{1}[-+]?[0-9]+)?$/) ? true : false
         );
     }
 }
@@ -193,7 +193,7 @@ function isValidDouble(sDouble) {
 
 function isValidDecimal(sDecimal) {
     return (
-        sDecimal.match(/^[-+]?0*[1-9][0-9]*([\.]{1}[0-9]+)?$/) ? true : false
+        sDecimal.match(/^[-+]?0*[1-9]?[0-9]*([\.]{1}[0-9]+)?$/) ? true : false
     );
 }
 
