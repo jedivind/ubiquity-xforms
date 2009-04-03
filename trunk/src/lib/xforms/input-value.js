@@ -136,3 +136,19 @@ XFormsInputValue.prototype.setValue = function(sValue)
 	}
 	return bRet;
 };
+
+XFormsInputValue.prototype.isTypeAllowed = function(sType) {
+    // Data Binding Restrictions: Binds to any simpleContent (except xsd:base64Binary,
+    // xsd:hexBinary or any datatype derived from these).
+    var arrSegments, prefix, localPart;
+
+    arrSegments = sType.split(":");
+    prefix = arrSegments.length === 2 ? arrSegments[0] : "";
+    if (NamespaceManager.getNamespaceURIForPrefix(prefix) === "http://www.w3.org/2001/XMLSchema") {
+        localPart = arrSegments[1];
+        if (localPart !== "base64Binary" && localPart !== "hexBinary" && !this.parentNode.isBoundToComplexContent()) {
+            return true;
+        }
+    }
+    return false;
+};

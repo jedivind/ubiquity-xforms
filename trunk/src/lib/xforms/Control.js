@@ -311,12 +311,22 @@ Control.prototype.setValue = function (sValue) {
 };
 
 Control.prototype.setType = function (sType) {
+  var pevalue;
+
   if (sType !== this.m_type) {
     UX.removeClassName(this.element, this.m_type);
 
     // [ISSUE] Need to mung the name.
     this.m_type = sType;
     UX.addClassName(this.element, this.m_type);
+
+    // Enforce databinding restrictions.
+    pevalue = this.RetrieveValuePseudoElement();
+    if (pevalue && typeof pevalue.isTypeAllowed === "function") {
+        if (!pevalue.isTypeAllowed(this.m_type)) {
+            UX.dispatchEvent(this.m_model, "xforms-binding-exception", true, false, false);
+        }
+    }
   }
   return;
 };
@@ -444,3 +454,25 @@ Control.prototype.onContentReady = function () {
 	this.AddValuePseudoElement();
 	FormsProcessor.listenForXFormsFocus(this, this);
 };
+
+
+Control.prototype.isBoundToComplexContent = function () {
+    // An element node that has element children is complex content and some
+    // controls (eg. input) cannot bind to nodes with complex content.
+    var i, boundNode, childNodes;
+
+    boundNode = this.getBoundNode(1).node;
+    if (boundNode) {
+        childNodes = boundNode.childNodes;
+        
+        if (childNodes) {
+            for (i = 0; i < childNodes.length; i++) {
+                if (DOM_ELEMENT_NODE === childNodes[i].nodeType) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+};
+

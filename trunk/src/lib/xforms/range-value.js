@@ -145,3 +145,26 @@ RangeValue.prototype.dataValueFromSliderPosition = function (sliderPos) {
 RangeValue.prototype.sliderPositionFromDataValue = function (value) {
   return (value - this.start) * this.tickWidthInPixels;
 };
+
+RangeValue.prototype.isTypeAllowed = function (sType) {
+  // Data Binding Restrictions: Binds only the following list of datatypes
+  // or datatypes derived by restriction from those in the list: xsd:duration,
+  // xsd:date, xsd:time, xsd:dateTime, xsd:gYearMonth, xsd:gYear, xsd:gMonthDay,
+  // xsd:gDay, xsd:gMonth, xsd:float, xsd:double, and xsd:decimal.
+  var arrSegments, prefix, localPart;
+
+  arrSegments = sType.split(":");
+  prefix = arrSegments.length === 2 ? arrSegments[0] : "";
+  if (NamespaceManager.getNamespaceURIForPrefix(prefix) === "http://www.w3.org/2001/XMLSchema") {
+      localPart = arrSegments[1];
+      if (localPart === "duration" || localPart === "date" ||
+          localPart === "time" || localPart === "dateTime" ||
+          localPart === "gYearMonth" || localPart === "gYear" ||
+          localPart === "gMonthDay" || localPart === "gDay" ||
+          localPart === "gMonth" || localPart === "float" ||
+          localPart === "double" || localPart === "decimal") {
+          return true;
+      }
+  }
+  return false;
+};
