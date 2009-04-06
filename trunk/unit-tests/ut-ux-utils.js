@@ -10,7 +10,7 @@
 
 		tearDown : function() {
 			return;
-		},// tearDown()
+		}// tearDown()
 	});
 
 	// Add test for delete nodes.
