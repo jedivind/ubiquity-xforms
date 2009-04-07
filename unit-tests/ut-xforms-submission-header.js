@@ -31,6 +31,7 @@ suiteXFormsSubmissionHeader.add(
 				this.model = document.createElementNS("http://www.w3.org/2002/xforms", "xf:model");
 				this.submission = document.createElementNS("http://www.w3.org/2002/xforms", "xf:submission");
 				this.header = document.createElementNS("http://www.w3.org/2002/xforms", "xf:header");
+				this.header.element = this.header;
 				this.name = document.createElementNS("http://www.w3.org/2002/xforms", "xf:name");
 				this.value = document.createElementNS("http://www.w3.org/2002/xforms", "xf:value");
 
