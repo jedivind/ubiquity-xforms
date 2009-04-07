@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2009 Backplane Ltd.
+ * Copyright © 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -129,14 +129,17 @@ submission.prototype.processResult = function(oResult, isFailure,
                             sData = sData.substr(sData.indexOf("?>") + 2);
                         }
                     }
-
-                    if (UX.isXHTML) {
-                      newXhtml = document.createElement("div");
-                      newXhtml.innerHTML = sData;
-                      document.documentElement.innerHTML = newXhtml.getElementsByTagName("html")[0].innerHTML;
-                    } else {
-                      document.write(sData);
-                    }
+					        	if (oResult.method === "PUT") {
+					        		document.location.href = oResult.resourceURI;
+					        	} else {
+	                    if (UX.isXHTML) {
+	                      newXhtml = document.createElement("div");
+	                      newXhtml.innerHTML = sData;
+	                      document.documentElement.innerHTML = newXhtml.getElementsByTagName("html")[0].innerHTML;
+	                    } else {
+	                      document.write(sData);
+	                    }
+	                  }
                     break;
 
                 case "instance":
@@ -321,7 +324,8 @@ submission.prototype.submit = function(oSubmission) {
 	var sContentType = null;
     var bOmitXmlDeclaration = UX.JsBooleanFromXsdBoolean(oSubmission.getAttribute("omit-xml-declaration"), "false");
     var sStandalone = UX.JsBooleanFromXsdBoolean(oSubmission.getAttribute("standalone"));
- 
+		var schemeHandler;
+
     /*
      * XForms 1.0
      * 
@@ -571,14 +575,29 @@ submission.prototype.submit = function(oSubmission) {
 				}
 			}
 
-			// Work out whether we are about to do a cross-domain or cross-protocol request,
-			// and if we are, ask the user for permission.
+			// If we have a specific protocol/method handler then use it...
 			//
-			if (UX.isFF) {
-				netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+			sResource = makeAbsoluteURI(getBaseUrl(), sResource);
+			schemeHandler = schemeHandlers[spliturl(sResource).scheme];
+
+			if (schemeHandler && schemeHandler[sMethod]) {
+				spawn(
+					schemeHandler[sMethod](sResource, oBody, nTimeout, oCallback)
+				);
 			}
 
-			return this.request(sMethod, sResource, oBody, nTimeout, oCallback);
+			// ...otherwise use the default handler.
+			//
+			else {
+				// At this point we should work out whether we are about to do a cross-domain or
+				// cross-protocol request, and if we are, ask the user for permission.
+				//
+				if (UX.isFF) {
+					netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+				}
+	
+				return this.request(sMethod, sResource, oBody, nTimeout, oCallback);
+			}
 		} catch (e) {
 			oEvt = oSubmission.ownerDocument.createEvent("Events");
 			oEvt.initEvent("xforms-submit-error", true, false);

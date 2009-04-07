@@ -27,7 +27,9 @@ var g_sBehaviourDirectory  = "";
   	window.status = "configuring module loader";  	
   	
   	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../assets/style/default.css"});
-  
+
+		loader.addModule({ name: "ubiquity-backplane",   type: "js",  fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.5/backplane-loader.js" });
+
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
   		requires: [ "connection" ] });
   	loader.addModule({ name: "xforms-listener",            type: "js",  fullpath: moduleBase + "../dom/listener.js" });
@@ -55,7 +57,8 @@ var g_sBehaviourDirectory  = "";
 		loader.addModule({ name: "xforms-model",               type: "js",  fullpath: moduleBase + "modelObj.js",
   		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager", "xforms-threads", "xforms-vertex-target" ] });
 
-  	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: moduleBase + "xforms-submission.js" });
+  	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: moduleBase + "xforms-submission.js",
+  		requires: [ "ubiquity-backplane" ] });
 
     loader.addModule({ name: "xforms-submission",          type: "js",  fullpath: moduleBase + "Submission.js",
   		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core", "libxh-namespace-manager"  ] });
