@@ -151,20 +151,19 @@ RangeValue.prototype.isTypeAllowed = function (sType) {
   // or datatypes derived by restriction from those in the list: xsd:duration,
   // xsd:date, xsd:time, xsd:dateTime, xsd:gYearMonth, xsd:gYear, xsd:gMonthDay,
   // xsd:gDay, xsd:gMonth, xsd:float, xsd:double, and xsd:decimal.
-  var arrSegments, prefix, localPart;
+  var arrSegments, prefix, localPart, namespace;
 
   arrSegments = sType.split(":");
   prefix = arrSegments.length === 2 ? arrSegments[0] : "";
-  if (NamespaceManager.getNamespaceURIForPrefix(prefix) === "http://www.w3.org/2001/XMLSchema") {
-      localPart = arrSegments[1];
-      if (localPart === "duration" || localPart === "date" ||
-          localPart === "time" || localPart === "dateTime" ||
-          localPart === "gYearMonth" || localPart === "gYear" ||
-          localPart === "gMonthDay" || localPart === "gDay" ||
-          localPart === "gMonth" || localPart === "float" ||
-          localPart === "double" || localPart === "decimal") {
-          return true;
-      }
-  }
-  return false;
+  localPart = arrSegments.length === 2 ? arrSegments[1] : "";
+  namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
+
+  return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") &&
+          (localPart === "dayTimeDuration" || localPart === "yearMonthDuration" ||
+           localPart === "date" || localPart === "time" ||
+           localPart === "dateTime" || localPart === "gYearMonth" ||
+           localPart === "gYear" || localPart === "gMonthDay" ||
+           localPart === "gDay" || localPart === "gMonth" ||
+           localPart === "float" || localPart === "double" ||
+           localPart === "decimal"));
 };

@@ -242,8 +242,5 @@ XFormsOutputValue.prototype.setValueForOutputRendering = function(sValue) {
 
 XFormsOutputValue.prototype.isTypeAllowed = function(sType) { 
     // Data Binding Restrictions: Binds to any simpleContent
-    if (!this.parentNode.isBoundToComplexContent()) {
-        return true;
-    }
-    return false;
+    return (!this.parentNode.isBoundToComplexContent());
 };

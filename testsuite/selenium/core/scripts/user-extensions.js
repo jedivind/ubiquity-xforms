@@ -120,6 +120,15 @@ Selenium.prototype.assertXFormsProperty = function(locator,propObjString)
 	}
 }
 
+Selenium.prototype.assertXFormsControlStatus = function(locator, mipName) {
+    var element = this.page().findElement(locator),
+        className = " " + element.className + " ";
+
+    if (className.indexOf(" " + mipName + " ") === -1) {
+        Assert.fail("element does not have class name '" + mipName + "'");
+    }
+};
+
 Selenium.prototype.getXformsControlValue = function(locator) {
 	var element = this.page().findElement(locator);
 
@@ -297,3 +306,5 @@ Selenium.prototype.doAllowNavigateForReplaceAll = function( allow ) {
 
 	return;
 };
+
+
