@@ -140,15 +140,14 @@ XFormsInputValue.prototype.setValue = function(sValue)
 XFormsInputValue.prototype.isTypeAllowed = function(sType) {
     // Data Binding Restrictions: Binds to any simpleContent (except xsd:base64Binary,
     // xsd:hexBinary or any datatype derived from these).
-    var arrSegments, prefix, localPart;
+    var arrSegments, prefix, localPart, namespace;
 
     arrSegments = sType.split(":");
     prefix = arrSegments.length === 2 ? arrSegments[0] : "";
-    if (NamespaceManager.getNamespaceURIForPrefix(prefix) === "http://www.w3.org/2001/XMLSchema") {
-        localPart = arrSegments[1];
-        if (localPart !== "base64Binary" && localPart !== "hexBinary" && !this.parentNode.isBoundToComplexContent()) {
-            return true;
-        }
-    }
-    return false;
+    localPart = arrSegments.length === 2 ? arrSegments[1] : "";
+    namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
+
+    return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") &&
+            localPart !== "base64Binary" && localPart !== "hexBinary" &&
+            !this.parentNode.isBoundToComplexContent());
 };
