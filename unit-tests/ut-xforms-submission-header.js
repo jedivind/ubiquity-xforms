@@ -67,7 +67,7 @@ suiteXFormsSubmissionHeader.add(
 				
 				var connection = document.submission.getConnection();
 				
-				this.name.appendChild(document.createTextNode("header-name"));
+				this.name.innerHTML = "header-name";
 				this.value.appendChild(document.createTextNode("header-value"));
 
 				document.submission.setHeaders(null, this.submission);
@@ -124,7 +124,7 @@ suiteXFormsSubmissionHeader.add(
 				var connection;
 				
 				
-				this.name.appendChild(document.createTextNode("header-name"));
+				this.name.innerHTML = "header-name";
 				
 				/*
 				 * Blank xf:value
@@ -160,7 +160,7 @@ suiteXFormsSubmissionHeader.add(
 				var connection;
 				
 
-				this.name.appendChild(document.createTextNode("header-name"));
+				this.name.innerHTML = "header-name";
 				this.value.appendChild(document.createTextNode("header-value-1"));
 
 				value = document.createElementNS("http://www.w3.org/2002/xforms", "xf:value");
