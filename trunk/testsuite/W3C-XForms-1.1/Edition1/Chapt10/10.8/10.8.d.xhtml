@@ -11,13 +11,7 @@
     <xforms:model id="mymodel">
        		<xforms:instance>
 				<car id="carnode">
-				  <xforms:action ev:event="custom-event">
-				    <xforms:message level="modal">Parent Element</xforms:message>
-				  </xforms:action>
 				  <color id="colornode">
-				    <xforms:action ev:event="custom-event" id="gohere">
-				      <xforms:message level="modal">Child Element</xforms:message>
-				    </xforms:action>
 				  </color>
 				</car>
        		</xforms:instance>
@@ -30,6 +24,12 @@
   			  After activating the Fire Custom Event trigger you must see two messages: Child Element and Parent 
   			  Element. 
 			</xforms:label>
+  		</xforms:group>
+  		<xforms:group>
+			<xforms:message ev:event="custom-event" level="modal">Parent Element</xforms:message>
+  			<xforms:group id="gohere">
+				<xforms:message ev:event="custom-event" level="modal">Child Element</xforms:message>
+  			</xforms:group>
   		</xforms:group>
 		<xforms:trigger>
 	        <xforms:label>Fire Custom Event</xforms:label>
