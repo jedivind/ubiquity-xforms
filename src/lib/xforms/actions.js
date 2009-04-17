@@ -74,7 +74,14 @@ Dispatch.prototype.performAction = function (evt) {
       if (sName) {
         oEvt = this.element.ownerDocument.createEvent("Events");
 
-        oEvt.initEvent(sName, false, false);
+        oEvt.initEvent(
+            sName,
+            UX.JsBooleanFromXsdBoolean(
+                UX.getPropertyValue(this, "bubbles"),
+                "false"
+            ),
+            false
+        );
 
         // Copy through the current event depth.
 
