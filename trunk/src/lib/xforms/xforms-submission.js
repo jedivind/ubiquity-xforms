@@ -120,26 +120,13 @@ submission.prototype.processResult = function(oResult, isFailure,
 
                 switch (sReplace) {
                 case "all":
-                    oObserver.ownerDocument.logger.log(
-                            "@replace = 'all'", "submission");
+                    oObserver.ownerDocument.logger.log("@replace = 'all'", "submission");
 
-                    if (UX.isFF) {
-                        // on FF, <?xml version="1.0"?> needs to be factored out
-                        if (sData.indexOf("<?", 0) === 0) {
-                            sData = sData.substr(sData.indexOf("?>") + 2);
-                        }
+                    if (oResult.method === "PUT") {
+                        document.location.href = oResult.resourceURI;
+                    } else {
+                        this.replaceDocumentContent(sData);
                     }
-					        	if (oResult.method === "PUT") {
-					        		document.location.href = oResult.resourceURI;
-					        	} else {
-	                    if (UX.isXHTML) {
-	                      newXhtml = document.createElement("div");
-	                      newXhtml.innerHTML = sData;
-	                      document.documentElement.innerHTML = newXhtml.getElementsByTagName("html")[0].innerHTML;
-	                    } else {
-	                      document.write(sData);
-	                    }
-	                  }
                     break;
 
                 case "instance":
@@ -580,7 +567,7 @@ submission.prototype.submit = function(oSubmission) {
 			sResource = makeAbsoluteURI(getBaseUrl(), sResource);
 			schemeHandler = schemeHandlers[spliturl(sResource).scheme];
 
-			if (schemeHandler && schemeHandler[sMethod]) {
+			if (UX.isFF && schemeHandler && schemeHandler[sMethod]) {
 				spawn(
 					schemeHandler[sMethod](sResource, oBody, nTimeout, oCallback)
 				);
@@ -898,3 +885,26 @@ submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype
 	return result;
 };
 
+submission.prototype.replaceDocumentContent = function(data) {
+	var xhtmlContainer, htmlElement;
+
+	if (UX.isFF) {
+		// In Firefox, any XML processing instruction must be stripped out.
+		if (data.indexOf("<?", 0) === 0) {
+			data = data.substr(data.indexOf("?>") + 2);
+		}
+	}
+
+	if (UX.isXHTML) {
+		xhtmlContainer = document.createElement("div");
+		xhtmlContainer.innerHTML = data;
+		htmlElement = xhtmlContainer.getElementsByTagName("html")[0];
+		if (htmlElement) {
+			document.documentElement.innerHTML = htmlElement.innerHTML;
+		} else {
+			document.documentElement.innerHTML = xhtmlContainer.innerHTML;
+		}
+	} else {
+		document.write(data);
+	}
+};

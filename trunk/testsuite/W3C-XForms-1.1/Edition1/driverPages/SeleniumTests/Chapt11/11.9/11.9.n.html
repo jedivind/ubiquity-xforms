@@ -56,22 +56,46 @@
 					<td>Checks that submit is in the form</td>
 				</tr>
 				<tr>
+					<td>allowNavigateForReplaceAll</td>
+					<td>false</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:submit[@submission='submit01']/xforms:label</td>
 					<td></td>
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>waitForTextPresent</td>
-					<td>*Henry*Acura*White*</td>
+					<td>waitForNotElementPresent</td>
+					<td>xpath=/html/body</td>
 					<td></td>
-					<td>Waits for the form to load</td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
-					<td>*Henry*Acura*White*</td>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body</td>
 					<td></td>
-					<td>Checks that the form data is shown</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=//car/carOwner</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=//car/make</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=//car/color</td>
+					<td></td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>
