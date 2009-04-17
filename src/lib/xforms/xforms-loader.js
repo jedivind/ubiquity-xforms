@@ -28,7 +28,7 @@ var g_sBehaviourDirectory  = "";
   	
   	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../assets/style/default.css"});
 
-		loader.addModule({ name: "ubiquity-backplane",   type: "js",  fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.5/backplane-loader.js" });
+		loader.addModule({ name: "ubiquity-backplane",   type: "js",  fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/backplane-loader.js" });
 
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
   		requires: [ "connection" ] });

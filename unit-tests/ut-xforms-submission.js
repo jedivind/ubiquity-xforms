@@ -59,22 +59,6 @@ suiteXFormsSubmission.add(
 				delete this.model;
 			},
 			
-			testGetMethod: function() {
-				var Assert = YAHOO.util.Assert;
-
-				this.submission.setAttribute("method", "get");
-				document.submission.submit(this.submission);
-				Assert.areEqual("GET", document.submission.method);
-			},
-			
-			testPutMethod: function() {
-				var Assert = YAHOO.util.Assert;
-				
-				this.submission.setAttribute("method", "put");
-				document.submission.submit(this.submission);
-				Assert.areEqual("PUT", document.submission.method);
-			},
-			
 			testPostMethod: function() {
 				var Assert = YAHOO.util.Assert;
 				
