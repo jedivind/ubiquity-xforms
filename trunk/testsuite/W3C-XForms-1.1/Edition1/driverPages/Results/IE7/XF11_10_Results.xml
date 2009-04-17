@@ -571,9 +571,9 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#action-dispatch</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-11-18</testCaseDate>
-            <testCaseRequired>true</testCaseRequired>
+			<testCaseStatus>Passed</testCaseStatus>
+			<testCaseDate>2009-04-17</testCaseDate>
+			<testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
         <testCase>
