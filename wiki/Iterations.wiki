@@ -9,6 +9,7 @@ Each iteration begins with the weekly conference call, and runs for one week. Th
 
 [http://code.google.com/p/ubiquity-xforms/issues/list?can=2&q=label%3APriority-Critical&colspec=Milestone+Owner+ID+Type+Priority+Status+Summary+Component&cells=tiles Current critical issues]
 
+|| 2009-04-24 || [http://code.google.com/p/ubiquity-xforms/issues/list?can=1&q=Iteration:20090424&sort=status&colspec=Milestone%20Owner%20ID%20Type%20Priority%20Status%20Summary%20Component Issues] || - ||
 || 2009-04-17 || [http://code.google.com/p/ubiquity-xforms/issues/list?can=1&q=Iteration:20090417&sort=status&colspec=Milestone%20Owner%20ID%20Type%20Priority%20Status%20Summary%20Component Issues] || - ||
 || 2009-04-10 || [http://code.google.com/p/ubiquity-xforms/issues/list?can=1&q=Iteration:20090410&sort=status&colspec=Milestone%20Owner%20ID%20Type%20Priority%20Status%20Summary%20Component Issues] || - ||
 || 2009-04-03 || [http://code.google.com/p/ubiquity-xforms/issues/list?can=1&q=Iteration:20090403&sort=status&colspec=Milestone%20Owner%20ID%20Type%20Priority%20Status%20Summary%20Component Issues] || - ||
