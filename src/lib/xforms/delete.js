@@ -27,6 +27,7 @@ Delete.prototype.performAction = function (evt)
 		bindid = this.element.getAttribute("bind"),
 		atExpr = this.element.getAttribute("at"),
 		oInstance = oContext.model.instances()[0],
+		nodeset, 
 		nodesetExpr, 
 		bindObject;
 
