@@ -64,7 +64,7 @@ var g_sBehaviourDirectory  = "";
   		requires: ["libxh-xlink", "xforms-processor", "xforms-submission-core", "libxh-namespace-manager"  ] });
   	
   	loader.addModule({ name: "xforms-processor",           type: "js",  fullpath: moduleBase + "xforms.js",
-  		requires: [ "xforms-model"] });
+  		requires: [ "xforms-model", "xforms-navigable-control-list" ] });
   	loader.addModule({ name: "xforms-conditional-invocation", type: "js", fullpath: moduleBase + "conditional-invocation.js",
   		requires: [ "xforms-processor" ] });
   	
@@ -123,6 +123,10 @@ var g_sBehaviourDirectory  = "";
   		requires: [ "xforms-mip-handler" ] });
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
   		requires: [ "xforms-mip-eventtarget", "dirtystate", "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
+  	loader.addModule({ name: "xforms-navigable-control",             type: "js",  fullpath: moduleBase + "navigable-control.js",
+  		requires: [ "xforms-utils", "xforms-processor" ] });
+  	loader.addModule({ name: "xforms-navigable-control-list",             type: "js",  fullpath: moduleBase + "navigable-control-list.js",
+  		requires: [ "xforms-utils" ] });
   	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: moduleBase + "context.js",
         requires:[ "libxh-namespace-manager", "xforms-dom2" ]});
   	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: moduleBase + "../dom/eventTargetProxy.js",
@@ -225,7 +229,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-listener", "xforms-event-target-proxy",
         "xforms-conditional-invocation", "xforms-type-validator",
         "xforms-model", "xforms-instance", "xforms-submission",
-        "xforms-action", "xforms-context", "xforms-control", "xforms-optional-binding",
+        "xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding",
         "xforms-pe-value", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-select1", "xforms-item", "xforms-copy",
