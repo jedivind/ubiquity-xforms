@@ -113,6 +113,9 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-ux-utils", type: "js",  fullpath: moduleBase + "ut-ux-utils.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
+  loader.addModule({ name: "ux-ut-navigable-control-list", type: "js",  fullpath: moduleBase + "ut-navigable-control-list.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
   loader.require(
     "ux-ut-xforms-library-loaded", 
     "ux-ut-xpath-core-functions", 
@@ -138,7 +141,8 @@ function runTheTests() {
 	"ux-ut-mip-handler",
 	"ux-ut-mip-eventtarget",
 	"ux-ut-optional-binding",
-	"ux-ut-ux-utils"
+	"ux-ut-ux-utils",
+	"ux-ut-navigable-control-list"
   );
 
   var sBars = "";

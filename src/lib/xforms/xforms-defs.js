@@ -108,7 +108,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "submit-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, OptionalBinding, Submit]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, OptionalBinding, Submit]);
             }
         }
         ],
@@ -117,7 +117,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "trigger-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, OptionalBinding]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, OptionalBinding]);
             }
         }
         ],
@@ -126,7 +126,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "input-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl]);
             }
         }
         ],
@@ -135,7 +135,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "output-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, OptionalIfUnspecifiedBinding]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, OptionalIfUnspecifiedBinding]);
             }
         }
         ],
@@ -144,7 +144,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "range-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, FiniteControl]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, FiniteControl]);
             }
         }
         ],
@@ -153,7 +153,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "textarea-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl]);
             }
         }
         ],
@@ -162,7 +162,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "secret-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl]);
             }
         }
         ],
@@ -171,7 +171,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "select-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, XFormsCommonSelect,  ElementWithChoices, XFormsSelect, FiniteControl]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, XFormsCommonSelect,  ElementWithChoices, XFormsSelect, FiniteControl]);
             }
         }
         ],
@@ -180,7 +180,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "select1-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, XFormsCommonSelect, ElementWithChoices, XFormsSelect1, FiniteControl]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, XFormsCommonSelect, ElementWithChoices, XFormsSelect1, FiniteControl]);
             }
         }
         ],

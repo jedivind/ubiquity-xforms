@@ -161,6 +161,12 @@ if (UX.isIE) {
             StyleUnfocussedly(elmnt);
             UX.dispatchEvent(elmnt, "DOMFocusOut", true, false, true);
         };
+
+        this.element.onkeydown = function () {
+            if (typeof this.onKeyDown === "function") {
+                this.onKeyDown(event);
+            }
+        };
     }
 
 
@@ -602,5 +608,10 @@ if (UX.isIE) {
                 UX.dispatchEvent(elmnt, "DOMFocusOut", true, false, true);
             }
         }, true);
-    };
+        this.element.addEventListener("keydown", function(evt) {
+            if (typeof this.onKeyDown === "function") {
+				this.onKeyDown(evt);
+		    }
+        }, false);
+   };
 }

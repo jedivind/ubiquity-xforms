@@ -495,3 +495,42 @@ UX.JsBooleanFromXsdBoolean = function(fromValue, defaultValue) {
 				: undefined
 		);
 };
+
+UX.cancelHTMLEvent = function (evt) {
+	evt.cancelBubble = true;
+	evt.returnValue = false;
+
+	if (typeof evt.preventDefault === 'function') {
+		evt.preventDefault();
+	}
+
+	if (typeof evt.stopPropagation === 'function') {
+		evt.stopPropagation();
+	}
+
+	return false;
+};
+
+UX.isHTMLTabKeyEvent = function (keyEvent) {
+	return UX.isTabKeyCode(UX.getHTMLKeyEventCode(keyEvent));
+};
+
+UX.isShiftKeyPressed = function (keyEvent) {
+	return keyEvent.shiftKey || keyEvent.shiftLeft;
+};
+
+UX.getHTMLEvent = function (eventArgument) {
+	return eventArgument || window.event;
+};
+
+UX.getHTMLKeyEventCode = function (keyEvent) {
+	return keyEvent.keyCode || keyEvent.which || keyEvent.charCode;
+};
+
+UX.isTabKeyCode = function (keyCode) {
+	return UX.getTabKeyCode() === keyCode;
+};
+
+UX.getTabKeyCode = function () {
+	return 9;
+};

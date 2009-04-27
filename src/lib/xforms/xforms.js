@@ -154,6 +154,8 @@ function XFormsProcessor() {
   this.hintOffCounter = 0;
   this.supportedVersions = ["1.1"];
   this.halted = false;
+  this.navigationList = new NavigableControlList();
+  this.listenForKeyDownEvent();
 }
 
 XFormsProcessor.prototype.find = function (array, value) {
@@ -534,6 +536,55 @@ XFormsProcessor.prototype.refreshDescendentsForRelevance = function (nodes) {
 			n.refresh();
 		}
 	});
+};
+
+XFormsProcessor.prototype.addToNavigationList = function (control) {
+	this.navigationList.addControl(control);
+};
+
+XFormsProcessor.prototype.listenForKeyDownEvent = function () {
+	var self = this;
+	document.onkeydown = function (evt) { self.onKeyDown(UX.getHTMLEvent(evt)); };
+};
+
+XFormsProcessor.prototype.onKeyDown = function (evt) {
+	if (UX.isHTMLTabKeyEvent(evt)) {
+		if (UX.isShiftKeyPressed(evt)) {
+			this.navigateToLastControl();
+		} else {
+			this.navigateToFirstControl();
+		}
+
+		return UX.cancelHTMLEvent(evt);
+	}
+
+	return true;
+};
+
+XFormsProcessor.prototype.navigateToFirstControl = function () {
+	this.focusControl(this.navigationList.getFirstControl());
+};
+
+XFormsProcessor.prototype.navigateToLastControl = function () {
+	this.focusControl(this.navigationList.getLastControl());
+};
+
+XFormsProcessor.prototype.navigateToNextControl = function (control) {
+	this.focusControl(this.navigationList.getNextControl(control) || this.navigationList.getFirstControl());
+};
+
+XFormsProcessor.prototype.navigateToPreviousControl = function (control) {
+	this.focusControl(this.navigationList.getPreviousControl(control) || this.navigationList.getLastControl());
+};
+
+XFormsProcessor.prototype.focusControl = function (control) {
+	if (control) {
+		if (typeof control.giveFocus === 'function') {
+			control.giveFocus();
+		} else {
+			control.focus();
+		}
+	}
 };
 
 var FormsProcessor = new XFormsProcessor();
