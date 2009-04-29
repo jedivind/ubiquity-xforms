@@ -139,7 +139,7 @@ NavigableControlList.prototype.getLastControlBeforeIndex = function (index) {
 NavigableControlList.prototype.incrementIndex = function (index) {
 	// As per section 4.3.6 of XForms 1.1, controls with an index of zero come
 	// after controls with an index greater than zero in the navigation order.
-	return index === 0 ? this.list.length : (index === this.list.length - 1 ? 0 : index + 1);
+	return index === 0 ? this.list.length : (index >= this.list.length - 1 ? 0 : index + 1);
 };
 
 NavigableControlList.prototype.decrementIndex = function (index) {
