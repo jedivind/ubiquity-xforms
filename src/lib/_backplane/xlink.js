@@ -29,10 +29,7 @@ YAHOO.util.Connect.handleTransactionResponse = function(o, callback, isAbort)
 
 		try
 		{
-			if(o.conn.status === 0){
-				httpStatus = 200;
-			}
-			else if(o.conn.status !== undefined ){
+			if(o.conn.status !== undefined ){
 				httpStatus = o.conn.status;
 			}
 			else{
@@ -193,6 +190,9 @@ function XLinkElement(element)
 				//Set up the callback object to give to the asyncRequest
 				oCallback =
 				{
+					processResult: function(data, isFailure) {
+						isFailure ? embed_handleFailure(data) : embed_handleResponse(data);
+					},
 					success: embed_handleResponse,
 					failure: embed_handleFailure,
 					scope:this
@@ -207,9 +207,11 @@ function XLinkElement(element)
 				//Set up the callback object to give to the asyncRequest
 				oCallback =
 				{
+					processResult: doNothing,
 					success: doNothing,
 					failure: doNothing,
 					scope:this
+					
 				};
 				fetchData(sResolvedHref,oCallback);
 				break;
@@ -220,6 +222,7 @@ function XLinkElement(element)
 				{
 					oCallback =
 					{
+						processResult: doAction,
 						success: doAction,
 						failure: doAction,
 						action:sAction,
@@ -257,15 +260,27 @@ function XLinkElement(element)
 	function fetchData(sHref,oCallback)
 	{
 		//debugger;
+
+		var schemeHandler,
+			m_transaction;
+		
 		try
 		{
-			//Send the request.
-			m_transaction = YAHOO.util.Connect.asyncRequest(
-				"GET",
-				sHref,
-				oCallback,
-				null
-			);
+			schemeHandler = schemeHandlers[spliturl(sHref).scheme];
+
+			if (UX.isFF && schemeHandler && schemeHandler["GET"]) {
+				spawn(function() {
+						  schemeHandler["GET"](sHref, null, null, oCallback);
+					  });
+			} else {
+				//Send the request.
+				m_transaction = YAHOO.util.Connect.asyncRequest(
+					"GET",
+					sHref,
+					oCallback,
+					null
+				);
+			}
 		}
 		catch(e)
 		{

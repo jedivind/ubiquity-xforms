@@ -568,9 +568,9 @@ submission.prototype.submit = function(oSubmission) {
 			schemeHandler = schemeHandlers[spliturl(sResource).scheme];
 
 			if (UX.isFF && schemeHandler && schemeHandler[sMethod]) {
-				spawn(
-					schemeHandler[sMethod](sResource, oBody, nTimeout, oCallback)
-				);
+				spawn(function() {
+						  schemeHandler[sMethod](sResource, oBody, nTimeout, oCallback);
+					  });
 			}
 
 			// ...otherwise use the default handler.
