@@ -25,13 +25,70 @@ var g_sBehaviourDirectory  = "";
     g_sBehaviourDirectory = moduleBase + "../../behaviours/";
     
   	window.status = "configuring module loader";  	
-  	
+
+  	  /*
+	   * ubiquity-backplane
+	   * 
+	   * The following exist because the YUILoader does not load files from nested loaders consistently
+	   * When the ubiquity-backplane library has a rollup that can be consumed the unrolled dependencies
+	   * can be removed and ../lib/backplane-loader.js can be deleted.
+	   */
+	  
+	  loader.addModule({ name: "ub-array",
+						 type: "js",  
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/array.js" });
+	  
+	  loader.addModule({ name: "ub-tokmap",
+						 type: "js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/tokmap.js",
+						 requires: [ "ub-array" ] });
+
+	  loader.addModule({ name: "ub-uri",
+						 type: "js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/uri.js" });
+
+	  loader.addModule({ name: "ub-io-submission-json",
+						 type: "js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/submission-json.js",
+						 requires: [ "ub-uri" ] });
+	  
+	  loader.addModule({ name: "ub-io-file",
+						 type: "js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/io/file.js",
+						 requires: [ "ub-uri" ] });
+	  
+	  loader.addModule({ name: "ub-dom3ls",
+						 type: "js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/dom/dom3ls.js",
+						 requires: [ "ub-io-file" ] });
+	  
+	  loader.addModule({ name: "ub-io-scheme-file",
+						 type: "js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/io/scheme-file.js",
+						 requires: [ "ub-io-file" ] });
+
+	  loader.addModule({ name: "ubiquity-backplane",
+						 type: "js",
+						 fullpath: moduleBase + "../backplane-loader.js",
+//						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/backplane-loader.js",
+						 requires: [ "ub-array",
+									 "ub-tokmap",
+									 "ub-uri",
+									 "ub-io-submission-json",
+									 "ub-io-file",
+									 "ub-dom3ls",
+									 "ub-io-scheme-file" ]});
+
+	  /*
+	   * End of ubiquity-backplane
+	   */
+
+	  
   	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../assets/style/default.css"});
 
-		loader.addModule({ name: "ubiquity-backplane",   type: "js",  fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.7/backplane-loader.js" });
-
+	  
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
-  		requires: [ "connection" ] });
+    	 requires: [ "connection", "ubiquity-backplane" ] });
   	loader.addModule({ name: "xforms-listener",            type: "js",  fullpath: moduleBase + "../dom/listener.js" });
   	loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: moduleBase + "../threads.js" });
   	loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: moduleBase + "../dom/dom2events.js",
@@ -89,8 +146,14 @@ var g_sBehaviourDirectory  = "";
   	requires: [ "xforms-xpath", "xpath-extension-md5", "xpath-extension-sha" ] });
 
 
-  	loader.addModule({ name: "xforms-instance",            type: "js",  fullpath: moduleBase + "Instance.js",
-  		requires: ["xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library" ] });
+  	loader.addModule({ name: "xforms-instance",
+					   type: "js",
+					   fullpath: moduleBase + "Instance.js",
+  					   requires: [ "xforms-dom",
+								   "xforms-dom2events",
+								   "xforms-ajaxslt-improvements",
+								   "xforms-core-function-library",
+								   "libxh-xlink" ]});
   	
   	loader.addModule({ name: "xforms-type-validator", type: "js",  fullpath: moduleBase + "validator.js", 
   		requires:["libxh-namespace-manager", "xforms-core-function-library"]});
