@@ -22,18 +22,17 @@ NavigableControl.prototype.isNavigableControl = true;
 
 NavigableControl.prototype.onContentReady = function () {
 	this.setNavIndex();
-
-	FormsProcessor.addToNavigationList(this);
-};
-
-NavigableControl.prototype.onContentReady = function () {
-	this.setNavIndex();
+	this.setAccessKey();
 
 	FormsProcessor.addToNavigationList(this);
 };
 
 NavigableControl.prototype.setNavIndex = function () {
 	this.navIndex = parseInt(this.element.getAttribute('navindex') || '0', 10);
+};
+
+NavigableControl.prototype.setAccessKey = function () {
+	this.accessKey = this.element.getAttribute('accesskey');
 };
 
 NavigableControl.prototype.onKeyDown = function (evt) {
