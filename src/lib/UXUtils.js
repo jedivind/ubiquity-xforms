@@ -519,6 +519,18 @@ UX.isShiftKeyPressed = function (keyEvent) {
 	return keyEvent.shiftKey || keyEvent.shiftLeft;
 };
 
+UX.isControlKeyPressed = function (keyEvent) {
+	return keyEvent.ctrlKey || keyEvent.ctrlLeft;
+};
+
+UX.isAltKeyPressed = function (keyEvent) {
+	return keyEvent.altKey || keyEvent.altLeft;
+};
+
+UX.isMetaKeyPressed = function (keyEvent) {
+	return keyEvent.metaKey;
+};
+
 UX.getHTMLEvent = function (eventArgument) {
 	return eventArgument || window.event;
 };

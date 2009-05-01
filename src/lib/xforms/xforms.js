@@ -499,7 +499,7 @@ XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
 		return returnCandidate;
 	};
 	
-}())
+}());
 
 XFormsProcessor.prototype.hasProxyNode = function (element) {
 	return element && element.m_proxy && element.m_proxy.m_oNode;
@@ -556,6 +556,8 @@ XFormsProcessor.prototype.onKeyDown = function (evt) {
 		}
 
 		return UX.cancelHTMLEvent(evt);
+	} else if (this.isAccessKeyEvent(evt) && this.navigateToKeyedControl(UX.getHTMLKeyEventCode(evt))) {
+		return UX.cancelHTMLEvent(evt);
 	}
 
 	return true;
@@ -577,6 +579,16 @@ XFormsProcessor.prototype.navigateToPreviousControl = function (control) {
 	this.focusControl(this.navigationList.getPreviousControl(control) || this.navigationList.getLastControl());
 };
 
+XFormsProcessor.prototype.navigateToKeyedControl = function (accessKey) {
+	var control = this.navigationList.getControlByAccessKey(accessKey);
+	if (control) {
+		this.focusControl(control);
+		return true;
+	}
+
+	return false;
+};
+
 XFormsProcessor.prototype.focusControl = function (control) {
 	if (control) {
 		if (typeof control.giveFocus === 'function') {
@@ -585,6 +597,10 @@ XFormsProcessor.prototype.focusControl = function (control) {
 			control.focus();
 		}
 	}
+};
+
+XFormsProcessor.prototype.isAccessKeyEvent = function (keyEvent) {
+	return UX.isAltKeyPressed(keyEvent);
 };
 
 var FormsProcessor = new XFormsProcessor();

@@ -150,6 +150,22 @@
 			YAHOO.util.Assert.areSame(control3a, this.ncl.getPreviousControl(control3b));
 			YAHOO.util.Assert.areSame(control3b, this.ncl.getPreviousControl(control4));
 			YAHOO.util.Assert.areSame(control4, this.ncl.getPreviousControl(control0));
+		},
+
+		testGetControlByAccessKey: function () {
+			var control1 = { isNavigableControl: true, accessKey: '1', navIndex: 0 },
+			    control2 = { isNavigableControl: true, accessKey: 'B', navIndex: 0 };
+
+			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control1.accessKey.charCodeAt(0)));
+			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control2.accessKey.charCodeAt(0)));
+
+			this.ncl.addControl(control1);
+			YAHOO.util.Assert.areSame(control1, this.ncl.getControlByAccessKey(control1.accessKey.charCodeAt(0)));
+			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control2.accessKey.charCodeAt(0)));
+
+			this.ncl.addControl(control2);
+			YAHOO.util.Assert.areSame(control1, this.ncl.getControlByAccessKey(control1.accessKey.charCodeAt(0)));
+			YAHOO.util.Assert.areSame(control2, this.ncl.getControlByAccessKey(control2.accessKey.charCodeAt(0)));
 		}
 	}));
 }());
