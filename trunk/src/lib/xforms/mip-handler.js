@@ -124,6 +124,10 @@ MIPHandler.prototype.rewire = function () {
 			return false;
 		}
 	
+		if (self.element.isWired === false) { // defensive exact test
+			return true;
+		}
+
 		proxyNode = FormsProcessor.getProxyNode(self.element);
 		if (proxyNode) {
 			return proxyNode.enabled.getValue();
