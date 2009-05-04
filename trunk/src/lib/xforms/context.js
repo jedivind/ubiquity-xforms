@@ -24,9 +24,12 @@ function Context(elmnt) {
 
 
 Context.prototype.unwire = function() {
-    this.m_context = null;
-    this.m_arrNodes = null;
-    this.m_proxy = null;
+	this.m_context = null;
+	this.m_arrNodes = null;
+	if (this.m_proxy && !this.isBindingContainer) {
+		this.m_proxy = null;
+	}
+	return;
 };
 
 
