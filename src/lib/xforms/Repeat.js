@@ -19,7 +19,7 @@ function Repeat(elmnt) {
   this.element = elmnt;
   var sStartIndex;
   if (this.element) {
-    this.element.iterationTagName = "group";
+    this.element.bindingContainerName = "group";
 
     sStartIndex = elmnt.getAttribute("startindex");
     
@@ -111,14 +111,46 @@ Repeat.prototype.getRequestedIterationCount = function () {
 
 Repeat.prototype.putIterations = function (desiredIterationCount) {
 
-	var formerOffset, i, currentOrdinal, sDefaultPrefix, iterations, oIterationElement, templateClone, thisModel;
-	if (desiredIterationCount < this.m_CurrentIterationCount) {
-		//Trim any superfluous iterations if desired.
-		while (this.element.childNodes.length > desiredIterationCount) {
-		  this.element.removeChild(this.element.lastChild);
+	var
+		formerOffset,
+		i,
+		currentOrdinal,
+		sDefaultPrefix,
+		iterations = this.element.childNodes,
+		oIterationElement,
+		templateClone,
+		thisModel;
+
+	// If we have iterations that are bound to nodes that have been
+	// deleted then the iterations themselves must be deleted.
+	//
+
+	// Note that we can't treat this loop as being of a fixed size (such
+	// as by starting with 'length' and then decrementing, or obtaining
+	// a 'stop' value at the beginning) because as items are removed from
+	// the array its size will change.
+	//
+	i = 0;
+
+	while (i < iterations.length) {
+		node = iterations[ i ];
+		if (node.m_proxy && !node.m_proxy.m_oNode) {
+		  this.element.removeChild( node );
 		}
-		this.m_CurrentIterationCount = this.element.childNodes.length;
+		// If we deleted a child then we don't need to increment the loop counter
+		// since the next child will have shifted into place.
+		//
+		else {
+			i++;
+		}
 	}
+
+	// Now set the value for the number of current iterations to the
+	// the number of child nodes. If we don't have enough then we'll
+	// create some more shortly.
+	//
+	this.m_CurrentIterationCount = iterations.length;
+
 	//hold the current offset, to determine whether it is necessary to change
 	//  the ordinals of the various iterations.
 	formerOffset = this.m_offset;
@@ -134,16 +166,12 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		this.m_offset = this.m_nIndex - 1;
 	}
 	
-	//Offset has changed, iterate through extant iterations, altering their ordinals accordingly.
-	if (formerOffset !== this.m_offset) {
-		iterations = this.element.childNodes;
-		
-		for (i = 0; i < this.m_CurrentIterationCount; ++i) {
-		  currentOrdinal = i + this.m_offset;
-		  if (iterations[i]) {
-		    iterations[i].setAttribute("ordinal", currentOrdinal);
-		  } 
-		}
+	// Bring the @ordinal values into line.
+	//
+	for (i = 0; i < this.m_CurrentIterationCount; ++i) {
+	  if (iterations[i].isBindingContainer) {
+	    iterations[i].setAttribute("ordinal", i + this.m_offset);
+	  } 
 	}
 	
 	sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
@@ -161,10 +189,11 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 	while (desiredIterationCount > this.m_CurrentIterationCount) {
 		//In the absence of an iteration corresponding to this index, insert one.
 		oIterationElement = (UX.isXHTML) ? 
-			document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.iterationTagName) :
-			document.createElement(sDefaultPrefix + this.element.iterationTagName);
+			document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.bindingContainerName) :
+			document.createElement(sDefaultPrefix + this.element.bindingContainerName);
 		oIterationElement.setAttribute("ref", ".");
 		oIterationElement.setAttribute("ordinal", this.m_offset + this.m_CurrentIterationCount + 1);
+		oIterationElement.isBindingContainer = true;
 		UX.addClassName(oIterationElement, "repeat-iteration");
 		
 		oIterationElement.outerScope = this;

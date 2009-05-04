@@ -251,7 +251,14 @@ Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
     	else {
     		parentNode.removeChild(node);
     	}
-    		
+
+			// If there is a proxy node pointing to this node (which there should be),
+			// then remove the reference.
+			//
+			if (node.m_proxy) {
+				node.m_proxy.m_oNode = null;
+			}
+
     	return true; 	
     };
     
