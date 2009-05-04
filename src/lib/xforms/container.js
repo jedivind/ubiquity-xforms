@@ -16,6 +16,7 @@
 
 function Container(element) {
 	this.element = element;
+	this.isWired = false;
 }
 
 Container.prototype.onContentReady = function () {
