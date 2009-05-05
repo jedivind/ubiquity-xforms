@@ -3,12 +3,12 @@
     <specChapter chapterName="4. " productId="" chapterTitle="Processing Model">
         <statusSummary countsfile="XF11_04_Results.counts">
             <numNormTotal>65</numNormTotal>
-            <numNormPass>29</numNormPass>
-            <numNormFail>36</numNormFail>
+            <numNormPass>30</numNormPass>
+            <numNormFail>35</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>65</numBasicTotal>
-            <numBasicPass>29</numBasicPass>
-            <numBasicFail>36</numBasicFail>
+            <numBasicPass>30</numBasicPass>
+            <numBasicFail>35</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -193,7 +193,7 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-modelDestruct</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
+            <testCaseStatus>Passed</testCaseStatus>
             <testCaseDate>2008-12-02</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
