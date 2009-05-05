@@ -559,8 +559,20 @@ XDocument.prototype.createProcessingInstruction = function(target, data) {
   return XNode.create(DOM_PROCESSING_INSTRUCTION_NODE, '#processing-instruction', target + " " + data.replace(/^\s\s*/, '').replace(/\s\s*$/, ''), this);
 };
 
-function xmlTextR(node, buf, cdata) {
-  var i, parentNodeName, elementContainsCDATA, a;
+function xmlText(node, opt_cdata, opt_includenamespaceprefixes) {
+	var buf = [];
+	xmlTextR(node, buf, opt_cdata, opt_includenamespaceprefixes);
+	return buf.join('');
+}
+
+function xmlTextR(node, buf, cdata, includeNamespacePrefixes) {
+	var i,
+		parentNodeName,
+		elementContainsCDATA,
+		a,
+		prefix,
+		j;
+	
   if (node.nodeType == DOM_TEXT_NODE) {
     elementContainsCDATA = false;
     if (cdata && typeof cdata === 'object' && typeof cdata.length === 'number' && typeof cdata.splice === 'function' && !cdata.propertyIsEnumerable('length')) {
@@ -594,8 +606,20 @@ function xmlTextR(node, buf, cdata) {
     for (i = 0; i < node.attributes.length; ++i) {
       a = node.attributes[i];
       if (a && a.nodeName && a.nodeValue) {
-        buf.push(' ' + xmlFullNodeName(a) + '="' +
-                 xmlEscapeAttr(a.nodeValue) + '"');
+
+		  if (a.nodeName.indexOf('xmlns') === 0 && includeNamespacePrefixes) {
+			  prefix = a.nodeName.split(':')[1];
+			  for (j=0; j<includeNamespacePrefixes.length; j++) {
+				  if (prefix === includeNamespacePrefixes[j] || (prefix === '' && includeNamespacePrefixes[j] === '#default')) {
+					  buf.push(' ' + xmlFullNodeName(a) + '="' +
+							   xmlEscapeAttr(a.nodeValue) + '"');
+					  break;
+				  }
+			  }
+		  } else {
+			  buf.push(' ' + xmlFullNodeName(a) + '="' +
+					   xmlEscapeAttr(a.nodeValue) + '"');
+		  }
       }
     }
 
@@ -604,7 +628,7 @@ function xmlTextR(node, buf, cdata) {
     } else {
       buf.push('>');
       for (i = 0; i < node.childNodes.length; ++i) {
-        arguments.callee(node.childNodes[i], buf, cdata);
+          arguments.callee(node.childNodes[i], buf, cdata, includeNamespacePrefixes);
       }
       buf.push('</' + xmlFullNodeName(node) + '>');
     }
@@ -612,7 +636,7 @@ function xmlTextR(node, buf, cdata) {
   } else if (node.nodeType == DOM_DOCUMENT_NODE ||
              node.nodeType == DOM_DOCUMENT_FRAGMENT_NODE) {
     for (i = 0; i < node.childNodes.length; ++i) {
-      arguments.callee(node.childNodes[i], buf, cdata);
+		arguments.callee(node.childNodes[i], buf, cdata, includeNamespacePrefixes);
     }
   } else if (node.nodeType == DOM_PROCESSING_INSTRUCTION_NODE) {
     buf.push('<?' + node.nodeValue + '?>');
