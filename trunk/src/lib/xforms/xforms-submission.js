@@ -311,7 +311,13 @@ submission.prototype.submit = function(oSubmission) {
 	var sContentType = null;
     var bOmitXmlDeclaration = UX.JsBooleanFromXsdBoolean(oSubmission.getAttribute("omit-xml-declaration"), "false");
     var sStandalone = UX.JsBooleanFromXsdBoolean(oSubmission.getAttribute("standalone"));
-		var schemeHandler;
+	var schemeHandler;
+	var includeNamespacePrefixes = oSubmission.getAttribute("includenamespaceprefixes");
+
+	// Since the absence of the includenamespaceprefixes attribute is important null is a valid value.
+	if (includeNamespacePrefixes) {
+		includeNamespacePrefixes = includeNamespacePrefixes.split(" ");
+	}
 
     /*
      * XForms 1.0
@@ -428,7 +434,7 @@ submission.prototype.submit = function(oSubmission) {
 	case "get":
   		sMethod = "GET";
   		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone, includeNamespacePrefixes);
 
 		//
 		// build SOAP Header information
@@ -441,19 +447,19 @@ submission.prototype.submit = function(oSubmission) {
 	case "form-data-post":
 		sMethod = "POST";
 		sSerialization = sSerialization || "multipart/form-data";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone, includeNamespacePrefixes);
 		break;
 
 	case "urlencoded-post":
 		sMethod = "POST";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone, includeNamespacePrefixes);
 		break;
 
 	case "post":
 		sMethod = "POST";
 		sSerialization = "application/xml";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone, includeNamespacePrefixes);
         
 		//
 		// build SOAP Header information
@@ -467,13 +473,13 @@ submission.prototype.submit = function(oSubmission) {
 	case "put":
 		sMethod = "PUT";
 		sSerialization = "application/xml";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone, includeNamespacePrefixes);
 		break;
 		
 	case "delete":
 		sMethod = "DELETE";
 		sSerialization = "application/x-www-form-urlencoded";
-		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone);
+		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone, includeNamespacePrefixes);
 		break;
 
     default:
@@ -631,7 +637,7 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
 	return true;
 }
 
-submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, separator, encoding, cdataSectionElements, omitXmlDeclaration, standalone) {
+submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, separator, encoding, cdataSectionElements, omitXmlDeclaration, standalone, includeNamespacePrefixes) {
 	var serialization = "";
 	var xmlDoc = this.constructSubmitDataListDOM(submitDataList);
 
@@ -657,7 +663,7 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 					xmlDoc.firstChild
 				);
 			}
-			return xmlText(xmlDoc, cdataSectionElements);
+			return xmlText(xmlDoc, cdataSectionElements, includeNamespacePrefixes);
 		}
 	
 		// For HTML forms-compatible serialisations, create a set of URL encoded name/value pairs.
