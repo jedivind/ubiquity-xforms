@@ -3,12 +3,12 @@
     <specChapter chapterName="11. " productId="" chapterTitle="The XForms Submission Module">
         <statusSummary countsfile="XF11_11_Results.counts">
             <numNormTotal>67</numNormTotal>
-            <numNormPass>38</numNormPass>
-            <numNormFail>30</numNormFail>
+            <numNormPass>39</numNormPass>
+            <numNormFail>29</numNormFail>
             <numNormUnknown>0</numNormUnknown>
             <numBasicTotal>67</numBasicTotal>
-            <numBasicPass>38</numBasicPass>
-            <numBasicFail>30</numBasicFail>
+            <numBasicPass>39</numBasicPass>
+            <numBasicFail>29</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -319,8 +319,8 @@
             <testCaseSpecLink>http://www.w3.org/TR/xforms11/#submit-submission-element</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-05-05</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
