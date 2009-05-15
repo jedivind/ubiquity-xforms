@@ -16,7 +16,7 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>11.9.p mailto multipart-post as a submission option (non-normative)</title>
+		<title>11.9.p mailto urlencoded-post as a submission option (non-normative)</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
@@ -39,13 +39,13 @@
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>11.9.p mailto multipart-post as a submission option (non-normative)</td>
+					<td>11.9.p mailto urlencoded-post as a submission option (non-normative)</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:submission[@id='submit01' and @method='multipart-post' and @action='mailto:no-one@w3.org']</td>
+					<td>xpath=/html/body/xforms:model/xforms:submission[@id='submit01' and @method='urlencoded-post' and @action='mailto:no-one@w3.org']</td>
 					<td></td>
 					<td>Checks that submission is in the form</td>
 				</tr>
