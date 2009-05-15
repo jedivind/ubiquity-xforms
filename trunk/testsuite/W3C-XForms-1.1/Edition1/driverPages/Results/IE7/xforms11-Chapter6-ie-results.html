@@ -44,7 +44,6 @@
 <TR bgColor=#ffcccc>
 <TD><A href="./Chapt06/6.1/6.1.3/6.1.3.a.html">6.1.3.a required property</A></TD></TR>
 <TR bgColor=#ffcccc>
-<TD><A href="./Chapt06/6.1/6.1.3/6.1.3.b.html">6.1.3.b required property with xsi:nil</A></TD></TR>
 <TR bgColor=#ccffcc>
 <TD><A href="./Chapt06/6.1/6.1.4/6.1.4.a.html">6.1.4.a inheritance rules for relevant property</A></TD></TR>
 <TR bgColor=#ccffcc>
@@ -379,84 +378,6 @@
 <TD>verifyText</TD>
 <TD>xpath=//html/body/pre</TD>
 <TD originalHTML="*John*">Actual value '<FIRST-NAME></FIRST-NAME>' did not match '*John*'</TD>
-<TD>Checks that the form data is shown</TD></TR></TBODY></TABLE></DIV></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><DIV>
-<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
-<TBODY>
-<TR bgColor=#ffcccc>
-<TD colSpan=3>6.1.3.b required property with xsi:nil<BR></TD></TR>
-<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
-<TD>open</TD>
-<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.3/6.1.3.b.html</TD>
-<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
-<TD>Opens the form</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
-<TD>pause</TD>
-<TD>3000</TD>
-<TD originalHTML></TD>
-<TD>Waits for the form to load</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
-<TD>verifyTitle</TD>
-<TD>6.1.3.b required property with xsi:nil</TD>
-<TD originalHTML></TD>
-<TD>Makes sure this is the right form</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
-<TD>verifyElementPresent</TD>
-<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/ex:person-name/ex:last-name' and @required='true()']</TD>
-<TD originalHTML></TD>
-<TD>Checks that the bind has a required attribute on it</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
-<TD>verifyElementPresent</TD>
-<TD>xpath=/html/body/xforms:input[@ref='/ex:person-name/ex:last-name']</TD>
-<TD originalHTML></TD>
-<TD>Checks that the input is in the form</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
-<TD>verifyElementPresent</TD>
-<TD>xpath=/html/body/xforms:submit[@submission='lname']</TD>
-<TD originalHTML></TD>
-<TD>Checks that the submit is in the form</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
-<TD>click</TD>
-<TD>xpath=/html/body/xforms:submit[@submission='lname']</TD>
-<TD originalHTML></TD>
-<TD>Clicks on submit button</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
-<TD>click</TD>
-<TD>xpath=/html/body/xforms:submit[@submission='lname']</TD>
-<TD originalHTML></TD>
-<TD>Clicks on submit button</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
-<TD>verifyElementPresent</TD>
-<TD>xpath=/html/body/xforms:input[@ref='/ex:person-name/ex:last-name']</TD>
-<TD originalHTML></TD>
-<TD>Checks that the input is still in the form</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
-<TD>type</TD>
-<TD>xpath=/html/body/xforms:input[@ref='/ex:person-name/ex:last-name']/pe-value/input</TD>
-<TD originalHTML="Smith">Smith</TD>
-<TD>Try to type into the input field</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
-<TD>verifyValue</TD>
-<TD>xpath=/html/body/xforms:input[@ref='/ex:person-name/ex:last-name']/pe-value/input</TD>
-<TD originalHTML="Smith">Smith</TD>
-<TD>Checks that the input has the right value</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
-<TD>click</TD>
-<TD>xpath=/html/body/xforms:submit[@submission='lname']</TD>
-<TD originalHTML></TD>
-<TD>Clicks on submit button</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
-<TD>pause</TD>
-<TD>1000</TD>
-<TD originalHTML></TD>
-<TD>Waits for the form to load</TD></TR>
-<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
-<TD>verifyText</TD>
-<TD>xpath=//html/body/pre</TD>
-<TD originalHTML="*Smith*">Actual value '<?xml:namespace prefix = ex /><ex:last-name xsi:nil="true"></ex:last-name>' did not match '*Smith*'</TD>
 <TD>Checks that the form data is shown</TD></TR></TBODY></TABLE></DIV></td>
 <td>&nbsp;</td>
 </tr>
