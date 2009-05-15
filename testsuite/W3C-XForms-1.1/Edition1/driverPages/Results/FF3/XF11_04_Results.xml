@@ -664,13 +664,13 @@
             <testCaseSection>4.5.3</testCaseSection>
             <testCaseName>4.5.3.a</testCaseName>
             <testCaseLink>../../Chapt04/4.5/4.5.3/4.5.3.a.xhtml</testCaseLink>
-            <testCaseDescription>xforms-link-error</testCaseDescription>
+            <testCaseDescription>xforms-version-exception</testCaseDescription>
             <testCaseSpecLinkName>4.5.3</testCaseSpecLinkName>
-            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-linkError</testCaseSpecLink>
+            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-versionException</testCaseSpecLink>
             <testCaseBasic>true</testCaseBasic>
             <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Failed</testCaseStatus>
-            <testCaseDate>2008-12-02</testCaseDate>
+            <testCaseStatus>Passed</testCaseStatus>
+            <testCaseDate>2009-02-17</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
         </testCase>
@@ -701,21 +701,7 @@
             <testCaseDate>2009-03-24</testCaseDate>
             <testCaseRequired>true</testCaseRequired>
             <testCaseNote/>
-        </testCase>
-        <testCase>
-            <testCaseSection>4.5.7</testCaseSection>
-            <testCaseName>4.5.7.a</testCaseName>
-            <testCaseLink>../../Chapt04/4.5/4.5.7/4.5.7.a.xhtml</testCaseLink>
-            <testCaseDescription>xforms-version-exception</testCaseDescription>
-            <testCaseSpecLinkName>4.5.7</testCaseSpecLinkName>
-            <testCaseSpecLink>http://www.w3.org/TR/xforms11/#evt-versionException</testCaseSpecLink>
-            <testCaseBasic>true</testCaseBasic>
-            <testCaseNormative>true</testCaseNormative>
-            <testCaseStatus>Passed</testCaseStatus>
-            <testCaseDate>2009-02-17</testCaseDate>
-            <testCaseRequired>true</testCaseRequired>
-            <testCaseNote/>
-        </testCase>                
+        </testCase>               
         <testCase>
             <testCaseSection>4.6.1</testCaseSection>
             <testCaseName>4.6.1.a1</testCaseName>

@@ -16,13 +16,13 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>4.5.3.a xforms-link-error</title>
+		<title>4.5.3.a xforms-version-exception</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">4.5.3.a xforms-link-error<br>
+				  <td rowspan="1" colspan="3">4.5.3.a xforms-version-exception<br>
 					</td>
 				</tr>
 				<tr>
@@ -32,56 +32,38 @@
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>waitForModelReady</td>
+					<td>pause</td>
+					<td>10000</td>
 					<td></td>
-					<td></td>
-					<td></td>
+					<td>NOTE: We do not use waitForModelReady here because xforms-version-exception halts processing by design.</td>
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>4.5.3.a xforms-link-error</td>
+					<td>4.5.3.a xforms-version-exception</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:trigger</td>
-					<td></td>
-					<td>Checks that the trigger is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:trigger/xforms:action[@ev:event='DOMActivate']/xforms:load[@resource='badlink.txt']</td>
-					<td></td>
-					<td>Checks that the bad load is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:message[@ev:event='xforms-link-error']</td>
+					<td>xpath=/html/body/xforms:model[@version='10.0']/xforms:message[@ev:event='xforms-version-exception']</td>
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:output[@model='catcher']</td>
+					<td>xpath=/html/body/xforms:output[@ref='/data']</td>
 					<td></td>
-					<td>Checks that the error output is in the form</td>
+					<td>Checks that the output is in the form</td>
 				</tr>
 				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:trigger</td>
-					<td></td>
-					<td>Clicks on the button</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:output[@model='catcher']</td>
-					<td>Resource URI : ???*</td>
-					<td>Checks that the output has the right value</td>
+					<td>verifyNotText</td>
+					<td>xpath=/html/body/xforms:output[@ref='/data']</td>
+					<td>*Hello world!*</td>
+					<td>Checks output does not have 'Hello world!'</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
-					<td>[XForms]*xforms-link-error*OK</td>
+					<td>[XForms]*xforms-version-exception*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
 				</tr>

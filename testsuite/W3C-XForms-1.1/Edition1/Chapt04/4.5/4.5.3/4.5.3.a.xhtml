@@ -2,46 +2,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
-        <title>4.5.3.a xforms-link-error</title>
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
-        
-        
+        <title>4.5.3.a xforms-version-exception</title> 
+        <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
     </head>
     <body>
-    <xforms:model>
-            <xforms:instance>
-                <data/>
+        <xforms:model version="10.0">
+        	  <xforms:instance xmlns="">
+                <data>Hello world!</data>
             </xforms:instance>
-            <xforms:message ev:event="xforms-link-error" level="modal">xforms-link-error</xforms:message>
-            <xforms:action ev:event="xforms-link-error">
-	            <xforms:setvalue model="catcher" ref="instance('catcher_inst')" value="event('resource-uri')"/>
-	       	</xforms:action>
+            <xforms:message ev:event="xforms-version-exception" level="modal">xforms-version-exception</xforms:message>
         </xforms:model>
-    <xforms:model id="catcher">
-          <xforms:instance id="catcher_inst">
-            <eventdata/>
-          </xforms:instance>
-        </xforms:model>
-        <xforms:group>
-            <xforms:label class="title">4.5.3.a xforms-link-error</xforms:label>
-        </xforms:group>
-        <xforms:group>
-            <xforms:label>
-            	When you activate the LOAD trigger you must see an xforms-link-error message. You must also see 
-            	the URI associated with the failed link in the Resource URI output. 
-            </xforms:label>
-        </xforms:group>
-        <xforms:group>
-	        <xforms:trigger>
-	            <xforms:label>LOAD</xforms:label>
-	            <xforms:action ev:event="DOMActivate">
-	                <xforms:load resource="badlink.txt" show="new"/>
-	            	</xforms:action>
-	        </xforms:trigger>
-		</xforms:group>
-		<xforms:output model="catcher" ref="instance('catcher_inst')">
-          <xforms:label>Resource URI : </xforms:label>
+        <p class="title">4.5.3.a xforms-version-exception</p>
+        <p>You may see an xforms-version-exception message. 
+           Processing must halt after dispatching an xforms-version-exception with implementation-specific error-information in the event context information.
+           Processor specific testing is required to listen for the xforms-version-exception and provide the error-information.
+           You must not see 'Hello world!' beneath this paragraph.</p>
+        <xforms:output ref="/data">
+          <xforms:label>You shouldn't see this : </xforms:label>
         </xforms:output>
         
     </body>
