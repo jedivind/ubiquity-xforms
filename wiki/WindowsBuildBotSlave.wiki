@@ -110,7 +110,7 @@ goto omega
 Between the `if` statement and the `goto`, insert the following line:
 
 {{{
-exit %ANT_ERROR%
+exit /B %ANT_ERROR%
 }}}
 
 Open a new command prompt (an existing one won't have the new entries in the environment variables) and verify that you can run Ant:
