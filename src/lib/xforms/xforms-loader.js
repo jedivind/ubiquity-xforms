@@ -83,8 +83,8 @@ var g_sBehaviourDirectory  = "";
 	   * End of ubiquity-backplane
 	   */
 
-	  
-  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../assets/style/default.css"});
+  	loader.addModule({ name: "ux-default-css",       type: "css",  fullpath: moduleBase + "../../assets/style/default.css",
+  	                   requires: [ "xforms-actions-css", "xforms-alert-css", "xforms-control-css", "xforms-output-css", "xforms-select-css", "xforms-submission-css" ]});
 
 	  
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
@@ -275,6 +275,14 @@ var g_sBehaviourDirectory  = "";
 	loader.addModule({ name: "xforms-help-css",     type: "css", fullpath: moduleBase + "../../assets/style/help.css" });
 	loader.addModule({ name: "xforms-hint-css",     type: "css", fullpath: moduleBase + "../../assets/style/hint.css" });
 	loader.addModule({ name: "xforms-message-css",  type: "css", fullpath: moduleBase + "../../assets/style/message.css" });
+
+	// Theming work
+	loader.addModule({ name: "xforms-actions-css",  type: "css", fullpath: moduleBase + "../../assets/style/actions.css" });
+	loader.addModule({ name: "xforms-alert-css",  type: "css", fullpath: moduleBase + "../../assets/style/alert.css" });
+	loader.addModule({ name: "xforms-control-css",  type: "css", fullpath: moduleBase + "../../assets/style/control.css" });
+	loader.addModule({ name: "xforms-output-css",  type: "css", fullpath: moduleBase + "../../assets/style/output.css" });
+	loader.addModule({ name: "xforms-select-css",  type: "css", fullpath: moduleBase + "../../assets/style/select.css" });
+	loader.addModule({ name: "xforms-submission-css",  type: "css", fullpath: moduleBase + "../../assets/style/submission.css" });
 
     loader.addModule({ name: "xforms-hint",         type: "js",  fullpath: moduleBase + "HintMixin.js",
       requires: [ "xforms-hint-css", "xforms-notify" ] });
