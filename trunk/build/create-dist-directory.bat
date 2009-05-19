@@ -1,7 +1,10 @@
+@ECHO OFF
+
 REM Creates a dist directory and populates it with the current test material
 
 rmdir /s %~dp0dist /q
 mkdir %~dp0dist
+mkdir %~dp0dist\src
 mkdir %~dp0dist\samples
 mkdir %~dp0dist\testsuite
 mkdir %~dp0dist\unit-tests
