@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="ubiquity-xforms" default="create-rollup" basedir=".">
+	<description>
+		Ant project for the Ubiquity XForms javascript library, a cross-
+		browser implementation of the W3C's XForms 1.1 recommendation.
+		There do exist some other instances of build.xml at other levels
+		in the directory hierarchy, but the intention going forwards is
+		to gradually bring everything into this single top-level Ant
+		project.
+	</description>
+
+	<target name="create-rollup">
+		<description>
+			Creates the rolled-up version of the library.
+		</description>
+
+		<exec executable="cmd" dir="build" osfamily="windows" failonerror="true">
+			<arg value="/C" />
+			<arg value="prepare-distribution.bat" />
+		</exec>
+	</target>
+</project>
