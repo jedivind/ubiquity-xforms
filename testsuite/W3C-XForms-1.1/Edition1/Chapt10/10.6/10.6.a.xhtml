@@ -4,14 +4,14 @@
 
 <head>
 	<title>10.6.a events dispatched by toggle element</title>
-    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	<script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
 	
 </head>
 <body>
     <xforms:model>
 		<xforms:instance>
-			<yourname></yourname>
+			<yourname/>
 		</xforms:instance>
 	</xforms:model>
 	<xforms:group>
@@ -34,7 +34,7 @@
 			</xforms:group>
 			<xforms:trigger ref="/yourname">
 				<xforms:label>Show Out Case</xforms:label>
-				<xforms:toggle ev:event="DOMActivate" case="out"></xforms:toggle>
+				<xforms:toggle ev:event="DOMActivate" case="out"/>
 			</xforms:trigger>
 			<xforms:group>
 				<xforms:action ev:event="xforms-select" ev:observer="in">
@@ -53,7 +53,7 @@
 			</xforms:group>
 			<xforms:trigger>
 				<xforms:label>Show In Case</xforms:label>
-				<xforms:toggle ev:event="DOMActivate" case="in"></xforms:toggle>
+				<xforms:toggle ev:event="DOMActivate" case="in"/>
 			</xforms:trigger>
 			<xforms:group>
 				<xforms:action ev:event="xforms-select" ev:observer="out">

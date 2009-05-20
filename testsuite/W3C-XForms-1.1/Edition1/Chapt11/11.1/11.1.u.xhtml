@@ -4,15 +4,14 @@
     <head>
         <title>11.1.u separator attribute of submission element</title>
         
-    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link href="../../driverPages/html/TestSuite11.css" rel="stylesheet"/>
     </head>
     <body>
     <xforms:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="form1">
             <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="submit01" method="urlencoded-post"/>
-            <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="submit02" method="urlencoded-post" separator=";"/>
-    				<xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="submit03" method="urlencoded-post" separator="&amp;"/>
-    			<xforms:instance id="instance1">
+            <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="submit02" method="urlencoded-post" separator="&amp;"/>
+            <xforms:instance id="instance1">
                 <car>
                     <carOwner>Greg</carOwner>
                     <make>Toyota</make>
@@ -33,13 +32,10 @@
             	data values separated by ampersands(&amp;) on the page. 
 			</xforms:label>
         </xforms:group>
-	    	<xforms:submit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" submission="submit01">
-	    		<xforms:label>Separate With default</xforms:label>
-	    	</xforms:submit>
-    		<xforms:submit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" submission="submit02">
+        <xforms:submit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" submission="submit01">
             <xforms:label>Separate With ';'</xforms:label>
         </xforms:submit>
-        <xforms:submit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" submission="submit03">
+        <xforms:submit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" submission="submit02">
             <xforms:label>Separate With '&amp;'</xforms:label>
         </xforms:submit>
         

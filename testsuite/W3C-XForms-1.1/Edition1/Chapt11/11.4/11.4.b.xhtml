@@ -4,13 +4,13 @@
      <head>
           <title>11.4.b accessing context information for xforms-submit-done event</title>
           
-    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+          <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link href="../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
      </head>
      <body>
     <xforms:model>
                <xforms:instance id="data">
-                    <this xmlns="">
+                    <this>
                          <that>
                               <the_other>
 							  this that and the other...
@@ -19,7 +19,7 @@
                     </this>
                </xforms:instance>
                <xforms:instance id="event_catcher">
-                    <eventinfo xmlns="">
+                    <eventinfo>
                          <return_code/>
                          <response_headers/>
                     </eventinfo>

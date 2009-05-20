@@ -4,7 +4,7 @@
 
 <head>
 	<title>9.3.4.a switch element inside a repeat element</title>
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	<script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
 	
 </head>
@@ -12,7 +12,7 @@
     <xforms:model>
 		<xforms:instance>
 			<yourname>
-			  <myID></myID>
+			  <myID/>
 			</yourname>
 		</xforms:instance>
 	</xforms:model>
@@ -30,13 +30,13 @@
 			<xforms:case id="in">
 				<xforms:trigger ref="/yourname">
 					<xforms:label>Show Out Case</xforms:label>
-					<xforms:toggle ev:event="DOMActivate" case="out"></xforms:toggle>
+					<xforms:toggle ev:event="DOMActivate" case="out"/>
 				</xforms:trigger>
 			</xforms:case>
 			<xforms:case id="out">
 				<xforms:trigger>
 					<xforms:label>Show In Case</xforms:label>
-					<xforms:toggle ev:event="DOMActivate" case="in"></xforms:toggle>
+					<xforms:toggle ev:event="DOMActivate" case="in"/>
 				</xforms:trigger>
 			</xforms:case>
 		</xforms:switch>

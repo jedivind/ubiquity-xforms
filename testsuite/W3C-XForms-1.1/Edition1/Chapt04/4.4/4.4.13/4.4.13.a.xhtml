@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
   <head>
     <title>4.4.13.a DOMFocusIn event</title>
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
     
   </head>
@@ -11,11 +11,11 @@
     <xforms:model>
       <xforms:instance>
         <car>
-          <make></make>
-          <year></year>
+          <make/>
+          <year/>
         </car>
       </xforms:instance>
-      <xforms:setfocus control="input_year" ev:event="xforms-ready"></xforms:setfocus>
+      <xforms:setfocus control="input_year" ev:event="xforms-ready"/>
     </xforms:model>
     <xforms:group>
     	<xforms:label class="title">4.4.13.a DOMFocusIn event</xforms:label>
@@ -33,7 +33,7 @@
        	<xforms:action ev:event="DOMFocusIn">
         	<xforms:message level="modal">DOMFocusIn</xforms:message>
           	
-          	<xforms:setfocus control="input_make"></xforms:setfocus>
+          	<xforms:setfocus control="input_make"/>
        	</xforms:action>
     </xforms:input>
 	

@@ -1,23 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
   <head>
     <title>4.2.4.a xforms-model-destruct dispatched after form submission</title>
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
+    <link rel="stylesheet" href="http://www.w3.org/MarkUp/Forms/Test/XForms1.1/Edition1/driverPages/forms/TestSuite11.css" type="text/css"/>
+    
   </head>
   <body>
     <xforms:model>
       <xforms:instance>
-	<data xmlns="">
+	<data>
 	  <tested>false</tested>
 	</data>
       </xforms:instance>
       <!-- @if prevents this test from running when this page is closed for other reasons. -->
-      <xforms:load ev:event="xforms-model-destruct" 
-				   if="boolean-from-string(tested)"
-				   resource="http://www.w3.org"
-				   show="new"></xforms:load>
-      <xforms:submission id="submission" action="http://xformstest.org/cgi-bin/echo.sh" method="urlencoded-post" replace="all"/>
+      <xforms:load ev:event="xforms-model-destruct" if="boolean-from-string(tested)" resource="http://www.w3.org" show="new"/>
+      <xforms:submission id="submission" action="http://xformstest.org/cgi-bin/echo.sh" method="post"/>
     </xforms:model>
     <xforms:group>
       <xforms:label class="title">4.2.4.a xforms-model-destruct dispatched after form submission</xforms:label>
@@ -40,5 +39,6 @@
       <xforms:setvalue ev:event="DOMActivate" ref="tested">true</xforms:setvalue>
     </xforms:submit>
 
+    
   </body>
 </html>

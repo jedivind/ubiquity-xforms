@@ -3,8 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms">
   <head>
     <title>3.2.4.a node-set binding - nodeset attribute and bind attribute override</title>
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>    
+    <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
+    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
   </head>
   <body>
     <xforms:model id="carsForSale">
@@ -28,12 +29,13 @@
       	You must be able to select any or all of the items in the select control.
 	    </xforms:label>
     </xforms:group>
-
+    
+  	
     <xforms:select ref="/carsAvailable/carOrder">
       	<xforms:label>Cars</xforms:label>
         <xforms:itemset nodeset="/fakeCars/invalid" bind="bind_cars">
-        	<xforms:label ref="."></xforms:label>
-          	<xforms:value ref="."></xforms:value>
+        	<xforms:label ref="."/>
+          	<xforms:value ref="."/>
         </xforms:itemset>
     </xforms:select>
 

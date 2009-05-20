@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms">
 	<head>
 		<title>4.8.1.a getInstanceDocument() method (non-normative)</title>
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+		<script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
 		
 	</head>
@@ -25,24 +25,10 @@
 			</xforms:label>
 		</xforms:group>
 		<script type="text/javascript">
-//		  Original W3C Test
-//			var model = document.getElementById('my_model1');
-//			var inst1 = model.getInstanceDocument('my_data1');
-//			var my_color = inst1.getElementsByTagName('color')[0];
-//			alert(my_color.textContent);
-
-		  var interval = window.setInterval(function() {
-		    try {
-		      var model = document.getElementById('my_model1');
-		      var inst1 = model.getInstanceDocument('my_data1');
-		      var my_color = inst1.getElementsByTagName('color')[0];
-
-		      alert(my_color.firstChild.nodeValue);
-
-		      window.clearInterval(interval);
-		    } catch (e) {
-		    }
-		  }, 500);
+			var model = document.getElementById('my_model1');
+			var inst1 = model.getInstanceDocument('my_data1');
+			var my_color = inst1.getElementsByTagName('color')[0];
+			alert(my_color.textContent);
 		</script>
 	</body>
 	
