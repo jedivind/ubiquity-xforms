@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <head>
-    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
         <title>10.4.a delete action using context attribute</title>
         
@@ -38,9 +38,9 @@
         </xforms:group>
         <xforms:group ref="instance('first')">
             <xforms:action ev:event="xforms-ready" ev:observer="model_1">
-                <xforms:delete context="instance('second')" nodeset="number_list/number[2]" />
-                <xforms:delete nodeset="number_list/number[3]" />
-                <xforms:delete context="number_list[@id = 'pick_me']" nodeset="number[2]" />
+                <xforms:delete context="instance('second')" nodeset="number_list/number[2]"/>
+                <xforms:delete nodeset="number_list/number[3]"/>
+                <xforms:delete context="number_list[@id = 'pick_me']" nodeset="number[2]"/>
                 <xforms:delete context="number_list[3]" nodeset="number"/>
             </xforms:action>
         </xforms:group>

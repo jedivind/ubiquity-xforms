@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <head>
         <title>10.f insert in action element</title>
-    <script src="../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <script type="text/javascript" src="../../../../src/ubiquity-loader.js">/**/</script>
     <link href="../driverPages/forms/TestSuite11.css" rel="stylesheet" type="text/css"/>
         
     </head>
@@ -12,8 +12,8 @@
     <xforms:model id="mod1">
         	<xforms:instance>
         		<root>
-        			<data></data>
-        			<data></data>
+        			<data/>
+        			<data/>
         		</root>
         	</xforms:instance>
         	<xforms:message ev:event="xforms-rebuild" level="modal" ev:observer="mod1">xforms-rebuild</xforms:message>
@@ -34,7 +34,7 @@
     	<xforms:trigger>
     		<xforms:label>Insert</xforms:label>
     		<xforms:action ev:event="DOMActivate">
-    			<xforms:insert nodeset="/root/data" at="last()" position="after"></xforms:insert>
+    			<xforms:insert nodeset="/root/data" at="last()" position="after"/>
     			<xforms:message level="modal">xforms:action</xforms:message>
     		</xforms:action>
     	</xforms:trigger>

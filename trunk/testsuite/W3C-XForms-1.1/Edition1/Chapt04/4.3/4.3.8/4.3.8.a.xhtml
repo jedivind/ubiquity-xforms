@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
   <head>
     <title>4.3.8.a xforms-help and xforms-hint events</title>
-    <script  src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
     
   </head>
   <body>
     <xforms:model>
       <xforms:instance>
-      	<car></car>
+      	<car/>
       </xforms:instance>
     </xforms:model>
   	<xforms:group>
@@ -30,13 +30,13 @@
   	<xforms:trigger>
   	  	<xforms:label>Dispatch Help</xforms:label>
   	  	<xforms:action ev:event="DOMActivate">
-  	  		<xforms:dispatch name="xforms-help" target="car_input"></xforms:dispatch>
+  	  		<xforms:dispatch name="xforms-help" target="car_input"/>
   	  	</xforms:action>
   	</xforms:trigger>
   	<xforms:trigger>
   	  	<xforms:label>Dispatch Hint</xforms:label>
   	  	<xforms:action ev:event="DOMActivate">
-  	  		<xforms:dispatch name="xforms-hint" target="car_input"></xforms:dispatch>
+  	  		<xforms:dispatch name="xforms-hint" target="car_input"/>
   	  	</xforms:action>
   	</xforms:trigger>
     

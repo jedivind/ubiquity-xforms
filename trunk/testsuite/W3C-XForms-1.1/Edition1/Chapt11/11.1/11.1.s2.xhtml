@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>11.1.s2 invalid instance attribute of submission element</title>
-    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
         
     </head>
     <body>
     <xforms:model id="model_1">
-            <xforms:submission id="submission_1" method="get" replace="instance" action="11.1.s_data.xml" instance="instance_0"></xforms:submission>
+            <xforms:submission id="submission_1" method="get" replace="instance" action="11.1.s_data.xml" instance="instance_0"/>
             <xforms:instance id="instance_1">
                 <data1>This is data from the invalid instance.</data1>
             </xforms:instance>
@@ -31,7 +31,7 @@
             <xforms:label>Invalid Instance</xforms:label>
         </xforms:submit>
         <xforms:output ref="instance('instance_1')">
-            <xforms:label></xforms:label>
+            <xforms:label/>
         </xforms:output>
     </body>
 </html>

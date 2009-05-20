@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <head>
-    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
         <title>10.3.h insert action and repeat element</title>
         
@@ -40,25 +40,25 @@
         <xforms:switch>
             <xforms:case id="before">
                 <xforms:group>
-                  <xforms:label>Before - You must see the value &quot;1&quot; : </xforms:label>
-                  <xforms:output value="index('repeat_1')">	<!-- this is the index(outer) -->
+                  <xforms:label>Before - You must see the value "1" : </xforms:label>
+                  <xforms:output value="index('repeat_1')">	
                   </xforms:output>
                 </xforms:group>
                 <xforms:group>
-                  <xforms:label>Before - You must see the value &quot;3&quot; : </xforms:label>
-                  <xforms:output value="index('repeat_2')">	<!-- this is the index(inner) -->
+                  <xforms:label>Before - You must see the value "3" : </xforms:label>
+                  <xforms:output value="index('repeat_2')">	
                   </xforms:output>
                 </xforms:group>
             </xforms:case>
             <xforms:case id="after">
                 <xforms:group>
-                  <xforms:label>After - You must see the value &quot;3&quot; : </xforms:label>
-                  <xforms:output value="index('repeat_1')">	<!-- this is the index(outer) -->
+                  <xforms:label>After - You must see the value "3" : </xforms:label>
+                  <xforms:output value="index('repeat_1')">	
                   </xforms:output>
                 </xforms:group>
                 <xforms:group>
-                  <xforms:label>After - You must see the value &quot;1&quot; : </xforms:label>
-                  <xforms:output value="index('repeat_2')">	<!-- this is the index(inner) -->
+                  <xforms:label>After - You must see the value "1" : </xforms:label>
+                  <xforms:output value="index('repeat_2')">	
                   </xforms:output>
                 </xforms:group>
             </xforms:case>
@@ -71,9 +71,7 @@
             </xforms:trigger>
         </xforms:group>  
         <xforms:group>
-          <!-- 
-            <xforms:label>The repeats being acted upon: </xforms:label>
-          -->  
+            
             <xforms:repeat id="repeat_1" nodeset="number_list">
                 <xforms:repeat id="repeat_2" nodeset="number">
                    

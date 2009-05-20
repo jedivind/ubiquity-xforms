@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <head>
-    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
         <title>10.3.b insert action with bind and model attributes</title>
         
@@ -23,10 +23,10 @@
                         <number>5</number>
                         <number>6</number>
                     </number_list>
-                    <number_list></number_list>
+                    <number_list/>
                 </number_lists>
             </xforms:instance>
-            <xforms:bind id="bind1" nodeset="number_list[2]/number"></xforms:bind>
+            <xforms:bind id="bind1" nodeset="number_list[2]/number"/>
         </xforms:model>
     <xforms:model id="mod2">
             <xforms:instance>
@@ -64,11 +64,11 @@
             </xforms:instance>
             <xforms:action ev:event="xforms-ready">
                  <!-- insert <number>6</number> in second number_list nodeset, context attr should be ignored-->
-                <xforms:insert bind="bind1" context="number_list/number"></xforms:insert>
+                <xforms:insert bind="bind1" context="number_list/number"/>
                  <!-- make sure default element node of default instance of model specified by model attr used -->
-                <xforms:insert model="mod2" nodeset="number_list[1]/number"></xforms:insert>
+                <xforms:insert model="mod2" nodeset="number_list[1]/number"/>
                  <!-- make sure evaluation context changed b4 special attributes evaluated -->
-                <xforms:insert model="mod2" context="number_list[2]" nodeset="number"></xforms:insert>
+                <xforms:insert model="mod2" context="number_list[2]" nodeset="number"/>
             </xforms:action>
         </xforms:model>
         <xforms:group>
@@ -83,7 +83,7 @@
             <xforms:label>You must see the numbers 4, 5, 6, and 6 : </xforms:label>
             <xforms:repeat nodeset="number_list[2]/number">
                 <xforms:output class="hlist" value="concat(. , ' ')">
-                    <xforms:label></xforms:label>
+                    <xforms:label/>
                 </xforms:output>
             </xforms:repeat>
         </xforms:group>
@@ -92,7 +92,7 @@
             <xforms:label>You must see the numbers 7, 8, 9, 10, and 10 : </xforms:label>
             <xforms:repeat nodeset="number_list[1]/number">
                 <xforms:output class="hlist" value="concat(. , ' ')">
-                    <xforms:label></xforms:label>
+                    <xforms:label/>
                 </xforms:output>
             </xforms:repeat>
         </xforms:group>
@@ -101,7 +101,7 @@
             <xforms:label>You must see the numbers 11, 12, 13, 14, and 14 : </xforms:label>
             <xforms:repeat nodeset="number_list[2]/number">
                 <xforms:output class="hlist" value="concat(. , ' ')">
-                    <xforms:label></xforms:label>
+                    <xforms:label/>
                 </xforms:output>
             </xforms:repeat>
         </xforms:group>

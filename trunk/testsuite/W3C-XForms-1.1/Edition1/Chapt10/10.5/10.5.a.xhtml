@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">
   	<head>
     	<title>10.5.a setindex element rules</title>
-    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+    	<script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
     	
   	</head>
@@ -36,7 +36,7 @@
   			  and the index must display the number 2. 
   			</xforms:label>
   		</xforms:group>
-		<xforms:repeat id="lineset" nodeset="/lines/line" number="2">
+		<xforms:repeat id="lineset" nodeset="/lines/line">
 			<xforms:group>
 				<xforms:input ref="price">
 					<xforms:label>Price:</xforms:label>
@@ -45,19 +45,18 @@
 					<xforms:label>Name:</xforms:label>
 				</xforms:input>
 			</xforms:group>
+			<xforms:group>
+	  			<xforms:action ev:event="xforms-scroll-first" ev:observer="lineset">
+					<xforms:message level="modal">xforms-scroll-first</xforms:message>
+				</xforms:action>
+			</xforms:group>
+			<xforms:group>
+				<xforms:action ev:event="xforms-scroll-last" ev:observer="lineset">
+					<xforms:message level="modal">xforms-scroll-last</xforms:message>
+				</xforms:action>
+			</xforms:group>
 		</xforms:repeat>
 		
-		<xforms:group>
-  			<xforms:action ev:event="xforms-scroll-first" ev:observer="lineset">
-				<xforms:message level="modal">xforms-scroll-first</xforms:message>
-			</xforms:action>
-		</xforms:group>
-		<xforms:group>
-			<xforms:action ev:event="xforms-scroll-last" ev:observer="lineset">
-				<xforms:message level="modal">xforms-scroll-last</xforms:message>
-			</xforms:action>
-		</xforms:group>
-
 		<xforms:trigger>
 			<xforms:label>Set index To -1</xforms:label>
 			<xforms:action ev:event="DOMActivate">
