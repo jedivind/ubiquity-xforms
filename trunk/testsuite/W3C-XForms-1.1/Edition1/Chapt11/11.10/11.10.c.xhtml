@@ -2,14 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">
 	<head>
-		<title>11.10.c submission response with target receiving instance</title>
+		<title>11.10.c submission response with the target data node receiving instance</title>
 		<script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
 		
 	</head>
 	<body>
     <xforms:model id="form1">
-			<xforms:submission id="submit01" method="get" replace="instance" instance="instance2" action="11.10.data.xml" target="/car"/>
+			<xforms:submission id="submit01" method="get" replace="instance" instance="instance2" action="11.10.data.xml" targetref="/car"/>
 			<xforms:instance id="instance1">
 				<car>
 					<carOwner>Henry</carOwner>
@@ -27,7 +27,7 @@
 			<xforms:message ev:event="xforms-submit-error" level="modal">xforms-submit-error</xforms:message>
 		</xforms:model>
 	    <xforms:group>
-		    <xforms:label class="title">11.10.c submission response with target receiving instance</xforms:label>
+		    <xforms:label class="title">11.10.c submission response with the target data node receiving instance</xforms:label>
 		</xforms:group>
 		<xforms:group>
 		    <xforms:label>
