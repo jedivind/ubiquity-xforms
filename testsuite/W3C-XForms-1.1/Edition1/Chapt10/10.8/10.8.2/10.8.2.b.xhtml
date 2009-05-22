@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">
   	<head>
-    	<title>10.8.2.b target element has precedence over attribute</title>
+    	<title>10.8.2.b targetid element has precedence over attribute</title>
     	<script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
     	
@@ -22,7 +22,7 @@
 			<xforms:message level="modal" ev:event="custom-event">wrong custom-event</xforms:message>
     	</xforms:model>
   		<xforms:group>
-	  		<xforms:label class="title">10.8.2.b target element has precedence over attribute</xforms:label>
+	  		<xforms:label class="title">10.8.2.b targetid element has precedence over attribute</xforms:label>
 	  	</xforms:group>
   		<xforms:group>
   			<xforms:label>
@@ -33,8 +33,8 @@
 		<xforms:trigger>
 	        <xforms:label>Fire Custom Event</xforms:label>
 	        <xforms:action ev:event="DOMActivate">
-				<xforms:dispatch target="wrongmodel" name="custom-event">
-					<xforms:target>mymodel</xforms:target>
+				<xforms:dispatch targetid="wrongmodel" name="custom-event">
+					<xforms:targetid>mymodel</xforms:targetid>
 				</xforms:dispatch>
 			</xforms:action>
 		</xforms:trigger>

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xforms="http://www.w3.org/2002/xforms">
 	<head>
-		<title>11.10.a submission response with invalid target</title>
+		<title>11.10.a submission response with invalid target data node</title>
 		<script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
     <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
 		
@@ -24,7 +24,7 @@
 					<color>silver</color>
 				</car>
 			</xforms:instance>
-			<xforms:submission id="submit01" method="get" replace="instance" instance="instance2" action="11.10.data.xml" target="invalidNode">
+			<xforms:submission id="submit01" method="get" replace="instance" instance="instance2" action="11.10.data.xml" targetref="invalidNode">
 			  <xforms:message ev:event="xforms-submit-error" level="modal">xforms-submit-error</xforms:message>
 			  <xforms:action ev:event="xforms-submit-error">
 	            <xforms:setvalue model="catcher" ref="/eventdata" value="event('error-type')"/>
@@ -37,7 +37,7 @@
           </xforms:instance>
         </xforms:model>
 	    <xforms:group>
-		    <xforms:label class="title">11.10.a submission response with invalid target</xforms:label>
+		    <xforms:label class="title">11.10.a submission response with invalid target data node</xforms:label>
 		</xforms:group>
 		<xforms:group>
 		    <xforms:label>
