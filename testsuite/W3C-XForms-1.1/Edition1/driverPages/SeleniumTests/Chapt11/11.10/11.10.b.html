@@ -22,7 +22,7 @@
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">11.10.b submission response with target receiving text<br>
+				  <td rowspan="1" colspan="3">11.10.b submission response with the target data node receiving text<br>
 					</td>
 				</tr>
 				<tr>
@@ -39,13 +39,13 @@
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>11.10.b submission response with target receiving text</td>
+					<td>11.10.b submission response with the target data node receiving text</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model[@id='form1']/xforms:submission[@id='submit01' and @method='get' and @replace='text' and @instance='instance2' and @action='11.10.data2.txt' and @target='carOwner']</td>
+					<td>xpath=/html/body/xforms:model[@id='form1']/xforms:submission[@id='submit01' and @method='get' and @replace='text' and @instance='instance2' and @action='11.10.data2.txt' and @targetref='carOwner']</td>
 					<td></td>
 					<td>Checks that submission is in the form</td>
 				</tr>

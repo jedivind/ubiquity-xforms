@@ -22,7 +22,7 @@
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">11.10.a submission response with invalid target<br>
+				  <td rowspan="1" colspan="3">11.10.a submission response with invalid target data node<br>
 					</td>
 				</tr>
 				<tr>
@@ -39,19 +39,19 @@
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>11.10.a submission response with invalid target</td>
+					<td>11.10.a submission response with invalid target data node</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model[@id='form1']/xforms:submission[@id='submit01' and @method='get' and @replace='instance' and @instance='instance2' and @action='11.10.data.xml' and @target='invalidNode']</td>
+					<td>xpath=/html/body/xforms:model[@id='form1']/xforms:submission[@id='submit01' and @method='get' and @replace='instance' and @instance='instance2' and @action='11.10.data.xml' and @targetref='invalidNode']</td>
 					<td></td>
 					<td>Checks that submission has an invalid target</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model[@id='form1']/xforms:submission[@id='submit01' and @method='get' and @replace='instance' and @instance='instance2' and @action='11.10.data.xml' and @target='invalidNode']/xforms:message[@ev:event='xforms-submit-error']</td>
+					<td>xpath=/html/body/xforms:model[@id='form1']/xforms:submission[@id='submit01' and @method='get' and @replace='instance' and @instance='instance2' and @action='11.10.data.xml' and @targetref='invalidNode']/xforms:message[@ev:event='xforms-submit-error']</td>
 					<td></td>
 					<td>Checks that message is in the form</td>
 				</tr>
