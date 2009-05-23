@@ -161,7 +161,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                     // for @target is the in-scope evaluation context for the submission element, except
                     // the context node is modified to be the document element of the instance identified by
                     // the instance attribute if it is specified.
-                    sTarget = oObserver.getAttribute("target");
+                    sTarget = oObserver.getAttribute("targetref") || oObserver.getAttribute("target");
                     if (sTarget) {
                         oTarget = this.processTargetAttribute(sTarget, sInstance, oContext, oObserver, oEvt);
                         if (!oTarget) {

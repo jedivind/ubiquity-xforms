@@ -63,7 +63,7 @@ Dispatch.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
 Dispatch.prototype.performAction = function (evt) {
   var sTargetID, oTarget, sName, oEvt, delay_time;
-  sTargetID = UX.getPropertyValue(this, "target");
+  sTargetID = UX.getPropertyValue(this, "targetid") || UX.getPropertyValue(this, "target");
 
   if (sTargetID) {
     oTarget = FormsProcessor.getElementById(sTargetID, this.element);
@@ -188,14 +188,13 @@ Load.prototype.performAction = function (evt) {
 
 	if (!this.element.Actuate) {
 		this.element.setAttribute("xlink:show", this.element.getAttribute("show") || "replace");
-
-		sTarget = this.element.getAttribute("target");
+		sTarget = this.element.getAttribute("targetid") || this.element.getAttribute("target");
 
 		if (sTarget === undefined || sTarget === "") {
 			sId = evt.target.id;
 
 			if (sId !== "") {
-				this.element.setAttribute("target", sId);
+				this.element.setAttribute("targetid", sId);
 			}
 		}
 		this.element.attachSingleBehaviour(XLinkElement);
