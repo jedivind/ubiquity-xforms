@@ -303,7 +303,7 @@ function XLinkElement(element)
 	function getTargetElement()
 	{
 		var oTargetElement = null;
-		var sId = element.getAttribute("target");
+		var sId = element.getAttribute("targetref") || element.getAttribute("target");
 		if(sId)
 		{	
 			oTargetElement = this.element.ownerDocument.getElementById(sId);
