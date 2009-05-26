@@ -14,7 +14,7 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-<project name="ubiquity-xforms" default="create-rollup" basedir=".">
+<project name="ubiquity-xforms" default="test-rollup" basedir=".">
 	<description>
 		Ant project for the Ubiquity XForms javascript library, a cross-
 		browser implementation of the W3C's XForms 1.1 recommendation.
@@ -23,6 +23,17 @@
 		to gradually bring everything into this single top-level Ant
 		project.
 	</description>
+
+	<condition property="osfamily-windows">
+		<os family="windows" />
+	</condition>
+
+	<property name="selenium-runner-relative" value="testsuite/selenium/core/TestRunner.html" />
+	<property name="selenium-runner" location="${selenium-runner-relative}" />
+	<property name="selenium-runner-rollup" location="build/dist/${selenium-runner-relative}" />
+
+	<property name="regression-suite" value="../../issues/driverPages/SeleniumTests/TestSuite.html" />
+	<property name="selenium-parameters-regression" value="auto=true&amp;save=true&amp;close=true&amp;test=${regression-suite}" />
 
 	<target name="create-rollup">
 		<description>
@@ -33,5 +44,35 @@
 			<arg value="/C" />
 			<arg value="prepare-distribution.bat" />
 		</exec>
+	</target>
+
+	<target name="test-rollup-ff" depends="create-rollup">
+		<description>
+			Tests the rolled-up version of the library in Mozilla Firefox.
+		</description>
+
+		<property name="regression-results-ff-file" value="regression-results-ff.html" />
+		<property name="selenium-parameters-regression-ff" value="${selenium-parameters-regression}&amp;resultsUrl=../../${regression-results-ff-file}" />
+
+		<exec executable="C:\Program Files\Mozilla Firefox\firefox.exe">
+			<arg value="-no-remote" />
+			<arg value="-P" />
+			<arg value="buildbot" />
+			<arg value="file:///${selenium-runner-rollup}?${selenium-parameters-regression-ff}" />
+		</exec>
+
+		<loadfile property="regression-results-ff" srcFile="build/dist/testsuite/${regression-results-ff-file}" />
+
+		<condition property="regression-ff-failed">
+			<matches string="${regression-results-ff}" pattern="&lt;td&gt;failed&lt;/td&gt;" />
+		</condition>
+
+		<fail message="Regression test suite failed on Firefox." status="1" if="regression-ff-failed" />
+	</target>
+
+	<target name="test-rollup" depends="test-rollup-ff">
+		<description>
+			Tests the rolled-up version of the library.
+		</description>
 	</target>
 </project>
