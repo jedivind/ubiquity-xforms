@@ -401,7 +401,7 @@ function XLinkElement(element)
 		//walk up the tree, concatenating bases where appropriate
 		var n = oEl.parentNode;
 	
-		while (n)
+		while (n && n.nodeType === 1)
 		{
 			//if n has a cached base then use it.
 			if (n.getAttribute("base"))
@@ -433,7 +433,7 @@ function XLinkElement(element)
 		 * of the document.
 		 */
 	
-		if (!n){
+		if (!n || n.nodeType === 9) {
 			var sDocumentHref = oEl.ownerDocument.location.href;
 			sBase = sDocumentHref.substr(0, sDocumentHref.lastIndexOf("/") + 1) + sBase;
 		}
