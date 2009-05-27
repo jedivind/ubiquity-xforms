@@ -32,12 +32,6 @@
 					<td>Opens the form</td>
 				</tr>
 				<tr>
-					<td>waitForModelReady</td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
 					<td>verifyTitle</td>
 					<td>8.1.10.a selection attribute of select element</td>
 					<td></td>
@@ -56,16 +50,22 @@
 					<td>Checks that the output is in the form</td>
 				</tr>
 				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:group[3]/xforms:select[@ref='/icecream/flavor' and @selection='open']//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
 					<td></td>
 					<td>Clicks on "Strawberry"</td>
 				</tr>
 				<tr>
-					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:select[@ref='/icecream/flavor' and @selection='open']/pe-value/input</td>
-					<td>Strawberry</td>
-					<td>Checks that the select is bound correctly</td>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:select[@ref='/icecream/flavor' and @selection='open']</td>
+					<td>s</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
@@ -80,10 +80,10 @@
 					<td>Tries to type "Cookie Dough" into the select</td>
 				</tr>
 				<tr>
-					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:select[@ref='/icecream/flavor' and @selection='open']/pe-value/input</td>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:select[@ref='/icecream/flavor' and @selection='open']</td>
 					<td>Cookie Dough</td>
-					<td>Checks that the select is bound correctly</td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>

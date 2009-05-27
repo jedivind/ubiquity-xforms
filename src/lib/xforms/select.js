@@ -35,7 +35,7 @@ XFormsSelect.prototype.useDropBox = function () {
 
 
 XFormsSelect.prototype.onValueSelected = function (item) {
-	var value = item.getValue();
+	var value = (typeof item === "string") ? item : item.getValue();
 	var oEvt;
 	if (value && typeof value === "object") {
 		clone = value.cloneNode(true);
@@ -124,14 +124,28 @@ XFormsSelect.prototype.onSelectionChanged = function (s) {
 
 
 XFormsSelect.prototype.onContentReady = function () {
-	var s = this.getAttribute("appearance");
-	//Set a default appearance of compact.  This is not mandated, 
-	// but a dropbox is not typically expected of a select control.
-	if (!s) {
-		s = "compact";
+	// First set the default values for the attributes.
+	//
+	var
+		el = this.element,
+		selection = el.getAttribute("selection"),
+		appearance = el.getAttribute("appearance")
+		;
+
+	if (!selection) {
+		selection = "closed";
+		el.setAttribute("selection", selection);
 	}
-	UX.addClassName(this, "appearance-" + s);
-	
+
+	if (!appearance) {
+		appearance = (selection === "closed" ? "compact" : "minimal");
+		el.setAttribute("appearance", appearance);
+	}
+
+	// Now set the class names to reflect the attribute settings.
+	//
+	UX.addClassName(this, "selection-" + selection);
+	UX.addClassName(this, "appearance-" + appearance);
 };
 
 XFormsSelect.prototype.getDisplayValue = function (sValue) {

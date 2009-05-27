@@ -1,4 +1,4 @@
-﻿/* Ubiquity provides a standards-based suite of browser enhancements for
+/* Ubiquity provides a standards-based suite of browser enhancements for
  * building a new generation of internet-related applications.
  *
  * The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
@@ -47,21 +47,26 @@ xforms|copy, xf|copy {
 	display: none;
 }
 
-xforms\:select.appearance-compact pe-value,
-xf\:select.appearance-compact pe-value,
-xforms\:select.appearance-full pe-value,
-xf\:select.appearance-full pe-value,
-xforms\:select1.appearance-compact pe-value,
-xf\:select1.appearance-compact pe-value,
-xforms\:select1.appearance-full pe-value,
-xf\:select1.appearance-full pe-value {
+xforms\:select.selection-open pe-value,
+xf\:select.selection-open pe-value,
+xforms\:select1.selection-open pe-value,
+xf\:select1.selection-open pe-value
+{
+	border: 2px inset #f0f0f0;
+	background-color: white;
+}
+
+xforms\:select.selection-closed pe-value,
+xf\:select.selection-closed pe-value,
+xforms\:select1.selection-closed pe-value,
+xf\:select1.selection-closed pe-value
+{
 	display: none;
 }
 
-xf|select.appearance-full pe-value,
-xf|select.appearance-compact pe-value,
-xf|select1.appearance-full pe-value,
-xf|select1.appearance-compact pe-value {
+xf|select.selection-closed pe-value,
+xf|select1.selection-closed pe-value
+{
 	display: none;
 }
 
