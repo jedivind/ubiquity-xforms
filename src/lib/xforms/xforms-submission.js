@@ -287,6 +287,7 @@ submission.prototype.processTargetAttribute = function(sTarget, sInstance, oCont
  */
 submission.prototype.submit = function(oSubmission) {
 	var sResource = null;
+	var currentUrl; // URL of the current document
     var oEvt = null;
     var ns = null;
     var instanceId = oSubmission.getAttribute("instance");
@@ -570,7 +571,8 @@ submission.prototype.submit = function(oSubmission) {
 
 			// If we have a specific protocol/method handler then use it...
 			//
-			sResource = makeAbsoluteURI(getBaseUrl(), sResource);
+			currentUrl = getBaseUrl();
+			sResource = makeAbsoluteURI(currentUrl, sResource);
 			schemeHandler = schemeHandlers[spliturl(sResource).scheme];
 
 			if (UX.isFF && schemeHandler && schemeHandler[sMethod]) {
@@ -585,10 +587,10 @@ submission.prototype.submit = function(oSubmission) {
 				// At this point we should work out whether we are about to do a cross-domain or
 				// cross-protocol request, and if we are, ask the user for permission.
 				//
-				if (UX.isFF) {
+				if (UX.isFF && "file" === spliturl(currentUrl).scheme) {
 					netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
 				}
-	
+
 				return this.request(sMethod, sResource, oBody, nTimeout, oCallback);
 			}
 		} catch (e) {
