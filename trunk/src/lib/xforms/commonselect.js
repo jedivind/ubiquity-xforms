@@ -150,7 +150,7 @@ XFormsCommonSelectValue.prototype.refreshDisplayValue = function () {
 
   //Open selections don't go out of range, just display the value as given
   if (sDisplayValue === null && this.parentNode.isOpen()) {
-    sDisplayValue = sValue;
+    sDisplayValue = this.m_sValue;
   }
   
   return this.setDisplayValue(sDisplayValue);
@@ -221,7 +221,7 @@ ElementWithChoices.prototype.createChoicesPseudoElement = function () {
 		if (this.useDropBox()) {
 		  this.choicesBox = new DropBox(this.element, this.element.m_value, oPeChoices);
 		} else {
-		  this.element.insertBefore(oPeChoices,this.element.m_value);
+		  this.element.appendChild(oPeChoices);
 		}
 		
     this.m_choices = oPeChoices;
