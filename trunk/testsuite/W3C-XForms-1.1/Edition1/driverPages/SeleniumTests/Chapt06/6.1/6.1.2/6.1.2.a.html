@@ -86,16 +86,21 @@
 					<td>Try to type into the other field</td>
 				</tr>
 				<tr>
-					<td>verifyXformsControlValue</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']</td>
-					<td>Smith</td>
-					<td>Checks that the second input has the right value</td>
-				</tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Fixes race condition.</td>
 				<tr>
 					<td>verifyXformsControlValue</td>
 					<td>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']</td>
 					<td>Roland</td>
 					<td>Checks that the first input has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']</td>
+					<td>Smith</td>
+					<td>Checks that the second input has the right value</td>
 				</tr>
 			</tbody>
 		</table>
