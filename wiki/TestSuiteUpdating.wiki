@@ -96,23 +96,43 @@ As is, the test suite does not load Ubiquity. In order to solve this issue you m
 
 3. Type "ant" to execute the build file.
 
-With that complete it's time to do some post processing. The main goal here is to convert the absolute URL to the Ubiquity loader to a relative path, and also to remove the xhtml namespace. To do this you will need a copy of [http://code.google.com/p/ubiquity-xforms/source/browse/trunk/testsuite/W3C-XForms-1.1/test-suite-update-scripts/RecursiveStringReplacer.java RecursiveStringReplacer.java]. This application takes 4 arguments, a directory to search for XHTML files, a string to search for within every XHTML file, a string to replace the other string with, and a string to prefix the replacement string with for each sub directory. First you will need to compile the application. Place the .java file in the same directory as /EditionX/, navigate your command prompt to the same directory then run the following command:
+With that complete it's time to do some post processing. The main goal here is to convert the absolute URL to the Ubiquity loader to a relative path, and also to remove the xhtml namespace. To do this you will need a copy of [http://code.google.com/p/ubiquity-xforms/source/browse/trunk/testsuite/W3C-XForms-1.1/test-suite-update-scripts/RecursiveStringReplacer.java RecursiveStringReplacer.java]. This application takes up to 5 arguments in the following order:
+
+1. An operation to perform; either "xmlns" or "replace".
+
+2. A directory to search for XHTML files, relative to the current path or absolute.
+
+Only necessary if performing replace:
+
+3. A string to search for within every XHTML file.
+
+4. A string to replace the previous string with.
+
+Only necessary if creating a relative URI:
+
+5.  A string to prefix the replacement string with for each sub directory.
+
+First you will need to compile the application. Place the .java file in the same parent directory as /EditionX/, navigate your command prompt to this directory as well, and then run the following command:
 {{{
 javac RecursiveStringReplacer.java
 }}}
 To change the absolute path to a relative URL execute this command, substituting your EditionX for Edition1 if different:
 {{{
-java RecursiveStringReplacer Edition1 "http://ubiquity-xforms.googlecode.com/trunk/ubiquity-loader.js" "../../../src/ubiquity-loader.js" "../"
+java RecursiveStringReplacer replace Edition1 "http://ubiquity-xforms.googlecode.com/trunk/ubiquity-loader.js" "../../../src/ubiquity-loader.js" "../"
 }}}
 Be patient as there are nearly 400 files to search and replace on. Next run:
 {{{
-java RecursiveStringReplacer Edition1 ":xhtml" "" ""
+java RecursiveStringReplacer replace Edition1 ":xhtml" ""
 }}}
 and then:
 {{{
-java RecursiveStringReplacer Edition1 "xhtml:" "" ""
+java RecursiveStringReplacer replace Edition1 "xhtml:" ""
 }}}
-This will remove the xhtml namespace.
+This will remove the xhtml namespace. Finally execute:
+{{{
+java RecursiveStringReplacer xmlns Edition1
+}}}
+This will add the default namespace to any instance tags that have no namespace declaration.
 
 And that's it! You should now have a fully converted, up to date copy of the XForms test suite.
 
@@ -120,4 +140,4 @@ And that's it! You should now have a fully converted, up to date copy of the XFo
 
 In order to simplify this process a batch file has been created which will execute all necessary commands in the required order. The script assumes you have correctly setup your environment as described above and that the contents of [http://code.google.com/p/ubiquity-xforms/source/browse/trunk/testsuite/W3C-XForms-1.1/test-suite-update-scripts/ test-suite-update-scripts] are all in the same directory. If these requirements are met then generating a new copy of the test suite is as simple as double clicking [http://code.google.com/p/ubiquity-xforms/source/browse/trunk/testsuite/W3C-XForms-1.1/test-suite-update-scripts/transform.bat transform.bat]. You should see a command prompt or two appear, feel free to minimize them, but do not close them. After approximately an hour and a half you should have a complete copy of all the test files in the same directory as transform.bat.
 
-Please note: the batch files are coded to download edition 1 of the XForms 1.1 test suite. If you require a different revision you may edit the the file with a text editor in order to replace the relevant values.
+Please note: the batch files are coded to download edition 1 of the XForms 1.1 test suite. If you require a different revision you must edit the the file with a text editor in order to replace the relevant values.
