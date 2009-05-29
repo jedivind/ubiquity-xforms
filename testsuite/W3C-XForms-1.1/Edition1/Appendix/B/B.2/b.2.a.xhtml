@@ -12,7 +12,7 @@
 	  	<xforms:action ev:event="xforms-ready">
 	  		<xforms:insert context="people" nodeset="person" origin="instance('prototypes')/person"/>
 	  	</xforms:action>
-  		<xforms:instance>
+  		<xforms:instance xmlns="">
   			<data>
   				<people>
   					<person>
@@ -21,7 +21,7 @@
   				</people>
   			</data>
   		</xforms:instance>
-  		<xforms:instance id="prototypes">
+  		<xforms:instance xmlns="" id="prototypes">
   			<prototypes>
   				<person>
   					<name/>
