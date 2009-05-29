@@ -12,7 +12,6 @@
             <xforms:instance>
                 <root/>
             </xforms:instance>
-            <xforms:message ev:event="xforms-binding-exception" level="modal">xforms-binding-exception</xforms:message>
         </xforms:model>
         <xforms:group>
             <xforms:label class="title">7.8.3.e digest() function with invalid encoding method</xforms:label>
@@ -25,6 +24,7 @@
         </xforms:group>
         <xforms:output value="digest('abc', 'SHA-1', 'INVALID')">
           <xforms:label>Invalid Digest : </xforms:label>
+          <xforms:message ev:event="xforms-binding-exception" level="modal">xforms-binding-exception</xforms:message>
         </xforms:output>
         
     </body>
