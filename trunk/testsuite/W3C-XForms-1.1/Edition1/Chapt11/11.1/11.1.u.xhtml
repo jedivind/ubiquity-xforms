@@ -8,9 +8,9 @@
     <link href="../../driverPages/html/TestSuite11.css" rel="stylesheet"/>
     </head>
     <body>
-    <xforms:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="form1">
+    <xforms:model id="form1">
             <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="submit01" method="urlencoded-post"/>
-            <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="submit02" method="urlencoded-post" separator="&amp;"/>
+            <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="submit02" method="urlencoded-post" separator=";"/>
             <xforms:instance id="instance1">
                 <car>
                     <carOwner>Greg</carOwner>
@@ -26,17 +26,17 @@
             <xforms:label>
             	Both submit controls below replace this page with the form data. 
             	The instance data for this page is the values "carOwner=Greg", "make=Toyota" and 
-            	"color=Silver". When you activate the Separate With ';' control you must see the instance 
-            	data values separated by semicolons(;) on the page. 
-            	When you activate the Separate With '&amp;' control you must see the instance 
+            	"color=Silver". When you activate the Separate With '&amp;' control you must see the instance 
             	data values separated by ampersands(&amp;) on the page. 
+            	When you activate the Separate With ';' control you must see the instance 
+            	data values separated by semicolons(;) on the page. 
 			</xforms:label>
         </xforms:group>
-        <xforms:submit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" submission="submit01">
-            <xforms:label>Separate With ';'</xforms:label>
-        </xforms:submit>
-        <xforms:submit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" submission="submit02">
+        <xforms:submit submission="submit01">
             <xforms:label>Separate With '&amp;'</xforms:label>
+        </xforms:submit>
+        <xforms:submit submission="submit02">
+            <xforms:label>Separate With ';'</xforms:label>
         </xforms:submit>
         
     </body>
