@@ -28,7 +28,8 @@ Insert.prototype.performAction = function (evt)
 		atExpr = this.element.getAttribute("at"),
 		positionExpr = this.element.getAttribute("position"),
 		originExpr = this.element.getAttribute("origin"),
-		oInstance = oContext.model.instances()[0],
+		oInstance,
+		oModel,
 		nodesetExpr,
 		nodeset,
 		bindObject;
@@ -38,11 +39,22 @@ Insert.prototype.performAction = function (evt)
 		nodeset = bindObject.boundNodeSet;
 	} else {
 		nodesetExpr = this.element.getAttribute("nodeset");
+		oInstance = oContext.model.instances()[0];
 		nodeset = (nodesetExpr) ? oInstance.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
 	}
+	
+	/* We need to determine what instance to use - calling through the right instance is 
+		important, in particular, in order to dispatch an xforms-insert event to
+		the correct correct target. We also need model that contains the instance so 
+		so we can mark it for deferred rebuild. */
+	
+	oInstance = (nodeset && nodeset.length > 0) ? nodeset[0].ownerDocument.XFormsInstance : oContext.model.instances()[0];
+	oModel = oInstance.model;
 
 	if (oInstance.insertNodeset(oContext, nodeset, atExpr, positionExpr, originExpr)) {
-		oContext.model.flagRebuild();
+		if (oModel && typeof (oModel.flagRebuild === 'function'))
+			oModel.flagRebuild();
 	}
+	
 	this.m_context = null;
 };
