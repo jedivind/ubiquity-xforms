@@ -3,18 +3,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <head>
     <title>11.9.4.b delete submission method deletes a file (non-normative)</title>
-    <script src="../../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <script type="text/javascript" src="../../../src/ubiquity-loader.js">/**/</script>
     <link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet" type="text/css"/>
     
   </head>
   <body>
     <xforms:model id="mod1">
-    	<xforms:instance>
+    	<xforms:instance xmlns="">
     		<root/>
     	</xforms:instance>
-    	<xforms:submission id="sub1" action="deleteme.txt" method="delete" replace="none">
-    	</xforms:submission>
-    	<xforms:submission id="sub2" action="deleteme.txt" method="put" replace="none">
+    	<xforms:submission id="sub1" action="deleteme.txt" method="delete" replace="none"/>
+    	
+    	<xforms:submission id="sub2" action="deleteme.txt" method="get" replace="all">
+    		<xforms:message ev:event="xforms-submit-error" if="event('error-type')='resource-error'">You pass</xforms:message>
     	</xforms:submission>
     </xforms:model>
     <xforms:group>
@@ -23,7 +24,7 @@
     <xforms:group>
     	<xforms:label>
     	  The local file, deleteme.txt, must be deleted when you activate the Submit control. 
-    	  If you activate the Load File trigger after activating the Submit control you must get an xforms-link-error 
+    	  If you activate the Load File trigger after activating the Submit control you must get an You pass 
     	  message. 
     	</xforms:label>
     </xforms:group>
@@ -31,16 +32,12 @@
     	<xforms:message level="modal">xforms-link-error</xforms:message>
     </xforms:action>
     <xforms:group>
-    	<xforms:submit submission="sub2">
-    		<xforms:label>Create file</xforms:label>
-    	</xforms:submit>
-    	<xforms:submit submission="sub1">
-        <xforms:label>Delete file</xforms:label>
+      <xforms:submit submission="sub1">
+        <xforms:label>Submit</xforms:label>
       </xforms:submit>
-      <xforms:trigger>
-      	<xforms:label>Load file</xforms:label>
-      	<xforms:load ev:event="DOMActivate" resource="deleteme.txt"/>
-      </xforms:trigger>
+      <xforms:submit submission="sub2">
+        <xforms:label>Load</xforms:label>
+      </xforms:submit>
     </xforms:group>
     
   </body>

@@ -9,10 +9,10 @@
     </head>
     <body>
     <xforms:model>
-        	  <xforms:instance>
+        	  <xforms:instance xmlns="">
                 <data>Hello world!</data>
             </xforms:instance>
-            <xforms:instance resource="badfile.xml"/>
+            <xforms:instance xmlns="" resource="badfile.xml"/>
             <xforms:message ev:event="xforms-link-exception" level="modal">xforms-link-exception</xforms:message>
         </xforms:model>
         <p class="title">4.5.4.a xforms-link-exception</p>

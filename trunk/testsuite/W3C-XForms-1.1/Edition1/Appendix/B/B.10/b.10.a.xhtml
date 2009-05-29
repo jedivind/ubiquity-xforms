@@ -13,14 +13,14 @@
 	  	   <xforms:insert nodeset="person[1]" origin="instance('prototypes')/person"/>
 	       <xforms:delete nodeset="person[1]"/>
 		</xforms:action>
-  		<xforms:instance>
+  		<xforms:instance xmlns="">
   			<people>
   				<person>
   					<name>John Doe</name>
   				</person>
   			</people>
   		</xforms:instance>
-  		<xforms:instance id="prototypes">
+  		<xforms:instance xmlns="" id="prototypes">
   			<prototypes>
   				<person>
   					<name/>

@@ -12,7 +12,7 @@
 	  	<xforms:action ev:event="xforms-ready">
 	  		<xforms:insert nodeset="chapter/*" origin="instance('prototypes')/paragraph" at="7" position="before"/>
 	  	</xforms:action>
-  		<xforms:instance>
+  		<xforms:instance xmlns="">
   			<document>
   				<chapter>
   					<header>Lorem ipsum</header>
@@ -27,7 +27,7 @@
   				</chapter>
   			</document>
   		</xforms:instance>
-  		<xforms:instance id="prototypes">
+  		<xforms:instance xmlns="" id="prototypes">
   			<prototypes>
   				<chapter/>
   				<header/>

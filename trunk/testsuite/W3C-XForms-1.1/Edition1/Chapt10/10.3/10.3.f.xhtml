@@ -9,7 +9,7 @@
   	</head>
   	<body>
     <xforms:model>
-       		<xforms:instance>
+       		<xforms:instance xmlns="">
 				<lines>
 					<line name="a">
 						<price>3.00</price>
@@ -22,7 +22,7 @@
 					</line>
 				</lines>
        		</xforms:instance>
-       		<xforms:instance id="i2">
+       		<xforms:instance xmlns="" id="i2">
        			<indexvalue/>
        		</xforms:instance>
        		<xforms:bind nodeset="instance('i2')" calculate="index('lineset')"/>

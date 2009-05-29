@@ -10,11 +10,11 @@
     </head>
     <body>
     <xforms:model>
-            <xforms:instance resource="invalid.xml"/>
+            <xforms:instance xmlns="" resource="invalid.xml"/>
             <xforms:setvalue ev:event="xforms-link-exception" model="link_excp_catcher" ref="/excp_info" value="event('resource-uri')"/>
         </xforms:model>
     <xforms:model id="link_excp_catcher">
-            <xforms:instance>
+            <xforms:instance xmlns="">
                 <excp_info/>
             </xforms:instance>
         </xforms:model>
