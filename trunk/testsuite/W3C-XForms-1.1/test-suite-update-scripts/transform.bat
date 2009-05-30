@@ -5,11 +5,13 @@ call runant.bat
 echo Compiling Java post processor.
 start /wait javac RecursiveStringReplacer.java
 echo Making Ubiquity JavaScript URIs relative.
-start /wait java RecursiveStringReplacer Edition1 "http://ubiquity-xforms.googlecode.com/trunk/ubiquity-loader.js" "../../../src/ubiquity-loader.js" "../"
+start /wait java RecursiveStringReplacer replace Edition1 "http://ubiquity-xforms.googlecode.com/trunk/ubiquity-loader.js" "../../../src/ubiquity-loader.js" "../"
 echo Removing ":xhtml" namespace definitions.
-start /wait java RecursiveStringReplacer Edition1 ":xhtml" "" ""
+start /wait java RecursiveStringReplacer replace Edition1 ":xhtml" ""
 echo Removing "xhtml:" namespace prefixes.
-start /wait java RecursiveStringReplacer Edition1 "xhtml:" "" ""
+start /wait java RecursiveStringReplacer replace Edition1 "xhtml:" ""
+echo Adding namespace to instance tags.
+start /wait java RecursiveStringReplacer xmlns Edition1
 echo Removing robots.txt.
 del robots.txt
 echo Removing driverPages directory.
