@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1 class="title">XForms 1.1 Test Suite Implementation Status for Ubiquity-XForms</h1>
-    <h2 class="subtitle">XForms 1.1 Test -- March 16, 2009</h2>
+    <h2 class="subtitle">XForms 1.1 Test -- May 29, 2009</h2>
     <h3>This report describes the results from testing the XForms 1.1 Test Suite with Ubiquity-XForms.</h3>
     <h2 class="subtitle">Legend</h2>
     <table cellpadding="2" cellspacing="1" border="1">
@@ -36,16 +36,16 @@
     <table cellpadding="2" cellspacing="1" border="1" width="500">
       <tr>
         <td colspan="2">
-          <strong>60 normative tests</strong>
+          <strong>62 normative tests</strong>
         </td>
       </tr>
       <tr>
         <td>Passed</td>
-        <td>55</td>
+        <td>60</td>
       </tr>
       <tr>
         <td>Failed</td>
-        <td>5</td>
+        <td>2</td>
       </tr>
       <tr>
         <td>Unknown</td>
@@ -53,16 +53,16 @@
       </tr>
       <tr>
         <td colspan="2">
-          <strong>60 basic tests</strong>
+          <strong>62 basic tests</strong>
         </td>
       </tr>
       <tr>
         <td>Passed</td>
-        <td>55</td>
+        <td>60</td>
       </tr>
       <tr>
         <td>Failed</td>
-        <td>5</td>
+        <td>2</td>
       </tr>
       <tr>
         <td>Unknown</td>
@@ -222,12 +222,12 @@
       <tr class="outer">
         <td class="inner130">7.8.3.a</td>
         <td class="innerLongCell">digest() function using sha1, md5, and sha256</td>
-        <td class="innerCellFailed">Failed</td>
+        <td class="innerCellPassed">Passed</td>
       </tr>
       <tr class="outer">
         <td class="inner130">7.8.3.b</td>
         <td class="innerLongCell">digest() function using sha384 and sha512</td>
-        <td class="innerCellFailedOptional">Failed</td>
+        <td class="innerCellPassed">Passed</td>
       </tr>
       <tr class="outer">
         <td class="inner130">7.8.3.c</td>
@@ -245,14 +245,19 @@
         <td class="innerCellPassed">Passed</td>
       </tr>
       <tr class="outer">
+        <td class="inner130">7.8.3.f</td>
+        <td class="innerLongCell">7.8.3.f digest() function default encoding base64</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
         <td class="inner130">7.8.4.a</td>
         <td class="innerLongCell">hmac() function using sha1, md5, and sha256</td>
-        <td class="innerCellFailed">Failed</td>
+        <td class="innerCellPassed">Passed</td>
       </tr>
       <tr class="outer">
         <td class="inner130">7.8.4.b</td>
         <td class="innerLongCell">hmac() function using sha384 and sha512</td>
-        <td class="innerCellFailed">Failed</td>
+        <td class="innerCellPassed">Passed</td>
       </tr>
       <tr class="outer">
         <td class="inner130">7.8.4.c</td>
@@ -267,6 +272,11 @@
       <tr class="outer">
         <td class="inner130">7.8.4.e</td>
         <td class="innerLongCell">hmac() function with invalid encoding method</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.4.f</td>
+        <td class="innerLongCell">hmac() function using default encoding base64</td>
         <td class="innerCellPassed">Passed</td>
       </tr>
       <tr class="outer">
