@@ -36,46 +36,50 @@ var g_sBehaviourDirectory  = "";
 	  
 	  loader.addModule({ name: "ub-array",
 						 type: "js",  
-						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/array.js" });
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/array.js" });
 	  
 	  loader.addModule({ name: "ub-tokmap",
 						 type: "js",
-						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/tokmap.js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/tokmap.js",
 						 requires: [ "ub-array" ] });
 
 	  loader.addModule({ name: "ub-uri",
 						 type: "js",
-						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/uri.js" });
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/uri.js" });
+
+	  loader.addModule({ name: "ub-security",
+						 type: "js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/security/security.js" });
 
 	  loader.addModule({ name: "ub-io-submission-json",
 						 type: "js",
-						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/submission-json.js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/submission-json.js",
 						 requires: [ "ub-uri" ] });
 	  
 	  loader.addModule({ name: "ub-file",
 						 type: "js",
-						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/io/file.js",
-						 requires: [ "ub-uri" ] });
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/io/file.js",
+						 requires: [ "ub-uri", "ub-security" ] });
 	  
 	  loader.addModule({ name: "ub-io-file",
 						 type: "js",
-						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/io/file.js",
-						 requires: [ "ub-uri" ] });
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/io/file.js",
+						 requires: [ "ub-uri", "ub-security" ] });
 	  
 	  loader.addModule({ name: "ub-dom3ls",
 						 type: "js",
-						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/dom/dom3ls.js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/dom/dom3ls.js",
 						 requires: [ "ub-io-file" ] });
 	  
 	  loader.addModule({ name: "ub-io-scheme-file",
 						 type: "js",
-						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/io/scheme-file.js",
+						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/io/scheme-file.js",
 						 requires: [ "ub-file", "ub-io-file" ] });
 
 	  loader.addModule({ name: "ubiquity-backplane",
 						 type: "js",
 						 fullpath: moduleBase + "../backplane-loader.js",
-//						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.8/backplane-loader.js",
+//						 fullpath: "http://ubiquity-backplane.googlecode.com/svn/tags/0.4.9/backplane-loader.js",
 						 requires: ["ub-array",
 									 "ub-tokmap",
 									 "ub-uri",
