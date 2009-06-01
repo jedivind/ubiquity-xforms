@@ -18,7 +18,7 @@ function Instance(elmnt) {
 	this.element = elmnt;
 	this.m_oDOM = null;
 	this.element["elementState"] = 1;
-	
+	this.model = elmnt.parentNode;
 	UX.addStyle(this.element, "display", "none"); 
 }
 
@@ -157,8 +157,8 @@ Instance.prototype.finishLoad = function (domURL) {
     var ret = false;
     if (this.m_oDOM && this.m_oDOM.documentElement) {
         ret = true;
-        if (typeof this.element.parentNode.flagRebuild === "function")
-            this.element.parentNode.flagRebuild();
+        if (typeof this.model.flagRebuild === "function")
+            this.model.flagRebuild();
         this.m_oDOM.XFormsInstance = this;
         this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
         NamespaceManager.readOutputNamespacesFromInstance(this.m_oDOM);        

@@ -170,7 +170,7 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 	//
 	for (i = 0; i < this.m_CurrentIterationCount; ++i) {
 	  if (iterations[i].isBindingContainer) {
-	    iterations[i].setAttribute("ordinal", i + this.m_offset);
+	    iterations[i].setAttribute("ordinal", 1 + i + this.m_offset);
 	  } 
 	}
 	
