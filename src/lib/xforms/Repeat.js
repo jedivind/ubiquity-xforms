@@ -288,13 +288,13 @@ Repeat.prototype.getIndex = function () {
 
 Repeat.prototype.setIndex = function (newIndex) {
   var ix = this.normaliseIndex(newIndex);
+  if (ix > newIndex) {
+    UX.dispatchEvent(this.element, "xforms-scroll-first", true, false, true);
+  } else if (ix < newIndex){
+    UX.dispatchEvent(this.element, "xforms-scroll-last", true, false, true);
+  }
   if (ix !== this.m_nIndex) {
     this.m_nIndex = ix;
-    if (this.m_nIndex > newIndex) {
-      UX.dispatchEvent(this.element, "xforms-scroll-first", true, false, true);
-    } else if (this.m_nIndex < newIndex){
-      UX.dispatchEvent(this.element, "xforms-scroll-last", true, false, true);
-    }
     this.m_model.flagRebuild();
   }
 };
