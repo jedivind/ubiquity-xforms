@@ -16,13 +16,13 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>4.6.3.b event sequencing for select/select1 controls without incremental="true"</title>
+		<title>4.6.3.b event sequencing for select/select1 controls with incremental="false"</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">4.6.3.b event sequencing for select/select1 controls without incremental="true"<br>
+				  <td rowspan="1" colspan="3">4.6.3.b event sequencing for select/select1 controls with incremental="false"<br>
 					</td>
 				</tr>
 				<tr>
@@ -39,19 +39,19 @@
 				</tr>
 				<tr>
 					<td>verifyTitle</td>
-					<td>4.6.3.b event sequencing for select/select1 controls without incremental="true"</td>
+					<td>4.6.3.b event sequencing for select/select1 controls with incremental="false"</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:select/pe-value/input</td>
+					<td>xpath=/html/body/xforms:group/xforms:select</td>
 					<td></td>
 					<td>Checks that the select is in the form</td>
 				</tr>
 				<tr>
 				    <td>click</td>
-				    <td>xpath=/html/body/xforms:select/pe-value/input</td>
+				    <td>xpath=/html/body/xforms:group[2]/xforms:select/pe-value/input</td>
 				    <td></td>
 				    <td>Clicks in the select</td>
 				</tr>
@@ -60,7 +60,7 @@ Choose an option
 -->
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:select//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
+					<td>xpath=/html/body/xforms:group[2]/xforms:select/div[@class='pe-choices']/xforms:item[2]</td>
 					<td></td>
 					<td>Clicks on "Honda"</td>
 				</tr>
@@ -72,7 +72,7 @@ Choose an option
 				</tr>
 				<tr>
 					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:select/pe-value/input</td>
+					<td>xpath=/html/body/xforms:group/xforms:select/pe-value/input</td>
 					<td>hon</td>
 					<td>Checks that the select is bound correctly</td>
 				</tr>
@@ -91,13 +91,13 @@ Choose an option
 				
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:select1/pe-value/input</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
 					<td></td>
 					<td>Checks that the select1 is in the form</td>
 				</tr>
 				<tr>
 				    <td>click</td>
-				    <td>xpath=/html/body/xforms:select1/pe-value/input</td>
+				    <td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
 				    <td></td>
 				    <td>Clicks in the select1</td>
 				</tr>
@@ -106,7 +106,7 @@ Choose an option
 -->
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:select1//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
 					<td></td>
 					<td>Clicks on "Honda"</td>
 				</tr>
@@ -118,7 +118,7 @@ Choose an option
 				</tr>
 				<tr>
 					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:select1/pe-value/input</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
 					<td>Honda</td>
 					<td>Checks that the select1 is bound correctly</td>
 				</tr>
@@ -137,7 +137,7 @@ Choose an option
 				
 				<tr>
 				    <td>click</td>
-				    <td>xpath=/html/body/xforms:select1/pe-value/input</td>
+				    <td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
 				    <td></td>
 				    <td>Clicks in the select1</td>
 				</tr>
@@ -146,7 +146,7 @@ Choose an option
 -->
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:select1//div[@class='pe-choices']/xforms:item[4]/xforms:label</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1//div[@class='pe-choices']/xforms:item[4]/xforms:label</td>
 					<td></td>
 					<td>Clicks on "Toyota"</td>
 				</tr>
@@ -158,7 +158,7 @@ Choose an option
 				</tr>
 				<tr>
 					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:select1/pe-value/input</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
 					<td>Toyota</td>
 					<td>Checks that the select1 is bound correctly</td>
 				</tr>

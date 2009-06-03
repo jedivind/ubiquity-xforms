@@ -45,15 +45,15 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/invalid:instance[@xmlns:invalid='http://www.imadethisnamespaceup.com']</td>
-					<td></td>
-					<td>Checks that the instance has the invalid QNAME on it</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:output[@ref='/car']/xforms:message[@ev:event='xforms-binding-exception']</td>
+					<td>xpath=/html/body/xforms:input[@ref='/car']/xforms:message[@ev:event='xforms-binding-exception']</td>
 					<td></td>
 					<td>Checks that the message is in the form</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Race condition.</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
