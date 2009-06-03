@@ -51,21 +51,27 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:select[@ref='/selectedCar']/xforms:item[2]/xforms:action[@ev:event='xforms-select']/xforms:message</td>
+					<td>xpath=/html/body/xforms:select[@ref='/selectedCar']/div/xforms:item[2]/xforms:action[@ev:event='xforms-select']/xforms:message</td>
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:select[@ref='/selectedCar']/xforms:item[2]/xforms:action[@ev:event='xforms-deselect']/xforms:message</td>
+					<td>xpath=/html/body/xforms:select[@ref='/selectedCar']/div/xforms:item[2]/xforms:action[@ev:event='xforms-deselect']/xforms:message</td>
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
 				<tr>
 			    	<td>click</td>
-			    	<td>xpath=/html/body/xforms:select[@ref='/selectedCar']//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
+			    	<td>xpath=/html/body/xforms:select[@ref='/selectedCar']/div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
 			    	<td></td>
 			    	<td>Clicks on "Subaru"</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Race condition.</td>
 				</tr>
 				<tr>
 			    	<td>verifyValue</td>

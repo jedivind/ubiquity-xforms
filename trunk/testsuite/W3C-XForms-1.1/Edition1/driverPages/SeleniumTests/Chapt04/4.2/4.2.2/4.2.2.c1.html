@@ -45,15 +45,33 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:output[@ref='/car']</td>
+					<td>xpath=/html/body/xforms:input[@ref='car']</td>
 					<td></td>
 					<td>Checks that the output is in the form</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:output[@ref='/car']</td>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:output[@value="concat(local-name(*[1]),'=',car)"]</td>
+					<td></td>
+					<td>Checks that the output is in the form</td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xforms:input[@ref='car']/pe-value/input</td>
 					<td>Mitsubishi</td>
-					<td>Checks that the output has the right value</td>
+					<td>Enter a car name in the textbox.</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Give it sometime to update.</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@value="concat(local-name(*[1]),'=',car)"]</td>
+					<td>car=Mitsubishi</td>
+					<td>Checks that the output has the car entered in the input.</td>
 				</tr>
 			</tbody>
 		</table>
