@@ -20,10 +20,6 @@ Should not use buttons or messages as these obscure what is really going on with
 
 It isn't clear if the targetted element is actually receiving the focus or not. Consider similar revision to 4.3.6.a.
 
-== 4.4.2.a ==
-
-Improper reference to event('deleted-nodes')/date; the /date path is incorrect.
-
 == 4.4.14.a ==
 
 The setvalue on xforms-ready event are not garunteed to execute in any paticular order. This test needs to be revised to account for this.
