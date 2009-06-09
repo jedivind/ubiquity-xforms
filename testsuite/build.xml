@@ -28,7 +28,7 @@
 		<exec executable="${browser-runtime}">
 			<arg line="-no-remote -P buildbot 'file:///${sel-runner}?${sel-params}'" />
 		</exec>
-		<loadfile property="results" srcFile="${results-file-name}.html" />
+		<loadfile property="results" srcFile="${results-file}" />
 		<condition property="failed">
 			<matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
 		</condition>
@@ -51,7 +51,7 @@
 			<arg value="true" />
 			<arg value="${results-file}" />
 		</exec>
-		<loadfile property="results" srcFile="${results-file-name}.html" />
+		<loadfile property="results" srcFile="${results-file}" />
 		<condition property="failed">
 			<matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
 		</condition>
@@ -75,41 +75,29 @@
 			<arg value="-m" />
 			<arg value="-q" />
 			<arg value="-asxhtml" />
-			<arg value="${results-file-name}.html" />
+			<arg value="${results-file}" />
 		</exec>
 		<!-- mkdir / -->
-		<move file="${results-file-name}.html" todir="${destination}" />		
+		<move file="${results-file}" todir="${destination}" />		
 	</target>
-	
+
 	<!-- 
-		ant merge-selenium-results
-		ant merge-selenium-results -Dmerge_src_dir=FF3 -Dbrowser=ff
+		ant -Dsection=06 -Dbrowser=ff convert-selenium-results
+		ant -Dsection=B -Dbrowser=ie convert-selenium-results
 	-->
-	<target name="merge-selenium-results" description="Merge HTML the manually updated test results with the tidied result files produced by Selenium">
-		<!-- 
-			The problem here is that the xsl is designed to be run on the .xml file. If the .xml file is not changed, by
-			default the transform doesn't run as ant sees no need to run a transform on an unchanged file.
-		-->
-		<!-- 
-			Will run merge.xsl on all .xml files. Uses @force="true" to always generate. 
-		-->
-		<xslt basedir="${destination}" destdir="${destination}/merged" extension=".xml" style="${merge_base_dir}/merge.xsl" includes="*.xml" force="true">
+	<target name="convert-selenium-results">
+		<property name="xslt" location="../tools/seleniumresults2w3c.xsl" />
+		<condition property="section" value="Appendix${section}" else="${section}">
+			<or>
+				<equals casesensitive="false" arg1="${section}" arg2="B" />
+				<equals casesensitive="false" arg1="${section}" arg2="G" />
+				<equals casesensitive="false" arg1="${section}" arg2="H" />
+			</or>
+		</condition>
+		<xslt basedir="${destination}" destdir="${destination}" style="${xslt}" in="${destination}/XF11_${section}_Results.xml" out="${destination}/updated/XF11_${section}_Results.xml" force="true">
 			<param name="browser" expression="${browser}" />
-			<param name="selenium_file_dir" expression="${merge_src_dir}" />
-		</xslt>
-	</target>
-	
-	<!-- 
-		ant -Dsection=06 merge-single-selenium-result
-		ant -Dsection=AppendixB merge-single-selenium-result
-	-->
-	<target name="merge-single-selenium-result">		
-		<!-- 
-			Will run merge.xsl on a single .xml file. Uses @force="true" to always generate.
-		-->
-		<xslt basedir="${destination}" destdir="${destination}/merged" style="${merge_base_dir}/merge.xsl" in="${destination}/XF11_${section}_Results.xml" out="${destination}/merged/XF11_${section}_Results.xml" force="true">
-			<param name="browser" expression="${browser}" />
-			<param name="selenium_file_dir" expression="${merge_src_dir}" />
+			<param name="selenium_file_dir" expression="${destination}" />
+			<param name="chapter" expression="${section}" />
 		</xslt>
 	</target>
 
@@ -121,12 +109,8 @@
 		2 - W3C-XForms-1.1/Edition1/Reports/<browser>/*.html
 	-->
 	<target name="process-w3c-ts-chapter-results">
-		<xslt basedir="${results-dir}/IE7" destdir="${reports-dir}/IE7" style="section-test-results.xsl">
-			<param name="dir" expression="IE7" />
-			<mapper type="glob" from="*.xml" to="*.html" />
-		</xslt>
-		<xslt basedir="${results-dir}/FF3" destdir="${reports-dir}/FF3" style="section-test-results.xsl">
-			<param name="dir" expression="FF3" />
+		<xslt basedir="${results-dir}/${merge_src_dir}/updated" destdir="${reports-dir}/${merge_src_dir}" style="section-test-results.xsl">
+			<param name="dir" expression="${merge_src_dir}" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
 	</target>
@@ -138,13 +122,9 @@
 		Note: 'url' param should have a trailing slash.
 	-->
 	<target name="browser-results-summary">
-		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/FF3/index.html" force="true">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/${merge_src_dir}/index.html" force="true">
 			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
-			<param name="browser_dir" expression="FF3" />
-		</xslt>
-		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/IE7/index.html" force="true">
-			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
-			<param name="browser_dir" expression="IE7" />
+			<param name="browser_dir" expression="${merge_src_dir}" />
 		</xslt>
 	</target>
 </project>
