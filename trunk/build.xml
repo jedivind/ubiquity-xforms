@@ -28,10 +28,6 @@
 		<os family="windows" />
 	</condition>
 
-	<property name="selenium-runner-relative" value="testsuite/selenium/core/TestRunner.html" />
-	<property name="selenium-runner" location="${selenium-runner-relative}" />
-	<property name="selenium-runner-rollup" location="build/dist/${selenium-runner-relative}" />
-
 	<property name="regression-suite" value="../../issues/driverPages/SeleniumTests/TestSuite.html" />
 	<property name="selenium-parameters-regression" value="auto=true&amp;save=true&amp;close=true&amp;test=${regression-suite}" />
 
@@ -51,6 +47,8 @@
 			Tests the rolled-up version of the library in Mozilla Firefox.
 		</description>
 
+		<property name="selenium-runner-relative" value="testsuite/selenium/core/TestRunner.html" />
+		<property name="selenium-runner-rollup" location="build/dist/${selenium-runner-relative}" />
 		<property name="regression-results-ff-file" value="regression-results-ff.html" />
 		<property name="selenium-parameters-regression-ff" value="${selenium-parameters-regression}&amp;resultsUrl=../../${regression-results-ff-file}" />
 
@@ -70,7 +68,36 @@
 		<fail message="Regression test suite failed on Firefox." status="1" if="regression-ff-failed" />
 	</target>
 
-	<target name="test-rollup" depends="test-rollup-ff">
+	<target name="test-rollup-ie" depends="create-rollup">
+		<description>
+			Tests the rolled-up version of the library in Microsoft Internet Explorer.
+		</description>
+
+		<property name="selenium-runner-relative" value="testsuite/selenium/core/TestRunner.hta" />
+		<property name="selenium-runner-rollup" location="build/dist/${selenium-runner-relative}" />
+		<property name="regression-results-ie-file" value="regression-results-ie.html" />
+
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="&quot;testsuite\run-hta.bat&quot;" />
+			<arg value="${selenium-runner-rollup}" />
+			<arg value="${regression-suite}" />
+			<arg value="true" />
+			<arg value="true" />
+			<arg value="true" />
+			<arg value="../../${regression-results-ie-file}" />
+		</exec>
+
+		<loadfile property="regression-results-ie" srcFile="build/dist/testsuite/${regression-results-ie-file}" />
+
+		<condition property="regression-ie-failed">
+			<matches string="${regression-results-ie}" pattern="&lt;td&gt;failed&lt;/td&gt;" />
+		</condition>
+
+		<fail message="Regression test suite failed on Internet Explorer." status="1" if="regression-ie-failed" />
+	</target>
+
+	<target name="test-rollup" depends="test-rollup-ff,test-rollup-ie">
 		<description>
 			Tests the rolled-up version of the library.
 		</description>
