@@ -58,7 +58,7 @@
 			<arg value="-no-remote" />
 			<arg value="-P" />
 			<arg value="buildbot" />
-			<arg value="file:///${selenium-runner-rollup}?${selenium-parameters-regression-ff}" />
+			<arg value="&quot;file:///${selenium-runner-rollup}?${selenium-parameters-regression-ff}&quot;" />
 		</exec>
 
 		<loadfile property="regression-results-ff" srcFile="build/dist/testsuite/${regression-results-ff-file}" />
