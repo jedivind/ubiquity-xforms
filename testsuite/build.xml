@@ -78,7 +78,7 @@
 			<arg value="${results-file}" />
 		</exec>
 		<!-- mkdir / -->
-		<move file="${results-file}" todir="&quot;${destination}&quot;" />		
+		<move file="${results-file}" todir="${destination}" />		
 	</target>
 
 	<!-- 
