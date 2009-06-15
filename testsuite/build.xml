@@ -98,6 +98,10 @@
 			<param name="browser" expression="${browser}" />
 			<param name="selenium_file_dir" expression="${destination}" />
 			<param name="chapter" expression="${section}" />
+			<xmlcatalog>
+				<dtd publicId="-//W3C//DTD XHTML 1.0 Transitional//EN" location="../tools/xhtml1-transitional.dtd" />
+				<dtd publicId="-//W3C//DTD XHTML 1.0 Strict//EN" location="../tools/xhtml1-strict.dtd" />
+			</xmlcatalog>
 		</xslt>
 	</target>
 
