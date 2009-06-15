@@ -94,7 +94,7 @@
 				<equals casesensitive="false" arg1="${section}" arg2="H" />
 			</or>
 		</condition>
-		<xslt basedir="&quot;${destination}&quot;" destdir="&quot;${destination}&quot;" style="&quot;${xslt}&quot;" in="&quot;${destination}/XF11_${section}_Results.xml&quot;" out="&quot;${destination}/updated/XF11_${section}_Results.xml&quot;" force="true">
+		<xslt basedir="${destination}" destdir="${destination}" style="${xslt}" in="${destination}/XF11_${section}_Results.xml" out="${destination}/updated/XF11_${section}_Results.xml" force="true">
 			<param name="browser" expression="${browser}" />
 			<param name="selenium_file_dir" expression="${destination}" />
 			<param name="chapter" expression="${section}" />
