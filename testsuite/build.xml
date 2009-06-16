@@ -113,12 +113,22 @@
 		2 - W3C-XForms-1.1/Edition1/Reports/<browser>/*.html
 	-->
 	<target name="process-w3c-ts-chapter-results">
+		<xslt basedir="${results-dir}/${merge_src_dir}" destdir="${reports-dir}/${merge_src_dir}" style="section-test-results.xsl">
+			<param name="dir" expression="${merge_src_dir}" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+	</target>
+
+	<!--
+	   As above, but on the 'updated' sub-directory.
+	-->
+	<target name="process-w3c-ts-chapter-results-updated">
 		<xslt basedir="${results-dir}/${merge_src_dir}/updated" destdir="${reports-dir}/${merge_src_dir}" style="section-test-results.xsl">
 			<param name="dir" expression="${merge_src_dir}" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
 	</target>
-	
+
 	<!-- 
 		Produce a overview XHTML file that lists test suite chapter names and the total tests that passed/failed
 		for each chapter for a browser.
