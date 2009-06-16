@@ -97,7 +97,7 @@
 		<fail message="Regression test suite failed on Internet Explorer." status="1" if="regression-ie-failed" />
 	</target>
 
-	<target name="test-rollup" depends="test-rollup-ff,test-rollup-ie">
+	<target name="test-rollup" depends="test-rollup-ff">
 		<description>
 			Tests the rolled-up version of the library.
 		</description>
