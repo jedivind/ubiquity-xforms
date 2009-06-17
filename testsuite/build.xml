@@ -113,17 +113,21 @@
 		2 - W3C-XForms-1.1/Edition1/Reports/<browser>/*.html
 	-->
 	<target name="process-w3c-ts-chapter-results">
-		<xslt basedir="${results-dir}/${merge_src_dir}" destdir="${reports-dir}/${merge_src_dir}" style="section-test-results.xsl">
-			<param name="dir" expression="${merge_src_dir}" />
+		<xslt basedir="${results-dir}/IE7" destdir="${reports-dir}/IE7" style="section-test-results.xsl">
+			<param name="dir" expression="IE7" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+		<xslt basedir="${results-dir}/FF3" destdir="${reports-dir}/FF3" style="section-test-results.xsl">
+			<param name="dir" expression="FF3" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
 	</target>
 
 	<!--
-	   As above, but on the 'updated' sub-directory.
+	   Based on the above, but operates on the 'updated' sub-directory and the browser is passed in.
 	-->
 	<target name="process-w3c-ts-chapter-results-updated">
-		<xslt basedir="${results-dir}/${merge_src_dir}/updated" destdir="${reports-dir}/${merge_src_dir}" style="section-test-results.xsl">
+		<xslt basedir="${results-dir}/${merge_src_dir}/updated" destdir="${results-dir}/${merge_src_dir}/updated" style="section-test-results.xsl">
 			<param name="dir" expression="${merge_src_dir}" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
