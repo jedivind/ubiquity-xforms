@@ -140,7 +140,7 @@
 		Note: 'url' param should have a trailing slash.
 	-->
 	<target name="browser-results-summary">
-		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/${merge_src_dir}/index.html" force="true">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${results-dir}/${merge_src_dir}/updated/index.html" force="true">
 			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
 			<param name="browser_dir" expression="${merge_src_dir}" />
 		</xslt>
