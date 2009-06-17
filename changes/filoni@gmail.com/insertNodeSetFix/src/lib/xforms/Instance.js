@@ -431,6 +431,7 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 				}
         		
 				if (insertLocationNode) {
+					if (insertBeforeNode == insertLocationNode) insertBeforeNode = null;
 					insertTarget.removeChild(insertLocationNode);
 				}
 			}
