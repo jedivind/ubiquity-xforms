@@ -157,7 +157,7 @@
 		<copy file="${results-dir}/${merge_src_dir}/test-list.html" todir="${results-dir}/${merge_src_dir}/updated" />
 		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${results-dir}/${merge_src_dir}/updated/index.html" force="true">
 			<param name="url" expression="./" />
-			<param name="browser_dir" expression="${merge_src_dir}" />
+			<param name="browser_dir" expression="${merge_src_dir}/updated" />
 		</xslt>
 	</target>
 </project>
