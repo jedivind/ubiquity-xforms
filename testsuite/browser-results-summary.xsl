@@ -74,7 +74,7 @@
 					<div class="chapter-name">
 						<xsl:choose>
 							<xsl:when test="$url = './'">
-								<a href="{$url}/XF11_{format-number(substring-before(., '.'), '00')}_Results.html"><xsl:value-of select="concat('Chapter ', .)" /></a>
+								<a href="XF11_{format-number(substring-before(., '.'), '00')}_Results.html"><xsl:value-of select="concat('Chapter ', .)" /></a>
 							</xsl:when>
 							<xsl:otherwise>
 								<a href="{$chap_results_base_url}/XF11_{format-number(substring-before(., '.'), '00')}_Results.html"><xsl:value-of select="concat('Chapter ', .)" /></a>
@@ -89,7 +89,7 @@
 					<div class="chapter-name">
 						<xsl:choose>
 							<xsl:when test="$url = './'">
-								<a href="{$url}/XF11_Appendix{substring-before(., '.')}_Results.html"><xsl:value-of select="concat('Appendix ', .)" /></a>
+								<a href="XF11_Appendix{substring-before(., '.')}_Results.html"><xsl:value-of select="concat('Appendix ', .)" /></a>
 							</xsl:when>
 							<xsl:otherwise>
 								<a href="{$chap_results_base_url}/XF11_Appendix{substring-before(., '.')}_Results.html"><xsl:value-of select="concat('Appendix ', .)" /></a>
