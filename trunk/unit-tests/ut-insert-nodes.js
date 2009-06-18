@@ -285,6 +285,19 @@
                 Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
                    
                 return;
+            },
+            
+            // Test insertion of root when position is set to "before". Will cause failure if
+            // insertBeforeNode is not nulled before calling insertBefore().
+            //
+            testInsertAtRootWithBeforePositionParameter: function() {
+            	var root = suite.testInstance.evalXPath('.').nodeSetValue()[0];
+            	Assert.isTrue(suite.testInstance.insertNodeset(
+                        root,  
+                        [root], "1", "before", "/po/prototype"), 
+                        "Insert instance subtree at the instance root failed");
+                
+                Assert.areEqual("prototype", suite.testInstance.evalXPath('.').nodeSetValue()[0].nodeName);
             }
 
 		})//new TestCase
