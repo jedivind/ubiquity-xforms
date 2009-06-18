@@ -53,8 +53,8 @@
 			<body>
 				<h1>
 				<xsl:choose>
-					<xsl:when test="$browser_dir = 'FF3'">FireFox 3 Testsuite Results Summary</xsl:when>
-					<xsl:when test="$browser_dir = 'IE7'">Internet Explorer 7 Testsuite Results Summary</xsl:when>
+					<xsl:when test="contains($browser_dir, 'FF3')">FireFox 3 Testsuite Results Summary</xsl:when>
+					<xsl:when test="contains($browser_dir, 'IE7')">Internet Explorer 7 Testsuite Results Summary</xsl:when>
 					<xsl:otherwise>Testsuite Results Summary</xsl:otherwise>
 				</xsl:choose>
 				</h1>
