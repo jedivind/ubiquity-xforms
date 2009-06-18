@@ -87,14 +87,14 @@
 	-->
 	<target name="convert-selenium-results">
 		<property name="xslt" location="../tools/seleniumresults2w3c.xsl" />
-		<condition property="section" value="Appendix${section}" else="${section}">
+		<condition property="section-expanded" value="Appendix${section}" else="${section}">
 			<or>
 				<equals casesensitive="false" arg1="${section}" arg2="B" />
 				<equals casesensitive="false" arg1="${section}" arg2="G" />
 				<equals casesensitive="false" arg1="${section}" arg2="H" />
 			</or>
 		</condition>
-		<xslt basedir="${destination}" destdir="${destination}" style="${xslt}" in="${destination}/XF11_${section}_Results.xml" out="${destination}/updated/XF11_${section}_Results.xml" force="true">
+		<xslt basedir="${destination}" destdir="${destination}" style="${xslt}" in="${destination}/XF11_${section-expanded}_Results.xml" out="${destination}/updated/XF11_${section-expanded}_Results.xml" force="true">
 			<param name="browser" expression="${browser}" />
 			<param name="selenium_file_dir" expression="${destination}" />
 			<param name="chapter" expression="${section}" />
@@ -154,7 +154,14 @@
 	   Based on the above, but operates on the 'updated' sub-directory and the browser is passed in.
 	-->
 	<target name="browser-results-summary-updated">
+		<!-- This list of tests is used by the XSLT so copy it into the updated directory beforehand. -->
 		<copy file="${results-dir}/${merge_src_dir}/test-list.html" todir="${results-dir}/${merge_src_dir}/updated" />
+
+		<!-- Section 1 and appendices G and H are not tested, so enable the XSLT to operate over those manual results. -->
+		<copy file="${results-dir}/${merge_src_dir}/XF11_01_Results.xml" todir="${results-dir}/${merge_src_dir}/updated" />
+		<copy file="${results-dir}/${merge_src_dir}/XF11_AppendixG_Results.xml" todir="${results-dir}/${merge_src_dir}/updated" />
+		<copy file="${results-dir}/${merge_src_dir}/XF11_AppendixH_Results.xml" todir="${results-dir}/${merge_src_dir}/updated" />
+
 		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${results-dir}/${merge_src_dir}/updated/index.html" force="true">
 			<param name="url" expression="./" />
 			<param name="browser_dir" expression="${merge_src_dir}/updated" />
