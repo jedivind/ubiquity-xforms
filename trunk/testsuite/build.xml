@@ -140,8 +140,22 @@
 		Note: 'url' param should have a trailing slash.
 	-->
 	<target name="browser-results-summary">
-		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${results-dir}/${merge_src_dir}/updated/index.html" force="true">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/FF3/index.html" force="true">
 			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
+			<param name="browser_dir" expression="FF3" />
+		</xslt>
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/IE7/index.html" force="true">
+			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
+			<param name="browser_dir" expression="IE7" />
+		</xslt>
+	</target>
+
+	<!--
+	   Based on the above, but operates on the 'updated' sub-directory and the browser is passed in.
+	-->
+	<target name="browser-results-summary-updated">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${results-dir}/${merge_src_dir}/updated/index.html" force="true">
+			<param name="url" expression="./" />
 			<param name="browser_dir" expression="${merge_src_dir}" />
 		</xslt>
 	</target>
