@@ -72,7 +72,14 @@
 			<xsl:choose>
 				<xsl:when test="not(format-number(substring-before(., '.'), '00') = 'NaN')">
 					<div class="chapter-name">
-						<a href="{$chap_results_base_url}/XF11_{format-number(substring-before(., '.'), '00')}_Results.html"><xsl:value-of select="concat('Chapter ', .)" /></a>
+						<xsl:choose>
+							<xsl:when test="$url = './'">
+								<a href="{$url}/XF11_{format-number(substring-before(., '.'), '00')}_Results.html"><xsl:value-of select="concat('Chapter ', .)" /></a>
+							</xsl:when>
+							<xsl:otherwise>
+								<a href="{$chap_results_base_url}/XF11_{format-number(substring-before(., '.'), '00')}_Results.html"><xsl:value-of select="concat('Chapter ', .)" /></a>
+							</xsl:otherwise>
+						</xsl:choose>
 					</div>
 					<xsl:call-template name="chapter-summary">
 						<xsl:with-param name="results_doc_name" select="concat('W3C-XForms-1.1/Edition1/driverPages/Results/', $browser_dir, '/', 'XF11_', format-number(substring-before(., '.'), '00'), '_Results.xml')" />
@@ -80,7 +87,14 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<div class="chapter-name">
-						<a href="{$chap_results_base_url}/XF11_Appendix{substring-before(., '.')}_Results.html"><xsl:value-of select="concat('Appendix ', .)" /></a>
+						<xsl:choose>
+							<xsl:when test="$url = './'">
+								<a href="{$url}/XF11_Appendix{substring-before(., '.')}_Results.html"><xsl:value-of select="concat('Appendix ', .)" /></a>
+							</xsl:when>
+							<xsl:otherwise>
+								<a href="{$chap_results_base_url}/XF11_Appendix{substring-before(., '.')}_Results.html"><xsl:value-of select="concat('Appendix ', .)" /></a>
+							</xsl:otherwise>
+						</xsl:choose>
 					</div>
 					<xsl:call-template name="chapter-summary">
 						<xsl:with-param name="results_doc_name" select="concat('W3C-XForms-1.1/Edition1/driverPages/Results/', $browser_dir, '/', 'XF11_Appendix', substring-before(., '.'), '_Results.xml')" />
