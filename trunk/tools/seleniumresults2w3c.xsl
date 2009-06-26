@@ -46,7 +46,7 @@
 							<xsl:variable name="selenium_test_case_result" select="document(concat($selenium_file_dir, '/', 'xforms11-Chapter', $chapter, '-', $browser, '-results.html'))//xhtml:table[@id = 'suiteTable']/xhtml:tbody/xhtml:tr[contains(xhtml:td/xhtml:a, current()/ts:testCaseName)]/@class" />
 		
 							<xsl:choose>
-								<xsl:when test="$selenium_test_case_result = 'status_passed'">
+								<xsl:when test="contains($selenium_test_case_result, 'status_passed')">
 									<testCaseStatus>Passed</testCaseStatus>
 								</xsl:when>
 								<xsl:otherwise>
@@ -59,7 +59,7 @@
 							<xsl:variable name="selenium_test_case_result" select="document(concat($selenium_file_dir, '/', 'xforms11-Appendix', substring-before(/ts:testSuite/ts:specChapter/@chapterName, '.'), '-', $browser, '-results.html'))//xhtml:table[@id = 'suiteTable']/xhtml:tbody/xhtml:tr[contains(xhtml:td/xhtml:a, current()/ts:testCaseName)]/@class" />
 
 							<xsl:choose>
-								<xsl:when test="$selenium_test_case_result = 'status_passed'">
+								<xsl:when test="contains($selenium_test_case_result, 'status_passed')">
 									<testCaseStatus>Passed</testCaseStatus>
 								</xsl:when>
 								<xsl:otherwise>
