@@ -104,7 +104,18 @@ The first step in a driver page will be to open the individual test form that wi
 </tr>
 }}}
 
-Once the form is loaded, UXF will initialise. We can't run any tests until this initialisation is complete, but each form should contain an XForms `output` control which can be used to detect that the UXF has fully initialised. So we use the UXF Selenium extension command `waitForXformsControlValue` to pause until the form is ready:
+Once the form is loaded, UXF will initialise. We can't run any tests until this initialisation is complete, so each form should use the UXF Selenium extension command `waitForModelReady` to pause until the form is ready:
+
+{{{
+<tr>
+  <td>waitForModelReady</td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+}}}
+
+Sometimes it's only necessary to wait for a specific model to become ready. This can be done using any of the Selenium selector techniques:
 
 {{{
 <tr>
@@ -114,6 +125,19 @@ Once the form is loaded, UXF will initialise. We can't run any tests until this 
   <td></td>
 </tr>
 }}}
+
+Once the form is loaded, testing usually involves initiating actions and then checking the value of one or more controls. Values can be tested using the UXF Selenium extension `verifyXformsControlValue`. For example, to test that a particular `xf:select1` control has the value 'cc', we might do this:
+
+{{{
+<tr>
+  <td>verifyXformsControlValue</td>
+  <td>xpath=/html/body/xf:select1[@ref='method']</td>
+  <td>cc</td>
+  <td>Checks that the select1 has the right value</td>
+</tr>
+}}}
+
+For more information on the available extensions, see SeleniumUserExtensions.
 
 = Running the tests =
 
