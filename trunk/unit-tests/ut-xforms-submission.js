@@ -65,16 +65,7 @@ suiteXFormsSubmission.add(
 				this.submission.setAttribute("method", "post");
 				document.submission.submit(this.submission);
 				Assert.areEqual("POST", document.submission.method);
-			},
-			
-			testDeleteMethod: function() {
-				var Assert = YAHOO.util.Assert;
-				
-				this.submission.setAttribute("method", "delete");
-				document.submission.submit(this.submission);
-				Assert.areEqual("DELETE", document.submission.method);
 			}
-			
 		}));
 
 suiteXFormsSubmission.add(
