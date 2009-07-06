@@ -552,6 +552,23 @@ DECORATOR.addDecorationRules({
                 UX.replaceArrayElement(arrBehaviours,RangeValue,RangeValueGMAP);
                 return arrBehaviours;
             }
+        },
+        {
+            "name" : "outputmap-pevalue",
+            "match" : function(element) {
+                var parent = element.parentNode,
+                    outputClass = parent.className,
+                    match = false;
+                if (NamespaceManager.compareFullName(parent,"output","http://www.w3.org/2002/xforms") &&
+                    outputClass && outputClass.indexOf("geolocation") !== -1) {
+                        match = true;
+                }
+                return match;
+            },
+            "apply" : function(arrBehaviours) {
+                UX.replaceArrayElement(arrBehaviours,XFormsOutputValue,XFormsOutputValueGMap);
+                return arrBehaviours;
+            }
         }
         ],
         // end pseudo element value decorations
@@ -812,6 +829,14 @@ DECORATOR.setupDecorator(
 		//HACK: re-override the value binding for rangemap/label, because IE does not support child selectors.
 		{
 			selector:"xf|range.geolocation > xf|label > pe-value",
+			objects:[]
+		},
+		{
+			selector:"xf|output.geolocation > pe-value",
+			objects:[]
+		},
+		{
+			selector:"xf|output.geolocation > xf|label > pe-value",
 			objects:[]
 		},
 

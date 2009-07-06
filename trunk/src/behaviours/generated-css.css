@@ -101,6 +101,12 @@ xf\:range.geolocation > pe-value, xforms\:range.geolocation > pe-value {
 xf\:range.geolocation > xf\:label > pe-value, xforms\:range.geolocation > xforms\:label > pe-value {
   -moz-binding: url("decorator.xml#decorator");
 }
+xf\:output.geolocation > pe-value, xforms\:output.geolocation > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:output.geolocation > xf\:label > pe-value, xforms\:output.geolocation > xforms\:label > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
 xf\:input.yui-widget-color > pe-value, xforms\:input.yui-widget-color > pe-value,
 xf\:input[datatype='xhd:color'] > pe-value, xforms\:input[datatype='xhd:color'] > pe-value {
   -moz-binding: url("decorator.xml#decorator");
