@@ -550,6 +550,7 @@ DECORATOR.addDecorationRules({
             },
             "apply" : function(arrBehaviours) {
                 UX.replaceArrayElement(arrBehaviours,RangeValue,RangeValueGMAP);
+                UX.insertArrayElement(arrBehaviours, GMapControl, RangeValueGMAP);
                 return arrBehaviours;
             }
         },
@@ -567,6 +568,7 @@ DECORATOR.addDecorationRules({
             },
             "apply" : function(arrBehaviours) {
                 UX.replaceArrayElement(arrBehaviours,XFormsOutputValue,XFormsOutputValueGMap);
+                UX.insertArrayElement(arrBehaviours, GMapControl, XFormsOutputValueGMap);
                 return arrBehaviours;
             }
         }
@@ -587,6 +589,25 @@ UX.replaceArrayElement = function (array,remove,add) {
             array[counter] = add;
             break;
         }
+    }
+};
+
+UX.insertArrayElement = function (array, insertItem, indexItem) {
+    var i, lastItem, swap;
+
+    for (var i = 0; i < array.length; ++i) {
+        if (array[i] === indexItem) {
+            lastItem = array[i];
+            array[i] = insertItem;
+        } else if (lastItem) {
+            swap = array[i];
+            array[i] = lastItem;
+            lastItem = swap;
+        }
+    }
+
+    if (lastItem) {
+        array[i] = lastItem;
     }
 };
 
