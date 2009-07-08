@@ -119,7 +119,9 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		iterations = this.element.childNodes,
 		oIterationElement,
 		templateClone,
-		thisModel;
+		thisModel,
+		ordinal,
+		newOrdinal;
 
 	// If we have iterations that are bound to nodes that have been
 	// deleted then the iterations themselves must be deleted.
@@ -166,12 +168,18 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		this.m_offset = this.m_nIndex - 1;
 	}
 	
-	// Bring the @ordinal values into line.
+	// Bring the @ordinal values into line and unwire remaining iterations
 	//
 	for (i = 0; i < this.m_CurrentIterationCount; ++i) {
-	  if (iterations[i].isBindingContainer) {
-	    iterations[i].setAttribute("ordinal", 1 + i + this.m_offset);
-	  } 
+		node = iterations[i];
+		if (node.isBindingContainer) {
+			ordinal = node.getAttribute("ordinal");
+			newOrdinal = 1 + i + this.m_offset;
+			if (ordinal !== newOrdinal) {
+				node.setAttribute("ordinal", newOrdinal);
+			}
+		} 
+		node.m_proxy = null;
 	}
 	
 	sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
