@@ -171,10 +171,16 @@ var g_sBehaviourDirectory  = "";
   	//control values
   	loader.addModule({ name: "xforms-pe-value",         type: "js",  fullpath: moduleBase + "pe-value.js" });
   	loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: moduleBase + "input-value.js" });
-  	loader.addModule({ name: "xforms-output-value",        type: "js",  fullpath: moduleBase + "output-value.js" });
+  	loader.addModule({ name: "xforms-output-value",        type: "js",  fullpath: moduleBase + "output-value.js",
+  		requires: ["output-googleMap"]});
   	loader.addModule({ name: "xforms-range-value",        type: "js",  fullpath: moduleBase + "range-value.js",
-  		requires: ["slider"]});
-  	
+  		requires: ["slider", "range-googleMap"]});
+
+	// Map controls
+  	loader.addModule({ name: "output-googleMap", type: "js", fullpath: moduleBase + "../extensions/output-googleMap.js", requires: ["base-googleMap"]});
+  	loader.addModule({ name: "range-googleMap", type: "js", fullpath: moduleBase + "../extensions/range-googleMap.js", requires: ["base-googleMap"]});
+  	loader.addModule({ name: "base-googleMap", type: "js", fullpath: moduleBase + "../extensions/base-googleMap.js"});
+
   	//container elements
   	loader.addModule({ name: "xforms-container",        type: "js",  fullpath: moduleBase + "container.js" });
   	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" ,

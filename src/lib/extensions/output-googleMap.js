@@ -14,41 +14,18 @@
  * limitations under the License.
  */
 
-function XFormsOutputValueGMap(element) {
-	this.element = element;
-
-	this.mapContainer = document.createElement("div");
-	this.element.appendChild(this.mapContainer);
-
-	this.setMapDimensionUnlessParentIsSet('width', '250px');
-	this.setMapDimensionUnlessParentIsSet('height', '150px');
+function XFormsOutputValueGMap() {
 }
 
 XFormsOutputValueGMap.prototype.onDocumentReady = function() {
-	this.map = new GMap2(this.mapContainer);
+	this.createMap();
+	this.map.disableDragging();
 };
 
-XFormsOutputValueGMap.prototype.setValue = function(value) {
-	var lat, long;
-
-	value.match(/([\-+]?\d*\.?\d+)[\,\s\;]*([\-+]?\d*\.?\d+)/);
-	lat = Number(RegExp.$1);
-	long = Number(RegExp.$2);
-
-	if (this.currentValue) {
-		this.map.panTo(new GLatLng(lat, long));
-	} else {
-		this.map.setCenter(new GLatLng(lat, long), 6);
-		this.map.disableDragging();
-	}
-
-	this.currentValue = value;
-};
-
-XFormsOutputValueGMap.prototype.setMapDimensionUnlessParentIsSet = function(dimension, value) {
-	if (this.element.parentNode.style[dimension] === '') {
-		UX.addStyle(this.mapContainer, dimension, value);
-	} else {
-		UX.addStyle(this.mapContainer, dimension, '100%');
+XFormsOutputValueGMap.prototype.addMapNavigationControl = function() {
+	if (this.mapContainer.clientWidth >= 110 && this.mapContainer.clientHeight >= 100) {
+		this.map.addControl(new GSmallZoomControl3D());
+	} else if (this.mapContainer.clientWidth >= 80 && this.mapContainer.clientHeight >= 80) {
+		this.map.addControl(new GSmallZoomControl());
 	}
 };

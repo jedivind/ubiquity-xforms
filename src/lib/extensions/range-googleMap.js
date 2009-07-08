@@ -3,7 +3,7 @@
 //
 // The Ubiquity XForms module adds XForms support to the Ubiquity library.
 //
-// Copyright (C) 2008 Backplane Ltd.
+// Copyright (C) 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,12 +18,6 @@
 // limitations under the License.
 
 function RangeValueGMAP(elmnt) {
-	// Store a pointer to the given element, this corresponds to  the "value pseudoelement" within the control. 
-	this.element = elmnt;
-    var div = document.createElement("div");
-    UX.addStyle(div, "height", "100px");
-    UX.addStyle(div, "width", "200px");
-	this.element.appendChild(div);
 }
 
 RangeValueGMAP.prototype.valueChanged = function(sNewValue)
@@ -42,10 +36,7 @@ RangeValueGMAP.prototype.valueChanged = function(sNewValue)
 };
 
 RangeValueGMAP.prototype.onDocumentReady = function() {
-
-	
-	//Set up the map.
-	this.map = new GMap2(this.firstChild);
+	this.createMap();
 	
 	// Set up a listener for the event within the map that corresponds to a "confirmed change of value"
 	var pThis = this;
@@ -61,49 +52,12 @@ RangeValueGMAP.prototype.onDocumentReady = function() {
 	        }
 		}
 	);
-	
-	var theListener = {
-    	control: this,
-    	handleEvent: function(evt) {
-        	if (evt.type === "fp-putvalue") {
-                var newVal = evt.newValue;
-                
-                if (this.currentValue != newVal) {
-                      this.setValue(newVal, this.currentValue ? true : false);
-                      this.currentValue = newVal;
-                }
-            }
-    	}
-	};
-	this.parentNode.addEventListener("fp-putvalue", theListener, false);
 };
 
-RangeValueGMAP.prototype.setValue = function(newVal) {
-
-  	      newVal.match( /([\-+]?\d*\.?\d+)[\,\s\;]*([\-+]?\d*\.?\d+)/ );
-          var pan = this.currentValue ? true : false;        
-          var nLat = RegExp.$1;
-  	      var nLong = RegExp.$2;
-  	      var sWidth;
-  	      var sHeight;
-
-  	      var currentStyle = this.parentNode.currentStyle;
-  	      if(currentStyle) {
-       	      sWidth = currentStyle.width;
-  	          sHeight = currentStyle.height;
-  	      }
-          else {
-              currentStyle = window.getComputedStyle(this.element,"");
-    	      sWidth  = currentStyle.getPropertyValue("width");
-    	      sHeight = currentStyle.getPropertyValue("height");
-    	  }
-    	  
-    	  var nWidth = parseInt(sWidth,10);
-    	  var nHeight = parseInt(sHeight,10);
-          var ll = new GLatLng(Number(nLat), Number(nLong));
-
-          this.currValue = newVal;
-          this.map.setCenter(ll, 7);
-
+RangeValueGMAP.prototype.addMapNavigationControl = function() {
+	if (this.mapContainer.clientWidth >= 180 && this.mapContainer.clientHeight >= 300) {
+		this.map.addControl(new GLargeMapControl3D());
+	} else if (this.mapContainer.clientWidth >= 120 && this.mapContainer.clientHeight >= 140) {
+		this.map.addControl(new GSmallMapControl());
+	}
 };
-
