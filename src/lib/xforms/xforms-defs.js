@@ -214,18 +214,36 @@ DECORATOR.addDecorationRules({
         }
         ],
 
-				// Hint is a type of message.
-				//
-				"hint" : [
-					{
-						"name": "hint-element",
-						"apply" : function(arrBehaviours) {
-							return arrBehaviours.concat([
-								/* It's a Message ... */ Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message,
-								/* ... and a Hint.    */ HintMixin 
-							]);
-						}
-	        }
+        "hint" : [
+			// NOTE: Having two rules for hint like this is not ideal because, if we add further
+			//       implementations, it would require an extra condition in the match functions
+			//       for each one (see r2903 for discussion about this). When we get to that
+			//       point, we should refactor this so that the hint implementations accumulate,
+			//       each over-riding its predecessors.
+            {
+                "name": "hint-element",
+                "match" : function(element) {
+                    if (!element.parentNode.className || element.parentNode.className.indexOf('geolocation') === -1) {
+                        return true;
+                    }
+                    return false;
+                },
+                "apply" : function(arrBehaviours) {
+                    return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message, HintMixin]);
+                }
+            },
+            {
+                "name": "hint-map",
+                "match" : function(element) {
+                    if (element.parentNode.className && element.parentNode.className.indexOf('geolocation') !== -1) {
+                        return true;
+                    }
+                    return false;
+                },
+                "apply" : function(arrBehaviours) {
+                    return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, HintGMap]);
+                }
+            }
         ],
         // end common support decorations
 
