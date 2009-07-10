@@ -28,7 +28,7 @@ RangeValueGMAP.prototype.valueChanged = function(sNewValue)
 	}
 		
 	oEvt.initMutationEvent("control-value-changed", true, true,
-		null, this.currValue, sNewValue, null, null);
+		null, this.currentValue, sNewValue, null, null);
     var that = this;
 	spawn(function() {
 			FormsProcessor.dispatchEvent(that.element, oEvt);
@@ -37,21 +37,6 @@ RangeValueGMAP.prototype.valueChanged = function(sNewValue)
 
 RangeValueGMAP.prototype.onDocumentReady = function() {
 	this.createMap();
-	
-	// Set up a listener for the event within the map that corresponds to a "confirmed change of value"
-	var pThis = this;
-	GEvent.addListener(
-		this.map,
-		"moveend",
-		function() {
-			var center = this.getCenter();
-	        var s = center.lat() + ";" + center.lng();
-	        
-	        if(s !== pThis.currValue) {
-	            pThis.valueChanged(center.lat() + ";" + center.lng());
-	        }
-		}
-	);
 };
 
 RangeValueGMAP.prototype.addMapNavigationControl = function() {

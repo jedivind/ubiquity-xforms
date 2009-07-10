@@ -179,7 +179,10 @@ var g_sBehaviourDirectory  = "";
 	// Map controls
   	loader.addModule({ name: "output-googleMap", type: "js", fullpath: moduleBase + "../extensions/output-googleMap.js", requires: ["base-googleMap"]});
   	loader.addModule({ name: "range-googleMap", type: "js", fullpath: moduleBase + "../extensions/range-googleMap.js", requires: ["base-googleMap"]});
-  	loader.addModule({ name: "base-googleMap", type: "js", fullpath: moduleBase + "../extensions/base-googleMap.js"});
+  	loader.addModule({ name: "base-googleMap", type: "js", fullpath: moduleBase + "../extensions/base-googleMap.js", requires: ["hint-googleMap"]});
+
+	// Map control children
+  	loader.addModule({ name: "hint-googleMap", type: "js", fullpath: moduleBase + "../extensions/hint-googleMap.js"});
 
   	//container elements
   	loader.addModule({ name: "xforms-container",        type: "js",  fullpath: moduleBase + "container.js" });
