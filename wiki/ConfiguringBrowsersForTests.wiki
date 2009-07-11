@@ -78,7 +78,7 @@ This will open the Firefox browser using the profile created above, and automati
 
 Once complete, the browser will attempt to write the results to a file, but will require your permission to do so. This only needs to be given once. For this example, the results file would be available at `testsuite/xforms11-Chapter02-ff-results.html`.
 
-After saving the test results the browser should close. If that doesn't happen then you double-check the 'close window' permission described above.
+After saving the test results the browser should close. If that doesn't happen then double-check the 'close window' permission described above.
 
 If you want to load the tests ready to be run manually, then add `auto=false`:
 {{{
