@@ -139,7 +139,7 @@ GMapControl.prototype.addMapMarker = function() {
 GMapControl.prototype.moveMapMarker = function() {
 	if (!this.mapInfoIsVisible) {
 		this.mapMarker.setLatLng(this.mapLocation);
-		this.map.panTo(this.mapLocation);
+		this.map.setCenter(this.mapLocation, this.map.getZoom());
 	}
 };
 
