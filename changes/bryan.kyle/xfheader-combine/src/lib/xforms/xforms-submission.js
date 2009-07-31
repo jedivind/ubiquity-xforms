@@ -802,6 +802,7 @@ submission.prototype.setHeaders = function(oModel, oSubmission) {
 	var name;
 	var values;
 	var value;
+	var combine;
 
 	elements = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header");
 	for ( i = 0; i < elements.length; ++i) {
@@ -812,13 +813,20 @@ submission.prototype.setHeaders = function(oModel, oSubmission) {
 			continue;
 		}
 		
-		name = UX.getPropertyValue(header, "name");
-
-		// Ignore headers that don't have a name
-		if (!name || name.trim() === '') {
+		nodelist = NamespaceManager.getElementsByTagNameNS(header, "http://www.w3.org/2002/xforms", "name");
+		if (nodelist.length === 0) {
 			document.logger.log("INFO: Ignoring xf:header whose xf:name is empty");
 			continue;
+		} else {
+			name = nodelist[0].getValue();
+			
+			if (!name || name.trim() === '') {
+				document.logger.log("INFO: Ignoring xf:header whose xf:name is empty");
+				continue;
+			}
 		}
+		
+		combine = header.getAttribute("combine");
 		
 		values = [];
 		nodelist = NamespaceManager.getElementsByTagNameNS(elements[i], "http://www.w3.org/2002/xforms", "value");
@@ -830,7 +838,15 @@ submission.prototype.setHeaders = function(oModel, oSubmission) {
 		}
 
 		if (headers[name]) {
-			headers[name] = headers[name].concat(values);
+			if (!combine || combine === "append") {
+				headers[name] = headers[name].concat(values);
+			} else if (combine === "prepend") {
+				for (i = 0; i < values.length; i++) {
+					headers[name].unshift(values[i]);
+				}
+			} else if (combine === "replace") {
+				headers[name] = values;
+			}
 		} else {
 			headers[name] = values;
 		}
