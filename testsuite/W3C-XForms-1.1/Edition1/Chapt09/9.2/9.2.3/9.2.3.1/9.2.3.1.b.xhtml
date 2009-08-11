@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>9.2.3.1.b case element child of the toggle element precedence testing</title>
-        <script type="text/javascript" src="../../../../../../../src/ubiquity-loader.js">/**/</script>
-    <link rel="stylesheet" href="../../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script type="text/javascript"
+              src="../../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
         
     </head>
     <body>
-    <xforms:model>
+      <xforms:model>
        	  <xforms:instance xmlns="">
-			<yourname/>
+			         <yourname/>
        	  </xforms:instance>
        	  <xforms:instance xmlns="" id="inst_case">
        	    <cases>
@@ -31,46 +36,46 @@
             </xforms:label>
         </xforms:group>
         <xforms:switch>
-			<xforms:case id="in" selected="true">
+			      <xforms:case id="in" selected="true">
                 <xforms:label>You are in the In case</xforms:label>
-				<xforms:group>
-				  <xforms:trigger>
-				    <xforms:label>Go To Out Case</xforms:label>
-				    <xforms:toggle ev:event="DOMActivate" case="out"/>
-				  </xforms:trigger>
-				</xforms:group>
-			</xforms:case>
-			<xforms:case id="out">
+				        <xforms:group>
+				           <xforms:trigger>
+				              <xforms:label>Go To Out Case</xforms:label>
+				              <xforms:toggle ev:event="DOMActivate" case="out"/>
+				           </xforms:trigger>
+				        </xforms:group>
+			      </xforms:case>
+			      <xforms:case id="out">
                 <xforms:label>You are in the Out case</xforms:label>
-				<xforms:group>
-				  <xforms:trigger id="edit">
-					  <xforms:label>Go To Exit Case</xforms:label>
+				        <xforms:group>
+				           <xforms:trigger id="edit">
+					             <xforms:label>Go To Exit Case</xforms:label>
 					  
-					  <xforms:toggle ev:event="DOMActivate" case="in">
-					    <xforms:case>exit</xforms:case>
-					  </xforms:toggle>
-				  </xforms:trigger>
-				  <xforms:trigger id="exit_btn">
-					  <xforms:label>Go To In Case</xforms:label>
-					  <xforms:toggle ev:event="DOMActivate">
+					             <xforms:toggle ev:event="DOMActivate" case="in">
+					                <xforms:case>exit</xforms:case>
+					             </xforms:toggle>
+				           </xforms:trigger>
+				           <xforms:trigger id="exit_btn">
+					             <xforms:label>Go To In Case</xforms:label>
+					             <xforms:toggle ev:event="DOMActivate">
 					    
-					    <xforms:case value="instance('case_inst')/in">exit</xforms:case>
-					  </xforms:toggle>
-				  </xforms:trigger>
-				</xforms:group>
-			</xforms:case>
-			<xforms:case id="exit" selected="true">
+					                <xforms:case value="instance('case_inst')/in">exit</xforms:case>
+					             </xforms:toggle>
+				           </xforms:trigger>
+				        </xforms:group>
+			      </xforms:case>
+			      <xforms:case id="exit" selected="true">
                 <xforms:label>You are in the Exit case</xforms:label>
-				<xforms:group>
-				  <xforms:trigger id="rtrn_edit">
-					  <xforms:label>Go To Out Case</xforms:label>
+				        <xforms:group>
+				           <xforms:trigger id="rtrn_edit">
+					             <xforms:label>Go To Out Case</xforms:label>
 					  
-					  <xforms:toggle ev:event="DOMActivate" case="in">
-					    <xforms:case value="instance('case_inst')/out">in</xforms:case>
-					  </xforms:toggle>
-				  </xforms:trigger>
-				</xforms:group>
-			</xforms:case>
-		</xforms:switch>
+					             <xforms:toggle ev:event="DOMActivate" case="in">
+					                <xforms:case value="instance('case_inst')/out">in</xforms:case>
+					             </xforms:toggle>
+				           </xforms:trigger>
+				        </xforms:group>
+			      </xforms:case>
+		    </xforms:switch>
     </body>
 </html>

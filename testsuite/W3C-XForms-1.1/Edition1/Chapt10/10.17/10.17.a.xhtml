@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>10.17.a conditional execution of XForms actions</title>
-        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
-    <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
         
     </head>
     <body>
-    <xforms:model id="mod1">
+      <xforms:model id="mod1">
             <xforms:instance xmlns="">
                 <two_table>
                     <answers>
@@ -54,8 +58,8 @@
                 <xforms:label class="hlist">2 x 1 = </xforms:label>
             </xforms:output>
             <xforms:action ev:event="xforms-value-changed">
-   				<xforms:setvalue ref="instance('fb')/feedback_one" if="user_answers/one != answers/one">incorrect</xforms:setvalue>
-   				<xforms:setvalue ref="instance('fb')/feedback_one" if="user_answers/one = answers/one">correct</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_one" if="user_answers/one != answers/one">incorrect</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_one" if="user_answers/one = answers/one">correct</xforms:setvalue>
             </xforms:action>
             <xforms:output ref="instance('fb')/feedback_one">
                 <xforms:label/>
@@ -67,8 +71,8 @@
                 <xforms:label class="hlist">2 x 2 = </xforms:label>
             </xforms:output>
             <xforms:action ev:event="xforms-value-changed">
-   				<xforms:setvalue ref="instance('fb')/feedback_two" if="user_answers/two != answers/two">incorrect</xforms:setvalue>
-   				<xforms:setvalue ref="instance('fb')/feedback_two" if="user_answers/two = answers/two">correct</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_two" if="user_answers/two != answers/two">incorrect</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_two" if="user_answers/two = answers/two">correct</xforms:setvalue>
             </xforms:action>
             <xforms:output ref="instance('fb')/feedback_two">
                 <xforms:label/>
@@ -80,8 +84,8 @@
                 <xforms:label class="hlist">2 x 3 = </xforms:label>
             </xforms:output>
             <xforms:action ev:event="xforms-value-changed">
-   				<xforms:setvalue ref="instance('fb')/feedback_three" if="user_answers/three != answers/three">incorrect</xforms:setvalue>
-   				<xforms:setvalue ref="instance('fb')/feedback_three" if="user_answers/three = answers/three">correct</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_three" if="user_answers/three != answers/three">incorrect</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_three" if="user_answers/three = answers/three">correct</xforms:setvalue>
             </xforms:action>
             <xforms:output ref="instance('fb')/feedback_three">
                 <xforms:label/>
@@ -93,8 +97,8 @@
                 <xforms:label class="hlist">2 x 4 = </xforms:label>
             </xforms:output>
             <xforms:action ev:event="xforms-value-changed">
-   				<xforms:setvalue ref="instance('fb')/feedback_four" if="user_answers/four != answers/four">incorrect</xforms:setvalue>
-   				<xforms:setvalue ref="instance('fb')/feedback_four" if="user_answers/four = answers/four">correct</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_four" if="user_answers/four != answers/four">incorrect</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_four" if="user_answers/four = answers/four">correct</xforms:setvalue>
             </xforms:action>
             <xforms:output ref="instance('fb')/feedback_four">
                 <xforms:label/>
@@ -106,8 +110,8 @@
                 <xforms:label class="hlist">2 x 5 = </xforms:label>
             </xforms:output>
             <xforms:action ev:event="xforms-value-changed">
-   				<xforms:setvalue ref="instance('fb')/feedback_five" if="user_answers/five != answers/five">incorrect</xforms:setvalue>
-   				<xforms:setvalue ref="instance('fb')/feedback_five" if="user_answers/five = answers/five">correct</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_five" if="user_answers/five != answers/five">incorrect</xforms:setvalue>
+   				     <xforms:setvalue ref="instance('fb')/feedback_five" if="user_answers/five = answers/five">correct</xforms:setvalue>
             </xforms:action>
             <xforms:output ref="instance('fb')/feedback_five">
                 <xforms:label/>

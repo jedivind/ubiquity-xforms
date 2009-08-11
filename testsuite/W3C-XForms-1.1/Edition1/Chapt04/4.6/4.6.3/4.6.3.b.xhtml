@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:et="http://w3c.org/eventtracker">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:et="http://w3c.org/eventtracker">
     <head>
         <title>4.6.3.b event sequencing for select/select1 controls with incremental="false"</title>
-        <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
         
         
     </head>
     <body>
-    <xforms:model id="m_001">
+      <xforms:model id="m_001">
             <xforms:instance xmlns="">
                 <car>
                     <carSelected1>acu</carSelected1>
@@ -29,7 +35,7 @@
                 <xforms:setvalue model="event_tracker" ref="et:event[last()]/@name">xforms-refresh</xforms:setvalue>
             </xforms:action>
         </xforms:model>
-    <xforms:model id="event_tracker">
+      <xforms:model id="event_tracker">
             <xforms:instance xmlns="" id="tracker_instance">
                 <et:events>
                     <et:event name=""/>

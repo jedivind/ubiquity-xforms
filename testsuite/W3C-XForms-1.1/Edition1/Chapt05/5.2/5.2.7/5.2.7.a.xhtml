@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>5.2.7.a card-number datatype</title>
-        <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
         
     </head>
     <body>
-    <xforms:model>
+      <xforms:model>
             <xforms:instance xmlns="">
                 <ID/>
             </xforms:instance>
@@ -39,19 +44,19 @@
         
         <xforms:trigger>
         	<xforms:label>Valid card-number Test 1</xforms:label>
-    		<xforms:setvalue ref="/ID" ev:event="DOMActivate">012345678910</xforms:setvalue>
+    		   <xforms:setvalue ref="/ID" ev:event="DOMActivate">012345678910</xforms:setvalue>
     	</xforms:trigger>
     	<xforms:trigger>
         	<xforms:label>Valid card-number Test 2</xforms:label>
-    		<xforms:setvalue ref="/ID" ev:event="DOMActivate">1234567891011121314</xforms:setvalue>
+    		   <xforms:setvalue ref="/ID" ev:event="DOMActivate">1234567891011121314</xforms:setvalue>
     	</xforms:trigger>
     	<xforms:trigger>
         	<xforms:label>Invalid card-number Test 1</xforms:label>
-    		<xforms:setvalue ref="/ID" ev:event="DOMActivate">0II23581321</xforms:setvalue>
+    		   <xforms:setvalue ref="/ID" ev:event="DOMActivate">0II23581321</xforms:setvalue>
     	</xforms:trigger>
     	<xforms:trigger>
         	<xforms:label>Invalid card-number Test 2</xforms:label>
-    		<xforms:setvalue ref="/ID" ev:event="DOMActivate">0112E581321345589144</xforms:setvalue>
+    		   <xforms:setvalue ref="/ID" ev:event="DOMActivate">0112E581321345589144</xforms:setvalue>
     	</xforms:trigger>
         
     </body>

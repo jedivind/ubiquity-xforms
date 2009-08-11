@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <head>
         <title>11.2.b non-relevant nodes are not serialized</title>
         
-        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
-    <link href="../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link href="../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
     </head>
     <body>
-    <xforms:model>
+      <xforms:model>
             <xforms:instance xmlns="">
                 <data>
                     <test1 x=""/>
@@ -17,7 +22,8 @@
                     <test4 x="a"/>
                 </data>
             </xforms:instance>
-            <xforms:submission action="http://www.xformstest.org/cgi-bin/echo.sh" id="show" method="post" includenamespaceprefixes=""/>
+            <xforms:submission action="http://www.xformstest.org/cgi-bin/echo.sh" id="show" method="post"
+                            includenamespaceprefixes=""/>
             <xforms:bind nodeset="/data/test1" relevant="true()"/>
             <xforms:bind nodeset="/data/test2" relevant="true()"/>
             <xforms:bind nodeset="/data/test3" relevant="false()"/>

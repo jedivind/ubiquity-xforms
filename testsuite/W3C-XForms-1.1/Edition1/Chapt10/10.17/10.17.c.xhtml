@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>10.17.c conditional execution of XForms actions - Automatic Focus Advancement example</title>
-        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
-    <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
         
     </head>
     <body>
-    <xforms:model id="mod1">
+      <xforms:model id="mod1">
             <xforms:instance xmlns="">
               <info>
                 <areaCode/>
@@ -30,19 +34,22 @@
             </xforms:label>
         </xforms:group>
         <xforms:input ref="/info/areaCode" id="AreaCodeControl" incremental="true">
-			<xforms:label>Area Code:</xforms:label>
-			<xforms:setfocus ev:event="xforms-value-changed" control="ExchangeControl" if="string-length(.)=3 and . &gt; 0"/>
-		</xforms:input>
-		<xforms:input ref="/info/exchange" id="ExchangeControl" incremental="true">
-			<xforms:label>Exchange:</xforms:label>
-			<xforms:setfocus ev:event="xforms-value-changed" control="LocalControl" if="string-length(.)=3 and . &gt; 0"/>
-		</xforms:input>
-		<xforms:input ref="/info/local" id="LocalControl" incremental="true">
-			<xforms:label>Local:</xforms:label>
-			<xforms:setfocus ev:event="xforms-value-changed" control="ExtensionControl" if="string-length(.)=4 and . &gt; 0"/>
-		</xforms:input>
-		<xforms:input ref="/info/extension" id="ExtensionControl">
-			<xforms:label>Extension:</xforms:label>
-		</xforms:input>
+			      <xforms:label>Area Code:</xforms:label>
+			      <xforms:setfocus ev:event="xforms-value-changed" control="ExchangeControl"
+                          if="string-length(.)=3 and . &gt; 0"/>
+		    </xforms:input>
+		    <xforms:input ref="/info/exchange" id="ExchangeControl" incremental="true">
+			      <xforms:label>Exchange:</xforms:label>
+			      <xforms:setfocus ev:event="xforms-value-changed" control="LocalControl"
+                          if="string-length(.)=3 and . &gt; 0"/>
+		    </xforms:input>
+		    <xforms:input ref="/info/local" id="LocalControl" incremental="true">
+			      <xforms:label>Local:</xforms:label>
+			      <xforms:setfocus ev:event="xforms-value-changed" control="ExtensionControl"
+                          if="string-length(.)=4 and . &gt; 0"/>
+		    </xforms:input>
+		    <xforms:input ref="/info/extension" id="ExtensionControl">
+			      <xforms:label>Extension:</xforms:label>
+		    </xforms:input>
     </body>
 </html>

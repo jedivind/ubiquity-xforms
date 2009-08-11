@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <head>
-        <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
-    <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
         <title>10.4.f delete action and repeat element</title>
         
     </head>
     <body>
-    <xforms:model>
+      <xforms:model>
             <xforms:instance xmlns="" id="instance_1">
                 <number_lists>
                     <number_list id="1st number_list">
@@ -65,9 +71,11 @@
                 </xforms:root>
             </xforms:instance>
             <xforms:bind nodeset="instance('repeat_indices')/repeat_2" calculate="index('repeat_2')"/>
-            <xforms:bind nodeset="instance('repeat_indices')/repeat_2_inner" calculate="index('repeat_2_inner')"/>
+            <xforms:bind nodeset="instance('repeat_indices')/repeat_2_inner"
+                      calculate="index('repeat_2_inner')"/>
             <xforms:bind nodeset="instance('repeat_indices')/repeat_3" calculate="index('repeat_3')"/>
-            <xforms:bind nodeset="instance('repeat_indices')/repeat_3_inner" calculate="index('repeat_3_inner')"/>
+            <xforms:bind nodeset="instance('repeat_indices')/repeat_3_inner"
+                      calculate="index('repeat_3_inner')"/>
             <xforms:action ev:event="xforms-ready">
                 <!--  delete the last member of the list, index should revert to 0 -->
                 <xforms:setindex repeat="repeat_1" index="1"/>
