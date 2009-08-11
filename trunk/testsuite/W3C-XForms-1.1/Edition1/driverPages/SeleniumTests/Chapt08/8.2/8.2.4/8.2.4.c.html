@@ -45,31 +45,37 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:input[@ref="numeric_field"]</td>
 					<td></td>
-					<td>Checks that the trigger is in the form</td>
+					<td>Checks that the input is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:trigger/xforms:alert[@ev:event='DOMActivate' and @ref='/msg']</td>
+					<td>xpath=/html/body/xforms:input/xforms:alert[@ref="/data/msg"]</td>
 					<td></td>
 					<td>Checks that the alert is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:trigger/xforms:alert[@ev:event='DOMActivate' and @ref='/msg']</td>
+					<td>xpath=/html/body/xforms:input/xforms:alert[@ref="/data/msg"]</td>
 					<td>Instance Alert Message</td>
 					<td>Checks to see if the hint has the right value</td>
 				</tr>
 				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/xforms:trigger</td>
-					<td></td>
-					<td>Clicks on the button</td>
+					<td>type</td>
+					<td>xpath=/html/body/xforms:input/pe-value/input</td>
+					<td>abc</td>
+					<td>Types in the input</td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:trigger/xforms:alert[@ev:event='DOMActivate' and @ref='/msg']</td>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:input[@ref="numeric_field"]/xforms:alert[@ref="/data/msg"]</td>
 					<td>Instance Alert Message</td>
 					<td>Checks to see if the hint has the right value</td>
 				</tr>

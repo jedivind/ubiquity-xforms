@@ -45,33 +45,39 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:trigger</td>
+					<td>xpath=/html/body/xforms:input[@ref="numeric_field"]</td>
 					<td></td>
-					<td>Checks that the trigger is in the form</td>
+					<td>Checks that the input is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:trigger/xforms:alert[@ev:event='DOMActivate']</td>
+					<td>xpath=/html/body/xforms:input[@ref="numeric_field"]/xforms:alert</td>
 					<td></td>
 					<td>Checks that the alert is in the form</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:trigger/xforms:alert[@ev:event='DOMActivate']</td>
-					<td>Inline Alert Message</td>
+					<td>xpath=/html/body/xforms:input[@ref="numeric_field"]/xforms:alert</td>
+					<td>Inline alert message</td>
 					<td>Checks to see if the hint has the right value</td>
 				</tr>
 				<tr>
-					<td>click</td>
-					<td>xpath=/html/body/xforms:trigger</td>
+					<td>type</td>
+					<td>xpath=/html/body/xforms:input[@ref="numeric_field"]/pe-value/input</td>
+					<td>abc</td>
+					<td>Types 'abc' into the input the button</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>1000</td>
 					<td></td>
-					<td>Clicks on the button</td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:trigger/xforms:alert[@ev:event='DOMActivate']</td>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:input[@ref="numeric_field"]/xforms:alert</td>
 					<td>Inline Alert Message</td>
-					<td>Checks to see if the hint has the right value</td>
+					<td>Checks to see if the hint appears the right value</td>
 				</tr>
 			</tbody>
 		</table>
