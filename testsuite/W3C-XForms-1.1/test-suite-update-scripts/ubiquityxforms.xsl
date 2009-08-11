@@ -4,8 +4,7 @@
 	xmlns:xhtml="http://www.w3.org/1999/xhtml"
 	xmlns:xforms="http://www.w3.org/2002/xforms">
 	
-	<xsl:output method="html" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"  doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/> 
-	<xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" xalan:indent-amount="2" xmlns:xalan="http://xml.apache.org/xslt"/>
+	<xsl:output method="xml" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
 	<xsl:template match="*">    
       <xsl:copy>

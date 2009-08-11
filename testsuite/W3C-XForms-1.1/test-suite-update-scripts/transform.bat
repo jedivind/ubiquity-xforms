@@ -1,15 +1,11 @@
 echo Downloading test suite.
-start /wait wget --accept=xhtml --no-parent --wait 2 --recursive --no-host-directories --cut-dirs=4 http://www.w3.org/MarkUp/Forms/Test/XForms1.1/Edition1/
+start /wait wget --accept=xhtml --no-parent --wait 0 --recursive --no-host-directories --cut-dirs=4 --exclude-directories=MarkUp/Forms/Test/XForms1.1/Edition1/driverPages/,MarkUp/Forms/Test/XForms1.1/Edition1/zip/ http://www.w3.org/MarkUp/Forms/Test/XForms1.1/Edition1/
 echo Starting Apache Ant XSLT.
 call runant.bat
 echo Compiling Java post processor.
 start /wait javac RecursiveStringReplacer.java
 echo Making Ubiquity JavaScript URIs relative.
 start /wait java RecursiveStringReplacer replace Edition1 "http://ubiquity-xforms.googlecode.com/trunk/ubiquity-loader.js" "../../../src/ubiquity-loader.js" "../"
-echo Removing ":xhtml" namespace definitions.
-start /wait java RecursiveStringReplacer replace Edition1 ":xhtml" ""
-echo Removing "xhtml:" namespace prefixes.
-start /wait java RecursiveStringReplacer replace Edition1 "xhtml:" ""
 echo Adding namespace to instance tags.
 start /wait java RecursiveStringReplacer xmlns Edition1
 echo Removing robots.txt.
