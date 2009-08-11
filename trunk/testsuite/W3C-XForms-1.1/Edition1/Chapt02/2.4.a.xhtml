@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:my="http://commerce.example.com/payment" xmlns:hlp="http://commerce.example.com/help">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:my="http://commerce.example.com/payment"
+            xmlns:hlp="http://commerce.example.com/help">
     <head>
         <title>2.4.a Example: Multiple Forms</title>
-        <script type="text/javascript" src="../../../../src/ubiquity-loader.js">/**/</script>
-    <link rel="stylesheet" href="../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script type="text/javascript"
+              src="../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../driverPages/forms/TestSuite11.css" type="text/css"/>
         
         
     </head>
     <body>
-    <xforms:model id="pay">
+      <xforms:model id="pay">
             <xforms:instance xmlns="">
                 <payment xmlns="http://commerce.example.com/payment" method="cc">
                     <number/>
@@ -17,8 +23,12 @@
                 </payment>
             </xforms:instance>
             <xforms:submission id="submit01" method="post" action="http://xformstest.org/cgi-bin/echo.sh"/>
-            <xforms:bind nodeset="/my:payment/my:number" relevant="/my:payment/@method = 'cc'" required="/my:payment/@method='cc'" type="my:ccnumber"/>
-            <xforms:bind nodeset="/my:payment/my:expiry" relevant="/my:payment/@method = 'cc'" required="/my:payment/@method='cc'" type="xsd:gYearMonth"/>
+            <xforms:bind nodeset="/my:payment/my:number" relevant="/my:payment/@method = 'cc'"
+                      required="/my:payment/@method='cc'"
+                      type="my:ccnumber"/>
+            <xforms:bind nodeset="/my:payment/my:expiry" relevant="/my:payment/@method = 'cc'"
+                      required="/my:payment/@method='cc'"
+                      type="xsd:gYearMonth"/>
             <xsd:schema targetNamespace="http://commerce.example.com/payment">
                 <xsd:simpleType name="ccnumber">
                     <xsd:restriction base="xsd:string">
@@ -36,7 +46,7 @@
                 </xsd:element>
             </xsd:schema>
         </xforms:model>
-    <xforms:model id="poll">
+      <xforms:model id="poll">
             <xforms:instance xmlns="">
                 <helpmodel xmlns="http://commerce.example.com/help">
                     <helpful>3</helpful>

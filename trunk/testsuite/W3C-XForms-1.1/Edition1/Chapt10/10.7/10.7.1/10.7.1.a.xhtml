@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>10.7.1.a setfocus element with control child element</title>
-        <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
-    <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
         
     </head>
     <body>
-    <xforms:model id="mod1">
+      <xforms:model id="mod1">
             <xforms:instance xmlns="">
                 <data>
                   <name>Alex</name>
@@ -49,17 +54,17 @@
         </xforms:group>
         
         <xforms:trigger>
-	      <xforms:label>Set focus to Age field</xforms:label>
-			<xforms:setfocus ev:event="DOMActivate">
-			  <xforms:control>Age</xforms:control>
-		    </xforms:setfocus>
-		</xforms:trigger>
+	        <xforms:label>Set focus to Age field</xforms:label>
+			      <xforms:setfocus ev:event="DOMActivate">
+			         <xforms:control>Age</xforms:control>
+		       </xforms:setfocus>
+		    </xforms:trigger>
 		
-		<xforms:trigger>
-	      <xforms:label>Set focus to DOB field</xforms:label>
-			<xforms:setfocus ev:event="DOMActivate">
-			  <xforms:control value="instance('focus_holder')/focus"/>
-		    </xforms:setfocus>
-		</xforms:trigger>
+		    <xforms:trigger>
+	        <xforms:label>Set focus to DOB field</xforms:label>
+			      <xforms:setfocus ev:event="DOMActivate">
+			         <xforms:control value="instance('focus_holder')/focus"/>
+		       </xforms:setfocus>
+		    </xforms:trigger>
     </body>
 </html>
