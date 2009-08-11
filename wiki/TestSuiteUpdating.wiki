@@ -81,11 +81,11 @@ http://www.w3.org/MarkUp/Forms/Test/XForms1.1/Edition1/
 }}}
 With your URL in hand, open a command prompt and execute the following command on your own URL:
 {{{
-wget --accept=xhtml --no-parent --wait 2 --recursive --no-host-directories --cut-dirs=4 http://www.w3.org/MarkUp/Forms/Test/XForms1.1/Edition1/
+wget --accept=xhtml --no-parent --wait 2 --recursive --no-host-directories --cut-dirs=4 --exclude-directories=MarkUp/Forms/Test/XForms1.1/Edition1/driverPages/,MarkUp/Forms/Test/XForms1.1/Edition1/zip/ http://www.w3.org/MarkUp/Forms/Test/XForms1.1/Edition1/
 }}}
-Please note that the wait parameter is the number of seconds between requests. It is used primarily so as not to DoS attack the w3.org server. While it substantially slows the processing of the job, please be courteous and include a delay.
+Please note that the --wait parameter is the number of seconds between requests. It is used primarily so as not to DoS attack the w3.org server. While it substantially slows the processing of the job, please be courteous and include a delay.
 
-After the command has executed you will be left with a directory labelled /EditionX/ and a file labelled robots.txt in whatever directory you executed the command. This will be C:\ unless you navigated somewhere else. Delete robots.txt, and within the /Edition/ folder delete the /zip/ and /driverPages/ directories.
+After the command has executed you will be left with a directory labelled /EditionX/ and a file labelled robots.txt in whatever directory you executed the command. This will be C:\ unless you navigated somewhere else. Delete robots.txt.
 
 = Transforming The Test Suite =
 As is, the test suite does not load Ubiquity. In order to solve this issue you must run the XSLT [http://code.google.com/p/ubiquity-xforms/source/browse/trunk/testsuite/W3C-XForms-1.1/test-suite-update-scripts/ubiquityxforms.xsl ubiquityxforms.xsl] across all the test files. In order to do this, use Ant with the [http://code.google.com/p/ubiquity-xforms/source/browse/trunk/testsuite/W3C-XForms-1.1/test-suite-update-scripts/build.xml build.xml] file. Follow the below steps to preform the necessary changes.
@@ -110,7 +110,7 @@ Only necessary if performing replace:
 
 Only necessary if creating a relative URI:
 
-5.  A string to prefix the replacement string with for each sub directory.
+5. A string to prefix the replacement string with for each sub directory.
 
 First you will need to compile the application. Place the .java file in the same parent directory as /EditionX/, navigate your command prompt to this directory as well, and then run the following command:
 {{{
@@ -120,15 +120,7 @@ To change the absolute path to a relative URL execute this command, substituting
 {{{
 java RecursiveStringReplacer replace Edition1 "http://ubiquity-xforms.googlecode.com/trunk/ubiquity-loader.js" "../../../src/ubiquity-loader.js" "../"
 }}}
-Be patient as there are nearly 400 files to search and replace on. Next run:
-{{{
-java RecursiveStringReplacer replace Edition1 ":xhtml" ""
-}}}
-and then:
-{{{
-java RecursiveStringReplacer replace Edition1 "xhtml:" ""
-}}}
-This will remove the xhtml namespace. Finally execute:
+Be patient as there are nearly 400 files to search and replace on. Then run:
 {{{
 java RecursiveStringReplacer xmlns Edition1
 }}}
