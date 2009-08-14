@@ -171,6 +171,7 @@ var g_sBehaviourDirectory  = "";
   	//control values
   	loader.addModule({ name: "xforms-pe-value",         type: "js",  fullpath: moduleBase + "pe-value.js" });
   	loader.addModule({ name: "xforms-input-value",         type: "js",  fullpath: moduleBase + "input-value.js" });
+  	loader.addModule({ name: "xforms-input-value-boolean", type: "js",  fullpath: moduleBase + "input-value-boolean.js" });
   	loader.addModule({ name: "xforms-output-value",        type: "js",  fullpath: moduleBase + "output-value.js",
   		requires: ["output-googleMap"]});
   	loader.addModule({ name: "xforms-range-value",        type: "js",  fullpath: moduleBase + "range-value.js",
@@ -320,7 +321,7 @@ var g_sBehaviourDirectory  = "";
         "xforms-conditional-invocation", "xforms-type-validator",
         "xforms-model", "xforms-instance", "xforms-submission",
         "xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding",
-        "xforms-pe-value", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
+        "xforms-pe-value", "xforms-input-value-boolean", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-select1", "xforms-item", "xforms-copy",
         "xforms-actions","xforms-model-actions",

@@ -555,6 +555,28 @@ DECORATOR.addDecorationRules({
             }
         },
         {
+            "name" : "inputboolean-pevalue",
+            "match" : function(element) {
+                var parent = element.parentNode,
+                    datatype = parent.getAttribute("datatype"),
+                    prefixes = [],
+                    prefix = "",
+                    match = false;
+                if (NamespaceManager.compareFullName(parent,"input","http://www.w3.org/2002/xforms")) {
+                    prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms");
+                    prefix = prefixes[prefixes.length-1];
+                    if (datatype === "xsd:boolean" || datatype === (prefix + ":boolean")) {
+                        match = true;
+                    }
+                }
+                return match;
+            },
+            "apply" : function(arrBehaviours) {
+                UX.replaceArrayElement(arrBehaviours,XFormsInputValue,XFormsBooleanValue);
+                return arrBehaviours;
+            }
+        },
+        {
             "name" : "rangemap-pevalue",
             "match" : function(element) {
                 var parent = element.parentNode,
