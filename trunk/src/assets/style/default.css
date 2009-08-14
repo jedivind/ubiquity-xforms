@@ -553,6 +553,14 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
   border: 1px lightgray dashed;
 }
 
+.ux-boolean-value {
+  border: none;
+}
+
+*[class~="ux-boolean-value"] {
+  border: none;
+}
+
 xforms\:select .pc-deselected, xf\:select .pc-deselected {
   background-image: url(../select-deselected.png);
 }
