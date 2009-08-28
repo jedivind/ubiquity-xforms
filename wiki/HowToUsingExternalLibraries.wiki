@@ -33,7 +33,7 @@ http://ubiquity-xforms.googlecode.com/svn/externals/ubiquity-backplane/0.5.2
 
 The library can now be used in the trunk as required. In the case of Ubiquity Backplane this would simply involve copying the current source code to:
 {{{
-http://ubiquity-xforms.googlecode.com/svn/lib/backplane
+http://ubiquity-xforms.googlecode.com/svn/trunk/src/lib/backplane
 }}}
 
 Note that we're no longer concerned about differentiating an imported library by placing it into the 'third-party' directory.
