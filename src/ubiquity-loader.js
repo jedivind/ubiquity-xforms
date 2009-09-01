@@ -172,7 +172,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
         
         //Vars returned from the URL are just strings.
         if (UX.useRollup()) {
-          addStyle(baseDefaultPath + "assets/ubiquity-xforms.css");
+          addStyle(baseDefaultPath + "assets/style/ubiquity-xforms.css");
           addScript(baseDefaultPath + "package/ubiquity-xforms.js", self.onFinish);
         } else {
           addScript("http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js", 
