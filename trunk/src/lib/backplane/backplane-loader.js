@@ -29,7 +29,13 @@
 //
 //  mark.birbeck@gmail.com
 //
-(
+/* 
+ * All of the following dependencies have been placed individually into
+ * ../xforms/xforms-loader.js. They can be safely removed from there, and
+ * this module reinistated, when the rollup builder for ubiquity-xforms is
+ * capable of traversing nested loaders.
+ */
+ /*(
 	function() {
 	 	var moduleBase = pathToModule("backplane-loader");
 
@@ -60,4 +66,4 @@
 		loader.insert();
 		return;
   }()
-);
+);*/
