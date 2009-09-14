@@ -100,18 +100,40 @@ GMapControl.prototype.addMapOverviewControl = function() {
 };
 
 GMapControl.prototype.setValue = function(value) {
+	var match;
 	if (value !== this.currentValue) {
-		value.match(/([\-+]?\d*\.?\d+)[\,\s\;]*([\-+]?\d*\.?\d+)/);
+		match = value.match(/([\-+]?\d*\.?\d+)[\,\s\;]*([\-+]?\d*\.?\d+)/);
+		if (match) {
+			this.setMapCoordinates(new GLatLng(Number(match[1]), Number(match[2])));
+		} else {
+			this.setMapLocation(value);
+		}
 
-		this.mapLocation = new GLatLng(Number(RegExp.$1), Number(RegExp.$2));
+		this.currentValue = value;
+	}
+};
+
+GMapControl.prototype.setMapLocation = function(location) {
+	var self = this;
+
+	if (!this.geocoder) {
+		this.geocoder = new GClientGeocoder();
+	}
+
+	this.geocoder.getLatLng(location, function(coords) {
+		self.setMapCoordinates(coords);
+	});
+};
+
+GMapControl.prototype.setMapCoordinates = function(coords) {
+	if (coords) {
+		this.mapLocation = coords;
 
 		if (this.mapMarker) {
 			this.moveMapMarker();
 		} else {
 			this.addMapMarker();
 		}
-
-		this.currentValue = value;
 	}
 };
 

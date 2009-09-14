@@ -3,8 +3,9 @@
 	<head>
 		<title>Map controls</title>
 
-	    <script src="../src/ubiquity-loader.js" type="text/javascript">/**/</script>
-		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADV3JisKEUrERLCswQmmD0hTxmLX73EyBXQGAn4X_gt-EfNbaZBTPNaiSJ5Kymv6hVXgEYz7-nAE_IQ" type="text/javascript">/**/</script>
+		<script src="../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+		<!-- Google Maps API key for http://ubiquity-xforms.googlecode.com/svn/ -->
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAtiayLvivBA_sjLrjcC0kKBRKMUyLv4oRi_lvsQdMrleumPyeXhRoyVV1aNlK3TGv27YYxSX6d-zC8Q" type="text/javascript">/**/</script>
 
 		<style type="text/css">
 			body {
@@ -19,15 +20,16 @@
 		<p>
 			This sample demonstrates a number of different ways to use map controls in your forms.
 			Currently, two controls have map realisations: <code>output</code> and <code>range</code>.
-			To display them as a map, they must have the CSS class <code>geolocation</code> and be
-			bound to a node that contains a semi-colon-separated latitude and logitude pair. All
-			of the controls that follow are bound to an instance that looks like this:
+			To display them as a map, they must have the CSS class <code>geolocation</code>. The bound
+			data may be in the form or a semi-colon-separated latitude and logitude pair of co-ordinates,
+			or alternatively a more free-form address or location string. Most of the controls that follow
+			are bound to an instance containing a pair of co-ordinates, which looks like this:
 		</p>
 
 <pre>
     &lt;xf:instance>
         &lt;map xmlns="">
-            &lt;location>51.523811;-0.107878&lt;/location>
+            &lt;coords>51.523811;-0.107878&lt;/coords>
         &lt;/map>
     &lt;/xf:instance>
 </pre>
@@ -35,7 +37,8 @@
 		<xf:model>
 			<xf:instance>
 				<map xmlns="">
-					<location>51.523811;-0.107878</location>
+					<coords>51.523811;-0.107878</coords>
+					<address>4 Pear Tree Court, London, EC1R 0DS</address>
 				</map>
 			</xf:instance>
 		</xf:model>
@@ -48,12 +51,12 @@
 		</p>
 
 <pre>
-    &lt;xf:output ref="/map/location" class="geolocation">
+    &lt;xf:output ref="/map/coords" class="geolocation">
         &lt;xf:label>Output:&lt;/xf:label>
     &lt;/xf:output>
 </pre>
 
-		<xf:output ref="/map/location" class="geolocation">
+		<xf:output ref="/map/coords" class="geolocation">
 			<xf:label>Output:</xf:label>
 		</xf:output>
 
@@ -66,12 +69,12 @@
 		</p>
 
 <pre>
-    &lt;xf:range ref="/map/location" class="geolocation">
+    &lt;xf:range ref="/map/coords" class="geolocation">
         &lt;xf:label>Output:&lt;/xf:label>
     &lt;/xf:range>
 </pre>
 
-		<xf:range ref="/map/location" class="geolocation">
+		<xf:range ref="/map/coords" class="geolocation">
 			<xf:label>Range:</xf:label>
 		</xf:range>
 
@@ -83,12 +86,12 @@
 		</p>
 
 <pre>
-    &lt;xf:range ref="/map/location" class="geolocation" style="width: 650px; height: 400px;">
+    &lt;xf:range ref="/map/coords" class="geolocation" style="width: 650px; height: 400px;">
         &lt;xf:label>Output:&lt;/xf:label>
     &lt;/xf:range>
 </pre>
 
-		<xf:range ref="/map/location" class="geolocation" style="width: 650px; height: 400px;">
+		<xf:range ref="/map/coords" class="geolocation" style="width: 650px; height: 400px;">
 			<xf:label>Range:</xf:label>
 		</xf:range>
 
@@ -100,12 +103,12 @@
 		</p>
 
 <pre>
-    &lt;xf:range ref="/map/location" class="geolocation" style="width: 100px; height: 80px;">
+    &lt;xf:range ref="/map/coords" class="geolocation" style="width: 100px; height: 80px;">
         &lt;xf:label>Output:&lt;/xf:label>
     &lt;/xf:range>
 </pre>
 
-		<xf:range ref="/map/location" class="geolocation" style="width: 100px; height: 80px;">
+		<xf:range ref="/map/coords" class="geolocation" style="width: 100px; height: 80px;">
 			<xf:label>Range:</xf:label>
 		</xf:range>
 
@@ -117,15 +120,39 @@
 		</p>
 
 <pre>
-    &lt;xf:range ref="/map/location" class="geolocation" style="width: 400px; height: 300px;">
+    &lt;xf:range ref="/map/coords" class="geolocation" style="width: 400px; height: 300px;">
         &lt;xf:label>Output:&lt;/xf:label>
         &lt;xf:hint>webBackplane Office, Clerkenwell&lt;/xf:hint>
     &lt;/xf:range>
 </pre>
 
-		<xf:range ref="/map/location" class="geolocation" style="width: 400px; height: 300px;">
+		<xf:range ref="/map/coords" class="geolocation" style="width: 400px; height: 300px;">
 			<xf:label>Range:</xf:label>
 			<xf:hint>webBackplane Office, Clerkenwell</xf:hint>
 		</xf:range>
+
+		<hr />
+
+		<p>
+			Until now, all of the controls demonstrated have been bound to a pair of
+			co-ordinates, separated by a semi-colon. The next control is bound to an
+			address, however:
+		</p>
+
+<pre>
+    &lt;xf:instance>
+        &lt;map xmlns="">
+            &lt;address>4 Pear Tree Court, London, EC1R 0DS&lt;/address>
+        &lt;/map>
+    &lt;/xf:instance>
+
+    &lt;xf:output ref="/map/address" class="geolocation">
+        &lt;xf:label>Output:&lt;/xf:label>
+    &lt;/xf:output>
+</pre>
+
+		<xf:output ref="/map/address" class="geolocation">
+			<xf:label>Output:</xf:label>
+		</xf:output>
 	</body>
 </html>
