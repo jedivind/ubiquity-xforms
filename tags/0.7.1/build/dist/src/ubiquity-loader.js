@@ -25,7 +25,7 @@ var UX = {
     object: vars 
     Container for variables gleaned from parameters passed in via the URL fragment.
   */
-  config: {useRollup: false},
+  config: {useRollup: true},
   /**
     function: useRollup
     returns true if the rollup is to be used, false otherwise.
