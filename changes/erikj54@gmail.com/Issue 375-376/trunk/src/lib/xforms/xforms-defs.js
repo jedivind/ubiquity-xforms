@@ -465,7 +465,8 @@ DECORATOR.addDecorationRules({
                        NamespaceManager.compareFullName(element.parentNode,"help","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"hint","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"message","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"mediatype","http://www.w3.org/2002/xforms");
+                       NamespaceManager.compareFullName(element.parentNode,"mediatype","http://www.w3.org/2002/xforms") ||
+                       NamespaceManager.compareFullName(element.parentNode,"name","http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, XFormsOutputValue]);
@@ -1037,7 +1038,11 @@ DECORATOR.setupDecorator(
         {
             selector:"xf|mediatype >  pe-value",
             objects:[]
-        },       
+        }, 
+        {
+            selector:"xf|name >  pe-value",
+            objects:[]
+        },   
     
         
     //Switch off bindings within repeat, during load-time (FF )
