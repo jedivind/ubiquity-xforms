@@ -72,11 +72,17 @@ Repeat.prototype.Activate  = function (o) {
 };
 
 Repeat.prototype.storeTemplate = function () {
-  this.sTemplate = this.element.cloneNode(true);
-  while (this.element.childNodes.length) {
-    this.element.removeChild(this.element.firstChild); 
-  }
-  UX.addClassName(this.element, "repeat-ready");
+	
+	
+	// Issue 528 - Since the child nodes of the template are removed after initializing the template
+	// initializing a second time will receive an empty template.
+	if (!this.sTemplate) {
+		this.sTemplate = this.element.cloneNode(true);
+	}
+	while (this.element.childNodes.length) {
+		this.element.removeChild(this.element.firstChild); 
+	}
+	UX.addClassName(this.element, "repeat-ready");
 };
 
 //register this element with the model
