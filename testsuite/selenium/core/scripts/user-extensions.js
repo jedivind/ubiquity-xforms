@@ -154,8 +154,8 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 		if(locator  && locator !== "") {
 			retval = doc.findElement(locator).m_bXFormsReadyFired;
 		} else {
-			if (browserVersion.isIE) {
-				retval = checkAllModels(doc,"");
+			if (browserVersion.isIE || browserVersion.isSafari) {
+				retval = checkAllModels(doc, "");
 			} else {
 				retval = checkAllModels(doc, "xf:");
 				if(retval) {
