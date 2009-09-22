@@ -74,7 +74,7 @@ Repeat.prototype.Activate  = function (o) {
 Repeat.prototype.storeTemplate = function () {
 	
 	
-	// Issue 528 - Since the child nodes of the template are removed after initializing the template
+	// Issue 529 - Since the child nodes of the template are removed after initializing the template
 	// initializing a second time will receive an empty template.
 	if (!this.sTemplate) {
 		this.sTemplate = this.element.cloneNode(true);
