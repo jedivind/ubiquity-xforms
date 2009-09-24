@@ -548,7 +548,10 @@ submission.prototype.submit = function(oSubmission) {
 		// callback
 
 		var oCallback = new callback(this, oSubmission, oContext);
-		this.setHeader("content-type", sContentType);
+		if(!bHasHeaders){
+			///I'm assuming it is safe to say if they are set we can ignore this line?
+			this.setHeader("content-type", sContentType);	
+		}
 		this.setHeaders(oContext.model, oSubmission);
 
 		try {
