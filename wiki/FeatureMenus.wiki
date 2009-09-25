@@ -63,3 +63,16 @@ There are a number of ways that the first example on that page might be marked u
 </xf:select1>
 }}}
 This would require that the {{{DOMActivate}}} handler is observing the {{{xf:label}}}.
+
+== Radial menus ==
+Radial menus are a useful UI feature for a number of reasons:
+
+  * They adhere to Fitt's Law, minimising the distance to each menu item from the context point;
+  * Used consistently, they become an intuitive gesture system that can improve UX;
+  * They look cool. :)
+
+We added radial menus to an XForms project called Hubbub and they're actually pretty simple to get right. An image of a coloured circle on a transparent background is used for the menu itself, then menu items can be displayed positioned equidistant according to their number.
+
+They could be abstracted as select1[@appearance = "radial"].
+
+I've raised issue 571 for this feature.
