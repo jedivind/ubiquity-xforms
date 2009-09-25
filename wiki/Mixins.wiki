@@ -95,6 +95,7 @@ This second group don't actually attach themselves to the relevant element direc
 || Select || select.js ||
 || Select1 || select1.js ||
 || !TextArea || input-value.js ||
+|| !TriggerMinimalMixin || !TriggerMinimalMixin.js ||
 
 == Container Control Mixins ==
 
