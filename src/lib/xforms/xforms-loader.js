@@ -175,6 +175,7 @@ var g_sBehaviourDirectory  = "";
   		requires: ["output-googleMap"]});
   	loader.addModule({ name: "xforms-range-value",        type: "js",  fullpath: moduleBase + "range-value.js",
   		requires: ["slider", "range-googleMap"]});
+    loader.addModule({ name: "xforms-trigger-minimal", type: "js", fullpath: moduleBase + "TriggerMinimalMixin.js" });
 
 	// Map controls
   	loader.addModule({ name: "output-googleMap", type: "js", fullpath: moduleBase + "../extensions/output-googleMap.js", requires: ["base-googleMap"]});
@@ -323,10 +324,10 @@ var g_sBehaviourDirectory  = "";
         "xforms-pe-value", "xforms-input-value-boolean", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
         "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
         "xforms-select","xforms-select1", "xforms-item", "xforms-copy",
+        "xforms-submit", "xforms-trigger-minimal",
         "xforms-actions","xforms-model-actions",
         "xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
         "xforms-toggle", 
-        "xforms-submit",
         "xforms-hint", "xforms-help",
         "xforms-header",
         "yui-input-calendar","yui-input-color",
