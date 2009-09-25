@@ -73,6 +73,6 @@ Radial menus are a useful UI feature for a number of reasons:
 
 We added radial menus to an XForms project called Hubbub and they're actually pretty simple to get right. An image of a coloured circle on a transparent background is used for the menu itself, then menu items can be displayed positioned equidistant according to their number.
 
-They could be abstracted as select1[@appearance = "radial"].
+They could be abstracted as {{{select1[@appearance = "radial"]}}}.
 
 I've raised issue 571 for this feature.
