@@ -614,6 +614,21 @@ DECORATOR.addDecorationRules({
                 UX.insertArrayElement(arrBehaviours, GMapControl, XFormsOutputValueGMap);
                 return arrBehaviours;
             }
+        },
+        {
+            "name" : "trigger-minimal",
+            "match" : function(element) {
+                var grandParent = element.parentNode.parentNode,
+                    grandParentIsTrigger = NamespaceManager.compareFullName(grandParent, "trigger", "http://www.w3.org/2002/xforms"),
+                    grandParentIsSubmit = NamespaceManager.compareFullName(grandParent, "submit", "http://www.w3.org/2002/xforms");
+                if ((grandParentIsTrigger || grandParentIsSubmit) && grandParent.getAttribute("appearance") === "minimal") {
+                    return true;
+                }
+                return false;
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat(TriggerMinimalMixin);
+            }
         }
         ],
         // end pseudo element value decorations
