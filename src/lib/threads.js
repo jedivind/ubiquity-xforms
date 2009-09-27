@@ -18,11 +18,18 @@
 
 function spawn(pFunc,pOnEnd)
 {
-	if(pOnEnd){
+/*	if(pOnEnd){
 		setTimeout(function(){pFunc();spawn(pOnEnd);}, 1);
 	}
 	else{
 		setTimeout(pFunc, 1);
+	}
+*/
+	if (pFunc) {
+		pFunc();
+		if (pOnEnd) {
+			pOnEnd();
+		}
 	}
 }
 
