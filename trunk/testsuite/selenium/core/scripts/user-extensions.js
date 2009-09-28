@@ -138,14 +138,26 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 (function () {
 
 	var checkAllModels = function (doc, prefix) {
-		var i, models = doc.getDocument().getElementsByTagName(prefix + "model");
+		var checkPrefix = false, models, i;
+
+		if (browserVersion.isIE || browserVersion.isSafari) {
+			checkPrefix = true;
+			models = doc.getDocument().getElementsByTagName('model');
+		} else {
+			models = doc.getDocument().getElementsByTagName(prefix + 'model');
+		}
+
 		for (i = 0; i < models.length; ++i) {
-			if (!models[i].m_bXFormsReadyFired) {
-				return false;
+			if (!checkPrefix || (checkPrefix && models[i].tagName === prefix + 'model')) {
+				if (!models[i].m_bXFormsReadyFired) {
+					return false;
+				}
 			}
 		}
+
 		return true;
 	};
+
 	//Calling ...ModelReady with no selector will cause it to seek all models in the 
 	//	given document, and query their readiness in turn.
 	Selenium.prototype.isModelReady = function(locator) {
@@ -154,15 +166,12 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 		if(locator  && locator !== "") {
 			retval = doc.findElement(locator).m_bXFormsReadyFired;
 		} else {
-			if (browserVersion.isIE || browserVersion.isSafari) {
-				retval = checkAllModels(doc, "");
-			} else {
-				retval = checkAllModels(doc, "xf:");
-				if(retval) {
-					retval = checkAllModels(doc, "xforms:");
-				}
+			retval = checkAllModels(doc, "xf:");
+			if(retval) {
+				retval = checkAllModels(doc, "xforms:");
 			}
 		}
+
 		return retval;
 	};
 }());
