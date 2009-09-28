@@ -548,11 +548,11 @@ submission.prototype.submit = function(oSubmission) {
 		// callback
 
 		var oCallback = new callback(this, oSubmission, oContext);
-		this.setHeader("content-type", sContentType);
 		this.setHeaders(oContext.model, oSubmission);
 
 		try {
 			if ((oBody || oBody !== "") && sSerialization === "application/x-www-form-urlencoded") {
+				this.setHeader("content-type", sContentType);
 				switch (sMethod) {
 					case "GET":
 					case "DELETE":
