@@ -138,17 +138,16 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 (function () {
 
 	var checkAllModels = function (doc, prefix) {
-		var checkPrefix = false, models, i;
+		var models, i;
 
 		if (browserVersion.isIE || browserVersion.isSafari) {
-			checkPrefix = true;
 			models = doc.getDocument().getElementsByTagName('model');
 		} else {
 			models = doc.getDocument().getElementsByTagName(prefix + 'model');
 		}
 
 		for (i = 0; i < models.length; ++i) {
-			if (!checkPrefix || (checkPrefix && models[i].tagName === prefix + 'model')) {
+			if (!browserVersion.isSafari || (browserVersion.isSafari && models[i].tagName === prefix + 'model')) {
 				if (!models[i].m_bXFormsReadyFired) {
 					return false;
 				}
