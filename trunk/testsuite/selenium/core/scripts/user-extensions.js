@@ -136,21 +136,35 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 };
 
 (function () {
+	var getModelsWithPrefix = function (doc, prefix) {
+		return doc.getDocument().getElementsByTagName(prefix + 'model');
+	}
 
-	var checkAllModels = function (doc, prefix) {
-		var models, i;
+	var getModelsWithoutPrefix = function (doc) {
+		return getModelsWithPrefix(doc, '');
+	}
 
-		if (browserVersion.isIE || browserVersion.isSafari) {
-			models = doc.getDocument().getElementsByTagName('model');
-		} else {
-			models = doc.getDocument().getElementsByTagName(prefix + 'model');
+	var getModels = function (doc, prefix) {
+		var models;
+
+		if (browserVersion.isFirefox) {
+			return getModelsWithPrefix(doc, prefix);
 		}
 
+		models = getModelsWithoutPrefix(doc);
+		if (models.length === 0) {
+			models = getModelsWithPrefix(doc, prefix);
+		}
+
+		return models;
+	}
+
+	var areAllModelsReady = function (doc, prefix) {
+		var models = getModels(doc, prefix), i;
+
 		for (i = 0; i < models.length; ++i) {
-			if (!browserVersion.isSafari || (browserVersion.isSafari && models[i].tagName === prefix + 'model')) {
-				if (!models[i].m_bXFormsReadyFired) {
-					return false;
-				}
+			if (!models[i].m_bXFormsReadyFired) {
+				return false;
 			}
 		}
 
@@ -165,9 +179,9 @@ Selenium.prototype.getXformsControlValue = function(locator) {
 		if(locator  && locator !== "") {
 			retval = doc.findElement(locator).m_bXFormsReadyFired;
 		} else {
-			retval = checkAllModels(doc, "xf:");
+			retval = areAllModelsReady(doc, "xf:");
 			if(retval) {
-				retval = checkAllModels(doc, "xforms:");
+				retval = areAllModelsReady(doc, "xforms:");
 			}
 		}
 
