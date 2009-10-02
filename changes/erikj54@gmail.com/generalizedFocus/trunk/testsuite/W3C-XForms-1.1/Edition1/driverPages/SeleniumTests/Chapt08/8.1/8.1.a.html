@@ -37,11 +37,48 @@
 					<td></td>
 					<td></td>
 				</tr>
+				<!-- giving the inputs and attribute that is the focus-->
+				<tr>
+					<td>giveFocusAttribute</td>
+					<td>xpath=//xforms:input[@navindex="1"]/pe-value/input</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>giveFocusAttribute</td>
+					<td>xpath=//xforms:input[@navindex="2"]/pe-value/input</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>giveFocusAttribute</td>
+					<td>xpath=//xforms:input[@navindex="3"]/pe-value/input</td>
+					<td></td>
+					<td></td>
+				</tr>
 				<tr>
 					<td>verifyTitle</td>
 					<td>8.1.a navindex and accesskey (non-normative)</td>
 					<td></td>
 					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementFocused</td>
+					<td>xpath=//xforms:input[@navindex="1"]/pe-value/input</td>
+					<td>true</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyElementNotFocused</td>
+					<td>xpath=//xforms:input[@navindex="2"]/pe-value/input</td>
+					<td>false</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyElementNotFocused</td>
+					<td>xpath=//xforms:input[@navindex="3"]/pe-value/input</td>
+					<td>false</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>shiftKeyDown</td>
@@ -74,9 +111,9 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>verifyCursorPosition</td>
+					<td>verifyElementFocused</td>
 					<td>xpath=//xforms:input[@accesskey="q"]/pe-value/input</td>
-					<td>0</td>
+					<td>true</td>
 					<td></td>
 				</tr>
 				<tr>
@@ -110,9 +147,9 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>verifyCursorPosition</td>
+					<td>verifyElementFocused</td>
 					<td>xpath=//xforms:input[@accesskey="n"]/pe-value/input</td>
-					<td>0</td>
+					<td>true</td>
 					<td></td>
 				</tr>
 				<tr>
@@ -146,9 +183,9 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>verifyCursorPosition</td>
+					<td>verifyElementFocused</td>
 					<td>xpath=//xforms:input[@accesskey="i"]/pe-value/input</td>
-					<td>0</td>
+					<td>true</td>
 					<td></td>
 				</tr>
 			</tbody>

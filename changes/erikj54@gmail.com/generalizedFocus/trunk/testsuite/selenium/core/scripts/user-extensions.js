@@ -120,6 +120,37 @@ Selenium.prototype.assertXFormsProperty = function(locator,propObjString)
 	}
 }
 
+///Custom method that should be called at the beginning of a Selenium test
+/// When the use wishes to test the focus of certain elements in the DOM
+Selenium.prototype.doGiveFocusAttribute = function(locator) {
+		 
+	var element = this.page().findElement(locator);
+	element.focused = false;
+	element.hasFocus = function() {
+		return this.focused;
+		};
+	element.onfocus=function() {
+		this.focused=true;
+		};
+	element.onblur=function() {
+		this.focused=false;
+	};
+};
+
+Selenium.prototype.assertElementFocused = function(locator){
+	var element = this.page().findElement(locator);
+	if(!element.focused){
+		Assert.fail("Element does not have focus");
+	}
+	
+};
+Selenium.prototype.assertElementNotFocused = function(locator){
+	var element = this.page().findElement(locator);
+	if(element.focused){
+		Assert.fail("Element has focus");
+	}
+}
+
 Selenium.prototype.assertXFormsControlStatus = function(locator, mipName) {
     var element = this.page().findElement(locator),
         className = " " + element.className + " ";
