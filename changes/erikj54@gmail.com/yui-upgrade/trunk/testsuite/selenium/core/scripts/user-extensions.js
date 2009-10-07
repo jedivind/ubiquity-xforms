@@ -121,8 +121,15 @@ Selenium.prototype.assertXFormsProperty = function(locator,propObjString)
 }
 
 Selenium.prototype.assertXFormsControlStatus = function(locator, mipName) {
-    var element = this.page().findElement(locator),
-        className = " " + element.className + " ";
+    var element = this.page().findElement(locator);
+    var className;
+    ////HACK for FF 
+    	if(element.className){
+    		className = " " + element.className + " ";
+    	}else{
+    		///Try to get the class attribute if className is not defined
+    		className = element.getAttribute("class");
+    	}
 
     if (className.indexOf(" " + mipName + " ") === -1) {
         Assert.fail("element does not have class name '" + mipName + "'");

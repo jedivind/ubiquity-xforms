@@ -70,6 +70,9 @@ document.notify.messageWindow = function(pThis, activate) {
     };
     var myButtons = [ { text:"OK", handler:handleOK } ];
     pThis.yahooPanel.cfg.queueProperty("buttons", myButtons);
+    ///Seems like this will put the button on the bottom of the Dialog box
+    ///The buttons property by default adds the button to the footer of the dialog
+    ///this is why the button is now appearing at the bottom of the dialogue.
     
     pThis.yahooPanel.setHeader("[XForms]");
     if (UX.isIE) {
