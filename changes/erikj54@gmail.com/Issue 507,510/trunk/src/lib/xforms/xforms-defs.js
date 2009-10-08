@@ -200,7 +200,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "label-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Label, Control, OptionalBinding ]);
             }
         }
         ],
@@ -462,7 +462,6 @@ DECORATOR.addDecorationRules({
             "name" : "output-pevalue",
             "match" : function(element) {
                 return NamespaceManager.compareFullName(element.parentNode,"output","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"help","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"hint","http://www.w3.org/2002/xforms") ||
@@ -474,6 +473,16 @@ DECORATOR.addDecorationRules({
                 return arrBehaviours.concat([EventTarget, XFormsOutputValue]);
             }
         },
+        {
+            "name" : "label-pevalue",
+            "match" : function(element) {
+                return         NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms");
+            },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([EventTarget, XFormsOutputValue]);
+            }
+        },
+
         {
             "name" : "input-pevalue",
             "match" : function(element) {

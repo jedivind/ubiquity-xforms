@@ -22,43 +22,10 @@ function Instance(elmnt) {
 	UX.addStyle(this.element, "display", "none"); 
 }
 
-Instance.prototype.initialisedom = function () {
-    if (!this.m_oDOM) {       
-        // @src takes precedence over inline data and @resource;
-        // inline data takes precedence over @resource
-        //
-        if (this.getAttribute("src")) { 
-            this.load(this.getAttribute("src"));
-        } else {
-            // is there inline data?
-            //
-            this.parseInstance();
-            
-            if (!this.finishLoad()) {
-                // if there wasn't a src attribute, nor an inline instance
-                // then let's try a resource attribute
-                //
-                if (this.getAttribute("resource")) {
-                    this.load(this.getAttribute("resource"));
-                } else {
-                    // the success of loading a @src or a @resource can not be determined at this point
-                    // since they are asynchronous in behavior
-                    // But, if we have not initiated a request for @src or @resource and
-                    // we have no inline instance to parse, then we have a malformed instance 
-                    // so we throw an xforms-link-exception with the id of the instance 
-                    // (or empty string if the instance has no id)
-                    //
-                    this.dispatchException(
-                        "xforms-link-exception", 
-                        {
-                            "resource-uri": this.getAttribute("id") || ""
-                        }
-                    ); 
-                }            
-            }   
-        }      
-    }
-};
+Instance.prototype.onContentReady = LoadExternal.prototype.initialise;
+
+Instance.prototype.dispatchException = LoadExternal.prototype.dispatchException;
+
 
 Instance.prototype.load = function ( domURL ) {
      
@@ -72,7 +39,7 @@ Instance.prototype.load = function ( domURL ) {
         
         //Prevent XLink resolving the base URL.
         //
-        this.element.setAttribute("base", " ");
+        //this.element.setAttribute("base", " ");
         this.element.attachSingleBehaviour(XLinkElement);
         
         //
@@ -178,20 +145,6 @@ Instance.prototype.finishLoad = function (domURL) {
     return ret;
 }
 
-Instance.prototype.dispatchException = function (exceptionName, exceptionContext) {
-    // indicate a problem with the instance state and
-    // throw an exception;   
-    //
-    var evt = document.createEvent("Events");
-    evt.initEvent(exceptionName, true, false);
-    evt.context = exceptionContext;
-    this.element["elementState"] = -1;
-    FormsProcessor.dispatchEvent(
-        (typeof this.element.parentNode.modelConstruct === "function") ? this.element.parentNode : this.element, 
-        evt
-    );
-}
-
 Instance.prototype.getDocument = function () {
     if (this.m_oDOM) { // guard
 	    this.m_oDOM.XFormsInstance = this;
@@ -215,7 +168,7 @@ Instance.prototype.reset = function () {
 };
 //Initialising the DOM during DocumentReadyensures that handlers have 
 //	had a chance to bind to events that may occur as a result of this initialisation.
-Instance.prototype.onDocumentReady = Instance.prototype.initialisedom;
+Instance.prototype.onDocumentReady = Instance.prototype.initialise;
 
 // Delete nodes takes a nodelist and deletes the node at a specified
 // position in that list. If no position is specified then the entire

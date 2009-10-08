@@ -139,7 +139,16 @@ var g_sBehaviourDirectory  = "";
   	
   	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: moduleBase + "../decorate.js", 
   		requires:["libxh-namespace-manager"]});
-  
+  	
+  	///The XForms loading of external data js files
+  	loader.addModule({ name: "xforms-loadexternal", type: "js", fullpath: moduleBase + "LoadExternal.js",
+		   requires: [ "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", 
+		               "xforms-core-function-library","libxh-xlink" ]});
+  	
+  	loader.addModule({ name: "xforms-instance", type: "js", fullpath: moduleBase + "Instance.js",
+		   requires: [ "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library",
+					   "xforms-loadexternal", "libxh-xlink" ]});
+  	
     // crypto
     loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
     loader.addModule({ name: "xpath-extension-sha",        type: "js",  fullpath: moduleBase + "../third-party/jsSHA/src/sha.js" });
@@ -154,15 +163,6 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-core-function-library", type: "js",  fullpath: moduleBase + "xforms-core-function-library.js",
   	requires: [ "xforms-xpath", "xpath-extension-md5", "xpath-extension-sha" ] });
 
-
-  	loader.addModule({ name: "xforms-instance",
-					   type: "js",
-					   fullpath: moduleBase + "Instance.js",
-  					   requires: [ "xforms-dom",
-								   "xforms-dom2events",
-								   "xforms-ajaxslt-improvements",
-								   "xforms-core-function-library",
-								   "libxh-xlink" ]});
   	
   	loader.addModule({ name: "xforms-type-validator", type: "js",  fullpath: moduleBase + "validator.js", 
   		requires:["libxh-namespace-manager", "xforms-core-function-library"]});
@@ -206,6 +206,11 @@ var g_sBehaviourDirectory  = "";
   		requires: [ "xforms-mip-handler" ] });
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
   		requires: [ "xforms-mip-eventtarget", "dirtystate", "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
+
+  	loader.addModule({ name: "xforms-label",             type: "js",  fullpath: moduleBase + "Label.js",
+  		requires: [ "xforms-loadexternal", "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements",
+  		  		"xforms-core-function-library", "libxh-xlink"] });
+  	
   	loader.addModule({ name: "xforms-navigable-control",             type: "js",  fullpath: moduleBase + "navigable-control.js",
   		requires: [ "xforms-utils", "xforms-processor" ] });
   	loader.addModule({ name: "xforms-navigable-control-list",             type: "js",  fullpath: moduleBase + "navigable-control-list.js",
@@ -319,11 +324,11 @@ var g_sBehaviourDirectory  = "";
         "libxh-decorator",
         "xforms-listener", "xforms-event-target-proxy",
         "xforms-conditional-invocation", "xforms-type-validator",
-        "xforms-model", "xforms-instance", "xforms-submission",
+        "xforms-model", "xforms-loadexternal", "xforms-submission",
         "xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding",
         "xforms-pe-value", "xforms-input-value-boolean", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
-        "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
-        "xforms-select","xforms-select1", "xforms-item", "xforms-copy",
+        "xforms-container", "xforms-group","xforms-repeat","xforms-switch", "xforms-instance",
+        "xforms-select","xforms-select1", "xforms-item", "xforms-copy", "xforms-label" , 
         "xforms-submit", "xforms-trigger-minimal",
         "xforms-actions","xforms-model-actions",
         "xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
