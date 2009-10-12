@@ -918,8 +918,8 @@ submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype
 submission.prototype.replaceDocumentContent = function(data) {
 	var xhtmlContainer, htmlElement;
 
-	if (UX.isFF) {
-		// In Firefox, any XML processing instruction must be stripped out.
+	if (UX.isFF || UX.isWebKit) {
+		// For Firefox and WebKit, any XML processing instruction must be stripped out.
 		if (data.indexOf("<?", 0) === 0) {
 			data = data.substr(data.indexOf("?>") + 2);
 		}
