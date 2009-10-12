@@ -92,9 +92,9 @@
 					<td>Waits for an error message</td>
 				</tr>
 				<tr>
-					<td>verifyTextPresent</td>
+					<td>verifyText</td>
+					<td>xpath=//*[@id='dialog-window0']</td>
 					<td>[XForms]*xforms-submit-error*OK</td>
-					<td></td>
 					<td>Checks to see if the message showed up</td>
 				</tr>
 				<tr>
@@ -110,20 +110,14 @@
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>verifyTextNotPresent</td>
-					<td>[XForms]*xforms-submit-error*OK</td>
-					<td></td>
-					<td>Checks to see if the message showed up</td>
-				</tr>
-				<tr>
 					<td>waitForElementPresent</td>
-					<td>xpath=//html/body/pre</td>
+					<td>xpath=//pre[1]</td>
 					<td></td>
 					<td>Waits for the form data page to load</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=//html/body/pre</td>
+					<td>xpath=//pre[1]</td>
 					<td></td>
 					<td>Checks that the form data is shown</td>
 				</tr>
