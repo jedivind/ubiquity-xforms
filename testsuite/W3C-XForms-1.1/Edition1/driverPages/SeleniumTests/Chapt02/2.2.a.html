@@ -28,13 +28,13 @@
 				<tr>
 					<td>open</td>
 					<td>../../Chapt02/2.2.a.xhtml</td>
-					<td>&nsp;</td>
+					<td></td>
 					<td>Opens the form</td>
 				</tr>
 				<tr>
 					<td>waitForModelReady</td>
-					<td>xpath=/html/body/xf:model[1]</td>
-					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
 					<td>Waits for the form to load</td>
 				</tr>
 				<tr>
@@ -107,14 +107,14 @@ Choose an option
 					<td>Clicks on submit button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>2000</td>
+					<td>waitForElementPresent</td>
+					<td>xpath=//pre[1]</td>
 					<td></td>
 					<td>Waits for the form data page to load</td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=//html/body/pre</td>
+					<td>xpath=//pre[1]</td>
 					<td>*method="cash"*</td>
 					<td>Checks that the form data is shown</td>
 				</tr>
