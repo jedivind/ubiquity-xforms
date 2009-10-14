@@ -461,13 +461,8 @@ function XLinkElement(element)
 		}
 		else
 		{
-			///This checks if the URL has a valid URI syntax, in other words it is not checking
-			///if the information is correct but merely that it is of the form:
-			/// javascript:xxxx or file://192.168.1.100
-			sArray = sURL.split(":");
-			if ( sArray[0] && (sArray[0].search(/^[A-Za-z]+[\w\-\.~]*$/) !=-1) && 
-					( sArray[0].length > 0 ) && sArray[1] && ( sArray[1].length > 0 ))
-			{
+			//Using backplane splitUrl function to check the validity of the URL scheme
+			if ((spliturl( sURL ).scheme)){
 				bRet = false; // valid URI and therefore is not relative but Absolute
 			}
 		} 
