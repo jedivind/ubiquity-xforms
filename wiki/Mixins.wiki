@@ -18,6 +18,7 @@ The various base mixins are:
 || !EventTarget || EventTarget.js ||
 || Listener || listener.js ||
 || MIP || mip-handler.js and mip-eventtarget.js ||
+|| LoadExternal || LoadExternalMixin.js ||
 
 == Container ==
 
@@ -47,6 +48,10 @@ The listener mixin does most of its processing when the document has fully loade
 
 The MIP mixin manages the interaction between the model item properties (MIPs) applied to a piece of data, and how that data in turn manifests itself on a control. This involves both the appearance of the control, and the triggering of events related to the change of state of the MIPs. The data that the MIP mixin operates on will usually be provided by the context mixin.
 
+== LoadExternalMixin ==
+
+The LoadExternalMixin provides support to to load data from an external source. This is purely a data behaviour that allows a src/resource tag to be added to a control or other label etc to load data from a file on the file system or a remote location.
+
 = Specific Mixins =
 
 The specific mixins relate to specific action handlers, specific controls, and so on.
@@ -74,6 +79,7 @@ These mixins provide a `handleEvent` method which does whatever work is required
 || !SetIndex || setindex.js ||
 || !SetValue || setvalue.js ||
 || Toggle || actions.js ||
+
 
 == Control Mixins ==
 
