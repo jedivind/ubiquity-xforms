@@ -139,6 +139,15 @@ var g_sBehaviourDirectory  = "";
   	
   	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: moduleBase + "../decorate.js", 
   		requires:["libxh-namespace-manager"]});
+  	
+  ///The XForms loading of external data js files
+  	loader.addModule({ name: "xforms-load-external-mixin", type: "js", fullpath: moduleBase + "LoadExternalMixin.js",
+		   requires: [ "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", 
+		               "xforms-core-function-library","libxh-xlink" ]});
+  	
+  	loader.addModule({ name: "xforms-instance", type: "js", fullpath: moduleBase + "Instance.js",
+		   requires: [ "xforms-load-external-mixin"]});
+  	
   
     // crypto
     loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
@@ -204,6 +213,10 @@ var g_sBehaviourDirectory  = "";
   	
   	loader.addModule({ name: "xforms-optional-binding",             type: "js",  fullpath: moduleBase + "optional-binding.js",
   		requires: [ "xforms-mip-handler" ] });
+  	loader.addModule({ name: "xforms-labelmixin",             type: "js",  fullpath: moduleBase + "LabelMixin.js",
+  		requires: [ "xforms-load-external-mixin", "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements",
+  		  		"xforms-core-function-library", "libxh-xlink"] });
+  	
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
   		requires: [ "xforms-mip-eventtarget", "dirtystate", "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
   	loader.addModule({ name: "xforms-navigable-control",             type: "js",  fullpath: moduleBase + "navigable-control.js",
@@ -315,23 +328,23 @@ var g_sBehaviourDirectory  = "";
 
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
       requires: [
-        "ux-default-css",
-        "libxh-decorator",
-        "xforms-listener", "xforms-event-target-proxy",
-        "xforms-conditional-invocation", "xforms-type-validator",
-        "xforms-model", "xforms-instance", "xforms-submission",
-        "xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding",
-        "xforms-pe-value", "xforms-input-value-boolean", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
-        "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
-        "xforms-select","xforms-select1", "xforms-item", "xforms-copy",
-        "xforms-submit", "xforms-trigger-minimal",
-        "xforms-actions","xforms-model-actions",
-        "xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
-        "xforms-toggle", 
-        "xforms-hint", "xforms-help",
-        "xforms-header",
-        "yui-input-calendar","yui-input-color",
-        "xf4h","xforms-submission-core-yui"
+		"ux-default-css",
+		"libxh-decorator",
+		"xforms-listener", "xforms-event-target-proxy",
+		"xforms-conditional-invocation", "xforms-type-validator",
+		"xforms-model", "xforms-load-external-mixin", "xforms-submission",
+		"xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding",
+		"xforms-pe-value", "xforms-input-value-boolean", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
+		"xforms-container", "xforms-group","xforms-repeat","xforms-switch", "xforms-instance",
+		"xforms-select","xforms-select1", "xforms-item", "xforms-copy", "xforms-labelmixin" , 
+		"xforms-submit", "xforms-trigger-minimal",
+		"xforms-actions","xforms-model-actions",
+		"xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
+		"xforms-toggle", 
+		"xforms-hint", "xforms-help",
+		"xforms-header",
+		"yui-input-calendar","yui-input-color",
+		"xf4h","xforms-submission-core-yui"
       ]
     });
     loader.require( "xforms-defs" );

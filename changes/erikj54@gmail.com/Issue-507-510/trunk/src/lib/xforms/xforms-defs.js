@@ -32,7 +32,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "instance-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Instance]);
+                return arrBehaviours.concat([EventTarget, Instance, LoadExternalMixin]);
             }
         }
         ],
@@ -200,7 +200,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "label-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, LabelMixin, Control, OptionalBinding, LoadExternalMixin]);
             }
         }
         ],
@@ -462,7 +462,7 @@ DECORATOR.addDecorationRules({
             "name" : "output-pevalue",
             "match" : function(element) {
                 return NamespaceManager.compareFullName(element.parentNode,"output","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
+                	   NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"help","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"hint","http://www.w3.org/2002/xforms") ||
