@@ -178,8 +178,9 @@ Performs those loading steps that precede loading with either YUI or the rollup,
           addScript("http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js", 
             function () {
               addScript(baseDefaultPath + "lib/xforms/loader-begin.js", function () {
-                addScript(baseDefaultPath + "lib/xforms/xforms-loader.js");
-                addScript(baseDefaultPath + "lib/xforms/loader-end.js", self.onFinish);
+                addScript(baseDefaultPath + "lib/xforms/xforms-loader.js", function () {
+                  addScript(baseDefaultPath + "lib/xforms/loader-end.js", self.onFinish);
+                });
               });
             }
           );
