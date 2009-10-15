@@ -32,7 +32,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "instance-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, Instance]);
+                return arrBehaviours.concat([EventTarget, Instance, LoadExternalMixin]);
             }
         }
         ],
@@ -200,7 +200,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "label-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, SrcMixin, Control, OptionalBinding, LoadExternalMixin]);
             }
         }
         ],
@@ -209,7 +209,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "alert-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding]);
+                return arrBehaviours.concat([EventTarget, MIPHandler, Context, SrcMixin, Control, OptionalBinding, LoadExternalMixin]);
             }
         }
         ],
@@ -230,7 +230,7 @@ DECORATOR.addDecorationRules({
                     return false;
                 },
                 "apply" : function(arrBehaviours) {
-                    return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message, HintMixin]);
+                    return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, SrcMixin, Control, OptionalBinding, Message, HintMixin, LoadExternalMixin]);
                 }
             },
             {
@@ -304,8 +304,8 @@ DECORATOR.addDecorationRules({
 						"name": "help-element",
 						"apply" : function(arrBehaviours) {
 							return arrBehaviours.concat([
-								/* It's a Message ... */ Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message,
-								/* ... and a Help.    */ HelpMixin 
+								/* It's a Message ... */ Listener, EventTarget, MIPHandler, Context, SrcMixin ,Control, OptionalBinding, Message,
+								/* ... and a Help.    */ HelpMixin , LoadExternalMixin
 							]);
 						}
 	        }
@@ -324,7 +324,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "message-element",
             "apply" : function(arrBehaviours) {
-                return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, Message]);
+                return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, SrcMixin, Control, OptionalBinding, Message, LoadExternalMixin]);
             }
         }
         ],
@@ -462,7 +462,7 @@ DECORATOR.addDecorationRules({
             "name" : "output-pevalue",
             "match" : function(element) {
                 return NamespaceManager.compareFullName(element.parentNode,"output","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
+                	   NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"help","http://www.w3.org/2002/xforms") ||
                        NamespaceManager.compareFullName(element.parentNode,"hint","http://www.w3.org/2002/xforms") ||
