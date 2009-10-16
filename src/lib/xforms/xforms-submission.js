@@ -581,10 +581,10 @@ submission.prototype.submit = function(oSubmission) {
 			sResource = makeAbsoluteURI(currentUrl, sResource);
 			schemeHandler = schemeHandlers[spliturl(sResource).scheme];
 
-			if (UX.isFF && schemeHandler && schemeHandler[sMethod]) {
+			if ((UX.isFF || UX.isWebKit) && schemeHandler && schemeHandler[sMethod]) {
 				spawn(function() {
-						  schemeHandler[sMethod](sResource, oBody, nTimeout, oCallback);
-					  });
+					schemeHandler[sMethod](sResource, oBody, nTimeout, oCallback);
+				});
 			}
 
 			// ...otherwise use the default handler.
