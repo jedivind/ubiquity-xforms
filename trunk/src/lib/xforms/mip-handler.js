@@ -47,6 +47,9 @@ MIPHandler.prototype.rewire = function () {
 	}
 
 	if (this.isWired === false) {
+		// Note that this tests explicitly against false because we don't want
+		// the undefined case to enter this condition (the isWired property is
+		// set by Container but not by Control, for instance).
 		this.isWired = true;
 	}
 
@@ -125,7 +128,10 @@ MIPHandler.prototype.rewire = function () {
 			return false;
 		}
 	
-		if (self.element.isWired === false) { // defensive exact test
+		if (self.element.isWired === false) {
+			// Note that this tests explicitly against false because we don't want
+			// the undefined case to enter this condition (the isWired property is
+			// set by Container but not by Control, for instance).
 			return true;
 		}
 
