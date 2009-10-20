@@ -37,16 +37,20 @@ MIPHandler.prototype.addcontroltomodel = function () {
 };
 
 MIPHandler.prototype.rewire = function () {
-	var ctxBoundNode = this.getBoundNode(1);
+	var result = false, ctxBoundNode = this.getBoundNode(1);
 
 	this.m_model = ctxBoundNode.model;
 
 	if (ctxBoundNode.node) {
 		this.m_proxy = getProxyNode(ctxBoundNode.node);
-		return true;
+		result = true;
 	}
 
-	return false;
+	if (this.isWired === false) {
+		this.isWired = true;
+	}
+
+	return result;
 };
 
 
