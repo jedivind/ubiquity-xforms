@@ -28,7 +28,7 @@
 				<tr>
 					<td>open</td>
 					<td>../../Chapt07/7.8/7.8.2/7.8.2.c.xhtml</td>
-					<td>&nsp;</td>
+					<td></td>
 					<td>Opens the form</td>
 				</tr>
 				<tr>
@@ -45,7 +45,7 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:message[@ev:event='xforms-binding-exception']</td>
+					<td>xpath=/html/body/xforms:output/xforms:message[@ev:event='xforms-binding-exception']</td>
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
@@ -54,12 +54,6 @@
 					<td>xpath=/html/body/xforms:output[@value="property('invalid')"]</td>
 					<td></td>
 					<td>Checks that the output is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:output[@value="property('invalid')"]</td>
-					<td>Invalid Property : </td>
-					<td>Checks that the output has the right value</td>
 				</tr>
 				<tr>
 					<td>verifyTextPresent</td>
