@@ -15,21 +15,20 @@
 -->
 <html>
 	<head>
-		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
 		<title>7.10.4.a context() function</title>
 	</head>
 	<body>
 		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
 			<tbody>
 				<tr>
-				  <td rowspan="1" colspan="3">7.10.4.a context() function<br>
-					</td>
+				  <td rowspan="1" colspan="3">7.10.4.a context() function</td>
 				</tr>
 				<tr>
 					<td>open</td>
 					<td>../../Chapt07/7.10/7.10.4/7.10.4.a.xhtml</td>
-					<td>&nsp;</td>
-					<td>Opens the form</td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>waitForModelReady</td>
@@ -38,34 +37,28 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>verifyTitle</td>
-					<td>7.10.4.a context() function</td>
+					<td>verifyText</td>
+					<td>xpath=//xforms:output[1]</td>
+					<td>Bad Fruit picked : Unknown</td>
 					<td></td>
-					<td>Makes sure this is the right form</td>
 				</tr>
 				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output[@ref="instance('fruitInstance')/bad-fruit"]</td>
+					<td>click</td>
+					<td>xpath=//xforms:trigger[1]</td>
 					<td></td>
-					<td>Checks that the output is in the form</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=//xforms:output[1]</td>
+					<td>Bad Fruit picked : apple</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>verifyText</td>
-					<td>xpath=/html/body/xforms:group[3]/xforms:output[@ref="instance('fruitInstance')/bad-fruit"]</td>
-					<td>*Unknown*</td>
-					<td>Checks that the output has the right value</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:repeat[@nodeset="instance('fruitInstance')/fruit"]</td>
+					<td>xpath=//xforms:output[1]</td>
+					<td>Bad Fruit picked : apple</td>
 					<td></td>
-					<td>Checks that the repeat is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:group[4]/xforms:repeat[@nodeset="instance('fruitInstance')/*</td>
-					<td></td>
-					<td>Checks that the repeat's triggers are in the form</td>
 				</tr>
 			</tbody>
 		</table>
