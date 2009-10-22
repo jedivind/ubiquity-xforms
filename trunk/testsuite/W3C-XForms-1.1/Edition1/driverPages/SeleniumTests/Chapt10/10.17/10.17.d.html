@@ -28,7 +28,7 @@
 				<tr>
 					<td>open</td>
 					<td>../../Chapt10/10.17/10.17.d.xhtml</td>
-					<td>&nsp;</td>
+					<td></td>
 					<td>Opens the form</td>
 				</tr>
 				<tr>
@@ -74,25 +74,19 @@
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>200</td>
-					<td></td>
-					<td>Waits for the form to load</td>
-				</tr>
-				<tr>
-					<td>verifyText</td>
+					<td>waitForText</td>
 					<td>xpath=/html/body/xforms:repeat[@nodeset='purchaseOrder/lines/line' and @id='PurchaseOrderRepeat']</td>
 					<td>*Store Item*Store Item*Store Item*Store Item*</td>
 					<td>Checks that repeat has the right values</td>
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:repeat[@nodeset='purchaseOrder/lines/line' and @id='PurchaseOrderRepeat']//xforms:trigger</td>
+					<td>xpath=/html/body/xforms:repeat[@nodeset='purchaseOrder/lines/line' and @id='PurchaseOrderRepeat']//xforms:trigger/xforms:label</td>
 					<td></td>
 					<td>Clicks on a delete button</td>
 				</tr>
 				<tr>
-					<td>verifyNotText</td>
+					<td>waitForNotText</td>
 					<td>xpath=/html/body/xforms:repeat[@nodeset='purchaseOrder/lines/line' and @id='PurchaseOrderRepeat']</td>
 					<td>*Store Item*Store Item*Store Item*Store Item*</td>
 					<td>Checks that repeat has the right values</td>
@@ -105,12 +99,12 @@
 				</tr>
 				<tr>
 					<td>click</td>
-					<td>xpath=/html/body/xforms:repeat[@nodeset='purchaseOrder/lines/line' and @id='PurchaseOrderRepeat']//xforms:trigger</td>
+					<td>xpath=/html/body/xforms:repeat[@nodeset='purchaseOrder/lines/line' and @id='PurchaseOrderRepeat']//xforms:trigger/xforms:label</td>
 					<td></td>
 					<td>Clicks on a delete button</td>
 				</tr>
 				<tr>
-					<td>verifyNotText</td>
+					<td>waitForNotText</td>
 					<td>xpath=/html/body/xforms:repeat[@nodeset='purchaseOrder/lines/line' and @id='PurchaseOrderRepeat']</td>
 					<td>*Store Item*Store Item*Store Item*</td>
 					<td>Checks that repeat has the right values</td>
