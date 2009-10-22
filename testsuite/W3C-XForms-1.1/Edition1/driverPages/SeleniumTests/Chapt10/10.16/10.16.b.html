@@ -28,7 +28,7 @@
 				<tr>
 					<td>open</td>
 					<td>../../Chapt10/10.16/10.16.b.xhtml</td>
-					<td>&nsp;</td>
+					<td></td>
 					<td>Opens the form</td>
 				</tr>
 				<tr>
@@ -68,13 +68,7 @@
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>200</td>
-					<td></td>
-					<td>Waits for the form to load</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
+					<td>waitForTextPresent</td>
 					<td>[XForms]*Modal Message*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
@@ -92,13 +86,7 @@
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>200</td>
-					<td></td>
-					<td>Waits for the form to load</td>
-				</tr>
-				<tr>
-					<td>verifyTextPresent</td>
+					<td>waitForTextPresent</td>
 					<td>[XForms]*Modeless Message*OK</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
@@ -122,14 +110,8 @@
 					<td>Clicks on the button</td>
 				</tr>
 				<tr>
-					<td>pause</td>
-					<td>200</td>
-					<td></td>
-					<td>Waits for the form to load</td>
-				</tr>
-				<tr>
-					<td>verifyVisible</td>
-					<td>xpath=/html/body/xforms:trigger[3]/xforms:action/xforms:message[@level='ephemeral']</td>
+					<td>waitForTextPresent</td>
+					<td>*Ephemeral Message*</td>
 					<td></td>
 					<td>Checks to see if the message showed up</td>
 				</tr>
