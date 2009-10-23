@@ -121,6 +121,10 @@
 			<param name="dir" expression="FF3" />
 			<mapper type="glob" from="*.xml" to="*.html" />
 		</xslt>
+		<xslt basedir="${results-dir}/Safari" destdir="${reports-dir}/Safari" style="section-test-results.xsl">
+			<param name="dir" expression="Safari" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
 	</target>
 
 	<!--
