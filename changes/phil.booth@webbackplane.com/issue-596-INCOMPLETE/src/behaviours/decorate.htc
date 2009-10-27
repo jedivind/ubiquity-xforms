@@ -1,0 +1,5 @@
+<PUBLIC:COMPONENT LIGHTWEIGHT="true">
+	<SCRIPT>
+		DECORATOR.decorate(this.element);
+	</SCRIPT>
+</PUBLIC:COMPONENT>

@@ -1,0 +1,6 @@
+p#second-onload-loading-element {
+	-moz-binding: url(onload.xml#loader);
+	behavior: expression(DECORATOR.onAllBindingsAttached(this));
+	/* IE8 standards mode does not support CSS expressions */
+	-ms-behavior: url(../../src/behaviours/onload.htc);
+}
