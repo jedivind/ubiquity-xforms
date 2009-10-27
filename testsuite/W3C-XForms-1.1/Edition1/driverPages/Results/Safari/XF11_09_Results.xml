@@ -2,13 +2,13 @@
 <testSuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3c.org/MarkUp/Forms/XForms/Test/11 XF11TestSuite.xsd" specVersion="1.1" xmlns="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
     <specChapter chapterName="9. " productId="" chapterTitle="Container Form Controls">
 		<statusSummary countsfile="XF11_09_Results.counts">
-            <numNormTotal>21</numNormTotal>
+            <numNormTotal>19</numNormTotal>
             <numNormPass>5</numNormPass>
-            <numNormFail>16</numNormFail>
+            <numNormFail>14</numNormFail>
             <numNormUnknown>0</numNormUnknown>
-            <numBasicTotal>21</numBasicTotal>
+            <numBasicTotal>19</numBasicTotal>
             <numBasicPass>5</numBasicPass>
-            <numBasicFail>16</numBasicFail>
+            <numBasicFail>14</numBasicFail>
             <numBasicUnknown>0</numBasicUnknown>
         </statusSummary>
         <profile>
@@ -163,8 +163,8 @@
 			<testCaseDescription></testCaseDescription>
 			<testCaseSpecLinkName>9.2.3.1</testCaseSpecLinkName>
 			<testCaseSpecLink></testCaseSpecLink>
-			<testCaseBasic>true</testCaseBasic>
-			<testCaseNormative>true</testCaseNormative>
+			<testCaseBasic>false</testCaseBasic>
+			<testCaseNormative>false</testCaseNormative>
 			<testCaseStatus>Failed</testCaseStatus>
 			<testCaseDate>2009-10-23</testCaseDate>
 			<testCaseRequired>true</testCaseRequired>
@@ -177,8 +177,8 @@
 			<testCaseDescription></testCaseDescription>
 			<testCaseSpecLinkName>9.2.3.1</testCaseSpecLinkName>
 			<testCaseSpecLink></testCaseSpecLink>
-			<testCaseBasic>true</testCaseBasic>
-			<testCaseNormative>true</testCaseNormative>
+			<testCaseBasic>false</testCaseBasic>
+			<testCaseNormative>false</testCaseNormative>
 			<testCaseStatus>Failed</testCaseStatus>
 			<testCaseDate>2009-10-23</testCaseDate>
 			<testCaseRequired>true</testCaseRequired>
