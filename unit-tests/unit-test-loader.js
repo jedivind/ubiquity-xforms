@@ -25,8 +25,8 @@ function runTheTests() {
 
   // There is no 'short name' for these two CSS files, so we need to reference them directly.
   //
-  loader.addModule({ name: "logger-css",      type: "css",  fullpath: "http://yui.yahooapis.com/2.5.2/build/logger/assets/logger.css" });
-  loader.addModule({ name: "test-logger-css", type: "css",  fullpath: "http://yui.yahooapis.com/2.5.2/build/yuitest/assets/testlogger.css" });
+  loader.addModule({ name: "logger-css",      type: "css",  fullpath: "http://yui.yahooapis.com/2.8.0/build/logger/assets/logger.css" });
+  loader.addModule({ name: "test-logger-css", type: "css",  fullpath: "http://yui.yahooapis.com/2.8.0/build/yuitest/assets/testlogger.css" });
 
   // Add references to unit test scripts here.
   //
@@ -192,7 +192,7 @@ function runTheTests() {
 UX.preloader.put_onFinish(function () {
   var head, scriptElement, onSuccessAlready;
   if (UX.useRollup()) {
-    UX.preloader.addScript("http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js", runTheTests);     
+    UX.preloader.addScript("http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js", runTheTests);     
   } else if (typeof loader === "object" && loader instanceof YAHOO.util.YUILoader) {
 
     //Where a loader is defined (and probably running).  Set the testrunner to kick off once it has finished.
