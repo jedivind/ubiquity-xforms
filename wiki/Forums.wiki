@@ -1,0 +1,14 @@
+#summary A list of mailing-lists and chat areas associated with Ubiquity XForms.
+#labels Featured
+
+== Lists ==
+
+|| Location || Description ||
+||[http://groups.google.com/group/ubiquity-xforms ubiquity-xforms]||General discussion about developing with XForms and the Ubiquity libraries.||
+||[http://groups.google.com/group/ubiquity-xforms-eng ubiquity-xforms-eng]||Discussion about the development of the core Ubiquity XForms library. If you are interested in _using_ the library, then use the previous list.||
+||[http://groups.google.com/group/ubiquity-xforms-eng-code ubiquity-xforms-eng-code]||Provides notifications from SVN and the issue-tracking system.||
+
+== IRC ==
+
+|| Location || Description ||
+||irc://irc.freenode.net/ubiquity-xforms||Live forum for discussing developing with XForms and the Ubiquity libraries.||
