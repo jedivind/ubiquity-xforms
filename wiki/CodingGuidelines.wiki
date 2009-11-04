@@ -3,7 +3,7 @@
 
 The first step is to ensure that you have permission from your employer to contribute to Ubiquity XForms. Details on how to do this, and the form that needs completing are available in [http://groups.google.com/group/ubiquity-xforms-eng/web/contributing-code-to-ubiquity-xforms Contributing Code to Ubiquity XForms] over on the [http://groups.google.com/group/ubiquity-xforms-eng ubiquity-xforms-eng Google Group].
 
-Once you have permission to contribute, you should then look at the [http://code.google.com/p/ubiquity/wiki/CodingGuidelines coding guidelines for the Ubiquity project as a whole].
+Once you have permission to contribute, you should then look at the CodingStyle.
 
 Afterward, please read about the [http://code.google.com/p/ubiquity/wiki/CodingUsingSvn development/code contribution process for the Ubiquity project as a whole].  This contains an overview of the development process, a detailed description of the development process and the thinking behind it, and SVN command-line instructions that correspond to the various steps.
 
