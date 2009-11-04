@@ -1,11 +1,11 @@
-#summary Using SVN with Ubiquity projects.
+#summary Using SVN with Ubiquity XForms.
 #labels Phase-Implementation,Phase-QA
 
 = Developing the code =
 
-If you are contributor to one of the libraries then you can add new features and fix bugs. However, there is a process that contributors follow in order to try to keep the trunk as bug-free as possible, and this page will walk you through it.
+If you are contributor then you can add new features and fix bugs. However, there is a process that contributors follow in order to try to keep the trunk as bug-free as possible, and this page will walk you through it.
 
-The detail of how you work will depend on what it is you are trying to do. For example, if you are simply tidying up existing code without making changes to the functionality -- perhaps you are bringing a file or two into line with the CodingGuidelines -- then you can happily commit your changes directly to the trunk without review.
+The detail of how you work will depend on what it is you are trying to do. For example, if you are simply tidying up existing code without making changes to the functionality -- perhaps you are bringing a file or two into line with the CodingStyle -- then you can happily commit your changes directly to the trunk without review.
 
 But if you are making changes that add new features, fix a bug, update the test suite, and so on, then you will need to go through a code review process. That way other people get the chance to accept or reject your changes.
 
