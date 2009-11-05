@@ -3,7 +3,7 @@
 
 == Introduction ==
 
-Ubiquity XForms supports a partial implementation of the [http://www.w3.org/TR/xslt20/#function-format-number XSLT 2.0 format-number() function].
+Ubiquity XForms supports a partial implementation of the [http://www.w3.org/TR/xslt20/#function-format-number XSLT 2.0 format-number() function]. The following examples are also available in a [http://ubiquity-xforms.googlecode.com/svn/trunk/samples/xforms-format-number.html live sample].
 
 == Details ==
 
