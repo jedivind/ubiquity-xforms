@@ -50,7 +50,7 @@ The function can be used as follows:
 === Decimal places: ===
 
 {{{
-xf:output value="format-number(23.1534, '#.')">
+<xf:output value="format-number(23.1534, '#.')">
 	<xf:label>Payment:</xf:label>
 </xf:output>
 
