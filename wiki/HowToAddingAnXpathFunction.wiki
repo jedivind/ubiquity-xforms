@@ -1,5 +1,5 @@
+#summary How to add an XPath function
 #labels HowTo,Milestone-Version0.8
-#How to add an XPath function
 
 = Introduction =
 
