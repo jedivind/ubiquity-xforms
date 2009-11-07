@@ -181,110 +181,84 @@ xforms\:submit,
 xf\:submit,
 xforms\:trigger,
 xf\:trigger {
-    background-color: #D3D3D3;
-    border-width: 2px;
-    border-style: outset;
-    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
-    color: black;
-    padding: 3px;
-    -moz-border-radius: 1em; 
-    -webkit-border-radius: 1em;
+  
 }
 
 xforms|submit,
 xf|submit,
 xforms|trigger,
 xf|trigger {
-    background-color: #D3D3D3;
-    border-width: 2px;
-    border-style: outset;
-    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
-    color: black;
-    padding: 3px;
-    -moz-border-radius: 1em; 
-    -webkit-border-radius: 1em;
+   
 }
 
 xforms\:submit:hover,
 xf\:submit:hover,
 xforms\:trigger:hover,
 xf\:trigger:hover {
-    background-color: #A9A9A9;
-    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
-    border-style: inset;
-    cursor: pointer;
+   
 }
 
 xforms|submit:hover,
 xf|submit:hover,
 xforms|trigger:hover,
 xf|trigger:hover {
-    background-color: #A9A9A9;
-    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
-    border-style: inset;
-    cursor: pointer;
+   
 }
 
 xforms\:submit:focus xforms\:label,
 xf\:submit:focus xf\:label,
 xforms\:trigger:focus xforms\:label,
 xf\:trigger:focus xf\:label  {  	
-    border: 1px dotted #808080;
+    
 }
 
 xforms|submit:focus > xforms|label,
 xf|submit:focus > xf|label,
 xforms|trigger:focus > xforms|label,
 xf|trigger:focus > xf|label {  	
-    border: 1px dotted #808080;
+    
 }
 
 xforms\:submit:active  xforms\:label,
 xf\:submit:active  xf\:label,
 xforms\:trigger:active  xforms\:label,
 xf\:trigger:active  xf\:label {   	
-    border: 1px dotted #808080;
+   
 }
 
 xforms|submit:active > xforms|label,
 xf|submit:active > xf|label,
 xforms|trigger:active > xforms|label,
 xf|trigger:active > xf|label {   	
-    border: 1px dotted #808080;
+   
 }
 
 xforms\:submit:active,
 xf\:submit:active,
 xforms\:trigger:active,
 xf\:trigger:active {
-    background-color: #A9A9A9;  	    
-    border-color: ThreeDShadow ThreeDHighlight ThreeDHighlight ThreeDShadow;
-    border-style: inset;
-    cursor: pointer;
+    
 }
 
 xforms|submit:active,
 xf|submit:active,
 xforms|trigger:active,
 xf|trigger:active {
-    background-color: #A9A9A9;   	
-    border-color: ThreeDShadow ThreeDHighlight ThreeDHighlight ThreeDShadow;
-    border-style: inset;
-    cursor: pointer;
+   
 }
 
 xforms\:submit  xforms\:label,
 xf\:submit xf\:label,
 xforms\:trigger xforms\:label,
 xf\:trigger xf\:label {
-    padding: 3px;  
+      
 }
 
 xforms|submit  xforms|label,
 xf|submit xf|label,
 xforms|trigger xforms|label,
 xf|trigger xf|label {
-    padding: 3px;
+   
 }
 
 xforms\:trigger.appearance-minimal,

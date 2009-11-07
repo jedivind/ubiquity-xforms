@@ -273,6 +273,14 @@ function XLinkElement(element)
 						  schemeHandler["GET"](sHref, null, null, oCallback);
 					  });
 			} else {
+				
+				//experimental for Firefox Cross Domain problem
+			    try {
+			      netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+			     } catch (e) {
+			      alert("Permission UniversalBrowserRead denied.");
+			     }
+			   //end experimental
 				//Send the request.
 				m_transaction = YAHOO.util.Connect.asyncRequest(
 					"GET",
