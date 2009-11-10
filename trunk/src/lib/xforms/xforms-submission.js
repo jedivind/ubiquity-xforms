@@ -22,7 +22,7 @@ function callback(oMediator, oObserver, oContext) {
     this.m_mediator = oMediator;
     this.m_observer = oObserver;
     this.m_context = oContext;
-};
+}
 
 callback.prototype.processResult = function(data, isFailure) {
     this.m_mediator.processResult(data, isFailure, this.m_observer,
@@ -74,7 +74,7 @@ submission.prototype.processResult = function(oResult, isFailure,
     var sData, sReplace, sInstance, oInstance, oEvt, oNewDom, contentType = "", sTarget, oTargetContext, oTarget, newXhtml; 
     
     if (oObserver) {
-        var oEvt = oObserver.ownerDocument.createEvent("Events");
+        oEvt = oObserver.ownerDocument.createEvent("Events");
 
         // Set context info properties common to both success and failure results.
         oEvt.context = {
@@ -264,7 +264,7 @@ submission.prototype.processResponseHeaders = function(oHeaders) {
   }
 
   return responseHeaders;
-}
+};
 
 submission.prototype.processTargetAttribute = function(sTarget, sInstance, oContext, oObserver, oEvt) {
     var oTarget = null, oTargetContext, oEvt;
@@ -279,7 +279,7 @@ submission.prototype.processTargetAttribute = function(sTarget, sInstance, oCont
         }
     }
     return oTarget;
-}
+};
 
 /*
  * We give the submit function an object that contains all of the parameters.
@@ -633,7 +633,7 @@ submission.prototype.constructSubmitDataList = function(oContext, relevancePruni
 	} 
 
     return submitDataList; 
-}
+};
 
 submission.prototype.validateSubmitDataList = function(submitDataList) {
 	var i;
@@ -643,7 +643,7 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
 		}
 	}
 	return true;
-}
+};
 
 submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, separator, encoding, cdataSectionElements, omitXmlDeclaration, standalone, includeNamespacePrefixes) {
 	var serialization = "";
@@ -682,7 +682,7 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 	}//if ( there is something to serialize )
 
 	return "";
-}
+};
 
 submission.prototype.constructSubmitDataListDOM = function(submitDataList) {
 	var root;
@@ -705,7 +705,7 @@ submission.prototype.constructSubmitDataListDOM = function(submitDataList) {
 	this._constructSubmitDataListDOM(submitDataList, 0, root);
 	
 	return xmlDoc;
-}
+};
 
 submission.prototype._constructSubmitDataListDOM = function(submitDataList, listPos, parentNode) {
 	var node, submitListParent;
@@ -742,7 +742,7 @@ submission.prototype._constructSubmitDataListDOM = function(submitDataList, list
 	}
 	
 	return listPos;
-}
+};
 
 submission.prototype.serializeURLEncoded = function(node) {
 	var stack = [ node ];
@@ -775,7 +775,7 @@ submission.prototype.serializeURLEncoded = function(node) {
 	}
 	
     return taggedValues;
-}
+};
 
 /**
  * Builds an HTML form element from an object.
