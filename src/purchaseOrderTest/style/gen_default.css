@@ -28,7 +28,7 @@ xforms|repeat > xforms|group > xforms|input.item > pe-value > input{
 width:95px;	
 }
 xforms|group > xforms|input > pe-value > div > input,
-xforms\:group  xforms\:input  pe-value div > input{
+xforms\:group  xforms\:input  pe-value div input{
 	display:inline-block;width:140px;
 }
 xforms\:repeat  xforms\:group  xforms\:output.image,
@@ -42,9 +42,9 @@ xforms|repeat > xforms|group { display: block; width: 98%; background-color:#eee
 xforms|repeat > xforms|group > xforms|input {display: inline-block; width: 24%;}
 xforms|repeat > xforms|group > xforms|output {display: inline-block; padding: 0.2em; width: 20%; color:#333;font-size:0.8em; }
 xforms|repeat > xforms|group > xforms|select1 {display: inline-block; padding: 0.2em; width: 35%; }
-xforms|repeat > xforms|group > xforms|input > xforms|label { display: inline-block; padding: 0.2em; width: 34%; color:#333;font-size:0.8em; }
+xforms|repeat > xforms|group > xforms|input > xforms|label { display: inline-block; padding: 0.2em; width: 30%; color:#333;font-size:0.8em; }
 xforms|repeat > xforms|group > xforms|select1 > xforms|label { color:#333;font-size:0.8em; }
-xforms|repeat > xforms|group > xforms|output > xforms|label { display: inline-block; padding: 0.2em; width: 22%; color:#333;font-size:0.9em;  }
+xforms|repeat > xforms|group > xforms|output > xforms|label { display: inline-block; padding: 0.2em; width: 22%; color:#333;font-size:0.8em;  }
 
 xforms\:output.regular {display: block;  width: 95%;}
 xforms\:output.regular  xforms\:label pe-value { width: 205px; float:left;}
