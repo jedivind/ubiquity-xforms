@@ -24,6 +24,8 @@ function Repeat(elmnt) {
     sStartIndex = elmnt.getAttribute("startindex");
     
     this.m_nIndex = (sStartIndex === null || isNaN(sStartIndex))?1:this.m_nIndex = Number(sStartIndex);
+  
+    this.storeTemplate();
   }
   
   this.m_CurrentIterationCount = 0;
