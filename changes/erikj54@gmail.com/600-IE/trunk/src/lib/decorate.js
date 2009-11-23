@@ -615,14 +615,7 @@ var DECORATOR = function () {
 			for (i = 0;i < arrBehaviours.length;++i) {
 				addObjectBehaviour(element,arrBehaviours[i],false);
 			}
-			if (m_suspended) {
 				m_elementsInSuspension.push(element);
-			} else {
-	
-				callConstructionFunctions(element, handleContentReady, handleDocumentReady);
-				
-				bReturn =  true;
-			}
 		}
 		return bReturn;
 	}
@@ -639,6 +632,17 @@ var DECORATOR = function () {
 				if (handleDocumentReady) {
 					registerForOnloadOrCallNow(element,element.onDocumentReady);
 				}
+	}
+	function activateElements(){
+		var element;
+			while (m_elementsInSuspension[0]) {
+				element = m_elementsInSuspension.pop();
+				//A new element may have been added, then removed from the document
+				//	during the suspension.  Check if it still exists before initialising.
+				if (isInDocument(element)) {
+					callConstructionFunctions(element, true, true);
+				}
+			}
 	}
 	
 	//Once the decorator has been set up, in IE, this function wil be called to decorate the elements.
@@ -660,6 +664,7 @@ var DECORATOR = function () {
 				//Do the decoration.
 				DECORATOR.attachDecoration(e,true,true);					
 				//window.status = "decorating: " + e.tagName;
+				activateElements();
 			}
 		}
 		return;
@@ -683,6 +688,7 @@ var DECORATOR = function () {
 	itself.callDocumentReadyHandlers = callDocumentReadyHandlers;
 	itself.addDecorationRules = addDecorationRules;
 	itself.applyDecorationRules = applyDecorationRules;
+	itself.activateElements = activateElements;
   itself.onAllBindingsAttached = function (obj) {
     obj.parentNode.removeChild(obj);
     this.callDocumentReadyHandlers();
@@ -693,17 +699,8 @@ var DECORATOR = function () {
 	};
 	
 	itself.resume = function () {
-		var element;
-		if (!--m_suspended) {
-			while (m_elementsInSuspension[0]) {
-				element = m_elementsInSuspension.pop();
-				//A new element may have been added, then removed from the document
-				//	during the suspension.  Check if it still exists before initialising.
-				if (isInDocument(element)) {
-					callConstructionFunctions(element, true, true);
-				}
-			}
-		}
+		activateElements();
+		
 	};
 	return itself;
 }();
@@ -715,8 +712,4 @@ YAHOO.util.Event.onDOMReady(
   }
 );
 
-//for debugging
-function SomeObject(elmnt) {
-	//this.banana = "This object has been decorated with SomeObject";
-}
 		

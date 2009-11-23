@@ -24,8 +24,11 @@ function Repeat(elmnt) {
     sStartIndex = elmnt.getAttribute("startindex");
     
     this.m_nIndex = (sStartIndex === null || isNaN(sStartIndex))?1:this.m_nIndex = Number(sStartIndex);
-  }
   
+    this.storeTemplate();
+  
+  }
+
   this.m_CurrentIterationCount = 0;
   this.m_offset = 0;
   this.m_iterationNodesetLength = 0;
@@ -234,7 +237,6 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 			thisModel.resumeXFormsReady();
 		});
 	}
-  
 };
 
 
@@ -248,6 +250,7 @@ Repeat.prototype.normaliseIndex = function (val) {
 };
 
 Repeat.prototype.rewire = function () {
+
   var arrNodes = null,
       sExpr,
       sBind = this.element.getAttribute("bind"),
@@ -257,6 +260,7 @@ Repeat.prototype.rewire = function () {
       newIndex;
   
   if (sBind) {
+	  //alert("bind = "  + sBind);
     oBind = FormsProcessor.getBindObject(sBind, this.element);
     if (oBind) {
       arrNodes = oBind.boundNodeSet;
@@ -264,7 +268,7 @@ Repeat.prototype.rewire = function () {
     }
   } else {
     sExpr = this.element.getAttribute("nodeset");
-    
+    //alert("nodeset: " + sExpr);
     if (sExpr) {
       document.logger.log("Rewiring: " + this.element.tagName + ":" + this.element.uniqueID + ":" + sExpr, "info");
       
@@ -273,10 +277,12 @@ Repeat.prototype.rewire = function () {
       r = this.m_model.EvaluateXPath(sExpr, oContext);
       
       arrNodes = r.value;
+  	
     } else {
       document.logger.log("Element: " + this.element.tagName + ":" + this.element.uniqueID + " lacks binding attributes.", "warn");
     }
   }
+  alert(arrNodes);
   
   if (arrNodes) {
     this.m_iterationNodesetLength = arrNodes.length;
@@ -290,8 +296,8 @@ Repeat.prototype.rewire = function () {
     if (!UX.hasDecorationSupport) {
       DECORATOR.applyDecorationRules(this.element);
     }
+    
   }
-
   return false;
 };
 
