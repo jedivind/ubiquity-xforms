@@ -268,7 +268,7 @@ function XLinkElement(element)
 		{
 			schemeHandler = schemeHandlers[spliturl(sHref).scheme];
 
-			if (UX.isFF && schemeHandler && schemeHandler["GET"]) {
+			if ((UX.isFF || UX.isWebKit) && schemeHandler && schemeHandler["GET"]) {
 				spawn(function() {
 						  schemeHandler["GET"](sHref, null, null, oCallback);
 					  });
