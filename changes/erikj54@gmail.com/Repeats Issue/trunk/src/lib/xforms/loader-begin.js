@@ -16,6 +16,13 @@ loader.onProgress = function(o) {
 
 loader.onSuccess = function(o) {
    window.status = "Successfully loaded Ubiquity XForms";
+   YAHOO.util.Event.onDOMReady(
+		   function() {
+		     DECORATOR.applyDecorationRules();
+		     DECORATOR.activateElements();
+		     window.status = "ready";
+		   }
+		 );
   spawn(InsertElementForOnloadXBL);
 };
 

@@ -515,6 +515,10 @@ Model.prototype.rewire = function() {
     this.m_bNeedRefresh = true;
     this.flagRefresh();
     this.m_NodesInsertedSinceLastRewire = [];
+    spawn(function () {
+	  	DECORATOR.activateElements();
+	  	}
+  );
     return;
 };
 

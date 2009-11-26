@@ -129,11 +129,15 @@ Control.prototype.AddValuePseudoElement = function () {
       }
       this.m_bAddedToModel = false;
       this.addInputEventFilter();
+
+      
     }
   } catch (e) {
     // debugger;
     // alert(e.description);
   }
+
+
 };
 
 

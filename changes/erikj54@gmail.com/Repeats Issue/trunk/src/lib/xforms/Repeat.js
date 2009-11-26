@@ -24,6 +24,9 @@ function Repeat(elmnt) {
     sStartIndex = elmnt.getAttribute("startindex");
     
     this.m_nIndex = (sStartIndex === null || isNaN(sStartIndex))?1:this.m_nIndex = Number(sStartIndex);
+  
+    this.storeTemplate();
+  
   }
   
   this.m_CurrentIterationCount = 0;
@@ -45,7 +48,7 @@ Repeat.prototype.giveFocus = function () {
 };
 
 Repeat.prototype.onDocumentReady = function () {
-  this.storeTemplate();
+	this.storeTemplate();
   this.addcontroltomodel();
   this.element.addEventListener(
     "DOMActivate",
@@ -189,16 +192,6 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 	}
 	
 	sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
-	
-	//Suspend the decorator,
-	//	content added is received in order of opening tag, 
-	//	and both ContentReady and DocumentReady are executed out of order. 
-	var suspension = false;
-	if (desiredIterationCount > this.m_CurrentIterationCount) {
-		suspension = true;
-		DECORATOR.suspend();
-		this.m_model.stopXFormsReady();
-  	}
 
 	while (desiredIterationCount > this.m_CurrentIterationCount) {
 		//In the absence of an iteration corresponding to this index, insert one.
@@ -226,14 +219,7 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		this.m_CurrentIterationCount++;
 	}
 	thisModel = this.m_model;
-  //Spawn the resumption of the decorator,
-  //	spawning allows the content to add itself, prior to being initialised by the resumption
-	if(suspension) {
-		spawn(function () {
-			DECORATOR.resume();
-			thisModel.resumeXFormsReady();
-		});
-	}
+
   
 };
 
@@ -290,8 +276,12 @@ Repeat.prototype.rewire = function () {
     if (!UX.hasDecorationSupport) {
       DECORATOR.applyDecorationRules(this.element);
     }
+    
   }
-
+  spawn(function () {
+	  	DECORATOR.activateElements();
+	  	}
+  );
   return false;
 };
 

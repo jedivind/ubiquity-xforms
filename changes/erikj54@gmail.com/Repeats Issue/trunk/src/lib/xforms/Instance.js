@@ -19,7 +19,7 @@ function Instance(elmnt) {
 	this.m_oDOM = null;
 	this.element["elementState"] = 1;
 	this.model = elmnt.parentNode;
-	UX.addStyle(this.element, "display", "none"); 
+	UX.addStyle(this.element, "display", "none");
 }
 
 Instance.prototype.load = function ( domURL ) {
@@ -34,6 +34,11 @@ Instance.prototype.load = function ( domURL ) {
         
         this.element.attachSingleBehaviour(XLinkElement);
         
+        //If we have a domURL then an external instance will be loaded and we can respect
+        // the case of the XML else IE will uppercase all internal XML.
+        if(UX.isIE){
+        	this.model.setAttribute("case", "sensitive");
+        }
         //
         // When the document has been loaded by our XLink handler
         // we parse it and then fire a 'document load' event.

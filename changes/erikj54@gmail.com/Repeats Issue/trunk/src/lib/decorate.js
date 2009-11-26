@@ -53,8 +53,8 @@ var DECORATOR = function () {
 	getCustomCSSProperty,
 	isIE,
 	itself = {},
-	m_elementsInSuspension = [],
-	m_suspended = 0;
+	activationList = []
+	dynamic = false;
 
 
 	function extendDecorationRules(rules, additions) {
@@ -601,7 +601,6 @@ var DECORATOR = function () {
 		if (tIndex === 0){
 			element.tabIndex = 1;
 		}
-
 		element.decorated = true;
 		element.constructors = [];
 		element.contentReadyHandlers = [];
@@ -615,14 +614,7 @@ var DECORATOR = function () {
 			for (i = 0;i < arrBehaviours.length;++i) {
 				addObjectBehaviour(element,arrBehaviours[i],false);
 			}
-			if (m_suspended) {
-				m_elementsInSuspension.push(element);
-			} else {
-	
-				callConstructionFunctions(element, handleContentReady, handleDocumentReady);
-				
-				bReturn =  true;
-			}
+			activationList.push(element);
 		}
 		return bReturn;
 	}
@@ -642,28 +634,27 @@ var DECORATOR = function () {
 	}
 	
 	//Once the decorator has been set up, in IE, this function wil be called to decorate the elements.
-	function decorate(e) {   
+	function decorate(element) {   
 		//Don't decorate a second time.
-		if (e.decorated) {
+		if (element.decorated) {
 			//During development, it may be handy to provide visual feedback
 			//	 that excess decorations are occurring.
 			//window.status += "|";
 		} else {
 			// ignore binding request, if binding-ignore is true;
-			var s = getCustomCSSProperty(e,"-binding-ignore");
+			var s = getCustomCSSProperty(element,"-binding-ignore");
 			
 			if(s === undefined || s === "false") {
 				//Now that the elemnt is being decorated, switch off the behaviour expression
 				//	to prevent it continually trying to get decorated.
-				e.style.behavior = ("url()");
-				e.decorated = true;
+				element.style.behavior = ("url()");
+				element.decorated = true;
 				//Do the decoration.
-				DECORATOR.attachDecoration(e,true,true);					
-				//window.status = "decorating: " + e.tagName;
+				DECORATOR.attachDecoration(element,true,true);
 			}
 		}
 		return;
-	}
+	};
 	
 	var isInDocument = function (element) {
 		var parent = element.parentNode;
@@ -687,36 +678,23 @@ var DECORATOR = function () {
     obj.parentNode.removeChild(obj);
     this.callDocumentReadyHandlers();
   };
-
-	itself.suspend = function () {
-		++m_suspended;
-	};
-	
-	itself.resume = function () {
+  
+	itself.activateElements = function () {
 		var element;
-		if (!--m_suspended) {
-			while (m_elementsInSuspension[0]) {
-				element = m_elementsInSuspension.pop();
+			while (activationList[0]) {
+				element = activationList.pop();
 				//A new element may have been added, then removed from the document
 				//	during the suspension.  Check if it still exists before initialising.
 				if (isInDocument(element)) {
 					callConstructionFunctions(element, true, true);
 				}
+				if(!UX.hasDecorationSupport){
+					applyDecorationRules(element);
+				}				
 			}
-		}
 	};
 	return itself;
 }();
 
-YAHOO.util.Event.onDOMReady(
-  function() {
-    DECORATOR.applyDecorationRules();
-    window.status = "ready";
-  }
-);
 
-//for debugging
-function SomeObject(elmnt) {
-	//this.banana = "This object has been decorated with SomeObject";
-}
 		

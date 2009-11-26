@@ -47,7 +47,15 @@ function xpathDomEval(expr, oContext) {
     // If the browser doesn't preserve the case of node names,
     // tell the XPath evaluator to do node name tests in a
     // case-insensitive manner.
-    ctx.setCaseInsensitive(!UX.isXHTML && (UX.isFF || UX.isChrome || UX.isSafari));
+    if(UX.isIE &&(!oContext.model || (oContext.model && !oContext.model.getAttribute("case")))){
+    	ctx.setCaseInsensitive(true);
+    }
+    else{
+    	ctx.setCaseInsensitive(!UX.isXHTML && (UX.isFF || UX.isChrome || UX.isSafari));
+    }
+	
+    
+
     var ret = expr1.evaluate(ctx);
     return ret;
 }
