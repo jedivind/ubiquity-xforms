@@ -57,6 +57,9 @@ function runTheTests() {
   loader.addModule({ name: "ux-ut-reset", type: "js",  fullpath: moduleBase + "ut-reset.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
   
+  loader.addModule({ name: "ux-ut-repeatID", type: "js",  fullpath: moduleBase + "ut-repeatID.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+  
   loader.addModule({ name: "ux-ut-select1", type: "js",  fullpath: moduleBase + "ut-select1.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
@@ -128,6 +131,7 @@ function runTheTests() {
     "ux-ut-event-target",
     "ux-ut-path-to-module", 
     "ux-ut-reset",
+    "ux-ut-repeatID",
     "ux-ut-model-standalone",
     "ux-ut-instance-standalone", 
     "ux-ut-select1", 
@@ -173,6 +177,7 @@ function runTheTests() {
     YAHOO.tool.TestRunner.add(suiteInstanceStandalone);
     YAHOO.tool.TestRunner.add(suiteModelStandalone);
     YAHOO.tool.TestRunner.add(suiteReset);
+    YAHOO.tool.TestRunner.add(suiteRepeatCase);
     YAHOO.tool.TestRunner.add(suiteFiniteControl);
     YAHOO.tool.TestRunner.add(suiteSelect1);
     YAHOO.tool.TestRunner.add(suiteXFormsSubmission);
