@@ -21,6 +21,9 @@
  */
 function Listener(elmnt) {
   this.element = elmnt;
+  if(this.element){
+  this.attachListeners();
+  }
 }
 
 // attachListeners();
@@ -88,4 +91,4 @@ Listener.prototype.detach = function () {
      */
 };
 
-Listener.prototype.onDocumentReady = Listener.prototype.attachListeners;
+Listener.prototype.onDocumentReady = function(){};

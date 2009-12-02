@@ -396,7 +396,7 @@ var DECORATOR = function () {
 			s += sRule;			
 			//oStyle.sheet.insertRule(sRule,oStyle.sheet.length);
 		}
-		oStyle.innerHTML = s;
+		oStyle.innerText = s;
 		oHead.insertBefore(oStyle,null);
 
 		
@@ -682,7 +682,7 @@ var DECORATOR = function () {
 	itself.activateElements = function () {
 		var element;
 			while (activationList[0]) {
-				element = activationList.pop();
+				element = activationList.shift();
 				//A new element may have been added, then removed from the document
 				//	during the suspension.  Check if it still exists before initialising.
 				if (isInDocument(element)) {

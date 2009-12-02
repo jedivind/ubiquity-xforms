@@ -113,6 +113,14 @@ Instance.prototype.parseInstance = function () {
 			// catch here to allow that to happen
 		}
 		this.element["elementState"] = 0;
+		
+		var evt = this.element.ownerDocument.createEvent("Events");
+        evt.initEvent("instance-load", true, false);
+        var oTarget = this.model;
+        spawn(function () {
+            FormsProcessor.dispatchEvent(oTarget, evt);
+        });
+		
 	}
 	return;
 };
