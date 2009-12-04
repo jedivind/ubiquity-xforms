@@ -617,6 +617,7 @@ var DECORATOR = function () {
 			}
 			if (m_suspended) {
 				m_elementsInSuspension.push(element);
+
 			} else {
 	
 				callConstructionFunctions(element, handleContentReady, handleDocumentReady);
@@ -702,6 +703,10 @@ var DECORATOR = function () {
 				if (isInDocument(element)) {
 					callConstructionFunctions(element, true, true);
 				}
+				
+				if(!UX.hasDecorationSupport){
+					this.applyDecorationRules(element)
+				}
 			}
 		}
 	};
@@ -715,8 +720,4 @@ YAHOO.util.Event.onDOMReady(
   }
 );
 
-//for debugging
-function SomeObject(elmnt) {
-	//this.banana = "This object has been decorated with SomeObject";
-}
 		

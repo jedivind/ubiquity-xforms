@@ -22,7 +22,7 @@ function XFormsCommonSelect(element) {
 
 
 XFormsCommonSelect.prototype.giveFocus = function () {
-	if (this.useDropBox()  && this.m_proxy.enabled.getValue()) {
+	if (this.useDropBox() && this.m_proxy && this.m_proxy.enabled.getValue()) {
 		if (this.m_value && this.m_value !== document.activeElement && !this.m_value.contains(document.activeElement))	{
 			if (typeof this.m_value.giveFocus === "function") {
 				this.m_value.giveFocus();
