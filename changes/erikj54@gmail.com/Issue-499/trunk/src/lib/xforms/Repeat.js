@@ -114,6 +114,26 @@ Repeat.prototype.getRequestedIterationCount = function () {
   return desiredIterationCount;
 };
 
+Repeat.prototype.replaceIdsWithAppended = function (element){
+	var  currIter = this.m_CurrentIterationCount + 1 ; ///same as ordinal
+	
+	// recursive function should only run a couple times but must check all children
+	var replaceChildren = function (element){
+		var id;
+		// Do the parent / base case
+		if((id = element.getAttribute("id"))){
+			element.setAttribute("id", id + currIter);
+		}
+		// then children if there are any
+		for(var i = 0; i < element.childNodes.length; i++){
+				if(element.childNodes[i].nodeType !=DOM_TEXT_NODE){
+					replaceChildren(element.childNodes[i]);
+				}
+			}
+		}
+	
+	replaceChildren(element);
+};
 
 Repeat.prototype.putIterations = function (desiredIterationCount) {
 
@@ -127,7 +147,8 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		templateClone,
 		thisModel,
 		ordinal,
-		newOrdinal;
+		newOrdinal,
+		replacedIDs = [];
 
 	// If we have iterations that are bound to nodes that have been
 	// deleted then the iterations themselves must be deleted.
@@ -210,9 +231,12 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		oIterationElement.isBindingContainer = true;
 		UX.addClassName(oIterationElement, "repeat-iteration");
 		
-		oIterationElement.outerScope = this;
-		
+		oIterationElement.outerScope = this;	
 		templateClone = this.element.sTemplate.cloneNode(true);
+		
+		////need to take the clone and search for any id's, all id's will be appended with a # so that they are
+		//// unique and any references to those id's will be changed as well.
+		this.replaceIdsWithAppended(templateClone);
 		
 		//Move each child of templateClone to oIterationElement, maintaining order.
 		while (templateClone.hasChildNodes()) {

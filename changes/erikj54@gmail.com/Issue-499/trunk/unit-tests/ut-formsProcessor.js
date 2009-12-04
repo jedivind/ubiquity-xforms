@@ -111,103 +111,71 @@
 	
 	suiteGetElementById = new YAHOO.tool.TestSuite({
 		setUp: function(){
-			testDiv = createElement("div",null, document.body);
-			testDiv.innerHTML = 
-				"<span id='s0' uid='the first s0'>" + 
-					"<p id='p0' uid='the only p0'>" + 
-						"<b id='b0' uid='the only b0'>" + 
-							"<i id='i0' uid='the first i0'>hello</i>" + 
-						"</b>"+
-					"</p>"+
-					"<p id='p1' uid='the only p1'>" + 
-						"<b id='b1' uid='the only b1'>" + 
-							"<i id='i0' uid='the second i0'>hello</i>" + 
-						"</b>"+
-					"</p>"+
-				"</span>" +
-				"<span id='s1'>" + 
-					"<p id='p2' uid='the only p2'>" + 
-						"<b id='b2' uid='the only b2'>" + 
-							"<i id='i1' uid='the first i1'>hello</i>" + 
-						"</b>"+
-						"<b id='b3' uid='the only b3'>" + 
-							"<i id='i1' uid='the second i1'>hello</i>" + 
-							"<u id='u0' uid='the only u0'>hello</u>" + 
-						"</b>"+
-						"<b id='b4' uid='the only b4'>" + 
-							"<i id='i1' uid='the third i1'>hello</i>" + 
-							"<u id='u1' uid='the only u1'>hello</u>" + 
-						"</b>"+
-					"</p>"+
-				"</span>";
-			
+		testDiv = createElement("div", "", document.body);
+		testDiv.innerHTML = "<xf:bind xmlns:xf='http://www.w3.org/2002/xforms' id='bind-0'></xf:bind><span id='not-a-bind'></span>";
+	},
 
-			document.getElementById("b2").outerScope = document.getElementById("p2");
-			document.getElementById("b3").outerScope = document.getElementById("p2");
-			document.getElementById("b4").outerScope = document.getElementById("p2");
+	tearDown: function(){
+		destroyElement(testDiv, "testDiv", document.body);  	
+	}
 
-			//These functions mimic the complex scope situation caused by structures like repeat.
-			document.getElementById("p2").exposes = function(scopedElement) {
-				return scopedElement.parentNode.id === "b3";
-			};
+});
+	suiteGetElementById.add(
+			new YAHOO.tool.TestCase({
+				
+		setUp: function(){
+		///Create the model
+		var modelDiv = document.createElement("div")
+		new EventTarget(modelDiv);
+		this.testModel = new Model(modelDiv);
+		////need to create a repeat
 			
-			document.getElementById("p2").getPublicElementById = function(id) {
-				return FormsProcessor.getElementByIdWithAncestor(id, document.getElementById("b3"));
-			};
+		Assert.isObject(NamespaceManager);
+		Assert.isTrue(NamespaceManager.addOutputNamespace("xf", "http://www.w3.org/2002/xforms"));
+		
+		this.repeat = createElement("xf:repeat", "http://www.w3.org/2002/xforms", document.body);
+		
+		DECORATOR.extend(this.repeat, new EventTarget(this.repeat), false);
+		DECORATOR.extend(this.repeat, new Context(this.repeat), false);
+		DECORATOR.extend(this.repeat, new Repeat(this.repeat), false);
+		
+		this.inputOutside = createElement("xf:input","http://www.w3.org/2002/xforms", document.body);
+		this.inputOutside.setAttribute("id", "testerOutside");
+		this.inputOutside.setAttribute("rVal", "inputOutside");
+		
+		this.inputWithID = createElement("xf:input","http://www.w3.org/2002/xforms", this.repeat);
+		this.inputWithID.setAttribute("id", "in"); ///should set the id to id="in"
+		this.toggleRefToID = createElement("xf:toggle","http://www.w3.org/2002/xforms", this.repeat);
+		this.toggleRefToID.setAttribute("case", "in"); ///should set the id to id="in"
+
+		this.repeat.m_model = this.testModel;
+		
+		
+		this.repeat.m_nIndex = 0;  
+		this.repeat.storeTemplate();
+		this.repeat.putIterations(3);
+
+
 
 		},
-
+			
 		tearDown: function(){
-			destroyElement(testDiv, "testDiv", document.body);  	
-		}
-
-	});
-
-	suiteGetElementById.add(
-		new YAHOO.tool.TestCase({
-		name: "testing the getElementById function ",
+			document.body.removeChild(this.repeat);
+		  	  this.repeat = null;
+		  	  this.inputWithID = null;
+		  	  this.toggleRefToID = null;	
+		},
 		
-			testGetNoElementById : function () {
- 				YAHOO.util.Assert.isNull(FormsProcessor.getElementById("ThereIsNoElementWithThisID"));
+			testDoubleRepeatInternalID : function() {
+				var inputReferenced = FormsProcessor.getElementById("in", this.repeat.childNodes[0].childNodes[0]);
+				YAHOO.util.Assert.areSame("in1", inputReferenced.getAttribute("id"));
 			},
-			
-			testSimpleGetElementById : function () {
-				YAHOO.util.Assert.areSame("the first s0",FormsProcessor.getElementById("s0").getAttribute("uid"));
-				YAHOO.util.Assert.areSame("the only p0",FormsProcessor.getElementById("p0").getAttribute("uid"));
-			},
-			testGetUniqueElementByIdWithinSelf : function () {
-				YAHOO.util.Assert.areSame("the only b0",FormsProcessor.getElementById("b0",document.getElementById('b0')).getAttribute("uid"));
-			},
-			testGetUniqueElementByIdWithAncestor : function () {
-				YAHOO.util.Assert.areSame("the only b0",FormsProcessor.getElementByIdWithAncestor("b0",document.getElementById('p0')).getAttribute("uid"));
-			},
-			testGetUniqueElementByIdWithWrongAncestor : function () {
-				YAHOO.util.Assert.isNull(FormsProcessor.getElementByIdWithAncestor("b0",document.getElementById('p1')));
-			},
-			testGetNonUniqueElementByIdWithAncestor : function () {
-				YAHOO.util.Assert.areSame("the first i0",FormsProcessor.getElementByIdWithAncestor("i0",document.getElementById('p0')).getAttribute("uid"));
-			},
-			testGetNonUniqueNonFirstElementByIdWithAncestor : function () {
-				YAHOO.util.Assert.areSame("the second i0",FormsProcessor.getElementByIdWithAncestor("i0",document.getElementById('p1')).getAttribute("uid"));
-			},
-			testGetUniqueElementByIdWithScopeWithNoAncestor : function () {
-				YAHOO.util.Assert.areSame("the only u0",FormsProcessor.getElementById("u0").getAttribute("uid"));
-			},
-			testGetUniqueElementByIdWithScope : function () {
-				YAHOO.util.Assert.areSame("the only u0",FormsProcessor.getElementById("u0",document.getElementById('s1')).getAttribute("uid"));
-			},
-			testGetNonUniqueNonFirstElementByIdWithScope : function () {
-				YAHOO.util.Assert.areSame("the second i1",FormsProcessor.getElementById("i1",document.getElementById('s1')).getAttribute("uid"));
-			},
-			testGetExposedScopedElementFromWithin : function () {
-				YAHOO.util.Assert.areSame("the second i1",FormsProcessor.getElementById("i1",document.getElementById('u0')).getAttribute("uid"));
-			},
-			testGetNonExposedScopedElementFromWithin : function () {
-				YAHOO.util.Assert.areSame("the third i1",FormsProcessor.getElementById("i1",document.getElementById('u1')).getAttribute("uid"));
+			testregularID: function() {
+				var inputOutside = FormsProcessor.getElementById("testerOutside", this.inputOutside);
+				YAHOO.util.Assert.areSame(inputOutside.getAttribute("rVal"), "inputOutside");
 			}
-			
-  	}
-  ));
+
+	}));
   
 	YAHOO.tool.TestRunner.add(suiteGetElementById);
 

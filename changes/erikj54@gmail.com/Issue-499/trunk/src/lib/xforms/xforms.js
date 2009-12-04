@@ -404,102 +404,113 @@ XFormsProcessor.prototype.listenForXFormsFocus = function (target, listener) {
 };
 
 
-
-(function(){
-	//private members related to XFormsProcessor.getElementById 
-	var ELEMENT_TYPE = 1, chooseDescendentFromList, walkGetElementById, getContainingInnerScope;
-
-	chooseDescendentFromList = function (list, ancestor) {
-		var i;
-		for (i = 0; i < list.length; ++i) {
-			if (ancestor.contains(list[i])) {
-				return list[i];
-			}
-		}
-		return null;
-	};
+/**
+	Function: getElementById
+	id: ID used as search term
+	topic: (optional) element used to resolve ambiguities where a scoped ID is concerned
 	
-	walkGetElementById = function (id, scope) {
-		var scopeChild = scope.firstChild, returnCandidate = null;
-		while (scopeChild  && !returnCandidate) {
-			if (scopeChild.nodeType === ELEMENT_TYPE  && !scopeChild.ignoreOnWalk) {
-				if (UX.id(scopeChild) === id) {
-					returnCandidate = scopeChild;
-				} else {
-					returnCandidate = walkGetElementById(id, scopeChild);
-				}
-			}
-			scopeChild = scopeChild.nextSibling;
-		}
-		return returnCandidate;
-	};
-	
-	getContainingInnerScope = function (element, outerScope) {
-		var candidateScopeContainer = element.parentNode;
-		while (candidateScopeContainer.parentNode) {
-			if (candidateScopeContainer.outerScope && (!outerScope || outerScope === candidateScopeContainer.outerScope)) {
-				return candidateScopeContainer;
-			}
-			candidateScopeContainer = candidateScopeContainer.parentNode;
-		}
-		return null;
-	};
-	
-	/**
-		Function: getElementById
-		id: ID used as search term
-		topic: (optional) element used to resolve ambiguities where a scoped ID is concerned
-		
-		Follows the algorithm described here:
-			http://www.w3.org/TR/xforms11/#idref-resolve
-			That is, if the topic is within the same scope as an ambiguous ID, returns the instance
-				of that ID in the same inner scope; otherwise, return the instance that is "exposed"
-	*/
-	
-	XFormsProcessor.prototype.getElementById = function (id, topic) {
-		var returnCandidate, candidateScope;
-		returnCandidate = document.getElementById(id);
-		if (returnCandidate) {
-			candidateScope = getContainingInnerScope(returnCandidate);
-			if (candidateScope) {
-				if (topic && candidateScope.outerScope.contains(topic)) {
-					returnCandidate = this.getElementByIdWithAncestor(id, getContainingInnerScope(topic, candidateScope.outerScope));
-				} else if (!candidateScope.outerScope.exposes(returnCandidate)) {
-					returnCandidate = candidateScope.outerScope.getPublicElementById(id);
-				}
-			}
-		}
-		return returnCandidate;
-	};
-	
-	XFormsProcessor.prototype.getElementByIdWithAncestor = function (id, ancestorOrSelf) {
-		var returnCandidate, candidateScope;
-		if (ancestorOrSelf && UX.id(ancestorOrSelf) === id) {
-			//If scope has the requested id, don't bother looking elsewhere, just return it.
-			returnCandidate = ancestorOrSelf;
-		} else {
-			//Use the DOM's built in mechanism for getting an element given an ID
-			returnCandidate = document.getElementById(id);
-			if (returnCandidate) {
+	Follows the algorithm described here:
+		http://www.w3.org/TR/xforms11/#idref-resolve
+		That is, if the topic is within the same scope as an ambiguous ID, returns the instance
+			of that ID in the same inner scope; otherwise, return the instance that is "exposed"
 			
-				if (ancestorOrSelf &&  !ancestorOrSelf.contains(returnCandidate)) {
-					//If the element returned by the DOM's id resolver is outside scope, 
-					//	it is the wrong one.
-					if (UX.isIE) {
-						//IE's subversive implementation of getElementsByName returns a list of elements with that id
-						//	other browsers just use the name attribute
-						returnCandidate = chooseDescendentFromList(document.getElementsByName(id), ancestorOrSelf);
-					} else {
-						//Unfortunately, now the DOM must be walked, using scope.
-						returnCandidate = walkGetElementById(id, ancestorOrSelf);
-					}
+	Note: This has been refactored with the following assumptions:
+	1. Previously this code was trying to resolve "collisions" due to repeating Id's now there 
+	are none they are replaced in repeats and appended with a ordinal value.
+	2. The context is used as a search tool to find the id within a repeat if it is not found in the doc.
+	3. Inner repeats will search up rows until it is found...
+*/
+
+XFormsProcessor.prototype.getElementById = function (id, element) {
+	var returnCandidate, depth = 0, newId = [];
+	
+	/*
+	 * This case is for triggers and other elements that which to resolve and IDREF
+	 * that is inside of a repeat and not found in the document. Since we re-number the id's in
+	 * the repeat on repeat.rewire we need to search throught the repeat at the current index
+	 * to find the repeat element of which the IDREF refers to.
+	 */
+	var getElementByIdOutsideRepeat = function(id,element,intermIndex){
+		///This is a slow case since we are trying to find it within the repeats
+		var repeats = NamespaceManager.getElementsByTagNameNS(element, "http://www.w3.org/2002/xforms", "repeat"),
+                i = (intermIndex)?intermIndex:0, index, returnCandidate;
+		while(repeats[i] && !returnCandidate){
+			index = repeats[i].getIndex();
+			returnCandidate = document.getElementById(id + index);
+			if(!returnCandidate){
+				///if it's null search this node for a repeat then try
+				if(i === 0){ ///first case take top level repeat
+					returnCandidate = getElementByIdOutsideRepeat(id + index, repeats[0], index-1);
+				}
+				else{
+				returnCandidate = getElementByIdOutsideRepeat(id + index, repeats[index], index-1);
 				}
 			}
+			i++;
 		}
 		return returnCandidate;
 	};
 	
-}());
+	/*
+	 * Calculates the depth at which the current element is located.
+	 * Returns: > 0 = inside a repeat, 0 = outside repeat and see getElementByIdOutsideRepeat 
+	 */
+	var repeatDepth = function(element){
+		var parent = element.parentNode;
+		while(parent && !(parent.nodeType === DOM_DOCUMENT_NODE)){
+			if(parent.bindingContainerName){
+				depth++;
+			}	
+			parent = parent.parentNode;
+		}
+		return depth;
+	};
+	
+	/*
+	 * The main driver function that recurses through the repeats to find the appropriate element
+	 * based on the element given as the "context" or scope to work from.
+	 */
+	var getElementByIdWithAncestor = function (id, scopeElement) {
+		var returnCandidate, 
+		ordinal = scopeElement.getAttribute("ordinal");
+		if (ordinal) {
+			//If we have an ordinal then use it with the id as the new id
+			newId.push(ordinal);
+			if(--depth > 0){
+				returnCandidate = getElementByIdWithAncestor(id, scopeElement.parentNode);
+			}
+			else{
+				while(newId[0]){
+					id += newId.pop();
+				}
+				return document.getElementById(id);
+			}
+		}
+		else{
+			///try next parent
+			if(scopeElement.parentNode === DOM_DOCUMENT_NODE){
+				/// we have iterated too far and need to quit
+				return null;
+			}
+			returnCandidate = getElementByIdWithAncestor(id, scopeElement.parentNode);
+		}
+		return returnCandidate;
+	};
+	
+	returnCandidate = document.getElementById(id);
+	
+	if (!returnCandidate && element) {
+		returnCandidate = (repeatDepth(element) > 0)?
+			getElementByIdWithAncestor(id, element.parentNode)
+			: getElementByIdOutsideRepeat(id, document);
+	}
+	return returnCandidate;
+	
+	
+	
+	
+};
+
 
 XFormsProcessor.prototype.hasProxyNode = function (element) {
 	return element && element.m_proxy && element.m_proxy.m_oNode;
