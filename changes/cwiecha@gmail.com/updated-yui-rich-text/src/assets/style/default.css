@@ -97,9 +97,7 @@ xf\:output,
 xforms\:input,
 xf\:input,
 xforms\:secret,
-xf\:secret,
-xforms\:textarea,
-xf\:textarea {
+xf\:secret {
     display: block;
     padding: 0.2em; 
 }
@@ -109,13 +107,22 @@ xf|output,
 xforms|input,
 xf|input,
 xforms|secret,
-xf|secret,
-xforms|textarea,
-xf|textarea {
+xf|secret {
     display: block;
     padding: 0.2em; 
 }
 
+xforms\:textarea,
+xf\:textarea {
+    display: inline-block;
+    padding: 0.2em;
+}
+
+xforms|textarea,
+xf|textarea {
+    display: inline-block;
+    padding: 0.2em;
+}
 
 xforms\:input xforms\:label,
 xf\:input xf\:label,
@@ -135,6 +142,16 @@ xforms|textarea xforms|label,
 xf|textarea xf|label {
     color: black;
     white-space: -moz-pre-wrap;
+}
+
+xforms\:textarea > pe-value,
+xf\:textarea > pe-value {
+    display: inline-block;
+}
+
+xforms|textarea > pe-value,
+xf|textarea > pe-value {
+    display: inline-block;
 }
 
 xforms\:input pe-value,
