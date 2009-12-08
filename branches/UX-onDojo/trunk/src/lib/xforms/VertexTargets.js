@@ -710,7 +710,7 @@ function MIPExpression(oProxy, sXPath, oContext, oModel)
 }
 
 
-YAHOO.extend(MIPExpression, ComputedXPathExpression);
+dojo.extend(MIPExpression, ComputedXPathExpression);
 
 MIPExpression.prototype.getValue =function(){
 	  return this.value;

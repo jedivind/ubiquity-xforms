@@ -708,15 +708,11 @@ var DECORATOR = function () {
 	return itself;
 }();
 
-YAHOO.util.Event.onDOMReady(
+dojo.addOnLoad(
   function() {
     DECORATOR.applyDecorationRules();
     window.status = "ready";
+    alert("here");
   }
 );
-
-//for debugging
-function SomeObject(elmnt) {
-	//this.banana = "This object has been decorated with SomeObject";
-}
 		

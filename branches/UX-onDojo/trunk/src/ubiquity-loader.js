@@ -175,7 +175,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
           addStyle(baseDefaultPath + "assets/style/ubiquity-xforms.css");
           addScript(baseDefaultPath + "package/ubiquity-xforms.js", self.onFinish);
         } else {
-          addScript("http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js", 
+        	addScript("http://ajax.googleapis.com/ajax/libs/dojo/1.3/dojo/dojo.xd.js", 
             function () {
               addScript(baseDefaultPath + "lib/xforms/loader-begin.js", function () {
                 addScript(baseDefaultPath + "lib/xforms/xforms-loader.js", function () {
@@ -187,6 +187,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
         }
       });
     self.addScript = addScript;
+    self.addStyle = addStyle;
     return self; 
   }()
 );
