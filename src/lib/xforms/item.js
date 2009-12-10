@@ -67,6 +67,7 @@ Value.prototype.getValue = function () {
 function Itemset(elmnt) {
 	this.element = elmnt;
 	this.element.bindingContainerName = "item";
+	this.storeTemplate();
 }
 
 Itemset.prototype = new Repeat();

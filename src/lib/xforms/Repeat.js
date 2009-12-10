@@ -24,6 +24,7 @@ function Repeat(elmnt) {
     sStartIndex = elmnt.getAttribute("startindex");
     
     this.m_nIndex = (sStartIndex === null || isNaN(sStartIndex))?1:this.m_nIndex = Number(sStartIndex);
+    this.storeTemplate();
   }
   
   this.m_CurrentIterationCount = 0;
@@ -45,7 +46,6 @@ Repeat.prototype.giveFocus = function () {
 };
 
 Repeat.prototype.onDocumentReady = function () {
-  this.storeTemplate();
   this.addcontroltomodel();
   this.element.addEventListener(
     "DOMActivate",
