@@ -58,6 +58,10 @@ function DropBox(containerElement, referenceElement, dropElement) {
     //not borders, just a quirk.
     btnHeight -= 3;
   }
+  if(UX.isWebKit){
+	  btnHeight = 15;
+	  button.setStyle("width", "25px");
+  }
   
   button.setStyle("height", btnHeight + "px");  
   
