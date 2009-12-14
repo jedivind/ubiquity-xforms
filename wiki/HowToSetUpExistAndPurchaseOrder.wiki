@@ -1,5 +1,5 @@
+#summary This page is a how-to for installing eXist XML database and the Purchase order form that is available in the Downloads area.
 #labels HowTo
-#This page is a how-to for installing eXist XML database and the Purchase order form that is available in the Downloads area.
 
 = Exist and Purchase Order Installation =
 
