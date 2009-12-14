@@ -41,3 +41,6 @@ Since eXist runs within a webserver there is no need to start a webserver to ser
 Navigate to the following URL: http://localhost:8080/exist/rest/db/testCollection/src/purchaseOrderTest/purchaseOrderMain.html.
 
 You should see the main page of the UBX Purchase Order Demo.
+
+== Next Step ==
+Now that you have the demo running and installed feel free to roam around and try some of the functionality. For a more detailed explanation of the roles in the demo see the following document PurchaseOrderRolesExplanation, which will guide you through some of the functionality.
