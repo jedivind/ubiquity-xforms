@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns:xforms="http://www.w3.org/2002/xforms"
-            xmlns="http://www.w3.org/1999/xhtml"
-            xmlns:ev="http://www.w3.org/2001/xml-events">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
     <head>
         <title>3.3.2.h invalid instance causes exception with resource-uri</title>
-        <script type="text/javascript"
-              src="../../../../../../src/ubiquity-loader.js">/**/</script>
-      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
-                  type="text/css"/>
+        <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
+<link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css" type="text/css"/>
         
         
     </head>
     <body>
-      <xforms:model>
+<xforms:model>
             <xforms:instance xmlns="" id="i_001">
                 <numberA>100</numberA>
                 <numberB>55</numberB>
             </xforms:instance>
-            <xforms:setvalue ev:event="xforms-link-exception" model="model2" ref="/msg"
-                          value="event('resource-uri')"/>
+            <xforms:setvalue ev:event="xforms-link-exception" model="model2" ref="/msg" value="event('resource-uri')"/>
             <xforms:message ev:event="xforms-link-exception" level="modal">xforms-link-exception</xforms:message>
         </xforms:model>
-      <xforms:model id="model2">
+<xforms:model id="model2">
             <xforms:instance xmlns="">
                 <msg/>
             </xforms:instance>

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns:ev="http://www.w3.org/2001/xml-events"
-            xmlns:xforms="http://www.w3.org/2002/xforms"
-            xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms">
      <head>
           <title>11.4.b accessing context information for xforms-submit-done event</title>
           
-          <script type="text/javascript"
-              src="../../../../../src/ubiquity-loader.js">/**/</script>
-      <link href="../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
+          <script type="text/javascript" src="../../../../../src/ubiquity-loader.js">/**/</script>
+<link href="../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
      </head>
      <body>
-      <xforms:model>
+<xforms:model>
                <xforms:instance xmlns="" id="data">
                     <this>
                          <that>
@@ -28,15 +24,11 @@
                          <response_headers/>
                     </eventinfo>
                </xforms:instance>
-               <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="sub_1" method="post"
-                            ref="instance('data')"
-                            replace="none">
+               <xforms:submission action="http://xformstest.org/cgi-bin/echo.sh" id="sub_1" method="post" ref="instance('data')" replace="none">
                     <xforms:action ev:event="xforms-submit-done">
-                         <xforms:setvalue ref="instance('event_catcher')/return_code"
-                                value="event('response-status-code')"/>
+                         <xforms:setvalue ref="instance('event_catcher')/return_code" value="event('response-status-code')"/>
                          <!--  xforms 1.1 will return header[] from event('response-headers') -->
-                         <xforms:insert context="instance('event_catcher')/response_headers" nodeset="*"
-                              origin="event('response-headers')"/>
+                         <xforms:insert context="instance('event_catcher')/response_headers" nodeset="*" origin="event('response-headers')"/>
                     </xforms:action>
                </xforms:submission>
           </xforms:model>
