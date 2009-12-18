@@ -20,8 +20,8 @@
 			<xforms:bind id="year_bind" nodeset="/car/year"/>
 			<xforms:bind id="color_bind" nodeset="/car/color"/>
 			
-			<xforms:submission id="submit-dont" action="http://xformstest.org/cgi-bin/echo.sh" method="post" indent="no"/>
-			<xforms:submission id="submit-indent" action="http://xformstest.org/cgi-bin/echo.sh" method="post" indent="yes"/>
+			<xforms:submission id="submit-dont" action="http://xformstest.org/cgi-bin/echo.sh" method="post" indent="false"/>
+			<xforms:submission id="submit-indent" action="http://xformstest.org/cgi-bin/echo.sh" method="post" indent="true"/>
 			
         </xforms:model>
     	<xforms:group>
