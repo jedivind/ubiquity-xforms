@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <title>11.9.1.a get submission method</title>
+    <script type="text/javascript" src="../../../../../../src/ubiquity-loader.js">/**/</script>
+<link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet" type="text/css"/>
+    
+  </head>
+  <body>
+<xforms:model id="mod1">
+    	<xforms:instance xmlns="">
+    		<car>
+    		  <make>Ford</make>
+    		  <color>blue</color>
+    		</car>
+    	</xforms:instance>
+    	<xforms:submission id="sub1" ref="/car" action="http://xformstest.org/cgi-bin/echo.sh?p1=x&amp;p2=y" method="get"/>
+    </xforms:model>
+    <xforms:group>
+      <xforms:label class="title">11.9.1.b get submission method with extra URL parameters, replacing form</xforms:label>
+    </xforms:group>
+    <xforms:group>
+    	<xforms:label>
+    	  When you activate the Use Get Method submit control the page must be replaced the echo result.
+    	  The request URI must contain p1=x&amp;p2=y&amp;make=Ford&amp;color=blue, and
+    	  the post data must not contain any form data.
+    	</xforms:label>
+    </xforms:group>
+    <xforms:group>
+      <xforms:submit submission="sub1">
+        <xforms:label>Use Get Method</xforms:label>
+      </xforms:submit>
+    </xforms:group>
+    
+  </body>
+</html>

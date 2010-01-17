@@ -289,8 +289,8 @@ submission.prototype.submit = function(oSubmission) {
     var sEncoding = oSubmission.getAttribute("encoding") || "UTF-8";
     var sSerialization = oSubmission.getAttribute("serialization") ? (oSubmission.getAttribute("serialization") !== "none") : "";
     var bSerialize = (oSubmission.getAttribute("serialization") !== "none");
-		var sSeparator = oSubmission.getAttribute("separator") || "&";
-		var oBody;
+    var sSeparator = oSubmission.getAttribute("separator") || "&";
+    var oBody;
     var oContext;
     var bHasHeaders = false;
     var isSetSoapHeaders = false;
@@ -498,10 +498,7 @@ submission.prototype.submit = function(oSubmission) {
 			)
 		)
 	) {
-		oForm = this.buildFormFromObject(oBody);
-		oForm.encoding = sSerialization;
-		oForm.action = sResource;
-		oForm.method = sMethod.toLowerCase();
+		oForm = this.buildSubmissionForm(sMethod, sSerialization, sResource, sSeparator, oBody);
 		document.body.appendChild(oForm);
 
 		try {
@@ -734,19 +731,36 @@ submission.prototype.serializeURLEncoded = function(node) {
 };
 
 /**
- * Builds an HTML form element from an object.
+ * Builds an HTML form element from the given parameters
  */
-submission.prototype.buildFormFromObject = function(object) {
+submission.prototype.buildSubmissionForm = function(sMethod, sSerialization, sResource, sSeparator, oBody) {
 	var form = document.createElement("form");
+	var extraParams, pair;
 	var field = null;
 	var key, value;
+
+	form.method = sMethod.toLowerCase();
+	form.encoding = sSerialization;
+	form.action = sResource;
 	
-	for ( key in object ) {
-		if ( object.hasOwnProperty(key) && typeof(object[key]) !== "function") {
+	if (sMethod === "GET" && sSerialization === "application/x-www-form-urlencoded" && sResource.indexOf("?") != -1) {
+		extraParams = sResource.slice(sResource.indexOf("?") + 1).split(sSeparator || "&");
+		for (key in extraParams) {
+			pair = extraParams[key].split("=");
+			field = document.createElement("input");
+			field.type = "hidden";
+			field.name = pair[0];
+			field.value = pair[1];
+			form.appendChild(field);
+		}
+	}
+	
+	for ( key in oBody ) {
+		if ( oBody.hasOwnProperty(key) && typeof(oBody[key]) !== "function") {
 			field = document.createElement("input");
 			field.type = "hidden";
 			field.name = key;
-			field.value = object[key];
+			field.value = oBody[key];
 			
 			form.appendChild(field);
 		}
@@ -834,7 +848,26 @@ submission.prototype.buildEncodedParameters = function(params, separator, queryS
 };//buildEncodedParameters()
 
 submission.prototype.buildGetUrl = function(action, params, separator) {
-	return action + this.buildEncodedParameters(params, separator, "?");
+	var actionDivider = "?";
+	
+	action = action || "";
+	separator = separator || "&";
+	
+	// If the action URL contains ?, then no divider is needed if it is last,
+	// and the URL parameter separator is needed otherwise.
+	if (action.indexOf("?") != -1) {
+		actionDivider = (action.lastIndexOf("?") === action.length - 1) ? "" : separator;
+		
+		// Except no dividing separator is needed if the action URL ends with 
+		// the URL parameter separator already
+		actionDivider = (action.lastIndexOf(separator) === action.length - 1) ? "" : actionDivider;
+    }
+	
+	// The divider between the action URL and the parameters is also nullified
+	// if there is no submission data coming from the model
+	actionDivider = (params && params.length === 0) ? "" : actionDivider;
+
+	return action + this.buildEncodedParameters(params, separator, actionDivider);
 };//buildGetUrl()
 
 submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype, sEncoding) {

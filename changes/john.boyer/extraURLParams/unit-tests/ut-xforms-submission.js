@@ -108,6 +108,38 @@ suiteXFormsSubmission.add(
 				var string = document.submission.buildGetUrl("", document.submission.serializeURLEncoded(node));
 				
 				Assert.areEqual("?make=Ford&color=blue", string);
+			},
+			
+			testSerializeWithTrailingURLParams: function() {
+				
+				var Assert = YAHOO.util.Assert;
+				var node = getFirstNode(this.model.EvaluateXPath("/car"));
+				var string = document.submission.buildGetUrl("http://www.example.org/servlet?p1=x&p2=y", document.submission.serializeURLEncoded(node));
+				
+				Assert.areEqual("http://www.example.org/servlet?p1=x&p2=y&make=Ford&color=blue", string);
+
+				string = document.submission.buildGetUrl("http://www.example.org/servlet?p1=x&", document.submission.serializeURLEncoded(node));
+				Assert.areEqual("http://www.example.org/servlet?p1=x&make=Ford&color=blue", string);
+				
+				string = document.submission.buildGetUrl("http://www.example.org/servlet?", document.submission.serializeURLEncoded(node));
+				Assert.areEqual("http://www.example.org/servlet?make=Ford&color=blue", string);
+			},
+			
+			testBuildSubmissionForm: function() {
+				
+				var Assert = YAHOO.util.Assert;
+				var node = getFirstNode(this.model.EvaluateXPath("/car"));
+				var form = document.submission.buildSubmissionForm("GET",
+						"application/x-www-form-urlencoded",
+						"http://www.example.org/servlet?p1=x&p2=y",
+						"&",
+						document.submission.serializeURLEncoded(node));
+				
+				Assert.areEqual(4, form.childNodes.length, "Should be 4 children");
+				Assert.areEqual("p1=x", form.childNodes[0].name+"="+form.childNodes[0].value, "1st GET param should be p1=x");
+				Assert.areEqual("p2=y", form.childNodes[1].name+"="+form.childNodes[1].value, "2nd GET param should be p2=y");
+				Assert.areEqual("make=Ford", form.childNodes[2].name+"="+form.childNodes[2].value, "3rd GET param should be make=Ford");
+				Assert.areEqual("color=blue", form.childNodes[3].name+"="+form.childNodes[3].value, "4th GET param should be color=blue");
 			}
 			
 		}));
