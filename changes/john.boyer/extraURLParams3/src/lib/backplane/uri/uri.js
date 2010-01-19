@@ -35,6 +35,7 @@ function spliturl(s)
 		scheme: (RegExp.$1) ? RegExp.$2 : null,
 		authority: (RegExp.$3) ? RegExp.$4 : null,
 		path: RegExp.$5,
+		queryDivider : RegExp.$6,
 		query : (RegExp.$6) ? RegExp.$7 : null,
 		fragment : (RegExp.$8) ? RegExp.$9 : null
 	};
@@ -215,11 +216,8 @@ function curieToUri(curie, namespaces) {
   return (namespaces.get(prefix) ? namespaces.get(prefix) : "unmapped:" + prefix) + suffix;
 }//curieToUri()
 
-
-function buildGetUrl(action, params, separator) {
+function buildEncodedParameters(params, separator, queryDivider) {
 	var key, pairs = [ ];
-
-	separator = separator || "&";
 
 	if (params) {
 		for (key in params) {
@@ -227,14 +225,23 @@ function buildGetUrl(action, params, separator) {
 				pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
 			}
 		}
-	}//if ( there are parameters to add to the action )
+	}
 
-	return action
-		+ (
-			(pairs.length)
-				? "?" + pairs.join(separator)
-				: ""
-		);
+	return ((queryDivider && pairs.length > 0) ? queryDivider : "") + pairs.join(separator || "&");
+};//buildEncodedParameters()
+
+function buildGetUrl(action, params, separator) {
+	var queryDivider;
+	var shreddedActionUrl = spliturl(action);
+	
+	separator = separator || "&";
+
+	// If there are query params, then the divider between the action URL and the new
+	// params needs to be the param separator.  Otherwise, the normal query divider 
+	// is needed only if it is not already in the action URL.
+	queryDivider = shreddedActionUrl.query ? separator : (shreddedActionUrl.queryDivider ? "" : "?") 
+			
+	return action + buildEncodedParameters(params, separator, queryDivider);
 };//buildGetUrl
 
 function getLocalPath(origPath) {

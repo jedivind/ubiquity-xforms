@@ -498,10 +498,7 @@ submission.prototype.submit = function(oSubmission) {
 			)
 		)
 	) {
-		oForm = this.buildFormFromObject(oBody);
-		oForm.encoding = sSerialization;
-		oForm.action = sResource;
-		oForm.method = sMethod.toLowerCase();
+		oForm = this.buildSubmissionForm(sMethod, sSerialization, sResource, sSeparator, oBody);
 		document.body.appendChild(oForm);
 
 		try {
@@ -734,19 +731,38 @@ submission.prototype.serializeURLEncoded = function(node) {
 };
 
 /**
- * Builds an HTML form element from an object.
+ * Builds an HTML form element from the given parameters
  */
-submission.prototype.buildFormFromObject = function(object) {
+submission.prototype.buildSubmissionForm = function(sMethod, sSerialization, sResource, sSeparator, oBody) {
 	var form = document.createElement("form");
+	var shreddedResourceUrl, extraParams, pair;
 	var field = null;
 	var key, value;
+
+	form.method = sMethod.toLowerCase();
+	form.encoding = sSerialization;
+	form.action = sResource;
 	
-	for ( key in object ) {
-		if ( object.hasOwnProperty(key) && typeof(object[key]) !== "function") {
+	shreddedResourceUrl = spliturl(sResource);
+	
+	if (sMethod === "GET" && sSerialization === "application/x-www-form-urlencoded" && shreddedResourceUrl.query) {
+		extraParams = shreddedResourceUrl.query.split(sSeparator || "&");
+		for (key in extraParams) {
+			pair = extraParams[key].split("=");
+			field = document.createElement("input");
+			field.type = "hidden";
+			field.name = pair[0];
+			field.value = pair[1];
+			form.appendChild(field);
+		}
+	}
+	
+	for ( key in oBody ) {
+		if ( oBody.hasOwnProperty(key) && typeof(oBody[key]) !== "function") {
 			field = document.createElement("input");
 			field.type = "hidden";
 			field.name = key;
-			field.value = object[key];
+			field.value = oBody[key];
 			
 			form.appendChild(field);
 		}
@@ -820,21 +836,11 @@ submission.prototype.setHeaders = function(oModel, oSubmission) {
 };
 
 submission.prototype.buildEncodedParameters = function(params, separator, queryString) {
-	var key, pairs = [ ];
-
-	if (params) {
-		for (key in params) {
-			if (params.hasOwnProperty(key) && typeof(params[key]) !== "function") {
-				pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
-			}
-		}
-	}//if ( there are parameters to add to the action )
-
-	return ((queryString) ? queryString : "") + pairs.join(separator || "&");
+	return buildEncodedParameters(params, separator, queryString);
 };//buildEncodedParameters()
 
 submission.prototype.buildGetUrl = function(action, params, separator) {
-	return action + this.buildEncodedParameters(params, separator, "?");
+	return buildGetUrl(action, params, separator);
 };//buildGetUrl()
 
 submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype, sEncoding) {
