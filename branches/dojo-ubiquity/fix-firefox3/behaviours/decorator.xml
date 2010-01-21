@@ -1,0 +1,26 @@
+<bindings
+  xmlns="http://www.mozilla.org/xbl">
+<binding id="decorator">
+	<implementation>
+		<constructor>
+		<![CDATA[
+			DECORATOR.attachDecoration(this,true,true);
+		]]>
+		</constructor>
+	</implementation>
+	<handlers>
+		<handler event="click">
+			var evt = document.createEvent('UIEvents');
+
+			evt.initUIEvent("DOMActivate", true, false, window, 1);
+   			this.dispatchEvent(evt);
+		</handler>
+		<handler event="mouseover">
+			var evt = document.createEvent('UIEvents');
+
+			evt.initUIEvent("xforms-hint", true, false, window, 1);
+			this.dispatchEvent(evt);
+		</handler>
+	</handlers>
+</binding>
+</bindings>

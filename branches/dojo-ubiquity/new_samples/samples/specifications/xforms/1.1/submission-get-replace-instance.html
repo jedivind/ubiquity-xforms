@@ -1,0 +1,109 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<head>
+		<title>Submission using GET</title>
+		<script type="text/javascript" src="../../../../src/ubiquity-loader.js" >/**/</script>
+		<link rel="stylesheet" href="../style/sample.css" type="text/css" />
+		<style type="text/css">
+			xf\:output { display: block; }
+		</style>
+	</head>
+	<body>
+		<xf:model id="m">
+			<!--
+				The first instance manages the data for the Flickr
+				query.
+			-->
+			<xf:instance>
+				<instanceData xmlns="">
+					<method>flickr.photos.search</method>
+					<api_key>68149024a667e0be3c63708f002ffe1e</api_key>
+					<tags></tags>
+					<per_page>12</per_page>
+				</instanceData>
+			</xf:instance>
+			<!--
+				We use this instance to store the results of the request.
+			-->
+			<xf:instance id="inst-rs">
+				<dummy xmlns="" ></dummy>
+			</xf:instance>
+			<!--
+				We use this instance to store other data.
+			-->
+			<xf:instance id="inst-control">
+				<instanceData xmlns="" state="pending">
+					<t1 ></t1>
+					<t2 ></t2>
+				</instanceData>
+			</xf:instance>
+			<!--
+				The first test should give us some Flickr images of London.
+			-->
+			<xf:submission id="sub-t1" method="get" action="http://www.flickr.com/services/rest/" separator="&amp;" replace="instance" instance="inst-rs">
+				<xf:action ev:event="xforms-submit">
+					<xf:setvalue ref="tags" value="'london'" ></xf:setvalue>
+					<xf:setvalue ref="instance('inst-control')/t1" value="'submit'" ></xf:setvalue>
+				</xf:action>
+				<xf:action ev:event="xforms-submit-done">
+					<xf:setvalue ref="instance('inst-control')/t1" value="concat(., '|done')" ></xf:setvalue>
+					<xf:setvalue if="instance('inst-rs')/@stat='ok'" ref="instance('inst-control')/t1" value="concat(., '|dataok')" ></xf:setvalue>
+					<xf:dispatch name="t1-complete" target="m" ></xf:dispatch>
+				</xf:action>
+				<xf:action ev:event="xforms-submit-error">
+					<xf:setvalue ref="instance('inst-control')/t1" value="concat(., '|error')" ></xf:setvalue>
+					<xf:dispatch name="t1-complete" target="m" ></xf:dispatch>
+				</xf:action>
+			</xf:submission>
+			<!--
+				The second test should get an error from Flickr, since you can't
+				leave the 'tags' value empty.
+			-->
+			<xf:submission id="sub-t2" method="get" action="http://www.flickr.com/services/rest/" separator="&amp;" replace="instance" instance="inst-rs">
+				<xf:action ev:event="xforms-submit">
+					<xf:setvalue ref="tags" ></xf:setvalue>
+					<xf:setvalue ref="instance('inst-control')/t2" value="'submit'" ></xf:setvalue>
+				</xf:action>
+				<xf:action ev:event="xforms-submit-done">
+					<xf:setvalue ref="instance('inst-control')/t2" value="concat(., '|done')" ></xf:setvalue>
+					<xf:setvalue if="instance('inst-rs')/@stat='fail'" ref="instance('inst-control')/t2" value="concat(., '|dataok')" ></xf:setvalue>
+					<xf:dispatch name="t2-complete" target="m" ></xf:dispatch>
+				</xf:action>
+				<xf:action ev:event="xforms-submit-error">
+					<xf:setvalue ref="instance('inst-control')/t2" value="concat(., '|error')" ></xf:setvalue>
+					<xf:dispatch name="t2-complete" target="m" ></xf:dispatch>
+				</xf:action>
+			</xf:submission>
+			<!--
+				Chain the tests together
+			-->
+			<xf:send submission="sub-t1" ev:event="xforms-ready" ></xf:send>
+			<xf:send submission="sub-t2" ev:event="t1-complete" ></xf:send>
+			<xf:setvalue ref="instance('inst-control')/@state" value="'ready'" ev:event="t2-complete" ></xf:setvalue>
+		</xf:model>
+		<xf:output id="ready" ref="instance('inst-control')/@state" ></xf:output>
+		<xf:group ref="instance('inst-control')">
+			<xf:output id="t1" ref="t1">
+				<xf:label>Test 1:</xf:label>
+			</xf:output>
+			<xf:output id="t2" ref="t2">
+				<xf:label>Test 2:</xf:label>
+			</xf:output>
+		</xf:group>
+	</body>
+</html>

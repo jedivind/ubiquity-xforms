@@ -1,0 +1,83 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<?xml version="1.0" encoding="iso-8859-1"?>
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+>
+	<head>
+		<title>Using the XForms 1.1 days-to-date function</title>
+		<script type="text/javascript" src="../../../../src/ubiquity-loader.js" >/**/</script>
+		<style type="text/css">
+			xf\:output { display: block; }
+		</style>
+	</head>
+	<body>
+		<xf:model>
+			<xf:instance>
+				<instanceData xmlns="">
+					<days></days>
+					<days>11687.75</days>
+					<days>0</days>
+					<days>11688</days>
+					<days>-1</days>
+					<days>text</days>
+				</instanceData>
+			</xf:instance>
+		</xf:model>
+		
+		<xf:output id="ready" value="concat('rea', 'dy')" style="display: none;" ></xf:output>
+
+		<a href="http://www.w3.org/TR/2006/WD-xforms11-20061103/#fn-days-to-date">http://www.w3.org/TR/2006/WD-xforms11-20061103/#fn-days-to-date</a>
+
+		<h1>Literal values</h1>
+
+		<!--exception-->
+		<xf:output id="t1a" value="days-to-date('')">
+			<xf:label>Test 1a:</xf:label>
+		</xf:output>
+
+		<!--good-->
+		<xf:output id="t2a" value="days-to-date(11687.75)">
+			<xf:label>Test 2a:</xf:label>
+		</xf:output>
+
+		<xf:output id="t3a" value="days-to-date(0)">
+			<xf:label>Test 3a:</xf:label>
+		</xf:output>
+
+		<xf:output id="t4a" value="days-to-date(11688)">
+			<xf:label>Test 4a:</xf:label>
+		</xf:output>
+
+		<xf:output id="t5a" value="days-to-date(-1)">
+			<xf:label>Test 5a:</xf:label>
+		</xf:output>
+
+		<!--out of range-->
+		<xf:output id="t6a" value="days-to-date('text')">
+			<xf:label>Test 6a:</xf:label>
+		</xf:output>
+
+		<h1>Referenced values</h1>
+
+		<xf:repeat nodeset="days">
+			<xf:output value="days-to-date(.)">
+				<xf:label>Test:</xf:label>
+			</xf:output>
+		</xf:repeat>
+	</body>
+</html>

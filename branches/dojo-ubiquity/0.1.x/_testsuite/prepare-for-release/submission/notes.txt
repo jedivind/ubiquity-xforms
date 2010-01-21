@@ -1,0 +1,1 @@
+The aim of this module is to show how to use the submission API directly, i.e., without using XForms. As things stand the form returns the weather correctly in IE, albeit with some script errors, but doesn't return anything in Firefox, due to the blocking of cross-domain requests.
