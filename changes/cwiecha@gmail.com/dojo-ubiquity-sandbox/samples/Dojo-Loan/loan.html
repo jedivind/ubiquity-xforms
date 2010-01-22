@@ -1,0 +1,433 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xforms="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
+	  xmlns:javascript="http://www.w3.org/2002/xforms#inline">
+ <head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"></meta>
+    <title>XForms Loan Application Form</title>  
+    <link rel="stylesheet" type="text/css" href="file:///Users/wiecha/Documents/Windows/UbiquityWorkspace/Dojo/dojo-release-1.4.0/dijit/themes/tundra/tundra.css">     
+    <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	<script src="format.js" type="text/javascript">/**/</script>
+        
+    <script type="text/javascript" src="file:///Users/wiecha/Documents/Windows/UbiquityWorkspace/Dojo-src/dojo-release-1.4.0-src/dojo/dojo.js"
+            djConfig="parseOnLoad: false">
+    </script>        
+    <script type="text/javascript" src="js/xfModelStore.js">/**/</script>
+        
+    <link type="text/css" href="style/gen_default.css" rel="stylesheet"></link>
+  </head>
+  <body class="tundra" onload="setupDojoStartupListener()">
+      <script type="text/javascript" >
+          dojo.require("mvc.data.ModelStore");
+          dojo.require("mvc.form.NumberTextBox");
+          dojo.require("mvc.form.FilteringSelect");
+          dojo.require("dijit.layout.AccordionContainer");
+          dojo.require("dijit.layout.ContentPane");
+          
+          dojo.require("dojo.parser");  // find widgets
+          
+          var loanModelStore = null;
+          // var query = { nodeset: "instance('loan')/currencies/currency" };
+          
+          // This is the onload handler, 
+          // call to initialize Model Store
+          
+          function initModelStore() {	
+            console.log("initModelStorage");
+          
+            var modelArgs = {
+              id: "loan_model"  
+            };
+          
+             // Create a data store pointing to our XForms data model
+             loanModelStore = new mvc.data.ModelStore(modelArgs);
+          
+            // var filteringSelect = new dijit.form.FilteringSelect({
+            //  id: "xf_bound",
+            //  store: loanModelStore,
+            //  query: { nodeset: "instance('loan')/currencies/currency" }
+            //  },
+            // "xf_bound");
+          }
+          
+          function doDojo() {
+            dojo.parser.parse();
+          }
+          
+          function setupDojoStartupListener() {
+            var model = document.getElementById( "loan_model" );
+            model.addEventListener( "xforms-ready", doDojo, false );
+          }
+          
+          initModelStore();
+          
+      </script>
+    <xforms:model id="loan_model">
+        <xforms:instance id="loan">
+        	<LoanRecord xmlns="">
+        		<StartDate>2008-08-08</StartDate>
+        		<Borrower>
+        			<Name>John Q. Public</Name>
+        			<Addr>123 Main St. Tinyville</Addr>
+        		</Borrower>
+        		<Principal currency="USD">10000</Principal>
+        		<Duration>12</Duration>
+        		<InterestRate>5</InterestRate>
+        		<Monthly-Payment></Monthly-Payment>
+        		<TotalPayout></TotalPayout>
+        	    <currencies>
+        	        <currency>USD</currency>
+        	        <currency>CDN</currency>
+        	        <currency>Euro</currency>
+        	        <currency>Pound</currency>
+        	        <currency att="calc"></currency>
+        	    </currencies>
+        	</LoanRecord>
+        </xforms:instance>
+        
+        <xforms:instance id="sales">
+            <sales>
+                <month m="January" y="2009">
+                    <region r="North America">1000</region>
+                    <region r="EMEA">2400</region>
+                    <region r="AP">4002</region>
+                    <region r="BRIC">1220</region>
+                    <comments>This was a really good month</comments>
+                </month>
+                <month m="February" y="2009">
+                    <region r="North America">1200</region>
+                    <region r="EMEA">2030</region>
+                    <region r="AP">4000</region>
+                    <region r="BRIC">1230</region>
+                    <comments>A tough period, but 2nd quarter should be better</comments>
+                </month>
+                <month m="March" y="2009">
+                    <region r="North America">2300</region>
+                    <region r="EMEA">2200</region>
+                    <region r="AP">4900</region>
+                    <region r="BRIC">1200</region>
+                </month>
+                <month m="April" y="2009">
+                    <region r="North America">1200</region>
+                    <region r="EMEA">2200</region>
+                    <region r="AP">4300</region>
+                    <region r="BRIC">1320</region>
+                    <comments>Yup...getting stronger</comments>
+                </month>
+                <month m="May" y="2009">
+                    <region r="North America">2100</region>
+                    <region r="EMEA">2003</region>
+                    <region r="AP">4200</region>
+                    <region r="BRIC">1320</region>
+                    <comments>On the way!</comments>
+                </month>
+            </sales>
+        </xforms:instance>
+        
+        <xforms:bind nodeset="instance('loan')/currencies/currency[@att = 'calc']" calculate="concat(../currency[1], ' or ', ../currency[2])"></xforms:bind>
+
+        <xforms:instance id="rate">
+	        <rate  xmlns=""></rate>
+	    </xforms:instance>
+	       
+        <xforms:bind nodeset="instance('rate')" 
+                     calculate="instance('loan')/InterestRate div 1200.0"></xforms:bind>
+               
+        <xforms:bind nodeset="TotalPayout" 
+                     calculate="../Monthly-Payment * ../Duration" 
+                     relevant="../Monthly-Payment &gt; 0 and ../Duration &gt; 0"></xforms:bind>
+                            
+        <xforms:bind nodeset="Monthly-Payment" 
+                     calculate="if(instance('rate') &gt; 0, 
+                                   ../Principal * instance('rate') div (1.0 - power(1.0 + instance('rate'), -../Duration)),
+                                   ../Principal div ../Duration)"
+                     relevant="../Principal > 0 and ../Duration > 0"></xforms:bind>
+       	          
+        <xforms:bind nodeset="Borrower/Name" required="true()" constraint="string-length(.) > 0"></xforms:bind>
+        <xforms:bind nodeset="Borrower/Addr" required="true()" constraint="string-length(.) > 0"></xforms:bind>
+
+        <xforms:bind nodeset="Principal"
+                     type="xsd:double" 
+                     constraint=". &gt;= 1000 and . &lt;= 100000"></xforms:bind>
+               
+        <xforms:bind nodeset="Duration" 
+                     type="xsd:positiveInteger"
+                     constraint=". &lt;= 84"></xforms:bind>
+
+        <xforms:bind nodeset="InterestRate"
+                     type="xsd:double" 
+                     constraint=". &gt;= 5 and . &lt;= 60"></xforms:bind>
+              
+        <xforms:bind nodeset="StartDate" type="xsd:date"></xforms:bind>
+
+        <xforms:setvalue ev:event="xforms-ready" 
+                         ref="StartDate" 
+                         value="choose(.='',substring(local-date(),1,10),.)"></xforms:setvalue>           
+
+        <xforms:submission id="makeLoan" 
+                           method="post" 
+                           includenamespaceprefixes=""
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit</xforms:message>
+        </xforms:submission>
+                     
+    </xforms:model>
+ 
+    <xforms:label class="company_name">Big Red Loan and Mortgage Co.</xforms:label>
+      
+    <xforms:label class="company_motto">The name to trust when you're... in the red.</xforms:label>
+      
+    <hr size="6" class="rule"></hr>         
+      
+    <xforms:input ref="/LoanRecord/StartDate" datatype="xforms:date"> 
+           <xforms:label>Agreement Date: </xforms:label>
+    </xforms:input> 
+
+    <br />
+
+      <xforms:input class="red" ref="Borrower/Name">
+         	<xforms:label>Borrower Name:</xforms:label>
+         	<xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
+      </xforms:input>
+
+    <br />
+
+      <xforms:input ref="Borrower/Addr">
+          <xforms:label>Borrower's Address:</xforms:label> 
+          <xforms:hint>You need to know where the borrower lives so you can visit him if needed.</xforms:hint>
+      </xforms:input>
+
+    <br />
+
+      <xforms:input ref="Principal">
+          <xforms:label>Principal:</xforms:label>
+          <xforms:hint>Enter the amount of money you will give the borrower.</xforms:hint>
+          <xforms:alert>The dollar value must be between 1000 and 100000</xforms:alert>
+      </xforms:input>
+
+    <br />
+  
+      <xforms:select1 ref="Principal/@currency" appearance="minimal" incremental="true">
+            <xforms:label>Choose currency</xforms:label> 
+            <xforms:item>
+                <xforms:label>US Dollars</xforms:label>
+                <xforms:value>USD</xforms:value>
+            </xforms:item>
+            <xforms:item>
+                <xforms:label>Canadian Dollars</xforms:label>
+                <xforms:value>CDN</xforms:value>
+            </xforms:item>
+            <xforms:item>
+                <xforms:label>Euros</xforms:label>
+                <xforms:value>EUR</xforms:value>
+            </xforms:item>
+         </xforms:select1>
+     
+    <br />
+      <xforms:input ref="Principal/@currency">
+          <xforms:label>Currency:</xforms:label>
+      </xforms:input>
+
+         <xforms:input ref="Duration">
+             <xforms:label>Duration of Loan in Months:</xforms:label>
+             <xforms:hint>Don't give out ol' Big Red's money for longer than seven years!</xforms:hint>
+             <xforms:alert>Range is 1 to 84</xforms:alert>
+         </xforms:input>
+        
+      
+    <br />
+
+         <xforms:input ref="InterestRate" incremental="true">
+             <xforms:label>Yearly Interest Rate (compounded monthly):</xforms:label>
+             <xforms:hint>We're only loan dogfish, so no more than sixty percent.</xforms:hint>
+             <xforms:alert>Choose an interest rate between 5 and 60 percent.</xforms:alert>
+         </xforms:input>
+     <br />
+      
+      <div class="spacer"></div><hr size="6" class="rule"></hr>      
+     
+      <xforms:group>
+        <xforms:label>html:select dojoType="mvc.form.FilteringSelect"</xforms:label>
+        <select id="combo" dojoType="mvc.form.FilteringSelect" store="loanModelStore" queryExpr="instance('loan')/currencies/currency"
+                bindExpr="instance('loan')/Principal/@currency"></select>
+     </xforms:group>
+      
+      <br/>
+      <br/>
+      
+      <xforms:group>
+          <xforms:label>html:div dojoType="mvc.form.NumberTextBox"</xforms:label>
+          <div id="dojoPrincipal" dojoType="mvc.form.NumberTextBox" store="loanModelStore" bindExpr="instance('loan')/Principal"></div>
+      </xforms:group>
+      <br/>
+      <br/>
+      <xforms:group>
+          <xforms:label>xforms:input widget="dijit.form.NumberTextBox"</xforms:label> 
+          <xforms:input id="xfPrincipal" widget="dijit.form.NumberTextBox" ref="instance('loan')/Principal">
+              <xforms:label>Principal:</xforms:label>
+          </xforms:input>
+      </xforms:group>      
+      <br/>
+      <br/>
+      
+      <div class="spacer"></div><hr size="6" class="rule"></hr>     
+      
+      <!--
+      <xforms:repeat nodeset="instance('sales')/month">
+          <xforms:output ref="@m">
+              <xforms:label>Month:</xforms:label>
+          </xforms:output>
+          <table>
+              <tr>
+                  <td>
+                     <xforms:repeat nodeset="region">
+                         <xforms:output ref="@r">
+                             <xforms:label>Region:</xforms:label>
+                         </xforms:output>         
+                         <xforms:input ref="." widget="dijit.form.NumberTextBox">
+                             <xforms:label>Value:</xforms:label>
+                         </xforms:input>              
+                     </xforms:repeat>
+                  </td>
+                  <td>
+                     <xforms:group ref="comments">
+                         <xforms:output ref=".">
+                             <xforms:label>Comments:</xforms:label>
+                         </xforms:output>
+                         <xforms:trigger>
+                             <xforms:label>Agree</xforms:label>
+                         </xforms:trigger>
+                         <xforms:trigger>
+                             <xforms:label>Disagree</xforms:label>
+                         </xforms:trigger>
+                      </xforms:group>
+                  </td>
+              </tr>
+          </table>
+      </xforms:repeat>
+      --> 
+      
+      
+      <xforms:group widget="dijit.layout.TabContainer" ref="instance('loan')">
+          
+          <xforms:input ref="/LoanRecord/StartDate" datatype="xforms:date"> 
+              <xforms:label>Agreement Date: </xforms:label>
+          </xforms:input> 
+          
+
+          
+          <xforms:input class="red" ref="Borrower/Name">
+              <xforms:label>Borrower Name:</xforms:label>
+              <xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
+          </xforms:input>
+          
+ 
+          
+          <xforms:input ref="Borrower/Addr">
+              <xforms:label>Borrower's Address:</xforms:label> 
+              <xforms:hint>You need to know where the borrower lives so you can visit him if needed.</xforms:hint>
+          </xforms:input>
+          
+
+          
+          <xforms:input ref="Principal">
+              <xforms:label>Principal:</xforms:label>
+              <xforms:hint>Enter the amount of money you will give the borrower.</xforms:hint>
+              <xforms:alert>The dollar value must be between 1000 and 100000</xforms:alert>
+          </xforms:input>
+
+             <xforms:input class="regular" ref="Monthly-Payment">
+                 <xforms:label>Monthly Payment: </xforms:label>
+             </xforms:input>
+
+            <xforms:input class="regular" ref="TotalPayout">
+                <xforms:label>Total Payout: </xforms:label>
+            </xforms:input>
+ 
+      </xforms:group>
+      
+      <div class="spacer"></div><hr size="6" class="rule"></hr>
+      
+      <div style="width:600px">
+      <xforms:switch widget="mvc.layout.switch.AccordionContainer">          
+        <xforms:case id="sw_date">
+            <xforms:label>Date</xforms:label>
+            <xforms:input ref="/LoanRecord/StartDate" datatype="xforms:date"> 
+                <xforms:label>Agreement Date: </xforms:label>
+            </xforms:input> 
+        </xforms:case>  
+          
+        <xforms:case id="sw_name">
+            <xforms:label>Name</xforms:label>            
+            <xforms:input class="red" ref="Borrower/Name">
+                <xforms:label>Borrower Name:</xforms:label>
+                <xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
+            </xforms:input>
+        </xforms:case>  
+          
+        <xforms:case id="sw_address">
+            <xforms:label>Address</xforms:label>
+            <xforms:input ref="Borrower/Addr">
+                <xforms:label>Borrower's Address:</xforms:label> 
+                <xforms:hint>You need to know where the borrower lives so you can visit him if needed.</xforms:hint>
+            </xforms:input>
+        </xforms:case>  
+          
+        <xforms:case id="sw_principal">
+            <xforms:label>Principal</xforms:label>          
+            <xforms:input ref="Principal">
+                <xforms:label>Principal:</xforms:label>
+                <xforms:hint>Enter the amount of money you will give the borrower.</xforms:hint>
+                <xforms:alert>The dollar value must be between 1000 and 100000</xforms:alert>
+            </xforms:input>
+        </xforms:case>
+          
+        <xforms:case id="sw_monthly_payment">
+            <xforms:label>Monthly Payment</xforms:label>
+            <xforms:input class="regular" ref="Monthly-Payment">
+                <xforms:label>Monthly Payment: </xforms:label>
+            </xforms:input>
+        </xforms:case>
+          
+        <xforms:case id="sw_total_payment">
+            <xforms:label>Total Payment</xforms:label>
+            <xforms:input class="regular" ref="TotalPayout">
+                <xforms:label>Total Payout: </xforms:label>
+            </xforms:input>
+        </xforms:case>
+      </xforms:switch>
+      </div>
+      <br/>
+      <br/>
+      <xforms:trigger>
+          <xforms:label>Date</xforms:label>
+          <xforms:toggle ev:event="DOMActivate" case="sw_date"></xforms:toggle>
+      </xforms:trigger>
+      <xforms:trigger>
+          <xforms:label>Name</xforms:label>
+          <xforms:toggle ev:event="DOMActivate" case="sw_name"></xforms:toggle>
+      </xforms:trigger>
+      <xforms:trigger>
+          <xforms:label>Address</xforms:label>
+          <xforms:toggle ev:event="DOMActivate" case="sw_address"></xforms:toggle>
+      </xforms:trigger>
+      <xforms:trigger>
+          <xforms:label>Principal</xforms:label>
+          <xforms:toggle ev:event="DOMActivate" case="sw_principal"></xforms:toggle>
+      </xforms:trigger>
+      
+      
+           
+    <!-- This submit button results in activating the makeLoan submission -->
+	  <xforms:submit submission="makeLoan">
+	      <xforms:label>Submit Loan</xforms:label>
+          <xforms:hint>Sends the loan transaction to Big Red</xforms:hint>          
+      </xforms:submit>
+
+  </body>
+
+</html>

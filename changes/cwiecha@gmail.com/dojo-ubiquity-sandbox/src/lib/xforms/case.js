@@ -21,7 +21,13 @@ function XFormsCase(elmnt) {
 XFormsCase.prototype.isCase = true;
 
 XFormsCase.prototype.getSwitch = function() {
-	return this._case.element.parentNode;
+	//return this._case.element.parentNode;
+	
+	var parent = this._case.element.parentNode;
+	while ( !NamespaceManager.compareFullName(parent,"switch","http://www.w3.org/2002/xforms") && parent != null ) {
+	   parent = parent.parentNode;
+	};
+	return parent;
 };
 
 XFormsCase.prototype.deselect = function() {

@@ -72,6 +72,17 @@ DECORATOR.addDecorationRules({
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Container, OptionalIfUnspecifiedBinding, Group]);
             }
+        },
+        {
+            "name" : "group-element-dojo-content",
+             "match" : function(element) {				
+                if ( element.getAttribute( "widget" ) != null )
+                    return true;    
+                else return false;
+                },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([DojoGroupContent]);
+            }
         }
         ],
 
@@ -81,7 +92,18 @@ DECORATOR.addDecorationRules({
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, OptionalBinding, Switch]);
             }
-        }
+        },
+        {
+            "name" : "group-element-dojo-content",
+             "match" : function(element) {				
+                if ( element.getAttribute( "widget" ) != null )
+                    return true;    
+                else return false;
+                },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([DojoGroupContent]);
+            }
+        }        
         ],
 
         "case" : [
@@ -513,6 +535,17 @@ DECORATOR.addDecorationRules({
             }
         },
         // custom control pe-values below
+        {
+            "name" : "dojo-pevalue",
+            "match" : function(element) {
+                var widgetAttribute = element.parentNode.getAttribute( "widget" );
+                return widgetAttribute != null;
+            },
+            "apply" : function(arrBehaviours) {
+                UX.replaceArrayElement(arrBehaviours,XFormsInputValue,DojoInputValue);
+                return arrBehaviours;
+            }
+        },
         {
             "name" : "inputcalendar-pevalue",
             "match" : function(element) {
