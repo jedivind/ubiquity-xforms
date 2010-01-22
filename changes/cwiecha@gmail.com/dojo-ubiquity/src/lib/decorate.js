@@ -595,7 +595,7 @@ var DECORATOR = function () {
 		var bReturn = false, tIndex, arrBehaviours, i;
 		tIndex = element.getAttribute("tabindex");
 		//quit if already manually decorated
-		if (!UX.hasDecorationSupport && element.decorated) {
+		if (/*!UX.hasDecorationSupport && CFW */element.decorated) {
 			return bReturn;
 		}
 		if (tIndex === 0){

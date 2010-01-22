@@ -26,6 +26,15 @@
 function Switch(elmnt) {
 	this.element = elmnt;
 	this.oCurrentCase = null;
+	
+	// CFW -- save list of children since they may be reparented by Dojo or other AJAX "styling" libraries...
+	
+	this.caseChildren = new Array(0);
+	var nextChild = UX.getFirstNodeByName(elmnt,"case","http://www.w3.org/2002/xforms");
+	while ( nextChild != null ) {
+	   this.caseChildren.push( nextChild );
+	   nextChild = UX.getNextNodeByName(nextChild,"case","http://www.w3.org/2002/xforms");
+	}
 }
 
 Switch.prototype.isSwitch = true;
@@ -48,7 +57,8 @@ Switch.prototype.toggleDefault = function () {
 	//Prepare to loop through the child nodes of the switch - 
 	//	this list may include text nodes, and, if poorly authored, non-case elements.
 	var caseColl, caseInHand, candidateDefaultCase, bCaseSelectedBySelectedAttribute, i;
-	caseColl = this.element.childNodes;
+	// caseColl = this.element.childNodes;  CFW
+	caseColl = this.caseChildren;
 	caseInHand = null;
 	candidateDefaultCase = null;
 	bCaseSelectedBySelectedAttribute = false;
@@ -85,13 +95,16 @@ Switch.prototype.toggleDefault = function () {
   
   sCaseID - string corresponding to a child case
 */
-Switch.prototype.toggle = function (sCaseID) {
+Switch.prototype.toggle = function (sCaseID) {  // CFW
 	var i, oCase;
-	for (i = 0; i < this.element.childNodes.length; ++i) {
-		if (UX.id(this.element.childNodes[i]) === sCaseID) {
-			oCase = this.element.childNodes[i];
+	var tryCase;
+	
+	for ( i = 0; i < this.caseChildren.length; i++ ) {
+	   tryCase = this.caseChildren[i];
+	   if ( UX.id(tryCase) === sCaseID) {
+			oCase = tryCase;
 			break;
-		}
+	   }
 	}
 
 	if (oCase) {
