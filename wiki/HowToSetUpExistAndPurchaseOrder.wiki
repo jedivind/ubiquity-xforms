@@ -29,6 +29,10 @@ Navigate to the eXist client shell. This can be done many ways by either the ico
 
 Perform a restore navigating to the "Tools > Restore" menu item. Choose the ubxf-po-0.x.zip version that you downloaded previously and select OK.
 
+UPDATE: If eXist prompts you for a password to install the back-up it is,
+
+pw : admin
+
 At this point you should have installed Ubiquity / Exist and some sample forms.
 
 == Running the Demo ==
