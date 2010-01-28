@@ -215,11 +215,8 @@ function curieToUri(curie, namespaces) {
   return (namespaces.get(prefix) ? namespaces.get(prefix) : "unmapped:" + prefix) + suffix;
 }//curieToUri()
 
-
-function buildGetUrl(action, params, separator) {
+function buildEncodedParameters(params, separator) {
 	var key, pairs = [ ];
-
-	separator = separator || "&";
 
 	if (params) {
 		for (key in params) {
@@ -227,14 +224,18 @@ function buildGetUrl(action, params, separator) {
 				pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
 			}
 		}
-	}//if ( there are parameters to add to the action )
+	}
 
-	return action
-		+ (
-			(pairs.length)
-				? "?" + pairs.join(separator)
-				: ""
-		);
+	return pairs.join(separator || "&");
+};//buildEncodedParameters()
+
+function buildGetUrl(action, params, separator) {
+	var crackedAction = spliturl(action);
+	var params = buildEncodedParameters(params, separator);
+	separator = separator || "&";
+	crackedAction.query = (crackedAction.query || "") + (crackedAction.query && params ? separator : "") + params;
+	crackedAction.query = crackedAction.query ? crackedAction.query : null;
+	return recomposeURI(crackedAction, true);
 };//buildGetUrl
 
 function getLocalPath(origPath) {
