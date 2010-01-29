@@ -168,18 +168,18 @@ function remove_dot_segments(sURI) {
 function recomposeURI(o, bFragment) {
    var sRet = ""
 
-   if (o.scheme !== null)
+   if (o.scheme)
       sRet += o.scheme + ":";
 
-   if (o.authority !== null)
+   if (o.authority)
       sRet += "//" + o.authority;
 
    sRet += o.path;
 
-   if (o.query !== null)
+   if (o.query)
       sRet += "?" + o.query;
 
-   if ((o.fragment !== null) && bFragment)
+   if (o.fragment && bFragment)
       sRet += "#" + o.fragment;
 
    return sRet;
@@ -215,11 +215,28 @@ function curieToUri(curie, namespaces) {
   return (namespaces.get(prefix) ? namespaces.get(prefix) : "unmapped:" + prefix) + suffix;
 }//curieToUri()
 
-
 function buildGetUrl(action, params, separator) {
-	var key, pairs = [ ];
+	var crackedAction, crackedActionParamsArray, crackedActionParams, i, pair;
 
 	separator = separator || "&";
+	
+	crackedAction = spliturl(action);
+	crackedActionParamsArray = crackedAction.query ? crackedAction.query.split( /;|&/ ) : [ ];
+	crackedActionParams = { };
+	for (i = 0; i < crackedActionParamsArray.length; i++) {
+		pair = crackedActionParamsArray[i].split("=");
+		crackedActionParams[pair[0]] = pair[1];
+	}
+	
+	crackedAction.query = crackedActionParamsArray.length ? buildEncodedParameters(crackedActionParams, separator) : null;
+	params = buildEncodedParameters(params, separator);
+	crackedAction.query = (crackedAction.query || "") + (crackedAction.query && params ? separator : "") + params;
+	
+	return recomposeURI(crackedAction, true);
+};//buildGetUrl
+
+function buildEncodedParameters(params, separator) {
+	var key, pairs = [ ];
 
 	if (params) {
 		for (key in params) {
@@ -227,15 +244,10 @@ function buildGetUrl(action, params, separator) {
 				pairs.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
 			}
 		}
-	}//if ( there are parameters to add to the action )
+	}
 
-	return action
-		+ (
-			(pairs.length)
-				? "?" + pairs.join(separator)
-				: ""
-		);
-};//buildGetUrl
+	return pairs.join(separator || "&");
+};//buildEncodedParameters()
 
 function getLocalPath(origPath) {
 	var originalPath = /* convertUriToUTF8( */ origPath /*,config.options.txtFileSystemCharSet)*/;
