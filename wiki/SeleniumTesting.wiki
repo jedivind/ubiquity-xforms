@@ -3,7 +3,7 @@
 
 = Introduction =
 
-The W3C XForms 1.1 Test Suite has been incorporated into the Ubiquity-xforms project to facilitate compliance testing.  You can checkout a copy of the trunk to your local environment and start the Selenium testing by opening the _testcase/index.html_ file and selecting *Run W3C Selenium Tests*.  Visit this link for more information about [http://seleniumhq.org/ Selenium].  Our Ubiquity-xforms project uses the Selenium core.
+The W3C XForms 1.1 Test Suite has been incorporated into the Ubiquity-xforms project to facilitate compliance testing.  You can checkout a copy of the trunk to your local environment and *start Selenium testing by* opening the _testsuite/index.html_ file and selecting *Run W3C Selenium Tests*.  Visit this link for more information about [http://seleniumhq.org/ Selenium].  Our Ubiquity-xforms project uses the Selenium core.
 
 = Details =
 
