@@ -85,11 +85,13 @@
 					<td>*1*</td>
 					<td>Checks that the output has the right value</td>
 				</tr>
+				
+				<!-- First click -->
 				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:trigger[1]</td>
 					<td></td>
-					<td>Clicks on the button</td>
+					<td>Clicks on the insert button</td>
 				</tr>
 				<tr>
 					<td>pause</td>
@@ -100,7 +102,7 @@
 				<tr>
 					<td>verifyValue</td>
 					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']//xforms:input[@ref='price']/pe-value/input</td>
-					<td>3.00</td>
+					<td>0.00</td>
 					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
@@ -115,11 +117,13 @@
 					<td>*2*</td>
 					<td>Checks that the output has the right value</td>
 				</tr>
+				
+				<!-- Second click -->
 				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:trigger[1]</td>
 					<td></td>
-					<td>Clicks on the button</td>
+					<td>Clicks on the insert button again</td>
 				</tr>
 				<tr>
 					<td>pause</td>
@@ -130,7 +134,7 @@
 				<tr>
 					<td>verifyValue</td>
 					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']//xforms:input[@ref='price']/pe-value/input</td>
-					<td>3.00</td>
+					<td>0.00</td>
 					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
@@ -145,11 +149,13 @@
 					<td>*3*</td>
 					<td>Checks that the output has the right value</td>
 				</tr>
+				
+				<!-- Third click -->
 				<tr>
 					<td>click</td>
 					<td>xpath=/html/body/xforms:trigger[2]</td>
 					<td></td>
-					<td>Clicks on the button</td>
+					<td>Clicks on the delete button</td>
 				</tr>
 				<tr>
 					<td>pause</td>
@@ -160,7 +166,7 @@
 				<tr>
 					<td>verifyValue</td>
 					<td>xpath=/html/body/xforms:group[3]/xforms:repeat[@id='lineset' and @nodeset='/lines/line']//xforms:input[@ref='price']/pe-value/input</td>
-					<td>3.00</td>
+					<td>32.35</td>
 					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
