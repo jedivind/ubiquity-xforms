@@ -45,13 +45,13 @@
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:model/xforms:bind[@readonly=".='Toyota'"]</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@readonly="not(boolean-from-string(../@modifiable))"]</td>
 					<td></td>
 					<td>Checks that the bind has a readwrite attribute</td>
 				</tr>
 				<tr>
 					<td>verifyElementPresent</td>
-					<td>xpath=/html/body/xforms:input/xforms:message[@ev:event='xforms-readonly']</td>
+					<td>xpath=/html/body/xforms:input/xforms:message[@ev:event='xforms-readwrite']</td>
 					<td></td>
 					<td>Checks that the message is in the form</td>
 				</tr>
@@ -78,12 +78,6 @@
 					<td>xpath=/html/body/xforms:input</td>
 					<td></td>
 					<td>Checks that the input is in the form</td>
-				</tr>
-				<tr>
-					<td>verifyValue</td>
-					<td>xpath=/html/body/xforms:input/pe-value/input</td>
-					<td>Honda</td>
-					<td>Checks that the input has the right value</td>
 				</tr>
 				<tr>
 					<td>type</td>
