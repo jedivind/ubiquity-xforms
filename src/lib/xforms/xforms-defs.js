@@ -540,6 +540,18 @@ DECORATOR.addDecorationRules({
             }
         },
         {
+            "name" : "textarea-richtext-pevalue",
+            "match" : function(element) {
+                return (NamespaceManager.compareFullName(element.parentNode, "textarea", "http://www.w3.org/2002/xforms")) && 
+					(element.parentNode.getAttribute("mediatype") === "text/html") &&
+					!UX.isXHTML;
+            },
+            "apply" : function(arrBehaviours) {
+                UX.replaceArrayElement(arrBehaviours, XFormsInputValue, TextareaValueRichText);
+				return arrBehaviours;
+            }
+        },
+        {
             "name" : "inputcolor-pevalue",
             "match" : function(element) {
                 var parent = element.parentNode,
