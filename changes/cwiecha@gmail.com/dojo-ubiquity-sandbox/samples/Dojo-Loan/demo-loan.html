@@ -1,0 +1,514 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xf="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
+	  xmlns:javascript="http://www.w3.org/2002/xforms#inline">
+ <head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"></meta>
+    <title>Loan Application Form</title>  
+    <link rel="stylesheet" type="text/css" href="file:///Users/wiecha/Documents/Windows/UbiquityWorkspace/Dojo/dojo-release-1.4.0/dijit/themes/tundra/tundra.css">     
+    <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	<script src="format.js" type="text/javascript">/**/</script>
+        
+    <script type="text/javascript" src="file:///Users/wiecha/Documents/Windows/UbiquityWorkspace/Dojo-src/dojo-release-1.4.0-src/dojo/dojo.js"
+            djConfig="parseOnLoad: false">
+    </script>        
+    <script type="text/javascript" src="js/xfModelStore.js">/**/</script>
+    <script type="text/javascript" src="js/RepeatStore.js">/**/</script>
+        
+    <link type="text/css" href="style/gen_default.css" rel="stylesheet"></link>
+    
+    <style type="text/css">
+            .labelsAndValues-labelCell { background-color: lightgrey; padding-left:
+            5px; } .labelsAndValues-valueCell { padding-left: 20px; background-color:
+            lightblue; }
+    </style>    
+  </head>
+  <body class="tundra" onload="setupDojoStartupListener()">
+      <script type="text/javascript" >
+          dojo.require("mvc.data.ModelStore");
+          dojo.require("mvc.form.NumberTextBox");
+          dojo.require("mvc.form.FilteringSelect");
+          dojo.require("dijit.layout.AccordionContainer");
+          dojo.require("dijit.layout.ContentPane");
+          dojo.require("dojox.layout.ContentPane");
+          dojo.require("dojox.charting.DataChart");
+          dojo.require("mvc.data.RepeatStore");
+          
+          dojo.require("dojo.parser");  // find widgets
+          
+          var loanModelStore = null;
+          // var query = { nodeset: "instance('loan')/currencies/currency" };
+          
+          // This is the onload handler, 
+          // call to initialize Model Store
+          
+          function initModelStore() {	
+            console.log("initModelStorage");
+          
+            var modelArgs = {
+              id: "loan_model"  
+            };
+          
+             // Create a data store pointing to our XForms data model
+             loanModelStore = new mvc.data.ModelStore(modelArgs);
+             
+             var chart = new dojox.charting.DataChart("charting", {
+               store: loanModelStore,
+               comparative: true,
+               type: dojox.charting.plot2d.Columns,
+               query: { name: "instance('sales')/month" },
+               displayRange:8,
+               fieldName:"value" });
+          }
+          
+          function doDojo() {
+            initModelStore();
+            dojo.parser.parse();            
+          }
+          
+          function setupDojoStartupListener() {
+            var model = document.getElementById( "loan_model" );
+            model.addEventListener( "xforms-ready", doDojo, false );
+          }                    
+      </script>
+      <script id="loan_init" type="application/json">
+          {
+          "LoanRecord" : { 
+              "Currencies" : {
+                  "Currency" : ["USD", "CDN", "Euro"]
+              },
+              "StartDate" : "2008-08-08", 
+              "Borrower" : { 
+                  "Name" : "John Q. Public", 
+                  "Addr" : "123 Main St Tinyville" 
+              },             
+              "Principal" : "1000",
+              "Currency" : "USD",
+              "Duration" : "12",
+              "InterestRate" : "5",
+              "Monthly-Payment" : "0",
+              "TotalPayout" : "0"
+              }
+          }
+      </script>
+      <script id="json_sales" type="application/json">
+          {
+            "sales" : {
+                "month" : [
+                    {
+                    "name" : "January",
+                    "region" : [ "1", "2", "4", "1"],
+                    "comments" : "This was a really good month",
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    },
+                    {
+                    "name" : "February",
+                    "region" : [ "2", "1", "3", "1"],
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    },
+                    {
+                    "name" : "March",
+                    "region" : [ "1", "1", "1", "1"],
+                    "comments" : "Not so great...",
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    },
+                    {
+                    "name" : "April",
+                    "region" : [ "1", "2", "4", "1"],
+ 
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    },
+                    {
+                    "name" : "May",
+                    "region" : [ "2", "2", "3", "2"],
+                    "comments" : "This was ok",
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    }                             
+                ]
+            }
+          }
+      </script>
+    <xf:model id="loan_model">
+        <xf:instance id="loan" src="#loan_init"></xf:instance>
+     
+        <xf:instance id="sales" src="#json_sales"></xf:instance>
+        
+        <xf:bind nodeset="instance('sales')/month/index" calculate="position()"></xf:bind>
+        <xf:bind nodeset="instance('sales')/month/total" calculate="sum(../region)"></xf:bind>
+        <xf:bind nodeset="instance('sales')/month/x" calculate="../index"></xf:bind>
+        <xf:bind nodeset="instance('sales')/month/y" calculate="../total"></xf:bind>
+        
+        <xf:instance id="rate">
+	        <rate  xmlns=""></rate>
+	    </xf:instance>
+	
+        <xf:bind nodeset="instance('rate')" 
+                     calculate="instance('loan')/InterestRate div 1200.0"></xf:bind>
+               
+        <xf:bind nodeset="TotalPayout" 
+                     calculate="../Monthly-Payment * ../Duration" 
+                     relevant="../Monthly-Payment &gt; 0 and ../Duration &gt; 0"></xf:bind>
+                            
+        <xf:bind nodeset="Monthly-Payment" 
+                     calculate="if(instance('rate') &gt; 0, 
+                                   ../Principal * instance('rate') div (1.0 - power(1.0 + instance('rate'), -../Duration)),
+                                   ../Principal div ../Duration)"
+                     relevant="../Principal > 0 and ../Duration > 0"></xf:bind>
+       	          
+        <xf:bind nodeset="Borrower/Name" required="true()" constraint="string-length(.) > 0"></xf:bind>
+        <xf:bind nodeset="Borrower/Addr" required="true()" constraint="string-length(.) > 0"></xf:bind>
+
+        <xf:bind nodeset="Principal"
+                     type="xsd:double" 
+                     constraint=". &gt;= 1000 and . &lt;= 100000"></xf:bind>
+               
+        <xf:bind nodeset="Duration" 
+                     type="xsd:positiveInteger"
+                     constraint=". &lt;= 84"></xf:bind>
+
+        <xf:bind nodeset="InterestRate"
+                     type="xsd:double" 
+                     constraint=". &gt;= 5 and . &lt;= 60"></xf:bind>
+              
+        <xf:bind nodeset="StartDate" type="xsd:date"></xf:bind>
+
+        <xf:setvalue ev:event="xforms-ready" 
+                         ref="StartDate" 
+                         value="choose(.='',substring(local-date(),1,10),.)"></xf:setvalue>           
+
+        <xf:submission id="makeLoan" 
+                           method="post" 
+                           includenamespaceprefixes=""
+                           serialization="application/json"
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xf:message ev:event="xforms-submit-error" level="modal">Unable to submit</xf:message>
+        </xf:submission>
+                     
+    </xf:model>
+ 
+    <xf:label class="company_name">Big Red Loan and Mortgage Co.</xf:label>
+      
+    <xf:label class="company_motto">The name to trust when you're... in the red.</xf:label>
+      
+    <hr size="6" class="rule"></hr>         
+      
+    <xf:input ref="/LoanRecord/StartDate" datatype="xf:date"> 
+           <xf:label>Agreement Date: </xf:label>
+    </xf:input> 
+
+    <br />
+
+      <xf:input class="red" ref="Borrower/Name">
+         	<xf:label>Borrower Name:</xf:label>
+         	<xf:hint>Get the name of the person that's going to receive the money.</xf:hint>
+      </xf:input>
+
+    <br />
+
+      <xf:input ref="Borrower/Addr">
+          <xf:label>Borrower's Address:</xf:label> 
+          <xf:hint>You need to know where the borrower lives so you can visit him if needed.</xf:hint>
+      </xf:input>
+
+    <br />
+
+      <xf:input ref="Principal">
+          <xf:label>Principal:</xf:label>
+          <xf:hint>Enter the amount of money you will give the borrower.</xf:hint>
+          <xf:alert>The dollar value must be between 1000 and 100000</xf:alert>
+      </xf:input>
+
+    <br />
+
+      <xf:select1 ref="Currency" appearance="minimal" incremental="true">
+            <xf:label>Choose currency</xf:label> 
+            <xf:item>
+                <xf:label>US Dollars</xf:label>
+                <xf:value>USD</xf:value>
+            </xf:item>
+            <xf:item>
+                <xf:label>Canadian Dollars</xf:label>
+                <xf:value>CDN</xf:value>
+            </xf:item>
+            <xf:item>
+                <xf:label>Euros</xf:label>
+                <xf:value>EUR</xf:value>
+            </xf:item>
+         </xf:select1>
+
+    <br />
+      <xf:input ref="Currency">
+          <xf:label>Currency:</xf:label>
+      </xf:input>
+
+         <xf:input ref="Duration">
+             <xf:label>Duration of Loan in Months:</xf:label>
+             <xf:hint>Don't give out ol' Big Red's money for longer than seven years!</xf:hint>
+             <xf:alert>Range is 1 to 84</xf:alert>
+         </xf:input>
+        
+      
+    <br />
+
+         <xf:input ref="InterestRate" incremental="true">
+             <xf:label>Yearly Interest Rate (compounded monthly):</xf:label>
+             <xf:hint>We're only loan dogfish, so no more than sixty percent.</xf:hint>
+             <xf:alert>Choose an interest rate between 5 and 60 percent.</xf:alert>
+         </xf:input>
+      <br/>
+      <xf:output class="regular" value="javascript:currency(number(Monthly-Payment))">
+          <xf:label>Monthly Payment: </xf:label>
+      </xf:output>
+     <br />
+      <xf:output class="regular" value="javascript:currency(number(TotalPayout))">
+          <xf:label>Total Payout: </xf:label>
+      </xf:output>
+      <br />
+      
+      <xf:label class="company_motto">XForms UI controls hosting Dijits as presentation layer.</xf:label>  
+
+      <br/>
+      <br/>
+      
+      <xf:group>
+          <xf:label>xf:input widget="dijit.form.NumberTextBox"</xf:label> 
+          <xf:input id="xfPrincipal" widget="dijit.form.NumberTextBox" ref="instance('loan')/Principal">
+              <xf:label>Principal:</xf:label>
+          </xf:input>
+      </xf:group>  
+          
+      <br/>
+      <br/>      
+      
+      <xf:group>
+          <xf:label>xf:repeat appearance='piechart' --> dojox.charting.plot2d.Pie</xf:label>
+          <xf:repeat nodeset="instance('sales')/month" appearance="piechart">
+            <xf:output ref="index" role="x"></xf:output>
+            <xf:output ref="total" role="y"></xf:output>
+          </xf:repeat>
+      </xf:group>
+
+      <br/>
+      <br/>
+
+      <xf:group>
+          <xf:label>xf:repeat/xf:group widget='dojox.layout.TableContainer'</xf:label>
+          <xf:repeat nodeset="instance('sales')/month">
+            <xf:group ref="." widget="dojox.layout.TableContainer">
+                <xf:output ref="name"><xf:label>Month:</xf:label></xf:output>
+                <xf:output ref="total"><xf:label>Total sales:</xf:label></xf:output>                                                             
+            </xf:group>
+            <xf:group ref="comments">
+                <xf:input ref="."><xf:label>Comments</xf:label></xf:input>
+                <xf:trigger>
+                    <xf:label>Approve</xf:label>
+                </xf:trigger>
+                <xf:trigger>
+                    <xf:label>Reject</xf:label>
+                </xf:trigger>
+             </xf:group>
+          </xf:repeat>
+      </xf:group>
+      <!--
+      <xf:repeat nodeset="instance('sales')/month">
+          <xf:output ref="@m">
+              <xf:label>Month:</xf:label>
+          </xf:output>
+          <table>
+              <tr>
+                  <td>
+                     <xf:repeat nodeset="region">
+                         <xf:output ref="@r">
+                             <xf:label>Region:</xf:label>
+                         </xf:output>         
+                         <xf:input ref="." widget="dijit.form.NumberTextBox">
+                             <xf:label>Value:</xf:label>
+                         </xf:input>              
+                     </xf:repeat>
+                  </td>
+                  <td>
+                     <xf:group ref="comments">
+                         <xf:output ref=".">
+                             <xf:label>Comments:</xf:label>
+                         </xf:output>
+                         <xf:trigger>
+                             <xf:label>Agree</xf:label>
+                         </xf:trigger>
+                         <xf:trigger>
+                             <xf:label>Disagree</xf:label>
+                         </xf:trigger>
+                      </xf:group>
+                  </td>
+              </tr>
+          </table>
+      </xf:repeat>
+      -->
+      <xf:label class="company_motto">Layout for XForms Container controls using Dijits.</xf:label> 
+      
+      
+      <xf:group widget="dijit.layout.TabContainer" ref="instance('loan')">
+          
+          <xf:input ref="/LoanRecord/StartDate" datatype="xf:date"> 
+              <xf:label>Agreement Date: </xf:label>
+          </xf:input> 
+          
+
+          
+          <xf:input class="red" ref="Borrower/Name">
+              <xf:label>Borrower Name:</xf:label>
+              <xf:hint>Get the name of the person that's going to receive the money.</xf:hint>
+          </xf:input>
+          
+ 
+          
+          <xf:input ref="Borrower/Addr">
+              <xf:label>Borrower's Address:</xf:label> 
+              <xf:hint>You need to know where the borrower lives so you can visit him if needed.</xf:hint>
+          </xf:input>
+          
+
+          
+          <xf:input ref="Principal">
+              <xf:label>Principal:</xf:label>
+              <xf:hint>Enter the amount of money you will give the borrower.</xf:hint>
+              <xf:alert>The dollar value must be between 1000 and 100000</xf:alert>
+          </xf:input>
+
+             <xf:output class="regular" value="javascript:currency(number(Monthly-Payment))">
+                 <xf:label>Monthly Payment: </xf:label>
+             </xf:output>
+
+            <xf:output class="regular" value="javascript:currency(number(TotalPayout))">
+                <xf:label>Total Payout: </xf:label>
+            </xf:output>
+ 
+      </xf:group>
+      
+      <div class="spacer"></div><hr size="6" class="rule"></hr>
+      
+      <div style="width:600px">
+      <xf:switch widget="mvc.layout.switch.AccordionContainer">          
+        <xf:case id="sw_date">
+            <xf:label>Date</xf:label>
+            <xf:input ref="/LoanRecord/StartDate" datatype="xf:date"> 
+                <xf:label>Agreement Date: </xf:label>
+            </xf:input> 
+        </xf:case>  
+          
+        <xf:case id="sw_name">
+            <xf:label>Name</xf:label>            
+            <xf:input class="red" ref="Borrower/Name">
+                <xf:label>Borrower Name:</xf:label>
+                <xf:hint>Get the name of the person that's going to receive the money.</xf:hint>
+            </xf:input>
+        </xf:case>  
+          
+        <xf:case id="sw_address">
+            <xf:label>Address</xf:label>
+            <xf:input ref="Borrower/Addr">
+                <xf:label>Borrower's Address:</xf:label> 
+                <xf:hint>You need to know where the borrower lives so you can visit him if needed.</xf:hint>
+            </xf:input>
+        </xf:case>  
+          
+        <xf:case id="sw_principal">
+            <xf:label>Principal</xf:label>          
+            <xf:input ref="Principal">
+                <xf:label>Principal:</xf:label>
+                <xf:hint>Enter the amount of money you will give the borrower.</xf:hint>
+                <xf:alert>The dollar value must be between 1000 and 100000</xf:alert>
+            </xf:input>
+        </xf:case>
+          
+        <xf:case id="sw_monthly_payment">
+            <xf:label>Monthly Payment</xf:label>
+            <xf:output class="regular" value="javascript:currency(number(Monthly-Payment))">
+                <xf:label>Monthly Payment: </xf:label>
+            </xf:output>
+        </xf:case>
+          
+        <xf:case id="sw_total_payment">
+            <xf:label>Total Payment</xf:label>
+            <xf:output class="regular" value="javascript:currency(number(TotalPayout))">
+                <xf:label>Total Payout: </xf:label>
+            </xf:output>
+        </xf:case>
+      </xf:switch>
+      </div>
+      <br/>
+      <br/>
+      <xf:trigger>
+          <xf:label>Date</xf:label>
+          <xf:toggle ev:event="DOMActivate" case="sw_date"></xf:toggle>
+      </xf:trigger>
+      <xf:trigger>
+          <xf:label>Name</xf:label>
+          <xf:toggle ev:event="DOMActivate" case="sw_name"></xf:toggle>
+      </xf:trigger>
+      <xf:trigger>
+          <xf:label>Address</xf:label>
+          <xf:toggle ev:event="DOMActivate" case="sw_address"></xf:toggle>
+      </xf:trigger>
+      <xf:trigger>
+          <xf:label>Principal</xf:label>
+          <xf:toggle ev:event="DOMActivate" case="sw_principal"></xf:toggle>
+      </xf:trigger>
+      
+      <br/>
+      <br/>
+      
+      <xf:label class="company_motto">Dijits using dojo.data binding to an XForms model.</xf:label>      
+      <br/>
+      <br/>
+      
+      <xf:group>
+          <xf:label>html:div dojoType="mvc.form.NumberTextBox"</xf:label>
+          <div id="dojoPrincipal" dojoType="mvc.form.NumberTextBox" store="loanModelStore" bindExpr="instance('loan')/Principal"></div>
+      </xf:group> 
+      
+      <br/>
+      <br/>
+      
+      <xf:group>
+          <xf:label>html:select dojoType="mvc.form.FilteringSelect"</xf:label>
+          <select id="combo" dojoType="mvc.form.FilteringSelect" store="loanModelStore" queryExpr="instance('loan')/currencies/currency"
+              bindExpr="instance('loan')/Currency"></select>
+      </xf:group>   
+      
+      <br/>
+      <br/>
+      <xf:group>
+          <xf:label>html:div id='charting'"</xf:label>
+          <div id="charting" width="300" height="300" style="display:inline-block; width: 300px; height: 300px;"></div>
+      </xf:group>
+      <br/>
+      <br/>      
+           
+    <!-- This submit button results in activating the makeLoan submission -->
+	  <xf:submit submission="makeLoan">
+	      <xf:label>Submit Loan</xf:label>
+          <xf:hint>Sends the loan transaction to Big Red</xf:hint>          
+      </xf:submit>
+
+  </body>
+
+</html>

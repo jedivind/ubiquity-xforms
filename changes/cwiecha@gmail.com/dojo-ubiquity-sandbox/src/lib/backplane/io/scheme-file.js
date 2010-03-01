@@ -1,5 +1,44 @@
 var schemeHandlers = [ ];
 
+schemeHandlers["dom"] = [ ];
+
+schemeHandlers["dom"]["GET"] = function(URI, data, timeout, callback) {
+    var isSuccess = false;
+    var XMLtext = "";
+    var eltID = URI.substr(4);
+    var sourceElement = document.getElementById( eltID );
+    if ( sourceElement ) {
+        var sourceText = sourceElement.textContent;
+        
+        // check for contentType on the source element and convert to XML if needed...
+        
+        var typeAttr = sourceElement.getAttribute( "type" );
+        if ( typeAttr && typeAttr == "application/json") {
+            XMLtext = UX.JSON.JSON2XML( sourceText );
+        };
+        isSuccess = true;
+    }
+    else {
+        isSuccess = false;
+    };
+    	// If there is a callback object then give it the results.
+	//
+	if (callback) {
+		callback.processResult(
+			{
+				method: "GET",
+				status : 200,             
+				statusText : "",
+				responseText : XMLtext.length > 0 ? XMLtext : sourceText,
+				responseHeaders : "",
+				resourceURI : URI
+			},
+			!isSuccess
+		);
+	}
+	return isSuccess;
+};
+
 schemeHandlers["file"] = [ ];
 
 schemeHandlers["file"]["PUT"] = function (fileName, data, timeout, callback) {

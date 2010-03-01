@@ -81,7 +81,9 @@ submission.prototype.processResult = function(oResult, isFailure,
             "response-reason-phrase" : oResult.statusText,
             "response-headers" : this.processResponseHeaders(oResult.responseHeaders)
         };
-
+        if (oResult.responseHeaders) {
+            contentType = oResult.responseHeaders["Content-Type"];
+        }
         if (isFailure) {
             // When the error response specifies an XML media type as defined by [RFC 3023],
             // the response body is parsed into an XML document and the root element of the
@@ -89,9 +91,7 @@ submission.prototype.processResult = function(oResult, isFailure,
             // a text media type, then the response body is returned as a string. Otherwise,
             // an empty string is returned. 
             eventContext["error-type"] = "resource-error";
-            if (oResult.responseHeaders) {
-                contentType = oResult.responseHeaders["Content-Type"];
-            }
+            
             if (contentType && this.contentTypeIsXML(contentType)) {
                 try {
                     eventContext["response-body"] =  xmlParse(oResult.responseText);
@@ -103,7 +103,12 @@ submission.prototype.processResult = function(oResult, isFailure,
             }
             this.dispatchSubmitError(oObserver, eventContext);
         } else {
-            sData = oResult.responseText;
+            if (contentType && ( contentType.indexOf("application/json") != -1) ) {
+                sData = UX.JSON.JSON2XML( oResult.responseText );
+            }
+            else {
+                sData = oResult.responseText;
+            }
 
             // If the server returned a response body, process it according to the value of the
             // 'replace' attribute. If there is no response body, we still need to dispatch
@@ -134,7 +139,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                     if (oResult.responseHeaders) {
                         contentType = oResult.responseHeaders["Content-Type"];
                     }
-                    if (contentType && this.contentTypeIsXML(contentType)) {
+                    if (contentType && ( this.contentTypeIsXML(contentType) || (contentType.indexOf( "json") != -1 ))) {
                         try {
                             oNewDom = xmlParse(sData);
                         } catch (e) {
@@ -287,7 +292,7 @@ submission.prototype.submit = function(oSubmission) {
     var sMethod = null;
     var sMediatype = oSubmission.getAttribute("mediatype");
     var sEncoding = oSubmission.getAttribute("encoding") || "UTF-8";
-    var sSerialization = oSubmission.getAttribute("serialization") ? (oSubmission.getAttribute("serialization") !== "none") : "";
+    var sSerialization = oSubmission.getAttribute("serialization") !== "none" ? oSubmission.getAttribute("serialization") : "";
     var bSerialize = (oSubmission.getAttribute("serialization") !== "none");
 		var sSeparator = oSubmission.getAttribute("separator") || "&";
 		var oBody;
@@ -433,7 +438,7 @@ submission.prototype.submit = function(oSubmission) {
 
 	case "post":
 		sMethod = "POST";
-		sSerialization = "application/xml";
+		sSerialization = sSerialization || "application/xml";
 		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone, includeNamespacePrefixes);
         
 		//
@@ -447,7 +452,7 @@ submission.prototype.submit = function(oSubmission) {
 
 	case "put":
 		sMethod = "PUT";
-		sSerialization = "application/xml";
+		sSerialization = sSerialization || "application/xml";
 		oBody = this.serializeSubmitDataList(submitDataList, sSerialization, sSeparator, sEncoding, cdataSectionElements, bOmitXmlDeclaration, sStandalone, includeNamespacePrefixes);
 		break;
 		
@@ -635,6 +640,11 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 		if (serializationFormat === "application/x-www-form-urlencoded" || serializationFormat === "multipart/form-data") {
 			return this.serializeURLEncoded(xmlDoc);
 		}
+		// For JSON serialisations
+		//
+		if (serializationFormat === "application/json") {
+			return this.serializeJSON(xmlDoc);
+		}
 	}//if ( there is something to serialize )
 
 	return "";
@@ -731,6 +741,53 @@ submission.prototype.serializeURLEncoded = function(node) {
 	}
 	
     return taggedValues;
+};
+
+submission.prototype.XML2JS = function(node) {
+	var tempValue;
+	var i, isLeaf, tag, value, textValue="", childNode;
+	var eltValue = {};
+
+
+		if (node.nodeType === DOM_ELEMENT_NODE || node.nodeType === DOM_DOCUMENT_NODE || node.nodeType === DOM_DOCUMENT_FRAGMENT_NODE) {
+			isLeaf = true;
+			
+			for (i = 0; i < node.childNodes.length; i++) {
+				childNode = node.childNodes[i];
+				tag = childNode.nodeName;
+	       		if (tag.indexOf(':') != 0) {
+			     	tag = tag.slice(tag.indexOf(':') + 1);
+                }
+				if (childNode.nodeType === DOM_TEXT_NODE || childNode.nodeType === DOM_CDATA_SECTION_NODE) {
+					textValue = textValue + childNode.nodeValue;  // concatenate textnodes
+				} else if (childNode.nodeType === DOM_ELEMENT_NODE) {
+				    isLeaf = false;
+					value = this.XML2JS(childNode);
+    			    if ( eltValue[tag] ) {
+    			        if ( !(eltValue[tag] instanceof Array) ) {
+	       		            // we already have an entry with the same tag name, so convert to an array
+    			            tempValue = eltValue[tag];
+	   		                eltValue[tag] = new Array(0);
+		  	                eltValue[tag].push(tempValue);
+		  	            };    
+			            eltValue[tag].push(value);
+			        }
+			        else {
+			            // first (or only) one of this name, so just save for now...
+			            eltValue[tag] = value;
+			        }
+			    }
+			 }   
+			 if (isLeaf) {				
+		         eltValue = textValue;  // only save text content for leaf nodes
+			 }
+		}
+	
+    return eltValue;
+}
+
+submission.prototype.serializeJSON = function(node) {
+    return UX.JSON.stringify( this.XML2JS( node ) );
 };
 
 /**

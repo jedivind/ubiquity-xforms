@@ -219,10 +219,16 @@ var g_sBehaviourDirectory  = "";
 	// E X T E N S I O N S
 	// ===================
 	//
-	
+
+	loader.addModule({ name: "xforms-repeat-dojo-piechart",     type: "js",  fullpath: moduleBase + "../extensions/repeat-dojo-chart.js" });
+
 	loader.addModule({ name: "xforms-input-value-dojo",         type: "js",  fullpath: moduleBase + "../extensions/input-value-dojo.js" });
 	loader.addModule({ name: "xforms-group-content-dojo",       type: "js",  fullpath: moduleBase + "../extensions/group-content-dojo.js" });
-	loader.addModule({ name: "xforms-self-widget-dojo",         type: "js",  fullpath: moduleBase + "../extensions/self-widget-dojo.js" });
+	loader.addModule({ name: "xforms-repeat-template-dojo",     type: "js",  fullpath: moduleBase + "../extensions/repeat-template-dojo.js" });
+
+    loader.addModule({ name: "xforms-self-widget-dojo",         type: "js",  fullpath: moduleBase + "../extensions/self-widget-dojo.js" });
+	loader.addModule({ name: "json-parser",                     type: "js",  fullpath: moduleBase + "../third-party/jsonParser.js" });
+
 
 	// XSLT 2.0 functions
 	//
@@ -386,7 +392,7 @@ var g_sBehaviourDirectory  = "";
 		"yui-input-calendar","yui-input-color",
 		"xf4h","xforms-submission-core-yui",
 		"functions-hmac", "functions-format-number",
-		"xforms-input-value-dojo", "xforms-group-content-dojo", "xforms-self-widget-dojo"
+		"xforms-input-value-dojo", "xforms-group-content-dojo", "xforms-self-widget-dojo", "json-parser", "xforms-repeat-dojo-piechart", "xforms-repeat-template-dojo"
       ]
     });
     loader.require( "xforms-defs" );

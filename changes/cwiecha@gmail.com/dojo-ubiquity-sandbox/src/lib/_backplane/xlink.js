@@ -172,7 +172,13 @@ function XLinkElement(element)
 		//Extract the href and show attibute values.
 		var sHref = element.getAttribute("xlink:href");
 		var sShow = element.getAttribute("xlink:show");
-		var sResolvedHref = resolveURL(this.element, sHref);
+		var sResolvedHref;
+		if ( sHref && sHref.charAt(0) == "#" ) {
+		  sResolvedHref = "dom:" + sHref.substr(1);  // build internal "dom" scheme to access element textContent
+		}
+		else {
+		  sResolvedHref = resolveURL(this.element, sHref);
+		}
 		var oCallback;
 		//Switch on @show to determine the behaviour of this xlink.
 		switch(sShow)

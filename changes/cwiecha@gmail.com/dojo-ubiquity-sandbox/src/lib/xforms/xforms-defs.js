@@ -76,12 +76,24 @@ DECORATOR.addDecorationRules({
         {
             "name" : "group-element-dojo-content",
              "match" : function(element) {				
-                if ( element.getAttribute( "widget" ) != null )
+                if ( element.getAttribute( "widget" ) != null ) 
                     return true;    
                 else return false;
                 },
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([DojoGroupContent]);
+            }
+        },
+                {
+            "name" : "group-repeat-template-dojo-content",
+             "match" : function(element) {				
+                if ( NamespaceManager.compareFullName(element.parentNode,"repeat","http://www.w3.org/2002/xforms")
+                        && ( element.parentNode.getAttribute( "templatewidget" ) != null ) )
+                    return true;    
+                else return false;
+                },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([DojoRepeatTemplateContent]);
             }
         }
         ],
@@ -120,6 +132,17 @@ DECORATOR.addDecorationRules({
             "name" : "repeat-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Repeat]);
+            }
+        },
+        {
+            "name" : "repeat-element-dojo-chart",
+             "match" : function(element) {				
+                if ( element.getAttribute( "appearance" ) == "piechart" )
+                    return true;    
+                else return false;
+                },
+            "apply" : function(arrBehaviours) {
+                return arrBehaviours.concat([RepeatDojoChart]);
             }
         }
         ],

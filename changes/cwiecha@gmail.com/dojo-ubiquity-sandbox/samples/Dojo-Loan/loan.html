@@ -17,6 +17,7 @@
             djConfig="parseOnLoad: false">
     </script>        
     <script type="text/javascript" src="js/xfModelStore.js">/**/</script>
+    <script type="text/javascript" src="js/RepeatStore.js">/**/</script>
         
     <link type="text/css" href="style/gen_default.css" rel="stylesheet"></link>
   </head>
@@ -27,6 +28,8 @@
           dojo.require("mvc.form.FilteringSelect");
           dojo.require("dijit.layout.AccordionContainer");
           dojo.require("dijit.layout.ContentPane");
+          dojo.require("dojox.charting.DataChart");
+          dojo.require("mvc.data.RepeatStore");
           
           dojo.require("dojo.parser");  // find widgets
           
@@ -45,6 +48,14 @@
           
              // Create a data store pointing to our XForms data model
              loanModelStore = new mvc.data.ModelStore(modelArgs);
+             
+             var chart = new dojox.charting.DataChart("charting", {
+               store: loanModelStore,
+               comparative: true,
+               type: dojox.charting.plot2d.Columns,
+               query: { name: "instance('sales')/month" },
+               displayRange:8,
+               fieldName:"value" });
           
             // var filteringSelect = new dijit.form.FilteringSelect({
             //  id: "xf_bound",
@@ -55,26 +66,94 @@
           }
           
           function doDojo() {
-            dojo.parser.parse();
+            initModelStore();
+            dojo.parser.parse();            
           }
           
           function setupDojoStartupListener() {
             var model = document.getElementById( "loan_model" );
             model.addEventListener( "xforms-ready", doDojo, false );
+          }                    
+      </script>
+      <script id="loan_init" type="application/json">
+          {
+          "LoanRecord" : { 
+              "Currencies" : {
+                  "Currency" : ["USD", "CDN", "Euro"]
+              },
+              "StartDate" : "2008-08-08", 
+              "Borrower" : { 
+                  "Name" : "John Q. Public", 
+                  "Addr" : "123 Main St Tinyville" 
+              },             
+              "Principal" : "1000",
+              "Currency" : "USD",
+              "Duration" : "12",
+              "InterestRate" : "5",
+              "Monthly-Payment" : "0",
+              "TotalPayout" : "0"
+              }
           }
-          
-          initModelStore();
-          
+      </script>
+      <script id="json_sales" type="application/json">
+          {
+            "sales" : {
+                "month" : [
+                    {
+                    "region" : [ "1", "2", "4", "1"],
+                    "comments" : "This was a really good month",
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    },
+                    {
+                    "region" : [ "2", "1", "3", "1"],
+                    "comments" : "This was another good month",
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    },
+                    {
+                    "region" : [ "1", "1", "1", "1"],
+                    "comments" : "Not so great...",
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    },
+                    {
+                    "region" : [ "1", "2", "4", "1"],
+                    "comments" : "This was a really good month",
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    },
+                    {
+                    "region" : [ "2", "2", "3", "2"],
+                    "comments" : "This was ok",
+                    "index" : "0",
+                    "total" : "0",
+                    "x"     : "0",
+                    "y"     : "0"
+                    }                             
+                ]
+            }
+          }
       </script>
     <xforms:model id="loan_model">
-        <xforms:instance id="loan">
+        <xforms:instance id="loan" src="#loan_init"></xforms:instance>
+        <!-- 
         	<LoanRecord xmlns="">
         		<StartDate>2008-08-08</StartDate>
         		<Borrower>
         			<Name>John Q. Public</Name>
         			<Addr>123 Main St. Tinyville</Addr>
         		</Borrower>
-        		<Principal currency="USD">10000</Principal>
+        		<Principal>10000</Principal>
+        	    <Currency>USD</Currency>
         		<Duration>12</Duration>
         		<InterestRate>5</InterestRate>
         		<Monthly-Payment></Monthly-Payment>
@@ -84,56 +163,85 @@
         	        <currency>CDN</currency>
         	        <currency>Euro</currency>
         	        <currency>Pound</currency>
-        	        <currency att="calc"></currency>
-        	    </currencies>
+        	    </currencies> 
         	</LoanRecord>
+        -->
+        
+        <xforms:instance id="region_lookup">
+            <data>
+                <region r="North America">1</region>
+                <region r="EMEA">2</region>
+                <region r="AP">3</region>
+                <region r="BRIC">4</region>
+            </data>
         </xforms:instance>
         
-        <xforms:instance id="sales">
+<!-- 
             <sales>
-                <month m="January" y="2009">
-                    <region r="North America">1000</region>
-                    <region r="EMEA">2400</region>
-                    <region r="AP">4002</region>
-                    <region r="BRIC">1220</region>
+                <month y="2009">
+                    <region r="North America">1</region>
+                    <region r="EMEA">2</region>
+                    <region r="AP">4</region>
+                    <region r="BRIC">1</region>
                     <comments>This was a really good month</comments>
+                    <index></index>
+                    <total></total>
+                    <x></x><y></y>
                 </month>
-                <month m="February" y="2009">
-                    <region r="North America">1200</region>
-                    <region r="EMEA">2030</region>
-                    <region r="AP">4000</region>
-                    <region r="BRIC">1230</region>
+                <month y="2009">
+                    <region r="North America">1</region>
+                    <region r="EMEA">2</region>
+                    <region r="AP">3</region>
+                    <region r="BRIC">1</region>
                     <comments>A tough period, but 2nd quarter should be better</comments>
+                    <index></index>
+                    <total></total>
+                    <x></x><y></y>
+                </month>            
+                <month y="2009">
+                    <region r="North America">2</region>
+                    <region r="EMEA">2</region>
+                    <region r="AP">4</region>
+                    <region r="BRIC">1</region>
+                    <index></index>
+                    <total></total>
+                    <x></x><y></y>
                 </month>
-                <month m="March" y="2009">
-                    <region r="North America">2300</region>
-                    <region r="EMEA">2200</region>
-                    <region r="AP">4900</region>
-                    <region r="BRIC">1200</region>
-                </month>
-                <month m="April" y="2009">
-                    <region r="North America">1200</region>
-                    <region r="EMEA">2200</region>
-                    <region r="AP">4300</region>
-                    <region r="BRIC">1320</region>
+                <month y="2009">
+                    <region r="North America">1</region>
+                    <region r="EMEA">2</region>
+                    <region r="AP">4</region>
+                    <region r="BRIC">1</region>
                     <comments>Yup...getting stronger</comments>
+                    <index></index>
+                    <total></total>
+                    <x></x><y></y>
                 </month>
-                <month m="May" y="2009">
-                    <region r="North America">2100</region>
-                    <region r="EMEA">2003</region>
-                    <region r="AP">4200</region>
-                    <region r="BRIC">1320</region>
+                <month y="2009">
+                    <region r="North America">2</region>
+                    <region r="EMEA">2</region>
+                    <region r="AP">4</region>
+                    <region r="BRIC">1</region>
                     <comments>On the way!</comments>
+                    <index></index>
+                    <total></total>
+                    <x></x><y></y>
                 </month>
-            </sales>
-        </xforms:instance>
+            </sales>  
+-->            
+        <xforms:instance id="sales" src="#json_sales"></xforms:instance>
         
+        <xforms:bind nodeset="instance('sales')/month/index" calculate="position()"></xforms:bind>
+        <xforms:bind nodeset="instance('sales')/month/total" calculate="sum(../region)"></xforms:bind>
+        <xforms:bind nodeset="instance('sales')/month/x" calculate="../index"></xforms:bind>
+        <xforms:bind nodeset="instance('sales')/month/y" calculate="../total"></xforms:bind>
+        <!-- 
         <xforms:bind nodeset="instance('loan')/currencies/currency[@att = 'calc']" calculate="concat(../currency[1], ' or ', ../currency[2])"></xforms:bind>
-
+        -->
         <xforms:instance id="rate">
 	        <rate  xmlns=""></rate>
 	    </xforms:instance>
-	       
+	
         <xforms:bind nodeset="instance('rate')" 
                      calculate="instance('loan')/InterestRate div 1200.0"></xforms:bind>
                
@@ -210,8 +318,8 @@
       </xforms:input>
 
     <br />
-  
-      <xforms:select1 ref="Principal/@currency" appearance="minimal" incremental="true">
+
+      <xforms:select1 ref="Currency" appearance="minimal" incremental="true">
             <xforms:label>Choose currency</xforms:label> 
             <xforms:item>
                 <xforms:label>US Dollars</xforms:label>
@@ -226,9 +334,9 @@
                 <xforms:value>EUR</xforms:value>
             </xforms:item>
          </xforms:select1>
-     
+
     <br />
-      <xforms:input ref="Principal/@currency">
+      <xforms:input ref="Currency">
           <xforms:label>Currency:</xforms:label>
       </xforms:input>
 
@@ -253,11 +361,20 @@
       <xforms:group>
         <xforms:label>html:select dojoType="mvc.form.FilteringSelect"</xforms:label>
         <select id="combo" dojoType="mvc.form.FilteringSelect" store="loanModelStore" queryExpr="instance('loan')/currencies/currency"
-                bindExpr="instance('loan')/Principal/@currency"></select>
+                bindExpr="instance('loan')/Currency"></select>
      </xforms:group>
       
       <br/>
       <br/>
+      
+      <div style="display:inline-block;">
+      <div id="charting" width="300" height="300" style="display:inline-block; width: 300px; height: 300px;"></div>
+      <xforms:repeat nodeset="instance('sales')/month" appearance="piechart">
+        <xforms:output ref="index" role="x"></xforms:output>
+        <xforms:output ref="total" role="y"></xforms:output>
+      </xforms:repeat>
+      </div>
+      <br/><br/>
       
       <xforms:group>
           <xforms:label>html:div dojoType="mvc.form.NumberTextBox"</xforms:label>

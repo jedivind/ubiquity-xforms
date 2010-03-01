@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-function DojoGroupContent(elmnt)
+function DojoRepeatTemplateContent(elmnt)
 {
 	
   	this.element = elmnt;
@@ -23,29 +23,30 @@ function DojoGroupContent(elmnt)
   	this.widgetInstance = null;
 }
 
-DojoGroupContent.prototype.onDocumentReady = function()
+DojoRepeatTemplateContent.prototype.onDocumentReady = function()
 {
 	if (this.element.ownerDocument.media != "print")
 	{ 
 		var oDiv = document.createElement("div");
-        var widgetName = this.element.getAttribute("widget");
-   		oDiv.setAttribute( "customClass", "labelsAndValues" );  // fix
+        var  widgetName = this.element.parentNode.getAttribute( "templatewidget" );
 
 		dojo.require(widgetName);
 		
 		oDiv.setAttribute( "dojoType", widgetName );
+		oDiv.setAttribute( "customClass", "labelsAndValues" );
+		// oDiv.setAttribute( "orientation", "vert" );
 		
-		while ( this.element.childNodes.length > 0 ) {
-		  // wrap each ELEMENT type child in a dojo content pane so it can be managed by the parent layout container
+		var tmpChild = null;
+		var nextChild = this.element.childNodes[0];
+		while ( nextChild ) {  
 		  
-		  var nextChild = this.element.childNodes[0];
 		  if ( nextChild.nodeType == 1 /* ELEMENT node */ ) {
 		  
     		  var oChildDiv = document.createElement("div");
               oChildDiv.setAttribute( "dojoType", "dijit.layout.ContentPane" ); 
-              // oChildDiv.setAttribute( "style", "width:300px; height:100px" );
+              oChildDiv.setAttribute( "style", "width:250px; height:auto" );
               
-              oChildDiv.setAttribute( "selected", nextChild.getAttribute( "selected" ) );  // sync up on defaults
+              // oChildDiv.setAttribute( "selected", nextChild.getAttribute( "selected" ) );  // sync up on defaults
 		
               // see if we have a nested xf:label element to preset our dojo title (right idea???)
 		
@@ -58,19 +59,23 @@ DojoGroupContent.prototype.onDocumentReady = function()
             	      oLabel = nextGrandChild;
                   };
             	  if ( found ) {
-            	      oChildDiv.setAttribute( "title", oLabel.textContent );
-            	      oLabel.setAttribute( "style", "display:none" );
-            	  }
-		
+            	      oChildDiv.setAttribute( "label", oLabel.textContent );
+            	      // oLabel.setAttribute( "style", "display:none" );
+            	  };
+		        tmpChild = nextChild.nextSibling;	
 		        oChildDiv.appendChild( nextChild );
-		          oDiv.appendChild(oChildDiv);
+   		        oDiv.appendChild( oChildDiv );
+   		        nextChild = tmpChild;	
 		   }
 		   else {
+		      tmpChild = nextChild.nextSibling;
 		      this.element.removeChild( nextChild );
+		      nextChild = tmpChild;
 		   }
 		};
 		
 		this.element.appendChild(oDiv);
+		oDiv.setAttribute( "cols", String( oDiv.childNodes.length / 2  + 1 ) );
 
 		UX.addStyle(oDiv, "backgroundColor", "transparent");
 		UX.addStyle(oDiv, "padding", "0");

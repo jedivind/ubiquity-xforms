@@ -1,10 +1,10 @@
-dojo.provide("mvc.data.ModelStore");
+dojo.provide("mvc.data.RepeatStore");
 dojo.require("dojo.data.api.Read");
 dojo.require("dojo.data.api.Write");
 dojo.require("dojo.data.api.Notification");
 dojo.require("dojo.data.util.simpleFetch");
 
-dojo.declare("mvc.data.ModelStore", [dojo.data.api.Read, dojo.data.api.Write, dojo.data.api.Notification], {
+dojo.declare("mvc.data.RepeatStore", [dojo.data.api.Read, dojo.data.api.Write, dojo.data.api.Notification], {
 	//	summary:
 	//		This is an abstract API that data provider implementations conform to.  
 	//		This file defines methods signatures and intentionally leaves all the
@@ -29,9 +29,8 @@ dojo.declare("mvc.data.ModelStore", [dojo.data.api.Read, dojo.data.api.Write, do
 		//		sendQuery:		A boolean indicate to add a query string to the service URL 
 		console.log("ModelStore()");
 		if(args){
-			this.modelId = args.id;
-		};
-		this._bindToModel();
+			this.repeatObj = args;
+		}
 	},	
 	
 	getFeatures: function(){
@@ -213,23 +212,15 @@ dojo.declare("mvc.data.ModelStore", [dojo.data.api.Read, dojo.data.api.Write, do
 		//	|	var friendsOfLuke = store.getValues(lukeSkywalker, "friends");
 
 		// throw new Error('Unimplemented API: dojo.data.api.Read.getValues');
-
-        if ( this.hasElementChildren( item.node ) ) {
-            var newValue = new Object;
-            var nextChild = item.node.firstChild;
- 
-		    while ( nextChild != null ) {
-		      // build a struct containing nodename:nodevalue pairs for each of the children...
-		      if ( nextChild.nodeType == 1 ) {
-		          newValue[nextChild.nodeName] = nextChild.innerText || nextChild.firstChild.nodeValue;		           		      		      		  
-    		  };
-    		  nextChild = nextChild.nextSibling;
-		  }
-		}
-		else {
-		  newValue = this.getValue( item, attribute );  // really have a leaf node
-		}
-		return newValue; // an array that may contain literals and items
+				    
+      	var newValue = new Object;
+		     
+		var nextItemChild = item.firstChild;
+        while ( nextItemChild != null ) {
+            newValue[nextItemChild.nodeName] = nextItemChild.getValue();	              
+	        nextItemChild = nextItemChild.nextSibling;
+	    };	
+		return newValue; 
 	},
 
 
@@ -237,14 +228,7 @@ dojo.declare("mvc.data.ModelStore", [dojo.data.api.Read, dojo.data.api.Write, do
 						/* attribute-name-string */ attribute,
 						/* value? */ defaultValue){
 	   var valueStr = null;
-	   if (item.node.nodeType == 1 ) /* ELEMENT */ {
-           valueStr = item.node.innerText || item.node.firstChild.nodeValue || '';
-       }
-       else if ( item.node.nodeType == 2 ) {
-        valueStr = item.node.nodeValue;
-       };
-       if ( valueStr == "null" )
-        valueStr = item.node.nodeName; // remove
+	   valueStr = item.getValue();  // get control value
        return valueStr;
 	},
 	
@@ -269,7 +253,7 @@ dojo.declare("mvc.data.ModelStore", [dojo.data.api.Read, dojo.data.api.Write, do
 		//		Throws an exception if *value* is undefined.
 		//	example:
 		//	|	var success = store.set(kermit, "color", "green");
-		this._model.setValue( this._model.getEvaluationContext(), item.path, "'" + value + "'" );
+		item.setValue( value );  // set control value
 		return true; // boolean
 	},	
 
@@ -280,29 +264,12 @@ dojo.declare("mvc.data.ModelStore", [dojo.data.api.Read, dojo.data.api.Write, do
 	_getItemsArray: function(expression) {
 		var items = [];
 		var nodes = null;
-		var ns = this._model.EvaluateXPath(expression, null);
-		if (ns != null ) nodes = ns.nodeSetValue();
-		  else return null;
-		var i =0;
-		var len = nodes.length;
-		var globalLen = this.liveItemsArray.length;
 		
-		for(i = 0; i < len; i++){
-			var node = nodes[i];
-				
-			if((node.nodeType != 1 /*ELEMENT_NODE*/) && (node.nodeType != 2 /* Attribute node */)){
-				continue;
-			}
-			var nextItem = new mvc.data.ModelItem( expression, node, this );
-			nextItem.identity = globalLen++;
-			
-	        items.push(nextItem);	            
-	        
-	        // handle special case for single-node-binding (move to separate class or mixin???)
-	        
-	        if ( i == 0 ) {
-	           this.item = nextItem;
-	        }
+		var i =0;
+		var nextRepeatGroup = repeatObj.firstChild;
+		while ( nextRepeatGroup != null {			
+			var nextItem = new mvc.data.RepeatItem( expression, nextRepeatGroup, this );
+	        items.push(nextItem);	            	        
 		}
 		return items;
 	},	
@@ -312,13 +279,7 @@ dojo.declare("mvc.data.ModelStore", [dojo.data.api.Read, dojo.data.api.Write, do
 							/* Function */ errorCallback){
 		// summary:
 		//		See dojo.data.util.simpleFetch.fetch()
-		
-		if ( this._model == null ) {
-		  this._bindToModel();
-		}
-		if ( this._model == null )
-		  return;
-		  
+			  
 		var items = this._getItemsArray(args.query.name);
 		findCallback(items, args);
 	},
@@ -332,7 +293,7 @@ dojo.declare("mvc.data.ModelStore", [dojo.data.api.Read, dojo.data.api.Write, do
 	}
 });
 
-dojo.declare("mvc.data.ModelItem", null, {
+dojo.declare("mvc.data.RepeatItem", null, {
 	constructor: function(path, node, store) {
 
 		this.path = path;
@@ -343,4 +304,4 @@ dojo.declare("mvc.data.ModelItem", null, {
 });
 
 //Mix in the simple fetch implementation to this class.
-dojo.extend(mvc.data.ModelStore,dojo.data.util.simpleFetch);
+dojo.extend(mvc.data.RepeatStore,dojo.data.util.simpleFetch);

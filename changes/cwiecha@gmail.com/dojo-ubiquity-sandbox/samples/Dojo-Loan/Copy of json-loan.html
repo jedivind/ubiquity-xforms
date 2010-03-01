@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xforms="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
+	  xmlns:javascript="http://www.w3.org/2002/xforms#inline">
+ <head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"></meta>
+    <title>XForms Loan Application Form</title>  
+    <link rel="stylesheet" type="text/css" href="file:///Users/wiecha/Documents/Windows/UbiquityWorkspace/Dojo/dojo-release-1.4.0/dijit/themes/tundra/tundra.css">     
+    <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	<script src="format.js" type="text/javascript">/**/</script>
+        
+    <link type="text/css" href="style/gen_default.css" rel="stylesheet"></link>
+ </head>
+    
+  <body>
+    <script id="loan_init" type="application/json">
+        {
+            "LoanRecord" : { 
+                "StartDate" : "2008-08-08", 
+                "Borrower" : { 
+                    "Name" : "John Q. Public", 
+                    "Addr" : "123 Main St Tinyville" 
+                 } 
+             }
+        }
+    </script>
+    <script id="sales_init" type="application/json">
+        { 
+            "sales" : { 
+                "month" : 
+                    "name" : "January",
+                    "year" : "2010",
+                    "revenues" : [ 
+                        { "region" { "name" : "North America", "revenue" : 1000 } }, 
+                        { "region" { "name" : "EMEA", "revenue" : 2400 } } 
+                    ] 
+             } 
+        }
+    </script>
+      <script type="text/javascript">        
+        // let's not support attribute mapping or mixed content since JSON is trying to be "data centric" and we only need to
+        // start with JSON data and go into and outof XML, not support more generic document-centric XML
+        // so sales regions below get explicit name and revenue fields as children of the region field.
+        
+        var sales_json_data = document.getElementById( "sales_init" ).textContent;
+        var inst = document.getElementById( "sales" );
+        inst.load( sales_json_data, "application/json" );  // need to overload this or do a separate API to load from string data (XML or JSON)
+    </script>
+
+    <xforms:model id="loan_model">
+        <xforms:instance id="loan" src="#loan_init">
+
+            <!-- 
+        	<LoanRecord xmlns="">
+        		<StartDate>2008-08-08</StartDate>
+        		<Borrower>
+        			<Name>John Q. Public</Name>
+        			<Addr>123 Main St. Tinyville</Addr>
+        		</Borrower>
+        		<Principal currency="USD">10000</Principal>
+        		<Duration>12</Duration>
+        		<InterestRate>5</InterestRate>
+        		<Monthly-Payment></Monthly-Payment>
+        		<TotalPayout></TotalPayout>
+        	    <currencies>
+        	        <currency>USD</currency>
+        	        <currency>CDN</currency>
+        	        <currency>Euro</currency>
+        	        <currency>Pound</currency>
+        	        <currency att="calc"></currency>
+        	    </currencies>
+        	</LoanRecord>
+        	-->
+        </xforms:instance>
+        
+        <xforms:instance id="sales">  <!-- set by API above -->
+            <!-- 
+            <sales>
+                <month m="January" y="2009">
+                    <region r="North America">1000</region>
+                    <region r="EMEA">2400</region>
+                    <region r="AP">4002</region>
+                    <region r="BRIC">1220</region>
+                    <comments>This was a really good month</comments>
+                </month>
+                <month m="February" y="2009">
+                    <region r="North America">1200</region>
+                    <region r="EMEA">2030</region>
+                    <region r="AP">4000</region>
+                    <region r="BRIC">1230</region>
+                    <comments>A tough period, but 2nd quarter should be better</comments>
+                </month>
+                <month m="March" y="2009">
+                    <region r="North America">2300</region>
+                    <region r="EMEA">2200</region>
+                    <region r="AP">4900</region>
+                    <region r="BRIC">1200</region>
+                </month>
+                <month m="April" y="2009">
+                    <region r="North America">1200</region>
+                    <region r="EMEA">2200</region>
+                    <region r="AP">4300</region>
+                    <region r="BRIC">1320</region>
+                    <comments>Yup...getting stronger</comments>
+                </month>
+                <month m="May" y="2009">
+                    <region r="North America">2100</region>
+                    <region r="EMEA">2003</region>
+                    <region r="AP">4200</region>
+                    <region r="BRIC">1320</region>
+                    <comments>On the way!</comments>
+                </month>
+            </sales>
+            -->
+        </xforms:instance>
+        
+        <xforms:instance id="rate">
+	        <rate  xmlns=""></rate>
+        </xforms:instance>
+        
+        <!-- Note: the expressions relative to the root below can probably be written as in XPath, i.e. omitting the
+        explicit $. path ...will check on this. -->
+        
+        <!-- also note, some type of default expression language flag should be supported to avoid the need for
+        repetition on each expression either in the model or in control bindings... -->
+	       
+        <xforms:bind nodeset="instance('rate')" 
+                     calculate="$.InterestRate div 1200.0"></xforms:bind>
+               
+        <xforms:bind nodeset="json:$.TotalPayout" 
+                     calculate="json:$.Monthly-Payment * json:$.Duration" 
+                     relevant="json:$.Monthly-Payment &gt; 0 and json:$.Duration &gt; 0"></xforms:bind> <!-- note no parent operator in JSONPath!!! -->
+                            
+        <xforms:bind nodeset="json:$.Monthly-Payment" 
+                     calculate="if(instance('rate') &gt; 0, 
+                                   json:$.Principal * instance('rate') div (1.0 - power(1.0 + instance('rate'), - json:$.Duration)),
+                                   json:$.Principal div json:$.Duration)"
+                     relevant="json:$.Principal > 0 and json:$.Duration > 0"></xforms:bind>
+       	          
+        <xforms:bind nodeset="json:$.Borrower.Name" required="true()" constraint="string-length(.) > 0"></xforms:bind>
+        <xforms:bind nodeset="json:$.Borrower.Addr" required="true()" constraint="string-length(.) > 0"></xforms:bind>
+
+        <xforms:bind nodeset="json:$.Principal"
+                     type="xsd:double" 
+                     constraint=". &gt;= 1000 and . &lt;= 100000"></xforms:bind>
+               
+        <xforms:bind nodeset="json:$.Duration" 
+                     type="xsd:positiveInteger"
+                     constraint=". &lt;= 84"></xforms:bind>
+
+        <xforms:bind nodeset="json:$.InterestRate"
+                     type="xsd:double" 
+                     constraint=". &gt;= 5 and . &lt;= 60"></xforms:bind>
+              
+        <xforms:bind nodeset="json:$.StartDate" type="xsd:date"></xforms:bind>
+
+        <xforms:setvalue ev:event="xforms-ready" 
+                         ref="json:$.StartDate" 
+                         value="choose(.='',substring(local-date(),1,10),.)"></xforms:setvalue>           
+
+        <!-- serialize back to JSON on the way out...and from JSON when replacing the target instance -->
+        <!-- would prefer something like mediatype="application/json" to imply the submit-serialize action pattern -->
+    
+        <xforms:submission id="makeLoan" 
+                           method="post"
+                           includenamespaceprefixes=""
+                           mediatype="application/json"
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit</xforms:message>
+            <xforms:setvalue ev:event="xforms-submit-serialize" ref="event('submission-body')" value="javascript:XML2JSON()"/> 
+        </xforms:submission>
+        
+
+    </xforms:model>
+ 
+    <xforms:label class="company_name">Big Red Loan and Mortgage Co.</xforms:label>
+      
+    <xforms:label class="company_motto">The name to trust when you're... in the red.</xforms:label>
+      
+    <hr size="6" class="rule"></hr>         
+      
+    <xforms:input ref="json:$.LoanRecord.StartDate" datatype="xforms:date"> 
+           <xforms:label>Agreement Date: </xforms:label>
+    </xforms:input> 
+
+    <br />
+
+      <xforms:input class="red" ref="jquery:$(instance('loan') > Borrower > Name)">
+         	<xforms:label>Borrower Name:</xforms:label>
+         	<xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
+      </xforms:input>
+
+    <br />
+
+      <xforms:input ref="json:$.Borrower.Addr">
+          <xforms:label>Borrower's Address:</xforms:label> 
+          <xforms:hint>You need to know where the borrower lives so you can visit him if needed.</xforms:hint>
+      </xforms:input>
+
+    <br />
+
+      <xforms:input ref="json:$.Principal">
+          <xforms:label>Principal:</xforms:label>
+          <xforms:hint>Enter the amount of money you will give the borrower.</xforms:hint>
+          <xforms:alert>The dollar value must be between 1000 and 100000</xforms:alert>
+      </xforms:input>
+
+    <br />
+  
+      <xforms:select1 ref="json:$.Principal.currency" appearance="minimal" incremental="true"> <!-- no attrs so currency is a child -->
+            <xforms:label>Choose currency</xforms:label> 
+            <xforms:item>
+                <xforms:label>US Dollars</xforms:label>
+                <xforms:value>USD</xforms:value>
+            </xforms:item>
+            <xforms:item>
+                <xforms:label>Canadian Dollars</xforms:label>
+                <xforms:value>CDN</xforms:value>
+            </xforms:item>
+            <xforms:item>
+                <xforms:label>Euros</xforms:label>
+                <xforms:value>EUR</xforms:value>
+            </xforms:item>
+         </xforms:select1>
+     
+    <br />
+      <xforms:input ref="json:$.Principal.currency">
+          <xforms:label>Currency:</xforms:label>
+      </xforms:input>
+
+         <xforms:input ref="json:$.Duration">
+             <xforms:label>Duration of Loan in Months:</xforms:label>
+             <xforms:hint>Don't give out ol' Big Red's money for longer than seven years!</xforms:hint>
+             <xforms:alert>Range is 1 to 84</xforms:alert>
+         </xforms:input>
+        
+      
+    <br />
+
+         <xforms:input ref="json:$.InterestRate" incremental="true">
+             <xforms:label>Yearly Interest Rate (compounded monthly):</xforms:label>
+             <xforms:hint>We're only loan dogfish, so no more than sixty percent.</xforms:hint>
+             <xforms:alert>Choose an interest rate between 5 and 60 percent.</xforms:alert>
+         </xforms:input>
+     <br />
+      
+      <div class="spacer"></div><hr size="6" class="rule"></hr>      
+      
+      <xforms:group appearance="TabContainer" ref="instance('loan')">  <!-- how to map to specific widget??? -->
+          
+          <xforms:input ref="json:LoanRecord.StartDate" datatype="xforms:date"> 
+              <xforms:label>Agreement Date: </xforms:label>
+          </xforms:input> 
+          
+
+          
+          <xforms:input class="red" ref="json:Borrower.Name">
+              <xforms:label>Borrower Name:</xforms:label>
+              <xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
+          </xforms:input>
+          
+ 
+          
+          <xforms:input ref="json:Borrower.Addr">
+              <xforms:label>Borrower's Address:</xforms:label> 
+              <xforms:hint>You need to know where the borrower lives so you can visit him if needed.</xforms:hint>
+          </xforms:input>
+          
+
+          
+          <xforms:input ref="json:Principal">
+              <xforms:label>Principal:</xforms:label>
+              <xforms:hint>Enter the amount of money you will give the borrower.</xforms:hint>
+              <xforms:alert>The dollar value must be between 1000 and 100000</xforms:alert>
+          </xforms:input>
+
+             <xforms:input class="regular" ref="json:Monthly-Payment">
+                 <xforms:label>Monthly Payment: </xforms:label>
+             </xforms:input>
+
+            <xforms:input class="regular" ref="json:TotalPayout">
+                <xforms:label>Total Payout: </xforms:label>
+            </xforms:input>
+ 
+      </xforms:group>
+      
+      <div class="spacer"></div><hr size="6" class="rule"></hr>
+      
+      <div style="width:600px">
+      <xforms:switch appearance="AccordionContainer">   <!-- need the AccordionContainer subclass for switch -->
+        <xforms:case id="sw_date">
+            <xforms:label>Date</xforms:label>
+            <xforms:input ref="/LoanRecord/StartDate" datatype="xforms:date"> <!-- if you know the JSON mapping, can use XPath directly -->
+                <xforms:label>Agreement Date: </xforms:label>
+            </xforms:input> 
+        </xforms:case>  
+          
+        <xforms:case id="sw_name">
+            <xforms:label>Name</xforms:label>            
+            <xforms:input class="red" ref="Borrower/Name">
+                <xforms:label>Borrower Name:</xforms:label>
+                <xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
+            </xforms:input>
+        </xforms:case>  
+          
+        <xforms:case id="sw_address">
+            <xforms:label>Address</xforms:label>
+            <xforms:input ref="Borrower/Addr">
+                <xforms:label>Borrower's Address:</xforms:label> 
+                <xforms:hint>You need to know where the borrower lives so you can visit him if needed.</xforms:hint>
+            </xforms:input>
+        </xforms:case>  
+          
+        <xforms:case id="sw_principal">
+            <xforms:label>Principal</xforms:label>          
+            <xforms:input ref="Principal">
+                <xforms:label>Principal:</xforms:label>
+                <xforms:hint>Enter the amount of money you will give the borrower.</xforms:hint>
+                <xforms:alert>The dollar value must be between 1000 and 100000</xforms:alert>
+            </xforms:input>
+        </xforms:case>
+          
+        <xforms:case id="sw_monthly_payment">
+            <xforms:label>Monthly Payment</xforms:label>
+            <xforms:input class="regular" ref="Monthly-Payment">
+                <xforms:label>Monthly Payment: </xforms:label>
+            </xforms:input>
+        </xforms:case>
+          
+        <xforms:case id="sw_total_payment">
+            <xforms:label>Total Payment</xforms:label>
+            <xforms:input class="regular" ref="TotalPayout">
+                <xforms:label>Total Payout: </xforms:label>
+            </xforms:input>
+        </xforms:case>
+      </xforms:switch>
+      </div>
+      <br/>
+      <br/>
+      <xforms:trigger>
+          <xforms:label>Date</xforms:label>
+          <xforms:toggle ev:event="DOMActivate" case="sw_date"></xforms:toggle>
+      </xforms:trigger>
+      <xforms:trigger>
+          <xforms:label>Name</xforms:label>
+          <xforms:toggle ev:event="DOMActivate" case="sw_name"></xforms:toggle>
+      </xforms:trigger>
+      <xforms:trigger>
+          <xforms:label>Address</xforms:label>
+          <xforms:toggle ev:event="DOMActivate" case="sw_address"></xforms:toggle>
+      </xforms:trigger>
+      <xforms:trigger>
+          <xforms:label>Principal</xforms:label>
+          <xforms:toggle ev:event="DOMActivate" case="sw_principal"></xforms:toggle>
+      </xforms:trigger>
+      
+      
+           
+    <!-- This submit button results in activating the makeLoan submission -->
+	  <xforms:submit submission="makeLoan">
+	      <xforms:label>Submit Loan</xforms:label>
+          <xforms:hint>Sends the loan transaction to Big Red</xforms:hint>          
+      </xforms:submit>
+
+  </body>
+
+</html>
